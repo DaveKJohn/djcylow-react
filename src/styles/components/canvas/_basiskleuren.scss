@@ -1,0 +1,271 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+$card-width-basiskleuren: 150px;
+$card-height-basiskleuren: 150px;
+
+:root {
+    --card_width_basiskleuren: #{$card-width-basiskleuren};
+    --card_height_basiskleuren: #{$card-height-basiskleuren};
+
+    @include tools.respond-to(var.$screen-size-medium) {
+        --card_width_basiskleuren: 130px;
+        --card_height_basiskleuren: 130px;
+    }
+}
+
+.carousels {
+    .arrow {
+        align-items: center;
+        justify-content: center;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    #basiskleuren {
+        align-items: center; // Standaard gecentreerd voor grote schermen
+
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+
+        gap: map.get(var.$c-spacing, "xxs");
+
+        $spacer: calc((map.get(var.$in-spacing, "l") * 2));
+        $current-gap: map.get(var.$c-spacing, "s");
+        $total-gap: calc(#{$current-gap} * 7);
+
+        $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-gap} + #{$spacer});
+
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gradient,
+        .numbers,
+        .labels,
+        .colours,
+        .circles,
+        .descriptions {
+            flex-wrap: nowrap;
+            width: max-content;
+
+            &:not([class*="text"]) {
+                margin: map.get(var.$c-spacing, "xxs") 0;
+            }
+
+            &.row {
+                gap: map.get(var.$c-spacing, "s");
+            }
+
+            &.column {
+                gap: map.get(var.$c-spacing, "xxs");
+            }
+
+            .number,
+            .label,
+            .colour,
+            .circle,
+            .description {
+                flex-shrink: 0;
+                scroll-snap-align: start;
+                width: var(--card_width_basiskleuren);
+                align-items: center;
+            }
+        }
+
+        .gradient {
+            display: block;
+            flex-shrink: 0;
+            height: 8px;
+            width: calc((var(--card_width_basiskleuren) * 8) + #{$total-gap});
+            background: linear-gradient(
+                to right,
+                #007fff 0%,
+                #00ffff 6.2%,
+                #00ff00 18.6%,
+                #ffff00 31%,
+                #ff7f00 43.4%,
+                #ff0000 55.8%,
+                #ff00ff 68.2%,
+                #7f00ff 80.6%,
+                #0000ff 93%,
+                #0078ff 100%
+            );
+        }
+
+        .numbers {
+            width: calc((var(--card_width_basiskleuren) * 8) + #{$total-gap});
+
+            .number {
+                height: 35px;
+
+                .back {
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: map.get(var.$c-spacing, "m");
+                    height: map.get(var.$c-spacing, "m");
+                    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                    z-index: 1;
+                }
+
+                .front {
+                    width: 100%;
+                    height: 100%;
+                    z-index: 2;
+                }
+
+                @each $color in "cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue" {
+                    $c: to-lower-case($color);
+                    &.#{$c} {
+                        .back {
+                            background-color: var(--#{$c}-default) !important;
+                        }
+                        p {
+                            color: if(index(var.$dark-text-colors, $c), var(--black-100), var(--white-100)) !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .labels {
+            @include tools.color-generator;
+
+            .label {
+                display: flex;
+                justify-content: center; // Horizontale centrering
+                align-items: center; // Verticale centrering
+                width: var(--card_width_basiskleuren);
+                flex-shrink: 0;
+
+                .colour {
+                    @include tools.colour-base;
+
+                    // Dwing de breedte af en voorkom rekken
+                    width: var.$colour-width !important;
+                    flex: 0 0 map.get(var.$c-spacing, "m"); // Of de specifieke waarde van je label
+
+                    // Zorg dat hij niet naar 100% springt
+                    max-width: var.$colour-width;
+
+                    // Reset posities die centrering verstoren
+                    position: relative;
+                    left: auto;
+                    right: auto;
+                    margin: 0;
+
+                    p {
+                        font-size: inherit;
+                        line-height: inherit;
+                    }
+                }
+            }
+        }
+
+        .colours {
+            .colour {
+                @include tools.color-generator;
+
+                .audioplayer-wrapper {
+                    height: var(--card_height_basiskleuren);
+                    width: var(--card_width_basiskleuren);
+
+                    .label {
+                        @include tools.colour-base;
+                        z-index: 200;
+                        bottom: 0;
+                        right: 0;
+                        top: auto;
+                        left: auto;
+                    }
+
+                    .ready-wrapper {
+                        button {
+                            width: 50px;
+                            height: 50px;
+
+                            svg {
+                                width: 40px;
+                                height: 40px;
+                            }
+                        }
+                    }
+
+                    .playing-wrapper {
+                        padding: 3px;
+                        gap: map.get(var.$c-spacing, "xs");
+
+                        .timeline-wrapper {
+                            padding: 5px;
+
+                            .total,
+                            .progress {
+                                height: 4px;
+                            }
+                        }
+
+                        // Player Controls
+                        .layer-wrapper {
+                            .pausefilters button {
+                                width: 30px;
+                                height: 30px;
+                                svg {
+                                    width: 30px;
+                                    height: 30px;
+                                }
+                            }
+
+                            .volume-wrapper button {
+                                width: 34px;
+                                height: 34px;
+                                svg {
+                                    width: 18px;
+                                    height: 18px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .circles {
+            .circle::after {
+                content: "";
+                display: block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+            }
+
+            @each $name,
+                $hex
+                    in (
+                        "cyan": #00ffff,
+                        "green": #00ff00,
+                        "yellow": #ffff00,
+                        "orange": #ff7f00,
+                        "red": #ff0000,
+                        "magenta": #ff00ff,
+                        "purple": #7f00ff,
+                        "blue": #0000ff
+                    )
+            {
+                .circle.#{$name}::after {
+                    background-color: $hex;
+                }
+            }
+        }
+
+        @media (max-width: #{$total-content-width}) {
+            align-items: flex-start !important;
+            padding-left: 0;
+        }
+    }
+}

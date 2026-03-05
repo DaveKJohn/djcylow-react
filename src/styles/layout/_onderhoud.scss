@@ -1,0 +1,35 @@
+@use "sass:map";
+@use "../abstracts/mixins" as tools;
+@use "../abstracts/variables" as var;
+
+:root {
+    --maintenance-pattern: repeating-linear-gradient(-45deg, #1cf5a2, #1cf5a2 15px, #000 15px, #000 30px);
+}
+
+#onderhoud {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+
+    background-color: #1cf5a2;
+    background-image: var(--maintenance-pattern), var(--maintenance-pattern);
+    background-position: top, bottom;
+    background-size:
+        100% 10px,
+        100% 10px;
+    background-repeat: no-repeat;
+
+    &.hide {
+        transform: translateY(100%);
+    }
+
+
+    display: none;
+   
+}

@@ -1,0 +1,207 @@
+@use "sass:map";
+@use "../abstracts/mixins" as tools;
+@use "../abstracts/variables" as var;
+
+:root {
+    --card_width: 304px;
+    --card_height: 171px;
+
+    @include tools.respond-to(var.$screen-size-small) {
+        --card_width: 100%;
+        --card_height: auto;
+    }
+}
+
+.pattern {
+    z-index: 1;
+
+    position: relative; // Zorg dat dit de basis is voor de stack
+    background-color: rgba(39, 39, 39, 0.4);
+    height: auto; // Hoogte wordt bepaald door de content
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .feather {
+        z-index: 2;
+
+        .bottom {
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 20%,
+                rgba(0, 0, 0, 0.5) 70%,
+                rgba(0, 0, 0, 0.5) 70%,
+                black 100%
+            );
+        }
+    }
+    .header {
+        z-index: 3;
+        position: relative; // Dit haalt de tekst uit de overlay-flow van de feathers
+
+        height: auto; // Belangrijk: mag geen 100% zijn
+    }
+}
+
+.card {
+    width: var(--card_width);
+
+    @include tools.respond-to(var.$screen-size-small) {
+        width: 100%;
+    }
+
+    // Dummy voor layout/spatiëring
+    &-dummy {
+        width: var(--card_width);
+        height: 0;
+        visibility: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .audioplayer-wrapper {
+        height: auto;
+        aspect-ratio: 16 / 9;
+
+        .ready-wrapper {
+            button {
+                width: 60px;
+                height: 60px;
+
+                svg {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+
+        .playing-wrapper {
+            padding: map.get(var.$c-spacing, "xxs");
+            gap: map.get(var.$c-spacing, "xxs");
+
+            .timestamp-wrapper {
+                font-size: var.$font-size-xxs;
+            }
+
+            .timeline-wrapper {
+                padding: map.get(var.$c-spacing, "xxs");
+
+                .total,
+                .progress {
+                    height: 5px;
+                }
+            }
+
+            // Player Controls
+            .layer-wrapper {
+                .pausefilters button {
+                    width: 40px;
+                    height: 40px;
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+
+                .volume-wrapper {
+                    padding: 0 map.get(var.$c-spacing, "xxs");
+                    height: auto;
+                    border-radius: 1px;
+                    .left {
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+                    .right {
+                        padding: 0 map.get(var.$c-spacing, "xxs");
+
+                        input[type="range"] {
+                            width: 80px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.btn.select {
+    padding: map.get(var.$c-spacing, "xs") 0;
+    font-size: var.$font-size-s;
+    text-align: center;
+    font-weight: 500;
+
+    flex: 1 1 calc(25% - 22px);
+    max-width: calc(25% - 12px);
+
+    &.is-active,
+    &[aria-pressed="true"] {
+        font-weight: 600;
+    }
+
+    // Vanaf 560px: Max 3 op een rij
+    @media (max-width: 708px) {
+        flex: 1 1 calc(33.33% - 12px);
+        max-width: calc(33.33% - 12px);
+    }
+
+    // Vanaf 460px: Max 2 op een rij
+    @media (max-width: 460px) {
+        flex: 1 1 calc(50% - 12px);
+        max-width: calc(50% - 12px);
+    }
+}
+
+// MOOD specifieke styling
+#filter_mood {
+    .btn.select {
+        &[data-filter-color="orange"][aria-pressed="true"] {
+            background-color: #ff7f00;
+            color: #000000;
+        }
+        &[data-filter-color="green"][aria-pressed="true"] {
+            background-color: #00ff00;
+            color: #000000;
+        }
+        &[data-filter-color="purple"][aria-pressed="true"] {
+            background-color: #7f00ff;
+            color: #ffffff;
+        }
+        &[data-filter-color="red"][aria-pressed="true"] {
+            background-color: #ff0000;
+            color: #ffffff;
+        }
+        &[data-filter-color="blue"][aria-pressed="true"] {
+            background-color: #0000ff;
+            color: #ffffff;
+        }
+        &[data-filter-color="cyan"][aria-pressed="true"] {
+            background-color: #00ffff;
+            color: #000000;
+        }
+        &[data-filter-color="yellow"][aria-pressed="true"] {
+            background-color: #ffff00;
+            color: #000000;
+        }
+    }
+}
+
+#filter_mood_output {
+    .color-wrapper {
+        align-items: center;
+        width: auto;
+        height: auto;
+
+        svg {
+            width: 15px;
+            height: 15px;
+
+            @include tools.respond-to(var.$screen-size-medium) {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+}

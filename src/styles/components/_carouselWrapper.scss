@@ -1,0 +1,101 @@
+@use "sass:map";
+@use "../abstracts/mixins" as tools;
+@use "../abstracts/variables" as var;
+
+/* =======================================
+    carouselWrapper
+    ======================================= */
+
+.carousels {
+    position: relative;
+    width: 100%;
+    padding-bottom: map.get(var.$c-spacing, "s");
+
+    @include tools.respond-to(var.$screen-size-medium) {
+        padding-bottom: map.get(var.$c-spacing, "s");
+    }
+
+    @include tools.respond-to(var.$screen-size-small) {
+        padding-bottom: map.get(var.$c-spacing, "s");
+    }
+
+    .arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+
+        $row-1-h: map.get(var.$c-spacing, "xs");
+        $row-2-h: 70px;
+        $gap: map.get(var.$c-spacing, "s"); // Gebruik hier de gap-variabele die je op de container hebt staan
+
+        top: calc(#{$row-1-h} + #{$row-2-h} + (#{$gap} * 2) + (var(--card_height) * 0.5));
+
+        transform: translateY(-50%);
+
+        width: auto;
+        height: var(--card_height);
+
+        z-index: 400;
+
+        user-select: none;
+        touch-action: manipulation;
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+
+        // Pijl locaties
+        &.left {
+            left: 0px;
+        }
+
+        &.right {
+            right: 0px;
+        }
+
+        .btn {
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        // SVG in de pijl
+        svg {
+            width: 48px;
+            height: 48px;
+            padding: 12px;
+
+            color: var(--yellow-light);
+            background-color: var(--black-90);
+            border: 1px solid var(--yellow-light);
+            border-radius: 50%;
+            pointer-events: auto; // Maakt de SVG klikbaar (overschrijft de parent 'none')
+
+            &:hover {
+                border: 2px solid var(--cyan-light);
+                color: var(--cyan-light);
+            }
+        }
+    }
+
+    // Pijl verbergen
+    .hidden {
+        display: none !important;
+    }
+
+    .card-wrapper {
+        display: flex;
+        flex-grow: 1;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        scrollbar-width: none; // Voor Firefox
+
+        // Scrollbar verbergen voor Webkit browsers (Chrome, Safari)
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

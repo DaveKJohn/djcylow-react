@@ -1,0 +1,222 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+/* =======================================
+    CANVAS CUBE (Canvas 3)
+   ======================================= */
+#canvas_3Dspace_3 {
+    --cube-size: clamp(120px, 36.84vw + 12.11px, 240px);
+    --half-cube: calc(var(--cube-size) / 2);
+    --neg-half-cube: calc(var(--cube-size) / -2);
+
+    $corner-size: 10px;
+    $half-corner: calc($corner-size / 2);
+    $rot-x: -15deg;
+    $rot-y: 35deg;
+    $anti-rotation: rotateY(-$rot-y) rotateX(-$rot-x);
+
+    max-width: 570px;
+
+    .cube-outside {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: var(--cube-size);
+        height: var(--cube-size);
+        margin: 50px auto 50px auto;
+        transform-style: preserve-3d;
+
+        @include tools.respond-to(var.$screen-size-small) {
+            margin: 35px auto 35px auto;
+        }
+
+        /* Level 1: De roterende kubus basis */
+        .cube-inside {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: rotateX($rot-x) rotateY($rot-y);
+
+            .plates {
+                position: absolute;
+                inset: 0;
+                transform-style: preserve-3d;
+                .plate {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(61, 61, 61, 0);
+                    border: 1px solid rgba(145, 145, 145, 0.2);
+                    backface-visibility: visible;
+
+                    p {
+                        font-size: calc(var.$font-size-xs * 1.4);
+                        text-align: center;
+                    }
+
+                    // Posities op basis van classes uit de nieuwe HTML
+                    &.front {
+                        transform: rotateY(0deg) translateZ(var(--half-cube));
+                    }
+                    &.back {
+                        transform: rotateY(180deg) translateZ(var(--half-cube));
+                    }
+                    &.right {
+                        transform: rotateY(90deg) translateZ(var(--half-cube));
+                    }
+                    &.left {
+                        transform: rotateY(-90deg) translateZ(var(--half-cube));
+                    }
+                    &.top {
+                        transform: rotateX(90deg) translateZ(var(--half-cube));
+                    }
+                    &.bottom {
+                        transform: rotateX(-90deg) translateZ(var(--half-cube));
+                    }
+                }
+            }
+
+            /* --- LIJNEN (Gecorrigeerd naar #cube_lines_3) --- */
+           .lines {
+                position: absolute;
+                inset: 0;
+                transform-style: preserve-3d;
+                pointer-events: none;
+
+              .line {
+                    position: absolute;
+                    width: var(--cube-size);
+                    height: 2px;
+                    transform-style: preserve-3d;                  
+                    transform-origin: 0 0; 
+                    left: 0;
+                    top: 100%; 
+                    margin-top: -1px;
+
+                    svg {
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        line {
+                            stroke-width: 2;
+                            stroke-linecap: round;
+                        }
+                    }
+
+                    &.purple {
+                        transform: translateZ(var(--half-cube)) rotateY(90deg);
+                        svg line {
+                            stroke: var(--purple-default);
+                        }
+                    }
+                    &.magenta {
+                        transform: translateZ(var(--half-cube)) rotateZ(-90deg);
+                        svg line {
+                            stroke: var(--magenta-default);
+                        }
+                    }
+                    &.cyan {
+                        transform: translateZ(var(--half-cube));
+                        svg line {
+                            stroke: var(--cyan-default);
+                        }
+                    }
+                }
+            }
+
+            /* --- HOEKEN (Corners) --- */
+            .corners {
+                position: absolute;
+                inset: 0;
+                transform-style: preserve-3d;
+                .corner {
+                    position: absolute;
+                    transform-style: preserve-3d;
+                    width: $corner-size;
+                    height: $corner-size;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 200;
+                    border-radius: 50%;
+
+                    .colour {
+                        @include tools.colour-base;
+                        position: absolute;
+                        z-index: 200;
+                        bottom: 25px;
+
+                        p {
+                            font-size: inherit;
+                            line-height: inherit;
+                        }
+                    }
+
+                    // Voorzijde hoeken
+                    &.magenta {
+                        top: -$half-corner;
+                        left: -$half-corner;
+                        transform: translateZ(var(--half-cube)) #{$anti-rotation};
+                    }
+                    &.blue {
+                        top: calc(100% - #{$half-corner});
+                        left: -$half-corner;
+                        transform: translateZ(var(--half-cube)) #{$anti-rotation};
+                    }
+                    &.cyan {
+                        top: calc(100% - #{$half-corner});
+                        left: calc(100% - #{$half-corner});
+                        transform: translateZ(var(--half-cube)) #{$anti-rotation};
+                    }
+                    // Geel staat niet in je HTML, maar mocht je deze toevoegen:
+                    &.yellow {
+                        top: -$half-corner;
+                        left: calc(100% - #{$half-corner});
+                        transform: translateZ(var(--half-cube)) #{$anti-rotation};
+                    }
+
+                    // Achterzijde hoeken
+                    &.purple {
+                        top: calc(100% - #{$half-corner});
+                        left: -$half-corner;
+                        transform: translateZ(var(--neg-half-cube)) #{$anti-rotation};
+                    }
+                    // Overige achterzijde kleuren indien nodig:
+                    &.red {
+                        top: -$half-corner;
+                        left: -$half-corner;
+                        transform: translateZ(var(--neg-half-cube)) #{$anti-rotation};
+                    }
+                    &.orange {
+                        top: -$half-corner;
+                        left: calc(100% - #{$half-corner});
+                        transform: translateZ(var(--neg-half-cube)) #{$anti-rotation};
+                    }
+                    &.green {
+                        top: calc(100% - #{$half-corner});
+                        left: calc(100% - #{$half-corner});
+                        transform: translateZ(var(--neg-half-cube)) #{$anti-rotation};
+                    }
+                }
+
+                // Dynamische kleur-logica op basis van classes
+                $colors: "magenta", "yellow", "blue", "cyan", "red", "orange", "purple", "green";
+                @each $name in $colors {
+                    .corner.#{$name} {
+                        background-color: var(--#{$name}-default);
+
+                        .colour.#{$name} {
+                            @include tools.colour-theme($name);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

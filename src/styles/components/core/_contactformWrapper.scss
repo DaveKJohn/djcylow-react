@@ -1,0 +1,77 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+/* =======================================
+   Contact Formulier Sectie
+   ======================================= */
+
+#contactformulier {
+    background-color: var(--white-90);
+
+
+    #honeypot {
+        display: none;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: map.get(var.$in-spacing, "s");
+        border: 1px solid #ddd;
+        font-family: inherit;
+        transition: border-color 0.2s;
+
+        &:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        &.textarea-field {
+            resize: vertical;
+            min-height: 120px;
+        }
+    }
+
+    #errorMessage {
+        display: none;
+
+        &.show {
+            display: flex;
+        }
+        p.text {
+            color: #d93025;
+            margin: 0;
+        }
+        .icon {
+            font-size: var.$font-size-h2;
+        }
+    }
+
+    #succesMessage {
+        display: none;
+
+        &.show {
+            display: flex;
+        }
+        p.text {
+            margin: 0;
+        }
+        .icon {
+            font-size: var.$font-size-h2;
+        }
+    }
+
+    svg {
+        width: 50px;
+        height: 50px;
+        color: #2ab540;
+        transition:
+            transform 0.3s ease,
+            color 0.3s ease;
+
+        &:hover {
+            color: #1e912f;
+            transform: scale(1.1);
+        }
+    }
+}

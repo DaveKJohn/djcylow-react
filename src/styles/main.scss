@@ -1,0 +1,30 @@
+// 1. Ingebouwde modules
+@use "sass:map";
+@use "sass:math";
+
+// 2. Je eigen abstracts
+@use "abstracts/variables" as var;
+@use "abstracts/mixins" as tools;
+
+// 3. BASE
+@use "base/reset";
+@use "base/typography";
+
+// 4. LAYOUT
+@use "layout/navigation";
+@use "layout/footer";
+@use "layout/onderhoud";
+
+// 5. COMPONENTS
+@use "components/button";
+@use "components/core/contactformWrapper";
+
+// 6. PAGES
+@use "pages/index";
+@use "pages/luister"; // Alvast toegevoegd voor je nieuwe pagina
+
+// 7. THEMES
+
+// 8. UTILITIES (Genereert eenmalig ALLE utility classes)
+@use "utilities/spacing";
+@use "utilities/colors";

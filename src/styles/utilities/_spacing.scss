@@ -1,0 +1,30 @@
+@use "sass:map";
+@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as tools;
+
+@each $size in var.$sizes {
+    // 1. Horizontale padding
+    .h-push-#{$size} {
+        @include tools.apply-push("h", map.get(var.$r-spacing, $size));
+    }
+
+    // 2. Verticale padding
+    .v-push-#{$size} {
+        @include tools.apply-push("v", map.get(var.$c-spacing, $size));
+    }
+
+    // 3. Top padding
+    .top-push-#{$size} {
+        @include tools.apply-push("top", map.get(var.$c-spacing, $size));
+    }
+
+    // 4. Bottom padding
+    .bot-push-#{$size} {
+        @include tools.apply-push("bot", map.get(var.$c-spacing, $size));
+    }
+
+    // 5. Volledige padding
+    .in-push-#{$size} {
+        @include tools.apply-push("in", map.get(var.$in-spacing, $size));
+    }
+}

@@ -1,0 +1,206 @@
+@use "sass:list";
+@use "sass:string";
+@use "sass:map";
+@use "../abstracts/mixins" as tools;
+@use "../abstracts/variables" as var;
+
+body {
+    font-family: var.$base-font;
+    -webkit-font-smoothing: antialiased;
+}
+
+.WoB {
+    @include tools.theme-styles(white-70, white-80, white-90, white-100, black-70, black-80, black-90, black-100);
+}
+
+.BoW {
+    @include tools.theme-styles(black-70, black-80, black-90, black-100, white-70, white-80, white-90, white-100);
+}
+
+/* =======================================
+   1. TYPOGRAPHY DEFINITIES (SCSS Maps)
+   ======================================= */
+
+// Standaard stijlen voor headings (Desktop-first)
+$heading-styles: (
+    ".banner-wrapper .text-wrapper h1": (
+        "font-weight": 700,
+        "text-wrap": balance,
+        "letter-spacing": 2px,
+        "font-size": var.$font-size-banner,
+        "line-height": var.$line-height-banner
+    ),
+    ".banner-wrapper .text-wrapper h2": (
+        "font-weight": 600,
+        "font-size": var.$font-size-h2,
+        "line-height": var.$line-height-h2
+    ),
+    "h1": (
+        "font-weight": 600,
+        "font-size": var.$font-size-h1,
+        "line-height": var.$line-height-h1
+    ),
+    "h2": (
+        "font-weight": 600,
+        "letter-spacing": 2px,
+        "font-size": var.$font-size-h2,
+        "line-height": var.$line-height-h2
+    ),
+    "h3": (
+        "font-weight": 600,
+        "text-wrap": balance,
+        "letter-spacing": 0,
+        "font-size": var.$font-size-h3,
+        "line-height": var.$line-height-h3
+    )
+);
+
+// Stijlen voor tekst-elementen
+$p-styles: (
+    "p": (
+        "font-family": var.$base-font,
+        "max-width": 700px,
+        "font-weight": 500,
+        "line-height": var.$line-height-body
+    )
+);
+
+$btn-styles: (
+    ".btn": (
+        "font-family": var.$base-font,
+        "line-height": 1
+    ),
+    ".btn.passive": (
+        "font-weight": 500
+    ),
+    ".btn.cta": (
+        "font-weight": 600
+    )
+);
+
+$form-styles: (
+    "input": (
+        "font-family": var.$base-font,
+        "font-size": var.$font-size-m,
+        "line-height": 1
+    ),
+    "textarea": (
+        "font-family": var.$base-font,
+        "font-size": var.$font-size-m,
+        "line-height": 1
+    )
+);
+
+$utility-styles: (
+    ".size-m": (
+        "font-size": var.$font-size-m
+    ),
+    ".size-s": (
+        "font-size": var.$font-size-s
+    ),
+    ".size-xs": (
+        "font-size": var.$font-size-xs
+    ),
+    ".size-xxs": (
+        "font-size": var.$font-size-xxs
+    ),
+    ".balanced": (
+        "text-wrap": balance
+    ),
+    ".bold": (
+        "font-weight": 600
+    ),
+    ".italic": (
+        "font-style": italic
+    ),
+    ".left": (
+        "text-align": left
+    )
+);
+
+// Stijlen voor tekst-elementen
+$a-styles: (
+    "a": (
+        "text-decoration": none,
+        "transition": color 300ms ease-in-out,
+        "line-height": var.$line-height-body
+    )
+);
+
+$list-styles: (
+    "ul.column": (
+        "gap": map.get(var.$c-spacing, "s")
+    ),
+    "li.column": (
+        "padding-left": map.get(var.$c-spacing, "m"),
+        "gap": map.get(var.$c-spacing, "xs")
+    ),
+    "li.column *:first-child::before": (
+        "content": "•",
+        "color": currentColor,
+        "display": inline-block,
+        "width": 1.5em,
+        "margin-left": -1.5em,
+        "font-weight": bold
+    )
+);
+
+// Stijlen voor tekst-elementen
+$table-styles: (
+    "td": (
+        "font-size": var.$font-size-xs,
+        "line-height": var.$line-height-body,
+        "padding": map.get(var.$c-spacing, "xs") 0
+    ),
+    "td.track": (
+        "font-weight": 600,
+        "padding-right": 20px
+    ),
+    "td.time": (
+        "font-weight": 200,
+        "margin-left": 20px
+    )
+);
+
+/* =======================================
+   3. Mixin en Generatie
+   ======================================= */
+/// Mixin om alle typografie stijlen te genereren (nu gebaseerd op Maps)
+/// @param $styles De map met stijlen (bijv. $heading-styles)
+@mixin generate-typography($styles) {
+    @each $selector, $properties in $styles {
+        #{$selector} {
+            // Loop over de map met properties en pas ze direct toe
+            @each $prop, $value in $properties {
+                #{$prop}: $value;
+            }
+        }
+    }
+}
+
+// ------------------------------------------------------------------
+// 4. Toepassing van de Mixins
+// ------------------------------------------------------------------
+
+@include generate-typography($heading-styles);
+@include generate-typography($p-styles);
+@include generate-typography($btn-styles);
+@include generate-typography($form-styles);
+@include generate-typography($utility-styles);
+@include generate-typography($a-styles);
+@include generate-typography($table-styles);
+@include generate-typography($list-styles);
+
+/* =======================================
+   5. Losse Utility Klass
+   ======================================= */
+.feedback-message.error {
+    @include tools.color-utility(color, error-fg); // Gebruikt --error-fg (uw tekstkleur)
+    @include tools.color-utility(background-color, error-bg); // Gebruikt --error-bg (uw achtergrondkleur)
+    @include tools.color-utility(border-color, error-border); // Gebruikt --error-border
+    border-width: 1px;
+    border-style: solid;
+
+    padding: 0.75rem;
+    display: block !important;
+}

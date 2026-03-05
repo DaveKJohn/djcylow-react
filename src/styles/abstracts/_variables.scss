@@ -1,0 +1,196 @@
+@use "sass:math";
+@use "sass:string";
+@use "sass:map";
+
+@function str-replace($string, $search, $replace: "") {
+    $index: string.index($string, $search); // string. toevoegen
+
+    @if $index {
+        @return string.slice($string, 1, $index - 1) + $replace +
+            str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+// --- Font ---
+$base-font: var(--font-poppins), "Poppins", Arial, sans-serif;
+
+// --- Body Afmetingen ---
+$desktop-max-width: 1100px;
+
+// --- Nav heights ---
+$nav-height-large: 90px;
+$nav-height-medium: 80px;
+$nav-height-small: 70px;
+
+// --- Banner heights ---
+$banner-height-large: 110px 0;
+$banner-height-medium: 50px 0;
+$banner-height-small: 40px 0;
+
+// Body Breekpunten
+$screen-size-large: 1530px;
+$screen-size-medium: 920px;
+$screen-size-small: 500px;
+
+$sizes: "xxl", "xl", "l", "m", "s", "xs", "xxs";
+
+//CLAMPS 320px -> 800px
+
+// Columns
+$c-spacing: (
+    "xxl": clamp(75.6px, 54px + 6.75vw, 108px),
+    "xl":  clamp(56.7px, 40.5px + 5.06vw, 81px),
+    "l":   clamp(26.6px, 19px + 2.38vw, 38px),
+    "m":   clamp(19.6px, 14px + 1.75vw, 28px),
+    "s":   clamp(11.2px, 8px + 1vw, 16px),
+    "xs":  clamp(8.4px, 6px + 0.75vw, 12px),
+    "xxs": 5px
+);
+
+// Rows
+$r-spacing: (
+    "xxl": clamp(75.6px, 54px + 6.75vw, 108px),
+    "xl": clamp(56.7px, 40.5px + 5.06vw, 81px),
+    "l": clamp(35px, 25px + 3.13vw, 50px),
+    "m": clamp(21px, 15px + 1.88vw, 30px),
+    "s": clamp(15.4px, 11px + 1.38vw, 22px),
+    "xs": clamp(10px, 6px + 0.75vw, 12px),
+    "xxs": clamp(2.8px, 2px + 0.25vw, 4px)
+);
+
+$in-spacing: (
+    "xxl": clamp(75.6px, 54px + 6.75vw, 108px),
+    "xl": clamp(56.7px, 40.5px + 5.06vw, 81px),
+    "l": clamp(35px, 25px + 3.13vw, 50px),
+    "m": clamp(21px, 15px + 1.88vw, 30px),
+    "s": clamp(15.4px, 11px + 1.38vw, 22px),
+    "xs": clamp(10px, 6px + 0.75vw, 12px),
+    "xxs": clamp(2.8px, 2px + 0.25vw, 4px)
+);
+
+$extra-spacing: (
+    "xxl": 10px,
+    "xl": 9px,
+    "l": 8px,
+    "m": 7px,
+    "s": 6px,
+    "xs": 5px,
+    "xxs": 4px
+);
+
+// --- BANNER Progressieve Clamps (320px -> 800px) ---
+$font-size-banner: clamp(44px, 23.33px + 6.46vw, 75px);
+$font-size-h1: clamp(1.875rem, 1.0417rem + 4.1667vw, 3.125rem);
+$font-size-h2: clamp(1.625rem, 1.0417rem + 2.9167vw, 2.5rem);
+$font-size-h3: clamp(1rem, 0.9167rem + 0.4167vw, 1.125rem);
+
+// --- LEES TEKST Progressieve Clamps (320px -> 800px) ---
+$font-size-m: clamp(1rem, 0.9167rem + 0.4167vw, 1.125rem); // 16px -> 18px
+$font-size-s: clamp(0.875rem, 0.7917rem + 0.4167vw, 1rem); // 14px -> 16px
+$font-size-xs: clamp(0.75rem, 0.6667rem + 0.4167vw, 0.875rem); // 12px -> 14px
+$font-size-xxs: clamp(0.625rem, 0.5417rem + 0.4167vw, 0.75rem); // 10px -> 12px
+
+$line-height-banner: 1.2;
+$line-height-h1: 1.3;
+$line-height-h2: 1.4;
+$line-height-h3: 1.7;
+$line-height-body: 1.7;
+
+// =======================================
+// 1. Gecentraliseerde Kleurdefinities (SCSS Map)
+// =======================================
+$colors: (
+    // --- Black & White tinten ---
+    "black": (
+            "100": #000000,
+            "90": #0f0f0f,
+            "80": #2e2e2e,
+            "70": #5a5a5a
+        ),
+    "white": (
+        "100": #ffffff,
+        "90": #f3f3f3,
+        "80": #d1d1d1,
+        "70": #919191
+    ),
+    // --- Primaire & Accentkleuren ---
+    "yellow": (
+            "default": #ffff00,
+            "light": #ffffb2
+        ),
+    "cyan": (
+        "default": #00ffff,
+        "light": #b2ffff
+    ),
+    "green": (
+        "default": #00ff00,
+        "light": #b3ffb2
+    ),
+    "blue": (
+        "default": #0000ff,
+        "light": #3333ff
+    ),
+    "orange": (
+        "default": #ff7f00,
+        "light": #ffd9b3
+    ),
+    "red": (
+        "default": #ff0000,
+        "light": #ff8080
+    ),
+    "purple": (
+        "default": #7f00ff,
+        "light": #cc99ff
+    ),
+    "magenta": (
+        "default": #ff00ff,
+        "light": #ff2bff
+    ),
+    // --- Feedbackkleuren ---
+    "error": (
+            "bg": #991b1b,
+            "border": #fca5a5,
+            "fg": #fee2e2
+        )
+);
+
+// =======================================
+// 2. CSS Variabelen Genereren (:root)
+// =======================================
+:root {
+    --screen-size-large: #{$screen-size-large};
+    --screen-size-medium: #{$screen-size-medium};
+    --screen-size-small: #{$screen-size-small};
+
+    @each $base-color, $tints in $colors {
+        @each $tint-name, $value in $tints {
+            // Start met de basiskleur (bijv. 'black')
+            $css-var-name: #{$base-color};
+
+            // Dit creëert 'black-100', 'black-90', 'yellow-full', etc.
+            $css-var-name: #{$base-color}-#{$tint-name};
+
+            --#{$css-var-name}: #{$value};
+        }
+    }
+}
+
+/* =======================================
+    3. Music Mood Colours variabelen
+   ======================================= */
+// Aspect Ratio instellingen (overal hergebruikt)
+
+// --- Progressieve Clamp (320px -> 800px) ---
+$colour-width: clamp(70px, 1.46vw + 73.33px, 95px);
+$colour-aspect-w: 20;
+$colour-aspect-h: 7;
+$colour-aspect-ratio: #{$colour-aspect-w} / #{$colour-aspect-h};
+$colour-height-multiplier: math.div($colour-aspect-h, $colour-aspect-w);
+
+$canvas-max-width: 680px;
+
+// Kleurenlijsten voor loops
+$all-colors: ("cyan", "yellow", "red", "purple", "green", "orange", "magenta", "blue");
+$dark-text-colors: ("cyan", "yellow", "green", "orange");

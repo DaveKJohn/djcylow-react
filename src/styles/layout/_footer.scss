@@ -1,0 +1,62 @@
+@use "sass:map";
+@use "../abstracts/mixins" as tools;
+@use "../abstracts/variables" as var;
+
+footer {
+    margin-top: map.get(var.$r-spacing, "xl");
+    font-size: var.$font-size-xs;
+    color: var(--white-80);
+
+    // --- Layer 1 & 2: Logo Sectie ---
+    .logo {
+        img {
+            width: 280px;
+            height: auto;
+            display: block;
+
+            @include tools.respond-to(var.$screen-size-medium) {
+                width: 220px;
+            }
+        }
+    }
+
+   
+
+    // Algemene stijl voor containers binnen layer-3
+    .row-2 {
+        width: max-content;
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    // --- Layer 3 Row 1: Socials ---
+    .row.wrapper.split:first-child {
+        max-width: 180px;
+
+        svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease-in-out;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    // --- Layer 3 Row 2: Credits / Info ---
+    .row.wrapper {
+        max-width: 550px;
+
+        address {
+            font-style: normal;
+            display: inline-block;
+        }
+
+        #contactMail,
+        small {
+            display: block;
+        }
+    }
+}

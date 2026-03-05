@@ -1,0 +1,278 @@
+@use "sass:map";
+@use "variables" as var;
+
+@mixin apply-spacing($direction, $with-margin: false) {
+    // We bepalen de map via een ouderwetse @if blok. 
+    // Dit omzeilt de verouderde if() functie volledig.
+    $gap-map: var.$r-spacing; 
+    
+    @if $direction == "v" {
+        $gap-map: var.$c-spacing;
+    }
+
+    @each $size in var.$sizes {
+        &.spacing-#{$size} {
+            // map.get is de moderne standaard, dit is goed.
+            gap: map.get($gap-map, $size);
+
+            @if $with-margin {
+                margin: map.get(var.$extra-spacing, $size) 0;
+            }
+        }
+    }
+}
+
+// 3. Push Mixin (voor de utilities/spacing.scss loop)
+@mixin apply-push($type, $val) {
+    @if $type == "in" {
+        padding: $val !important;
+    } @else if $type == "h" {
+        padding-left: $val !important;
+        padding-right: $val !important;
+    } @else if $type == "v" {
+        padding-top: $val !important;
+        padding-bottom: $val !important;
+    } @else if $type == "bot" {
+        padding-bottom: $val !important;
+    } @else if $type == "top" {
+        padding-top: $val !important;
+    }
+}
+
+// mixins.scss
+@mixin respond-to($breakpoint) {
+    @media (max-width: $breakpoint) {
+        @content;
+    }
+}
+
+@mixin color-utility($property, $color-var) {
+    #{$property}: var(--#{$color-var}) !important;
+}
+
+// --- Hulp Mixins voor Thematische Varianten ---
+@mixin theme-styles($fg-70, $fg-80, $fg-90, $fg-100, $bg-70, $bg-80, $bg-90, $bg-100) {
+    // Definieer de omgekeerde kleuren (bijvoorbeeld voor actieve elementen)
+    $active-fg: $bg-100; // Actieve tekst is de BG-kleur
+    $active-bg: $fg-100; // Actieve achtergrond is de FG-kleur
+
+    .border {
+        border: 1px solid var(--#{$bg-80});
+    }
+
+    .show_border_bottom {
+        border-bottom: 1px solid var(--#{$bg-80});
+    }
+
+    table {
+        tr:not(:last-child) {
+            border-bottom: 1px solid var(--#{$bg-80});
+        }
+
+        td {
+            color: var(--#{$fg-80});
+        }
+    }
+
+    //texts
+    p.date {
+        color: var(--#{$fg-70});
+    }
+
+    a {
+        color: var(--#{$fg-80});
+        &:hover {
+            color: var(--#{$fg-100});
+        }
+    }
+
+    h1,
+    h2 {
+        color: var(--#{$fg-90});
+    }
+
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--#{$fg-90});
+    }
+
+    p {
+        color: var(--#{$fg-80});
+    }
+
+    .btn.passive {
+        color: var(--#{$fg-70});
+        background: none;
+        &:hover {
+            color: var(--#{$fg-100});
+        }
+    }
+
+    .btn.select {
+        background-color: var(--#{$bg-90});
+        border: 1px solid var(--#{$bg-70});
+        color: var(--#{$fg-100});
+        &:not([aria-pressed="true"]):hover {
+            background-color: var(--#{$bg-100});
+            border: 1px solid var(--#{$fg-100});
+            color: var(--#{$fg-100});
+        }
+        &.is-active,
+        &[aria-pressed="true"] {
+            background-color: var(--#{$active-bg});
+            border: 1px solid var(--#{$bg-100});
+            color: var(--#{$active-fg});
+        }
+    }
+
+    .menu-wrapper {
+        ul.subList {
+            background-color: var(--#{$bg-100});
+            border-top: 1px solid var(--#{$bg-70});
+            @include respond-to(var.$screen-size-medium) {
+                background-color: transparent;
+                border-top: none;
+            }
+
+            li:not(:last-child) {
+                border-bottom: solid 1px var(--#{$bg-80});
+            }
+        }
+
+        a {
+            color: var(--#{$fg-70});
+            &:hover {
+                color: var(--#{$fg-100});
+            }
+        }
+    }
+
+    .menu-wrapper.mobile.active {
+        background-color: var(--#{$bg-100});
+        border-left: solid 1px var(--#{$bg-80});
+
+        .mobileMenuHeader-border {
+            border-bottom: solid 1px var(--#{$bg-80});
+        }
+
+        &:has(.view-wrapper.subList-view) {
+            background-color: var(--#{$bg-90});
+            border-left-color: var(--#{$bg-70});
+
+            .mobileMenuHeader-border {
+                border-bottom-color: var(--#{$bg-70});
+            }
+        }
+
+        ul.mainList {
+            &:not(:last-child):not(:has(li.subList-wrapper.open)) {
+                border-bottom: none;
+                @include respond-to(var.$screen-size-medium) {
+                    border-bottom: solid 1px var(--#{$bg-80});
+                }
+            }
+
+            li.subList-wrapper.open > a.has-subList {
+                border-bottom: solid 1px var(--#{$bg-70});
+            }
+
+            li ul li:not(:last-child) {
+                border-bottom: 1px solid var(--#{$bg-80});
+            }
+        }
+    }
+}
+
+// --- wrapper & container ---
+@mixin responsive-spacing($property, $base, $large, $medium, $small) {
+    #{$property}: $base; // De XXL waarde
+
+    @include respond-to(var.$screen-size-large) {
+        #{$property}: $large;
+    }
+
+    @include respond-to(var.$screen-size-medium) {
+        #{$property}: $medium;
+    }
+
+    @include respond-to(var.$screen-size-small) {
+        #{$property}: $small;
+    }
+}
+
+/* =======================================
+    2. MIXINS voor de Music Mood Colours pagina
+   ======================================= */
+@mixin colour-theme($color-name) {
+    $c: to-lower-case($color-name);
+    background-color: var(--#{$c}-default);
+
+    // Vervang 'if(index(...))' door een normale @if/@else
+    @if index(var.$dark-text-colors, $c) {
+        color: var(--black-100);
+        p {
+            color: var(--black-100);
+        }
+    } @else {
+        color: var(--white-100);
+        p {
+            color: var(--white-100);
+        }
+    }
+}
+
+@mixin colour-base {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: var.$colour-aspect-ratio;
+    text-align: center;
+    font-size: var.$font-size-xs;
+    width: var.$colour-width;
+    height: auto;
+    line-height: 1;
+}
+
+@mixin color-generator {
+    @each $color in var.$all-colors {
+        $c: to-lower-case($color);
+
+        &.colour.#{$c},
+        .colour.#{$c} {
+            background-color: var(--#{$c}-default) !important;
+
+            &.label,
+            .label {
+                background-color: var(--#{$c}-default) !important;
+            }
+
+            p {
+                // Ook hier de inline if() vervangen door @if/@else
+                @if index(var.$dark-text-colors, $c) {
+                    color: var(--black-100) !important;
+                } @else {
+                    color: var(--white-100) !important;
+                }
+            }
+        }
+    }
+}
+
+// --- Mixin voor CTA Effect ---
+@mixin cta-hover-effect($transition-property: width) {
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        transition: $transition-property 300ms ease-in-out;
+    }
+
+    &:hover::before {
+        width: 100%;
+    }
+}

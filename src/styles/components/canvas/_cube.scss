@@ -1,0 +1,182 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+/* =======================================
+    CANVAS CUBE (Canvas 5)
+   ======================================= */
+#canvas_3Dspace {
+    --cube-size: clamp(130px, 36.84vw + 12.11px, 240px);
+    --half-cube: calc(var(--cube-size) / 2);
+    --neg-half-cube: calc(var(--cube-size) / -2);
+
+    
+
+    $corner-size: 10px;
+    $half-corner: calc($corner-size / 2);
+    $rot-x: -15deg;
+    $rot-y: 35deg;
+    $anti-rotation: rotateY(-$rot-y) rotateX(-$rot-x);
+
+    max-width: 570px;
+
+    .h3-constrainer-1 {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: var(--cube-size);
+        height: var(--cube-size);
+        margin: 120px auto 80px auto;
+        transform-style: preserve-3d;
+
+        @include tools.respond-to(var.$screen-size-small) {
+            margin: 80px auto 35px auto;
+        }
+
+        /* Level 1: De roterende kubus basis */
+        #cube.canvas-level-1.cube {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: rotateX($rot-x) rotateY($rot-y);
+        }
+
+        /* Level 2: Groepering van onderdelen */
+        .canvas-level-2.cube {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+
+            /* --- VLAKKEN (Plates) --- */
+            &#cube_plates {
+                .canvas-level-3.cube {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(43, 43, 43, 0.1);
+                    border: 1px solid rgba(187, 187, 187, 0.2);
+                    backface-visibility: visible;
+
+                    p {
+                        font-size: calc(var.$font-size-xs * 1.4);
+                        text-align: center;
+                    }
+                }
+
+                #cube_plates_front {
+                    transform: rotateY(0deg) translateZ(var(--half-cube));
+                }
+                #cube_plates_back {
+                    transform: rotateY(180deg) translateZ(var(--half-cube));
+                }
+                #cube_plates_right {
+                    transform: rotateY(90deg) translateZ(var(--half-cube));
+                    .label-rect {
+                        transform: rotateY(180deg);
+                    }
+                }
+                #cube_plates_left {
+                    transform: rotateY(-90deg) translateZ(var(--half-cube));
+                }
+                #cube_plates_top {
+                    transform: rotateX(90deg) translateZ(var(--half-cube));
+                }
+                #cube_plates_bottom {
+                    transform: rotateX(-90deg) translateZ(var(--half-cube));
+                }
+            }
+
+            /* --- HOEKEN (Corners) --- */
+            &#cube_corners {
+                pointer-events: none;
+
+                .canvas-level-3.cube {
+                    position: absolute;
+                    transform-style: preserve-3d;
+                    width: $corner-size;
+                    height: $corner-size;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 200;
+                    border-radius: 50%;
+
+                    .colour {
+                        @include tools.colour-base;
+                        position: absolute;
+                        z-index: 200;
+                        bottom: 25px;
+
+                        p {
+                            font-size: inherit;
+                            line-height: inherit;
+                        }
+                    }
+                }
+
+                // Kleur-logica gekoppeld aan ID's
+                $colors: "magenta", "yellow", "blue", "cyan", "red", "orange", "purple", "green";
+                @each $name in $colors {
+                    #cube_corners_#{$name} {
+                        background-color: var(--#{$name}-default);
+
+                        .colour.colour-#{$name} {
+                            @include tools.colour-theme($name);
+                        }
+                    }
+                }
+
+                /* --- Hoekpunt posities --- */
+                // Voorzijde
+                #cube_corners_magenta {
+                    top: -$half-corner;
+                    left: -$half-corner;
+                    transform: translateZ(var(--half-cube)) #{$anti-rotation};
+                }
+                #cube_corners_yellow {
+                    top: -$half-corner;
+                    left: calc(100% - #{$half-corner});
+                    transform: translateZ(var(--half-cube)) #{$anti-rotation};
+                }
+                #cube_corners_blue {
+                    top: calc(100% - #{$half-corner});
+                    left: -$half-corner;
+                    transform: translateZ(var(--half-cube)) #{$anti-rotation};
+                }
+                #cube_corners_cyan {
+                    top: calc(100% - #{$half-corner});
+                    left: calc(100% - #{$half-corner});
+                    transform: translateZ(var(--half-cube)) #{$anti-rotation};
+                }
+
+                // Achterzijde
+                #cube_corners_red {
+                    top: -$half-corner;
+                    left: -$half-corner;
+                    transform: translateZ(var(--neg-half-cube)) #{$anti-rotation};
+                }
+                #cube_corners_orange {
+                    top: -$half-corner;
+                    left: calc(100% - #{$half-corner});
+                    transform: translateZ(var(--neg-half-cube)) #{$anti-rotation};
+                }
+                #cube_corners_purple {
+                    top: calc(100% - #{$half-corner});
+                    left: -$half-corner;
+                    transform: translateZ(var(--neg-half-cube)) #{$anti-rotation};
+                }
+                #cube_corners_green {
+                    top: calc(100% - #{$half-corner});
+                    left: calc(100% - #{$half-corner});
+                    transform: translateZ(var(--neg-half-cube)) #{$anti-rotation};
+                }
+            }
+        }
+    }
+}

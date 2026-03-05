@@ -1,0 +1,20 @@
+@use "sass:map";
+@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as tools;
+
+
+@each $base-color, $tints in var.$colors {
+    @each $tint-name, $value in $tints {
+        $css-var-name: #{$base-color}-#{$tint-name};
+
+        // Dit maakt .cyan-light-bg aan
+        .#{$css-var-name}-bg {
+            @include tools.color-utility(background-color, $css-var-name);
+        }
+
+        // Dit maakt .cyan-light-fg aan
+        .#{$css-var-name}-fg {
+            @include tools.color-utility(color, $css-var-name);
+        }
+    }
+}

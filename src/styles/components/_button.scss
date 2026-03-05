@@ -1,0 +1,144 @@
+@use "sass:map";
+@use "../abstracts/mixins" as tools;
+@use "../abstracts/variables" as var;
+
+.btn {
+    cursor: pointer;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+
+    text-align: center;
+    transition: color 300ms ease-in-out;
+
+    svg {
+        display: block;
+    }
+
+    &.passive {
+        border: 1px solid;
+        background: none;
+
+        &.read-more-btn {
+            max-width: 170px;
+            padding: map.get(var.$in-spacing, "s");
+        }
+
+        &.diensten-btn {
+            max-width: 300px;
+            padding: map.get(var.$in-spacing, "s");
+
+            @include tools.respond-to(var.$screen-size-medium) {
+                max-width: none;
+            }
+        }
+
+        &.terug-btn {
+            max-width: 220px;
+            padding: map.get(var.$in-spacing, "s");
+
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        &.select {
+            transition: none;
+        }
+    }
+
+    &.nav {
+        background: none;
+        color: white;
+
+        &.hamburger-btn {
+            height: 100%;
+            font-weight: 200;
+            font-size: var.$font-size-h2;
+
+            @include tools.respond-to(var.$screen-size-medium) {
+                padding: 0 map.get(var.$r-spacing, "xs");
+                margin-left: map.get(var.$r-spacing, "xs");
+            }
+
+            @include tools.respond-to(var.$screen-size-small) {
+                padding: 0 map.get(var.$r-spacing, "xs");
+                margin-left: map.get(var.$r-spacing, "xs");
+            }
+        }
+
+        &.previousBtn,
+        &.close-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 60px;
+
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            @include tools.respond-to(var.$screen-size-medium) {
+                display: flex;
+            }
+        }
+
+        &.previousBtn {
+            margin-right: auto;
+
+            svg {
+                transform: rotate(90deg);
+            }
+        }
+
+        &.close-btn {
+            font-size: var.$font-size-h3;
+            margin-left: auto;
+            margin-right: 0;
+        }
+    }
+
+    &.cta {
+        @include tools.cta-hover-effect(width);
+
+        @include tools.color-utility(background-color, yellow-light);
+        @include tools.color-utility(color, black-100);
+        border: 1px solid var(--white-70);
+        &:hover {
+            @include tools.color-utility(background-color, yellow-light);
+            @include tools.color-utility(color, black-100);
+        }
+        &::before {
+            @include tools.color-utility(background-color, cyan-light);
+        }
+
+        position: relative;
+        overflow: hidden;
+        font-weight: 700;
+        border: 1px solid;
+
+        &.boek-nu-btn {
+            width: 119px;
+            padding: map.get(var.$in-spacing, "xs");
+            font-size: var.$font-size-m;
+
+            @include tools.respond-to(var.$screen-size-small) {
+                width: 92px;
+                font-size: var.$font-size-s;
+            }
+        }
+
+        &.verzend-form-btn {
+            width: 100%;
+            padding: map.get(var.$in-spacing, "s");
+        }
+
+        span {
+            position: relative;
+            display: block;
+            white-space: nowrap;
+        }
+    }
+}

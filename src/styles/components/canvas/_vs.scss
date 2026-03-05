@@ -1,0 +1,204 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+$card-width-vs: 150px;
+$card-height-vs: 150px;
+
+:root {
+    --card_width_vs: #{$card-width-vs};
+    --card_height_vs: #{$card-height-vs};
+
+    @include tools.respond-to(var.$screen-size-medium) {
+        --card_width_vs: 130px;
+        --card_height_vs: 130px;
+    }
+}
+
+.carousels {
+    .arrow {
+        align-items: center;
+        justify-content: center;
+        top: 50%;
+        // Dit trekt de button precies de helft van zijn eigen hoogte terug omhoog
+        transform: translateY(-50%);
+    }
+
+    // De scroll-content
+    #carousel-vs {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+
+        // Zorgt dat de snap-positie niet tegen de rand kleeft
+        scroll-padding: 0 20px;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        // De wrapper die de content breedte bepaalt
+        .carousel-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            width: max-content;
+            min-width: 100%; // Nodig voor centrering op desktop
+            margin: map.get(var.$in-spacing, "xs") 0;
+
+            .vr {
+                width: 1px;
+                flex-shrink: 0; // Voorkomt dat de lijn naar 0px gedrukt wordt
+                height: 80%;
+                background-color: var(--black-80);
+                align-self: center;
+                opacity: 1;
+                margin: 0 map.get(var.$c-spacing, "m");
+            }
+
+            
+            .cyan-vs-red,
+            .yellow-vs-purple,
+            .green-vs-magenta,
+            .orange-vs-blue {
+                flex-shrink: 0;
+                scroll-snap-align: start;
+                width: $card-width-vs;
+                align-items: center;
+                text-align: center;
+                gap: map.get(var.$c-spacing, "s");
+
+                .middle {
+                    @include tools.color-generator;
+                    gap: 3px;
+
+                    .colour {
+                        @include tools.colour-base;
+                        z-index: 200;
+                        bottom: 0;
+                        right: 0;
+                        top: auto;
+                        left: auto;
+
+                        p {
+                            font-size: inherit;
+                            line-height: inherit;
+                        }
+                    }
+
+                    .vs,
+                    .circle {
+                        height: auto;
+                    }
+
+                    .circle::after {
+                        content: "";
+                        display: block;
+                        width: map.get(var.$c-spacing, "s");
+                        height: map.get(var.$c-spacing, "s");
+                        border-radius: 50%;
+                    }
+
+                    @each $name,
+                        $hex
+                            in (
+                                "cyan": #00ffff,
+                                "green": #00ff00,
+                                "yellow": #ffff00,
+                                "orange": #ff7f00,
+                                "red": #ff0000,
+                                "magenta": #ff00ff,
+                                "purple": #7f00ff,
+                                "blue": #0000ff
+                            )
+                    {
+                        .circle.#{$name}::after {
+                            background-color: $hex;
+                        }
+                    }
+                }
+
+                // Zorgt dat de VS kolom alleen de ruimte van de tekst inneemt
+
+                .audioplayer-wrapper {
+                    height: var(--card_height_vs);
+                    width: var(--card_width_vs);
+
+                    margin: 5px;
+
+                    outline-style: solid;
+                    outline-width: 1px;
+                    outline-offset: 5px;
+
+                    @each $name in var.$all-colors {
+                        &.#{$name} {
+                            // Verwijst naar de CSS variabelen die je :root genereert
+                            // Bijv: var(--cyan-default)
+                            outline-color: var(--#{$name}-default);
+                        }
+                    }
+
+                    .label {
+                        @include tools.colour-base;
+                        z-index: 200;
+                        bottom: 0;
+                        right: 0;
+                        top: auto;
+                        left: auto;
+                    }
+
+                    .ready-wrapper {
+                        button {
+                            width: 50px;
+                            height: 50px;
+
+                            svg {
+                                width: 40px;
+                                height: 40px;
+                            }
+                        }
+                    }
+
+                    .playing-wrapper {
+                        padding: 3px;
+                        gap: map.get(var.$c-spacing, "xs");
+
+                        .timeline-wrapper {
+                            padding: 5px;
+
+                            .total,
+                            .progress {
+                                height: 4px;
+                            }
+                        }
+
+                        // Player Controls
+                        .layer-wrapper {
+                            .pausefilters button {
+                                width: 30px;
+                                height: 30px;
+                                svg {
+                                    width: 30px;
+                                    height: 30px;
+                                }
+                            }
+
+                            .volume-wrapper button {
+                                width: 34px;
+                                height: 34px;
+                                svg {
+                                    width: 18px;
+                                    height: 18px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    p.error {
+        text-wrap: wrap;
+        max-width: $card-width-vs;
+    }
+}

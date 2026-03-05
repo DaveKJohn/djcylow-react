@@ -1,0 +1,222 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+$card-width-erlenmeyers: 180px;
+$card-height-erlenmeyers: 180px;
+
+:root {
+    --card_width_erlenmeyers: #{$card-width-erlenmeyers};
+    --card_height_erlenmeyers: #{$card-height-erlenmeyers};
+
+    @include tools.respond-to(var.$screen-size-medium) {
+        --card_width_erlenmeyers: 150px;
+        --card_height_erlenmeyers: 150px;
+    }
+}
+
+/* =======================================
+    ERLENMEYERS MIXER
+   ======================================= */
+#canvas_erlenmeyers {
+    max-width: 570px;
+
+    .erlenmeyers {
+        .row {
+            > div {
+                flex: 1;
+            }
+        }
+
+        .erlenmeyer {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+
+            .erlenmeyer-svg {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            .status-text {
+                position: absolute;
+                bottom: 18%;
+                left: 50%;
+                transform: translateX(-50%);
+                pointer-events: none;
+                font-weight: 500;
+                color: #ffffff;
+                transition: color 0.6s ease;
+                z-index: 10;
+                font-size: var.$font-size-xs;
+                text-align: center;
+            }
+
+            &:hover {
+                transform: scale(1.05);
+            }
+
+            rect {
+                transition: y 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            &.is-filled {
+                .status-text {
+                    color: #000000;
+                }
+                .bubble {
+                    animation: bubbleUp 2s infinite ease-in;
+                }
+            }
+
+            .bubble {
+                opacity: 0;
+                fill: rgba(46, 46, 46, 0.5);
+            }
+
+            .liquid {
+                fill: rgba(255, 255, 255, 1);
+                transition: fill 0.6s ease-in-out;
+            }
+        }
+
+        .label {
+            min-height: map.get(var.$c-spacing, "s");
+            display: flex;
+            align-items: center; //verticale centrering
+            justify-content: center; //horizontal centrering
+            p {
+                font-size: var.$font-size-xs;
+                font-weight: 500;
+                text-transform: capitalize;
+                text-align: center;
+            }
+        }
+    }
+
+    .output {
+        .emotion-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+
+            .audioplayer-wrapper {
+                @include tools.color-generator;
+                flex-shrink: 0;
+                position: relative;
+
+                height: var(--card_height_erlenmeyers);
+                width: var(--card_width_erlenmeyers);
+
+                .label {
+                    @include tools.colour-base;
+                    z-index: 200;
+                    bottom: 0;
+                    right: 0;
+                    top: auto;
+                    left: auto;
+                }
+
+                .ready-wrapper button {
+                    width: 44px;
+                    height: 44px;
+                    svg {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                .pausefilters button {
+                    width: 34px;
+                    height: 34px;
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                .volume-wrapper button {
+                    width: 34px;
+                    height: 34px;
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+            }
+
+            .text-wrapper {
+                width: auto;
+                gap: map.get(var.$c-spacing, "s");
+
+                .column.wrapper.h-end {
+                    flex: 1;
+
+                    svg {
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+
+                .column.wrapper.h-start.text {
+                    flex: 1;
+
+                    .text {
+                        font-weight: 500;
+                        font-size: var.$font-size-s;
+                        white-space: nowrap; // Voorkomt dat de tekst onbedoeld afbreekt
+                    }
+                }
+            }
+        }
+    }
+
+    .buttons {
+        button {
+            padding: map.get(var.$c-spacing, "xs") 0;
+            font-size: var.$font-size-s;
+            text-align: center;
+            font-weight: 500;
+            transition: none;
+
+            flex: 0 0 calc(25% - 15px);
+
+            @include tools.respond-to(var.$screen-size-small) {
+                flex: 0 0 calc(33.33% - 15px);
+            }
+
+            &.is-active,
+            &[aria-pressed="true"] {
+                border-color: transparent;
+
+                @each $color in var.$all-colors {
+                    &[data-filter-color="#{$color}"] {
+                        background-color: var(--#{$color}-default);
+
+                        @if index(var.$dark-text-colors, $color) {
+                            color: #000000;
+                        } @else {
+                            color: #ffffff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes bubbleUp {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+}

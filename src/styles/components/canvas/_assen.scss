@@ -1,0 +1,286 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+/* =======================================
+    9. ASSEN
+   ======================================= */
+#canvas_assen {
+    // Gebruik CSS-variabelen zodat de browser ze live kan updaten
+    --cube-size: 270px;
+    --half-cube: calc(var(--cube-size) / 2);
+    --neg-half-cube: calc(var(--cube-size) / -2); // Voor de achterkant
+
+    @include tools.respond-to(var.$screen-size-small) {
+        --cube-size: 200px;
+    }
+
+    $corner-size: 10px;
+    $rot-x: -30deg;
+    $rot-y: 20deg;
+
+    $half-corner: calc($corner-size / 2);
+    $anti-rotation: rotateY(-$rot-y) rotateX(-$rot-x);
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px; // Cruciaal voor diepte-effect
+
+    .h3-constrainer-1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center; // Zorgt dat de header en de kubus onder elkaar gecentreerd staan
+        width: 100%;
+
+        .cube {
+            width: var(--cube-size);
+            height: var(--cube-size);
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX($rot-x) rotateY($rot-y);
+            margin: -50px auto 120px auto;
+            @include tools.respond-to(var.$screen-size-small) {
+                margin: -10px auto 120px auto;
+            }
+
+            .face {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+
+                width: 100%;
+                height: 100%;
+                background: rgba(61, 61, 61, 0.2); // Semi-transparant voor zicht op hoeken
+                border: 1px solid rgba(145, 145, 145, 0.2);
+
+                top: 0;
+                left: 0;
+                pointer-events: none;
+                backface-visibility: visible;
+
+                &.front {
+                    border: none;
+                    border-left: 1px solid #ffffff;
+
+                    border-bottom: 1px solid #ffffff;
+                    background: rgba(61, 61, 61, 0); // Semi-transparant voor zicht op hoeken
+                }
+
+                &.left {
+                    // Z-as: van Corner 3 (Blue) de diepte in naar Corner 7 (Purple)
+                    // Op de 'left' face is de onderrand de lijn die naar achteren loopt
+                    border: none;
+                    border-bottom: 1px solid #ffffff;
+                    background: rgba(61, 61, 61, 0); // Semi-transparant voor zicht op hoeken
+                }
+
+                .label-rect {
+                    display: inline-block;
+                    text-align: center;
+                    white-space: nowrap;
+                    font-size: var.$font-size-m;
+                }
+            }
+
+            .face.left,
+            .face.right {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .front {
+                transform: rotateY(0deg) translateZ(var(--half-cube));
+            }
+            .back {
+                transform: rotateX(180deg) translateZ(var(--half-cube));
+            }
+            .right {
+                transform: rotateY(90deg) translateZ(var(--half-cube));
+                .label-rect {
+                    transform: rotateY(180deg);
+                }
+            }
+            .left {
+                transform: rotateY(-90deg) translateZ(var(--half-cube));
+            }
+            .top {
+                transform: rotateX(90deg) translateZ(var(--half-cube));
+            }
+            .bottom {
+                transform: rotateX(-90deg) translateZ(var(--half-cube));
+            }
+
+            /* =======================================
+            AXIS LABELS POSITIONING
+        ======================================= */
+            .axis-label {
+                position: absolute;
+                font-size: var.$font-size-m;
+                color: white; // Of een kleur naar keuze
+                pointer-events: none;
+                white-space: nowrap;
+                z-index: 1001;
+                transform: translateZ(var(--half-cube)) $anti-rotation;
+
+                .textWrapper {
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%); // Horizontaal centreren boven het punt
+                    text-align: center;
+                    white-space: nowrap;
+
+                    .title {
+                        font-size: var.$font-size-m;
+                    }
+                    .date {
+                        font-size: var.$font-size-m;
+                        opacity: 0.8;
+                    }
+                }
+            }
+
+            // Y-as: Bovenop Corner 1 (Magenta)
+            .y-axis {
+                transform: translateZ(var(--half-cube)) $anti-rotation;
+
+                .textWrapper {
+                    bottom: 15px;
+                }
+            }
+
+            // X-as: Bovenop Corner 4 (Cyan)
+            .x-axis {
+                bottom: -$half-corner;
+                right: -$half-corner;
+                left: auto; // Reset eerdere left
+                transform: translateZ(var(--half-cube)) $anti-rotation;
+
+                .textWrapper {
+                    bottom: 20px;
+                }
+            }
+
+            // Z-as: Bovenop Corner 7 (Purple)
+            .z-axis {
+                bottom: -$half-corner;
+                left: -$half-corner;
+                // Gebruik neg-half-cube om helemaal naar de achterste hoek te gaan
+                transform: translateZ(var(--neg-half-cube)) $anti-rotation;
+
+                .textWrapper {
+                    bottom: 20px;
+                }
+            }
+
+            // Stijl voor de hoekcirkels
+            .corner {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                transform-style: preserve-3d;
+
+                width: $corner-size;
+                height: $corner-size;
+                border-radius: 50%;
+                z-index: 999;
+
+                .cordinates {
+                    position: absolute;
+                    top: calc(100% + 8px); // Direct onder de corner-dot
+                    left: 50%;
+                    transform: translateX(-50%) translateZ(20px); // Centreer en duw iets naar voren
+
+                    font-size: var.$font-size-xs;
+                    font-weight: 200;
+                    white-space: nowrap;
+                    pointer-events: none;
+
+                    // Zorg dat ze altijd zichtbaar zijn
+                    backface-visibility: visible;
+                    z-index: 1001;
+                }
+
+                &.corner-1,
+                &.corner-2,
+                &.corner-5,
+                &.corner-6 {
+                    .cordinates {
+                        bottom: calc(100% + 10px);
+                        top: auto; // Reset eventuele top waarden
+                    }
+                }
+
+                // ONDERSTE hoeken (3, 4, 7, 8) -> Tekst aan de ONDERKANT
+                &.corner-3,
+                &.corner-4,
+                &.corner-7,
+                &.corner-8 {
+                    .cordinates {
+                        top: calc(100% + 10px);
+                        bottom: auto; // Reset eventuele bottom waarden
+                    }
+                }
+
+                // Kleur-loop voor de cirkels en de colour
+                @each $color-name in ("cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue") {
+                    &.#{$color-name} {
+                        // Haal eerst de specifieke kleuren-map op (bijv. de map voor 'cyan')
+                        $color-map: map.get(var.$colors, $color-name);
+
+                        // Pak daaruit de 'default' kleur voor de cirkel
+                        background-color: map.get($color-map, "default");
+                    }
+                }
+            }
+
+            // Voorzijde hoeken (translateZ +half)
+            .corner-1 {
+                top: -$half-corner;
+                left: -$half-corner;
+                transform: translateZ(var(--half-cube)) $anti-rotation;
+            }
+            .corner-2 {
+                top: -$half-corner;
+                right: -$half-corner;
+                transform: translateZ(var(--half-cube)) $anti-rotation;
+            }
+            .corner-3 {
+                bottom: -$half-corner;
+                left: -$half-corner;
+                transform: translateZ(var(--half-cube)) $anti-rotation;
+            }
+            .corner-4 {
+                bottom: -$half-corner;
+                right: -$half-corner;
+                transform: translateZ(var(--half-cube)) $anti-rotation;
+            }
+
+            .corner-5 {
+                top: -$half-corner;
+                left: -$half-corner;
+                transform: translateZ(var(--neg-half-cube)) $anti-rotation;
+            }
+            .corner-6 {
+                top: -$half-corner;
+                right: -$half-corner;
+                transform: translateZ(var(--neg-half-cube)) $anti-rotation;
+            }
+            .corner-7 {
+                bottom: -$half-corner;
+                left: -$half-corner;
+                transform: translateZ(var(--neg-half-cube)) $anti-rotation;
+            }
+            .corner-8 {
+                bottom: -$half-corner;
+                right: -$half-corner;
+                transform: translateZ(var(--neg-half-cube)) $anti-rotation;
+            }
+        }
+    }
+}

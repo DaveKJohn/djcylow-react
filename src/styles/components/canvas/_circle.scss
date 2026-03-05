@@ -1,0 +1,195 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+/* =======================================
+    CIRCLE LAYOUT (Canvas 4)
+   ======================================= */
+#canvas_circle {
+    aspect-ratio: 20 / 15;
+
+    // Gebaseerd op: 320px -> 800px
+    --radius: clamp(110px, 28.95vw + 17.37px, 220px);
+
+    max-width: 600px;
+
+
+    // Layer 2: De lijnen met bolletjes
+    .lines {
+        .line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: calc((1.3 * var(--radius)) - 30px);
+            background: rgba(150, 150, 150, 0);
+            transform-origin: center center;
+            z-index: 1;
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                width: clamp(6px, 1.05vw + 2.63px, 10px);
+                height: clamp(6px, 1.05vw + 2.63px, 10px);
+                border-radius: 50%;
+                transform: translateX(-50%);
+            }
+
+            &::before {
+                top: -5px;
+            }
+            &::after {
+                bottom: -5px;
+            }
+        }
+
+        .line-45 {
+            transform: translate(-50%, -50%) rotate(22.5deg);
+            &::before {
+                background-color: var(--blue-default);
+            }
+            &::after {
+                background-color: var(--orange-default);
+            }
+        }
+        .line-90 {
+            transform: translate(-50%, -50%) rotate(67.5deg);
+            &::before {
+                background-color: var(--purple-default);
+            }
+            &::after {
+                background-color: var(--yellow-default);
+            }
+        }
+        .line-135 {
+            transform: translate(-50%, -50%) rotate(112.5deg);
+            &::before {
+                background-color: var(--magenta-default);
+            }
+            &::after {
+                background-color: var(--green-default);
+            }
+        }
+        .line-180 {
+            transform: translate(-50%, -50%) rotate(157.5deg);
+            &::before {
+                background-color: var(--red-default);
+            }
+            &::after {
+                background-color: var(--cyan-default);
+            }
+        }
+    }
+
+    .gradient {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        // De lijnen zijn (1.1 * radius).
+        // Door hier 1.0 of lager te gebruiken, wordt de cirkel kleiner dan de lijnen.
+        height: calc(0.8 * var(--radius));
+        width: calc(0.8 * var(--radius));
+
+        border-radius: 50%;
+
+        background: conic-gradient(
+            from 22.5deg,
+            #0000ff 0%,
+            #7f00ff 12.5%,
+            #ff00ff 25%,
+            #ff0000 37.5%,
+            #ff7f00 50%,
+            #ffff00 62.5%,
+            #00ff00 75%,
+            #00ffff 87.5%,
+            #0000ff 100%
+        );
+
+        -webkit-mask: radial-gradient(farthest-side, transparent 92%, black 94%);
+        mask: radial-gradient(farthest-side, transparent 92%, black 94%);
+        z-index: 2;
+    }
+
+    // Layer 3: De vormen (colour)
+    .colours {
+        $v-off: clamp(-40px, -2.11vw - 18.26px, -24px);
+        $h-off: clamp(-27px, 2.63vw - 43.42px, -35px);
+
+        $v-off-side: clamp(5px, 1.32vw + 0.79px, 10px);
+        $h-off-side: clamp(5px, 1.32vw + 0.79px, 10px);
+
+        @mixin position-on-circle($angle) {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            // Basis rotatie om de cirkel heen
+            transform: translate(-50%, -50%) rotate(#{$angle}deg) translateY(calc(-1 * var(--radius)))
+                rotate(-#{$angle}deg);
+        }
+
+        .colour {
+            @include tools.colour-base;
+            z-index: 5;
+
+            p {
+                font-size: inherit;
+                line-height: inherit;
+            }
+
+            &.blue {
+                @include position-on-circle(22.5);
+                transform: translate(-50%, -50%) rotate(22.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
+                    rotate(-22.5deg) translateX(calc(-1 * #{$h-off}));
+                @include tools.colour-theme("blue");
+            }
+            &.purple {
+                @include position-on-circle(67.5);
+                transform: translate(-50%, -50%) rotate(67.5deg) translateY(calc(-1 * var(--radius))) rotate(-67.5deg)
+                    translateY(#{$v-off-side}) translateX(calc(-1 * #{$h-off-side}));
+                @include tools.colour-theme("purple");
+            }
+            &.magenta {
+                @include position-on-circle(112.5);
+                transform: translate(-50%, -50%) rotate(112.5deg) translateY(calc(-1 * var(--radius))) rotate(-112.5deg)
+                    translateY(calc(-1 * #{$v-off-side})) translateX(calc(-1 * #{$h-off-side}));
+                @include tools.colour-theme("magenta");
+            }
+            &.red {
+                @include position-on-circle(157.5);
+                transform: translate(-50%, -50%) rotate(157.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
+                    rotate(-157.5deg) translateX(calc(-1 * #{$h-off}));
+                @include tools.colour-theme("red");
+            }
+            &.orange {
+                @include position-on-circle(202.5);
+                transform: translate(-50%, -50%) rotate(202.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
+                    rotate(-202.5deg) translateX(#{$h-off});
+                @include tools.colour-theme("orange");
+            }
+
+            &.green {
+                @include position-on-circle(292.5);
+                transform: translate(-50%, -50%) rotate(292.5deg) translateY(calc(-1 * var(--radius))) rotate(-292.5deg)
+                    translateY(#{$v-off-side}) translateX(#{$h-off-side});
+                @include tools.colour-theme("green");
+            }
+
+            &.yellow {
+                @include position-on-circle(247.5);
+                transform: translate(-50%, -50%) rotate(247.5deg) translateY(calc(-1 * var(--radius))) rotate(-247.5deg)
+                    translateY(calc(-1 * #{$v-off-side})) translateX(#{$h-off-side});
+                @include tools.colour-theme("yellow");
+            }
+            &.cyan {
+                @include position-on-circle(337.5);
+                transform: translate(-50%, -50%) rotate(337.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
+                    rotate(-337.5deg) translateX(#{$h-off});
+                @include tools.colour-theme("cyan");
+            }
+        }
+    }
+}

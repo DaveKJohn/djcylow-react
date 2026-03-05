@@ -1,0 +1,29 @@
+//diensten.scss
+
+// 1. ABSTRACTS
+@use "abstracts/mixins";
+@use "abstracts/variables" as var;
+
+// 2. VENDORS (Optioneel: externe stijlen)
+
+// 3. BASE
+@use 'base/reset';
+@use 'base/typography';
+
+// 4. LAYOUT
+@use 'layout/footer';
+@use 'layout/navigation';
+@use 'layout/onderhoud';
+
+// 5. components
+@use 'components/button';
+@use 'components/core/contactformWrapper';
+
+// 6. PAGES
+@use 'pages/diensten';
+
+// 7. THEMES
+
+// 8. UTILITIES
+@use 'utilities/spacing';
+@use 'utilities/colors';
