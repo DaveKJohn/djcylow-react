@@ -1,6 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from 'next/dynamic';
+
+// Dit zorgt ervoor dat het component pas wordt geladen als het nodig is
+const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
+    ssr: false,
+    loading: () => <div style={{ height: "78px" }}>Captcha laden...</div>,
+}) as any;
 
 export default function ContactForm() {
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -104,11 +111,11 @@ export default function ContactForm() {
 
                         {/* Recaptcha Placeholder - Let op: vereist externe script in layout.tsx indien gebruikt */}
                         <div className="column wrapper spacing-xs start" id="recaptcha">
-                            <div
-                                className="g-recaptcha"
-                                data-sitekey="6Ldk2uErAAAAANzM5R9ViVRwPNjDD-a44pUf5yd3"
-                                data-action="LOGIN"
-                            ></div>
+                            <ReCAPTCHA
+                                sitekey="6Ldk2uErAAAAANzM5R9ViVRwPNjDD-a44pUf5yd3"
+                                // Voeg ': string | null' toe aan de value parameter
+                                onChange={(value: string | null) => console.log("Captcha value:", value)}
+                            />
                         </div>
 
                         {status === "error" && (

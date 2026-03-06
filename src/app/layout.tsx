@@ -8,6 +8,7 @@ import '@/styles/luister.scss';
 import '@/styles/musicmoodcolours.scss';
 
 
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -28,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-   <html lang="nl">
+    <html lang="nl">
       <head>
         {/* Google Tag Manager - Head */}
         <Script id="gtm-script" strategy="afterInteractive">
@@ -39,11 +40,7 @@ export default function RootLayout({
           })(window,document,'script','dataLayer','GTM-KCH7Q5L');`}
         </Script>
 
-        {/* Google ReCaptcha Script */}
-        <Script
-          src="https://www.google.com/recaptcha/api.js"
-          strategy="afterInteractive"
-        />
+      
       </head>
       <body className={`${poppins.variable} antialiased`}>
         {/* Google Tag Manager - Noscript (voor als JS uit staat) */}
