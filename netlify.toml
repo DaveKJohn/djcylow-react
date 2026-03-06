@@ -2,11 +2,8 @@
   command = "npm run build"
   publish = ".next"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-[plugins.inputs]
-  disableNetlifyForms = true
+# We laten de [[plugins]] sectie hier helemaal weg. 
+# Netlify installeert de Next.js Runtime automatisch op basis van je package.json.
 
 [[headers]]
   for = "/*"
@@ -14,6 +11,3 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # Let op: ik heb de CSP even weggelaten. 
-    # Next.js 16 (met Turbopack) heeft vaak specifieke inline-scripts die je oude CSP blokkeert.
-    # Krijg je de site live? Voeg dan pas de CSP weer stap voor stap toe.
