@@ -4,8 +4,8 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-  # We pinnen de versie op een versie die de Forms-bug niet heeft
-  version = "4.41.3" 
+  # We gebruiken hier 'pinned_version' zoals de error aangaf
+  pinned_version = "4.41.3"
 
 [[headers]]
   for = "/*"
