@@ -2,8 +2,10 @@
   command = "npm run build"
   publish = ".next"
 
-# We laten de [[plugins]] sectie hier helemaal weg. 
-# Netlify installeert de Next.js Runtime automatisch op basis van je package.json.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  # We pinnen de versie op een versie die de Forms-bug niet heeft
+  version = "4.41.3" 
 
 [[headers]]
   for = "/*"
