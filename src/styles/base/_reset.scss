@@ -76,7 +76,7 @@ body {
     &.flex {
         @include tools.respond-to(var.$screen-size-medium) {
             align-items: flex-start !important;
-            text-align: left !important;            
+            text-align: left !important;
         }
     }
 }
@@ -203,31 +203,13 @@ body {
 
         img {
             display: block;
+            // Gebruik !important op desktop om de 500px te garanderen
+            width: 500px !important;
+            min-width: 500px !important;
+            height: auto !important;
             object-fit: contain;
-
-            width: auto;
             max-height: $hero-height;
-
             margin-left: -10px;
-        }
-
-        //MOBILE VIEW
-        @include tools.respond-to(var.$screen-size-medium) {
-            display: contents;
-            height: auto;
-
-            img {
-                width: 160%;
-                max-height: none;
-
-                margin-left: -70px;
-            }
-
-            @include tools.respond-to(var.$screen-size-small) {
-                img {
-                    margin-left: -40px;
-                }
-            }
         }
     }
 
@@ -235,11 +217,40 @@ body {
         width: 55%;
         margin-left: 42% !important;
         z-index: 2;
-
         padding-top: 170px;
+    }
 
-        //MOBILE VIEW
-        @include tools.respond-to(var.$screen-size-medium) {
+    // ALLES VOOR MOBILE HIER SAMENVOEGEN
+    @include tools.respond-to(var.$screen-size-medium) {
+        display: grid;
+        grid-template-columns: 45% 55%;
+        min-height: auto;
+        align-items: start;
+        // Bij een grid gebruik je align-content voor verticale centrering van de tracks
+        align-content: center;
+
+        .hero_wrapper {
+            display: contents;
+            height: auto;
+
+            img {
+                // Gebruik vw (viewport width) om de exacte grootte op het scherm te bepalen
+                // Begin bij 60vw (60% van de schermbreedte) en pas aan tot het goed is
+                width: 65vw !important;
+                min-width: 65vw !important;
+
+                max-width: none !important;
+                max-height: none !important;
+                height: auto !important;
+
+                // Pas de margin-left aan om hem weer op de juiste plek te trekken
+                // Omdat de foto nu 65vw breed is, moet hij een flink stuk naar links
+                margin-left: -40px;
+                object-fit: contain;
+            }
+        }
+
+        .hero_container {
             display: contents !important;
             width: 100%;
             margin-left: 0;
@@ -258,16 +269,6 @@ body {
             }
         }
     }
-
-    //MOBILE VIEW
-    @include tools.respond-to(var.$screen-size-medium) {
-        display: grid;
-        grid-template-columns: 45% 55%;
-        min-height: auto;
-        align-items: start;
-        // Bij een grid gebruik je align-content voor verticale centrering van de tracks
-        align-content: center;
-    }
 }
 
 .show_border_bottom {
@@ -277,4 +278,3 @@ body {
 .hidden {
     display: none;
 }
-

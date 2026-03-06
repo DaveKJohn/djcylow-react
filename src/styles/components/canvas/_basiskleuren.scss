@@ -1,4 +1,6 @@
+@use "sass:list";
 @use "sass:map";
+@use "sass:string"; 
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
@@ -121,13 +123,21 @@ $card-height-basiskleuren: 150px;
                 }
 
                 @each $color in "cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue" {
-                    $c: to-lower-case($color);
+                    // Gebruik string. module
+                    $c: string.to-lower-case($color);
+
                     &.#{$c} {
                         .back {
                             background-color: var(--#{$c}-default) !important;
                         }
+
                         p {
-                            color: if(index(var.$dark-text-colors, $c), var(--black-100), var(--white-100)) !important;
+                            // Vervang de inline if(...) door een echt blok om de warning te killen
+                            @if list.index(var.$dark-text-colors, $c) {
+                                color: var(--black-100) !important;
+                            } @else {
+                                color: var(--white-100) !important;
+                            }
                         }
                     }
                 }

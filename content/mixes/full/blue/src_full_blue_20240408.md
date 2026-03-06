@@ -22,7 +22,7 @@ tags: ["mixes"]
 
 soundcloud_url: 
 public_development_URL: https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/blue/Blue_Full_f_EDM_DNB_20240408_Audio_V1%20(Vol.%202).mp3
-image_square: /image/full/blue/square/image_full_blue_20240408_square.jpg
-image_wide_1200px: /image/full/blue/wide/image_full_blue_20240408_wide-1200px.jpg
-image_wide_480px: /image/full/blue/wide/image_full_blue_20240408_wide-480px.jpg
+image_square: /images/full/blue/square/image_full_blue_20240408_square.jpg
+image_wide_1200px: /images/full/blue/wide/image_full_blue_20240408_wide-1200px.jpg
+image_wide_480px: /images/full/blue/wide/image_full_blue_20240408_wide-480px.jpg
 ---

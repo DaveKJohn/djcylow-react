@@ -1,11 +1,13 @@
+@use "sass:list";
 @use "sass:map";
+@use "sass:string"; // Nieuw toegevoegd
 @use "variables" as var;
 
 @mixin apply-spacing($direction, $with-margin: false) {
-    // We bepalen de map via een ouderwetse @if blok. 
+    // We bepalen de map via een ouderwetse @if blok.
     // Dit omzeilt de verouderde if() functie volledig.
-    $gap-map: var.$r-spacing; 
-    
+    $gap-map: var.$r-spacing;
+
     @if $direction == "v" {
         $gap-map: var.$c-spacing;
     }
@@ -206,11 +208,12 @@
     2. MIXINS voor de Music Mood Colours pagina
    ======================================= */
 @mixin colour-theme($color-name) {
-    $c: to-lower-case($color-name);
+    // Gebruik string.to-lower-case
+    $c: string.to-lower-case($color-name);
     background-color: var(--#{$c}-default);
 
-    // Vervang 'if(index(...))' door een normale @if/@else
-    @if index(var.$dark-text-colors, $c) {
+    // Gebruik list.index
+    @if list.index(var.$dark-text-colors, $c) {
         color: var(--black-100);
         p {
             color: var(--black-100);
@@ -237,7 +240,8 @@
 
 @mixin color-generator {
     @each $color in var.$all-colors {
-        $c: to-lower-case($color);
+        // Gebruik string.to-lower-case
+        $c: string.to-lower-case($color);
 
         &.colour.#{$c},
         .colour.#{$c} {
@@ -249,8 +253,8 @@
             }
 
             p {
-                // Ook hier de inline if() vervangen door @if/@else
-                @if index(var.$dark-text-colors, $c) {
+                // Gebruik list.index
+                @if list.index(var.$dark-text-colors, $c) {
                     color: var(--black-100) !important;
                 } @else {
                     color: var(--white-100) !important;
@@ -260,7 +264,7 @@
     }
 }
 
-// --- Mixin voor CTA Effect ---
+// --- Button Hover Effect Mixin ---
 @mixin cta-hover-effect($transition-property: width) {
     &::before {
         content: "";
@@ -270,9 +274,15 @@
         width: 0;
         height: 100%;
         transition: $transition-property 300ms ease-in-out;
+        z-index: 0; // Zorg dat dit achter de tekst (span) blijft
     }
 
     &:hover::before {
         width: 100%;
+    }
+
+    span {
+        position: relative;
+        z-index: 1;
     }
 }

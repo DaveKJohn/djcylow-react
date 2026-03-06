@@ -215,8 +215,9 @@
 
             .progress {
                 background-color: #f1f12b;
-                transform: scaleX(0) translateY(-50%); // Progressie via JS
+                transform: translateY(-50%);
                 z-index: 2;
+                transition: width 0.1s linear;
             }
         }
 

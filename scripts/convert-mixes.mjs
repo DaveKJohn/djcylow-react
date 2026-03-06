@@ -56,8 +56,8 @@ function convert() {
         jaar: data.jaar?.toString() || '',
         permalink: data.permalink || '',
         audioSrc: data.public_development_URL || '',
-        image: data.image_wide_480px?.replace('/image/', '/images/') || '',
-        image_square: data.image_square?.replace('/image/', '/images/') || '',
+        image: data.image_wide_480px?.replace('/images/', '/images/') || '',
+        image_square: data.image_square?.replace('/images/', '/images/') || '',
         tracklist: data.tracklist || []
       };
     })

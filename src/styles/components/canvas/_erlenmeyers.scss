@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
@@ -195,7 +196,8 @@ $card-height-erlenmeyers: 180px;
                     &[data-filter-color="#{$color}"] {
                         background-color: var(--#{$color}-default);
 
-                        @if index(var.$dark-text-colors, $color) {
+                        // FIX: Gebruik list.index in plaats van index
+                        @if list.index(var.$dark-text-colors, $color) {
                             color: #000000;
                         } @else {
                             color: #ffffff;

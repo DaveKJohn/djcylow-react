@@ -25,9 +25,9 @@ tags: ["mixes"]
 spotify_url: https://open.spotify.com/playlist/6ShakhEy9NgJ2OkMwG5shi?si=8ca104ac13cf4d29
 soundcloud_url: 
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_128BPM_20240705_Audio_V3%20(Vol.%201).mp3
-image_square: /image/light/orange/square/image_light_orange_20240705_square.jpg
-image_wide_1200px: /image/light/orange/wide/image_light_orange_20240705_wide-1200px.jpg
-image_wide_480px: /image/light/orange/wide/image_light_orange_20240705_wide-480px.jpg
+image_square: /images/light/orange/square/image_light_orange_20240705_square.jpg
+image_wide_1200px: /images/light/orange/wide/image_light_orange_20240705_wide-1200px.jpg
+image_wide_480px: /images/light/orange/wide/image_light_orange_20240705_wide-480px.jpg
 
 tracklist:
   - time: "00:00"

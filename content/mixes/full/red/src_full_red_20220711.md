@@ -23,7 +23,7 @@ tags: ["mixes"]
 
 soundcloud_url: 
 public_development_URL: https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020220711_Audio_v1%20(Vol.%201).mp3
-image_square: /image/full/red/square/image_full_red_20220711_square.jpg
-image_wide_1200px: /image/full/red/wide/image_full_red_20220711_wide-1200px.jpg
-image_wide_480px: /image/full/red/wide/image_full_red_20220711_wide-480px.jpg
+image_square: /images/full/red/square/image_full_red_20220711_square.jpg
+image_wide_1200px: /images/full/red/wide/image_full_red_20220711_wide-1200px.jpg
+image_wide_480px: /images/full/red/wide/image_full_red_20220711_wide-480px.jpg
 ---

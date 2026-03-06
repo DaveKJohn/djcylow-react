@@ -17,13 +17,14 @@
 
 // 5. COMPONENTS
 @use "components/button";
-@use "components/core/contactformWrapper";
+
 
 // 6. PAGES
 @use "pages/index";
-@use "pages/luister"; // Alvast toegevoegd voor je nieuwe pagina
-
-// 7. THEMES
+@use "pages/luister";
+@use "pages/luister_mix";
+@use "pages/diensten";
+@use "pages/musicmoodcolours";
 
 // 8. UTILITIES (Genereert eenmalig ALLE utility classes)
 @use "utilities/spacing";

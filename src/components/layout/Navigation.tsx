@@ -50,10 +50,10 @@ export default function Nav() {
                     <Link href="/">
                         <Image
                             src="/images/djcylow_logo.png"
-                            width={160}
+                            width={150}
                             height={50}
-                            alt="DJ Cylow logo"
-                            priority
+                            alt="Logo"
+                            style={{ height: 'auto' }} // Voeg dit toe
                         />
                     </Link>
                 </div>

@@ -24,9 +24,9 @@ tags: ["mixes"]
 spotify_url: https://open.spotify.com/playlist/1iQPKVMFJDScyHrC8lLvQK?si=07004df16f704098
 soundcloud_url: https://soundcloud.com/musicmoodcolourslight/dance-mix-cyan-music-mood-colour-light-f-1
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20250307_Audio_V1%20(Vol.%202).mp3
-image_square: /image/light/cyan/square/image_light_cyan_20250307_square.jpg
-image_wide_1200px: /image/light/cyan/wide/image_light_cyan_20250307_wide-1200px.jpg
-image_wide_480px: /image/light/cyan/wide/image_light_cyan_20250307_wide-480px.jpg
+image_square: /images/light/cyan/square/image_light_cyan_20250307_square.jpg
+image_wide_1200px: /images/light/cyan/wide/image_light_cyan_20250307_wide-1200px.jpg
+image_wide_480px: /images/light/cyan/wide/image_light_cyan_20250307_wide-480px.jpg
 
 tracklist:
   - time: "00:00"

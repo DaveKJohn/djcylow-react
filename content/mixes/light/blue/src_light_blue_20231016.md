@@ -25,9 +25,9 @@ order: 7
 
 soundcloud_url: https://soundcloud.com/musicmoodcolourslight/liquid-dnb-mix-blue-music-mood-bl4-3
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20231016_Audio_V2%20(Vol.%205).mp3
-image_square: /image/light/blue/square/image_light_blue_20231016_square.jpg
-image_wide_1200px: /image/light/blue/wide/image_light_blue_20231016_wide-1200px.jpg
-image_wide_480px: /image/light/blue/wide/image_light_blue_20231016_wide-480px.jpg
+image_square: /images/light/blue/square/image_light_blue_20231016_square.jpg
+image_wide_1200px: /images/light/blue/wide/image_light_blue_20231016_wide-1200px.jpg
+image_wide_480px: /images/light/blue/wide/image_light_blue_20231016_wide-480px.jpg
 
 tracklist:
   - time: "00:00"

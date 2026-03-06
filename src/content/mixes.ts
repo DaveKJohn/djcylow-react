@@ -7,20 +7,3 @@ export const moods = [
   { id: "purple", label: "Purple", output: "verdriet · pijn · verlies · rouw · schaamte" },
   { id: "blue", label: "Blue", output: "neutraal · nuchter · stabiel · tevreden · serene" },
 ];
-
-export const mixes = [
-  {
-    id: "1",
-    color: "Cyan",
-    genre: "EDM",
-    power: "Full",
-    frequency: "High",
-    volume: "Loud",
-    maand: "Maart",
-    dag: "05",
-    jaar: "2024",
-    permalink: "mixes/cyan-edm-full",
-    audioId: "soundcloud-id-hier"
-  },
-  // Voeg hier meer mixen toe...
-];

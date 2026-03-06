@@ -5,7 +5,7 @@ import ContactForm from "@/components/sections/ContactForm";
 const pageData = {
   title: "Boek DJ Cylow voor jouw evenement!",
   description: "De DJ die iedereen op de dansvloer krijgt.",
-  image: "/image/diensten.jpg",
+  image: "/images/diensten.jpg",
   permalink: "diensten"
 };
 

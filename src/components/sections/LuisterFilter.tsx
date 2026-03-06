@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import AudioPlayer from '../ui/AudioPlayer';
 // 1. Importeer de gegenereerde JSON data
 import mixesData from '@/data/mixes.json';
+import Link from 'next/link';
 
 const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
     yellow: { colorVar: '--yellow-default', text: 'avontuur · passie · ambitie · gretig' },
@@ -134,10 +135,11 @@ export default function LuisterFilter() {
                             <div key={mix.id} className="column wrapper spacing-xxs card">
                                 {/* 3. Gebruik de data uit de JSON voor de AudioPlayer */}
                                 <AudioPlayer id={mix.id} src={mix.audioSrc} image={mix.image} />
-                                <div className="column wrapper h-start text">
-                                    <a className="size-xs bold" href={`/${mix.permalink}`}>
-                                        {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power}                                {mix.frequency} · {mix.volume}
-                                    </a>
+                                <div className="column wrapper h-start text">                                
+
+                                    <Link className="size-xs bold" href={`/${mix.permalink}`}>
+                                        {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power} {mix.frequency} · {mix.volume}
+                                    </Link>
                                     <p className="size-xxs">{mix.maand} {mix.dag}, {mix.jaar}</p>
                                 </div>
                             </div>

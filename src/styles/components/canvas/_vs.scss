@@ -20,34 +20,29 @@ $card-height-vs: 150px;
         align-items: center;
         justify-content: center;
         top: 50%;
-        // Dit trekt de button precies de helft van zijn eigen hoogte terug omhoog
         transform: translateY(-50%);
     }
 
-    // De scroll-content
     #carousel-vs {
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
-
-        // Zorgt dat de snap-positie niet tegen de rand kleeft
         scroll-padding: 0 20px;
 
         &::-webkit-scrollbar {
             display: none;
         }
 
-        // De wrapper die de content breedte bepaalt
         .carousel-wrapper {
             display: flex;
             flex-wrap: nowrap;
             width: max-content;
-            min-width: 100%; // Nodig voor centrering op desktop
+            min-width: 100%;
             margin: map.get(var.$in-spacing, "xs") 0;
 
             .vr {
                 width: 1px;
-                flex-shrink: 0; // Voorkomt dat de lijn naar 0px gedrukt wordt
+                flex-shrink: 0;
                 height: 80%;
                 background-color: var(--black-80);
                 align-self: center;
@@ -55,11 +50,8 @@ $card-height-vs: 150px;
                 margin: 0 map.get(var.$c-spacing, "m");
             }
 
-            
-            .cyan-vs-red,
-            .yellow-vs-purple,
-            .green-vs-magenta,
-            .orange-vs-blue {
+            // Pakt alle kleurcombinaties (bijv. .cyan-vs-red)
+            [class*="-vs-"] {
                 flex-shrink: 0;
                 scroll-snap-align: start;
                 width: $card-width-vs;
@@ -98,41 +90,32 @@ $card-height-vs: 150px;
                         border-radius: 50%;
                     }
 
-                    @each $name,
-                        $hex
-                            in (
-                                "cyan": #00ffff,
-                                "green": #00ff00,
-                                "yellow": #ffff00,
-                                "orange": #ff7f00,
-                                "red": #ff0000,
-                                "magenta": #ff00ff,
-                                "purple": #7f00ff,
-                                "blue": #0000ff
-                            )
-                    {
+                    @each $name, $hex in (
+                        "cyan": #00ffff,
+                        "green": #00ff00,
+                        "yellow": #ffff00,
+                        "orange": #ff7f00,
+                        "red": #ff0000,
+                        "magenta": #ff00ff,
+                        "purple": #7f00ff,
+                        "blue": #0000ff
+                    ) {
                         .circle.#{$name}::after {
                             background-color: $hex;
                         }
                     }
                 }
 
-                // Zorgt dat de VS kolom alleen de ruimte van de tekst inneemt
-
                 .audioplayer-wrapper {
                     height: var(--card_height_vs);
                     width: var(--card_width_vs);
-
                     margin: 5px;
-
                     outline-style: solid;
                     outline-width: 1px;
                     outline-offset: 5px;
 
                     @each $name in var.$all-colors {
                         &.#{$name} {
-                            // Verwijst naar de CSS variabelen die je :root genereert
-                            // Bijv: var(--cyan-default)
                             outline-color: var(--#{$name}-default);
                         }
                     }
@@ -146,15 +129,12 @@ $card-height-vs: 150px;
                         left: auto;
                     }
 
-                    .ready-wrapper {
-                        button {
-                            width: 50px;
-                            height: 50px;
-
-                            svg {
-                                width: 40px;
-                                height: 40px;
-                            }
+                    .ready-wrapper button {
+                        width: 50px;
+                        height: 50px;
+                        svg {
+                            width: 40px;
+                            height: 40px;
                         }
                     }
 
@@ -164,31 +144,19 @@ $card-height-vs: 150px;
 
                         .timeline-wrapper {
                             padding: 5px;
-
-                            .total,
-                            .progress {
-                                height: 4px;
-                            }
+                            .total, .progress { height: 4px; }
                         }
 
-                        // Player Controls
                         .layer-wrapper {
                             .pausefilters button {
                                 width: 30px;
                                 height: 30px;
-                                svg {
-                                    width: 30px;
-                                    height: 30px;
-                                }
+                                svg { width: 30px; height: 30px; }
                             }
-
                             .volume-wrapper button {
                                 width: 34px;
                                 height: 34px;
-                                svg {
-                                    width: 18px;
-                                    height: 18px;
-                                }
+                                svg { width: 18px; height: 18px; }
                             }
                         }
                     }
