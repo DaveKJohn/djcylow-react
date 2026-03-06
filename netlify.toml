@@ -1,11 +1,6 @@
 [build]
   command = "npm run build"
-  publish = ".next"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-  # We gebruiken hier 'pinned_version' zoals de error aangaf
-  pinned_version = "4.41.3"
+  publish = "out"
 
 [[headers]]
   for = "/*"
