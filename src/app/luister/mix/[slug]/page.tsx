@@ -1,23 +1,24 @@
-'use client';
-
-import React, { useState } from 'react'; // Voeg useState toe
-import { useParams, useRouter } from 'next/navigation';
+import React from 'react';
 import Link from 'next/link';
 import mixesData from '@/data/mixes.json';
 import AudioPlayer from '@/components/ui/AudioPlayer';
+import BackButton from '@/components/ui/BackButton'; // Die maken we hieronder even
 
 import '@/styles/pages/_luister_mix.scss';
 
-export default function MixDetail() {
-    const params = useParams();
-    const router = useRouter();
-    const slug = params.slug;
+// 1. De Statische Params (geen verandering nodig, behalve import naam)
+export async function generateStaticParams() {
+    return mixesData.map((mix) => ({
+        slug: mix.permalink.split('/').pop(), // We pakken alleen het laatste deel van de url
+    }));
+}
 
-    // State om bij te houden welke mix speelt (nodig voor de AudioPlayer logica)
-    const [activeId, setActiveId] = useState<string | null>(null);
+// 2. De Pagina (nu een Server Component)
+export default async function MixDetail({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
 
-    const fullPermalink = `luister/mix/${slug}`;
-    const mix = mixesData.find((m) => m.permalink === fullPermalink) as any;
+    // We zoeken de mix op basis van de slug
+    const mix = mixesData.find((m) => m.permalink.endsWith(slug)) as any;
 
     if (!mix) {
         return (
@@ -28,26 +29,15 @@ export default function MixDetail() {
         );
     }
 
-    // Functie die de AudioPlayer aanroept wanneer je op play/pauze klikt
-    const handleTogglePlay = (id: string) => {
-        setActiveId(prevId => (prevId === id ? null : id));
-    };
-
     return (
         <main className="luister mix">
             <section className="column text-wrapper WoB">
                 <div className="column constrainer">
                     <div className="column wrapper spacing-m v-push-m">
-
+                        
                         <div className="column wrapper spacing-xs h-start return-wrapper">
-                            <button
-                                className="btn passive terug-btn"
-                                type="button"
-                                onClick={() => router.back()}
-                                aria-label="Terug naar overzicht"
-                            >
-                                <span className="size-xs">Terug naar overzicht</span>
-                            </button>
+                            {/* De terug-knop moet Client-side zijn, dus die zetten we in een component */}
+                            <BackButton />
                         </div>
 
                         <div className="column text-wrapper header">
@@ -56,14 +46,11 @@ export default function MixDetail() {
                             </h1>
                         </div>
 
-                        {/* AUDIOPLAYER AREA */}
-                        <div
-                            className="column stack wrapper spacing-l audioplayer-wrapper"
-                            data-color={mix.color?.toLowerCase()}
-                            data-genre={mix.genre?.toLowerCase()}
-                            data-power={mix.power?.toLowerCase()}
-                            data-id={mix.id}
-                        >
+                        <div className="column stack wrapper spacing-l audioplayer-wrapper"
+                             data-color={mix.color?.toLowerCase()}
+                             data-genre={mix.genre?.toLowerCase()}
+                             data-power={mix.power?.toLowerCase()}
+                             data-id={mix.id}>
                             <AudioPlayer
                                 id={mix.id}
                                 src={mix.audioSrc}
@@ -72,7 +59,6 @@ export default function MixDetail() {
                             />
                         </div>
 
-                        {/* TRACKLIST */}
                         <div className="column text-wrapper spacing-xs tracklist">
                             <div className="row text-wrapper">
                                 <div className="column text-wrapper h-start header">
