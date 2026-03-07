@@ -78,12 +78,15 @@ exports.handler = async (event) => {
             };
         }
 
+        // 3. RECAPTCHA VERIFICATIE
         let verificationData = { success: false };
 
         if (process.env.NETLIFY_DEV) {
+            console.log("DEBUG: Overslaan reCAPTCHA in Dev modus");
             verificationData = { success: true };
         } else {
             if (!token) {
+                console.error("DEBUG: Token ontbreekt in de data");
                 return { statusCode: 400, headers, body: JSON.stringify({ error: 'reCAPTCHA token ontbreekt.' }) };
             }
 
@@ -91,13 +94,22 @@ exports.handler = async (event) => {
             recaptchaParams.append('secret', RECAPTCHA_SECRET_KEY);
             recaptchaParams.append('response', token);
 
-            const verificationResponse = await axios.post('https://www.google.com/recaptcha/api/siteverify', recaptchaParams.toString(), {
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            });
-            verificationData = verificationResponse.data;
+            try {
+                // LET OP: Hier stond 'header', moet 'headers' zijn (meervoud)
+                const verificationResponse = await axios.post('https://www.google.com/recaptcha/api/siteverify', recaptchaParams.toString(), {
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                });
+
+                verificationData = verificationResponse.data;
+                console.log('GOOGLE RECAPTCHA RESULTAAT:', JSON.stringify(verificationData));
+            } catch (axiosError) {
+                console.error('AXIOS/GOOGLE FOUT:', axiosError.message);
+                return { statusCode: 500, headers, body: JSON.stringify({ error: 'Kon reCAPTCHA niet verifiëren' }) };
+            }
         }
 
         if (!verificationData.success) {
+            console.error("RECAPTCHA GEWEIGERD. Foutcodes:", JSON.stringify(verificationData['error-codes']));
             return { statusCode: 400, headers, body: JSON.stringify({ error: 'reCAPTCHA verificatie mislukt.' }) };
         }
 
