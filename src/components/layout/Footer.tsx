@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="column wrapper spacing-l center logo">
             <Link href="/" className="btn">
               <Image
-                src="/images/djcylow_logo.png"
+                src="/images/djcylow_logo.webp"
                 alt="DJ Cylow logo"
                 width={280}   // De gewenste breedte
                 height={88}   // De hoogte (Next.js berekent de verhouding, maar dit is een goede richtlijn)

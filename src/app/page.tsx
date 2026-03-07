@@ -48,7 +48,7 @@ export default function HomePage() {
                     <div className="column stack constrainer hero">
                         <div className="column overlay wrapper hero_wrapper">
                             <Image
-                                src="/images/face.png"
+                                src="/images/face.webp"
                                 width={500}
                                 height={500}
                                 alt="logo"
@@ -148,7 +148,7 @@ export default function HomePage() {
                             <div className="row wrapper flex v-start">
                                 <div className="column wrapper spacing-xs left">
                                     <Image
-                                        src="/images/verzoek.png"
+                                        src="/images/verzoek.webp"
                                         width={400}
                                         height={400}
                                         alt="verzoek"

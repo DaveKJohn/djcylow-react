@@ -49,7 +49,7 @@ export default function Nav() {
                 <div className="col-1 container logo-wrapper">
                     <Link href="/">
                         <Image
-                            src="/images/djcylow_logo.png"
+                            src="/images/djcylow_logo.webp"
                             width={150}
                             height={50}
                             alt="Logo"
