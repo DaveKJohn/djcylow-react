@@ -1,24 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import dynamic from 'next/dynamic';
 
-// Dit zorgt ervoor dat het component pas wordt geladen als het nodig is
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
     ssr: false,
     loading: () => <div style={{ height: "78px" }}>Captcha laden...</div>,
 }) as any;
 
 export default function ContactForm() {
-    // ALLE states netjes binnen de component:
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+    
+    // NIEUW: State om te bepalen of de captcha echt in de DOM moet
+    const [shouldLoadCaptcha, setShouldLoadCaptcha] = useState(false);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    // NIEUW: Laad de captcha pas als het formulier bijna in beeld is (Performance boost!)
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    setShouldLoadCaptcha(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: "200px" } // Laad 200px voordat het formulier in beeld komt
+        );
+
+        if (formRef.current) {
+            observer.observe(formRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        // Extra check: stop als de captcha niet is ingevuld
         if (!captchaToken) {
             setStatus("error");
             setErrorMessage("Bevestig a.u.b. dat je geen robot bent.");
@@ -66,11 +86,11 @@ export default function ContactForm() {
             <div className="column wrapper spacing-m h-push-m">
                 {status !== "success" ? (
                     <form
+                        ref={formRef}
                         className="column wrapper spacing-s form-wrapper show_border_bottom"
                         id="contactForm"
                         onSubmit={handleSubmit}
                     >
-                        {/* Honeypot & Netlify hidden fields */}
                         <input type="hidden" name="form-name" value="contact" />
                         <div style={{ display: "none" }}>
                             <label>
@@ -78,7 +98,6 @@ export default function ContactForm() {
                             </label>
                         </div>
 
-                        {/* Hidden input voor het captcha token zodat het in 'data' komt */}
                         <input type="hidden" name="g-recaptcha-response" value={captchaToken || ""} />
 
                         <div className="row wrapper spacing-s flex" id="naam">
@@ -122,11 +141,15 @@ export default function ContactForm() {
                             ></textarea>
                         </div>
 
-                        <div className="column wrapper spacing-xs start" id="recaptcha">
-                            <ReCAPTCHA
-                                sitekey="6Ldk2uErAAAAANzM5R9ViVRwPNjDD-a44pUf5yd3"
-                                onChange={(value: string | null) => setCaptchaToken(value)}
-                            />
+                        <div className="column wrapper spacing-xs start" id="recaptcha" style={{ minHeight: '78px' }}>
+                            {/* Render alleen als de gebruiker in de buurt van het formulier is */}
+                            {shouldLoadCaptcha && (
+                                <ReCAPTCHA
+                                    sitekey="6Ldk2uErAAAAANzM5R9ViVRwPNjDD-a44pUf5yd3"
+                                    onChange={(value: string | null) => setCaptchaToken(value)}
+                                    theme="dark"
+                                />
+                            )}
                         </div>
 
                         {status === "error" && (
@@ -140,7 +163,7 @@ export default function ContactForm() {
                                 <button
                                     className="btn cta size-m verzend-form-btn"
                                     type="submit"
-                                    disabled={!captchaToken} // Optioneel: knop uitschakelen tot captcha klaar is
+                                    disabled={!captchaToken}
                                 >
                                     <span>Verzenden</span>
                                 </button>
