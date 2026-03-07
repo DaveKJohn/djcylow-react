@@ -7,14 +7,23 @@ interface AudioPlayerProps {
   src: string;
   image: string;
   showVolumeSlider?: boolean;
-  onPlay?: (id: string) => void; // Optioneel gemaakt
-  activeId?: string | null;      // Optioneel gemaakt
+  onPlay?: (id: string) => void;
+  activeId?: string | null;
   layerClass?: string;
   contentClass?: string;
+  wrapperClass?: string; 
 }
 
 export default function AudioPlayer({
-  id, src, image, showVolumeSlider = true, onPlay, activeId, layerClass = "", contentClass = ""
+  id, 
+  src, 
+  image, 
+  showVolumeSlider = true, 
+  onPlay, 
+  activeId, 
+  layerClass = "", 
+  contentClass = "",
+  wrapperClass = "content stack audioplayer-wrapper" // Standaard waarde
 }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -23,7 +32,6 @@ export default function AudioPlayer({
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
 
-  // FIX: Alleen pauzeren als activeId is gezet EN het niet mijn ID is
   useEffect(() => {
     if (activeId !== undefined && activeId !== null && activeId !== id && isPlaying) {
       audioRef.current?.pause();
@@ -46,15 +54,12 @@ export default function AudioPlayer({
 
   const handleTogglePlay = async () => {
     if (!audioRef.current) return;
-
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
       setIsLoading(true);
-      // Geef aan de parent door dat we gaan spelen (voor de LuisterFilter)
       if (onPlay) onPlay(id);
-      
       try {
         await audioRef.current.play();
         setIsPlaying(true);
@@ -69,11 +74,13 @@ export default function AudioPlayer({
   const stateClass = isLoading ? 'is-loading' : isPlaying ? 'is-playing' : 'is-ready';
 
   return (
-    <div className={`content stack audioplayer-wrapper ${stateClass}`}>
+    /* AANPASSING HIER: Gebruik wrapperClass voor de buitenste div */
+    <div className={`${wrapperClass} ${stateClass}`} data-id={id}>
+      
       {/* Layer 1: Thumbnail */}
       <div className={`layer-1 ${layerClass} overlay column thumbnail`} style={{ backgroundImage: `url('${image}')` }}></div>
 
-      {/* Layer 2: Ready (Play Button) */}
+      {/* Layer 2: Ready Wrapper */}
       <div className={`layer-2 ${layerClass} overlay column center ready-wrapper`}>
         <button className="btn" onClick={handleTogglePlay} aria-label="Speel audio af">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
@@ -85,7 +92,7 @@ export default function AudioPlayer({
         <div className="loading spinner"></div>
       </div>
 
-      {/* Layer 4: Playing (Controls) */}
+      {/* Layer 4: Playing */}
       <div className={`layer-4 ${layerClass} overlay column playing-wrapper`}>
         <div className={`row-2 ${contentClass} row timestamp-wrapper`}>
           <div className={`col-1 ${layerClass} column timestamp current`}>{formatTime(currentTime)}</div>

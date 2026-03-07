@@ -4,9 +4,6 @@ import Script from "next/script";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import "@/styles/main.scss";
-import '@/styles/luister.scss';
-import '@/styles/musicmoodcolours.scss';
-
 
 
 const poppins = Poppins({

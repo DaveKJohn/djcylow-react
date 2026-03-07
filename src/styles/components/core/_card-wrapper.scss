@@ -147,38 +147,7 @@
     // --- PLAYING: De Interface ---
     .playing-wrapper {
         justify-content: flex-end;
-
-        // Social Icons (Layer 1 binnen Layer 4)
-        .social-wrapper {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            gap: 5px;
-
-            .soundcloud-wrapper,
-            .youtube-wrapper {
-                &.hidden {
-                    display: none;
-                }
-
-                a {
-                    @extend %button-base-reset;
-                    background-color: rgba(0, 0, 0, 0.8);
-                    border-radius: 50%;
-                    padding: 6px;
-                    transition: background 0.2s;
-
-                    &:hover {
-                        background-color: rgb(56, 56, 56);
-                    }
-                    svg {
-                        width: 22px;
-                        height: 22px;
-                        color: white;
-                    }
-                }
-            }
-        }
+       
 
         // Tijdstempels
         .timestamp-wrapper {

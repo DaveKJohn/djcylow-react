@@ -1,19 +1,13 @@
+'use client';
+
 import React from 'react';
-import BasiskleurenCarousel from '@/components/canvas/BasiskleurenCarousel'; // Geen rood meer na herstart TS server
+import BasiskleurenCarousel from '@/components/canvas/BasiskleurenCarousel';
 import CanvasCircle from '@/components/canvas/CanvasCircle';
 import VsKleurenCarousel from '@/components/canvas/VsKleurenCarousel';
 import KubusNeuro from '@/components/canvas/KubusNeuro';
 import KubusHoeken from '@/components/canvas/KubusHoeken';
 import Erlenmeyers from '@/components/canvas/Erlenmeyers';
 import ContactForm from "@/components/sections/ContactForm";
-
-export const metadata = {
-    title: 'Music Mood Colours | DJ CYLOW',
-    description: 'Ontdek hoe DJ Cylow muziek organiseert op basis van kleur en stemming. Leer de biologische blauwdruk achter elke track herkennen.',
-    alternates: {
-        canonical: 'https://www.djcylow.com/musicmoodcolours',
-    },
-};
 
 const CONTENT = {
     intro: {
@@ -67,12 +61,21 @@ export default function MusicMoodColoursPage() {
             </section>
 
             <section className="column text-wrapper spacing-xl WoB">
-                {/* 2. INTRO SECTIE */}
+
+                {/* 2. INTRO */}
                 <div className="column text-wrapper spacing-m" id="intro_1">
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.intro.s1p1}</p>
+                        </div>
+                    </div>
+                    <div className="column constrainer">
+                        <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.intro.s1p2}</p>
+                        </div>
+                    </div>
+                    <div className="column constrainer">
+                        <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.intro.s1p3}</p>
                         </div>
                     </div>
@@ -85,27 +88,22 @@ export default function MusicMoodColoursPage() {
                             <h2>Het kleurenspectrum van muziek</h2>
                         </div>
                     </div>
-
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.spectrum.s2p1}</p>
                         </div>
                     </div>
-
-                    {/* Eerste Canvas: De Cirkel */}
                     <div className="column constrainer">
                         <div className="column stack wrapper spacing-xl black-90-bg in-push-l" id="canvas_circle">
                             <CanvasCircle />
                         </div>
                     </div>
-
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.spectrum.s2p2}</p>
                         </div>
                     </div>
 
-                    {/* Tweede Canvas: De Carousel met fragmenten */}
                     <BasiskleurenCarousel />
 
                     <div className="column constrainer">
@@ -117,107 +115,88 @@ export default function MusicMoodColoursPage() {
                     </div>
                 </div>
 
-                {/* 4. COMPLEMENTAIRE KLEUREN (Uitersten) */}
+                {/* 4. COMPLEMENTAIR */}
                 <div className="column text-wrapper spacing-m" id="complementaire_kleuren_3">
                     <div className="column constrainer header">
                         <div className="column text-wrapper spacing-xl header">
                             <h2>Complementaire muziekstemmingen</h2>
                         </div>
                     </div>
-
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.complementair.s3p1}</p>
                         </div>
                     </div>
-
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.complementair.s3p2}</p>
                         </div>
                     </div>
-
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.complementair.s3p3}</p>
                         </div>
                     </div>
-
-                    {/* VOLLE BREEDTE CAROUSEL */}
-                    <div className="row wrapper spacing-s visual carousels black-90-bg " id="vs">
+                    <div className="row wrapper spacing-s visual carousels black-90-bg" id="vs">
                         <VsKleurenCarousel />
                     </div>
                 </div>
 
-                {/* 5. NEUROTRANSMITTERS */}
+                {/* 5. NEURO (Muziekale kaart) */}
                 <div className="column text-wrapper spacing-m" id="neurotransmitters_4">
                     <div className="column constrainer header">
-                        <div className="column text-wrapper spacing-xl header">
+                        <div className="column text-wrapper spacing-xl">
                             <h2>Muziekale kaart</h2>
                         </div>
                     </div>
-
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.neuro.s4p1}</p>
                         </div>
                     </div>
-
                     <div className="column constrainer">
-
                         <ul className="column text-wrapper spacing-s">
-
                             <li className="column text-wrapper spacing-xxs">
                                 <h3>Dopamine</h3>
                                 <p className="size-m">{CONTENT.neuro.dopamine}</p>
                             </li>
-
                             <li className="column text-wrapper spacing-xxs">
                                 <h3>Serotonine</h3>
                                 <p className="size-m">{CONTENT.neuro.serotonine}</p>
                             </li>
-
                             <li className="column text-wrapper spacing-xxs">
                                 <h3>(nor)Adrenaline</h3>
                                 <p className="size-m">{CONTENT.neuro.adrenaline}</p>
                             </li>
-
                         </ul>
-
                     </div>
-
                     <div className="column constrainer">
-                        <div className="column text-wrapper spacing-xl">
+                        <div className="column text-wrapper spacing-xxs">
                             <p className="size-m">{CONTENT.neuro.s4p5}</p>
                         </div>
                     </div>
-
                     <div className="column constrainer visual">
                         <div className="column wrapper spacing-s black-90-bg in-push-m" id="canvas_3Dspace_3">
                             <KubusNeuro />
                         </div>
                     </div>
-
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xxs">
                             <p className="size-m">{CONTENT.neuro.s4p6}</p>
                         </div>
                     </div>
-
                     <div className="column constrainer visual">
                         <div className="column wrapper spacing-s black-90-bg in-push-m" id="canvas_3Dspace">
                             <KubusHoeken />
                         </div>
                     </div>
-
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xxs">
                             <p className="size-m">{CONTENT.neuro.s4p7}</p>
                         </div>
                     </div>
-
                     <div className="column constrainer visual">
-                        <div className="column wrapper spacing-s black-90-bg in-push-m" id="canvas_erlenmeyers">
+                        <div className="column wrapper spacing-s black-90-bg in-push-l" id="canvas_erlenmeyers">
                             <Erlenmeyers />
                         </div>
                     </div>
@@ -228,7 +207,15 @@ export default function MusicMoodColoursPage() {
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.conclusie.s5p1}</p>
+                        </div>
+                    </div>
+                    <div className="column constrainer">
+                        <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.conclusie.s5p2}</p>
+                        </div>
+                    </div>
+                    <div className="column constrainer">
+                        <div className="column text-wrapper spacing-xl">
                             <p className="size-m">{CONTENT.conclusie.s5p3}</p>
                         </div>
                     </div>

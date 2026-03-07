@@ -99,14 +99,12 @@ export default function BasiskleurenCarousel() {
             <div key={name} className={`column stack colour ${name}`}>
               {mix ? (
                 <AudioPlayer
-                  id={mix.id}
+                  id={String(mix.id)}
                   src={mix.audioSrc}
                   image={mix.image_square}
                   showVolumeSlider={false}
                   activeId={activeMixId}
                   onPlay={(id) => setActiveMixId(id)}
-                  layerClass="content h2-content-6"
-                  contentClass="content h2-content-7"
                 />
               ) : (
                 <p className="error size-xxs">Geen mix gevonden voor {name}.</p>

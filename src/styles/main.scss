@@ -15,9 +15,23 @@
 @use "layout/footer";
 @use "layout/onderhoud";
 @use "layout/banner";
+@use "layout/hero";
 
 // 5. COMPONENTS
 @use "components/button";
+@use 'components/carouselWrapper';
+
+@use "components/core/card-wrapper";
+@use "components/core/contactformWrapper";
+
+
+// canvas
+@use "components/canvas/cube";
+@use "components/canvas/cube3";
+@use "components/canvas/circle";
+@use "components/canvas/vs";
+@use "components/canvas/basiskleuren";
+@use "components/canvas/erlenmeyers";
 
 
 // 6. PAGES

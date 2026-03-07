@@ -55,7 +55,6 @@ export default function VsKleurenCarousel() {
 
     return (
         <div className="row wrapper spacing-s visual carousels black-90-bg in-push-l">
-            {/* Linker Pijl */}
             <div className={`arrow left ${!showLeftArrow ? 'hidden' : ''}`} onClick={() => scroll(-1)}>
                 <button className="btn">
                     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -69,41 +68,42 @@ export default function VsKleurenCarousel() {
                     {vsPairs.map((pair, index) => (
                         <React.Fragment key={pair.id}>
                             <div className={`column ${pair.id}`}>
-                                {/* Bovenste Mix */}
-                                <div className={`stack colour ${pair.top} audioplayer-wrapper`}>
-                                    <AudioPlayer
-                                        id={String(pair.topMix?.id ?? "")}
-                                        src={pair.topMix?.audioSrc ?? ""}
-                                        image={pair.topMix?.image_square ?? ""}
-                                        showVolumeSlider={false}
-                                        activeId={activeMixId} // Juiste prop naam
-                                        onPlay={(id) => setActiveMixId(id)} // Gebruik onPlay om de state te updaten
-                                    />
-                                </div>
+                                
+                                {/* Bovenste Mix - Directe aanroep van AudioPlayer met de juiste wrapper classes via props */}
+                                <AudioPlayer
+                                    id={String(pair.topMix?.id ?? "")}
+                                    src={pair.topMix?.audioSrc ?? ""}
+                                    image={pair.topMix?.image_square ?? ""}
+                                    showVolumeSlider={false}
+                                    activeId={activeMixId}
+                                    onPlay={(id) => setActiveMixId(id)}
+                                    // Geef de classes mee die de AudioPlayer intern moet gebruiken voor zijn root div
+                                    wrapperClass={`stack colour ${pair.top} audioplayer-wrapper`}
+                                />
 
                                 <div className="column center middle">
                                     <div className={`column center colour ${pair.top}`}>
-                                        <p>{pair.top}</p>
+                                        <p>{pair.top.charAt(0).toUpperCase() + pair.top.slice(1)}</p>
                                     </div>
                                     <div className="column center vs">
                                         <p>vs</p>
                                     </div>
                                     <div className={`column center colour ${pair.bottom}`}>
-                                        <p>{pair.bottom}</p>
+                                        <p>{pair.bottom.charAt(0).toUpperCase() + pair.bottom.slice(1)}</p>
                                     </div>
                                 </div>
 
                                 {/* Onderste Mix */}
-                                <div className={`stack colour ${pair.bottom} audioplayer-wrapper`}>
-                                    <AudioPlayer
-                                        id={String(pair.bottomMix?.id ?? "")}
-                                        src={pair.bottomMix?.audioSrc ?? ""}
-                                        image={pair.bottomMix?.image_square ?? ""}
-                                        showVolumeSlider={false}
-                                        activeId={activeMixId} // Juiste prop naam
-                                        onPlay={(id) => setActiveMixId(id)} // Gebruik onPlay om de state te updaten
-                                    />
-                                </div>
+                                <AudioPlayer
+                                    id={String(pair.bottomMix?.id ?? "")}
+                                    src={pair.bottomMix?.audioSrc ?? ""}
+                                    image={pair.bottomMix?.image_square ?? ""}
+                                    showVolumeSlider={false}
+                                    activeId={activeMixId}
+                                    onPlay={(id) => setActiveMixId(id)}
+                                    wrapperClass={`stack colour ${pair.bottom} audioplayer-wrapper`}
+                                />
+                                
                             </div>
                             {index < vsPairs.length - 1 && <div className="vr"></div>}
                         </React.Fragment>
@@ -111,7 +111,6 @@ export default function VsKleurenCarousel() {
                 </div>
             </div>
 
-            {/* Rechter Pijl */}
             <div className={`arrow right ${!showRightArrow ? 'hidden' : ''}`} onClick={() => scroll(1)}>
                 <button className="btn">
                     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
