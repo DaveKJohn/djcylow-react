@@ -4,7 +4,7 @@ import Link from "next/link";
 import { homeContent } from "@/content/home";
 import ReadMore from "@/components/ui/ReadMore";
 import ContactForm from "@/components/sections/ContactForm";
-
+import LazyVideo from "@/components/common/LazyVideo";
 
 
 export const metadata: Metadata = {
@@ -107,23 +107,15 @@ export default function HomePage() {
                             </div>
 
                             <div className="row wrapper flex v-start">
-                                <div className="column stack wrapper spacing-xs left">
-                                    <div className="column overlay wrapper">
-                                        <div
-                                            className="lazyload-wrapper"
-                                            style={{ backgroundImage: "url('https://i.ytimg.com/vi/YLNznh1ixT8/hqdefault.jpg')" }}
-                                        ></div>
-                                    </div>
-                                    <div className="column overlay wrapper">
-                                        <div className="play-button"></div>
-                                    </div>
-                                </div>
+                                {/* De nieuwe, schone manier */}
+                                <LazyVideo
+                                    videoId="YLNznh1ixT8"
+                                    thumbnail="https://i.ytimg.com/vi/YLNznh1ixT8/hqdefault.jpg"
+                                />
 
                                 <div className="column text-wrapper spacing-m right story h-start" id="promo_story">
                                     <ReadMore
-                                        teaser={
-                                            <p className="size-m">{homeContent.promo_story_p_one}</p>
-                                        }
+                                        teaser={<p className="size-m">{homeContent.promo_story_p_one}</p>}
                                         hiddenContent={
                                             <>
                                                 <p className="size-m">{homeContent.promo_story_p_two}</p>
@@ -152,7 +144,12 @@ export default function HomePage() {
                                         width={400}
                                         height={400}
                                         alt="verzoek"
-                                        style={{ width: 'auto', height: 'auto' }}
+                                        className="responsive-image" // Gebruik een class voor centrale styling
+                                        style={{
+                                            width: '100%',     // Neemt de breedte van de container aan
+                                            maxWidth: '400px',  // Wordt nooit groter dan het origineel
+                                            height: 'auto'      // Behoudt de verhouding
+                                        }}
                                     />
                                 </div>
 

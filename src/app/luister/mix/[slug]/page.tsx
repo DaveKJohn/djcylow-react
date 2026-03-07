@@ -42,7 +42,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
                         <div className="column text-wrapper header">
                             <h1 className="uppercase">
-                                {mix.color} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power} {mix.frequency} · {mix.volume}
+                                {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power} {mix.frequency} · {mix.volume}
                             </h1>
                         </div>
 

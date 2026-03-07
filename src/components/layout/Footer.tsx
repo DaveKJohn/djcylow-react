@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import EmailDisplay from "@/components/common/EmailDisplay";
 
 export default function Footer() {
   return (
@@ -12,12 +13,11 @@ export default function Footer() {
               <Image
                 src="/images/djcylow_logo.webp"
                 alt="DJ Cylow logo"
-                width={280}   // De gewenste breedte
-                height={88}   // De hoogte (Next.js berekent de verhouding, maar dit is een goede richtlijn)
-                priority      // Zorgt dat het logo snel laadt
+                width={280}
+                height={88}
+                priority             
                 style={{
-                  width: '280px', // Forceer de breedte die je wilt
-                  height: 'auto'  // Laat de browser de hoogte berekenen op basis van de ratio
+                  height: 'auto'
                 }}
               />
             </Link>
@@ -70,7 +70,7 @@ export default function Footer() {
             <div className="row text-wrapper spacing-l center flex split">
 
               <div className="column text-wrapper">
-                <span>info@djcylow.com</span>
+                <EmailDisplay user="info" domain="djcylow.com" />
               </div>
 
               <div className="column text-wrapper">

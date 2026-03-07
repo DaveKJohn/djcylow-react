@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import dynamic from 'next/dynamic';
+import EmailDisplay from "@/components/common/EmailDisplay";
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
     ssr: false,
@@ -12,7 +13,7 @@ export default function ContactForm() {
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-    
+
     // NIEUW: State om te bepalen of de captcha echt in de DOM moet
     const [shouldLoadCaptcha, setShouldLoadCaptcha] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
@@ -38,7 +39,7 @@ export default function ContactForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (!captchaToken) {
             setStatus("error");
             setErrorMessage("Bevestig a.u.b. dat je geen robot bent.");
@@ -77,10 +78,14 @@ export default function ContactForm() {
                     <h2>Contact</h2>
                     <p className="size-m balanced">
                         Stuur een e-mail naar{" "}
-                        <span className="highlight">info@djcylow.com</span>, of vul
-                        hieronder je gegevens in en laat een bericht achter.
+                        <span className="highlight">
+                            <EmailDisplay user="info" domain="djcylow.com" />
+                        </span>
+                        , of vul hieronder je gegevens in en laat een bericht achter.
                     </p>
                 </div>
+
+
             </div>
 
             <div className="column wrapper spacing-m h-push-m">
@@ -147,7 +152,7 @@ export default function ContactForm() {
                                 <ReCAPTCHA
                                     sitekey="6Ldk2uErAAAAANzM5R9ViVRwPNjDD-a44pUf5yd3"
                                     onChange={(value: string | null) => setCaptchaToken(value)}
-                                    theme="dark"
+                                    theme="light"
                                 />
                             )}
                         </div>
