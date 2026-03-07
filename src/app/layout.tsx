@@ -25,22 +25,34 @@ export default function RootLayout({
   return (
     <html lang="nl">
       <head>
-        {/* 1. Eerst de dataLayer initialiseren (nodig voor GTM) */}
-        <Script id="gtm-init" strategy="lazyOnload">
+        {/* Deze ene Script-tag regelt alles. Hij laadt GTM pas als de gebruiker beweegt of na 6 seconden. */}
+        <Script id="gtm-delayed" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'GTM-PK7VHJ46');
+            (function() {
+              var gtmLoaded = false;
+              function loadGTM() {
+                if (gtmLoaded) return;
+                gtmLoaded = true;
+                
+                window.removeEventListener('scroll', loadGTM);
+                window.removeEventListener('mousemove', loadGTM);
+                window.removeEventListener('touchstart', loadGTM);
+
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-PK7VHJ46');
+              }
+
+              window.addEventListener('scroll', loadGTM, {passive: true});
+              window.addEventListener('mousemove', loadGTM);
+              window.addEventListener('touchstart', loadGTM, {passive: true});
+
+              setTimeout(loadGTM, 6000); 
+            })();
           `}
         </Script>
-        
-        {/* 2. Dan het eigenlijke GTM script laden met lazyOnload */}
-        <Script
-          id="gtm-strategy"
-          strategy="lazyOnload"
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-PK7VHJ46"
-        />
       </head>
 
       <body className={`${poppins.variable} antialiased`}>
