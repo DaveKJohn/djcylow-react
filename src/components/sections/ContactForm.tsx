@@ -49,13 +49,17 @@ export default function ContactForm() {
         setStatus("idle");
 
         const formData = new FormData(e.currentTarget);
+        // Maak het object
         const data = Object.fromEntries(formData.entries());
+
+        // CRUCIAAL: Voeg het token handmatig toe aan het object dat je verstuurt
+        data['g-recaptcha-response'] = captchaToken;
 
         try {
             const response = await fetch("/.netlify/functions/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                body: JSON.stringify(data), // Nu zit de token er wél bij
             });
 
             const result = await response.json();
@@ -63,6 +67,7 @@ export default function ContactForm() {
             if (response.ok) {
                 setStatus("success");
             } else {
+                // Dit vangt de 400 error op die de functie teruggeeft
                 throw new Error(result.error || "Er ging iets mis.");
             }
         } catch (error: any) {
@@ -95,6 +100,8 @@ export default function ContactForm() {
                         className="column wrapper spacing-s form-wrapper show_border_bottom"
                         id="contactForm"
                         onSubmit={handleSubmit}
+                        data-netlify="true"
+                        data-netlify-honeypot="bot-field"
                     >
                         <input type="hidden" name="form-name" value="contact" />
                         <div style={{ display: "none" }}>
