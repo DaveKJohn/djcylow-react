@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
+const axios = require('axios');
 
 const RECEIVING_EMAIL = process.env.MAIL_USER;
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 
 exports.handler = async (event) => {
     const headers = {
@@ -14,7 +16,7 @@ exports.handler = async (event) => {
     }
 
     try {
-        console.log('--- START CONTACT FORM SUBMISSION (SKIP RECAPTCHA TEST) ---');
+        console.log('--- START VEILIGE FORMULIER VERWERKING ---');
 
         let bodyContent = event.body;
         if (event.isBase64Encoded) {
@@ -24,19 +26,34 @@ exports.handler = async (event) => {
         let data;
         try {
             data = JSON.parse(bodyContent);
-        } catch (jsonError) {
-            const params = new URLSearchParams(bodyContent);
-            data = Object.fromEntries(params.entries());
+        } catch (e) {
+            data = Object.fromEntries(new URLSearchParams(bodyContent));
         }
 
-        console.log('DATA ONTVANGEN:', JSON.stringify(data));
-
         const { firstName, lastName, email, message } = data;
+        const token = data['g-recaptcha-response'];
 
-        // TIJDELIJK: We negeren reCAPTCHA verificatie volledig om SMTP te testen
-        console.log("DEBUG: reCAPTCHA controle overgeslagen voor SMTP test.");
+        if (!token) {
+            return { statusCode: 400, headers, body: JSON.stringify({ error: 'reCAPTCHA token ontbreekt.' }) };
+        }
 
-        // Hostinger transporter
+        // 1. VERIFIEER BIJ GOOGLE
+        const recaptchaParams = new URLSearchParams();
+        recaptchaParams.append('secret', RECAPTCHA_SECRET_KEY);
+        recaptchaParams.append('response', token);
+
+        const verifyRes = await axios.post('https://www.google.com/recaptcha/api/siteverify', recaptchaParams.toString(), {
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+
+        if (!verifyRes.data.success) {
+            console.error("Google weigerde verificatie:", verifyRes.data['error-codes']);
+            return { statusCode: 400, headers, body: JSON.stringify({ error: 'reCAPTCHA verificatie mislukt.' }) };
+        }
+
+        console.log("reCAPTCHA succesvol geverifieerd.");
+
+        // 2. VERSTUUR MAIL VIA HOSTINGER
         const transporter = nodemailer.createTransport({
             host: process.env.MAIL_HOST,
             port: parseInt(process.env.MAIL_PORT, 10) || 465,
@@ -51,18 +68,25 @@ exports.handler = async (event) => {
             from: `"Contactformulier" <${process.env.MAIL_USER}>`,
             to: RECEIVING_EMAIL,
             replyTo: email,
-            subject: `TEST: Nieuwe aanvraag van ${firstName} ${lastName}`,
-            html: `<p>Naam: ${firstName} ${lastName}</p><p>Bericht: ${message}</p>`,
+            subject: `Boekingsaanvraag: ${firstName} ${lastName}`,
+            html: `
+                <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee;">
+                    <h2 style="color: #333;">Nieuw bericht van djcylow.com</h2>
+                    <p><strong>Naam:</strong> ${firstName} ${lastName}</p>
+                    <p><strong>E-mail:</strong> ${email}</p>
+                    <p><strong>Bericht:</strong></p>
+                    <p style="white-space: pre-wrap;">${message}</p>
+                </div>
+            `,
         };
 
-        console.log("Poging tot verzenden e-mail via Hostinger...");
         await transporter.sendMail(mailOptions);
         console.log("E-mail succesvol verzonden!");
 
         return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ message: "Bericht succesvol verzonden (zonder captcha check)!" })
+            body: JSON.stringify({ message: "Bericht succesvol verzonden!" })
         };
 
     } catch (error) {
@@ -70,7 +94,7 @@ exports.handler = async (event) => {
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ error: `Serverfout: ${error.message}` }),
+            body: JSON.stringify({ error: `Er is iets misgegaan: ${error.message}` }),
         };
     }
 };
