@@ -157,7 +157,7 @@ export default function ContactForm() {
                             {/* Render alleen als de gebruiker in de buurt van het formulier is */}
                             {shouldLoadCaptcha && (
                                 <ReCAPTCHA
-                                    sitekey="6Ldk2uErAAAAANzM5R9ViVRwPNjDD-a44pUf5yd3"
+                                    sitekey="6LfMHYMsAAAAAA1-Kx9-XqhhM_hlaar5iXUY8nd5"
                                     onChange={(value: string | null) => setCaptchaToken(value)}
                                     theme="light"
                                 />
