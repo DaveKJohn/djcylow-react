@@ -90,11 +90,23 @@ exports.handler = async (event) => {
         };
 
     } catch (error) {
-        console.error('Fout in functie:', error);
+        console.error('--- FOUT IN FUNCTIE ---');
+        console.error('Type:', error.name);
+        console.error('Boodschap:', error.message);
+
+        // Zorg dat headers ALTIJD aanwezig zijn, ook bij 500 errors
+        // Anders blokkeert de browser de response en ziet je frontend geen "error" status
         return {
             statusCode: 500,
-            headers,
-            body: JSON.stringify({ error: `Er is iets misgegaan: ${error.message}` }),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                error: 'Er is iets misgegaan bij het verwerken van je aanvraag.',
+                details: error.message
+            }),
         };
     }
 };
