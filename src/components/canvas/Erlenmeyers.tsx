@@ -55,20 +55,18 @@ export default function Erlenmeyers() {
         <>
             {/* 1. OUTPUT */}
             <div className="column wrapper spacing-xs output">
-                <div className={`column wrapper spacing-xxs center emotion-wrapper ${activeColor}`}>
-                    <div className={`column wrapper stack spacing-s colour ${activeColor} audioplayer-wrapper`}>
-                        <AudioPlayer
-                            id={String(currentMix?.id ?? "")}
-                            key={String(currentMix?.id ?? "empty")}
-                            src={currentMix?.audioSrc ?? ""}
-                            image={currentMix?.image_square ?? ""}
-                            showVolumeSlider={false}
-                            activeId={activeMixId}
-                            onPlay={(id) => setActiveMixId(id)}
-                            layerClass="h5-content-1"
-                            contentClass="h4-content-4"
-                        />
-                    </div>
+                <div className={`column wrapper spacing-xs center emotion-wrapper ${activeColor}`}>
+
+                    <AudioPlayer
+                        id={String(currentMix?.id ?? "")}
+                        key={String(currentMix?.id ?? "empty")}
+                        src={currentMix?.audioSrc ?? ""}
+                        image={currentMix?.image_square ?? ""}
+                        showVolumeSlider={false}
+                        activeId={activeMixId}
+                        onPlay={(id) => setActiveMixId(id)}
+                    />
+
 
                     <div className="row text-wrapper spacing-s center">
                         <div className="column wrapper h-end">
