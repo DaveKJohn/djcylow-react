@@ -90,16 +90,19 @@ $card-height-vs: 150px;
                         border-radius: 50%;
                     }
 
-                    @each $name, $hex in (
-                        "cyan": #00ffff,
-                        "green": #00ff00,
-                        "yellow": #ffff00,
-                        "orange": #ff7f00,
-                        "red": #ff0000,
-                        "magenta": #ff00ff,
-                        "purple": #7f00ff,
-                        "blue": #0000ff
-                    ) {
+                    @each $name,
+                        $hex
+                            in (
+                                "cyan": #00ffff,
+                                "green": #00ff00,
+                                "yellow": #ffff00,
+                                "orange": #ff7f00,
+                                "red": #ff0000,
+                                "magenta": #ff00ff,
+                                "purple": #7f00ff,
+                                "blue": #0000ff
+                            )
+                    {
                         .circle.#{$name}::after {
                             background-color: $hex;
                         }
@@ -110,13 +113,23 @@ $card-height-vs: 150px;
                     height: var(--card_height_vs);
                     width: var(--card_width_vs);
                     margin: 5px;
-                    outline-style: solid;
-                    outline-width: 1px;
-                    outline-offset: 5px;
+
+                    // Basis outline settings
+                    outline-style: solid !important;
+                    outline-width: 1px !important;
+                    outline-offset: 5px !important;
 
                     @each $name in var.$all-colors {
+                        // We targeten de wrapper specifiek wanneer deze een nakomeling is van .colour.#{$name}
+                        // De extra .carousels prefix verhoogt de specificity
+                        .carousels .colour.#{$name} & {
+                            outline-color: var(--#{$name}-default) !important;
+                            border-color: var(--#{$name}-default); // Soms helpt dit visueel als outline faalt
+                        }
+
+                        // Voor de zekerheid als de class op het element zelf staat
                         &.#{$name} {
-                            outline-color: var(--#{$name}-default);
+                            outline-color: var(--#{$name}-default) !important;
                         }
                     }
 
@@ -140,23 +153,32 @@ $card-height-vs: 150px;
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(var.$c-spacing, "xs");
+                        gap: map.get(var.$c-spacing, "xxs");
 
                         .timeline-wrapper {
                             padding: 5px;
-                            .total, .progress { height: 4px; }
+                            .total,
+                            .progress {
+                                height: 4px;
+                            }
                         }
 
                         .layer-wrapper {
                             .pausefilters button {
                                 width: 30px;
                                 height: 30px;
-                                svg { width: 30px; height: 30px; }
+                                svg {
+                                    width: 30px;
+                                    height: 30px;
+                                }
                             }
                             .volume-wrapper button {
                                 width: 34px;
                                 height: 34px;
-                                svg { width: 18px; height: 18px; }
+                                svg {
+                                    width: 18px;
+                                    height: 18px;
+                                }
                             }
                         }
                     }

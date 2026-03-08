@@ -209,7 +209,7 @@ $card-height-basiskleuren: 150px;
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(var.$c-spacing, "xs");
+                        gap: map.get(var.$c-spacing, "xxs");
 
                         .timeline-wrapper {
                             padding: 5px;

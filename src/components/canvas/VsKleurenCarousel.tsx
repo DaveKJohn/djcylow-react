@@ -68,18 +68,19 @@ export default function VsKleurenCarousel() {
                     {vsPairs.map((pair, index) => (
                         <React.Fragment key={pair.id}>
                             <div className={`column ${pair.id}`}>
-                                
-                                {/* Bovenste Mix - Directe aanroep van AudioPlayer met de juiste wrapper classes via props */}
-                                <AudioPlayer
-                                    id={String(pair.topMix?.id ?? "")}
-                                    src={pair.topMix?.audioSrc ?? ""}
-                                    image={pair.topMix?.image_square ?? ""}
-                                    showVolumeSlider={false}
-                                    activeId={activeMixId}
-                                    onPlay={(id) => setActiveMixId(id)}
-                                    // Geef de classes mee die de AudioPlayer intern moet gebruiken voor zijn root div
-                                    wrapperClass={`stack colour ${pair.top} audioplayer-wrapper`}
-                                />
+
+                                {/* Bovenste Mix - Verpakt in een div voor de kleur-styling */}
+                                <div className={`stack colour ${pair.top.toLowerCase()}`}>
+                                    <AudioPlayer
+                                        id={String(pair.topMix?.id ?? "")}
+                                        src={pair.topMix?.audioSrc ?? ""}
+                                        image={pair.topMix?.image_square ?? ""}
+                                        showVolumeSlider={false}
+                                        activeId={activeMixId}
+                                        onPlay={(id) => setActiveMixId(id)}
+                                        className={pair.top.toLowerCase()} // Directe kleur-klasse hier!
+                                    />
+                                </div>
 
                                 <div className="column center middle">
                                     <div className={`column center colour ${pair.top}`}>
@@ -93,17 +94,19 @@ export default function VsKleurenCarousel() {
                                     </div>
                                 </div>
 
-                                {/* Onderste Mix */}
-                                <AudioPlayer
-                                    id={String(pair.bottomMix?.id ?? "")}
-                                    src={pair.bottomMix?.audioSrc ?? ""}
-                                    image={pair.bottomMix?.image_square ?? ""}
-                                    showVolumeSlider={false}
-                                    activeId={activeMixId}
-                                    onPlay={(id) => setActiveMixId(id)}
-                                    wrapperClass={`stack colour ${pair.bottom} audioplayer-wrapper`}
-                                />
-                                
+                                {/* Onderste Mix - Verpakt in een div voor de kleur-styling */}
+                                <div className={`stack colour ${pair.bottom}`}>
+                                    <AudioPlayer
+                                        id={String(pair.bottomMix?.id ?? "")}
+                                        src={pair.bottomMix?.audioSrc ?? ""}
+                                        image={pair.bottomMix?.image_square ?? ""}
+                                        showVolumeSlider={false}
+                                        activeId={activeMixId}
+                                        onPlay={(id) => setActiveMixId(id)}
+                                         className={pair.bottom.toLowerCase()} // Directe kleur-klasse hier!
+                                    />
+                                </div>
+
                             </div>
                             {index < vsPairs.length - 1 && <div className="vr"></div>}
                         </React.Fragment>

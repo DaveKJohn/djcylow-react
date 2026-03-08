@@ -46,18 +46,13 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                             </h1>
                         </div>
 
-                        <div className="column stack wrapper spacing-l audioplayer-wrapper"
-                            data-color={mix.color?.toLowerCase()}
-                            data-genre={mix.genre?.toLowerCase()}
-                            data-power={mix.power?.toLowerCase()}
-                            data-id={mix.id}>
-                            <AudioPlayer
-                                id={mix.id}
-                                src={mix.audioSrc}
-                                image={mix.image_wide_1200px || mix.image}
-                                showVolumeSlider={true}
-                            />
-                        </div>
+                        <AudioPlayer
+                            id={mix.id}
+                            src={mix.audioSrc}
+                            image={mix.image_wide_1200px || mix.image}
+                            showVolumeSlider={true}
+                            className={mix.color?.toLowerCase()}
+                        />
 
                         {/* TRACKLIST */}
                         <div className="column text-wrapper spacing-xs tracklist">

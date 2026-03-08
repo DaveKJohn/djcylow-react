@@ -71,12 +71,16 @@
                 font-size: var.$font-size-xxs;
             }
 
-            .timeline-wrapper {
-                padding: map.get(var.$c-spacing, "xs");
+            .timeline-wrapper {                 
 
                 .total,
                 .progress {
+                    position: absolute; // Ze blijven absolute voor het over elkaar heen vallen
+                    top: 50% !important; // Zet ze in het midden
+                    transform: translateY(-50%); // Perfecte uitlijning op de as
                     height: 5px;
+                    left: 0;
+                    width: 100%;
                 }
             }
 
