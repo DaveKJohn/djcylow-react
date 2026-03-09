@@ -8,7 +8,9 @@
 
 // 3. BASE
 @use "base/reset";
+@use "base/buttons";
 @use "base/typography";
+
 
 // 4. LAYOUT
 @use "layout/navigation";
@@ -18,21 +20,23 @@
 @use "layout/hero";
 
 // 5. COMPONENTS
-@use "components/button";
-@use 'components/carouselWrapper';
+@use "components/sections/contactForm";
+@use "components/sections/filter";
+@use "components/sections/filterResult";
 
-@use "components/core/card-wrapper";
-@use "components/core/contactformWrapper";
+// ui
+@use "components/ui/carousel";
+@use "components/ui/backButton";
+@use "components/ui/readMore";
+@use "components/ui/audioplayer";
 
-
-// canvas
-@use "components/canvas/cube";
-@use "components/canvas/cube3";
-@use "components/canvas/circle";
-@use "components/canvas/vs";
-@use "components/canvas/basiskleuren";
+// Music Mood Colour Page Canvassen
+@use "components/canvas/kubusHoeken";
+@use "components/canvas/_kubusNeuro";
+@use "components/canvas/canvasCircle";
+@use "components/canvas/vsKleurenCarousel";
+@use "components/canvas/basiskleurenCarousel";
 @use "components/canvas/erlenmeyers";
-
 
 // 6. PAGES
 @use "pages/index";

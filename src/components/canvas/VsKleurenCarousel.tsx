@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useMemo, useRef, useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
+import Carousel from '@/components/ui/Carousel';
 
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
@@ -11,8 +12,6 @@ import lightOrange from '@/data/mixes/light-orange.json';
 import lightPurple from '@/data/mixes/light-purple.json';
 import lightRed from '@/data/mixes/light-red.json';
 import lightMagenta from '@/data/mixes/light-magenta.json';
-
-
 
 const allMixesData = [
     ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta
@@ -26,128 +25,79 @@ const VS_CONFIG = [
 ];
 
 export default function VsKleurenCarousel() {
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const [showLeftArrow, setShowLeftArrow] = useState(false);
-    const [showRightArrow, setShowRightArrow] = useState(true);
     const [activeMixId, setActiveMixId] = useState<string | null>(null);
 
+    // Deze logica moet blijven staan zodat de component weet welke mixen hij moet tonen
     const vsPairs = useMemo(() => {
         return VS_CONFIG.map(pair => ({
             ...pair,
-            // Hier de !m.ignore verwijderd zodat featured mixen (die op ignore staan) gevonden worden
             topMix: allMixesData.find(m => m.color.toLowerCase() === pair.top && m.featured === true),
             bottomMix: allMixesData.find(m => m.color.toLowerCase() === pair.bottom && m.featured === true),
         }));
     }, []);
 
-    const updateArrows = () => {
-        if (scrollRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-            setShowLeftArrow(scrollLeft > 10);
-            setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
-        }
-    };
-
-    useEffect(() => {
-        const el = scrollRef.current;
-        if (el) {
-            el.addEventListener('scroll', updateArrows);
-            window.addEventListener('resize', updateArrows);
-            updateArrows();
-        }
-        return () => {
-            el?.removeEventListener('scroll', updateArrows);
-            window.removeEventListener('resize', updateArrows);
-        };
-    }, []);
-
-    const scroll = (direction: number) => {
-        if (scrollRef.current) {
-            const scrollAmount = 320;
-            scrollRef.current.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-        }
-    };
-
     return (
-        <div className="row wrapper spacing-s visual carousels black-90-bg in-push-l">
-            <div className={`arrow left ${!showLeftArrow ? 'hidden' : ''}`} onClick={() => scroll(-1)}>
-                <button className="btn">
-                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path fill="currentColor" fillRule="evenodd" d="M8.793 5.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.086 12 8.793 6.707a1 1 0 0 1 0-1.414" clipRule="evenodd" transform="rotate(180 12 12)" />
-                    </svg>
-                </button>
-            </div>
+        <Carousel id="carousel-vs">
+            <div className="row carousel-wrapper center">
+                {vsPairs.map((pair, index) => (
+                    <React.Fragment key={pair.id}>
+                        <div className={`column ${pair.id}`}>
 
-            <div className="column wrapper spacing-xxs no-scrollbar" id="carousel-vs" ref={scrollRef}>
-                <div className="row carousel-wrapper center">
-                    {vsPairs.map((pair, index) => (
-                        <React.Fragment key={pair.id}>
-                            <div className={`column ${pair.id}`}>
-
-                                {/* Bovenste Mix */}
-                                <div className={`stack colour ${pair.top.toLowerCase()}`}>
-                                    {pair.topMix && pair.topMix.audioSrc ? (
-                                        <AudioPlayer
-                                            id={String(pair.topMix.id)}
-                                            src={pair.topMix.audioSrc}
-                                            image={pair.topMix.image_square || ""}
-                                            showVolumeSlider={false}
-                                            activeId={activeMixId}
-                                            onPlay={(id) => setActiveMixId(id)}
-                                            className={pair.top.toLowerCase()}
-                                        />
-                                    ) : (
-                                        <div className="column center wrapper placeholder-mix">
-                                            <p className="size-xxs">Geen mix</p>
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="column center middle">
-                                    <div className={`column center colour ${pair.top}`}>
-                                        <p>{pair.top.charAt(0).toUpperCase() + pair.top.slice(1)}</p>
+                            {/* Bovenste Mix */}
+                            <div className={`stack colour ${pair.top.toLowerCase()}`}>
+                                {pair.topMix && pair.topMix.audioSrc ? (
+                                    <AudioPlayer
+                                        id={String(pair.topMix.id)}
+                                        src={pair.topMix.audioSrc}
+                                        image={pair.topMix.image_square || ""}
+                                        showVolumeSlider={false}
+                                        activeId={activeMixId}
+                                        onPlay={(id) => setActiveMixId(id)}
+                                        className={pair.top.toLowerCase()}
+                                    />
+                                ) : (
+                                    <div className="column center wrapper placeholder-mix">
+                                        <p className="size-xxs">Geen mix</p>
                                     </div>
-                                    <div className="column center vs">
-                                        <p>vs</p>
-                                    </div>
-                                    <div className={`column center colour ${pair.bottom}`}>
-                                        <p>{pair.bottom.charAt(0).toUpperCase() + pair.bottom.slice(1)}</p>
-                                    </div>
-                                </div>
-
-                                {/* Onderste Mix */}
-                                <div className={`stack colour ${pair.bottom}`}>
-                                    {pair.bottomMix && pair.bottomMix.audioSrc ? (
-                                        <AudioPlayer
-                                            id={String(pair.bottomMix.id)}
-                                            src={pair.bottomMix.audioSrc}
-                                            image={pair.bottomMix.image_square || ""}
-                                            showVolumeSlider={false}
-                                            activeId={activeMixId}
-                                            onPlay={(id) => setActiveMixId(id)}
-                                            className={pair.bottom.toLowerCase()}
-                                        />
-                                    ) : (
-                                        <div className="column center wrapper placeholder-mix">
-                                            <p className="size-xxs">Geen mix</p>
-                                        </div>
-                                    )}
-                                </div>
-
+                                )}
                             </div>
-                            {index < vsPairs.length - 1 && <div className="vr"></div>}
-                        </React.Fragment>
-                    ))}
-                </div>
-            </div>
 
-            <div className={`arrow right ${!showRightArrow ? 'hidden' : ''}`} onClick={() => scroll(1)}>
-                <button className="btn">
-                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path fill="currentColor" fillRule="evenodd" d="M8.793 5.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.086 12 8.793 6.707a1 1 0 0 1 0-1.414" clipRule="evenodd" />
-                    </svg>
-                </button>
+                            <div className="column center middle">
+                                <div className={`column center colour ${pair.top}`}>
+                                    <p>{pair.top.charAt(0).toUpperCase() + pair.top.slice(1)}</p>
+                                </div>
+                                <div className="column center vs">
+                                    <p>vs</p>
+                                </div>
+                                <div className={`column center colour ${pair.bottom}`}>
+                                    <p>{pair.bottom.charAt(0).toUpperCase() + pair.bottom.slice(1)}</p>
+                                </div>
+                            </div>
+
+                            {/* Onderste Mix */}
+                            <div className={`stack colour ${pair.bottom}`}>
+                                {pair.bottomMix && pair.bottomMix.audioSrc ? (
+                                    <AudioPlayer
+                                        id={String(pair.bottomMix.id)}
+                                        src={pair.bottomMix.audioSrc}
+                                        image={pair.bottomMix.image_square || ""}
+                                        showVolumeSlider={false}
+                                        activeId={activeMixId}
+                                        onPlay={(id) => setActiveMixId(id)}
+                                        className={pair.bottom.toLowerCase()}
+                                    />
+                                ) : (
+                                    <div className="column center wrapper placeholder-mix">
+                                        <p className="size-xxs">Geen mix</p>
+                                    </div>
+                                )}
+                            </div>
+
+                        </div>
+                        {index < vsPairs.length - 1 && <div className="vr"></div>}
+                    </React.Fragment>
+                ))}
             </div>
-        </div>
+        </Carousel>
     );
 }

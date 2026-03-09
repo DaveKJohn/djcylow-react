@@ -1,0 +1,99 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+:root {
+    --card_width: 304px;
+    --card_height: 171px;
+
+    @include tools.respond-to(var.$screen-size-small) {
+        --card_width: 100%;
+        --card_height: auto;
+    }
+}
+
+
+
+.card {
+    width: var(--card_width);
+
+    @include tools.respond-to(var.$screen-size-small) {
+        width: 100%;
+    }
+
+    // Dummy voor layout/spatiëring
+    &-dummy {
+        width: var(--card_width);
+        height: 0;
+        visibility: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .audioplayer-wrapper {
+        height: auto;
+        aspect-ratio: 16 / 9;
+
+        .ready-wrapper {
+            button {
+                width: 60px;
+                height: 60px;
+
+                svg {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+
+        .playing-wrapper {
+            padding: map.get(var.$c-spacing, "xxs");
+            gap: map.get(var.$c-spacing, "xxs");
+
+            .timestamp-wrapper {
+                font-size: var.$font-size-xxs;
+            }
+
+            .timeline-wrapper {
+                padding: map.get(var.$c-spacing, "xxs");
+
+                .total,
+                .progress {
+                    height: 5px;
+                }
+            }
+
+            // Player Controls
+            .layer-wrapper {
+                .pausefilters button {
+                    width: 40px;
+                    height: 40px;
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+
+                .volume-wrapper {
+                    padding: 0 map.get(var.$c-spacing, "xxs");
+                    height: auto;
+                    border-radius: 1px;
+                    .left {
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+                    .right {
+                        padding: 0 map.get(var.$c-spacing, "xxs");
+
+                        input[type="range"] {
+                            width: 80px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

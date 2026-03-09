@@ -17,12 +17,7 @@
 
     &.passive {
         border: 1px solid;
-        background: none;
-
-        &.read-more-btn {
-            max-width: 170px;
-            padding: map.get(var.$in-spacing, "s");
-        }
+        background: none;       
 
         &.diensten-btn {
             max-width: 300px;
@@ -31,15 +26,6 @@
             @include tools.respond-to(var.$screen-size-medium) {
                 max-width: none;
             }
-        }
-
-        &.terug-btn {
-            max-width: 220px;
-            padding: map.get(var.$in-spacing, "s");
-
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
 
         &.select {

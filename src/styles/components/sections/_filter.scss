@@ -1,0 +1,83 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+
+.btn.select {
+    padding: map.get(var.$c-spacing, "xs") 0;
+    font-size: var.$font-size-s;
+    text-align: center;
+    font-weight: 500;
+
+    flex: 1 1 calc(25% - 22px);
+    max-width: calc(25% - 12px);
+
+    &.is-active,
+    &[aria-pressed="true"] {
+        font-weight: 600;
+    }
+
+    // Vanaf 560px: Max 3 op een rij
+    @media (max-width: 708px) {
+        flex: 1 1 calc(33.33% - 12px);
+        max-width: calc(33.33% - 12px);
+    }
+
+    // Vanaf 460px: Max 2 op een rij
+    @media (max-width: 460px) {
+        flex: 1 1 calc(50% - 12px);
+        max-width: calc(50% - 12px);
+    }
+}
+
+// MOOD specifieke styling
+#filter_mood {
+    .btn.select {
+        &[data-filter-color="orange"][aria-pressed="true"] {
+            background-color: #ff7f00;
+            color: #000000;
+        }
+        &[data-filter-color="green"][aria-pressed="true"] {
+            background-color: #00ff00;
+            color: #000000;
+        }
+        &[data-filter-color="purple"][aria-pressed="true"] {
+            background-color: #7f00ff;
+            color: #ffffff;
+        }
+        &[data-filter-color="red"][aria-pressed="true"] {
+            background-color: #ff0000;
+            color: #ffffff;
+        }
+        &[data-filter-color="blue"][aria-pressed="true"] {
+            background-color: #0000ff;
+            color: #ffffff;
+        }
+        &[data-filter-color="cyan"][aria-pressed="true"] {
+            background-color: #00ffff;
+            color: #000000;
+        }
+        &[data-filter-color="yellow"][aria-pressed="true"] {
+            background-color: #ffff00;
+            color: #000000;
+        }
+    }
+}
+
+#filter_mood_output {
+    .color-wrapper {
+        align-items: center;
+        width: auto;
+        height: auto;
+
+        svg {
+            width: 15px;
+            height: 15px;
+
+            @include tools.respond-to(var.$screen-size-medium) {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+}

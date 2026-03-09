@@ -1,0 +1,12 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+.terug-btn {
+    max-width: 220px;
+    padding: map.get(var.$in-spacing, "s");
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}

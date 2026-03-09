@@ -1,10 +1,6 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
-@use "../abstracts/variables" as var;
-
-/* =======================================
-    carouselWrapper
-    ======================================= */
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
 
 .carousels {
     position: relative;

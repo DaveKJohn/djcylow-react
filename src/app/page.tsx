@@ -51,8 +51,9 @@ export default function HomePage() {
                                 src="/images/face.webp"
                                 width={500}
                                 height={500}
-                                alt="logo"
+                                alt="Dave Kok" 
                                 priority
+                                sizes="(max-width: 768px) 100vw, 500px"
                                 style={{ height: 'auto', width: 'auto' }}
                             />
                         </div>

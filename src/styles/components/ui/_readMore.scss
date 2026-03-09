@@ -1,0 +1,8 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+.read-more-btn {
+    max-width: 170px;
+    padding: map.get(var.$in-spacing, "s");
+}

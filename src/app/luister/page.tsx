@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Filter from '@/components/sections/Filter';
-import Luister from '@/components/sections/Luister';
+import Luister from '@/components/sections/FilterResult';
 
 export default function LuisterPage() {
     const [activeColor, setActiveColor] = useState('all');
