@@ -4,13 +4,10 @@ import matter from 'gray-matter';
 
 // Paden configureren
 const MIXES_DIRECTORY = path.join(process.cwd(), 'content', 'mixes');
-const OUTPUT_DIR = path.join(process.cwd(), 'src', 'data');
-const OUTPUT_PATH = path.join(OUTPUT_DIR, 'mixes.json');
+const OUTPUT_DIR = path.join(process.cwd(), 'src', 'data', 'mixes'); // Submap voor de 14 bestanden
 
-// Hulpfunctie om alle bestanden in submappen te vinden
 function getAllFiles(dirPath, arrayOfFiles) {
   const files = fs.readdirSync(dirPath);
-
   arrayOfFiles = arrayOfFiles || [];
 
   files.forEach(function (file) {
@@ -25,20 +22,20 @@ function getAllFiles(dirPath, arrayOfFiles) {
 }
 
 function convert() {
-  // Controleer of de output map bestaat
+  // Zorg dat de specifieke output map bestaat (en leeg is of overschreven wordt)
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
   const allFiles = getAllFiles(MIXES_DIRECTORY);
 
+  // 1. Eerst alle data inlezen zoals je al deed
   const allMixes = allFiles
     .filter(file => file.endsWith('.md'))
     .map(filePath => {
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       const { data } = matter(fileContent);
 
-      // Helper om te zorgen dat we altijd een boolean (true/false) krijgen
       const toBool = (val) => val === true || val === 'true' || val === 'yes';
 
       return {
@@ -63,8 +60,27 @@ function convert() {
     })
     .sort((a, b) => b.id.localeCompare(a.id));
 
-  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(allMixes, null, 2));
-  console.log(`✅ Succes! ${allMixes.length} mixen gevonden en omgezet naar mixes.json`);
+  // 2. Groeperen en opslaan per bestand
+  const groups = {};
+
+  allMixes.forEach(mix => {
+    // We maken een key zoals "light-blue" of "full-red"
+    const key = `${mix.power}-${mix.color}`;
+    
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key].push(mix);
+  });
+
+  // 3. Elk bestand wegschrijven
+  Object.keys(groups).forEach(key => {
+    const fileName = `${key}.json`;
+    const filePath = path.join(OUTPUT_DIR, fileName);
+    fs.writeFileSync(filePath, JSON.stringify(groups[key], null, 2));
+  });
+
+  console.log(`✅ Succes! ${Object.keys(groups).length} JSON bestanden aangemaakt in ${OUTPUT_DIR}`);
 }
 
 convert();

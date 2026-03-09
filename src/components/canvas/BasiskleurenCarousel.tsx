@@ -1,8 +1,22 @@
 'use client';
 
 import React, { useMemo, useRef, useEffect, useState } from 'react';
-import mixesData from '@/data/mixes.json';
 import AudioPlayer from '@/components/ui/AudioPlayer';
+
+// 1. Importeer ALLE bestanden (Light én Full)
+import lightBlue from '@/data/mixes/light-blue.json';
+import lightCyan from '@/data/mixes/light-cyan.json';
+import lightGreen from '@/data/mixes/light-green.json';
+import lightYellow from '@/data/mixes/light-yellow.json';
+import lightOrange from '@/data/mixes/light-orange.json';
+import lightPurple from '@/data/mixes/light-purple.json';
+import lightRed from '@/data/mixes/light-red.json';
+import lightMagenta from '@/data/mixes/light-magenta.json';
+
+
+const allMixesData = [
+  ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta
+];
 
 const COLORS_CONFIG = [
   { id: 1, name: 'cyan', description: 'Vermaakt' },
@@ -23,10 +37,9 @@ export default function BasiskleurenCarousel() {
 
   const featuredMixes = useMemo(() => {
     return COLORS_CONFIG.map(config => {
-      const mix = mixesData.find(m =>
+      const mix = allMixesData.find(m =>
         m.color.toLowerCase() === config.name.toLowerCase() &&
-        m.featured === true &&
-        m.ignore === true
+        m.featured === true
       );
       return { ...config, mix };
     });
@@ -97,17 +110,24 @@ export default function BasiskleurenCarousel() {
         <div className="row colours">
           {featuredMixes.map(({ name, mix }) => (
             <div key={name} className={`column stack colour ${name}`}>
-              {mix ? (
+              {/* CHECK: Alleen renderen als mix EN mix.audioSrc bestaan */}
+              {mix && mix.audioSrc ? (
                 <AudioPlayer
                   id={String(mix.id)}
                   src={mix.audioSrc}
-                  image={mix.image_square}
+                  // Als image_square null is in de JSON, sturen we "" naar de prop
+                  // zodat TypeScript tevreden is, maar de player rendert alleen
+                  // als de audio (de belangrijkste bron) oké is.
+                  image={mix.image_square || ""}
                   showVolumeSlider={false}
                   activeId={activeMixId}
                   onPlay={(id) => setActiveMixId(id)}
+                  className={name}
                 />
               ) : (
-                <p className="error size-xxs">Geen mix gevonden voor {name}.</p>
+                <div className="column center wrapper" style={{ height: '100%', minHeight: '150px' }}>
+                  <p className="error size-xxs center">Geen mix.</p>
+                </div>
               )}
             </div>
           ))}

@@ -1,0 +1,981 @@
+[
+  {
+    "id": "Red_light_preview",
+    "featured": true,
+    "ignore": true,
+    "color": "red",
+    "genre": "house",
+    "power": "light",
+    "title": "Red Light (f)",
+    "frequency": "(f)",
+    "volume": "",
+    "maand": "",
+    "dag": "",
+    "jaar": "",
+    "permalink": "",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_Preview.mp3",
+    "image": "",
+    "image_square": "/images/light/Red/square/image_light_red_preview_square.jpg",
+    "tracklist": []
+  },
+  {
+    "id": "20251213",
+    "featured": false,
+    "ignore": false,
+    "color": "red",
+    "genre": "edm",
+    "power": "light",
+    "title": "Red Light (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 5",
+    "maand": "Dec",
+    "dag": "13",
+    "jaar": "2025",
+    "permalink": "luister/mix/red-light-m-EDM-128BPM-20251213.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20251213_Audio_V1%20(Vol.%205).mp3",
+    "image": "/images/light/red/wide/image_light_red_20251213_wide-480px.jpg",
+    "image_square": "/images/light/red/square/image_light_red_20251213_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Morttagua - The Invisibles"
+      },
+      {
+        "time": "03:05",
+        "track": "Matan Caspi - Nowhere"
+      },
+      {
+        "time": "05:09",
+        "track": "Yellow Space - Stargate (Tali Muss Remix)"
+      },
+      {
+        "time": "07:13",
+        "track": "Animal Trainer - Memories"
+      },
+      {
+        "time": "09:17",
+        "track": "Moritz Hofbauer - Aestas"
+      },
+      {
+        "time": "11:21",
+        "track": "KYOTTO - Angry AI"
+      },
+      {
+        "time": "13:25",
+        "track": "Joe Fisher - Technocracy (Mayro Remix)"
+      },
+      {
+        "time": "15:29",
+        "track": "Fiona Kraft - Vibration"
+      },
+      {
+        "time": "17:40",
+        "track": "Los Cobra, Tomy Wahl, Zeeqar - Hambre De Lunes"
+      },
+      {
+        "time": "19:44",
+        "track": "Olivier Weiter - Toyger (Mees Salomé Remix)"
+      },
+      {
+        "time": "21:48",
+        "track": "Brigado Crew, Ubbah ft. Aves Volare - Face the Music"
+      },
+      {
+        "time": "23:52",
+        "track": "Callecat & Meeting Molly - Unified Formulas (Digital Mess Remix)"
+      },
+      {
+        "time": "26:01",
+        "track": "Sevenn & ASHER SWISSA - The Pulse Of Machine"
+      },
+      {
+        "time": "28:05",
+        "track": "Voices of Valley - Endless Panorama"
+      },
+      {
+        "time": "29:54",
+        "track": "Hisham Sabbah - Vivid Dreams"
+      },
+      {
+        "time": "32:13",
+        "track": "KAMADEV - Break Through"
+      },
+      {
+        "time": "34:17",
+        "track": "Losless - Scratches from Underworld"
+      },
+      {
+        "time": "36:21",
+        "track": "Dark Matter (ISR) & Kolan - Away From You (Matchy Remix)"
+      },
+      {
+        "time": "38:25",
+        "track": "Mia Mendi & Rafael Cerato - Soethis"
+      },
+      {
+        "time": "40:29",
+        "track": "Strinner & Arude - Aurora"
+      },
+      {
+        "time": "42:32",
+        "track": "MEDUZA & GENESI - Ecstasy"
+      },
+      {
+        "time": "44:36",
+        "track": "D-Nox & K.A.L.I.L - Pangea (Stan Kolev & Matan Caspi Remix)"
+      },
+      {
+        "time": "46:40",
+        "track": "photographs - Your Emptiness (No Distance Remix)"
+      },
+      {
+        "time": "48:44",
+        "track": "Wolves By Night - Pretender (Artche Remix)"
+      },
+      {
+        "time": "50:48",
+        "track": "Space Food - Bombay"
+      },
+      {
+        "time": "52:36",
+        "track": "Jiggler - Ahead"
+      },
+      {
+        "time": "54:56",
+        "track": "Anturage & Alexey Union - See the Light"
+      },
+      {
+        "time": "57:00",
+        "track": "Deniz Kabu - Finding Strings"
+      },
+      {
+        "time": "59:03",
+        "track": "Nohak - Soul Mind"
+      }
+    ]
+  },
+  {
+    "id": "20250916",
+    "featured": false,
+    "ignore": false,
+    "color": "red",
+    "genre": "edm",
+    "power": "light",
+    "title": "Red Light (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 4",
+    "maand": "Sep",
+    "dag": "16",
+    "jaar": "2025",
+    "permalink": "luister/mix/red-light-m-EDM-128BPM-20250916.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250916_Audio_V1%20(Vol.%204).mp3",
+    "image": "/images/light/red/wide/image_light_red_20250916_wide-480px.jpg",
+    "image_square": "/images/light/red/square/image_light_red_20250916_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "ANII - Let's All Make Love"
+      },
+      {
+        "time": "04:07",
+        "track": "Alan Cerra - Reloaded"
+      },
+      {
+        "time": "06:42",
+        "track": "Brigado Crew & Crisstiano - FM"
+      },
+      {
+        "time": "09:17",
+        "track": "Moritz Hofbauer - Altea ft. Johannes Frick"
+      },
+      {
+        "time": "11:52",
+        "track": "Alexander Alar, Bakhova - Barcelona"
+      },
+      {
+        "time": "14:27",
+        "track": "3LAU - Flux"
+      },
+      {
+        "time": "17:01",
+        "track": "Artemis (AR) - Génnisi"
+      },
+      {
+        "time": "19:36",
+        "track": "Vanita - Ailurus (Anakim Remix)"
+      },
+      {
+        "time": "22:11",
+        "track": "Tali Muss, Mayro - Dimension Of Space"
+      },
+      {
+        "time": "24:46",
+        "track": "Paul Anthonee, Paul Angelo & Don Argento - Ledra"
+      },
+      {
+        "time": "27:21",
+        "track": "Fran&Co - Today (Dmitry Molosh Remix)"
+      },
+      {
+        "time": "29:56",
+        "track": "Zac & Who Else - Addicted"
+      },
+      {
+        "time": "32:30",
+        "track": "Jiggler - Illusions"
+      },
+      {
+        "time": "35:05",
+        "track": "Matan Caspi - Sunda"
+      },
+      {
+        "time": "37:40",
+        "track": "Arnas D - Stay Silence (Touchtalk Remix)"
+      },
+      {
+        "time": "40:23",
+        "track": "Harry Grig - Freedom (Mayro Remix)"
+      },
+      {
+        "time": "42:58",
+        "track": "Agustin Pietrocola - Space"
+      },
+      {
+        "time": "45:32",
+        "track": "Virage - Maya"
+      },
+      {
+        "time": "48:07",
+        "track": "Datametrik - Azote"
+      },
+      {
+        "time": "50:27",
+        "track": "Stan Kolev - Iridescent Clouds"
+      },
+      {
+        "time": "53:01",
+        "track": "Second Sine - Tape Wreck"
+      },
+      {
+        "time": "55:52",
+        "track": "Frankie Vertigo - A Voice From the Sea (Aman Anand Intro Mix)"
+      },
+      {
+        "time": "58:11",
+        "track": "Alphadog - Never Mind"
+      },
+      {
+        "time": "01:01:01",
+        "track": "Alexandros Djkevingr & Greg Ignatovich vs blaktone - Tall Figures"
+      },
+      {
+        "time": "01:03:36",
+        "track": "Paradoks - Panarea (Matchy Remix)"
+      },
+      {
+        "time": "01:06:11",
+        "track": "SINAN - Shwy Shwy"
+      },
+      {
+        "time": "01:08:46",
+        "track": "Marius Drescher - Kattas"
+      },
+      {
+        "time": "01:11:21",
+        "track": "Airsand & Max Freeze - Magic Trip"
+      },
+      {
+        "time": "01:14:00",
+        "track": "Anton MAKe - Catollopa (HAFT Remix)"
+      },
+      {
+        "time": "01:16:30",
+        "track": "Mila Journée - Ethernal (OIBAF&WALLEN Remix)"
+      }
+    ]
+  },
+  {
+    "id": "20250401",
+    "featured": false,
+    "ignore": false,
+    "color": "red",
+    "genre": "edm",
+    "power": "light",
+    "title": "Red Light (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 3",
+    "maand": "Apr",
+    "dag": "01",
+    "jaar": "2025",
+    "permalink": "luister/mix/red-light-m-EDM-128BPM-20250401.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250401_Audio_V1%20(Vol.%203).mp3",
+    "image": "/images/light/red/wide/image_light_red_20250401_wide-480px.jpg",
+    "image_square": "/images/light/red/square/image_light_red_20250401_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "ALMA (GER) - Mind Free"
+      },
+      {
+        "time": "02:36",
+        "track": "Jiggler - Serenity"
+      },
+      {
+        "time": "04:40",
+        "track": "Magic Place - Keep Control"
+      },
+      {
+        "time": "06:44",
+        "track": "Bondarev - Manshivaan (Mayro Remix)"
+      },
+      {
+        "time": "08:48",
+        "track": "Beat hasHorizontalPaddingToo, Alexander Alar - Rocken"
+      },
+      {
+        "time": "10:52",
+        "track": "Artaria, Saint Code - Island Of Love"
+      },
+      {
+        "time": "12:56",
+        "track": "Khainz - Reflect"
+      },
+      {
+        "time": "15:00",
+        "track": "Circle of Life - Boo"
+      },
+      {
+        "time": "17:03",
+        "track": "Sarcasmo - A Secret Code"
+      },
+      {
+        "time": "19:07",
+        "track": "Adi Dassler - Erebos"
+      },
+      {
+        "time": "21:11",
+        "track": "Filip Fisher - Your Voice"
+      },
+      {
+        "time": "23:22",
+        "track": "Supacooks - Breaking Walls"
+      },
+      {
+        "time": "25:19",
+        "track": "Daniel Neuland & Martin Ka - U Ready"
+      },
+      {
+        "time": "27:27",
+        "track": "Abstraal & Pontias - Abyss Toward Hope (Kiko Remix)"
+      },
+      {
+        "time": "29:27",
+        "track": "Arude & Binaryh - Chronology (Maxi Vega Remix)"
+      },
+      {
+        "time": "31:30",
+        "track": "Local Dialect - Rakshasi (Space Food Remix)"
+      },
+      {
+        "time": "33:34",
+        "track": "Hot TuneiK - Poema"
+      },
+      {
+        "time": "35:38",
+        "track": "Cherry (UA) - Machines"
+      },
+      {
+        "time": "37:42",
+        "track": "HotLap - You and I (ft. Shells)"
+      },
+      {
+        "time": "39:46",
+        "track": "Horisone - How I Lost Her"
+      },
+      {
+        "time": "41:50",
+        "track": "ARUDE - APOPHENIA"
+      },
+      {
+        "time": "43:54",
+        "track": "Olivier Weiter - Madaar (Marius Drescher Remix)"
+      },
+      {
+        "time": "45:58",
+        "track": "Second Sine - Its Never Happened"
+      },
+      {
+        "time": "48:01",
+        "track": "Alan Cerra - Kova"
+      },
+      {
+        "time": "50:05",
+        "track": "Hells Kitchen - Bel Canto (Paul Anthonee Redition)"
+      },
+      {
+        "time": "52:09",
+        "track": "Guzy ft. HOVR - Skin On Skin (Ran Salman Remix)"
+      },
+      {
+        "time": "54:13",
+        "track": "Volar - Alba"
+      },
+      {
+        "time": "56:17",
+        "track": "Recode - Sospiro (Convolute Remix)"
+      },
+      {
+        "time": "58:21",
+        "track": "Mitch de Klein - Brother"
+      },
+      {
+        "time": "01:00:25",
+        "track": "Tali Muss - Irreversible"
+      },
+      {
+        "time": "01:02:29",
+        "track": "Fabrication - Gravity"
+      }
+    ]
+  },
+  {
+    "id": "20250204",
+    "featured": false,
+    "ignore": false,
+    "color": "red",
+    "genre": "edm",
+    "power": "light",
+    "title": "Red Light (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 2",
+    "maand": "Feb",
+    "dag": "04",
+    "jaar": "2025",
+    "permalink": "luister/mix/red-light-m-EDM-128BPM-20250204.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250204_Audio_V1%20(Vol.%202).mp3",
+    "image": "/images/light/red/wide/image_light_red_20250204_wide-480px.jpg",
+    "image_square": "/images/light/red/square/image_light_red_20250204_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Stan Kolev - Trouvaille"
+      },
+      {
+        "time": "03:21",
+        "track": "Agustin Pietrocola - Wild"
+      },
+      {
+        "time": "05:25",
+        "track": "Max Styler - Time To Go"
+      },
+      {
+        "time": "07:29",
+        "track": "Carlos Barbero - Another Time"
+      },
+      {
+        "time": "09:32",
+        "track": "Rafael Cerato - She Is Really Fresh"
+      },
+      {
+        "time": "11:36",
+        "track": "Paradoks - Eternal"
+      },
+      {
+        "time": "13:40",
+        "track": "S.ONE - Filament"
+      },
+      {
+        "time": "15:44",
+        "track": "Quivver & Ziger - It's Not Funny"
+      },
+      {
+        "time": "17:48",
+        "track": "Darrel Novellino - Medium"
+      },
+      {
+        "time": "19:52",
+        "track": "Haze-M, Monastetiq - Breathe ft. Selima Atrous"
+      },
+      {
+        "time": "21:56",
+        "track": "Gutenn & Mayro - Sudaca"
+      },
+      {
+        "time": "24:00",
+        "track": "Minders, AO (MX) - Open Your Mind"
+      },
+      {
+        "time": "26:04",
+        "track": "Darin Epsilon - In Harm’s Way"
+      },
+      {
+        "time": "28:07",
+        "track": "Cherry (UA) - Brahma"
+      },
+      {
+        "time": "30:10",
+        "track": "Beltran - Smack Yo'"
+      },
+      {
+        "time": "32:14",
+        "track": "Not Demure - Waving But Drowning (Juan Buitrago & Ezno Paradiso Remix)"
+      },
+      {
+        "time": "34:18",
+        "track": "TH;EN - Run"
+      },
+      {
+        "time": "36:22",
+        "track": "Augusto Dassano & ZAHNA - Seven Lakes (Andrés Moris & Rocio Portillo Remix)"
+      },
+      {
+        "time": "38:25",
+        "track": "Stil & Bense - Alpha"
+      },
+      {
+        "time": "40:29",
+        "track": "Jiggler - Out Of Time"
+      },
+      {
+        "time": "42:33",
+        "track": "Rocio Portillo - Vivere (Rokazer Remix)"
+      },
+      {
+        "time": "44:37",
+        "track": "Öwnboss, Sevek - Move Your Body"
+      },
+      {
+        "time": "46:42",
+        "track": "Woo York - Samum (8Kays Remix)"
+      },
+      {
+        "time": "48:46",
+        "track": "Mila Journée - Ethernal (Senses of Mind Remix)"
+      },
+      {
+        "time": "50:50",
+        "track": "Gai Barone & Cary Crank - Alone in the Dark (Kyotto Remix)"
+      },
+      {
+        "time": "52:54",
+        "track": "David Granha ft. Vincent Brasse - Ghost In A Shell (Animal Picnic & Aaryon Remix)"
+      },
+      {
+        "time": "54:58",
+        "track": "Lunaar - Epoch"
+      },
+      {
+        "time": "57:01",
+        "track": "Animal Trainer - Atamaran"
+      },
+      {
+        "time": "59:05",
+        "track": "Marius Drescher - In Between"
+      },
+      {
+        "time": "01:01:09",
+        "track": "Nohak & Drumstone - U571"
+      }
+    ]
+  },
+  {
+    "id": "20241009",
+    "featured": false,
+    "ignore": false,
+    "color": "red",
+    "genre": "edm",
+    "power": "light",
+    "title": "Red Light (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 1",
+    "maand": "Oct",
+    "dag": "09",
+    "jaar": "2024",
+    "permalink": "luister/mix/red-light-m-EDM-128BPM-20241009.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20241009_Audio_v1%20(Vol.%201).mp3",
+    "image": "/images/light/red/wide/image_light_red_20241009_wide-480px.jpg",
+    "image_square": "/images/light/red/square/image_light_red_20241009_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Milkwish - Moon Rider (Stan Kolev Remix)"
+      },
+      {
+        "time": "03:21",
+        "track": "Skala - Flimmer (Matchy Remix)"
+      },
+      {
+        "time": "05:25",
+        "track": "Moritz Hofbauer - Hazard"
+      },
+      {
+        "time": "07:29",
+        "track": "Axelax - Hodag"
+      },
+      {
+        "time": "09:32",
+        "track": "AFFKT - Laberinto"
+      },
+      {
+        "time": "11:36",
+        "track": "Vanstone - Let It Go"
+      },
+      {
+        "time": "13:40",
+        "track": "Jiggler - Stairs"
+      },
+      {
+        "time": "15:44",
+        "track": "VONDA7 - Tough Enough (Pig & Dan Remix)"
+      },
+      {
+        "time": "17:48",
+        "track": "Da Fresh, Randy Seidman - On It"
+      },
+      {
+        "time": "19:52",
+        "track": "SevenJune - Disturbia"
+      },
+      {
+        "time": "21:56",
+        "track": "Marius Drescher - Momentum (Daniel Jaeger Remix)"
+      },
+      {
+        "time": "24:00",
+        "track": "Joshwa & Lee Foss - My Humps"
+      },
+      {
+        "time": "26:04",
+        "track": "ACRAZE - Do It To It (Ft. Cherish)"
+      },
+      {
+        "time": "28:07",
+        "track": "Art.Ed & Lagho - Quantum (Kintar & Suanne Remix)"
+      },
+      {
+        "time": "30:10",
+        "track": "Beatamines - Headspin"
+      },
+      {
+        "time": "32:14",
+        "track": "Volto - 1989"
+      },
+      {
+        "time": "34:18",
+        "track": "Aston Alba - Euphrates (Anakim Remix)"
+      },
+      {
+        "time": "36:22",
+        "track": "Alexey Union & Memfisa - Argus"
+      },
+      {
+        "time": "38:25",
+        "track": "Collective States - Chrome Dome"
+      },
+      {
+        "time": "40:29",
+        "track": "Dustycloud & Kage - Ignore Them (feat. LexBlaze)"
+      },
+      {
+        "time": "42:33",
+        "track": "Mia Mendi, OIBAF&WALLEN - Nocte"
+      },
+      {
+        "time": "44:37",
+        "track": "Tvardovsky, NekliFF - Black Coffee (Gabriel Moraes Remix)"
+      },
+      {
+        "time": "46:42",
+        "track": "Paul Ursin - Decrypt"
+      },
+      {
+        "time": "48:46",
+        "track": "Juren Vu, Triart - Orenda"
+      },
+      {
+        "time": "50:50",
+        "track": "Luke Alessi - Interconnected"
+      },
+      {
+        "time": "52:54",
+        "track": "Troste - Vaia"
+      },
+      {
+        "time": "54:58",
+        "track": "Groove 2 Groove - Cosmic Belt"
+      },
+      {
+        "time": "57:01",
+        "track": "Rafael Cerato - Guilty"
+      },
+      {
+        "time": "59:05",
+        "track": "D-Nox, Spuri - Yellow Line"
+      }
+    ]
+  },
+  {
+    "id": "20230121",
+    "featured": false,
+    "ignore": false,
+    "color": "red",
+    "genre": "edm",
+    "power": "light",
+    "title": "Red Light (f)",
+    "frequency": "(f)",
+    "volume": "Vol. 1",
+    "maand": "Jan",
+    "dag": "21",
+    "jaar": "2023",
+    "permalink": "luister/mix/red-light-f-EDM-128BPM-20230121.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_f_EDM_112BPM_20230121_Audio_v2.mp3",
+    "image": "/images/light/red/wide/image_light_red_20230121_wide-480px.jpg",
+    "image_square": "/images/light/red/square/image_light_red_20230121_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "The Gabe Concept - Allure"
+      },
+      {
+        "time": "03:01",
+        "track": "Fishmanta & Billy Esteban - Lunar"
+      },
+      {
+        "time": "05:11",
+        "track": "Briansway & Gabieris - Aeriko"
+      },
+      {
+        "time": "07:21",
+        "track": "Anatolian Sessions & Leo Sagrado - Irkalla"
+      },
+      {
+        "time": "09:31",
+        "track": "Darko De Jan - Aber"
+      },
+      {
+        "time": "11:26",
+        "track": "Jad Halal - Amonium Nitrate"
+      },
+      {
+        "time": "13:51",
+        "track": "Ferhat Sonsoz & Eren Korun - Anatholian Rhapsody"
+      },
+      {
+        "time": "16:01",
+        "track": "Diass - Kazaam"
+      },
+      {
+        "time": "18:14",
+        "track": "Sabo, Namito feat. Bahramji - Celebration Santoor (Mula FR Remix)"
+      },
+      {
+        "time": "20:24",
+        "track": "Aliye Mutlu, Majnoon, Erdi Arslan - Demedim Mi? (Ben Beckman Remix)"
+      },
+      {
+        "time": "22:34",
+        "track": "Chris IDH - Temsia"
+      },
+      {
+        "time": "24:44",
+        "track": "Boshoco - Abu Jack"
+      },
+      {
+        "time": "26:55",
+        "track": "Jean Vayat - Feel the Vibe"
+      },
+      {
+        "time": "28:33",
+        "track": "ThroDef - Alulim"
+      },
+      {
+        "time": "31:15",
+        "track": "Ferhat Sonsoz - Chain (Samet Zorlu Remix) (Camel)"
+      },
+      {
+        "time": "33:25",
+        "track": "Mouma & Baso - I Have a Dream"
+      },
+      {
+        "time": "35:44",
+        "track": "Bedouin - Metaphor"
+      },
+      {
+        "time": "37:54",
+        "track": "Shkodra Elektronike - Turtulleshe (Valeron Remix)"
+      },
+      {
+        "time": "40:05",
+        "track": "Billy Esteban ft. Ghenwa Nemnom - Mosaic (Yohan & David Remix)"
+      },
+      {
+        "time": "42:16",
+        "track": "Valeron - Scorpios (Megablast Remix)"
+      },
+      {
+        "time": "44:26",
+        "track": "Stephane Salerno & Kheiro - Aadrouni Ya Sadate"
+      },
+      {
+        "time": "46:38",
+        "track": "The Gabe Concept - Allure"
+      }
+    ]
+  },
+  {
+    "id": "20220523",
+    "featured": false,
+    "ignore": false,
+    "color": "red",
+    "genre": "drum & bass",
+    "power": "light",
+    "title": "Red Light (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 1",
+    "maand": "May",
+    "dag": "23",
+    "jaar": "2022",
+    "permalink": "luister/mix/red-light-m-EDM-DNB-20220523.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_DNB_20220523_Audio_V2%20(Vol.%201).mp3",
+    "image": "/images/light/red/wide/image_light_red_20220523_wide-480px.jpg",
+    "image_square": "/images/light/red/square/image_light_red_20220523_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "T❯I & Inja - Flick The Switch"
+      },
+      {
+        "time": "02:58",
+        "track": "IMANU - Nonplus"
+      },
+      {
+        "time": "04:48",
+        "track": "Critical Impact & Break - Creeper (ft. Skibadee)"
+      },
+      {
+        "time": "06:38",
+        "track": "Benny L - The Pictures ft. Pastry Make"
+      },
+      {
+        "time": "08:28",
+        "track": "Rockwell – Vent"
+      },
+      {
+        "time": "10:17",
+        "track": "Bou & Mefjus - Wormhole"
+      },
+      {
+        "time": "12:06",
+        "track": "Foreign Concept - Kilmersdon"
+      },
+      {
+        "time": "13:57",
+        "track": "Icicle & Proxima - Outer Planes (ft. Ben Verse)"
+      },
+      {
+        "time": "15:46",
+        "track": "Qo & Trilo - Push It To The Limit"
+      },
+      {
+        "time": "17:36",
+        "track": "Bredren - Swayed"
+      },
+      {
+        "time": "19:25",
+        "track": "Ulterior Motive, Quadrant & Iris – Intuition"
+      },
+      {
+        "time": "21:15",
+        "track": "Emperor - Bloodsport (ft. Mantmast)"
+      },
+      {
+        "time": "23:05",
+        "track": "Rameses B - Prometheus"
+      },
+      {
+        "time": "24:54",
+        "track": "Camo & Krooked - Black or White (ft. Tasha Baxter) (Signal Remix)"
+      },
+      {
+        "time": "26:44",
+        "track": "Buunshin - Clueless"
+      },
+      {
+        "time": "28:34",
+        "track": "Document One - 1964"
+      },
+      {
+        "time": "30:24",
+        "track": "Noisia - Diplodocus"
+      },
+      {
+        "time": "32:13",
+        "track": "45 Roller (aka Shy FX) - Outrun"
+      },
+      {
+        "time": "34:04",
+        "track": "Camo & Krooked - Witchdoctor"
+      },
+      {
+        "time": "37:10",
+        "track": "Mefjus - Mirage"
+      },
+      {
+        "time": "38:59",
+        "track": "Culprate - Dawn"
+      },
+      {
+        "time": "40:49",
+        "track": "Kanine - Deal Wit Dem (ft. Killa P)"
+      },
+      {
+        "time": "42:38",
+        "track": "Redpill - Flesh & Blood"
+      },
+      {
+        "time": "44:29",
+        "track": "Calyx & Teebee - The Fall Feat. Ayah Marar"
+      },
+      {
+        "time": "46:18",
+        "track": "Akov - No More"
+      },
+      {
+        "time": "48:08",
+        "track": "Kove - Bearclaw"
+      },
+      {
+        "time": "49:58",
+        "track": "Witters - Calibrate"
+      },
+      {
+        "time": "51:47",
+        "track": "BTK & Optiv - Inception (Gydra Remix)"
+      },
+      {
+        "time": "53:37",
+        "track": "Culprate - Subsonics"
+      },
+      {
+        "time": "55:27",
+        "track": "Amoss - 2 Clicks"
+      },
+      {
+        "time": "57:16",
+        "track": "Bou - Spook"
+      },
+      {
+        "time": "59:06",
+        "track": "Calyx & TeeBee - A Day That Never Comes (Break Remix)"
+      },
+      {
+        "time": "01:00:56",
+        "track": "The Upbeats ft. Tasha Baxter - Alone (Fourward Remix)"
+      },
+      {
+        "time": "01:02:46",
+        "track": "My Nu Leng & Flava D - Soul Shake (1991 Remix)"
+      }
+    ]
+  }
+]

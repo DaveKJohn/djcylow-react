@@ -1,0 +1,40 @@
+[
+  {
+    "id": "20231106",
+    "featured": false,
+    "ignore": false,
+    "color": "yellow",
+    "genre": "drum & bass",
+    "power": "full",
+    "title": "yellow Full (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 2",
+    "maand": "Nov",
+    "dag": "06",
+    "jaar": "2023",
+    "permalink": "",
+    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20231106_Audio_V1%20(Vol.%202).mp3",
+    "image": "/images/full/yellow/wide/image_full_yellow_20231106_wide-480px.jpg",
+    "image_square": "/images/full/yellow/square/image_full_yellow_20231106_square.jpg",
+    "tracklist": []
+  },
+  {
+    "id": "20230220",
+    "featured": false,
+    "ignore": false,
+    "color": "yellow",
+    "genre": "drum & bass",
+    "power": "full",
+    "title": "yellow Full (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 1",
+    "maand": "Feb",
+    "dag": "20",
+    "jaar": "2023",
+    "permalink": "",
+    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20230220_Audio_V3%20(Vol.%201).mp3",
+    "image": "/images/full/yellow/wide/image_full_yellow_20230220_wide-480px.jpg",
+    "image_square": "/images/full/yellow/square/image_full_yellow_20230220_square.jpg",
+    "tracklist": []
+  }
+]

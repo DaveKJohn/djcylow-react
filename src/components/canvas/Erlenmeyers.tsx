@@ -2,7 +2,22 @@
 
 import React, { useState, useMemo } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
-import mixesData from '@/data/mixes.json';
+
+import lightBlue from '@/data/mixes/light-blue.json';
+import lightCyan from '@/data/mixes/light-cyan.json';
+import lightGreen from '@/data/mixes/light-green.json';
+import lightYellow from '@/data/mixes/light-yellow.json';
+import lightOrange from '@/data/mixes/light-orange.json';
+import lightPurple from '@/data/mixes/light-purple.json';
+import lightRed from '@/data/mixes/light-red.json';
+import lightMagenta from '@/data/mixes/light-magenta.json';
+
+
+const allMixesData = [
+    ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta,
+    
+];
+
 
 const COLOR_TO_STATE: Record<string, { dopamine: boolean; serotonine: boolean; adrenaline: boolean; label: string }> = {
     "blue": { dopamine: false, serotonine: false, adrenaline: false, label: "Onverschillig" },
@@ -32,7 +47,11 @@ export default function Erlenmeyers() {
     }, [substances]);
 
     const currentMix = useMemo(() => {
-        return mixesData.find(m => m.color.toLowerCase() === activeColor && m.featured === true);
+        // !m.ignore weggehaald om de previews te kunnen laden
+        return allMixesData.find(m => 
+            m.color.toLowerCase() === activeColor && 
+            m.featured === true
+        );
     }, [activeColor]);
 
     const toggleSubstance = (type: keyof typeof substances) => {
@@ -50,27 +69,33 @@ export default function Erlenmeyers() {
         }
     };
 
-    // Directe return, geen interne functie Erlenmeyers meer
     return (
         <>
             {/* 1. OUTPUT */}
             <div className="column wrapper spacing-xs output">
                 <div className={`column wrapper spacing-xs center emotion-wrapper ${activeColor}`}>
-
-                    <AudioPlayer
-                        id={String(currentMix?.id ?? "")}
-                        key={String(currentMix?.id ?? "empty")}
-                        src={currentMix?.audioSrc ?? ""}
-                        image={currentMix?.image_square ?? ""}
-                        showVolumeSlider={false}
-                        activeId={activeMixId}
-                        onPlay={(id) => setActiveMixId(id)}
-                    />
-
+                    
+                    {/* Check op audioSrc om Console Error te voorkomen */}
+                    {currentMix && currentMix.audioSrc ? (
+                        <AudioPlayer
+                            id={String(currentMix.id)}
+                            key={String(currentMix.id)}
+                            src={currentMix.audioSrc}
+                            image={currentMix.image_square || ""} // TS Fix: fallback naar string
+                            showVolumeSlider={false}
+                            activeId={activeMixId}
+                            onPlay={(id) => setActiveMixId(id)}
+                            className={activeColor}
+                        />
+                    ) : (
+                        <div className="column center wrapper" style={{ minHeight: '150px' }}>
+                            <p className="size-xxs">Selecteer stoffen...</p>
+                        </div>
+                    )}
 
                     <div className="row text-wrapper spacing-s center">
                         <div className="column wrapper h-end">
-                            <svg viewBox="0 0 20 20">
+                            <svg viewBox="0 0 20 20" width="20" height="20">
                                 <circle cx="10" cy="10" r="9" fill={`var(--${activeColor}-default)`} />
                             </svg>
                         </div>

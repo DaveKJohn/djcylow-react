@@ -1,8 +1,22 @@
 'use client';
 
 import React, { useMemo, useRef, useEffect, useState } from 'react';
-import mixesData from '@/data/mixes.json';
 import AudioPlayer from '@/components/ui/AudioPlayer';
+
+import lightBlue from '@/data/mixes/light-blue.json';
+import lightCyan from '@/data/mixes/light-cyan.json';
+import lightGreen from '@/data/mixes/light-green.json';
+import lightYellow from '@/data/mixes/light-yellow.json';
+import lightOrange from '@/data/mixes/light-orange.json';
+import lightPurple from '@/data/mixes/light-purple.json';
+import lightRed from '@/data/mixes/light-red.json';
+import lightMagenta from '@/data/mixes/light-magenta.json';
+
+
+
+const allMixesData = [
+    ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta
+];
 
 const VS_CONFIG = [
     { top: 'cyan', bottom: 'red', id: 'cyan-vs-red' },
@@ -20,8 +34,9 @@ export default function VsKleurenCarousel() {
     const vsPairs = useMemo(() => {
         return VS_CONFIG.map(pair => ({
             ...pair,
-            topMix: mixesData.find(m => m.color.toLowerCase() === pair.top && m.featured === true),
-            bottomMix: mixesData.find(m => m.color.toLowerCase() === pair.bottom && m.featured === true),
+            // Hier de !m.ignore verwijderd zodat featured mixen (die op ignore staan) gevonden worden
+            topMix: allMixesData.find(m => m.color.toLowerCase() === pair.top && m.featured === true),
+            bottomMix: allMixesData.find(m => m.color.toLowerCase() === pair.bottom && m.featured === true),
         }));
     }, []);
 
@@ -69,17 +84,23 @@ export default function VsKleurenCarousel() {
                         <React.Fragment key={pair.id}>
                             <div className={`column ${pair.id}`}>
 
-                                {/* Bovenste Mix - Verpakt in een div voor de kleur-styling */}
+                                {/* Bovenste Mix */}
                                 <div className={`stack colour ${pair.top.toLowerCase()}`}>
-                                    <AudioPlayer
-                                        id={String(pair.topMix?.id ?? "")}
-                                        src={pair.topMix?.audioSrc ?? ""}
-                                        image={pair.topMix?.image_square ?? ""}
-                                        showVolumeSlider={false}
-                                        activeId={activeMixId}
-                                        onPlay={(id) => setActiveMixId(id)}
-                                        className={pair.top.toLowerCase()} // Directe kleur-klasse hier!
-                                    />
+                                    {pair.topMix && pair.topMix.audioSrc ? (
+                                        <AudioPlayer
+                                            id={String(pair.topMix.id)}
+                                            src={pair.topMix.audioSrc}
+                                            image={pair.topMix.image_square || ""}
+                                            showVolumeSlider={false}
+                                            activeId={activeMixId}
+                                            onPlay={(id) => setActiveMixId(id)}
+                                            className={pair.top.toLowerCase()}
+                                        />
+                                    ) : (
+                                        <div className="column center wrapper placeholder-mix">
+                                            <p className="size-xxs">Geen mix</p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="column center middle">
@@ -94,17 +115,23 @@ export default function VsKleurenCarousel() {
                                     </div>
                                 </div>
 
-                                {/* Onderste Mix - Verpakt in een div voor de kleur-styling */}
+                                {/* Onderste Mix */}
                                 <div className={`stack colour ${pair.bottom}`}>
-                                    <AudioPlayer
-                                        id={String(pair.bottomMix?.id ?? "")}
-                                        src={pair.bottomMix?.audioSrc ?? ""}
-                                        image={pair.bottomMix?.image_square ?? ""}
-                                        showVolumeSlider={false}
-                                        activeId={activeMixId}
-                                        onPlay={(id) => setActiveMixId(id)}
-                                         className={pair.bottom.toLowerCase()} // Directe kleur-klasse hier!
-                                    />
+                                    {pair.bottomMix && pair.bottomMix.audioSrc ? (
+                                        <AudioPlayer
+                                            id={String(pair.bottomMix.id)}
+                                            src={pair.bottomMix.audioSrc}
+                                            image={pair.bottomMix.image_square || ""}
+                                            showVolumeSlider={false}
+                                            activeId={activeMixId}
+                                            onPlay={(id) => setActiveMixId(id)}
+                                            className={pair.bottom.toLowerCase()}
+                                        />
+                                    ) : (
+                                        <div className="column center wrapper placeholder-mix">
+                                            <p className="size-xxs">Geen mix</p>
+                                        </div>
+                                    )}
                                 </div>
 
                             </div>
