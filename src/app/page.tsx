@@ -32,7 +32,7 @@ export default function HomePage() {
 
                 <div className="column overlay constrainer spacing-l header">
                     <div className="column banner-wrapper spacing-xxl">
-                        <div className="column text-wrapper spacing-s center">
+                        <div className="column text-wrapper spacing-l center">
                             <h1>{homeContent.title}</h1>
                             <h2 dangerouslySetInnerHTML={{ __html: homeContent.subtitle || "" }} />
                         </div>
@@ -66,13 +66,13 @@ export default function HomePage() {
                             {/* HIER GEBRUIKEN WE NU DE COMPONENT */}
                             <ReadMore
                                 teaser={
-                                    <p className="size-m">{homeContent.intro_story_p_one}</p>
+                                    <p className="size-base">{homeContent.intro_story_p_one}</p>
                                 }
                                 hiddenContent={
                                     <>
-                                        <p className="size-m">{homeContent.intro_story_p_two}</p>
-                                        <p className="size-m" dangerouslySetInnerHTML={{ __html: homeContent.intro_story_p_three || "" }} />
-                                        <p className="size-m">{homeContent.intro_story_p_four}</p>
+                                        <p className="size-base">{homeContent.intro_story_p_two}</p>
+                                        <p className="size-base" dangerouslySetInnerHTML={{ __html: homeContent.intro_story_p_three || "" }} />
+                                        <p className="size-base">{homeContent.intro_story_p_four}</p>
                                     </>
                                 }
                             />
@@ -90,10 +90,10 @@ export default function HomePage() {
                             </div>
 
                             <div className="row wrapper spacing-s wrap flex buttons">
-                                <Link className="btn passive size-m diensten-btn" href="/diensten/bruiloft-dj">Bruiloft DJ</Link>
-                                <Link className="btn passive size-m diensten-btn" href="/diensten/bedrijfsfeest-dj">Bedrijfsfeest DJ</Link>
-                                <Link className="btn passive size-m diensten-btn" href="/diensten/house-dj">House DJ</Link>
-                                <Link className="btn passive size-m diensten-btn" href="/diensten">Iets anders!</Link>
+                                <Link className="btn passive diensten-btn" href="/diensten/bruiloft-dj">Bruiloft DJ</Link>
+                                <Link className="btn passive diensten-btn" href="/diensten/bedrijfsfeest-dj">Bedrijfsfeest DJ</Link>
+                                <Link className="btn passive diensten-btn" href="/diensten/house-dj">House DJ</Link>
+                                <Link className="btn passive diensten-btn" href="/diensten">Iets anders!</Link>
                             </div>
                         </div>
                     </div>
@@ -116,11 +116,11 @@ export default function HomePage() {
 
                                 <div className="column text-wrapper spacing-m right story h-start" id="promo_story">
                                     <ReadMore
-                                        teaser={<p className="size-m">{homeContent.promo_story_p_one}</p>}
+                                        teaser={<p className="size-base">{homeContent.promo_story_p_one}</p>}
                                         hiddenContent={
                                             <>
-                                                <p className="size-m">{homeContent.promo_story_p_two}</p>
-                                                <p className="size-m">{homeContent.promo_story_p_three}</p>
+                                                <p className="size-base">{homeContent.promo_story_p_two}</p>
+                                                <p className="size-base">{homeContent.promo_story_p_three}</p>
                                             </>
                                         }
                                     />
@@ -157,13 +157,13 @@ export default function HomePage() {
                                 <div className="column text-wrapper spacing-m right story h-start" id="verzoeknummers_story">
                                     <ReadMore
                                         teaser={
-                                            <p className="size-m">{homeContent.verzoeknummers_story_p_one}</p>
+                                            <p className="size-base">{homeContent.verzoeknummers_story_p_one}</p>
                                         }
                                         hiddenContent={
                                             <>
-                                                <p className="size-m">{homeContent.verzoeknummers_story_p_two}</p>
-                                                <p className="size-m">{homeContent.verzoeknummers_story_p_three}</p>
-                                                <p className="size-m">{homeContent.verzoeknummers_story_p_four}</p>
+                                                <p className="size-base">{homeContent.verzoeknummers_story_p_two}</p>
+                                                <p className="size-base">{homeContent.verzoeknummers_story_p_three}</p>
+                                                <p className="size-base">{homeContent.verzoeknummers_story_p_four}</p>
                                             </>
                                         }
                                     />

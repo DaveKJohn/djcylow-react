@@ -75,7 +75,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                         <div className="column text-wrapper spacing-xs tracklist">
                             <div className="row text-wrapper">
                                 <div className="column text-wrapper h-start header">
-                                    <h3 className="size-s bold">Tracklist</h3>
+                                    <h3 className="size-base bold">Tracklist</h3>
                                 </div>
                                 {/* Spotify link logica blijft gelijk */}
                             </div>

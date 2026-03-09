@@ -98,8 +98,8 @@ export default function AudioPlayer({
       <div className="column overlay wrapper playing-wrapper">
 
         <div className="row wrapper timestamp-wrapper">
-          <div className="column wrapper timestamp current">{formatTime(currentTime)}</div>
-          <div className="column wrapper timestamp final">{formatTime(duration)}</div>
+          <div className="column wrapper timestamp size-xs current">{formatTime(currentTime)}</div>
+          <div className="column wrapper timestamp size-xs final">{formatTime(duration)}</div>
         </div>
 
         <div

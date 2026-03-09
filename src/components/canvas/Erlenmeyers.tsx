@@ -89,7 +89,7 @@ export default function Erlenmeyers() {
                         />
                     ) : (
                         <div className="column center wrapper" style={{ minHeight: '150px' }}>
-                            <p className="size-xxs">Selecteer stoffen...</p>
+                            <p className="size-xs">Selecteer stoffen...</p>
                         </div>
                     )}
 

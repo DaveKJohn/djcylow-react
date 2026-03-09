@@ -50,7 +50,7 @@ export default function BasiskleurenCarousel() {
           <div key={c.id} className={`column stack wrapper number ${c.name}`}>
             <div className="column overlay wrapper back"></div>
             <div className="column overlay wrapper front center">
-              <p className="size-xxs">{c.id}</p>
+              <p className="size-xs">{c.id}</p>
             </div>
           </div>
         ))}
@@ -83,7 +83,7 @@ export default function BasiskleurenCarousel() {
               />
             ) : (
               <div className="column center wrapper" style={{ height: '100%', minHeight: '150px' }}>
-                <p className="error size-xxs center">Geen mix.</p>
+                <p className="error size-xs center">Geen mix.</p>
               </div>
             )}
           </div>

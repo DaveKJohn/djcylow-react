@@ -14,7 +14,7 @@ footer {
             height: auto;
             display: block;
 
-            @include tools.respond-to(var.$screen-size-medium) {
+            @include tools.respond-to(var.$screen-size-baseedium) {
                 width: 220px;
             }
         }

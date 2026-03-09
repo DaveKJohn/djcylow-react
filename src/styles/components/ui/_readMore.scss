@@ -5,4 +5,5 @@
 .read-more-btn {
     max-width: 170px;
     padding: map.get(var.$in-spacing, "s");
+    font-size: map.get(map.get(var.$font-settings, "base"), "size");
 }

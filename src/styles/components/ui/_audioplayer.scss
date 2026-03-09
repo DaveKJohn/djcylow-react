@@ -154,10 +154,10 @@
             justify-content: space-between;
 
             .timestamp {
-                background-color: rgba(0, 0, 0, 0.6);
-                padding: 1px 4px;
-                color: white;
-                font-size: var.$font-size-xxs;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 2px 5px;
+                color: rgb(231, 231, 231);
+                font-size: var.$font-size-xs;
                 width: auto;
             }
         }

@@ -11,7 +11,7 @@ $card-height-basiskleuren: 150px;
     --card_width_basiskleuren: #{$card-width-basiskleuren};
     --card_height_basiskleuren: #{$card-height-basiskleuren};
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(var.$screen-size-baseedium) {
         --card_width_basiskleuren: 130px;
         --card_height_basiskleuren: 130px;
     }

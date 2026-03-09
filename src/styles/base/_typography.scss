@@ -1,12 +1,14 @@
-@use "sass:list";
-@use "sass:string";
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
 
+/* =======================================
+   1. BASIS INSTELLINGEN
+   ======================================= */
 body {
     font-family: var.$base-font;
     -webkit-font-smoothing: antialiased;
+    @include tools.text-style("base"); // Standaard body tekst
 }
 
 .WoB {
@@ -18,54 +20,53 @@ body {
 }
 
 /* =======================================
-   1. TYPOGRAPHY DEFINITIES (SCSS Maps)
-   ======================================= */
+   2. TYPOGRAPHY CONFIGURATIE (Maps)
+   ======================================= */
 
-// Standaard stijlen voor headings (Desktop-first)
 $heading-styles: (
     ".banner-wrapper .text-wrapper h1": (
         "font-weight": 700,
         "text-wrap": balance,
         "letter-spacing": 2px,
-        "font-size": var.$font-size-banner,
-        "line-height": var.$line-height-banner
-    ),
-    ".banner-wrapper .text-wrapper h2": (
-        "font-weight": 600,
-        "font-size": var.$font-size-h2,
-        "line-height": var.$line-height-h2
+        "font-size": map.get(map.get(var.$font-settings, "8xl"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "8xl"), "line-height")
     ),
     "h1": (
         "font-weight": 600,
-        "font-size": var.$font-size-h1,
-        "line-height": var.$line-height-h1
+        "font-size": map.get(map.get(var.$font-settings, "8xl"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "8xl"), "line-height")
     ),
-    "h2": (
+    "h2, .banner-wrapper .text-wrapper h2": (
         "font-weight": 600,
         "letter-spacing": 2px,
-        "font-size": var.$font-size-h2,
-        "line-height": var.$line-height-h2
+        "font-size": map.get(map.get(var.$font-settings, "5xl"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "5xl"), "line-height")
     ),
     "h3": (
         "font-weight": 600,
         "text-wrap": balance,
-        "letter-spacing": 0,
-        "font-size": var.$font-size-h3,
-        "line-height": var.$line-height-h3
+        "font-size": map.get(map.get(var.$font-settings, "2xl"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "2xl"), "line-height")
     )
 );
 
-// Stijlen voor tekst-elementen
-$p-styles: (
+$text-element-styles: (
     "p": (
-        "font-family": var.$base-font,
         "max-width": 700px,
-        "font-weight": 400,
-        "line-height": var.$line-height-body
+        "font-weight": 400
+    ),
+    "a": (
+        "text-decoration": none,
+        "transition": color 300ms ease-in-out
+    ),
+    "input, textarea": (
+        "font-family": var.$base-font,
+        "font-size": map.get(map.get(var.$font-settings, "base"), "size"),
+        "line-height": 1
     )
 );
 
-$btn-styles: (
+$button-styles: (
     ".btn": (
         "font-family": var.$base-font,
         "line-height": 1
@@ -74,56 +75,7 @@ $btn-styles: (
         "font-weight": 500
     ),
     ".btn.cta": (
-        "font-weight": 600
-    )
-);
-
-$form-styles: (
-    "input": (
-        "font-family": var.$base-font,
-        "font-size": var.$font-size-m,
-        "line-height": 1
-    ),
-    "textarea": (
-        "font-family": var.$base-font,
-        "font-size": var.$font-size-m,
-        "line-height": 1
-    )
-);
-
-$utility-styles: (
-    ".size-m": (
-        "font-size": var.$font-size-m
-    ),
-    ".size-s": (
-        "font-size": var.$font-size-s
-    ),
-    ".size-xs": (
-        "font-size": var.$font-size-xs
-    ),
-    ".size-xxs": (
-        "font-size": var.$font-size-xxs
-    ),
-    ".balanced": (
-        "text-wrap": balance
-    ),
-    ".bold": (
-        "font-weight": 600
-    ),
-    ".italic": (
-        "font-style": italic
-    ),
-    ".left": (
-        "text-align": left
-    )
-);
-
-// Stijlen voor tekst-elementen
-$a-styles: (
-    "a": (
-        "text-decoration": none,
-        "transition": color 300ms ease-in-out,
-        "line-height": var.$line-height-body
+        "font-weight": 700
     )
 );
 
@@ -145,11 +97,9 @@ $list-styles: (
     )
 );
 
-// Stijlen voor tekst-elementen
 $table-styles: (
     "td": (
-        "font-size": var.$font-size-xs,
-        "line-height": var.$line-height-body,
+        "font-size": map.get(map.get(var.$font-settings, "xs"), "size"),
         "padding": map.get(var.$c-spacing, "xs") 0
     ),
     "td.track": (
@@ -162,45 +112,58 @@ $table-styles: (
     )
 );
 
+$utility-styles: (
+    ".size-base": (
+        "font-size": map.get(map.get(var.$font-settings, "base"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "base"), "line-height")
+    ),    
+    ".size-sm": (
+        "font-size": map.get(map.get(var.$font-settings, "sm"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "sm"), "line-height")
+    ),
+    ".size-xs": (
+        "font-size": map.get(map.get(var.$font-settings, "xs"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "xs"), "line-height")
+    ),
+    ".balanced": (
+        "text-wrap": balance
+    ),
+    ".bold": (
+        "font-weight": 600
+    ),
+    ".italic": (
+        "font-style": italic
+    ),
+    ".left": (
+        "text-align": left
+    )
+);
+
 /* =======================================
-   3. Mixin en Generatie
-   ======================================= */
-/// Mixin om alle typografie stijlen te genereren (nu gebaseerd op Maps)
-/// @param $styles De map met stijlen (bijv. $heading-styles)
-@mixin generate-typography($styles) {
-    @each $selector, $properties in $styles {
-        #{$selector} {
-            // Loop over de map met properties en pas ze direct toe
-            @each $prop, $value in $properties {
-                #{$prop}: $value;
-            }
-        }
+   3. GENERATIE
+   ======================================= */
+@include tools.generate-typography($heading-styles);
+@include tools.generate-typography($text-element-styles);
+@include tools.generate-typography($button-styles);
+@include tools.generate-typography($list-styles);
+@include tools.generate-typography($table-styles);
+@include tools.generate-typography($utility-styles);
+
+// Automatische generatie van .size-xx klassen
+@each $name, $values in var.$font-settings {
+    .size-#{$name} {
+        @include tools.text-style($name);
     }
 }
 
-// ------------------------------------------------------------------
-// 4. Toepassing van de Mixins
-// ------------------------------------------------------------------
-
-@include generate-typography($heading-styles);
-@include generate-typography($p-styles);
-@include generate-typography($btn-styles);
-@include generate-typography($form-styles);
-@include generate-typography($utility-styles);
-@include generate-typography($a-styles);
-@include generate-typography($table-styles);
-@include generate-typography($list-styles);
-
 /* =======================================
-   5. Losse Utility Klass
-   ======================================= */
+   4. SPECIALS
+   ======================================= */
 .feedback-message.error {
-    @include tools.color-utility(color, error-fg); // Gebruikt --error-fg (uw tekstkleur)
-    @include tools.color-utility(background-color, error-bg); // Gebruikt --error-bg (uw achtergrondkleur)
-    @include tools.color-utility(border-color, error-border); // Gebruikt --error-border
-    border-width: 1px;
-    border-style: solid;
-
+    @include tools.color-utility(color, error-fg);
+    @include tools.color-utility(background-color, error-bg);
+    @include tools.color-utility(border-color, error-border);
+    border: 1px solid;
     padding: 0.75rem;
     display: block !important;
 }

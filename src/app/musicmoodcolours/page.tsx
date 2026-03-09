@@ -37,17 +37,17 @@ export default function MusicMoodColoursPage() {
                 <div className="column text-wrapper spacing-m" id="intro_1">
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.intro.s1p1}</p>
+                            <p className="size-base">{musicMoodColoursContent.intro.s1p1}</p>
                         </div>
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.intro.s1p2}</p>
+                            <p className="size-base">{musicMoodColoursContent.intro.s1p2}</p>
                         </div>
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.intro.s1p3}</p>
+                            <p className="size-base">{musicMoodColoursContent.intro.s1p3}</p>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ export default function MusicMoodColoursPage() {
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.spectrum.s2p1}</p>
+                            <p className="size-base">{musicMoodColoursContent.spectrum.s2p1}</p>
                         </div>
                     </div>
                     <div className="column constrainer">
@@ -71,7 +71,7 @@ export default function MusicMoodColoursPage() {
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.spectrum.s2p2}</p>
+                            <p className="size-base">{musicMoodColoursContent.spectrum.s2p2}</p>
                         </div>
                     </div>
 
@@ -80,8 +80,8 @@ export default function MusicMoodColoursPage() {
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xxs">
                             <h3>De taal van emotie</h3>
-                            <p className="size-m">{musicMoodColoursContent.spectrum.s2p3}</p>
-                            <p className="size-m">{musicMoodColoursContent.spectrum.s2p4}</p>
+                            <p className="size-base">{musicMoodColoursContent.spectrum.s2p3}</p>
+                            <p className="size-base">{musicMoodColoursContent.spectrum.s2p4}</p>
                         </div>
                     </div>
                 </div>
@@ -95,17 +95,17 @@ export default function MusicMoodColoursPage() {
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.complementair.s3p1}</p>
+                            <p className="size-base">{musicMoodColoursContent.complementair.s3p1}</p>
                         </div>
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.complementair.s3p2}</p>
+                            <p className="size-base">{musicMoodColoursContent.complementair.s3p2}</p>
                         </div>
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.complementair.s3p3}</p>
+                            <p className="size-base">{musicMoodColoursContent.complementair.s3p3}</p>
                         </div>
                     </div>
                     <div className="row wrapper spacing-s visual carousels black-90-bg" id="vs">
@@ -122,28 +122,28 @@ export default function MusicMoodColoursPage() {
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.neuro.s4p1}</p>
+                            <p className="size-base">{musicMoodColoursContent.neuro.s4p1}</p>
                         </div>
                     </div>
                     <div className="column constrainer">
                         <ul className="column text-wrapper spacing-s">
                             <li className="column text-wrapper spacing-xxs">
                                 <h3>Dopamine</h3>
-                                <p className="size-m">{musicMoodColoursContent.neuro.dopamine}</p>
+                                <p className="size-base">{musicMoodColoursContent.neuro.dopamine}</p>
                             </li>
                             <li className="column text-wrapper spacing-xxs">
                                 <h3>Serotonine</h3>
-                                <p className="size-m">{musicMoodColoursContent.neuro.serotonine}</p>
+                                <p className="size-base">{musicMoodColoursContent.neuro.serotonine}</p>
                             </li>
                             <li className="column text-wrapper spacing-xxs">
                                 <h3>(nor)Adrenaline</h3>
-                                <p className="size-m">{musicMoodColoursContent.neuro.adrenaline}</p>
+                                <p className="size-base">{musicMoodColoursContent.neuro.adrenaline}</p>
                             </li>
                         </ul>
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xxs">
-                            <p className="size-m">{musicMoodColoursContent.neuro.s4p5}</p>
+                            <p className="size-base">{musicMoodColoursContent.neuro.s4p5}</p>
                         </div>
                     </div>
                     <div className="column constrainer visual">
@@ -153,7 +153,7 @@ export default function MusicMoodColoursPage() {
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xxs">
-                            <p className="size-m">{musicMoodColoursContent.neuro.s4p6}</p>
+                            <p className="size-base">{musicMoodColoursContent.neuro.s4p6}</p>
                         </div>
                     </div>
                     <div className="column constrainer visual">
@@ -163,7 +163,7 @@ export default function MusicMoodColoursPage() {
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xxs">
-                            <p className="size-m">{musicMoodColoursContent.neuro.s4p7}</p>
+                            <p className="size-base">{musicMoodColoursContent.neuro.s4p7}</p>
                         </div>
                     </div>
                     <div className="column constrainer visual">
@@ -177,17 +177,17 @@ export default function MusicMoodColoursPage() {
                 <div className="column text-wrapper spacing-m" id="conclusie_5">
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.conclusie.s5p1}</p>
+                            <p className="size-base">{musicMoodColoursContent.conclusie.s5p1}</p>
                         </div>
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.conclusie.s5p2}</p>
+                            <p className="size-base">{musicMoodColoursContent.conclusie.s5p2}</p>
                         </div>
                     </div>
                     <div className="column constrainer">
                         <div className="column text-wrapper spacing-xl">
-                            <p className="size-m">{musicMoodColoursContent.conclusie.s5p3}</p>
+                            <p className="size-base">{musicMoodColoursContent.conclusie.s5p3}</p>
                         </div>
                     </div>
                 </div>

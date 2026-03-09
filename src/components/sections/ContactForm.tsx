@@ -87,7 +87,7 @@ export default function ContactForm() {
             <div className="column wrapper spacing-m show_border_bottom">
                 <div className="column text-wrapper spacing-m center">
                     <h2>Contact</h2>
-                    <p className="size-m balanced">
+                    <p className="size-base balanced">
                         Stuur een e-mail naar{" "}
                         <span className="highlight">
                             <EmailDisplay user="info" domain="djcylow.com" />
@@ -103,11 +103,11 @@ export default function ContactForm() {
                         <div className="column text-wrapper center spacing-xs">
                             <div style={{ fontSize: '3rem' }}>✅</div>
                             <h3 className="succes text">Bericht verzonden!</h3>
-                            <p className="size-m">Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.</p>
+                            <p className="size-base">Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.</p>
                         </div>
                         {/* Knop om terug te gaan naar het formulier */}
                         <button
-                            className="btn size-s"
+                            className="btn size-base"
                             onClick={() => setStatus("idle")}
                             style={{ marginTop: '1rem' }}
                         >
@@ -151,14 +151,14 @@ export default function ContactForm() {
 
                         {status === "error" && (
                             <div className="column wrapper spacing-xs">
-                                <p className="size-m error text" style={{ color: 'red' }}>{errorMessage}</p>
+                                <p className="size-base error text" style={{ color: 'red' }}>{errorMessage}</p>
                             </div>
                         )}
 
                         <div className="column wrapper spacing-xs">
                             <div className="column wrapper center">
                                 <button
-                                    className="btn cta size-m verzend-form-btn"
+                                    className="btn cta verzend-form-btn"
                                     type="submit"
                                     disabled={!captchaToken || status === "loading"}
                                 >
@@ -178,7 +178,7 @@ export default function ContactForm() {
                 {/* WhatsApp Sectie */}
                 <div className="column wrapper spacing-xs h-push-m">
                     <div className="column text-wrapper text center">
-                        <p className="size-s balanced bold">Heb je liever direct contact? WhatsApp mag ook!</p>
+                        <p className="size-base balanced bold">Heb je liever direct contact? WhatsApp mag ook!</p>
                     </div>
                     <div className="column wrapper spacing-xs center">
                         <a className="btn" href="https://wa.me/31611531263" target="_blank" rel="noopener noreferrer">

@@ -17,13 +17,14 @@
 
     &.passive {
         border: 1px solid;
-        background: none;       
+        background: none;
 
         &.diensten-btn {
             max-width: 300px;
             padding: map.get(var.$in-spacing, "s");
+            font-size: map.get(map.get(var.$font-settings, "base"), "size");
 
-            @include tools.respond-to(var.$screen-size-medium) {
+            @include tools.respond-to(var.$screen-size-baseedium) {
                 max-width: none;
             }
         }
@@ -42,7 +43,7 @@
             font-weight: 200;
             font-size: var.$font-size-h2;
 
-            @include tools.respond-to(var.$screen-size-medium) {
+            @include tools.respond-to(var.$screen-size-baseedium) {
                 padding: 0 map.get(var.$r-spacing, "xs");
                 margin-left: map.get(var.$r-spacing, "xs");
             }
@@ -66,7 +67,7 @@
                 height: 24px;
             }
 
-            @include tools.respond-to(var.$screen-size-medium) {
+            @include tools.respond-to(var.$screen-size-baseedium) {
                 display: flex;
             }
         }
@@ -91,7 +92,7 @@
 
         @include tools.color-utility(background-color, yellow-light);
         @include tools.color-utility(color, black-100);
-        border: 1px solid var(--white-70);
+
         &:hover {
             @include tools.color-utility(background-color, yellow-light);
             @include tools.color-utility(color, black-100);
@@ -102,23 +103,23 @@
 
         position: relative;
         overflow: hidden;
-        font-weight: 700;
         border: 1px solid;
 
         &.boek-nu-btn {
             width: 119px;
             padding: map.get(var.$in-spacing, "xs");
-            font-size: var.$font-size-m;
+            font-size: map.get(map.get(var.$font-settings, "lg"), "size");
 
             @include tools.respond-to(var.$screen-size-small) {
                 width: 92px;
-                font-size: var.$font-size-s;
+                font-size: var.$font-size-base;
             }
         }
 
         &.verzend-form-btn {
             width: 100%;
             padding: map.get(var.$in-spacing, "s");
+            font-size: map.get(map.get(var.$font-settings, "lg"), "size");
         }
 
         span {

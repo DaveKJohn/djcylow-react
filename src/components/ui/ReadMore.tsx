@@ -35,7 +35,7 @@ export default function ReadMore({ teaser, hiddenContent }: ReadMoreProps) {
 
       <div className="column wrapper spacing-xs">
         <button 
-          className="btn passive size-s read-more-btn" 
+          className="btn passive read-more-btn" 
           onClick={toggleReadMore}
         >
           {isOpen ? "Lees minder" : "Lees meer"}

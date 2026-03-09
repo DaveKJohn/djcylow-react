@@ -25,12 +25,12 @@
     background-image: url("/images/pattern.webp");
     background-repeat: repeat-x;
     background-position: center;
-    background-size: auto 360px;
+    background-size: auto 460px;
     --pattern-offset: -418.74px; // (360 * (720/619))
     
     animation: scrollPattern 40s linear infinite;
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(var.$screen-size-baseedium) {
         background-size: auto 430px;
         --pattern-offset: -499.78px; // (430 * (720/619))
     }

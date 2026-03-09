@@ -19,7 +19,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <h2>Filter</h2>
                 </div>
                 <div className="column text-wrapper spacing-xs center">
-                    <p className="size-s">Kies hieronder één van de 8 music moods.</p>
+                    <p className="size-base">Kies hieronder één van de 8 music moods.</p>
                 </div>
             </div>
 

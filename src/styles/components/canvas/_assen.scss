@@ -82,7 +82,7 @@
                     display: inline-block;
                     text-align: center;
                     white-space: nowrap;
-                    font-size: var.$font-size-m;
+                    font-size: var.$font-size-base;
                 }
             }
 
@@ -120,7 +120,7 @@
         ======================================= */
             .axis-label {
                 position: absolute;
-                font-size: var.$font-size-m;
+                font-size: var.$font-size-base;
                 color: white; // Of een kleur naar keuze
                 pointer-events: none;
                 white-space: nowrap;
@@ -135,10 +135,10 @@
                     white-space: nowrap;
 
                     .title {
-                        font-size: var.$font-size-m;
+                        font-size: var.$font-size-base;
                     }
                     .date {
-                        font-size: var.$font-size-m;
+                        font-size: var.$font-size-base;
                         opacity: 0.8;
                     }
                 }

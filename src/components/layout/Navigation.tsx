@@ -11,7 +11,7 @@ export default function Nav() {
     const [isMobile, setIsMobile] = useState(false);
     const pathname = usePathname();
 
-    // We gebruiken 1080px omdat je SCSS "screen-size-medium" noemt bij de @include
+    // We gebruiken 1080px omdat je SCSS "screen-size-baseedium" noemt bij de @include
     useEffect(() => {
         const checkSize = () => {
             const mobile = window.innerWidth <= 1080;

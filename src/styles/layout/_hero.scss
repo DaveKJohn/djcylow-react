@@ -31,7 +31,7 @@
     }
 
     // ALLES VOOR MOBILE HIER SAMENVOEGEN
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(var.$screen-size-baseedium) {
         display: grid;
         grid-template-columns: 45% 55%;
         min-height: auto;

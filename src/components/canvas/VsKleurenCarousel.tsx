@@ -57,7 +57,7 @@ export default function VsKleurenCarousel() {
                                     />
                                 ) : (
                                     <div className="column center wrapper placeholder-mix">
-                                        <p className="size-xxs">Geen mix</p>
+                                        <p className="size-xs">Geen mix</p>
                                     </div>
                                 )}
                             </div>
@@ -88,7 +88,7 @@ export default function VsKleurenCarousel() {
                                     />
                                 ) : (
                                     <div className="column center wrapper placeholder-mix">
-                                        <p className="size-xxs">Geen mix</p>
+                                        <p className="size-xs">Geen mix</p>
                                     </div>
                                 )}
                             </div>

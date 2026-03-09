@@ -10,7 +10,7 @@ $card-height-erlenmeyers: 180px;
     --card_width_erlenmeyers: #{$card-width-erlenmeyers};
     --card_height_erlenmeyers: #{$card-height-erlenmeyers};
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(var.$screen-size-baseedium) {
         --card_width_erlenmeyers: 150px;
         --card_height_erlenmeyers: 150px;
     }
@@ -166,7 +166,7 @@ $card-height-erlenmeyers: 180px;
 
                     .text {
                         font-weight: 500;
-                        font-size: var.$font-size-s;
+                        font-size: var.$font-size-base;
                         white-space: nowrap; // Voorkomt dat de tekst onbedoeld afbreekt
                     }
                 }
@@ -177,7 +177,7 @@ $card-height-erlenmeyers: 180px;
     .buttons {
         button {
             padding: map.get(var.$c-spacing, "xs") 0;
-            font-size: var.$font-size-s;
+            font-size: var.$font-size-base;
             text-align: center;
             font-weight: 500;
             transition: none;

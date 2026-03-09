@@ -81,7 +81,7 @@ nav {
                     line-height: 1.5rem;
                     padding: map.get(var.$c-spacing, "s") 0;
 
-                    @include tools.respond-to(var.$screen-size-medium) {
+                    @include tools.respond-to(var.$screen-size-baseedium) {
                         padding: map.get(var.$c-spacing, "m") 0;
                     }
 
@@ -133,7 +133,7 @@ nav {
     }
 
     // --- Breekpunt 2: (1080px) ---
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(var.$screen-size-baseedium) {
         height: var.$nav-height-medium;
         padding: 0 map.get(var.$in-spacing, "xl");
 

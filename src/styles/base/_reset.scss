@@ -16,7 +16,7 @@ body {
     overflow-y: visible;
     padding-top: calc(var.$nav-height-large + 0px);
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(var.$screen-size-baseedium) {
         padding-top: calc(var.$nav-height-medium + 0px);
     }
 
@@ -74,7 +74,7 @@ body {
     }
 
     &.flex {
-        @include tools.respond-to(var.$screen-size-medium) {
+        @include tools.respond-to(var.$screen-size-baseedium) {
             align-items: flex-start !important;
             text-align: left !important;
         }
@@ -117,7 +117,7 @@ body {
 
     &.flex {
         gap: map.get(var.$r-spacing, "l");
-        @include tools.respond-to(var.$screen-size-medium) {
+        @include tools.respond-to(var.$screen-size-baseedium) {
             flex-direction: column !important;
             gap: map.get(var.$c-spacing, "m");
         }

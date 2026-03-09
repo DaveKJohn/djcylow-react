@@ -9,7 +9,7 @@ $card-height-vs: 150px;
     --card_width_vs: #{$card-width-vs};
     --card_height_vs: #{$card-height-vs};
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(var.$screen-size-baseedium) {
         --card_width_vs: 130px;
         --card_height_vs: 130px;
     }
