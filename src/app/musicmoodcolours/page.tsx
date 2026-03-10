@@ -200,9 +200,9 @@ export default function MusicMoodColoursPage() {
                     </div>
                 </div>
 
-                <div className="column wrapper center BoW v-push-8xl" id="contactformulier">
+              
                     <ContactForm />
-                </div>
+               
             </section>
         </main>
     );

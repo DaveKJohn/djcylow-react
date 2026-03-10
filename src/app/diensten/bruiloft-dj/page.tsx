@@ -24,7 +24,7 @@ export default function BruiloftDJPage() {
         </div>
 
         <div className="column overlay constrainer spacing-lg header">
-           <div className="column banner-wrapper v-push-8xl center">
+          <div className="column banner-wrapper v-push-8xl center">
             <div className="column text-wrapper spacing-lg center">
               <h1>Boek DJ Cylow voor je bruiloft!</h1>
             </div>
@@ -33,9 +33,9 @@ export default function BruiloftDJPage() {
       </section>
 
       {/* Contactformulier sectie */}
-      <div className="column wrapper center BoW v-push-8xl" id="contactformulier">
-        <ContactForm />
-      </div>
+
+      <ContactForm />
+
     </main>
   );
 }

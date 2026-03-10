@@ -69,17 +69,17 @@ export default function Footer() {
             {/* Bottom links and info */}
             <div className="row text-wrapper spacing-4xl center flex split">
 
-              <div className="column text-wrapper">
+              <div className="column text-wrapper size-xs">
                 <EmailDisplay user="info" domain="djcylow.com" />
               </div>
 
-              <div className="column text-wrapper">
+              <div className="column text-wrapper size-xs">
                 <address>
                   Gemaakt door <a className="btn" href="https://www.linkedin.com/in/dave-kok-34553798/" target="_blank" rel="noopener noreferrer">Dave Kok</a>
                 </address>
               </div>
 
-              <div className="column text-wrapper">
+              <div className="column text-wrapper size-xs">
                 <span>© 2025 DJ Cylow</span>
               </div>
 

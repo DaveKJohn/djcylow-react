@@ -73,7 +73,7 @@ export default function Erlenmeyers() {
         <>
             {/* 1. OUTPUT */}
             <div className="column wrapper spacing-lg output">
-                <div className={`column wrapper spacing-lg center emotion-wrapper ${activeColor}`}>
+                <div className={`column wrapper spacing-2xl center emotion-wrapper ${activeColor}`}>
                     
                     {/* Check op audioSrc om Console Error te voorkomen */}
                     {currentMix && currentMix.audioSrc ? (
@@ -107,8 +107,8 @@ export default function Erlenmeyers() {
             </div>
 
             {/* 2. ERLENMEYERS */}
-            <div className="column wrapper spacing-xs erlenmeyers show_border_bottom">
-                <div className="row wrapper spacing-lg">
+            <div className="column wrapper spacing-xl erlenmeyers show_border_bottom">
+                <div className="row text-wrapper spacing-2xl">
                     {SUBSTANCES.map((sub) => {
                         const isActive = substances[sub];
                         return (
@@ -131,15 +131,15 @@ export default function Erlenmeyers() {
                                     </g>
                                     <path d="M35 10 L35 40 L15 85 Q10 95 25 95 L75 95 Q90 95 85 85 L65 40 L65 10" fill="none" stroke="white" strokeWidth="1" className="glass-outline" />
                                 </svg>
-                                <p className="status-text">{isActive ? 'Hoog' : 'Laag'}</p>
+                                <p className="status-text size-sm">{isActive ? 'Hoog' : 'Laag'}</p>
                             </div>
                         );
                     })}
                 </div>
 
-                <div className="row text-wrapper spacing-lg">
+                <div className="row text-wrapper spacing-2xl">
                     {SUBSTANCES.map((sub) => (
-                        <div key={`label-${sub}`} className={`label ${sub}`}>
+                        <div key={`label-${sub}`} className={`label ${sub} size-sm`} >
                             <p>{sub}</p>
                         </div>
                     ))}

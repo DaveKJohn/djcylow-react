@@ -3,8 +3,7 @@
 @use "../abstracts/variables" as var;
 
 footer {
-    margin-top: map.get(var.$r-spacing, "xl");
-    font-size: map.get(map.get(var.$font-settings, "xl"), "size");
+    
     color: var(--white-80);
 
     // --- Layer 1 & 2: Logo Sectie ---

@@ -167,10 +167,10 @@ export default function HomePage() {
                     </div>
                 </div>
 
-                {/* Contactformulier Sectie */}
-                <section className="column wrapper center v-push-7xl BoW border-top" id="contactformulier">
-                    <ContactForm />
-                </section>
+
+
+                <ContactForm />
+
 
             </section> {/* Sluiting van de Main Content Wrapper */}
         </main>
