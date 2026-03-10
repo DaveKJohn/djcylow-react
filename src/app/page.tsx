@@ -26,13 +26,13 @@ export default function HomePage() {
         <main>
             {/* Banner Index Sectie */}
             <section className="column stack wrapper pattern WoB" id="banner_index">
-                <div className="column overlay stack wrapper spacing-l feather">
-                    <div className="column overlay spacing-m bottom"></div>
+                <div className="column overlay stack wrapper spacing-4xl feather">
+                    <div className="column overlay spacing-4xl bottom"></div>
                 </div>
 
-                <div className="column overlay constrainer spacing-l header">
-                    <div className="column banner-wrapper spacing-xxl">
-                        <div className="column text-wrapper spacing-l center">
+                <div className="column overlay constrainer spacing-4xl header">
+                    <div className="column banner-wrapper v-push-8xl center">
+                        <div className="column text-wrapper spacing-4xl center">
                             <h1>{homeContent.title}</h1>
                             <h2 dangerouslySetInnerHTML={{ __html: homeContent.subtitle || "" }} />
                         </div>
@@ -41,24 +41,24 @@ export default function HomePage() {
             </section>
 
             {/* Main Content Wrapper */}
-            <section className="column index text-wrapper spacing-xxl">
+            <section className="column index text-wrapper spacing-9xl">
 
                 {/* Hero / Meet the DJ */}
-                <div className="column wrapper spacing-xxl WoB" id="hero">
+                <div className="column wrapper spacing-9xl WoB" id="hero">
                     <div className="column stack constrainer hero">
                         <div className="column overlay wrapper hero_wrapper">
                             <Image
                                 src="/images/face.webp"
                                 width={500}
                                 height={500}
-                                alt="Dave Kok" 
+                                alt="Dave Kok"
                                 priority
                                 sizes="(max-width: 768px) 100vw, 500px"
                                 style={{ height: 'auto', width: 'auto' }}
                             />
                         </div>
 
-                        <div className="column overlay text-wrapper spacing-m hero_container anchor">
+                        <div className="column overlay text-wrapper spacing-4xl hero_container anchor">
                             <div className="column text-wrapper header">
                                 <h2 dangerouslySetInnerHTML={{ __html: homeContent.intro_h3 || "" }} />
                             </div>
@@ -83,13 +83,13 @@ export default function HomePage() {
                 {/* Diensten Sectie */}
                 <div className="column wrapper center WoB" id="diensten">
                     <div className="column constrainer">
-                        <div className="column text-wrapper spacing-m center flex">
-                            <div className="column text-wrapper spacing-m header center">
+                        <div className="column text-wrapper spacing-4xl center flex">
+                            <div className="column text-wrapper spacing-4xl header center">
                                 <h2 dangerouslySetInnerHTML={{ __html: homeContent.diensten_h3 || "" }} />
                                 <p className="subheader">Kies één van de onderstaande opties die het meest aansluit op jou wens.</p>
                             </div>
 
-                            <div className="row wrapper spacing-s wrap flex buttons">
+                            <div className="row wrapper spacing-3xl wrap flex buttons">
                                 <Link className="btn passive diensten-btn" href="/diensten/bruiloft-dj">Bruiloft DJ</Link>
                                 <Link className="btn passive diensten-btn" href="/diensten/bedrijfsfeest-dj">Bedrijfsfeest DJ</Link>
                                 <Link className="btn passive diensten-btn" href="/diensten/house-dj">House DJ</Link>
@@ -102,7 +102,7 @@ export default function HomePage() {
                 {/* Promo Sectie */}
                 <div className="column wrapper center WoB" id="promo">
                     <div className="column constrainer">
-                        <div className="column text-wrapper spacing-m">
+                        <div className="column text-wrapper spacing-4xl">
                             <div className="column text-wrapper header flex">
                                 <h2 dangerouslySetInnerHTML={{ __html: homeContent.promo_h3 || "" }} />
                             </div>
@@ -114,7 +114,7 @@ export default function HomePage() {
                                     thumbnail="https://i.ytimg.com/vi/YLNznh1ixT8/hqdefault.jpg"
                                 />
 
-                                <div className="column text-wrapper spacing-m right story h-start" id="promo_story">
+                                <div className="column text-wrapper spacing-4xl right story h-start" id="promo_story">
                                     <ReadMore
                                         teaser={<p className="size-base">{homeContent.promo_story_p_one}</p>}
                                         hiddenContent={
@@ -133,28 +133,22 @@ export default function HomePage() {
                 {/* Verzoeknummers Sectie */}
                 <div className="column wrapper center WoB" id="verzoeknummers">
                     <div className="constrainer">
-                        <div className="column text-wrapper spacing-m flex">
+                        <div className="column text-wrapper spacing-4xl flex">
                             <div className="column text-wrapper flex header">
                                 <h2 dangerouslySetInnerHTML={{ __html: homeContent.verzoeknummers_h3 || "" }} />
                             </div>
 
                             <div className="row wrapper flex v-start">
-                                <div className="column wrapper spacing-xs left">
+                                <div className="column wrapper spacing-xl left">
                                     <Image
                                         src="/images/verzoek.webp"
                                         width={400}
                                         height={400}
                                         alt="verzoek"
-                                        className="responsive-image" // Gebruik een class voor centrale styling
-                                        style={{
-                                            width: '100%',     // Neemt de breedte van de container aan
-                                            maxWidth: '400px',  // Wordt nooit groter dan het origineel
-                                            height: 'auto'      // Behoudt de verhouding
-                                        }}
                                     />
                                 </div>
 
-                                <div className="column text-wrapper spacing-m right story h-start" id="verzoeknummers_story">
+                                <div className="column text-wrapper spacing-4xl right story h-start" id="verzoeknummers_story">
                                     <ReadMore
                                         teaser={
                                             <p className="size-base">{homeContent.verzoeknummers_story_p_one}</p>
@@ -174,7 +168,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Contactformulier Sectie */}
-                <section className="column wrapper center v-push-xl BoW border-top" id="contactformulier">
+                <section className="column wrapper center v-push-7xl BoW border-top" id="contactformulier">
                     <ContactForm />
                 </section>
 

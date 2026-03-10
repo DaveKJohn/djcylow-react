@@ -12,7 +12,7 @@
         .diensten-btn {
             flex: 1 1 40%;
 
-            @include tools.respond-to(var.$screen-size-baseedium) {
+            @include tools.respond-to(var.$screen-size-medium) {
                 flex: 1 1 100%;
             }
         }
@@ -23,14 +23,14 @@
 #promo,
 #verzoeknummers {
     // GEFIXED: Gebruik r-spacing en de juiste maat (l) die op de row staat
-    $gap-size: map.get(var.$r-spacing, "l");
+    $gap-size: map.get(var.$r-spacing, "9xl");
 
     .left {
         // Gebruik flex-basis in plaats van flex: 0 0 om browser-foutjes te voorkomen
         flex: 0 0 calc(45% - (#{$gap-size} / 2));
         max-width: calc(45% - (#{$gap-size} / 2));
 
-        @include tools.respond-to(var.$screen-size-baseedium) {
+        @include tools.respond-to(var.$screen-size-medium) {
             flex: 1 1 100%; // Reset op mobile
             max-width: none;
         }
@@ -40,7 +40,7 @@
         flex: 0 0 calc(55% - (#{$gap-size} / 2));
         max-width: calc(55% - (#{$gap-size} / 2));
 
-        @include tools.respond-to(var.$screen-size-baseedium) {
+        @include tools.respond-to(var.$screen-size-medium) {
             flex: 1 1 100%; // Reset op mobile
             max-width: none;
         }

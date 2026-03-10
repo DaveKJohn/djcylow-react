@@ -11,7 +11,7 @@ $card-height-basiskleuren: 150px;
     --card_width_basiskleuren: #{$card-width-basiskleuren};
     --card_height_basiskleuren: #{$card-height-basiskleuren};
 
-    @include tools.respond-to(var.$screen-size-baseedium) {
+    @include tools.respond-to(var.$screen-size-medium) {
         --card_width_basiskleuren: 130px;
         --card_height_basiskleuren: 130px;
     }
@@ -32,10 +32,11 @@ $card-height-basiskleuren: 150px;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
 
-        gap: map.get(var.$c-spacing, "xxs");
+        gap: map.get(var.$c-spacing, "lg");
 
-        $spacer: calc((map.get(var.$in-spacing, "l") * 2));
-        $current-gap: map.get(var.$c-spacing, "s");
+        $spacer: calc((map.get(var.$in-spacing, "lg") * 2));
+        $current-gap: map.get(var.$c-spacing, "2xl"); // moet hetzelfde zijn als &.row op regel 65
+              
         $total-gap: calc(#{$current-gap} * 7);
 
         $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-gap} + #{$spacer});
@@ -57,15 +58,15 @@ $card-height-basiskleuren: 150px;
             width: max-content;
 
             &:not([class*="text"]) {
-                margin: map.get(var.$c-spacing, "xxs") 0;
+                margin: map.get(var.$c-spacing, "base") 0;
             }
 
             &.row {
-                gap: map.get(var.$c-spacing, "s");
+                gap: map.get(var.$c-spacing, "2xl");
             }
 
             &.column {
-                gap: map.get(var.$c-spacing, "xxs");
+                gap: map.get(var.$c-spacing, "xl");
             }
 
             .number,
@@ -101,8 +102,7 @@ $card-height-basiskleuren: 150px;
         }
 
         .numbers {
-            width: calc((var(--card_width_basiskleuren) * 8) + #{$total-gap});
-
+          
             .number {
                 height: 35px;
 
@@ -110,8 +110,8 @@ $card-height-basiskleuren: 150px;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    width: map.get(var.$c-spacing, "m");
-                    height: map.get(var.$c-spacing, "m");
+                    width: map.get(var.$c-spacing, "5xl");
+                    height: map.get(var.$c-spacing, "5xl");
                     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
                     z-index: 1;
                 }
@@ -159,7 +159,7 @@ $card-height-basiskleuren: 150px;
 
                     // Dwing de breedte af en voorkom rekken
                     width: var.$colour-width !important;
-                    flex: 0 0 map.get(var.$c-spacing, "m"); // Of de specifieke waarde van je label
+                    flex: 0 0 map.get(var.$c-spacing, "2xl"); // Of de specifieke waarde van je label
 
                     // Zorg dat hij niet naar 100% springt
                     max-width: var.$colour-width;
@@ -209,7 +209,7 @@ $card-height-basiskleuren: 150px;
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(var.$c-spacing, "xxs");
+                        gap: map.get(var.$c-spacing, "xl");
 
                         .timeline-wrapper {
                             padding: 5px;

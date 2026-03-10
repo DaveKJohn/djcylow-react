@@ -15,7 +15,7 @@
 
     .input-field {
         width: 100%;
-        padding: map.get(var.$in-spacing, "s");
+        padding: map.get(var.$in-spacing, "3xl");
         border: 1px solid #ddd;
         font-family: inherit;
         transition: border-color 0.2s;
@@ -42,7 +42,7 @@
             margin: 0;
         }
         .icon {
-            font-size: var.$font-size-h2;
+            font-size: map.get(map.get(var.$font-settings, "8xl"), "size");
         }
     }
 
@@ -57,7 +57,7 @@
             margin: 0;
         }
         .icon {
-            font-size: var.$font-size-h2;
+            font-size: map.get(map.get(var.$font-settings, "xl"), "size");
         }
     }
 

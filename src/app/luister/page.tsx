@@ -13,12 +13,12 @@ export default function LuisterPage() {
         <main>
             {/* 1. Banner Sectie */}
             <section className="column stack wrapper pattern WoB" id="banner_luister">
-                <div className="column overlay stack wrapper spacing-l feather">
-                    <div className="column overlay spacing-m bottom"></div>
+                <div className="column overlay stack wrapper spacing-lg feather">
+                    <div className="column overlay spacing-lg bottom"></div>
                 </div>
-                <div className="column overlay constrainer spacing-l header">
-                    <div className="column banner-wrapper spacing-xxl">
-                        <div className="column text-wrapper spacing-s center">
+                <div className="column overlay constrainer spacing-lg header">
+                    <div className="column banner-wrapper spacing-9xl">
+                        <div className="column text-wrapper spacing-lg center">
                             <h1>Luister</h1>
                         </div>
                     </div>

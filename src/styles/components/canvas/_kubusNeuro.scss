@@ -55,10 +55,6 @@
                     border: 1px solid rgba(145, 145, 145, 0.2);
                     backface-visibility: visible;
 
-                    p {
-                        font-size: calc(var.$font-size-xs * 1.4);
-                        text-align: center;
-                    }
 
                     // Posities op basis van classes uit de nieuwe HTML
                     &.front {

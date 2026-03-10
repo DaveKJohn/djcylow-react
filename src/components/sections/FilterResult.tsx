@@ -41,14 +41,14 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
     }, [activeColor, activeGenre, activePower]);
 
     return (
-        <div className="column wrapper spacing-l center">
-            <div className="column text-wrapper spacing-xs header">
+        <div className="column wrapper spacing-lg center">
+            <div className="column text-wrapper spacing-lg header">
                 <h2>Luister</h2>
             </div>
-            <div className="row wrapper spacing-s wrap center card-wrapper">
+            <div className="row wrapper spacing-lg wrap center card-wrapper">
                 {filteredMixes.length > 0 ? (
                     filteredMixes.map((mix) => (
-                        <div key={mix.id} className="column wrapper spacing-xxs card">
+                        <div key={mix.id} className="column wrapper spacing-lg card">
                             <AudioPlayer 
                                 id={mix.id} 
                                 src={mix.audioSrc} 

@@ -72,8 +72,8 @@ export default function Erlenmeyers() {
     return (
         <>
             {/* 1. OUTPUT */}
-            <div className="column wrapper spacing-xs output">
-                <div className={`column wrapper spacing-xs center emotion-wrapper ${activeColor}`}>
+            <div className="column wrapper spacing-lg output">
+                <div className={`column wrapper spacing-lg center emotion-wrapper ${activeColor}`}>
                     
                     {/* Check op audioSrc om Console Error te voorkomen */}
                     {currentMix && currentMix.audioSrc ? (
@@ -93,7 +93,7 @@ export default function Erlenmeyers() {
                         </div>
                     )}
 
-                    <div className="row text-wrapper spacing-s center">
+                    <div className="row text-wrapper spacing-lg center">
                         <div className="column wrapper h-end">
                             <svg viewBox="0 0 20 20" width="20" height="20">
                                 <circle cx="10" cy="10" r="9" fill={`var(--${activeColor}-default)`} />
@@ -107,8 +107,8 @@ export default function Erlenmeyers() {
             </div>
 
             {/* 2. ERLENMEYERS */}
-            <div className="column wrapper spacing-xxs erlenmeyers show_border_bottom">
-                <div className="row wrapper spacing-s">
+            <div className="column wrapper spacing-xs erlenmeyers show_border_bottom">
+                <div className="row wrapper spacing-lg">
                     {SUBSTANCES.map((sub) => {
                         const isActive = substances[sub];
                         return (
@@ -137,7 +137,7 @@ export default function Erlenmeyers() {
                     })}
                 </div>
 
-                <div className="row text-wrapper spacing-s">
+                <div className="row text-wrapper spacing-lg">
                     {SUBSTANCES.map((sub) => (
                         <div key={`label-${sub}`} className={`label ${sub}`}>
                             <p>{sub}</p>
@@ -147,7 +147,7 @@ export default function Erlenmeyers() {
             </div>
 
             {/* 3. BUTTONS */}
-            <div className="row wrapper spacing-xs center wrap buttons">
+            <div className="row wrapper spacing-xl center wrap buttons">
                 {["cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue"].map((color) => (
                     <button
                         key={color}

@@ -21,18 +21,18 @@
     overflow: hidden;
     z-index: 1;
 
-    // afmetingen pattern BxH: 720 x 619. 
+    // afmetingen pattern BxH: 720 x 619.
     background-image: url("/images/pattern.webp");
     background-repeat: repeat-x;
     background-position: center;
-    background-size: auto 460px;
-    --pattern-offset: -418.74px; // (360 * (720/619))
-    
+    background-size: auto 500px;
+    --pattern-offset: -581.58px; // (500 * (720/619))
+
     animation: scrollPattern 40s linear infinite;
 
-    @include tools.respond-to(var.$screen-size-baseedium) {
-        background-size: auto 430px;
-        --pattern-offset: -499.78px; // (430 * (720/619))
+    @include tools.respond-to(var.$screen-size-small) {
+        background-size: auto 500px;
+        --pattern-offset: -581.58px; // (500 * (720/619))
     }
 
     .feather {
@@ -66,7 +66,7 @@
         z-index: 3;
         height: auto;
         width: 100%;
-
+       
         .h1-text {
             padding: map.get(var.$c-spacing, "xl") 0;
 

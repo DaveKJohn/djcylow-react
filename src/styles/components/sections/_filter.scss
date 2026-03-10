@@ -4,8 +4,8 @@
 
 
 .btn.select {
-    padding: map.get(var.$c-spacing, "xs") 0;
-    font-size: var.$font-size-base;
+    padding: map.get(var.$c-spacing, "xl") 0;
+    font-size: map.get(map.get(var.$font-settings, "xl"), "size");
     text-align: center;
     font-weight: 500;
 
@@ -74,7 +74,7 @@
             width: 15px;
             height: 15px;
 
-            @include tools.respond-to(var.$screen-size-baseedium) {
+            @include tools.respond-to(var.$screen-size-medium) {
                 width: 12px;
                 height: 12px;
             }

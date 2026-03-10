@@ -53,7 +53,7 @@
     @include respond-to(var.$screen-size-large) {
         #{$property}: $large;
     }
-    @include respond-to(var.$screen-size-baseedium) {
+    @include respond-to(var.$screen-size-medium) {
         #{$property}: $medium;
     }
     @include respond-to(var.$screen-size-small) {
@@ -166,7 +166,7 @@
         ul.subList {
             background-color: var(--#{$bg-100});
             border-top: 1px solid var(--#{$bg-70});
-            @include respond-to(var.$screen-size-baseedium) {
+            @include respond-to(var.$screen-size-medium) {
                 background-color: transparent;
                 border-top: none;
             }
@@ -200,7 +200,7 @@
         ul.mainList {
             &:not(:last-child):not(:has(li.subList-wrapper.open)) {
                 border-bottom: none;
-                @include respond-to(var.$screen-size-baseedium) {
+                @include respond-to(var.$screen-size-medium) {
                     border-bottom: solid 1px var(--#{$bg-80});
                 }
             }
@@ -237,7 +237,7 @@
     justify-content: center;
     aspect-ratio: var.$colour-aspect-ratio;
     text-align: center;
-    font-size: var.$font-size-xs;
+    font-size: map.get(map.get(var.$font-settings, "base"), "size");
     width: var.$colour-width;
     height: auto;
     line-height: 1;

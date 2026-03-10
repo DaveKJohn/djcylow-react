@@ -18,7 +18,7 @@
     $rot-y: 35deg;
     $anti-rotation: rotateY(-$rot-y) rotateX(-$rot-x);
 
-    max-width: 570px;
+    max-width: 600px;
 
     .h3-constrainer-1 {
         position: relative;
@@ -63,10 +63,6 @@
                     border: 1px solid rgba(187, 187, 187, 0.2);
                     backface-visibility: visible;
 
-                    p {
-                        font-size: calc(var.$font-size-xs * 1.4);
-                        text-align: center;
-                    }
                 }
 
                 #cube_plates_front {

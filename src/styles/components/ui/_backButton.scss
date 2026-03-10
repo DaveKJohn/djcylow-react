@@ -4,7 +4,7 @@
 
 .terug-btn {
     max-width: 220px;
-    padding: map.get(var.$in-spacing, "s");
+    padding: map.get(var.$in-spacing, "base");
 
     display: inline-flex;
     align-items: center;

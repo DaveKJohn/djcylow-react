@@ -16,7 +16,7 @@ body {
     overflow-y: visible;
     padding-top: calc(var.$nav-height-large + 0px);
 
-    @include tools.respond-to(var.$screen-size-baseedium) {
+    @include tools.respond-to(var.$screen-size-medium) {
         padding-top: calc(var.$nav-height-medium + 0px);
     }
 
@@ -48,11 +48,7 @@ body {
     &.wrapper,
     &.constrainer {
         @include tools.apply-spacing("v", true);
-    }
-
-    &.banner-wrapper.spacing-xxl {
-        padding: map.get(var.$c-spacing, "xxl") 0;
-    }
+    }   
 
     &.h-center {
         align-items: center;
@@ -74,7 +70,7 @@ body {
     }
 
     &.flex {
-        @include tools.respond-to(var.$screen-size-baseedium) {
+        @include tools.respond-to(var.$screen-size-medium) {
             align-items: flex-start !important;
             text-align: left !important;
         }
@@ -116,10 +112,10 @@ body {
     }
 
     &.flex {
-        gap: map.get(var.$r-spacing, "l");
-        @include tools.respond-to(var.$screen-size-baseedium) {
+        gap: map.get(var.$r-spacing, "6xl");
+        @include tools.respond-to(var.$screen-size-medium) {
             flex-direction: column !important;
-            gap: map.get(var.$c-spacing, "m");
+            gap: map.get(var.$c-spacing, "2xl");
         }
     }
 }
@@ -127,23 +123,25 @@ body {
 .nav-wrapper {
     @include tools.responsive-spacing(
         padding,
-        0 map.get(var.$r-spacing, "xl"),
-        0 map.get(var.$r-spacing, "m"),
-        0 map.get(var.$r-spacing, "m"),
-        0 map.get(var.$r-spacing, "s")
+        0 map.get(var.$r-spacing, "6xl"),
+        0 map.get(var.$r-spacing, "6xl"),
+        0 map.get(var.$r-spacing, "4xl"),
+        0 map.get(var.$r-spacing, "3xl")
     );
 }
 
 // De Breedste Container (Desktop Wrapper)
 .constrainer {
-    margin: 0 auto !important;
+    margin: 0 auto !important; // Houdt de container gecentreerd op ultra-wide schermen
     max-width: var.$desktop-max-width;
+
     @include tools.responsive-spacing(
         padding,
-        0 map.get(var.$r-spacing, "l"),
-        0 map.get(var.$r-spacing, "m"),
-        0 map.get(var.$r-spacing, "m"),
-        0 map.get(var.$r-spacing, "s")
+        // Volgorde: Top | Right | Bottom | Left
+        0 map.get(var.$r-spacing, "6xl"), 
+        0 map.get(var.$r-spacing, "6xl"), 
+        0 map.get(var.$r-spacing, "6xl"), 
+        0 map.get(var.$r-spacing, "3xl")  
     );
 }
 
@@ -151,10 +149,10 @@ body {
 .banner {
     @include tools.responsive-spacing(
         padding,
-        0 map.get(var.$r-spacing, "xl"),
-        0 map.get(var.$r-spacing, "l"),
-        0 map.get(var.$r-spacing, "m"),
-        0 map.get(var.$r-spacing, "s")
+        0 map.get(var.$r-spacing, "6xl"),
+        0 map.get(var.$r-spacing, "6xl"),
+        0 map.get(var.$r-spacing, "4xl"),
+        0 map.get(var.$r-spacing, "3xl")
     );
 }
 
@@ -195,7 +193,7 @@ body {
 
 
 .show_border_bottom {
-    padding-bottom: map.get(var.$c-spacing, "l") !important;
+    padding-bottom: map.get(var.$c-spacing, "5xl") !important;
 }
 
 .hidden {

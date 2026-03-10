@@ -47,15 +47,15 @@
         }
 
         .playing-wrapper {
-            padding: map.get(var.$c-spacing, "xxs");
-            gap: map.get(var.$c-spacing, "xxs");
+            padding: map.get(var.$c-spacing, "xl");
+            gap: map.get(var.$c-spacing, "xl");
 
             .timestamp-wrapper {
-                font-size: var.$font-size-xs;
+                font-size: map.get(map.get(var.$font-settings, "xl"), "size");
             }
 
             .timeline-wrapper {
-                padding: map.get(var.$c-spacing, "xxs");
+                padding: map.get(var.$c-spacing, "xl");
 
                 .total,
                 .progress {
@@ -75,7 +75,7 @@
                 }
 
                 .volume-wrapper {
-                    padding: 0 map.get(var.$c-spacing, "xxs");
+                    padding: 0 map.get(var.$c-spacing, "xl");
                     height: auto;
                     border-radius: 1px;
                     .left {
@@ -85,7 +85,7 @@
                         }
                     }
                     .right {
-                        padding: 0 map.get(var.$c-spacing, "xxs");
+                        padding: 0 map.get(var.$c-spacing, "xl");
 
                         input[type="range"] {
                             width: 80px;

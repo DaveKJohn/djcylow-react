@@ -44,6 +44,9 @@ export default function BasiskleurenCarousel() {
 
   return (
     <Carousel id="basiskleuren">
+
+      <div className="row wrapper gradient"></div>
+
       {/* 1. Nummers rij */}
       <div className="row wrapper numbers">
         {COLORS_CONFIG.map(c => (

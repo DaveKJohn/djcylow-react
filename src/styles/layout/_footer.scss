@@ -4,7 +4,7 @@
 
 footer {
     margin-top: map.get(var.$r-spacing, "xl");
-    font-size: var.$font-size-xs;
+    font-size: map.get(map.get(var.$font-settings, "xl"), "size");
     color: var(--white-80);
 
     // --- Layer 1 & 2: Logo Sectie ---
@@ -14,13 +14,11 @@ footer {
             height: auto;
             display: block;
 
-            @include tools.respond-to(var.$screen-size-baseedium) {
+            @include tools.respond-to(var.$screen-size-medium) {
                 width: 220px;
             }
         }
     }
-
-   
 
     // Algemene stijl voor containers binnen layer-3
     .row-2 {
@@ -57,6 +55,13 @@ footer {
         #contactMail,
         small {
             display: block;
+        }
+    }
+
+    .text-wrapper {
+       
+        .text-wrapper {
+            padding: 0 10px;
         }
     }
 }

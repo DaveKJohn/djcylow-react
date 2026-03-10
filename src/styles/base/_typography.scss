@@ -39,14 +39,14 @@ $heading-styles: (
     "h2, .banner-wrapper .text-wrapper h2": (
         "font-weight": 600,
         "letter-spacing": 2px,
-        "font-size": map.get(map.get(var.$font-settings, "5xl"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "5xl"), "line-height")
+        "font-size": map.get(map.get(var.$font-settings, "4xl"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "4xl"), "line-height")
     ),
     "h3": (
         "font-weight": 600,
         "text-wrap": balance,
-        "font-size": map.get(map.get(var.$font-settings, "2xl"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "2xl"), "line-height")
+        "font-size": map.get(map.get(var.$font-settings, "xl"), "size"),
+        "line-height": map.get(map.get(var.$font-settings, "xl"), "line-height")
     )
 );
 
@@ -81,11 +81,11 @@ $button-styles: (
 
 $list-styles: (
     "ul.column": (
-        "gap": map.get(var.$c-spacing, "s")
+        "gap": map.get(var.$c-spacing, "base")
     ),
     "li.column": (
-        "padding-left": map.get(var.$c-spacing, "m"),
-        "gap": map.get(var.$c-spacing, "xs")
+        "padding-left": map.get(var.$c-spacing, "2xl"),
+        "gap": map.get(var.$c-spacing, "xl")
     ),
     "li.column *:first-child::before": (
         "content": "•",
@@ -100,7 +100,7 @@ $list-styles: (
 $table-styles: (
     "td": (
         "font-size": map.get(map.get(var.$font-settings, "xs"), "size"),
-        "padding": map.get(var.$c-spacing, "xs") 0
+        "padding": map.get(var.$c-spacing, "xl") 0
     ),
     "td.track": (
         "font-weight": 600,

@@ -40,7 +40,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
     if (!mix) {
         return (
-            <main className="column wrapper spacing-m center v-push-m">
+            <main className="column wrapper spacing-lg center v-push-m">
                 <p>Mix niet gevonden.</p>
                 <Link href="/luister" className="btn passive">Terug naar overzicht</Link>
             </main>
@@ -51,9 +51,9 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         <main className="luister mix">
             <section className="column text-wrapper WoB">
                 <div className="column constrainer">
-                    <div className="column wrapper spacing-m v-push-m">
+                    <div className="column wrapper spacing-lg v-push-m">
 
-                        <div className="column wrapper spacing-xs h-start return-wrapper">
+                        <div className="column wrapper spacing-lg h-start return-wrapper">
                             <BackButton />
                         </div>
 
@@ -72,7 +72,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                         />
 
                         {/* TRACKLIST */}
-                        <div className="column text-wrapper spacing-xs tracklist">
+                        <div className="column text-wrapper spacing-lg tracklist">
                             <div className="row text-wrapper">
                                 <div className="column text-wrapper h-start header">
                                     <h3 className="size-base bold">Tracklist</h3>

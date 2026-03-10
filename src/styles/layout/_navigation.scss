@@ -51,7 +51,7 @@ nav {
 
         .view-wrapper {
             display: flex;
-            padding: 0 map.get(var.$r-spacing, "l");
+            padding: 0 map.get(var.$r-spacing, "6xl");
 
             ul.mainList {
                 position: relative;
@@ -62,7 +62,7 @@ nav {
             // Desktop Menu items (rij)
             .mainList-wrapper {
                 display: flex;
-                gap: map.get(var.$r-spacing, "m");
+                gap: map.get(var.$r-spacing, "4xl");
             }
 
             ul.mainList li.subList-wrapper {
@@ -79,10 +79,10 @@ nav {
                     align-items: center;
                     justify-content: space-between;
                     line-height: 1.5rem;
-                    padding: map.get(var.$c-spacing, "s") 0;
+                    padding: map.get(var.$c-spacing, "3xl") 0;
 
-                    @include tools.respond-to(var.$screen-size-baseedium) {
-                        padding: map.get(var.$c-spacing, "m") 0;
+                    @include tools.respond-to(var.$screen-size-medium) {
+                        padding: map.get(var.$c-spacing, "2xl") 0;
                     }
 
                     svg {
@@ -106,7 +106,7 @@ nav {
                 left: 0;
                 min-width: 300px;
                 z-index: 100;
-                padding: 0 map.get(var.$r-spacing, "s");
+                padding: 0 map.get(var.$r-spacing, "3xl");
                 list-style:none;
 
                 li {
@@ -115,7 +115,7 @@ nav {
                         display: block;
                         width: 100%;
                         text-align: left;
-                        padding: map.get(var.$c-spacing, "m") 0;
+                        padding: map.get(var.$c-spacing, "3xl") 0;
                     }
                 }
             }
@@ -133,9 +133,9 @@ nav {
     }
 
     // --- Breekpunt 2: (1080px) ---
-    @include tools.respond-to(var.$screen-size-baseedium) {
+    @include tools.respond-to(var.$screen-size-medium) {
         height: var.$nav-height-medium;
-        padding: 0 map.get(var.$in-spacing, "xl");
+        padding: 0 map.get(var.$in-spacing, "2xl");
 
         .logo-wrapper {
             justify-content: flex-start;
@@ -188,7 +188,7 @@ nav {
                     justify-content: space-between;
                     width: 100%;
                     height: 100%;
-                    padding: 0 map.get(var.$c-spacing, "xs");
+                    padding: 0 map.get(var.$c-spacing, "2xl");
                 }
             }
 
@@ -249,7 +249,7 @@ nav {
                         &.open ul.subList {
                             display: block;
                             position: static;
-                            padding: 0 map.get(var.$c-spacing, "m");
+                            padding: 0 map.get(var.$c-spacing, "6xl");
                         }
                     }
 
@@ -267,7 +267,7 @@ nav {
     // --- Breekpunt 3 (480px) ---
     @include tools.respond-to(var.$screen-size-small) {
         height: var.$nav-height-small;
-        padding: 0 map.get(var.$in-spacing, "s");
+        padding: 0 map.get(var.$in-spacing, "xl");
 
         .logo-wrapper img {
             width: 120px;

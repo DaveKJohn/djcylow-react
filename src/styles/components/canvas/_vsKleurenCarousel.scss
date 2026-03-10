@@ -9,7 +9,7 @@ $card-height-vs: 150px;
     --card_width_vs: #{$card-width-vs};
     --card_height_vs: #{$card-height-vs};
 
-    @include tools.respond-to(var.$screen-size-baseedium) {
+    @include tools.respond-to(var.$screen-size-medium) {
         --card_width_vs: 130px;
         --card_height_vs: 130px;
     }
@@ -38,7 +38,9 @@ $card-height-vs: 150px;
             flex-wrap: nowrap;
             width: max-content;
             min-width: 100%;
-            margin: map.get(var.$in-spacing, "xs") 0;
+            margin: map.get(var.$in-spacing, "xl") 0;
+
+            padding: 7px;
 
             .vr {
                 width: 1px;
@@ -47,17 +49,17 @@ $card-height-vs: 150px;
                 background-color: var(--black-80);
                 align-self: center;
                 opacity: 1;
-                margin: 0 map.get(var.$c-spacing, "m");
+                margin: 0 map.get(var.$c-spacing, "4xl");
             }
 
             // Pakt alle kleurcombinaties (bijv. .cyan-vs-red)
             [class*="-vs-"] {
                 flex-shrink: 0;
                 scroll-snap-align: start;
-                width: $card-width-vs;
+                width: var(--card_width_vs);
                 align-items: center;
                 text-align: center;
-                gap: map.get(var.$c-spacing, "s");
+                gap: map.get(var.$c-spacing, "3xl");
 
                 .middle {
                     @include tools.color-generator;
@@ -77,42 +79,17 @@ $card-height-vs: 150px;
                         }
                     }
 
-                    .vs,
-                    .circle {
+                    .vs {
                         height: auto;
                     }
 
-                    .circle::after {
-                        content: "";
-                        display: block;
-                        width: map.get(var.$c-spacing, "s");
-                        height: map.get(var.$c-spacing, "s");
-                        border-radius: 50%;
-                    }
-
-                    @each $name,
-                        $hex
-                            in (
-                                "cyan": #00ffff,
-                                "green": #00ff00,
-                                "yellow": #ffff00,
-                                "orange": #ff7f00,
-                                "red": #ff0000,
-                                "magenta": #ff00ff,
-                                "purple": #7f00ff,
-                                "blue": #0000ff
-                            )
-                    {
-                        .circle.#{$name}::after {
-                            background-color: $hex;
-                        }
-                    }
+                     
                 }
 
                 .audioplayer-wrapper {
                     height: var(--card_height_vs);
                     width: var(--card_width_vs);
-                    margin: 5px;
+                   
 
                     // Basis outline settings
                     outline-style: solid !important;
@@ -153,7 +130,7 @@ $card-height-vs: 150px;
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(var.$c-spacing, "xxs");
+                        gap: map.get(var.$c-spacing, "base");
 
                         .timeline-wrapper {
                             padding: 5px;

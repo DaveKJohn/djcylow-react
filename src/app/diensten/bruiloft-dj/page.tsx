@@ -19,13 +19,13 @@ export default function BruiloftDJPage() {
     <main className="diensten">
       {/* Banner - Gebruikt de vertrouwde njk-structuur */}
       <section className="column stack wrapper pattern WoB" id="banner_index">
-        <div className="column overlay stack wrapper spacing-l feather">
-          <div className="column overlay spacing-m bottom"></div>
+        <div className="column overlay stack wrapper spacing-lg feather">
+          <div className="column overlay spacing-lg bottom"></div>
         </div>
 
-        <div className="column overlay constrainer spacing-l header">
-          <div className="column banner-wrapper spacing-xxl">
-            <div className="column text-wrapper spacing-s center">
+        <div className="column overlay constrainer spacing-lg header">
+           <div className="column banner-wrapper v-push-8xl center">
+            <div className="column text-wrapper spacing-lg center">
               <h1>Boek DJ Cylow voor je bruiloft!</h1>
             </div>
           </div>
@@ -33,7 +33,7 @@ export default function BruiloftDJPage() {
       </section>
 
       {/* Contactformulier sectie */}
-      <div className="column wrapper center BoW v-push-xl" id="contactformulier">
+      <div className="column wrapper center BoW v-push-8xl" id="contactformulier">
         <ContactForm />
       </div>
     </main>

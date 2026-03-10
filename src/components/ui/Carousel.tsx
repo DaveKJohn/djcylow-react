@@ -42,7 +42,7 @@ export default function Carousel({ children, className = "", id }: CarouselProps
   };
 
   return (
-    <div className={`row wrapper spacing-s visual carousels black-90-bg in-push-l ${className}`}>
+    <div className={`row wrapper spacing-lg visual carousels black-90-bg in-push-6xl ${className}`}>
       {/* Linker Pijl */}
       <div className={`arrow left ${!showLeftArrow ? 'hidden' : ''}`} onClick={() => scroll(-1)}>
         <button className="btn">
@@ -54,7 +54,7 @@ export default function Carousel({ children, className = "", id }: CarouselProps
 
       {/* De Scroll Container */}
       <div 
-        className="column wrapper spacing-xxs no-scrollbar" 
+        className="column wrapper spacing-lg no-scrollbar" 
         id={id} 
         ref={scrollRef} 
         style={{ overflowX: 'auto', scrollBehavior: 'smooth' }}

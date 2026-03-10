@@ -21,10 +21,10 @@
 
         &.diensten-btn {
             max-width: 300px;
-            padding: map.get(var.$in-spacing, "s");
+            padding: map.get(var.$in-spacing, "3xl");
             font-size: map.get(map.get(var.$font-settings, "base"), "size");
 
-            @include tools.respond-to(var.$screen-size-baseedium) {
+            @include tools.respond-to(var.$screen-size-medium) {
                 max-width: none;
             }
         }
@@ -41,16 +41,16 @@
         &.hamburger-btn {
             height: 100%;
             font-weight: 200;
-            font-size: var.$font-size-h2;
+            font-size: map.get(map.get(var.$font-settings, "8xl"), "size");
 
-            @include tools.respond-to(var.$screen-size-baseedium) {
-                padding: 0 map.get(var.$r-spacing, "xs");
-                margin-left: map.get(var.$r-spacing, "xs");
+            @include tools.respond-to(var.$screen-size-medium) {
+                padding: 0 map.get(var.$r-spacing, "xl");
+                margin-left: map.get(var.$r-spacing, "xl");
             }
 
             @include tools.respond-to(var.$screen-size-small) {
-                padding: 0 map.get(var.$r-spacing, "xs");
-                margin-left: map.get(var.$r-spacing, "xs");
+                padding: 0 map.get(var.$r-spacing, "xl");
+                margin-left: map.get(var.$r-spacing, "xl");
             }
         }
 
@@ -67,7 +67,7 @@
                 height: 24px;
             }
 
-            @include tools.respond-to(var.$screen-size-baseedium) {
+            @include tools.respond-to(var.$screen-size-medium) {
                 display: flex;
             }
         }
@@ -81,7 +81,7 @@
         }
 
         &.close-btn {
-            font-size: var.$font-size-h3;
+            font-size: map.get(map.get(var.$font-settings, "8xl"), "size");
             margin-left: auto;
             margin-right: 0;
         }
@@ -107,18 +107,18 @@
 
         &.boek-nu-btn {
             width: 119px;
-            padding: map.get(var.$in-spacing, "xs");
+            padding: map.get(var.$in-spacing, "xl");
             font-size: map.get(map.get(var.$font-settings, "lg"), "size");
 
             @include tools.respond-to(var.$screen-size-small) {
                 width: 92px;
-                font-size: var.$font-size-base;
+                font-size: map.get(map.get(var.$font-settings, "8xl"), "size");
             }
         }
 
         &.verzend-form-btn {
             width: 100%;
-            padding: map.get(var.$in-spacing, "s");
+            padding: map.get(var.$in-spacing, "3xl");
             font-size: map.get(map.get(var.$font-settings, "lg"), "size");
         }
 
