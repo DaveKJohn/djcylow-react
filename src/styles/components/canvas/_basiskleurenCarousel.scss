@@ -1,11 +1,15 @@
 @use "sass:list";
 @use "sass:map";
-@use "sass:string"; 
+@use "sass:string";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
 $card-width-basiskleuren: 150px;
 $card-height-basiskleuren: 150px;
+
+$h-gap: map.get(var.$c-spacing, "2xl"); //one horizontal gap inside id="basiskleuren" check tsx. to lookup classname
+$total-h-gap: calc(#{$h-gap} * 7); //all horizontal gaps inside id="basiskleuren"
+$h-spacing: calc((map.get(var.$in-spacing, "2xl") * 2)); //additional horizontal space pushed inwards on id="basiskleuren"
 
 :root {
     --card_width_basiskleuren: #{$card-width-basiskleuren};
@@ -17,6 +21,8 @@ $card-height-basiskleuren: 150px;
     }
 }
 
+$total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} + #{$h-spacing});
+
 .carousels {
     .arrow {
         align-items: center;
@@ -26,20 +32,11 @@ $card-height-basiskleuren: 150px;
     }
 
     #basiskleuren {
-        align-items: center; // Standaard gecentreerd voor grote schermen
-
+        align-items: center; 
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
-
-        gap: map.get(var.$c-spacing, "lg");
-
-        $spacer: calc((map.get(var.$in-spacing, "lg") * 2));
-        $current-gap: map.get(var.$c-spacing, "2xl"); // moet hetzelfde zijn als &.row op regel 65
-              
-        $total-gap: calc(#{$current-gap} * 7);
-
-        $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-gap} + #{$spacer});
+        gap: map.get(var.$c-spacing, "base");        
 
         overflow-x: auto;
         scroll-snap-type: x mandatory;
@@ -57,18 +54,6 @@ $card-height-basiskleuren: 150px;
             flex-wrap: nowrap;
             width: max-content;
 
-            &:not([class*="text"]) {
-                margin: map.get(var.$c-spacing, "base") 0;
-            }
-
-            &.row {
-                gap: map.get(var.$c-spacing, "2xl");
-            }
-
-            &.column {
-                gap: map.get(var.$c-spacing, "xl");
-            }
-
             .number,
             .label,
             .colour,
@@ -85,7 +70,7 @@ $card-height-basiskleuren: 150px;
             display: block;
             flex-shrink: 0;
             height: 8px;
-            width: calc((var(--card_width_basiskleuren) * 8) + #{$total-gap});
+            width: calc((var(--card_width_basiskleuren) * 8) + #{$total-h-gap});
             background: linear-gradient(
                 to right,
                 #007fff 0%,
@@ -102,7 +87,6 @@ $card-height-basiskleuren: 150px;
         }
 
         .numbers {
-          
             .number {
                 height: 35px;
 
@@ -110,8 +94,8 @@ $card-height-basiskleuren: 150px;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    width: map.get(var.$c-spacing, "5xl");
-                    height: map.get(var.$c-spacing, "5xl");
+                    width: 1.875rem;
+                    height: 1.875rem;
                     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
                     z-index: 1;
                 }
@@ -209,7 +193,7 @@ $card-height-basiskleuren: 150px;
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(var.$c-spacing, "xl");
+                        gap: map.get(var.$c-spacing, "sm");
 
                         .timeline-wrapper {
                             padding: 5px;

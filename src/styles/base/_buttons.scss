@@ -41,7 +41,7 @@
         &.hamburger-btn {
             height: 100%;
             font-weight: 200;
-            font-size: map.get(map.get(var.$font-settings, "8xl"), "size");
+            font-size: map.get(map.get(var.$font-settings, "4xl"), "size");
 
             @include tools.respond-to(var.$screen-size-medium) {
                 padding: 0 map.get(var.$r-spacing, "xl");
@@ -81,7 +81,7 @@
         }
 
         &.close-btn {
-            font-size: map.get(map.get(var.$font-settings, "8xl"), "size");
+            font-size: map.get(map.get(var.$font-settings, "xl"), "size");
             margin-left: auto;
             margin-right: 0;
         }
@@ -112,7 +112,7 @@
 
             @include tools.respond-to(var.$screen-size-small) {
                 width: 92px;
-                font-size: map.get(map.get(var.$font-settings, "8xl"), "size");
+                font-size: map.get(map.get(var.$font-settings, "base"), "size");
             }
         }
 

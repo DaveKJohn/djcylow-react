@@ -54,7 +54,7 @@ export default function Carousel({ children, className = "", id }: CarouselProps
 
       {/* De Scroll Container */}
       <div 
-        className="column wrapper spacing-lg no-scrollbar" 
+        className="column wrapper no-scrollbar" 
         id={id} 
         ref={scrollRef} 
         style={{ overflowX: 'auto', scrollBehavior: 'smooth' }}

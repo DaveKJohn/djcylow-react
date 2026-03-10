@@ -237,7 +237,7 @@
     justify-content: center;
     aspect-ratio: var.$colour-aspect-ratio;
     text-align: center;
-    font-size: map.get(map.get(var.$font-settings, "base"), "size");
+    font-size: map.get(map.get(var.$font-settings, "sm"), "size");
     width: var.$colour-width;
     height: auto;
     line-height: 1;
