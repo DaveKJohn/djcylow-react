@@ -30,13 +30,13 @@ export default function DienstenPage() {
       {/* 1. Banner Sectie (Nu met volledige index-structuur) */}
       <section className="column stack wrapper pattern WoB" id="banner_diensten">
         {/* De feather en bottom overlays voor het verloop */}
-        <div className="column overlay stack wrapper spacing-lg feather">
-          <div className="column overlay spacing-lg bottom"></div>
+        <div className="column overlay stack wrapper spacing-h4 feather">
+          <div className="column overlay spacing-h4 bottom"></div>
         </div>
 
-        <div className="column overlay constrainer spacing-lg header">
-          <div className="column banner-wrapper v-push-8xl center">
-            <div className="column text-wrapper spacing-lg center">
+        <div className="column overlay constrainer spacing-h4 header">
+          <div className="column banner-wrapper v-push-h1 center">
+            <div className="column text-wrapper spacing-h4 center">
               <h1>{pageData.title}</h1>
             </div>
           </div>
@@ -44,7 +44,7 @@ export default function DienstenPage() {
       </section>
 
       {/* 2. Content Sectie (Tussen de banner en het formulier) */}
-      <section className="column wrapper spacing-xl center WoB">
+      <section className="column wrapper spacing-h3 center WoB">
         <div className="column constrainer">
           {/* Hier kun je je tekst of diensten-blokken plaatsen */}
         </div>

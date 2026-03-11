@@ -131,7 +131,7 @@ $card-height-erlenmeyers: 180px;
 
                 .playing-wrapper {
                     padding: 3px;
-                    gap: map.get(var.$c-spacing, "xl");
+                    gap: map.get(map.get(var.$design-scale, "sm"), "c-space");
 
                     .timeline-wrapper {
                         padding: 5px;
@@ -167,7 +167,7 @@ $card-height-erlenmeyers: 180px;
 
             .text-wrapper {
                 width: auto;
-                gap: map.get(var.$c-spacing, "base");
+                gap: map.get(map.get(var.$design-scale, "base"), "c-space");
 
                 .column.wrapper.h-end {
                     flex: 1;
@@ -183,7 +183,7 @@ $card-height-erlenmeyers: 180px;
 
                     .text {
                         font-weight: 500;
-                        font-size: map.get(map.get(var.$font-settings, "base"), "size");
+                        font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
                         white-space: nowrap; // Voorkomt dat de tekst onbedoeld afbreekt
                     }
                 }
@@ -193,8 +193,8 @@ $card-height-erlenmeyers: 180px;
 
     .buttons {
         button {
-            padding: map.get(var.$c-spacing, "xl") 0;
-            font-size: map.get(map.get(var.$font-settings, "base"), "size");
+            padding: map.get(map.get(var.$design-scale, "xl"), "c-space") 0;
+            font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
             text-align: center;
             font-weight: 500;
             transition: none;

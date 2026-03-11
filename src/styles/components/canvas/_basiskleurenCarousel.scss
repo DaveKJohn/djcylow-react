@@ -7,9 +7,9 @@
 $card-width-basiskleuren: 150px;
 $card-height-basiskleuren: 150px;
 
-$h-gap: map.get(var.$c-spacing, "2xl"); //one horizontal gap inside id="basiskleuren" check tsx. to lookup classname
+$h-gap: map.get(map.get(var.$design-scale, "2xl"), "c-space"); //one horizontal gap inside id="basiskleuren" check tsx. to lookup classname
 $total-h-gap: calc(#{$h-gap} * 7); //all horizontal gaps inside id="basiskleuren"
-$h-spacing: calc((map.get(var.$in-spacing, "2xl") * 2)); //additional horizontal space pushed inwards on id="basiskleuren"
+$h-spacing: calc((map.get(map.get(var.$design-scale, "2xl"), "in-space") * 2)); //additional horizontal space pushed inwards on id="basiskleuren"
 
 :root {
     --card_width_basiskleuren: #{$card-width-basiskleuren};
@@ -36,7 +36,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
-        gap: map.get(var.$c-spacing, "base");        
+        gap: map.get(map.get(var.$design-scale, "base"), "c-space");        
 
         overflow-x: auto;
         scroll-snap-type: x mandatory;
@@ -143,7 +143,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
 
                     // Dwing de breedte af en voorkom rekken
                     width: var.$colour-width !important;
-                    flex: 0 0 map.get(var.$c-spacing, "2xl"); // Of de specifieke waarde van je label
+                    flex: 0 0 map.get(map.get(var.$design-scale, "2xl"), "c-space"); // Of de specifieke waarde van je label
 
                     // Zorg dat hij niet naar 100% springt
                     max-width: var.$colour-width;
@@ -193,7 +193,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(var.$c-spacing, "sm");
+                        gap: map.get(map.get(var.$design-scale, "sm"), "c-space");
 
                         .timeline-wrapper {
                             padding: 5px;

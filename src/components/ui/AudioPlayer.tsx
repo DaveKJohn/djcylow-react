@@ -70,7 +70,7 @@ export default function AudioPlayer({
   const stateClass = isLoading ? 'is-loading' : isPlaying ? 'is-playing' : 'is-ready';
 
   return (
-    <div className={`column stack wrapper audioplayer-wrapper ${stateClass} ${className}`} data-id={id}>
+    <div className={`column stack wrapper spacing-h3 audioplayer-wrapper ${stateClass} ${className}`} data-id={id}>
 
       {/* Thumbnail */}
       <div

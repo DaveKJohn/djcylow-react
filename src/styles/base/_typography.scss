@@ -8,7 +8,10 @@
 body {
     font-family: var.$base-font;
     -webkit-font-smoothing: antialiased;
-    @include tools.text-style("base"); // Standaard body tekst
+    // Gebruik de nieuwe key-structuur
+    $body-config: map.get(var.$design-scale, "base");
+    font-size: map.get($body-config, "font-size");
+    line-height: map.get($body-config, "line-height");
 }
 
 .WoB {
@@ -22,31 +25,73 @@ body {
 /* =======================================
    2. TYPOGRAPHY CONFIGURATIE (Maps)
    ======================================= */
-
 $heading-styles: (
+    // Specifieke banner styles
     ".banner-wrapper .text-wrapper h1": (
-        "font-weight": 700,
-        "text-wrap": balance,
+            "font-weight": 700,
+            "text-wrap": balance,
+            "letter-spacing": 2px,
+            "scale-key": "8xl",
+            "responsive": (
+                (
+                    "breakpoint": var.$screen-size-medium,
+                    "scale-key": "7xl"
+                ),
+                (
+                    "breakpoint": var.$screen-size-small,
+                    "scale-key": "5xl"
+                )
+            )
+        ),
+    ".banner-wrapper .text-wrapper h2": (
+        "font-weight": 600,
         "letter-spacing": 2px,
-        "font-size": map.get(map.get(var.$font-settings, "8xl"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "8xl"), "line-height")
+        "scale-key": "5xl",
+        "responsive": (
+            (
+                "breakpoint": var.$screen-size-medium,
+                "scale-key": "4xl"
+            ),
+            (
+                "breakpoint": var.$screen-size-small,
+                "scale-key": "3xl"
+            )
+        )
     ),
+    // Standaard headings (h1-h3)
     "h1": (
-        "font-weight": 600,
-        "font-size": map.get(map.get(var.$font-settings, "8xl"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "8xl"), "line-height")
-    ),
-    "h2, .banner-wrapper .text-wrapper h2": (
+            "font-weight": 600,
+            "scale-key": "6xl",
+            "responsive": (
+                (
+                    "breakpoint": var.$screen-size-medium,
+                    "scale-key": "6xl"
+                ),
+                (
+                    "breakpoint": var.$screen-size-small,
+                    "scale-key": "4xl"
+                )
+            )
+        ),
+    "h2": (
         "font-weight": 600,
         "letter-spacing": 2px,
-        "font-size": map.get(map.get(var.$font-settings, "4xl"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "4xl"), "line-height")
+        "scale-key": "4xl",
+        "responsive": (
+            (
+                "breakpoint": var.$screen-size-medium,
+                "scale-key": "4xl"
+            ),
+            (
+                "breakpoint": var.$screen-size-small,
+                "scale-key": "3xl"
+            )
+        )
     ),
     "h3": (
         "font-weight": 600,
         "text-wrap": balance,
-        "font-size": map.get(map.get(var.$font-settings, "xl"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "xl"), "line-height")
+        "scale-key": "xl"
     )
 );
 
@@ -61,46 +106,26 @@ $text-element-styles: (
     ),
     "input, textarea": (
         "font-family": var.$base-font,
-        "font-size": map.get(map.get(var.$font-settings, "base"), "size"),
-        "line-height": 1
-    )
-);
-
-$button-styles: (
-    ".btn": (
-        "font-family": var.$base-font,
-        "line-height": 1
-    ),
-    ".btn.passive": (
-        "font-weight": 500
-    ),
-    ".btn.cta": (
-        "font-weight": 700
+        "scale-key": "base"
     )
 );
 
 $list-styles: (
     "ul.column": (
-        "gap": map.get(var.$c-spacing, "base")
+        // Pakt de r-space van 'base' (6px)
+        "gap": map.get(map.get(var.$design-scale, "base"), "r-space")
     ),
     "li.column": (
-        "padding-left": map.get(var.$c-spacing, "2xl"),
-        "gap": map.get(var.$c-spacing, "xl")
-    ),
-    "li.column *:first-child::before": (
-        "content": "•",
-        "color": currentColor,
-        "display": inline-block,
-        "width": 1.5em,
-        "margin-left": -1.5em,
-        "font-weight": bold
+        // Pakt de in-space van '2xl' (15px)
+        "padding-left": map.get(map.get(var.$design-scale, "2xl"), "in-space"),
+        "gap": map.get(map.get(var.$design-scale, "xl"), "r-space")
     )
 );
 
 $table-styles: (
     "td": (
-        "font-size": map.get(map.get(var.$font-settings, "xs"), "size"),
-        "padding": map.get(var.$c-spacing, "xl") 0
+        "scale-key": "sm",
+        "padding": map.get(map.get(var.$design-scale, "2xl"), "c-space") 0,
     ),
     "td.track": (
         "font-weight": 600,
@@ -114,16 +139,13 @@ $table-styles: (
 
 $utility-styles: (
     ".size-base": (
-        "font-size": map.get(map.get(var.$font-settings, "base"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "base"), "line-height")
-    ),    
+        "scale-key": "base"
+    ),
     ".size-sm": (
-        "font-size": map.get(map.get(var.$font-settings, "sm"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "sm"), "line-height")
+        "scale-key": "sm"
     ),
     ".size-xs": (
-        "font-size": map.get(map.get(var.$font-settings, "xs"), "size"),
-        "line-height": map.get(map.get(var.$font-settings, "xs"), "line-height")
+        "scale-key": "xs"
     ),
     ".balanced": (
         "text-wrap": balance
@@ -142,19 +164,14 @@ $utility-styles: (
 /* =======================================
    3. GENERATIE
    ======================================= */
+
+// 1. Genereer de typography styles (fonts & line-heights)
 @include tools.generate-typography($heading-styles);
 @include tools.generate-typography($text-element-styles);
-@include tools.generate-typography($button-styles);
 @include tools.generate-typography($list-styles);
-@include tools.generate-typography($table-styles);
 @include tools.generate-typography($utility-styles);
+@include tools.generate-typography($table-styles);
 
-// Automatische generatie van .size-xx klassen
-@each $name, $values in var.$font-settings {
-    .size-#{$name} {
-        @include tools.text-style($name);
-    }
-}
 
 /* =======================================
    4. SPECIALS

@@ -41,21 +41,21 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
     }, [activeColor, activeGenre, activePower]);
 
     return (
-        <div className="column wrapper spacing-lg center">
-            <div className="column text-wrapper spacing-lg header">
+        <div className="column wrapper spacing-h3 center">
+            <div className="column text-wrapper spacing-h6 header">
                 <h2>Luister</h2>
             </div>
-            <div className="row wrapper spacing-lg wrap center card-wrapper">
+            <div className="row wrapper spacing-h4 wrap center card-wrapper">
                 {filteredMixes.length > 0 ? (
                     filteredMixes.map((mix) => (
-                        <div key={mix.id} className="column wrapper spacing-lg card">
+                        <div key={mix.id} className="column wrapper spacing-h6 card">
                             <AudioPlayer 
                                 id={mix.id} 
                                 src={mix.audioSrc} 
                                 image={mix.image} 
                                 className={mix.color} // Zorgt voor de outline
                             />
-                            <div className="column wrapper h-start text">
+                            <div className="column text-wrapper spacing-h6 h-start text">
                                 <Link className="size-sm bold" href={`/${mix.permalink}`}>
                                     {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power}
                                 </Link>

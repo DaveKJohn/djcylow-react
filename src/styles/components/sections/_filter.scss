@@ -4,8 +4,8 @@
 
 
 .btn.select {
-    padding: map.get(var.$c-spacing, "xl") 0;
-    font-size: map.get(map.get(var.$font-settings, "xl"), "size");
+    padding: map.get(map.get(var.$design-scale, "xl"), "c-space") 0;
+    font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
     text-align: center;
     font-weight: 500;
 

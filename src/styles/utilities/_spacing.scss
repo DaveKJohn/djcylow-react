@@ -2,29 +2,24 @@
 @use "../abstracts/variables" as var;
 @use "../abstracts/mixins" as tools;
 
-@each $size in var.$sizes {
-    // 1. Horizontale padding
-    .h-push-#{$size} {
-        @include tools.apply-push("h", map.get(var.$r-spacing, $size));
-    }
+// Definieer de aliassen die we willen genereren
+$aliassen: ("h1", "h2", "h3", "h4", "h5", "h6");
 
-    // 2. Verticale padding
-    .v-push-#{$size} {
-        @include tools.apply-push("v", map.get(var.$c-spacing, $size));
+@each $alias in $aliassen {
+    .h-push-#{$alias} {
+        @include tools.apply-push("h", $alias);
     }
-
-    // 3. Top padding
-    .top-push-#{$size} {
-        @include tools.apply-push("top", map.get(var.$c-spacing, $size));
+    .v-push-#{$alias} {
+        @include tools.apply-push("v", $alias);
     }
-
-    // 4. Bottom padding
-    .bot-push-#{$size} {
-        @include tools.apply-push("bot", map.get(var.$c-spacing, $size));
+    .top-push-#{$alias} {
+        @include tools.apply-push("top", $alias);
     }
-
-    // 5. Volledige padding
-    .in-push-#{$size} {
-        @include tools.apply-push("in", map.get(var.$in-spacing, $size));
+    .bot-push-#{$alias} {
+        @include tools.apply-push("bot", $alias);
+    }
+    .in-push-#{$alias} {
+        @include tools.apply-push("in", $alias);
     }
 }
+

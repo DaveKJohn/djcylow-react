@@ -13,37 +13,189 @@
     }
 }
 
-@mixin apply-spacing($direction, $with-margin: false) {
-    $gap-map: var.$r-spacing;
+@mixin apply-smart-spacing($with-margin: false) {
+    // De basiskoppeling: Welke alias hoort bij welke schaal-key
+    $default-map: (
+        "h1": "8xl",
+        "h2": "6xl",
+        "h3": "4xl",
+        "h4": "2xl",
+        "h5": "xl",
+        "h6": "sm"
+    );
 
-    @if $direction == "v" {
-        $gap-map: var.$c-spacing;
-    }
+    // Alleen de afwijkingen voor specifiekere schermen
+    $medium-map: (
+        "h1": "7xl",
+        "h2": "5xl",
+        "h3": "4xl",
+        "h4": "2xl",
+        "h5": "xl",
+        "h6": "sm"
+    );
 
-    @each $size in var.$sizes {
-        &.spacing-#{$size} {
-            gap: map.get($gap-map, $size);
+    $small-map: (
+        "h1": "6xl",
+        "h2": "4xl",
+        "h3": "2xl",
+        "h4": "2xl",
+        "h5": "xl",
+        "h6": "sm"
+    );
 
+    @each $alias, $base-key in $default-map {
+        // Fallback logica: kijk of er een specifieke maat is, anders pak de default
+        $med-key: if(map.has-key($medium-map, $alias), map.get($medium-map, $alias), $base-key);
+        $small-key: if(map.has-key($small-map, $alias), map.get($small-map, $alias), $med-key);
+
+        // Data ophalen uit variables.scss
+        $config: map.get(var.$design-scale, $base-key);
+        $med-config: map.get(var.$design-scale, $med-key);
+        $small-config: map.get(var.$design-scale, $small-key);
+
+        // --- SELECTORS ---
+        // We groeperen ze hier om de CSS-output kleiner te maken
+        .row.spacing-#{$alias}.wrapper,
+        .row.spacing-#{$alias}.constrainer,
+        .column.spacing-#{$alias}.wrapper,
+        .column.spacing-#{$alias}.constrainer,
+        .row.spacing-#{$alias}.text-wrapper,
+        .column.spacing-#{$alias}.text-wrapper {
+            // 1. Gap (Altijd toegepast)
+            &.row {
+                gap: map.get($config, "r-space") !important;
+            }
+            &.column {
+                gap: map.get($config, "c-space") !important;
+            }
+
+            // 2. Marges (Alleen als with-margin true is EN het geen text-wrapper is)
             @if $with-margin {
-                margin: map.get(var.$extra-spacing, $size) 0;
+                &:not(.text-wrapper) {
+                    margin-top: map.get($config, "extra-space") !important;
+                    margin-bottom: map.get($config, "extra-space") !important;
+                }
+            }
+
+            // 3. Medium Screen Breakpoint
+            @include respond-to(var.$screen-size-medium) {
+                &.row {
+                    gap: map.get($med-config, "r-space") !important;
+                }
+                &.column {
+                    gap: map.get($med-config, "c-space") !important;
+                }
+                @if $with-margin {
+                    &:not(.text-wrapper) {
+                        margin-top: map.get($med-config, "extra-space") !important;
+                        margin-bottom: map.get($med-config, "extra-space") !important;
+                    }
+                }
+            }
+
+            // 4. Small Screen Breakpoint
+            @include respond-to(var.$screen-size-small) {
+                &.row {
+                    gap: map.get($small-config, "r-space") !important;
+                }
+                &.column {
+                    gap: map.get($small-config, "c-space") !important;
+                }
+                @if $with-margin {
+                    &:not(.text-wrapper) {
+                        margin-top: map.get($small-config, "extra-space") !important;
+                        margin-bottom: map.get($small-config, "extra-space") !important;
+                    }
+                }
             }
         }
     }
 }
 
-@mixin apply-push($type, $val) {
+@mixin apply-push($type, $alias) {
+    $default-map: (
+        "h1": "8xl",
+        "h2": "7xl",
+        "h3": "6xl",
+        "h4": "5xl",
+        "h5": "4xl",
+        "h6": "sm"
+    );
+
+    $medium-map: (
+        "h1": "7xl",
+        "h2": "6xl",
+        "h3": "5xl",
+        "h4": "4xl",
+        "h5": "xl",
+        "h6": "sm"
+    );
+
+    $small-map: (
+        "h1": "6xl",
+        "h2": "4xl",
+        "h3": "4xl",
+        "h4": "3xl",
+        "h5": "xl",
+        "h6": "sm"
+    );
+
+    $target-key: map.get($default-map, $alias);
+
+    @if $target-key {
+        $med-key: if(map.has-key($medium-map, $alias), map.get($medium-map, $alias), $target-key);
+        $small-key: if(map.has-key($small-map, $alias), map.get($small-map, $alias), $med-key);
+
+        $config: map.get(var.$design-scale, $target-key);
+        $med-config: map.get(var.$design-scale, $med-key);
+        $small-config: map.get(var.$design-scale, $small-key);
+
+        // Desktop waarde bepalen
+        $val: if(
+            $type == "h",
+            map.get($config, "r-space"),
+            if($type == "in", map.get($config, "in-space"), map.get($config, "c-space"))
+        );
+        @include _execute-push($type, $val);
+
+        // Medium Screen
+        @include respond-to(var.$screen-size-medium) {
+            $m-val: if(
+                $type == "h",
+                map.get($med-config, "r-space"),
+                if($type == "in", map.get($med-config, "in-space"), map.get($med-config, "c-space"))
+            );
+            @include _execute-push($type, $m-val);
+        }
+
+        // Small Screen
+        @include respond-to(var.$screen-size-small) {
+            $s-val: if(
+                $type == "h",
+                map.get($small-config, "r-space"),
+                if($type == "in", map.get($small-config, "in-space"), map.get($small-config, "c-space"))
+            );
+            @include _execute-push($type, $s-val);
+        }
+    } @else {
+        @include _execute-push($type, $alias);
+    }
+}
+
+// Interne hulp-mixin om herhaling van padding-eigenschappen te voorkomen
+@mixin _execute-push($type, $val) {
     @if $type == "in" {
-        padding: $val !important;
+        padding: $val;
     } @else if $type == "h" {
-        padding-left: $val !important;
-        padding-right: $val !important;
+        padding-left: $val;
+        padding-right: $val;
     } @else if $type == "v" {
-        padding-top: $val !important;
-        padding-bottom: $val !important;
+        padding-top: $val;
+        padding-bottom: $val;
     } @else if $type == "bot" {
-        padding-bottom: $val !important;
+        padding-bottom: $val;
     } @else if $type == "top" {
-        padding-top: $val !important;
+        padding-top: $val;
     }
 }
 
@@ -65,22 +217,38 @@
     2. TYPOGRAFIE & KLEUR UTILITIES
    ======================================= */
 
-@mixin text-style($size) {
-    $settings: map.get(var.$font-settings, $size);
-
-    @if $settings {
-        font-size: map.get($settings, "size");
-        line-height: map.get($settings, "line-height");
-    } @else {
-        @warn "Font size '#{$size}' niet gevonden in $font-settings.";
-    }
-}
-
 @mixin generate-typography($styles) {
     @each $selector, $properties in $styles {
         #{$selector} {
+            // Pas standaard eigenschappen toe (bijv. font-weight)
             @each $prop, $value in $properties {
-                #{$prop}: $value;
+                @if $prop != "responsive" and $prop != "scale-key" {
+                    #{$prop}: $value;
+                }
+            }
+
+            // Haal de font-size en line-height uit de design-scale
+            $key: map.get($properties, "scale-key");
+            @if $key {
+                $config: map.get(var.$design-scale, $key);
+                font-size: map.get($config, "font-size");
+                line-height: map.get($config, "line-height");
+            }
+
+            // Verwerk responsive overschrijvingen indien aanwezig
+            @if map.has-key($properties, "responsive") {
+                @each $resp in map.get($properties, "responsive") {
+                    // Voeg deze check toe om te zien of $resp wel echt een map is
+                    @if type-of($resp) == "map" {
+                        @include respond-to(map.get($resp, "breakpoint")) {
+                            $resp-key: map.get($resp, "scale-key");
+                            $resp-config: map.get(var.$design-scale, $resp-key);
+
+                            font-size: map.get($resp-config, "font-size");
+                            line-height: map.get($resp-config, "line-height");
+                        }
+                    }
+                }
             }
         }
     }
@@ -237,7 +405,8 @@
     justify-content: center;
     aspect-ratio: var.$colour-aspect-ratio;
     text-align: center;
-    font-size: map.get(map.get(var.$font-settings, "sm"), "size");
+    // GEFIXT: Verwees naar "size", moet "font-size" zijn
+    font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
     width: var.$colour-width;
     height: auto;
     line-height: 1;
@@ -285,5 +454,3 @@
         z-index: 1;
     }
 }
-
-

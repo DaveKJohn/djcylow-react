@@ -157,7 +157,7 @@
                 background-color: rgba(0, 0, 0, 0.5);
                 padding: 2px 5px;
                 color: rgb(231, 231, 231);
-                font-size: map.get(map.get(var.$font-settings, "xs"), "size");
+                font-size: map.get(map.get(var.$design-scale, "xs"), "font-size");
                 width: auto;
             }
         }

@@ -38,7 +38,7 @@ $card-height-vs: 150px;
             flex-wrap: nowrap;
             width: max-content;
             min-width: 100%;
-            margin: map.get(var.$in-spacing, "xl") 0;
+            margin: map.get(map.get(var.$design-scale, "xl"), "in-space") 0;
 
             padding: 7px;
 
@@ -49,7 +49,7 @@ $card-height-vs: 150px;
                 background-color: var(--black-80);
                 align-self: center;
                 opacity: 1;
-                margin: 0 map.get(var.$c-spacing, "4xl");
+                margin: 0 map.get(map.get(var.$design-scale, "4xl"), "c-space");
             }
 
             // Pakt alle kleurcombinaties (bijv. .cyan-vs-red)
@@ -59,7 +59,7 @@ $card-height-vs: 150px;
                 width: var(--card_width_vs);
                 align-items: center;
                 text-align: center;
-                gap: map.get(var.$c-spacing, "3xl");
+                gap: map.get(map.get(var.$design-scale, "3xl"), "c-space");
 
                 .middle {
                     @include tools.color-generator;
@@ -130,7 +130,7 @@ $card-height-vs: 150px;
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(var.$c-spacing, "base");
+                        gap: map.get(map.get(var.$design-scale, "base"), "c-space");
 
                         .timeline-wrapper {
                             padding: 5px;

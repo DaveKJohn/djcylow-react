@@ -23,7 +23,7 @@
 #promo,
 #verzoeknummers {
     // GEFIXED: Gebruik r-spacing en de juiste maat (l) die op de row staat
-    $gap-size: map.get(var.$r-spacing, "9xl");
+    $gap-size: map.get(map.get(var.$design-scale, "9xl"), "r-space");
 
     .left {
         // Gebruik flex-basis in plaats van flex: 0 0 om browser-foutjes te voorkomen

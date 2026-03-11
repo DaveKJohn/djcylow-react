@@ -34,163 +34,115 @@ $screen-size-large: 1530px;
 $screen-size-medium: 920px;
 $screen-size-small: 500px;
 
-$sizes: "9xl", "8xl", "7xl", "6xl", "5xl", "4xl", "3xl", "2xl", "xl", "lg", "base", "sm", "xs";
 
-$font-settings: (
+$design-scale: (
     "xs": (
-        "size": 0.75rem,
-        "line-height": 1rem
+        font-size: 12px,
+        line-height: 16px,
+        c-space: 3px,
+        r-space: 3px,
+        in-space: 3px,
+        extra-space: 2px
     ),
     "sm": (
-        "size": 0.875rem,
-        "line-height": 1.25rem
+        font-size: 14px,
+        line-height: 20px,
+        c-space: 4px,
+        r-space: 4px,
+        in-space: 4px,
+        extra-space: 3px
     ),
     "base": (
-        "size": 1rem,
-        "line-height": 1.75rem
+        font-size: 16px,
+        line-height: 28px,
+        c-space: 6px,
+        r-space: 6px,
+        in-space: 6px,
+        extra-space: 3px
     ),
     "lg": (
-        "size": 1.125rem,
-        "line-height": 1.75rem
+        font-size: 18px,
+        line-height: 28px,
+        c-space: 8px,
+        r-space: 8px,
+        in-space: 8px,
+        extra-space: 3px
     ),
     "xl": (
-        "size": 1.25rem,
-        "line-height": 1.75rem
+        font-size: 20px,
+        line-height: 28px,
+        c-space: 11px,
+        r-space: 11px,
+        in-space: 11px,
+        extra-space: 4px
     ),
     "2xl": (
-        "size": clamp(1.25rem, 2vw + 1rem, 1.5rem),
-        "line-height": 2rem
+        font-size: 24px,
+        line-height: 32px,
+        c-space: 15px,
+        r-space: 15px,
+        in-space: 15px,
+        extra-space: 4px
     ),
     "3xl": (
-        "size": clamp(1.5rem, 3vw + 1rem, 1.875rem),
-        "line-height": 2.25rem
+        font-size: 30px,
+        line-height: 36px,
+        c-space: 21px,
+        r-space: 21px,
+        in-space: 21px,
+        extra-space: 5px
     ),
     "4xl": (
-        "size": clamp(1.75rem, 4vw + 1rem, 2.25rem),
-        "line-height": 2.5rem
+        font-size: 36px,
+        line-height: 50px,
+        c-space: 30px,
+        r-space: 30px,
+        in-space: 30px,
+        extra-space: 6px
     ),
     "5xl": (
-        "size": clamp(2rem, 5vw + 1rem, 3rem),
-        "line-height": 1.1
+        font-size: 48px,
+        line-height: 56px,
+        c-space: 42px,
+        r-space: 42px,
+        in-space: 42px,
+        extra-space: 7px
     ),
     "6xl": (
-        "size": clamp(2.5rem, 7vw + 1rem, 3.75rem),
-        "line-height": 1.1
+        font-size: 60px,
+        line-height: 80px,
+        c-space: 58px,
+        r-space: 58px,
+        in-space: 58px,
+        extra-space: 8px
     ),
     "7xl": (
-        "size": clamp(3rem, 9vw + 1rem, 4.5rem),
-        "line-height": 1.1
+        font-size: 72px,
+        line-height: 84px,
+        c-space: 81px,
+        r-space: 81px,
+        in-space: 81px,
+        extra-space: 8px
     ),
     "8xl": (
-        "size": clamp(4rem, 12vw + 1rem, 6rem),
-        "line-height": 1.1
+        font-size: 96px,
+        line-height: 120px,
+        c-space: 113px,
+        r-space: 113px,
+        in-space: 113px,
+        extra-space: 9px
     ),
     "9xl": (
-        "size": clamp(5rem, 15vw + 1rem, 8rem),
-        "line-height": 1.1
+        font-size: 128px,
+        line-height: 128px,
+        c-space: 133px,
+        r-space: 133px,
+        in-space: 133px,
+        extra-space: 9px
     )
 );
 
-$c-spacing: (
-    "xs": 0.1875rem,
-    // 2px
-    "sm": 0.25rem,
-    // 3px
-    "base": 0.375rem,
-    // 4px
-    "lg": 0.5rem,
-    // 6px
-    "xl": clamp(0.5rem, 1vw + 0.25rem, 0.6875rem),
-    // 8px
-    "2xl": clamp(0.6875rem, 1.5vw + 0.25rem, 0.9375rem),
-    // Desktop 11px -> Mobiel ~8px
-    "3xl": clamp(0.9375rem, 2vw + 0.5rem, 1.3125rem),
-    // Desktop 15px -> Mobiel ~11px
-    "4xl": clamp(1.3125rem, 3vw + 0.5rem, 1.875rem),
-    // Desktop 21px -> Mobiel ~15px
-    "5xl": clamp(1.875rem, 4vw + 0.75rem, 2.625rem),
-    // Desktop 30px -> Mobiel ~21px
-    "6xl": clamp(2.625rem, 6vw + 1rem, 3.625rem),
-    // Desktop 42px -> Mobiel ~30px
-    "7xl": clamp(3.625rem, 8vw + 1rem, 5.0625rem),
-    // Desktop 58px -> Mobiel ~42px
-    "8xl": clamp(5.0625rem, 10vw + 1.5rem, 7.0625rem),
-    // Desktop 81px -> Mobiel ~58px
-    "9xl": clamp(6.0625rem, 10vw + 1.5rem, 9.0625rem)
-);
 
-$in-spacing: (
-    "xs": 0.1875rem,
-    // 2px
-    "sm": 0.25rem,
-    // 3px
-    "base": 0.375rem,
-    // 4px
-    "lg": 0.5rem,
-    // 6px
-    "xl": clamp(0.5rem, 1vw + 0.25rem, 0.6875rem),
-    // 8px
-    "2xl": clamp(0.6875rem, 1.5vw + 0.25rem, 0.9375rem),
-    // Desktop 11px -> Mobiel ~8px
-    "3xl": clamp(0.9375rem, 2vw + 0.5rem, 1.3125rem),
-    // Desktop 15px -> Mobiel ~11px
-    "4xl": clamp(1.3125rem, 3vw + 0.5rem, 1.875rem),
-    // Desktop 21px -> Mobiel ~15px
-    "5xl": clamp(1.875rem, 4vw + 0.75rem, 2.625rem),
-    // Desktop 30px -> Mobiel ~21px
-    "6xl": clamp(2.625rem, 6vw + 1rem, 3.625rem),
-    // Desktop 42px -> Mobiel ~30px
-    "7xl": clamp(3.625rem, 8vw + 1rem, 5.0625rem),
-    // Desktop 58px -> Mobiel ~42px
-    "8xl": clamp(5.0625rem, 10vw + 1.5rem, 7.0625rem),
-    // Desktop 81px -> Mobiel ~58px
-    "9xl": clamp(6.0625rem, 10vw + 1.5rem, 9.0625rem)
-);
-
-// Rows
-$r-spacing: (
-    "xs": 0.1875rem,
-    // 2px
-    "sm": 0.25rem,
-    // 3px
-    "base": 0.375rem,
-    // 4px
-    "lg": 0.5rem,
-    // 6px
-    "xl": clamp(0.5rem, 1vw + 0.25rem, 0.6875rem),
-    // 8px
-    "2xl": clamp(0.6875rem, 1.5vw + 0.25rem, 0.9375rem),
-    // Desktop 11px -> Mobiel ~8px
-    "3xl": clamp(0.9375rem, 2vw + 0.5rem, 1.3125rem),
-    // Desktop 15px -> Mobiel ~11px
-    "4xl": clamp(1.3125rem, 3vw + 0.5rem, 1.875rem),
-    // Desktop 21px -> Mobiel ~15px
-    "5xl": clamp(1.875rem, 4vw + 0.75rem, 2.625rem),
-    // Desktop 30px -> Mobiel ~21px
-    "6xl": clamp(2.625rem, 6vw + 1rem, 3.625rem),
-    // Desktop 42px -> Mobiel ~30px
-    "7xl": clamp(3.625rem, 8vw + 1rem, 5.0625rem),
-    // Desktop 58px -> Mobiel ~42px
-    "8xl": clamp(5.0625rem, 10vw + 1.5rem, 7.0625rem),
-    // Desktop 81px -> Mobiel ~58px
-    "9xl": clamp(6.0625rem, 10vw + 1.5rem, 9.0625rem)
-);
-
-$extra-spacing: (
-    "9xl": 9px,
-    "8xl": 9px,
-    "7xl": 8px,
-    "6xl": 8px,
-    "5xl": 7px,
-    "4xl": 7px,
-    "3xl": 6px,
-    "2xl": 6px,
-    "xl": 6px,
-    "lg": 5px,
-    "base": 5px,
-    "sm": 4px,
-    "xs": 4px
-);
 
 // =======================================
 // 1. Gecentraliseerde Kleurdefinities (SCSS Map)
@@ -288,5 +240,3 @@ $canvas-max-width: 680px;
 // Kleurenlijsten voor loops
 $all-colors: ("cyan", "yellow", "red", "purple", "green", "orange", "magenta", "blue");
 $dark-text-colors: ("cyan", "yellow", "green", "orange");
-
-

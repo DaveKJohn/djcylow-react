@@ -64,11 +64,11 @@
         }
 
         .playing-wrapper {
-            padding: map.get(var.$c-spacing, "xl");
-            gap: map.get(var.$c-spacing, "xl");
+            padding: map.get(map.get(var.$design-scale, "xl"), "c-space");
+            gap: map.get(map.get(var.$design-scale, "xl"), "c-space");
 
             .timestamp-wrapper {
-                font-size: map.get(map.get(var.$font-settings, "xl"), "size");
+                font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
             }
 
             .timeline-wrapper {                 

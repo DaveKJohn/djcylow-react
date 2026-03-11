@@ -10,7 +10,7 @@ export default function BackButton() {
             onClick={() => router.back()}
             aria-label="Terug naar overzicht"
         >
-            <span className="size-xs">Terug naar overzicht</span>
+            <span className="">Terug naar overzicht</span>
         </button>
     );
 }

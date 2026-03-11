@@ -10,6 +10,7 @@
 
     text-align: center;
     transition: color 300ms ease-in-out;
+    line-height: 1;
 
     svg {
         display: block;
@@ -21,8 +22,8 @@
 
         &.diensten-btn {
             max-width: 300px;
-            padding: map.get(var.$in-spacing, "3xl");
-            font-size: map.get(map.get(var.$font-settings, "base"), "size");
+            padding: map.get(map.get(var.$design-scale, "3xl"), "in-space");
+            font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
 
             @include tools.respond-to(var.$screen-size-medium) {
                 max-width: none;
@@ -41,16 +42,16 @@
         &.hamburger-btn {
             height: 100%;
             font-weight: 200;
-            font-size: map.get(map.get(var.$font-settings, "4xl"), "size");
+            font-size: map.get(map.get(var.$design-scale, "3xl"), "font-size");
 
             @include tools.respond-to(var.$screen-size-medium) {
-                padding: 0 map.get(var.$r-spacing, "xl");
-                margin-left: map.get(var.$r-spacing, "xl");
+                padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
+                margin-left: map.get(map.get(var.$design-scale, "xl"), "r-space");
             }
 
             @include tools.respond-to(var.$screen-size-small) {
-                padding: 0 map.get(var.$r-spacing, "xl");
-                margin-left: map.get(var.$r-spacing, "xl");
+                padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
+                margin-left: map.get(map.get(var.$design-scale, "xl"), "r-space");
             }
         }
 
@@ -81,7 +82,7 @@
         }
 
         &.close-btn {
-            font-size: map.get(map.get(var.$font-settings, "xl"), "size");
+            font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
             margin-left: auto;
             margin-right: 0;
         }
@@ -103,23 +104,25 @@
 
         position: relative;
         overflow: hidden;
+        font-weight: 700;
         border: 1px solid;
 
         &.boek-nu-btn {
             width: 119px;
-            padding: map.get(var.$in-spacing, "xl");
-            font-size: map.get(map.get(var.$font-settings, "lg"), "size");
+            padding: map.get(map.get(var.$design-scale, "xl"), "in-space");
+            font-size: map.get(map.get(var.$design-scale, "lg"), "font-size");
 
             @include tools.respond-to(var.$screen-size-small) {
-                width: 92px;
-                font-size: map.get(map.get(var.$font-settings, "base"), "size");
+                width: 90px;
+                padding: map.get(map.get(var.$design-scale, "lg"), "in-space");
+                font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
             }
         }
 
         &.verzend-form-btn {
             width: 100%;
-            padding: map.get(var.$in-spacing, "3xl");
-            font-size: map.get(map.get(var.$font-settings, "lg"), "size");
+            padding: map.get(map.get(var.$design-scale, "3xl"), "in-space");
+            font-size: map.get(map.get(var.$design-scale, "lg"), "font-size");
         }
 
         span {

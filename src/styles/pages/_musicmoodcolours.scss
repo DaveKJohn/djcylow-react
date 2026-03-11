@@ -68,7 +68,7 @@
         width: 100%;
        
         .h1-text {
-            padding: map.get(var.$c-spacing, "xl") 0;
+            padding: map.get(map.get(var.$design-scale, "xl"), "c-space") 0;
 
             h1.banner {
                 color: white;

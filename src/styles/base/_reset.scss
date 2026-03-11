@@ -40,16 +40,6 @@ body {
 .column {
     flex-direction: column;
 
-    &.text-wrapper {
-        @include tools.apply-spacing("v");
-    }
-
-    // FORCEER VERTICAAL: Alleen c-spacing voor columns
-    &.wrapper,
-    &.constrainer {
-        @include tools.apply-spacing("v", true);
-    }   
-
     &.h-center {
         align-items: center;
         text-align: center;
@@ -80,16 +70,6 @@ body {
 .row {
     flex-direction: row;
 
-    &.text-wrapper {
-        @include tools.apply-spacing("h");
-    }
-
-    // FORCEER HORIZONTAAL: Alleen r-spacing voor rows
-    &.wrapper,
-    &.constrainer {
-        @include tools.apply-spacing("h", true);
-    }
-
     &.h-center {
         justify-content: center;
         text-align: center;
@@ -112,10 +92,8 @@ body {
     }
 
     &.flex {
-        gap: map.get(var.$r-spacing, "6xl");
         @include tools.respond-to(var.$screen-size-medium) {
             flex-direction: column !important;
-            gap: map.get(var.$c-spacing, "2xl");
         }
     }
 }
@@ -123,10 +101,10 @@ body {
 .nav-wrapper {
     @include tools.responsive-spacing(
         padding,
-        0 map.get(var.$r-spacing, "6xl"),
-        0 map.get(var.$r-spacing, "6xl"),
-        0 map.get(var.$r-spacing, "4xl"),
-        0 map.get(var.$r-spacing, "3xl")
+        0 map.get(map.get(var.$design-scale, "8xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
     );
 }
 
@@ -138,10 +116,10 @@ body {
     @include tools.responsive-spacing(
         padding,
         // Volgorde: Top | Right | Bottom | Left
-        0 map.get(var.$r-spacing, "6xl"), 
-        0 map.get(var.$r-spacing, "6xl"), 
-        0 map.get(var.$r-spacing, "6xl"), 
-        0 map.get(var.$r-spacing, "3xl")  
+        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
     );
 }
 
@@ -149,10 +127,10 @@ body {
 .banner {
     @include tools.responsive-spacing(
         padding,
-        0 map.get(var.$r-spacing, "6xl"),
-        0 map.get(var.$r-spacing, "6xl"),
-        0 map.get(var.$r-spacing, "4xl"),
-        0 map.get(var.$r-spacing, "3xl")
+        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
     );
 }
 
@@ -190,12 +168,15 @@ body {
     align-items: center;
 }
 
-
-
 .show_border_bottom {
-    padding-bottom: map.get(var.$c-spacing, "5xl") !important;
+    padding-bottom: map.get(map.get(var.$design-scale, "5xl"), "c-space") !important;
+    @include tools.respond-to(var.$screen-size-small) {
+        padding-bottom: map.get(map.get(var.$design-scale, "4xl"), "c-space") !important;
+    }
 }
 
 .hidden {
     display: none;
 }
+
+@include tools.apply-smart-spacing(true);

@@ -45,10 +45,10 @@ export default function BasiskleurenCarousel() {
   return (
     <Carousel id="basiskleuren">
 
-      <div className="row wrapper gradient spacing-2xl"></div>
+      <div className="row wrapper gradient spacing-h4"></div>
 
       {/* 1. Nummers rij */}
-      <div className="row wrapper numbers spacing-2xl">
+      <div className="row wrapper numbers spacing-h4">
         {COLORS_CONFIG.map(c => (
           <div key={c.id} className={`column stack wrapper number ${c.name}`}>
             <div className="column overlay wrapper back"></div>
@@ -60,7 +60,7 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 2. Labels rij */}
-      <div className="row wrapper labels spacing-2xl">
+      <div className="row wrapper labels spacing-h4">
         {COLORS_CONFIG.map(c => (
           <div key={c.name} className="column wrapper label center">
             <div className={`colour ${c.name}`}>
@@ -71,7 +71,7 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 3. Audio Players rij */}
-      <div className="row wrapper colours spacing-2xl">
+      <div className="row wrapper colours spacing-h4">
         {featuredMixes.map(({ name, mix }) => (
           <div key={name} className={`column wrapper stack colour ${name}`}>
             {mix && mix.audioSrc ? (
@@ -94,12 +94,12 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 4. Decoratieve cirkels */}
-      <div className="row wrapper circles spacing-2xl">
+      <div className="row wrapper circles spacing-h4">
         {COLORS_CONFIG.map(c => <div key={c.name} className={`column circle ${c.name}`}></div>)}
       </div>
 
       {/* 5. Beschrijvingen */}
-      <div className="row text-wrapper descriptions spacing-2xl">
+      <div className="row text-wrapper descriptions spacing-h4">
         {COLORS_CONFIG.map(c => (
           <div key={c.name} className={`column text description ${c.name}`}>
             <p className="size-sm">"{c.description}"</p>
