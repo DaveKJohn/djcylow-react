@@ -25,24 +25,38 @@
     background-image: url("/images/pattern.webp");
     background-repeat: repeat-x;
     background-position: center;
-    background-size: auto 500px;
-    --pattern-offset: -581.58px; // (500 * (720/619))
+    background-position: center;
+
+    // Berekening: 550 * (720 / 619) = 639.74px
+    background-size: auto 550px;
+    --pattern-offset: -639.74px;
 
     animation: scrollPattern 40s linear infinite;
 
     @include tools.respond-to(var.$screen-size-small) {
-        background-size: auto 500px;
-        --pattern-offset: -581.58px; // (500 * (720/619))
+        // Berekening: 440 * (720 / 619) = 511.79px
+        background-size: auto 440px;
+        --pattern-offset: -511.79px;
     }
 
     .feather {
-        position: absolute; // Absoluut binnen de pattern-section
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         z-index: 2;
         pointer-events: none;
+
+        // Voeg dit toe:
+        .sides,
+        .bottom {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
         .sides {
             background: linear-gradient(
@@ -55,29 +69,9 @@
                 black 100%
             );
         }
+
         .bottom {
             background: linear-gradient(to bottom, transparent 0%, transparent 20%, rgba(0, 0, 0, 0.5) 70%, black 100%);
-        }
-    }
-
-    // De tekst-container die de hoogte bepaalt
-    .header {
-        position: relative; // Haal uit de overlay-flow om hoogte te geven aan #banner_2
-        z-index: 3;
-        height: auto;
-        width: 100%;
-       
-        .h1-text {
-            padding: map.get(map.get(var.$design-scale, "xl"), "c-space") 0;
-
-            h1.banner {
-                color: white;
-                text-shadow:
-                    0px 0px 10px rgba(0, 0, 0, 1),
-                    0px 0px 5px rgba(0, 0, 0, 1),
-                    0px 10px 30px rgba(0, 0, 0, 1),
-                    0px 0px 50px rgba(0, 0, 0, 0.8);
-            }
         }
     }
 }

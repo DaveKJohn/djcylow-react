@@ -22,8 +22,8 @@ export default function MusicMoodColoursPage() {
                     <div className="column overlay spacing-h6 sides"></div>
                     <div className="column overlay spacing-h6 bottom"></div>
                 </div>
-                <div className="column overlay constrainer spacing-h6 header">
-                    <div className="column banner-wrapper v-push-h1 center">
+                <div className="column overlay text-constrainer spacing-h6 header">
+                    <div className="column banner-wrapper v-push-h2 center">
                         <div className="column text-wrapper spacing-h6 left">
                             <h1>Music Mood Colours</h1>
                         </div>

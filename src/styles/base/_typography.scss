@@ -41,11 +41,11 @@ $heading-styles: (
 
     // Standaard headings
     "h1": (
-            "font-weight": 600,
-            "scale-key": "h3" // Gebruikt automatisch: 7xl -> 6xl -> 5xl
+            "font-weight": 700,
+            "scale-key": "h2" // Gebruikt automatisch: 7xl -> 6xl -> 5xl
         ),
     "h2": (
-        "font-weight": 600,
+        "font-weight": 700,
         "letter-spacing": 2px,
         "scale-key": "h5" // Gebruikt automatisch: 5xl -> 4xl -> 3xl
     ),

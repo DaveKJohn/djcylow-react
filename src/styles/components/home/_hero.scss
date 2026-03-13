@@ -122,7 +122,7 @@
         }
 
         @include tools.respond-to(var.$screen-size-medium) {
-            transform: translateY(50px);
+            transform: translateY(70px);
         }
     }
 }
