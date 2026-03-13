@@ -50,8 +50,8 @@ export default function Nav() {
                     <Link href="/">
                         <Image
                             src="/images/djcylow_logo.webp"
-                            width={150}
-                            height={50}
+                            width={160}
+                            height={100}
                             alt="Logo"
                             style={{ height: 'auto' }} // Voeg dit toe
                         />
@@ -85,53 +85,18 @@ export default function Nav() {
 
                     <div className={`row-2 container view-wrapper ${activeSubmenu ? 'subList-view' : ''}`} id="nav_menuWrapper_viewWrapper">
                         <div className="container row mainList-wrapper">
-
-                            {/* Diensten */}
-                            <ul className="col-1 btn mainList">
-                                {/* De 'open' class moet op de LI staan voor jouw SCSS */}
-                                <li className={`subList-wrapper ${activeSubmenu === 'diensten' ? 'open' : ''}`}>
-                                    <Link
-                                        className="btn has-subList"
-                                        href="/diensten"
-                                        onClick={(e) => handleSubmenuClick(e, 'diensten')}
-                                    >
-                                        Diensten
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path fill="currentColor" fillRule="evenodd" d="M5.293 8.793a1 1 0 0 1 1.414 0L12 14.086l5.293-5.293a1 1 0 1 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6a1 1 0 0 1 0-1.414" clipRule="evenodd"></path>
-                                        </svg>
-                                    </Link>
-                                    <ul className="subList">
-                                        <li><Link className="btn" href="/diensten/bruiloft-dj">Bruiloft DJ</Link></li>
-                                        <li><Link className="btn" href="/diensten/bedrijfsfeest-dj">Bedrijfsfeest DJ</Link></li>
-                                        <li><Link className="btn" href="/diensten/house-dj">House DJ</Link></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                          
 
                             {/* Luister */}
                             <ul className="col-2 btn mainList">
-                                <li className={`subList-wrapper ${activeSubmenu === 'luister' ? 'open' : ''}`}>
-                                    <Link
-                                        className="btn has-subList"
-                                        href="/luister"
-                                        onClick={(e) => handleSubmenuClick(e, 'luister')}
-                                    >
-                                        Luister
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path fill="currentColor" fillRule="evenodd" d="M5.293 8.793a1 1 0 0 1 1.414 0L12 14.086l5.293-5.293a1 1 0 1 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6a1 1 0 0 1 0-1.414" clipRule="evenodd"></path>
-                                        </svg>
-                                    </Link>
-                                    <ul className="subList">
-                                        <li><Link className="btn" href="/luister">Alles</Link></li>
-                                        <li><Link className="btn" href="/luister/edm">EDM</Link></li>
-                                        <li><Link className="btn" href="/luister/drumandbass">Drum & Bass</Link></li>
-                                    </ul>
+                                <li className=" row text-wrapper btn subList-wrapper">
+                                    <Link className="btn has-subList" href="/luister">Luister</Link>
                                 </li>
                             </ul>
 
                             {/* Music Mood Colours (Heeft geen submenu, dus geen extra classes nodig) */}
                             <ul className="col-3 btn mainList">
-                                <li className="subList-wrapper">
+                                <li className=" row text-wrapper btn subList-wrapper">
                                     <Link className="btn has-subList" href="/musicmoodcolours">Music Mood Colours</Link>
                                 </li>
                             </ul>
@@ -156,7 +121,7 @@ export default function Nav() {
 
             </div>
 
-            <div className="row-2 container custom-border-bottom"></div>
+
         </nav>
     );
 }

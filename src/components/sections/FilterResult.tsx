@@ -41,21 +41,21 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
     }, [activeColor, activeGenre, activePower]);
 
     return (
-        <div className="column wrapper spacing-h3 center">
-            <div className="column text-wrapper spacing-h6 header">
-                <h2>Luister</h2>
-            </div>
-            <div className="row wrapper spacing-h4 wrap center card-wrapper">
+        <div className="column wrapper spacing-h6 center">
+
+            <h2>Luister</h2>
+
+            <div className="row wrapper spacing-h8 wrap center card-wrapper">
                 {filteredMixes.length > 0 ? (
                     filteredMixes.map((mix) => (
-                        <div key={mix.id} className="column wrapper spacing-h6 card">
-                            <AudioPlayer 
-                                id={mix.id} 
-                                src={mix.audioSrc} 
-                                image={mix.image} 
+                        <div key={mix.id} className="column wrapper spacing-h11 card">
+                            <AudioPlayer
+                                id={mix.id}
+                                src={mix.audioSrc}
+                                image={mix.image}
                                 className={mix.color} // Zorgt voor de outline
                             />
-                            <div className="column text-wrapper spacing-h6 h-start text">
+                            <div className="column text-wrapper spacing-h12 h-start text">
                                 <Link className="size-sm bold" href={`/${mix.permalink}`}>
                                     {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power}
                                 </Link>
@@ -64,7 +64,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                         </div>
                     ))
                 ) : (
-                    <p className="size-base">Geen mixen gevonden voor deze combinatie.</p>
+                    <p>Geen mixen gevonden voor deze combinatie.</p>
                 )}
                 <div className="card-dummy"></div>
                 <div className="card-dummy"></div>

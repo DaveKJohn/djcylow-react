@@ -20,9 +20,9 @@ $base-font: var(--font-poppins), "Poppins", Arial, sans-serif;
 $desktop-max-width: 1230px;
 
 // --- Nav heights ---
-$nav-height-large: 90px;
-$nav-height-medium: 80px;
-$nav-height-small: 70px;
+$nav-height-large: 100px;
+$nav-height-medium: 90px;
+$nav-height-small: 65px;
 
 // --- Banner heights ---
 $banner-height-large: 110px 0;
@@ -31,9 +31,56 @@ $banner-height-small: 40px 0;
 
 // Body Breekpunten
 $screen-size-large: 1530px;
-$screen-size-medium: 920px;
-$screen-size-small: 500px;
+$screen-size-medium: 990px;
+$screen-size-small: 660px;
 
+/* =======================================
+    ALIASED DESIGN SCALE (Responsive Mapping)
+   ======================================= */
+$base-mapping: (
+    "h1": "9xl",
+    "h2": "8xl",
+    "h3": "7xl",
+    "h4": "6xl",
+    "h5": "5xl",
+    "h6": "4xl",
+    "h7": "3xl",
+    "h8": "2xl",
+    "h9": "xl",
+    "h10": "lg",
+    "h11": "base",
+    "h12": "sm"
+);
+
+$medium-mapping: (
+    "h1": "8xl",
+    "h2": "7xl",
+    "h3": "6xl",
+    "h4": "5xl",
+    "h5": "4xl",
+    "h6": "3xl",
+    "h7": "2xl",
+    "h8": "xl",
+    "h9": "lg",
+    "h10": "base",
+    "h11": "base",
+    "h12": "xs"
+);
+
+$small-mapping: (
+    "h1": "6xl",
+    "h2": "6xl",
+    "h3": "5xl",
+    "h4": "4xl",
+    "h5": "3xl",
+    "h6": "2xl",
+    "h7": "xl",
+    "h8": "lg",
+    "h9": "base",
+    "h10": "base",
+    "h11": "sm",
+    "h12": "xs"
+);
 
 $design-scale: (
     "xs": (
@@ -72,7 +119,7 @@ $design-scale: (
         font-size: 20px,
         line-height: 28px,
         c-space: 11px,
-        r-space: 11px,
+        r-space: 16px,
         in-space: 11px,
         extra-space: 4px
     ),
@@ -134,15 +181,13 @@ $design-scale: (
     ),
     "9xl": (
         font-size: 128px,
-        line-height: 128px,
+        line-height: 130px,
         c-space: 133px,
         r-space: 133px,
         in-space: 133px,
         extra-space: 9px
     )
 );
-
-
 
 // =======================================
 // 1. Gecentraliseerde Kleurdefinities (SCSS Map)

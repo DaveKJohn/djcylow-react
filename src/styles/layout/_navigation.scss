@@ -30,7 +30,7 @@ nav {
     // --- Logo Wrapper ---
     .logo-wrapper {
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
         align-items: center;
         flex-grow: 1;
         flex-basis: 0;
@@ -38,7 +38,6 @@ nav {
 
         img {
             display: block;
-            max-width: 140px;
         }
     }
 
@@ -60,7 +59,7 @@ nav {
             // Desktop Menu items (rij)
             .mainList-wrapper {
                 display: flex;
-                gap: map.get(map.get(var.$design-scale, "4xl"), "r-space");
+                gap: map.get(map.get(var.$design-scale, "5xl"), "r-space");
             }
 
             ul.mainList li.subList-wrapper {
@@ -76,11 +75,11 @@ nav {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    line-height: 1.5rem;
+                    line-height: 1;
                     padding: map.get(map.get(var.$design-scale, "3xl"), "c-space") 0;
 
                     @include tools.respond-to(var.$screen-size-medium) {
-                        padding: map.get(map.get(var.$design-scale, "2xl"), "c-space") 0;
+                        padding: map.get(map.get(var.$design-scale, "4xl"), "c-space") 0;
                     }
 
                     svg {
@@ -127,7 +126,7 @@ nav {
     // --- CTA Wrapper ---
     .cta-wrapper {
         display: flex;
-        justify-content: flex-start;
+        justify-content: flex-end;
         align-items: center;
         flex-grow: 1;
         flex-basis: 0;

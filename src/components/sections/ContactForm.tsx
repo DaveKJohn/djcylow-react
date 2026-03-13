@@ -84,9 +84,9 @@ export default function ContactForm() {
 
     return (
         <div className="column wrapper center BoW v-push-h2" id="contactformulier">
-            <div className="constrainer column spacing-h4">
-                <div className="column wrapper spacing-h3 show_border_bottom">
-                    <div className="column text-wrapper spacing-h3 center">
+            <div className="constrainer column spacing-h7">
+                <div className="column wrapper spacing-h7 show_border_bottom">
+                    <div className="column text-wrapper spacing-h6 center">
                         <h2>Contact</h2>
                         <p className="size-base balanced">
                             Stuur een e-mail naar{" "}
@@ -98,13 +98,13 @@ export default function ContactForm() {
                     </div>
                 </div>
 
-                <div className="column wrapper spacing-h3 h-push-h4">
+                <div className="column wrapper spacing-h7 h-push-h4">
                     {status === "success" ? (
-                        <div className="column wrapper spacing-h4 center show_border_bottom" id="succesMessage">
-                            <div className="column text-wrapper center spacing-h4">
+                        <div className="column wrapper spacing-h7 center show_border_bottom" id="succesMessage">
+                            <div className="column text-wrapper center spacing-h7">
                                 <div style={{ fontSize: '3rem' }}>✅</div>
                                 <h3 className="succes text">Bericht verzonden!</h3>
-                                <p className="size-base">Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.</p>
+                                <p>Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.</p>
                             </div>
                             {/* Knop om terug te gaan naar het formulier */}
                             <button
@@ -118,7 +118,7 @@ export default function ContactForm() {
                     ) : (
                         <form
                             ref={formRef}
-                            className="column wrapper spacing-h5 form-wrapper show_border_bottom"
+                            className="column wrapper spacing-h8 form-wrapper show_border_bottom"
                             id="contactForm"
                             onSubmit={handleSubmit}
                         >
@@ -127,20 +127,20 @@ export default function ContactForm() {
                                 <label>Bot field: <input name="bot-field" /></label>
                             </div>
 
-                            <div className="row wrapper spacing-h4 flex">
+                            <div className="row wrapper spacing-h7 flex">
                                 <input className="input-field" type="text" name="firstName" required placeholder="Voornaam" />
                                 <input className="input-field" type="text" name="lastName" required placeholder="Achternaam" />
                             </div>
 
-                            <div className="column wrapper spacing-h4">
+                            <div className="column wrapper spacing-h7">
                                 <input className="input-field" type="email" name="email" required placeholder="E-mailadres" />
                             </div>
 
-                            <div className="column wrapper spacing-h4">
+                            <div className="column wrapper spacing-h7">
                                 <textarea className="input-field textarea-field" name="message" rows={4} required placeholder="Vraag / opmerking"></textarea>
                             </div>
 
-                            <div className="column wrapper spacing-h4 start" style={{ minHeight: '78px' }}>
+                            <div className="column wrapper spacing-h7 start" style={{ minHeight: '78px' }}>
                                 {shouldLoadCaptcha && (
                                     <ReCAPTCHA
                                         sitekey="6LfMHYMsAAAAAA1-Kx9-XqhhM_hlaar5iXUY8nd5"
@@ -151,12 +151,12 @@ export default function ContactForm() {
                             </div>
 
                             {status === "error" && (
-                                <div className="column wrapper spacing-h4">
+                                <div className="column wrapper spacing-h7">
                                     <p className="size-base error text" style={{ color: 'red' }}>{errorMessage}</p>
                                 </div>
                             )}
 
-                            <div className="column wrapper spacing-h4">
+                            <div className="column wrapper spacing-h7">
                                 <div className="column wrapper center">
                                     <button
                                         className="btn cta verzend-form-btn"
@@ -177,11 +177,11 @@ export default function ContactForm() {
                     )}
 
                     {/* WhatsApp Sectie */}
-                    <div className="column wrapper spacing-h4 h-push-h5">
+                    <div className="column wrapper spacing-h7 h-push-h5">
                         <div className="column text-wrapper text center">
                             <p className="size-base balanced bold">Heb je liever direct contact? WhatsApp mag ook!</p>
                         </div>
-                        <div className="column wrapper spacing-h4 center">
+                        <div className="column wrapper spacing-h7 center">
                             <a className="btn" href="https://wa.me/31611531263" target="_blank" rel="noopener noreferrer">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="40" height="40">
                                     <g transform="translate(4, 4) scale(2.7)">

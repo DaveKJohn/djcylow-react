@@ -101,7 +101,7 @@ body {
 .nav-wrapper {
     @include tools.responsive-spacing(
         padding,
-        0 map.get(map.get(var.$design-scale, "8xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"),
         0 map.get(map.get(var.$design-scale, "5xl"), "r-space"),
         0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
         0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
@@ -109,7 +109,8 @@ body {
 }
 
 // De Breedste Container (Desktop Wrapper)
-.constrainer {
+.constrainer,
+.text-constrainer {
     margin: 0 auto !important; // Houdt de container gecentreerd op ultra-wide schermen
     max-width: var.$desktop-max-width;
 
@@ -123,16 +124,7 @@ body {
     );
 }
 
-// banner
-.banner {
-    @include tools.responsive-spacing(
-        padding,
-        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
-    );
-}
+
 
 //OP elkaar
 .stack {
@@ -140,7 +132,7 @@ body {
     position: relative; // Zorgt dat absolute lagen binnen de wrapper blijven
     width: 100%;
 
-    .overlay {
+    .layer {
         position: absolute;
         top: 0;
         left: 0;

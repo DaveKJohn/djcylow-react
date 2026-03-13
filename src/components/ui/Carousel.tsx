@@ -42,7 +42,7 @@ export default function Carousel({ children, className = "", id }: CarouselProps
   };
 
   return (
-    <div className={`row wrapper spacing-h4 visual carousels black-90-bg in-push-h2 ${className}`}>
+    <div className={`row wrapper spacing-h1 carousels black-90-bg in-push-h3 ${className}`}>
       {/* Linker Pijl */}
       <div className={`arrow left ${!showLeftArrow ? 'hidden' : ''}`} onClick={() => scroll(-1)}>
         <button className="btn">

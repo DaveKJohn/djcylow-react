@@ -12,26 +12,26 @@ const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
 
 export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: any) {
     return (
-        <div className="column wrapper spacing-h3 black-90-bg in-push-h2">
+        <div className="column wrapper spacing-h5 black-90-bg in-push-h2">
             {/* Header Deel */}
-            <div className="column text-wrapper spacing-h4 show_border_bottom">
-                <div className="column text-wrapper spacing-h5">
+            <div className="column text-wrapper spacing-h6 show_border_bottom">
+                <div className="column text-wrapper spacing-h8">
                     <h2>Filter</h2>
                 </div>
-                <div className="column text-wrapper spacing-h5 center">
-                    <p className="size-base">Kies hieronder één van de 8 music moods.</p>
+                <div className="column text-wrapper spacing-h8 center">
+                    <p>Kies hieronder één van de 8 music moods.</p>
                 </div>
             </div>
 
             {/* Content Deel */}
-            <div className="column text-wrapper spacing-h3 h-push-h4">
+            <div className="column text-wrapper spacing-h6 h-push-h4">
 
                 {/* MOOD SECTIE */}
-                <div className="column wrapper spacing-h6">
-                    <div className="column text-wrapper spacing-h5 header">
+                <div className="column wrapper spacing-h9">
+                    <div className="column text-wrapper spacing-h8 header">
                         <h3>Mood</h3>
                     </div>
-                    <div className="row wrapper spacing-h5 center wrap show_border_bottom" id="filter_mood">
+                    <div className="row wrapper spacing-h8 center wrap show_border_bottom" id="filter_mood">
                         <button
                             className={`btn passive select ${activeColor === 'all' ? 'is-active' : ''}`}
                             onClick={() => setActiveColor('all')}
@@ -56,12 +56,12 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
 
                 {/* MOOD OUTPUT - Nu met dynamische display: none/flex */}
                 <div
-                    className="column text-wrapper spacing-h6 center show_border_bottom"
+                    className="column text-wrapper spacing-h9 center show_border_bottom"
                     id="filter_mood_output"
                     style={{ display: activeColor === 'all' ? 'none' : 'flex' }}
                 >
                     {activeColor !== 'all' && (
-                        <div className="row text-wrapper spacing-h5 color-wrapper center flex">
+                        <div className="row text-wrapper spacing-h8 color-wrapper center flex">
                             <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
                                 <circle cx="10" cy="10" r="9" fill={`var(${MOOD_DATA[activeColor].colorVar})`}></circle>
                             </svg>
@@ -71,11 +71,11 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                 </div>
 
                 {/* GENRE SECTIE */}
-                <div className="column wrapper spacing-h6 center show_border_bottom">
-                    <div className="column text-wrapper spacing-h5 header">
+                <div className="column wrapper spacing-h9 center show_border_bottom">
+                    <div className="column text-wrapper spacing-h8 header">
                         <h3>Genre</h3>
                     </div>
-                    <div className="wrapper spacing-h5 row center wrap" id="filter_genre">
+                    <div className="wrapper spacing-h8 row center wrap" id="filter_genre">
                         {['all', 'edm', 'drum & bass'].map((genre) => (
                             <button
                                 key={genre}
@@ -90,11 +90,11 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                 </div>
 
                 {/* INTENSITEIT SECTIE */}
-                <div className="column wrapper spacing-h6 center">
-                    <div className="column text-wrapper spacing-h5 header">
+                <div className="column wrapper spacing-h9 center">
+                    <div className="column text-wrapper spacing-h8 header">
                         <h3>Intensiteit</h3>
                     </div>
-                    <div className="row wrapper spacing-h5 center wrap" id="filter_power">
+                    <div className="row wrapper spacing-h8 center wrap" id="filter_power">
                         {['all', 'full', 'light'].map((power) => (
                             <button
                                 key={power}

@@ -17,7 +17,7 @@
 @use "layout/footer";
 @use "layout/onderhoud";
 @use "layout/banner";
-@use "layout/hero";
+
 
 // 5. COMPONENTS
 @use "components/sections/contactForm";
@@ -30,13 +30,20 @@
 @use "components/ui/readMore";
 @use "components/ui/audioplayer";
 
-// Music Mood Colour Page Canvassen
-@use "components/canvas/kubusHoeken";
-@use "components/canvas/_kubusNeuro";
-@use "components/canvas/canvasCircle";
-@use "components/canvas/vsKleurenCarousel";
-@use "components/canvas/basiskleurenCarousel";
-@use "components/canvas/erlenmeyers";
+// Gradients
+@use "components/gradients/redandblue";
+
+// Home Page componenten
+@use "components/home/meetTheDJ";
+@use "components/home/hero";
+
+// Music Mood Colour Page componenten
+@use "components/musicmoodcolours/kubusHoeken";
+@use "components/musicmoodcolours/kubusNeuro";
+@use "components/musicmoodcolours/canvasCircle";
+@use "components/musicmoodcolours/vsKleurenCarousel";
+@use "components/musicmoodcolours/basiskleurenCarousel";
+@use "components/musicmoodcolours/erlenmeyers";
 
 // 6. PAGES
 @use "pages/index";

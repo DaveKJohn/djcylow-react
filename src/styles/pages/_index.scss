@@ -23,12 +23,12 @@
 #promo,
 #verzoeknummers {
     // GEFIXED: Gebruik r-spacing en de juiste maat (l) die op de row staat
-    $gap-size: map.get(map.get(var.$design-scale, "9xl"), "r-space");
+    $gap-size: map.get(map.get(var.$design-scale, "5xl"), "r-space");
 
     .left {
         // Gebruik flex-basis in plaats van flex: 0 0 om browser-foutjes te voorkomen
-        flex: 0 0 calc(45% - (#{$gap-size} / 2));
-        max-width: calc(45% - (#{$gap-size} / 2));
+        flex: 0 0 calc(50% - (#{$gap-size} / 2));
+        max-width: calc(50% - (#{$gap-size} / 2));
 
         @include tools.respond-to(var.$screen-size-medium) {
             flex: 1 1 100%; // Reset op mobile
@@ -37,8 +37,8 @@
     }
 
     .right {
-        flex: 0 0 calc(55% - (#{$gap-size} / 2));
-        max-width: calc(55% - (#{$gap-size} / 2));
+        flex: 0 0 calc(50% - (#{$gap-size} / 2));
+        max-width: calc(50% - (#{$gap-size} / 2));
 
         @include tools.respond-to(var.$screen-size-medium) {
             flex: 1 1 100%; // Reset op mobile

@@ -1,6 +1,6 @@
 @use "sass:map";
-@use '../abstracts/mixins' as tools;
-@use '../abstracts/variables' as var;
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
 
 .hero {
     $hero-height: clamp(500px, 60vw, 520px);

@@ -27,78 +27,40 @@ body {
    ======================================= */
 $heading-styles: (
     // Specifieke banner styles
-    ".banner-wrapper .text-wrapper h1": (
+    "#hero h1": (
             "font-weight": 700,
             "text-wrap": balance,
-            "letter-spacing": 2px,
-            "scale-key": "8xl",
-            "responsive": (
-                (
-                    "breakpoint": var.$screen-size-medium,
-                    "scale-key": "7xl"
-                ),
-                (
-                    "breakpoint": var.$screen-size-small,
-                    "scale-key": "5xl"
-                )
-            )
+            "scale-key": "h1" // Gebruikt automatisch: 8xl -> 7xl -> 6xl
         ),
-    ".banner-wrapper .text-wrapper h2": (
-        "font-weight": 600,
-        "letter-spacing": 2px,
-        "scale-key": "5xl",
-        "responsive": (
-            (
-                "breakpoint": var.$screen-size-medium,
-                "scale-key": "4xl"
-            ),
-            (
-                "breakpoint": var.$screen-size-small,
-                "scale-key": "3xl"
-            )
-        )
+    "#hero h2": (
+        "font-weight": 400,
+        "max-width": 800px,
+        "letter-spacing": 0px,
+        "scale-key": "h7" // Gebruikt automatisch: 4xl -> 3xl -> 2xl (zoals h3)
     ),
-    // Standaard headings (h1-h3)
+
+    // Standaard headings
     "h1": (
             "font-weight": 600,
-            "scale-key": "6xl",
-            "responsive": (
-                (
-                    "breakpoint": var.$screen-size-medium,
-                    "scale-key": "6xl"
-                ),
-                (
-                    "breakpoint": var.$screen-size-small,
-                    "scale-key": "4xl"
-                )
-            )
+            "scale-key": "h3" // Gebruikt automatisch: 7xl -> 6xl -> 5xl
         ),
     "h2": (
         "font-weight": 600,
         "letter-spacing": 2px,
-        "scale-key": "4xl",
-        "responsive": (
-            (
-                "breakpoint": var.$screen-size-medium,
-                "scale-key": "4xl"
-            ),
-            (
-                "breakpoint": var.$screen-size-small,
-                "scale-key": "3xl"
-            )
-        )
+        "scale-key": "h5" // Gebruikt automatisch: 5xl -> 4xl -> 3xl
     ),
     "h3": (
         "font-weight": 600,
         "text-wrap": balance,
-        "scale-key": "xl"
+        "scale-key": "h9"
     )
 );
 
 $text-element-styles: (
     "p": (
         "max-width": 700px,
-        "font-weight": 400
+        "font-weight": 400,
+        "scale-key": "h11" // Gebruikt automatisch: base -> sm -> sm
     ),
     "a": (
         "text-decoration": none,
@@ -106,26 +68,36 @@ $text-element-styles: (
     ),
     "input, textarea": (
         "font-family": var.$base-font,
-        "scale-key": "base"
+        "scale-key": "h11"
+    ),
+    "a.has-subList": (
+        "scale-key": "h10",
+        "font-weight": 500
     )
 );
 
 $list-styles: (
     "ul.column": (
-        // Pakt de r-space van 'base' (6px)
         "gap": map.get(map.get(var.$design-scale, "base"), "r-space")
     ),
     "li.column": (
-        // Pakt de in-space van '2xl' (15px)
-        "padding-left": map.get(map.get(var.$design-scale, "2xl"), "in-space"),
+        "padding-left": map.get(map.get(var.$design-scale, "6xl"), "in-space"),
         "gap": map.get(map.get(var.$design-scale, "xl"), "r-space")
+    ),
+    "li.column *:first-child::before": (
+        "content": "•",
+        "color": currentColor,
+        "display": inline-block,
+        "width": 1.5em,
+        "margin-left": -1.5em,
+        "font-weight": bold
     )
 );
 
 $table-styles: (
     "td": (
-        "scale-key": "sm",
-        "padding": map.get(map.get(var.$design-scale, "2xl"), "c-space") 0,
+        "scale-key": "h12",
+        "padding": map.get(map.get(var.$design-scale, "2xl"), "c-space") 0
     ),
     "td.track": (
         "font-weight": 600,
@@ -138,9 +110,6 @@ $table-styles: (
 );
 
 $utility-styles: (
-    ".size-base": (
-        "scale-key": "base"
-    ),
     ".size-sm": (
         "scale-key": "sm"
     ),
@@ -171,7 +140,6 @@ $utility-styles: (
 @include tools.generate-typography($list-styles);
 @include tools.generate-typography($utility-styles);
 @include tools.generate-typography($table-styles);
-
 
 /* =======================================
    4. SPECIALS
