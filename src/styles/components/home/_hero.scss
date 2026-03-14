@@ -116,7 +116,7 @@
                 padding: 14px 28px;
             }
 
-            @include tools.respond-to(var.$screen-size-medium) {
+            @include tools.respond-to(var.$screen-size-small) {
                 justify-content: center;
             }
         }

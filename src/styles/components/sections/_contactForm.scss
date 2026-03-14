@@ -7,6 +7,7 @@
    ======================================= */
 
 #contactformulier {
+    min-height: calc(100vh - var.$nav-height-large);
     background-color: var(--white-90);
 
     #honeypot {

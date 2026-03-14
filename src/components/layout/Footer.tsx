@@ -6,9 +6,9 @@ export default function Footer() {
   return (
     <footer className="column WoB black-90-bg">
       <div className="constrainer column constrainer center">
-        <div className="column text-wrapper spacing-h6 center v-push-h2">
+        <div className="column text-wrapper spacing-4xl center v-push-8xl">
 
-          <div className="column wrapper spacing-h6 center logo">
+          <div className="column wrapper spacing-4xl center logo">
             <Link href="/" className="btn">
               <Image
                 src="/images/djcylow_logo.webp"
@@ -23,10 +23,10 @@ export default function Footer() {
             </Link>
           </div>
 
-          <div className="column text-wrapper spacing-h6 center row-2">
+          <div className="column text-wrapper spacing-4xl center row-2">
 
             {/* Social Media Icons */}
-            <div className="row wrapper spacing-h6 split">
+            <div className="row wrapper spacing-4xl split">
 
               <div className="wrapper column center">
                 <a className="btn" href="https://www.instagram.com/djcylow/" target="_blank" rel="noopener noreferrer" aria-label="Volg ons op Instagram">
@@ -67,7 +67,7 @@ export default function Footer() {
             </div>
 
             {/* Bottom links and info */}
-            <div className="row text-wrapper spacing-h6 center flex split">
+            <div className="row text-wrapper spacing-4xl center flex split">
 
               <div className="column text-wrapper size-xs">
                 <EmailDisplay user="info" domain="djcylow.com" />

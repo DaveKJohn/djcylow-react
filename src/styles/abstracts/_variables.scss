@@ -38,48 +38,48 @@ $screen-size-small: 660px;
     ALIASED DESIGN SCALE (Responsive Mapping)
    ======================================= */
 $base-mapping: (
-    "h1": "9xl",
-    "h2": "8xl",
-    "h3": "7xl",
-    "h4": "6xl",
-    "h5": "5xl",
-    "h6": "4xl",
-    "h7": "3xl",
-    "h8": "2xl",
-    "h9": "xl",
-    "h10": "lg",
-    "h11": "base",
-    "h12": "sm"
+    "9xl": "9xl",
+    "8xl": "8xl",
+    "7xl": "7xl",
+    "6xl": "6xl",
+    "5xl": "5xl",
+    "4xl": "4xl",
+    "3xl": "3xl",
+    "2xl": "2xl",
+    "xl": "xl",
+    "lg": "lg",
+    "base": "base",
+    "sm": "sm"
 );
 
 $medium-mapping: (
-    "h1": "8xl",
-    "h2": "7xl",
-    "h3": "6xl",
-    "h4": "5xl",
-    "h5": "4xl",
-    "h6": "3xl",
-    "h7": "2xl",
-    "h8": "xl",
-    "h9": "lg",
-    "h10": "base",
-    "h11": "base",
-    "h12": "xs"
+    "9xl": "8xl",
+    "8xl": "7xl",
+    "7xl": "6xl",
+    "6xl": "5xl",
+    "5xl": "4xl",
+    "4xl": "3xl",
+    "3xl": "2xl",
+    "2xl": "xl",
+    "xl": "lg",
+    "lg": "base",
+    "base": "base",
+    "sm": "sm"
 );
 
 $small-mapping: (
-    "h1": "6xl",
-    "h2": "6xl",
-    "h3": "5xl",
-    "h4": "4xl",
-    "h5": "3xl",
-    "h6": "2xl",
-    "h7": "xl",
-    "h8": "lg",
-    "h9": "base",
-    "h10": "base",
-    "h11": "sm",
-    "h12": "xs"
+    "9xl": "7xl",
+    "8xl": "6xl",
+    "7xl": "5xl",
+    "6xl": "4xl",
+    "5xl": "3xl",
+    "4xl": "2xl",
+    "3xl": "xl",
+    "2xl": "lg",
+    "xl": "base",
+    "lg": "base",
+    "base": "base",
+    "sm": "sm"
 );
 
 $design-scale: (
@@ -119,7 +119,7 @@ $design-scale: (
         font-size: 20px,
         line-height: 28px,
         c-space: 11px,
-        r-space: 16px,
+        r-space: 11px,
         in-space: 11px,
         extra-space: 4px
     ),

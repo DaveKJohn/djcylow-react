@@ -19,13 +19,13 @@ export default function BedrijfsfeestDJ() {
     <main className="diensten">
       {/* Banner - Gebruikt de styles uit je diensten.njk */}
       <section className="column stack wrapper pattern WoB" id="banner_index">
-        <div className="column overlay stack wrapper spacing-h7 feather">
-          <div className="column overlay spacing-h7 bottom"></div>
+        <div className="column overlay stack wrapper spacing-3xl feather">
+          <div className="column overlay spacing-3xl bottom"></div>
         </div>
 
-        <div className="column overlay constrainer spacing-h7 header">
-          <div className="column banner-wrapper v-push-h1 center">
-            <div className="column text-wrapper spacing-h7 center">
+        <div className="column overlay constrainer spacing-3xl header">
+          <div className="column banner-wrapper v-push-9xl center">
+            <div className="column text-wrapper spacing-3xl center">
               <h1>Boek DJ Cylow voor je bedrijfsfeest!</h1>
             </div>
           </div>

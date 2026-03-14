@@ -3,7 +3,7 @@
 @use "../abstracts/mixins" as tools;
 
 // Definieer de aliassen die we willen genereren
-$aliassen: ("h1", "h2", "h3", "h4", "h5", "h6");
+$aliassen: ("9xl", "8xl", "7xl", "6xl", "5xl", "4xl", "3xl", "2xl", "xl", "lg", "base", "lg", "sm", "xs");
 
 @each $alias in $aliassen {
     .h-push-#{$alias} {

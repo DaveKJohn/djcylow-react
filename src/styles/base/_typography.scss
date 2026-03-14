@@ -30,29 +30,29 @@ $heading-styles: (
     "#hero h1": (
             "font-weight": 700,
             "text-wrap": balance,
-            "scale-key": "h1" // Gebruikt automatisch: 8xl -> 7xl -> 6xl
+            "scale-key": "9xl" // Gebruikt automatisch: 8xl -> 7xl -> 6xl
         ),
     "#hero h2": (
         "font-weight": 400,
         "max-width": 800px,
         "letter-spacing": 0px,
-        "scale-key": "h7" // Gebruikt automatisch: 4xl -> 3xl -> 2xl (zoals h3)
+        "scale-key": "4xl" // Gebruikt automatisch: 4xl -> 3xl -> 2xl (zoals h3)
     ),
 
     // Standaard headings
     "h1": (
             "font-weight": 700,
-            "scale-key": "h2" // Gebruikt automatisch: 7xl -> 6xl -> 5xl
+            "scale-key": "8xl" // Gebruikt automatisch: 7xl -> 6xl -> 5xl
         ),
     "h2": (
-        "font-weight": 700,
+        "font-weight": 600,
         "letter-spacing": 2px,
-        "scale-key": "h5" // Gebruikt automatisch: 5xl -> 4xl -> 3xl
+        "scale-key": "5xl" // Gebruikt automatisch: 5xl -> 4xl -> 3xl
     ),
     "h3": (
         "font-weight": 600,
         "text-wrap": balance,
-        "scale-key": "h9"
+        "scale-key": "xl"
     )
 );
 
@@ -60,7 +60,7 @@ $text-element-styles: (
     "p": (
         "max-width": 700px,
         "font-weight": 400,
-        "scale-key": "h11" // Gebruikt automatisch: base -> sm -> sm
+        "scale-key": "base" 
     ),
     "a": (
         "text-decoration": none,
@@ -68,7 +68,7 @@ $text-element-styles: (
     ),
     "input, textarea": (
         "font-family": var.$base-font,
-        "scale-key": "h11"
+        "scale-key": "base"
     ),
     "a.has-subList": (
         "scale-key": "h10",
@@ -96,7 +96,7 @@ $list-styles: (
 
 $table-styles: (
     "td": (
-        "scale-key": "h12",
+        "scale-key": "sm",
         "padding": map.get(map.get(var.$design-scale, "2xl"), "c-space") 0
     ),
     "td.track": (

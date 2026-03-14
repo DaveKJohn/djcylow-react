@@ -20,7 +20,7 @@ const MeetTheDJ = () => {
           />
         </div>
 
-        <div className="column overlay text-wrapper spacing-h6 hero-text-container anchor">
+        <div className="column overlay text-wrapper spacing-4xl hero-text-container anchor">
           <div className="column text-wrapper header">
             <h2 dangerouslySetInnerHTML={{ __html: homeContent.intro_h3 || "" }} />
           </div>

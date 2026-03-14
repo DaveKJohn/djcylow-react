@@ -20,20 +20,20 @@ export default function ReadMore({ teaser, hiddenContent }: ReadMoreProps) {
   };
 
   return (
-    <div className="column text-wrapper spacing-h7 story anchor" ref={containerRef}>
-      <div className="column text-wrapper spacing-h7 teaser">
+    <div className="column text-wrapper spacing-3xl story anchor" ref={containerRef}>
+      <div className="column text-wrapper spacing-3xl teaser">
         {teaser}
       </div>
 
       {/* We toggelen de display via inline style, net als in je script */}
       <div 
-        className="column text-wrapper spacing-h7 hidden" 
+        className="column text-wrapper spacing-3xl hidden" 
         style={{ display: isOpen ? "flex" : "none" }}
       >
         {hiddenContent}
       </div>
 
-      <div className="column wrapper spacing-h7">
+      <div className="column wrapper spacing-3xl">
         <button 
           className="btn passive read-more-btn" 
           onClick={toggleReadMore}

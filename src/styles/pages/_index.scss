@@ -2,7 +2,6 @@
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
 
-
 // =======================================
 // diensten section
 // =======================================
@@ -22,11 +21,14 @@
 // --- Gezamenlijke Layout Regels voor Consistentie ---
 #promo,
 #verzoeknummers {
-    // GEFIXED: Gebruik r-spacing en de juiste maat (l) die op de row staat
-    $gap-size: map.get(map.get(var.$design-scale, "5xl"), "r-space");
+    height: calc(100vh - var.$nav-height-large);
+       $gap-size: map.get(map.get(var.$design-scale, "5xl"), "r-space");
 
-    .left {
-        // Gebruik flex-basis in plaats van flex: 0 0 om browser-foutjes te voorkomen
+    @include tools.respond-to(var.$screen-size-small) {
+        height: calc(100vh - var.$nav-height-small);
+    }
+
+    .left {     
         flex: 0 0 calc(50% - (#{$gap-size} / 2));
         max-width: calc(50% - (#{$gap-size} / 2));
 

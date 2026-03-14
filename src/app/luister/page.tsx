@@ -13,12 +13,12 @@ export default function LuisterPage() {
         <main>
             {/* 1. Banner Sectie */}
             <section className="column stack wrapper pattern WoB" id="banner_luister">
-                <div className="column overlay stack wrapper spacing-h7 feather">
-                    <div className="column overlay spacing-h7 bottom"></div>
+                <div className="column overlay stack wrapper spacing-3xl feather">
+                    <div className="column overlay spacing-3xl bottom"></div>
                 </div>
                 <div className="column overlay constrainer spacing-3 header">
-                    <div className="column banner-wrapper v-push-h1 center">
-                        <div className="column text-wrapper spacing-h7 center">
+                    <div className="column banner-wrapper v-push-9xl center">
+                        <div className="column text-wrapper spacing-3xl center">
                             <h1>Luister</h1>
                         </div>
                     </div>
@@ -27,7 +27,7 @@ export default function LuisterPage() {
 
 
             {/* 2. Filter & Content Sectie */}
-            <section className="column wrapper spacing-h1 center WoB">
+            <section className="column wrapper spacing-9xl center WoB">
                 <div className="column constrainer">
                     <Filter
                         activeColor={activeColor} setActiveColor={setActiveColor}

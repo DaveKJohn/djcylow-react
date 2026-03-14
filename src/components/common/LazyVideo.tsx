@@ -6,7 +6,7 @@ export default function LazyVideo({ videoId, thumbnail }: { videoId: string; thu
 
   return (
     <div 
-      className={`column stack wrapper spacing-h7 left ${isPlaying ? 'is-playing' : ''}`} 
+      className={`column stack wrapper spacing-3xl left ${isPlaying ? 'is-playing' : ''}`} 
       onClick={() => setIsPlaying(true)}
       style={{ cursor: 'pointer' }}
     >

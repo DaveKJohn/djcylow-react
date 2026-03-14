@@ -7,9 +7,14 @@
 $card-width-basiskleuren: 150px;
 $card-height-basiskleuren: 150px;
 
-$h-gap: map.get(map.get(var.$design-scale, "2xl"), "c-space"); //one horizontal gap inside id="basiskleuren" check tsx. to lookup classname
+$h-gap: map.get(
+    map.get(var.$design-scale, "2xl"),
+    "c-space"
+); //one horizontal gap inside id="basiskleuren" check tsx. to lookup classname
 $total-h-gap: calc(#{$h-gap} * 7); //all horizontal gaps inside id="basiskleuren"
-$h-spacing: calc((map.get(map.get(var.$design-scale, "2xl"), "in-space") * 2)); //additional horizontal space pushed inwards on id="basiskleuren"
+$h-spacing: calc(
+    (map.get(map.get(var.$design-scale, "2xl"), "in-space") * 2)
+); //additional horizontal space pushed inwards on id="basiskleuren"
 
 :root {
     --card_width_basiskleuren: #{$card-width-basiskleuren};
@@ -32,11 +37,11 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
     }
 
     #basiskleuren {
-        align-items: center; 
+        align-items: center;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
-        gap: map.get(map.get(var.$design-scale, "base"), "c-space");        
+        gap: map.get(map.get(var.$design-scale, "base"), "c-space");
 
         overflow-x: auto;
         scroll-snap-type: x mandatory;
@@ -89,8 +94,10 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
         .numbers {
             .number {
                 height: 35px;
+                position: relative;
 
                 .back {
+                    position: absolute;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
@@ -101,9 +108,13 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
                 }
 
                 .front {
+                    position: absolute;
                     width: 100%;
                     height: 100%;
                     z-index: 2;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
 
                 @each $color in "cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue" {
@@ -116,7 +127,6 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
                         }
 
                         p {
-                            // Vervang de inline if(...) door een echt blok om de warning te killen
                             @if list.index(var.$dark-text-colors, $c) {
                                 color: var(--black-100) !important;
                             } @else {

@@ -9,7 +9,7 @@ const LINES = [45, 90, 135, 180];
 
 export default function CanvasCircle() {
   return (
-    <div className="column stack wrapper spacing-h1 black-90-bg in-push-h4" id="canvas_circle">
+    <div className="column stack wrapper spacing-9xl black-90-bg in-push-6xl" id="canvas_circle">
       <div className="canvas-circle-container">
         {/* De scheidslijnen */}
         <div className="column overlay wrapper lines">
