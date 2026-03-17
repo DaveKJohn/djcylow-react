@@ -43,83 +43,66 @@ export default function Nav() {
     };
 
     return (
-        <nav className="column nav-wrapper WoB v-center black-100-bg">
-            <div className="row">
+        <nav className="row WoB">
 
-                <div className="column logo-wrapper">
-                    <Link href="/">
-                        <Image
-                            src="/images/djcylow_logo.webp"
-                            width={160}
-                            height={100}
-                            alt="Logo"
-                            style={{ height: 'auto' }} // Voeg dit toe
-                        />
-                    </Link>
-                </div>
+            <div className="column logo-wrapper">
+                <Link href="/">
+                    <Image
+                        src="/images/djcylow_logo.webp"
+                        width={160}
+                        height={100}
+                        alt="Logo"
+                        style={{ height: 'auto' }}
+                    />
+                </Link>
+            </div>
 
-                {/* HIER GEBEURT HET: menu-wrapper krijgt 'mobile' en 'active' classes voor de SCSS */}
-                <div
-                    className={`row menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isMenuOpen ? "active" : ""}`}
-                    id="nav_menuWrapper"
-                >
-                    <div className="mobileMenuHeader-border">
-                        <div className="row mobileMenuHeader-wrapper">
-                            <button
-                                className="btn nav previousBtn"
-                                id="nav_mobileMenuHeader_previousBtn"
-                                onClick={() => setActiveSubmenu(null)}
-                                style={{ display: activeSubmenu ? 'flex' : 'none' }}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path fill="currentColor" fillRule="evenodd" d="M5.293 8.793a1 1 0 0 1 1.414 0L12 14.086l5.293-5.293a1 1 0 1 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6a1 1 0 0 1 0-1.414" clipRule="evenodd"></path>
-                                </svg>
-                            </button>
-                            <button
-                                className="btn nav close-btn"
-                                id="nav_mobileMenuHeader_closeBtn"
-                                onClick={() => setIsMenuOpen(false)}
-                            >✕</button>
-                        </div>
-                    </div>
+            <div className={`column menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isMenuOpen ? "active" : ""}`} id="nav_menuWrapper">
 
-                    <div className={`view-wrapper ${activeSubmenu ? 'subList-view' : ''}`} id="nav_menuWrapper_viewWrapper">
-                        <div className="row mainList-wrapper">
-                          
 
-                            {/* Luister */}
-                            <ul className="btn mainList">
-                                <li className=" row text-wrapper btn subList-wrapper">
-                                    <Link className="btn has-subList" href="/luister">Luister</Link>
-                                </li>
-                            </ul>
-
-                            {/* Music Mood Colours (Heeft geen submenu, dus geen extra classes nodig) */}
-                            <ul className=" btn mainList">
-                                <li className=" row text-wrapper btn subList-wrapper">
-                                    <Link className="btn has-subList" href="/musicmoodcolours">Music Mood Colours</Link>
-                                </li>
-                            </ul>
-
-                        </div>
+                <div className="column mobileMenuHeader-border">
+                    <div className="row mobileMenuHeader-wrapper">
+                        <button
+                            className="btn nav previousBtn"
+                            id="nav_mobileMenuHeader_previousBtn"
+                            onClick={() => setActiveSubmenu(null)}
+                            style={{ display: activeSubmenu ? 'flex' : 'none' }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path fill="currentColor" fillRule="evenodd" d="M5.293 8.793a1 1 0 0 1 1.414 0L12 14.086l5.293-5.293a1 1 0 1 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6a1 1 0 0 1 0-1.414" clipRule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <button
+                            className="btn nav close-btn"
+                            id="nav_mobileMenuHeader_closeBtn"
+                            onClick={() => setIsMenuOpen(false)}
+                        >✕</button>
                     </div>
                 </div>
 
-                <div className=" cta-wrapper">
-                    <Link className="btn cta boek-nu-btn" href="/diensten">
-                        <span>Boek nu!</span>
-                    </Link>
-                </div>
 
-                <div className=" hidden-wrapper">
-                    <button
-                        className="btn nav hamburger-btn"
-                        id="nav_hiddenWrapper_hamburgerBtn"
-                        onClick={() => setIsMenuOpen(true)}
-                    >☰</button>
+                <div className="mainList-wrapper">
+
+                    <Link className="btn" href="/luister">Luister</Link>
+                    <Link className="btn" href="/musicmoodcolours">Music Mood Colours</Link>
                 </div>
 
             </div>
+
+            <div className="cta-wrapper">
+                <Link className="btn cta boek-nu-btn" href="/diensten">
+                    <span>Boek nu!</span>
+                </Link>
+            </div>
+
+            <div className="hidden-wrapper">
+                <button
+                    className="btn nav hamburger-btn"
+                    onClick={() => setIsMenuOpen(true)}
+                >☰</button>
+            </div>
+
+
 
 
         </nav>

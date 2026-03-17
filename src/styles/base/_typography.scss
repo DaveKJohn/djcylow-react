@@ -47,7 +47,7 @@ $heading-styles: (
     "h2": (
         "font-weight": 600,
         "letter-spacing": 0px,
-        "scale-key": "6xl" // Gebruikt automatisch: 5xl -> 4xl -> 3xl
+        "scale-key": "5xl" // Gebruikt automatisch: 5xl -> 4xl -> 3xl
     ),
     "h3": (
         "font-weight": 600,
@@ -60,7 +60,7 @@ $text-element-styles: (
     "p": (
         "max-width": 700px,
         "font-weight": 400,
-        "scale-key": "base" 
+        "scale-key": "base"
     ),
     "a": (
         "text-decoration": none,
@@ -70,9 +70,10 @@ $text-element-styles: (
         "font-family": var.$base-font,
         "scale-key": "base"
     ),
-    "a.has-subList": (
-        "scale-key": "h10",
-        "font-weight": 500
+    ".mainList-wrapper a": (
+        "scale-key": "lg",
+        "font-weight": 500,
+        "text-align": left
     )
 );
 

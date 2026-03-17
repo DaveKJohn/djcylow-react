@@ -3,126 +3,64 @@
 @use "../abstracts/variables" as var;
 
 /* =======================================
-    2. NAVIGATIE BASIS & DESKTOP LAYOUT
-    ======================================= */
+    NAVIGATIE BASIS & DESKTOP LAYOUT
+   ======================================= */
 nav {
-    // Globale Positie en Basis
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
     right: 0;
     height: var.$nav-height-large;
+    background-color: black;;
 
-    .row-2.custom-border-bottom {
-        height: 1px;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        border-bottom: 1px solid var(--black-80);
-    }
+    padding: 0 map.get(map.get(var.$design-scale, "5xl"), "r-space");
 
     .hidden-wrapper {
         display: none;
+        position: relative;
     }
 
-    // --- Logo ---
     .logo-wrapper {
-        display: flex;
-        justify-content: flex-start;       
+        justify-content: center;
+        align-items: flex-start;
         flex-grow: 1;
         flex-basis: 0;
         height: 100%;
 
+        a {
+            display: flex;
+            align-items: center;
+            line-height: 0; // Voorkomt extra witruimte onder de link
+        }
+
         img {
             display: block;
+            margin-left: 0; // Forceer tegen de rand
         }
     }
 
-    // --- Menu (De Container voor Navigatie Items) ---
     .menu-wrapper {
-        width: var.$desktop-max-width;
-        height: 100%;
+        height:100%;
+        margin: 0 auto;
+        max-width: var.$desktop-max-width;
+        padding: 0 map.get(map.get(var.$design-scale, "6xl"), "r-space");
 
-        .view-wrapper {
+        
+
+        .mainList-wrapper {
             display: flex;
-            padding: 0 map.get(map.get(var.$design-scale, "6xl"), "r-space");
-
-            ul.mainList {
-                position: relative;
-                margin: 0;
-                padding: 0;
-            }
-
-            // Desktop Menu items (rij)
-            .mainList-wrapper {
-                display: flex;
-                gap: map.get(map.get(var.$design-scale, "5xl"), "r-space");
-            }
-
-            ul.mainList li.subList-wrapper {
-                position: relative;
-
-                &.open a.has-subList {
-                    svg {
-                        display: none;
-                    }
-                }
-
-                a.has-subList {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    line-height: 1;
-                    padding: map.get(map.get(var.$design-scale, "3xl"), "c-space") 0;
-
-                    @include tools.respond-to(var.$screen-size-medium) {
-                        padding: map.get(map.get(var.$design-scale, "4xl"), "c-space") 0;
-                    }
-
-                    svg {
-                        transform: rotate(0deg);
-                    }
-                }
-
-                // Activeer dropdown bij hover
-                &:hover ul.subList {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-            }
-
-            // Stijlen voor submenu (desktop dropdown)
-            ul.subList {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                min-width: 300px;
-                z-index: 100;
-                padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
-                list-style: none;
-
-                @include tools.respond-to(var.$screen-size-medium) {
-                    min-width: auto;
-                }
-
-                li {
-                    width: 100%;
-                    a {
-                        display: block;
-                        width: 100%;
-                        text-align: left;
-                        padding: map.get(map.get(var.$design-scale, "3xl"), "c-space") 0;
-                    }
-                }
-            }
+            height: 100%;
+            align-items: center;
+            justify-content: flex-start;
+            gap: map.get(map.get(var.$design-scale, "5xl"), "r-space");
         }
     }
 
-    // --- CTA ---
     .cta-wrapper {
         display: flex;
         justify-content: flex-end;
@@ -132,52 +70,55 @@ nav {
         height: 100%;
     }
 
-    // --- Breekpunt 2: (1080px) ---
+    /* =======================================
+        MEDIUM SCREEN
+       ======================================= */
     @include tools.respond-to(var.$screen-size-medium) {
         height: var.$nav-height-medium;
-        padding: 0 map.get(map.get(var.$design-scale, "2xl"), "in-space");
+      
 
         .logo-wrapper {
-            justify-content: flex-start;
             flex-basis: auto;
-            padding: 0;
         }
 
         .cta-wrapper {
             flex-grow: 0;
-            justify-content: flex-end;
             flex-basis: auto;
         }
 
-        // Toon de Hamburger Knop
         .hidden-wrapper {
             display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            max-width: 110px;
-            height: 100%;
+            flex-grow: 0; // Mag niet groeien
+            flex-basis: auto;
+            margin-left: 1rem; // Geeft wat ruimte naast de CTA
+            pointer-events: auto;
+           
         }
 
-        // --- Mobiele Menu Container (Off-Canvas / Push Menu) ---
         .menu-wrapper {
             display: block;
             position: fixed;
-            flex-direction: column;
             top: 0;
             right: 0;
             height: 100%;
             width: 80vw;
-            z-index: 1000;
-            overflow: hidden; // Voor het push effect
-            visibility: hidden; // Verborgen tot geactiveerd met JS
+            z-index: 2000;
+            overflow: hidden;
+            visibility: hidden;
+            background-color: inherit; // Of je specifieke zwarte kleur
+            padding: 0;
 
-            &.mobile.active {
-                visibility: visible;
+            &.mobile {
+                pointer-events: none; // Blokkeert niks als hij onzichtbaar is
+
+                &.active {
+                    pointer-events: auto; // Wel klikbaar als hij open is
+                    visibility: visible;
+                }
             }
 
-            // Mobile Header (met Sluit/Terug knoppen)
             .mobileMenuHeader-border {
-                position: relative; // Zodat de header boven de view-wrapper ligt
+                position: relative;
                 width: 100%;
                 z-index: 100;
                 height: var.$nav-height-small;
@@ -191,79 +132,19 @@ nav {
                 }
             }
 
-            // View (De container die horizontaal 'pusht' voor submenus)
-            .view-wrapper {
-                display: block;
-                width: 100%;
-                flex-shrink: 0;
-                left: 0;
-                height: calc(100% - #{var.$nav-height-small});
-                overflow-y: hidden;
-                top: var.$nav-height-small;
-                position: absolute;
-                transform: translateX(0);
-                padding: 0;
-
-                // Stijlen voor de 'Sublist View' (wanneer een submenu is geopend/gepushed)
-                &.subList-view {
-                    // Logica om alleen de open submenu-inhoud te tonen:
-
-                    // 1. Verberg alle UL's die de actieve (open) LI NIET bevatten
-                    .mainList-wrapper ul.mainList {
-                        display: none;
-                    }
-
-                    // 2. Toon en isoleer de actieve UL
-                    .mainList-wrapper ul.mainList:has(li.subList-wrapper.open) {
-                        display: block;
-                    }
-
-                    // 3. Verberg alle LI's in de actieve UL die NIET geopend zijn
-                    .mainList-wrapper ul.mainList li.subList-wrapper:not(.open) {
-                        display: none;
-                    }
-                }
-
-                .mainList-wrapper {
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    overflow-y: auto; // Zorgt voor scrollen in de menu inhoud
-                    padding: 0 map.get(map.get(var.$design-scale, "3xl"), "in-space");
-                }
-
-                // Mobile Lijst Styling
-                ul.mainList {
-                    display: block;
-                    width: 100%;
-                    padding: 0;
-
-                    // Voorkom desktop hover effect in mobiele context
-                    li.subList-wrapper {
-                        position: static;
-                        &:hover ul.subList {
-                            display: none;
-                        }
-                        // Toon sublist bij JS 'open' klasse
-                        &.open ul.subList {
-                            display: block;
-                            position: static;
-                            padding: 0 map.get(map.get(var.$design-scale, "3xl"), "c-space");
-                        }
-                    }
-
-                    // Standaard Submenu Styling (voor als het niet de push menu methode gebruikt)
-                    ul.subList {
-                        display: none;
-                        position: static; // Belangrijk: static in mobiel context
-                        padding: 0;
-                    }
-                }
+            .mainList-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: map.get(map.get(var.$design-scale, "3xl"), "r-space");
+                padding: map.get(map.get(var.$design-scale, "3xl"), "r-space");
             }
         }
     }
 
-    // --- Breekpunt 3 (480px) ---
+    /* =======================================
+        SMALL SCREEN 
+       ======================================= */
     @include tools.respond-to(var.$screen-size-small) {
         height: var.$nav-height-small;
         padding: 0 map.get(map.get(var.$design-scale, "xl"), "in-space");
