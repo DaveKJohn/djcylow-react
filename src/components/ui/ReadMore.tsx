@@ -13,29 +13,38 @@ export default function ReadMore({ teaser, hiddenContent }: ReadMoreProps) {
 
   const toggleReadMore = () => {
     if (isOpen) {
-      // Scroll terug naar het begin van deze sectie (de anchor)
-      containerRef.current?.scrollIntoView({ behavior: "smooth" });
+      // 1. Eerst inklappen
+      setIsOpen(false);
+
+      // 2. Wacht heel even tot de DOM is bijgewerkt, dan pas scrollen
+      setTimeout(() => {
+        containerRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center" // "center" is vaak fijner dan de default "start"
+        });
+      }, 0);
+    } else {
+      setIsOpen(true);
     }
-    setIsOpen(!isOpen);
   };
 
   return (
-    <div className="column text-wrapper spacing-3xl story anchor" ref={containerRef}>
-      <div className="column text-wrapper spacing-3xl teaser">
+    <div className="column spacing-3xl" ref={containerRef}>
+      <div className="column spacing-3xl teaser">
         {teaser}
       </div>
 
       {/* We toggelen de display via inline style, net als in je script */}
-      <div 
-        className="column text-wrapper spacing-3xl hidden" 
+      <div
+        className="column spacing-3xl hidden"
         style={{ display: isOpen ? "flex" : "none" }}
       >
         {hiddenContent}
       </div>
 
-      <div className="column wrapper spacing-3xl">
-        <button 
-          className="btn passive read-more-btn" 
+      <div className="column extra spacing-7xl">
+        <button
+          className="btn passive read-more-btn"
           onClick={toggleReadMore}
         >
           {isOpen ? "Lees minder" : "Lees meer"}

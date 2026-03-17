@@ -70,16 +70,16 @@ export default function AudioPlayer({
   const stateClass = isLoading ? 'is-loading' : isPlaying ? 'is-playing' : 'is-ready';
 
   return (
-    <div className={`column stack wrapper audioplayer-wrapper ${stateClass} ${className}`} data-id={id}>
+    <div className={`column stack audioplayer-wrapper ${stateClass} ${className}`} data-id={id}>
 
       {/* Thumbnail */}
       <div
-        className="column overlay wrapper thumbnail"
+        className="column overlay thumbnail"
         style={{ backgroundImage: `url('${image}')` }}
       ></div>
 
-      {/* Ready Wrapper */}
-      <div className="column overlay wrapper center ready-wrapper">
+      {/* Ready */}
+      <div className="column overlay center ready-wrapper">
         <div className="playfilters">
           <button onClick={handleTogglePlay} aria-label="Speel audio af">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -89,36 +89,36 @@ export default function AudioPlayer({
         </div>
       </div>
 
-      {/* Loading Wrapper */}
-      <div className="column overlay wrapper loading-wrapper">
+      {/* Loading */}
+      <div className="column overlay loading-wrapper">
         <div className="loading spinner"></div>
       </div>
 
-      {/* Playing Wrapper */}
-      <div className="column overlay wrapper playing-wrapper">
+      {/* Playing */}
+      <div className="column overlay playing-wrapper">
 
-        <div className="row wrapper timestamp-wrapper">
-          <div className="column wrapper timestamp size-xs current">{formatTime(currentTime)}</div>
-          <div className="column wrapper timestamp size-xs final">{formatTime(duration)}</div>
+        <div className="row timestamp-wrapper">
+          <div className="column timestamp size-xs current">{formatTime(currentTime)}</div>
+          <div className="column timestamp size-xs final">{formatTime(duration)}</div>
         </div>
 
         <div
-          className="row stack wrapper center timeline-wrapper"
+          className="row stack center timeline-wrapper"
           onClick={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
             if (audioRef.current) audioRef.current.currentTime = percent * duration;
           }}
         >
-          <div className="column overlay wrapper timeline total"></div>
+          <div className="column overlay timeline total"></div>
           <div
-            className="column overlay wrapper timeline progress"
+            className="column overlay timeline progress"
             style={{ width: `${(currentTime / duration) * 100 || 0}%` }}
           ></div>
         </div>
 
-        <div className="row wrapper split center layer-wrapper">
-          <div className="column wrapper pausefilters">
+        <div className="row split center layer-wrapper">
+          <div className="column pausefilters">
             <button onClick={handleTogglePlay} aria-label="Pauzeer audio">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
@@ -126,8 +126,8 @@ export default function AudioPlayer({
             </button>
           </div>
 
-          <div className="row wrapper center volume-wrapper">
-            <div className="column wrapper center left">
+          <div className="row center volume-wrapper">
+            <div className="column center left">
               <button
                 aria-label="Audio dempen"
                 onClick={() => setVolume(volume === 0 ? 1 : 0)}
@@ -139,7 +139,7 @@ export default function AudioPlayer({
             </div>
 
             {showVolumeSlider && (
-              <div className="column wrapper right">
+              <div className="column right">
                 <input
                   type="range"
                   min="0"

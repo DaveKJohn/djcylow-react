@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import Carousel from '@/components/ui/Carousel';
+import '@/styles/components/musicmoodcolours/basiskleurenCarousel.scss';
 
 // 1. Importeer ALLE bestanden
 import lightBlue from '@/data/mixes/light-blue.json';
@@ -45,14 +46,14 @@ export default function BasiskleurenCarousel() {
   return (
     <Carousel id="basiskleuren">
 
-      <div className="row wrapper spacing-3xl gradient"></div>
+      <div className="row spacing-3xl gradient"></div>
 
       {/* 1. Nummers rij */}
-      <div className="row wrapper spacing-3xl numbers">
+      <div className="row spacing-3xl numbers">
         {COLORS_CONFIG.map(c => (
-          <div key={c.id} className={`column stack wrapper number ${c.name}`}>
-            <div className="column overlay wrapper back"></div>
-            <div className="column overlay wrapper center front">
+          <div key={c.id} className={`column stack number ${c.name}`}>
+            <div className="column overlay back"></div>
+            <div className="column overlay center front">
               <p className="size-sm">{c.id}</p>
             </div>
           </div>
@@ -60,9 +61,9 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 2. Labels rij */}
-      <div className="row wrapper spacing-3xl labels">
+      <div className="row spacing-3xl labels">
         {COLORS_CONFIG.map(c => (
-          <div key={c.name} className="column wrapper center label">
+          <div key={c.name} className="column center label">
             <div className={`colour ${c.name}`}>
               <p>{c.name.charAt(0).toUpperCase() + c.name.slice(1)}</p>
             </div>
@@ -71,9 +72,9 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 3. Audio Players rij */}
-      <div className="row wrapper spacing-3xl colours">
+      <div className="row spacing-3xl colours">
         {featuredMixes.map(({ name, mix }) => (
-          <div key={name} className={`column wrapper stack colour ${name}`}>
+          <div key={name} className={`column stack colour ${name}`}>
             {mix && mix.audioSrc ? (
               <AudioPlayer
                 id={String(mix.id)}
@@ -85,7 +86,7 @@ export default function BasiskleurenCarousel() {
                 className={name}
               />
             ) : (
-              <div className="column wrapper center" style={{ height: '100%', minHeight: '150px' }}>
+              <div className="column center" style={{ height: '100%', minHeight: '150px' }}>
                 <p className="error center size-sm">Geen mix.</p>
               </div>
             )}
@@ -94,7 +95,7 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 4. Decoratieve cirkels */}
-      <div className="row wrapper spacing-3xl circles">
+      <div className="row spacing-3xl circles">
         {COLORS_CONFIG.map(c => <div key={c.name} className={`column circle ${c.name}`}></div>)}
       </div>
 

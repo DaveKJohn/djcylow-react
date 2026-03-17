@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
+import '@/styles/components/musicmoodcolours/kubusNeuro.scss';
 
 export default function KubusNeuro() {
     return (
-        <div className="column wrapper spacing-9xl black-90-bg in-push-7xl" id="canvas_3Dspace_3">
+        <div className="column spacing-9xl black-90-bg in-push-7xl" id="canvas_3Dspace_3">
             <div className="cube-outside">
                 <div className="cube-inside">
                     {/* Level 2: De vlakken (Plates) */}

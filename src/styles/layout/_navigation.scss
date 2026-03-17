@@ -27,11 +27,10 @@ nav {
         display: none;
     }
 
-    // --- Logo Wrapper ---
+    // --- Logo ---
     .logo-wrapper {
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        justify-content: flex-start;       
         flex-grow: 1;
         flex-basis: 0;
         height: 100%;
@@ -41,7 +40,7 @@ nav {
         }
     }
 
-    // --- Menu Wrapper (De Container voor Navigatie Items) ---
+    // --- Menu (De Container voor Navigatie Items) ---
     .menu-wrapper {
         width: var.$desktop-max-width;
         height: 100%;
@@ -123,7 +122,7 @@ nav {
         }
     }
 
-    // --- CTA Wrapper ---
+    // --- CTA ---
     .cta-wrapper {
         display: flex;
         justify-content: flex-end;
@@ -192,7 +191,7 @@ nav {
                 }
             }
 
-            // View Wrapper (De container die horizontaal 'pusht' voor submenus)
+            // View (De container die horizontaal 'pusht' voor submenus)
             .view-wrapper {
                 display: block;
                 width: 100%;

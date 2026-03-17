@@ -3,64 +3,36 @@
 @use "../../abstracts/variables" as var;
 
 #hero {
-    height: calc(100vh - var.$nav-height-large);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-
-    @include tools.respond-to(var.$screen-size-small) {
-        height: calc(100vh - var.$nav-height-small);
-    }
-
-    .back {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        z-index: 0;
+    .background.gradient {
         background-color: rgb(0, 0, 0);
         background-image:
-            radial-gradient(at -20% 70%, rgba(46, 46, 0, 0.5) 0%, transparent 40%),
-            radial-gradient(at 50% 30%, rgba(78, 0, 0, 0.4) 0%, transparent 40%),
-            radial-gradient(at 120% 60%, rgba(0, 58, 58, 0.6) 0%, transparent 40%);
+            radial-gradient(at 10% 60%, rgba(46, 46, 0, 0.3) 0%, transparent 40%),
+            radial-gradient(at 55% 35%, rgba(78, 0, 0, 0.3) 0%, transparent 40%),
+            radial-gradient(at 75% 60%, rgba(0, 58, 58, 0.3) 0%, transparent 40%);
         background-blend-mode: screen;
 
         @include tools.respond-to(var.$screen-size-small) {
             background-image:
-                radial-gradient(at 0% 70%, rgba(46, 46, 0, 0.5) 0%, transparent 40%),
-                radial-gradient(at -10% 20%, rgba(78, 0, 0, 0.4) 0%, transparent 40%),
-                radial-gradient(at 110% 20%, rgba(0, 49, 49, 0.6) 0%, transparent 40%);
+                radial-gradient(at 40% 70%, rgba(46, 46, 0, 0.4) 0%, transparent 30%),
+                radial-gradient(at 45% 30%, rgba(78, 0, 0, 0.4) 0%, transparent 30%),
+                radial-gradient(at 65% 50%, rgba(0, 58, 58, 0.4) 0%, transparent 40%);
             background-blend-mode: screen;
         }
     }
 
-    .middle {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        display: flex;
+    .background.photo {
         justify-content: center;
         align-items: center;
-
-        // Desktop specifieke padding
         padding-left: 900px;
 
         img {
             height: 105%;
             width: auto;
-            display: block;
             object-fit: contain;
             flex-shrink: 0;
             transform: translateY(20px);
         }
 
-        // Desktop logica
         .hero-img-desktop {
             display: block;
         }
@@ -73,9 +45,9 @@
             padding-left: 400px;
         }
 
-        // Mobiele aanpassingen
         @include tools.respond-to(var.$screen-size-small) {
             justify-content: flex-start;
+            align-items: center;
             padding-left: 0;
 
             .hero-img-desktop {
@@ -91,16 +63,11 @@
         }
     }
 
-    .front {
-        position: relative;
-        z-index: 2;
-        display: flex;
+    .foreground {
         justify-content: center;
-        width: 100%;
-        text-align: center;
-        transform: translateY(-50px);
 
         .text-wrapper {
+            transform: translateY(-50px);
             h1,
             h2 {
                 text-align: left;
@@ -112,6 +79,7 @@
         }
 
         .button-group {
+            transform: translateY(-50px);
             .btn {
                 padding: 14px 28px;
             }
@@ -121,8 +89,8 @@
             }
         }
 
-        @include tools.respond-to(var.$screen-size-medium) {
-            transform: translateY(70px);
+        @include tools.respond-to(var.$screen-size-small) {
+            transform: translateY(150px);
         }
     }
 }

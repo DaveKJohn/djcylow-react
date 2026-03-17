@@ -83,9 +83,9 @@ export default function ContactForm() {
     };
 
     return (
-        <div className="column wrapper center BoW in-push-7xl" id="contactformulier">
-            <div className="constrainer column spacing-3xl ">
-                <div className="column wrapper spacing-3xl show_border_bottom">
+        <div className="fullscreen BoW" id="contactformulier">
+            <div className="column constrainer spacing-6xl">
+                <div className="column spacing-3xl show_border_bottom">
                     <div className="column text-wrapper spacing-4xl center">
                         <h2>Contact</h2>
                         <p className="size-base balanced">
@@ -98,9 +98,9 @@ export default function ContactForm() {
                     </div>
                 </div>
 
-                <div className="column wrapper spacing-6xl h-push-6xl">
+                <div className="column spacing-6xl h-push-4xl">
                     {status === "success" ? (
-                        <div className="column wrapper spacing-3xl center show_border_bottom" id="succesMessage">
+                        <div className="column spacing-3xl center show_border_bottom" id="succesMessage">
                             <div className="column text-wrapper center spacing-3xl">
                                 <div style={{ fontSize: '3rem' }}>✅</div>
                                 <h3 className="succes text">Bericht verzonden!</h3>
@@ -118,7 +118,7 @@ export default function ContactForm() {
                     ) : (
                         <form
                             ref={formRef}
-                            className="column wrapper spacing-2xl form-wrapper show_border_bottom"
+                            className="column spacing-4xl form-wrapper show_border_bottom"
                             id="contactForm"
                             onSubmit={handleSubmit}
                         >
@@ -127,20 +127,20 @@ export default function ContactForm() {
                                 <label>Bot field: <input name="bot-field" /></label>
                             </div>
 
-                            <div className="row wrapper spacing-3xl flex">
+                            <div className="row spacing-4xl flex">
                                 <input className="input-field" type="text" name="firstName" required placeholder="Voornaam" />
                                 <input className="input-field" type="text" name="lastName" required placeholder="Achternaam" />
                             </div>
 
-                            <div className="column wrapper spacing-3xl">
+                            <div className="column spacing-3xl">
                                 <input className="input-field" type="email" name="email" required placeholder="E-mailadres" />
                             </div>
 
-                            <div className="column wrapper spacing-3xl">
+                            <div className="column spacing-3xl">
                                 <textarea className="input-field textarea-field" name="message" rows={4} required placeholder="Vraag / opmerking"></textarea>
                             </div>
 
-                            <div className="column wrapper spacing-3xl start" style={{ minHeight: '78px' }}>
+                            <div className="column spacing-3xl start" style={{ minHeight: '78px' }}>
                                 {shouldLoadCaptcha && (
                                     <ReCAPTCHA
                                         sitekey="6LfMHYMsAAAAAA1-Kx9-XqhhM_hlaar5iXUY8nd5"
@@ -151,13 +151,13 @@ export default function ContactForm() {
                             </div>
 
                             {status === "error" && (
-                                <div className="column wrapper spacing-3xl">
+                                <div className="column spacing-3xl">
                                     <p className="size-base error text" style={{ color: 'red' }}>{errorMessage}</p>
                                 </div>
                             )}
 
-                            <div className="column wrapper spacing-3xl">
-                                <div className="column wrapper center">
+                            <div className="column spacing-3xl">
+                                <div className="column center">
                                     <button
                                         className="btn cta verzend-form-btn"
                                         type="submit"
@@ -177,11 +177,11 @@ export default function ContactForm() {
                     )}
 
                     {/* WhatsApp Sectie */}
-                    <div className="column wrapper spacing-2xl h-push-5xl">
+                    <div className="column spacing-2xl h-push-5xl">
                         <div className="column text-wrapper text center">
                             <p className="size-base balanced bold">Heb je liever direct contact? WhatsApp mag ook!</p>
                         </div>
-                        <div className="column wrapper spacing-3xl center">
+                        <div className="column spacing-3xl center">
                             <a className="btn" href="https://wa.me/31611531263" target="_blank" rel="noopener noreferrer">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="40" height="40">
                                     <g transform="translate(4, 4) scale(2.7)">

@@ -26,7 +26,8 @@ body {
 }
 
 .column,
-.row {
+.row,
+.stack {
     width: 100%;
     display: flex;
 
@@ -50,6 +51,7 @@ body {
     &.h-start {
         align-items: flex-start !important;
         text-align: left;
+        align-self: center;
     }
     &.h-end {
         align-items: flex-end !important;
@@ -63,6 +65,7 @@ body {
         @include tools.respond-to(var.$screen-size-medium) {
             align-items: flex-start !important;
             text-align: left !important;
+            align-self: start;
         }
     }
 }
@@ -98,20 +101,103 @@ body {
     }
 }
 
-.nav-wrapper {
-    @include tools.responsive-spacing(
-        padding,
-        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
-    );
+//OP elkaar
+.stack {
+    position: relative;
+    overflow: hidden;
+
+    .foreground {
+        position: relative;
+        z-index: 20;
+    }
+
+    .background {
+        position: absolute;
+
+        &.gradient {
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            aspect-ratio: 1 / 1;
+
+            min-width: 100vmax;
+            min-height: 100vmax;
+            width: auto;
+            height: auto;
+
+            @include tools.respond-to(var.$screen-size-small) {
+                min-width: 140vmax;
+            }
+        }
+
+        &.photo {
+            top: 0;
+            left: 0;
+
+            height: 100%;
+            z-index: 2;
+        }
+
+        &.feather {
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 15;
+            pointer-events: none;
+
+            .sides,
+            .bottom {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                height: 100%;
+            }
+
+            &.sides {
+                background: linear-gradient(
+                    to right,
+                    black 0%,
+                    rgba(0, 0, 0, 0.5) 15%,
+                    transparent 30%,
+                    transparent 70%,
+                    rgba(0, 0, 0, 0.5) 85%,
+                    black 100%
+                );
+            }
+
+            &.bottom {
+                background: linear-gradient(
+                    to bottom,
+                    transparent 0%,
+                    transparent 20%,
+                    rgba(0, 0, 0, 0.5) 70%,
+                    black 100%
+                );
+            }
+        }
+    }
 }
 
-// De Breedste Container (Desktop Wrapper)
-.constrainer,
-.text-constrainer {
-    margin: 0 auto !important; // Houdt de container gecentreerd op ultra-wide schermen
+.fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var.$nav-height-large);
+    
+    padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
+
+    @include tools.respond-to(var.$screen-size-small) {
+        min-height: calc(100vh - var.$nav-height-small);
+        padding: map.get(map.get(var.$design-scale, "6xl"), "c-space") 0;
+    }
+}
+
+.constrainer {
+    margin: 0 auto; // Houdt de container gecentreerd op ultra-wide schermen
     max-width: var.$desktop-max-width;
 
     @include tools.responsive-spacing(
@@ -124,40 +210,30 @@ body {
     );
 }
 
+.nav-wrapper {
+    @include tools.responsive-spacing(
+        padding,
+        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
+        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
+    );
+}
 
+.banner {
+    padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
 
-//OP elkaar
-.stack {
-    display: block;
-    position: relative; // Zorgt dat absolute lagen binnen de wrapper blijven
-    width: 100%;
-
-    .layer {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-
-        &.anchor {
-            // Overschrijf de absolute positionering van .overlay
-            display: flex;
-            position: relative !important;
-            top: auto !important;
-            left: auto !important;
-            height: auto !important;
-        }
+    @include tools.respond-to(var.$screen-size-small) {
+        padding: map.get(map.get(var.$design-scale, "6xl"), "c-space") 0;
     }
 }
 
-.anchorpoint {
-    top: 50% !important;
-    left: 50% !important;
-    width: 0 !important;
-    height: 0 !important;
+.paper {
+    padding-bottom: map.get(map.get(var.$design-scale, "8xl"), "c-space");
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include tools.respond-to(var.$screen-size-small) {
+        padding-bottom: map.get(map.get(var.$design-scale, "8xl"), "c-space");
+    }
 }
 
 .show_border_bottom {

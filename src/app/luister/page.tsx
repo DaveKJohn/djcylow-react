@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import Filter from '@/components/sections/Filter';
-import Luister from '@/components/sections/FilterResult';
+import styles from '@/styles/modules/luister.module.scss';
+
+import Filter from '@/components/luister/Filter';
+import Luister from '@/components/luister/FilterResult';
+
 
 export default function LuisterPage() {
     const [activeColor, setActiveColor] = useState('all');
@@ -10,38 +13,43 @@ export default function LuisterPage() {
     const [activePower, setActivePower] = useState('all');
 
     return (
-        <main>
-            {/* 1. Banner Sectie */}
-            <section className="column stack wrapper pattern WoB" id="banner_luister">
-                <div className="column overlay stack wrapper spacing-3xl feather">
-                    <div className="column overlay spacing-3xl bottom"></div>
-                </div>
-                <div className="column overlay constrainer spacing-3 header">
-                    <div className="column banner-wrapper v-push-9xl center">
-                        <div className="column text-wrapper spacing-3xl center">
-                            <h1>Luister</h1>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <main className={styles.pageWrapper}>
+
+
 
 
             {/* 2. Filter & Content Sectie */}
-            <section className="column wrapper spacing-9xl center WoB">
-                <div className="column constrainer">
-                    <Filter
-                        activeColor={activeColor} setActiveColor={setActiveColor}
-                        activeGenre={activeGenre} setActiveGenre={setActiveGenre}
-                        activePower={activePower} setActivePower={setActivePower}
-                    />
+            <section className="center WoB">
+
+                <div className="banner stack WoB" id="banner_2">
+
+                    <div className="column background feather sides"></div>
+
+                    <div className="column background feather bottom"></div>
+
+                    <div className="column foreground spacing-4xl constrainer center title">
+                        <h1>Title</h1>
+                    </div>
                 </div>
 
-                <div className="column constrainer">
-                    <Luister
-                        activeColor={activeColor}
-                        activeGenre={activeGenre}
-                        activePower={activePower}
-                    />
+                <div className="column slideshow spacing-8xl">
+
+
+                    <div className="column constrainer">
+                        <Filter
+                            activeColor={activeColor} setActiveColor={setActiveColor}
+                            activeGenre={activeGenre} setActiveGenre={setActiveGenre}
+                            activePower={activePower} setActivePower={setActivePower}
+                        />
+                    </div>
+
+                    <div className="column constrainer">
+                        <Luister
+                            activeColor={activeColor}
+                            activeGenre={activeGenre}
+                            activePower={activePower}
+                        />
+                    </div>
                 </div>
             </section>
         </main>

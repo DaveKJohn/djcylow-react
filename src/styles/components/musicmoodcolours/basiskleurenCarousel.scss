@@ -16,15 +16,7 @@ $h-spacing: calc(
     (map.get(map.get(var.$design-scale, "2xl"), "in-space") * 2)
 ); //additional horizontal space pushed inwards on id="basiskleuren"
 
-:root {
-    --card_width_basiskleuren: #{$card-width-basiskleuren};
-    --card_height_basiskleuren: #{$card-height-basiskleuren};
 
-    @include tools.respond-to(var.$screen-size-medium) {
-        --card_width_basiskleuren: 130px;
-        --card_height_basiskleuren: 130px;
-    }
-}
 
 $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} + #{$h-spacing});
 

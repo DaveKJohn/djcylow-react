@@ -1,13 +1,14 @@
 import React from 'react';
-import Image from 'next/image'; // Gaat uit van Next.js gezien de Image component
-import ReadMore from "@/components/ui/ReadMore";
-import Link from "next/link";
+import '@/styles/components/home/diensten.scss';
+
 import { homeContent } from "@/content/home";
+import Link from "next/link";
+
 
 const Diensten = () => {
     return (
-        <section className="column wrapper spacing-9xl WoB" id="hero">
-            <div className="column wrapper center WoB" id="diensten">
+        <section className="column spacing-9xl WoB" id="hero">
+            <div className="column center WoB" id="diensten">
                 <div className="column constrainer">
                     <div className="column text-wrapper spacing-4xl center flex">
                         <div className="column text-wrapper spacing-4xl header center">
@@ -15,7 +16,7 @@ const Diensten = () => {
                             <p className="subheader">Kies één van de onderstaande opties die het meest aansluit op jou wens.</p>
                         </div>
 
-                        <div className="row wrapper spacing-3xl wrap flex buttons">
+                        <div className="row spacing-3xl wrap flex buttons">
                             <Link className="btn passive diensten-btn" href="/diensten/bruiloft-dj">Bruiloft DJ</Link>
                             <Link className="btn passive diensten-btn" href="/diensten/bedrijfsfeest-dj">Bedrijfsfeest DJ</Link>
                             <Link className="btn passive diensten-btn" href="/diensten/house-dj">House DJ</Link>

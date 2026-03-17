@@ -31,7 +31,7 @@ $banner-height-small: 40px 0;
 
 // Body Breekpunten
 $screen-size-large: 1530px;
-$screen-size-medium: 990px;
+$screen-size-medium: 1250px;
 $screen-size-small: 660px;
 
 /* =======================================
@@ -49,7 +49,8 @@ $base-mapping: (
     "xl": "xl",
     "lg": "lg",
     "base": "base",
-    "sm": "sm"
+    "sm": "sm",
+    "xs": "xs"
 );
 
 $medium-mapping: (
@@ -59,27 +60,29 @@ $medium-mapping: (
     "6xl": "5xl",
     "5xl": "4xl",
     "4xl": "3xl",
-    "3xl": "2xl",
-    "2xl": "xl",
-    "xl": "lg",
-    "lg": "base",
+    "3xl": "3xl",
+    "2xl": "2xl",
+    "xl": "xl",
+    "lg": "lg",
     "base": "base",
-    "sm": "sm"
+    "sm": "sm",
+    "xs": "xs"
 );
 
 $small-mapping: (
     "9xl": "7xl",
     "8xl": "6xl",
     "7xl": "5xl",
-    "6xl": "4xl",
-    "5xl": "3xl",
-    "4xl": "2xl",
-    "3xl": "xl",
-    "2xl": "lg",
+    "6xl": "5xl",
+    "5xl": "4xl",
+    "4xl": "3xl",
+    "3xl": "3xl",
+    "2xl": "2xl",
     "xl": "base",
     "lg": "base",
     "base": "base",
-    "sm": "sm"
+    "sm": "sm",
+    "xs": "xs"
 );
 
 $design-scale: (
@@ -101,7 +104,7 @@ $design-scale: (
     ),
     "base": (
         font-size: 16px,
-        line-height: 28px,
+        line-height: 30px,
         c-space: 6px,
         r-space: 6px,
         in-space: 6px,
@@ -133,7 +136,7 @@ $design-scale: (
     ),
     "3xl": (
         font-size: 30px,
-        line-height: 36px,
+        line-height: 42px,
         c-space: 21px,
         r-space: 21px,
         in-space: 21px,
@@ -246,27 +249,6 @@ $colors: (
             "fg": #fee2e2
         )
 );
-
-// =======================================
-// 2. CSS Variabelen Genereren (:root)
-// =======================================
-:root {
-    --screen-size-large: #{$screen-size-large};
-    --screen-size-medium: #{$screen-size-medium};
-    --screen-size-small: #{$screen-size-small};
-
-    @each $base-color, $tints in $colors {
-        @each $tint-name, $value in $tints {
-            // Start met de basiskleur (bijv. 'black')
-            $css-var-name: #{$base-color};
-
-            // Dit creëert 'black-100', 'black-90', 'yellow-full', etc.
-            $css-var-name: #{$base-color}-#{$tint-name};
-
-            --#{$css-var-name}: #{$value};
-        }
-    }
-}
 
 /* =======================================
     3. Music Mood Colours variabelen

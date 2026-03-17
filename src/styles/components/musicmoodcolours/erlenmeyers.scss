@@ -6,15 +6,6 @@
 $card-width-erlenmeyers: 180px;
 $card-height-erlenmeyers: 180px;
 
-:root {
-    --card_width_erlenmeyers: #{$card-width-erlenmeyers};
-    --card_height_erlenmeyers: #{$card-height-erlenmeyers};
-
-    @include tools.respond-to(var.$screen-size-medium) {
-        --card_width_erlenmeyers: 150px;
-        --card_height_erlenmeyers: 150px;
-    }
-}
 
 /* =======================================
     ERLENMEYERS MIXER
@@ -165,7 +156,7 @@ $card-height-erlenmeyers: 180px;
                 }
             }
 
-            .text-wrapper {
+            .labels {
                 width: auto;
                 gap: map.get(map.get(var.$design-scale, "base"), "c-space");
 

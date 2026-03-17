@@ -2,29 +2,29 @@
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
 
-// Zorgt voor de max-width van de tracklist en content
-.return-wrapper,
-.audioplayer-wrapper,
-.tracklist {
-    max-width: 650px;
-}
+#luister_mix {
+    // Zorgt voor de max-width van de tracklist en content
+    .return-wrapper,
+    .audioplayer-wrapper,
+    .tracklist {
+        max-width: 650px;
+    }
 
-// 2. Terug-knop & Header
-.return-wrapper {
-    .terug-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
+    // 2. Terug-knop & Header
+    .return-wrapper {
+        .terug-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
 
-        svg {
-            width: 24px;
-            height: 24px;
+            svg {
+                width: 24px;
+                height: 24px;
+            }
         }
     }
-}
 
-.luister.mix {
     .audioplayer-wrapper {
         width: 100%;
         aspect-ratio: 16 / 9;
@@ -71,8 +71,7 @@
                 font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
             }
 
-            .timeline-wrapper {                 
-
+            .timeline-wrapper {
                 .total,
                 .progress {
                     position: absolute; // Ze blijven absolute voor het over elkaar heen vallen
@@ -125,41 +124,41 @@
             }
         }
     }
-}
 
-.row.text-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    // De "Bekijk op Spotify" knop
-    .h-end a {
-        display: inline-flex;
+    .row {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 8px;
+        width: 100%;
 
-        svg {
-            width: 20px;
-            height: 20px;
+        // De "Bekijk op Spotify" knop
+        .h-end a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
         }
     }
-}
 
-.column.text-wrapper.table {
-    width: 100%;
-
-    table {
+    .column.table {
         width: 100%;
-        border-collapse: collapse;
 
-        td {
-            &.track {
-                text-align: left;
-            }
-            &.time {
-                white-space: nowrap;
-                text-align: right;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            td {
+                &.track {
+                    text-align: left;
+                }
+                &.time {
+                    white-space: nowrap;
+                    text-align: right;
+                }
             }
         }
     }

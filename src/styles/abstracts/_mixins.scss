@@ -21,7 +21,7 @@
         $map: var.$small-mapping;
     }
 
-    @return if(map.has-key($map, $alias), map.get($map, $alias), $alias);
+    @return if(sass(map.has-key($map, $alias)): map.get($map, $alias); else: $alias);
 }
 /* =======================================
     2. TYPOGRAFIE & KLEUR UTILITIES
@@ -92,14 +92,10 @@
         $med-config: map.get(var.$design-scale, $med-key);
         $small-config: map.get(var.$design-scale, $small-key);
 
-        .row.spacing-#{$alias}.wrapper,
-        .row.spacing-#{$alias}.constrainer,
-        .row.spacing-#{$alias}.text-wrapper,
-        .row.spacing-#{$alias}.text-constrainer,
-        .column.spacing-#{$alias}.wrapper,
-        .column.spacing-#{$alias}.constrainer,
-        .column.spacing-#{$alias}.text-wrapper,
-        .column.spacing-#{$alias}.text-constrainer {
+        .row.spacing-#{$alias},
+        .column.spacing-#{$alias} {
+            
+            // --- DESKTOP ---
             @if $config {
                 &.row {
                     gap: map.get($config, "r-space") !important;
@@ -107,14 +103,15 @@
                 &.column {
                     gap: map.get($config, "c-space") !important;
                 }
-                @if $with-margin {
-                    &:not(.text-wrapper):not(.text-constrainer) {
-                        margin-top: map.get($config, "extra-space") !important;
-                        margin-bottom: map.get($config, "extra-space") !important;
-                    }
+                
+                // Extra space alleen als de class .extra aanwezig is
+                &.extra {
+                    margin-top: map.get($config, "extra-space") !important;
+                    margin-bottom: map.get($config, "extra-space") !important;
                 }
             }
 
+            // --- MEDIUM ---
             @if $med-config {
                 @include respond-to(var.$screen-size-medium) {
                     &.row {
@@ -123,9 +120,14 @@
                     &.column {
                         gap: map.get($med-config, "c-space") !important;
                     }
+                    &.extra {
+                        margin-top: map.get($med-config, "extra-space") !important;
+                        margin-bottom: map.get($med-config, "extra-space") !important;
+                    }
                 }
             }
 
+            // --- SMALL ---
             @if $small-config {
                 @include respond-to(var.$screen-size-small) {
                     &.row {
@@ -133,6 +135,10 @@
                     }
                     &.column {
                         gap: map.get($small-config, "c-space") !important;
+                    }
+                    &.extra {
+                        margin-top: map.get($small-config, "extra-space") !important;
+                        margin-bottom: map.get($small-config, "extra-space") !important;
                     }
                 }
             }
@@ -150,32 +156,26 @@
     $small-config: map.get(var.$design-scale, $small-key);
 
     @if $config {
-        $val: if(
-            $type == "h",
-            map.get($config, "r-space"),
-            if($type == "in", map.get($config, "in-space"), map.get($config, "c-space"))
-        );
+        $val: if(sass($type == "h"): map.get($config, "r-space"); 
+                 else: if(sass($type == "in"): map.get($config, "in-space"); 
+                 else: map.get($config, "c-space")));
         @include _execute-push($type, $val);
     }
 
     @if $med-config {
         @include respond-to(var.$screen-size-medium) {
-            $m-val: if(
-                $type == "h",
-                map.get($med-config, "r-space"),
-                if($type == "in", map.get($med-config, "in-space"), map.get($med-config, "c-space"))
-            );
+            $m-val: if(sass($type == "h"): map.get($med-config, "r-space"); 
+                       else: if(sass($type == "in"): map.get($med-config, "in-space"); 
+                       else: map.get($med-config, "c-space")));
             @include _execute-push($type, $m-val);
         }
     }
 
     @if $small-config {
         @include respond-to(var.$screen-size-small) {
-            $s-val: if(
-                $type == "h",
-                map.get($small-config, "r-space"),
-                if($type == "in", map.get($small-config, "in-space"), map.get($small-config, "c-space"))
-            );
+            $s-val: if(sass($type == "h"): map.get($small-config, "r-space"); 
+                       else: if(sass($type == "in"): map.get($small-config, "in-space"); 
+                       else: map.get($small-config, "c-space")));
             @include _execute-push($type, $s-val);
         }
     }

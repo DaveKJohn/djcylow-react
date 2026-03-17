@@ -1,0 +1,43 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+$gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
+
+#verzoeknummers {  
+    justify-content: center;
+
+    .left {
+        flex: 0 0 calc(50% - (#{$gap-size} / 2));
+        max-width: calc(50% - (#{$gap-size} / 2));
+
+        @include tools.respond-to(var.$screen-size-medium) {
+            flex: 1 1 100%; // Reset op mobile
+            max-width: none;
+        }
+    }
+
+    .right {
+        flex: 0 0 calc(50% - (#{$gap-size} / 2));
+        max-width: calc(50% - (#{$gap-size} / 2));
+
+        @include tools.respond-to(var.$screen-size-medium) {
+            flex: 1 1 100%; // Reset op mobile
+            max-width: none;
+        }
+    }
+}
+
+// =======================================
+// Verzoek section - NU BUITEN DE .PROMO ACCLODE
+// =======================================
+#verzoeknummers {
+    .left {
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-image: radial-gradient(circle, #ffffff 0%, #c7c7c7 100%);
+        }
+    }
+}

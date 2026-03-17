@@ -2,76 +2,36 @@
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
 
-@keyframes scrollPattern {
-    from {
-        background-position: 0 center;
-    }
-    to {
-        background-position: var(--pattern-offset) center;
+#banner_2 {
+    .photo {
+        background-image: url("/images/pattern.webp");
+        background-repeat: repeat-x;
+        
+        $ratio: 1.1631663974;
+
+        // DESKTOP
+        $h-desktop: 390px;
+        background-size: ($h-desktop * $ratio) $h-desktop;
+        --pattern-offset: -#{$h-desktop * $ratio};
+
+        animation: scrollPattern 40s linear infinite;
+
+        @include tools.respond-to(var.$screen-size-small) {
+            // MOBILE
+            $h-mobile: 310px;
+            background-size: ($h-mobile * $ratio) $h-mobile;
+            --pattern-offset: -#{$h-mobile * $ratio};
+        }
     }
 }
 
-#banner_2 {
-    height: auto;
-    min-height: fit-content;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    z-index: 1;
-
-    // afmetingen pattern BxH: 720 x 619.
-    background-image: url("/images/pattern.webp");
-    background-repeat: repeat-x;
-    background-position: center;
-    background-position: center;
-
-    // Berekening: 550 * (720 / 619) = 639.74px
-    background-size: auto 550px;
-    --pattern-offset: -639.74px;
-
-    animation: scrollPattern 40s linear infinite;
-
-    @include tools.respond-to(var.$screen-size-small) {
-        // Berekening: 440 * (720 / 619) = 511.79px
-        background-size: auto 440px;
-        --pattern-offset: -511.79px;
+@keyframes scrollPattern {
+    from { 
+        // 50% zorgt ervoor dat het patroon verticaal gecentreerd blijft
+        background-position: 0 50%; 
     }
-
-    .feather {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 2;
-        pointer-events: none;
-
-        // Voeg dit toe:
-        .sides,
-        .bottom {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .sides {
-            background: linear-gradient(
-                to right,
-                black 0%,
-                rgba(0, 0, 0, 0.5) 15%,
-                transparent 30%,
-                transparent 70%,
-                rgba(0, 0, 0, 0.5) 85%,
-                black 100%
-            );
-        }
-
-        .bottom {
-            background: linear-gradient(to bottom, transparent 0%, transparent 20%, rgba(0, 0, 0, 0.5) 70%, black 100%);
-        }
+    to { 
+        // De offset voor de loop, maar behoud de verticale 50%
+        background-position: var(--pattern-offset) 50%; 
     }
 }

@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 export default function HouseDJPage() {
   return (
     <main className="diensten">
-      <section className="column stack wrapper pattern WoB" id="banner_index">
-        <div className="column overlay stack wrapper spacing-3xl feather">
+      <section className="column stack pattern WoB" id="banner_index">
+        <div className="column overlay stack spacing-3xl feather">
           <div className="column overlay spacing-3xl bottom"></div>
         </div>
 

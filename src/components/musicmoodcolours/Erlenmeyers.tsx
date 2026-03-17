@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
+import '@/styles/components/musicmoodcolours/erlenmeyers.scss';
 
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
@@ -72,9 +73,9 @@ export default function Erlenmeyers() {
     return (
         <>
             {/* 1. OUTPUT */}
-            <div className="column wrapper spacing-4xl black-90-bg in-push-6xl" id="canvas_erlenmeyers">
-                <div className="column wrapper spacing-3xl output">
-                    <div className={`column wrapper spacing-3xl center emotion-wrapper ${activeColor}`}>
+            <div className="column spacing-4xl black-90-bg in-push-6xl" id="canvas_erlenmeyers">
+                <div className="column spacing-3xl output">
+                    <div className={`column spacing-3xl center emotion-wrapper ${activeColor}`}>
 
                         {/* Check op audioSrc om Console Error te voorkomen */}
                         {currentMix && currentMix.audioSrc ? (
@@ -95,12 +96,12 @@ export default function Erlenmeyers() {
                         )}
 
                         <div className="row text-wrapper spacing-3xl center">
-                            <div className="column wrapper h-end">
+                            <div className="column h-end">
                                 <svg viewBox="0 0 20 20" width="20" height="20">
                                     <circle cx="10" cy="10" r="9" fill={`var(--${activeColor}-default)`} />
                                 </svg>
                             </div>
-                            <div className="column wrapper h-start text">
+                            <div className="column h-start text">
                                 <p className="text" id="emotion-text">"{COLOR_TO_STATE[activeColor].label}"</p>
                             </div>
                         </div>
@@ -108,7 +109,7 @@ export default function Erlenmeyers() {
                 </div>
 
                 {/* 2. ERLENMEYERS */}
-                <div className="column wrapper spacing-base erlenmeyers show_border_bottom">
+                <div className="column spacing-base erlenmeyers show_border_bottom">
                     <div className="row text-wrapper spacing-3xl">
                         {SUBSTANCES.map((sub) => {
                             const isActive = substances[sub];
@@ -138,7 +139,7 @@ export default function Erlenmeyers() {
                         })}
                     </div>
 
-                    <div className="row text-wrapper spacing-3xl">
+                    <div className="row spacing-3xl labels">
                         {SUBSTANCES.map((sub) => (
                             <div key={`label-${sub}`} className={`label ${sub} size-sm`} >
                                 <p>{sub}</p>
@@ -148,7 +149,7 @@ export default function Erlenmeyers() {
                 </div>
 
                 {/* 3. BUTTONS */}
-                <div className="row wrapper spacing-xl center wrap buttons">
+                <div className="row spacing-xl center wrap buttons">
                     {["cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue"].map((color) => (
                         <button
                             key={color}

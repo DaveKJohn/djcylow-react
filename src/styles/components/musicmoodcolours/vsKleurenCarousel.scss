@@ -5,15 +5,7 @@
 $card-width-vs: 150px;
 $card-height-vs: 150px;
 
-:root {
-    --card_width_vs: #{$card-width-vs};
-    --card_height_vs: #{$card-height-vs};
 
-    @include tools.respond-to(var.$screen-size-medium) {
-        --card_width_vs: 130px;
-        --card_height_vs: 130px;
-    }
-}
 
 .carousels {
     .arrow {
@@ -97,7 +89,7 @@ $card-height-vs: 150px;
                     outline-offset: 5px !important;
 
                     @each $name in var.$all-colors {
-                        // We targeten de wrapper specifiek wanneer deze een nakomeling is van .colour.#{$name}
+                        // We targeten de specifiek wanneer deze een nakomeling is van .colour.#{$name}
                         // De extra .carousels prefix verhoogt de specificity
                         .carousels .colour.#{$name} & {
                             outline-color: var(--#{$name}-default) !important;

@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
+import '@/styles/components/musicmoodcolours/kubusHoeken.scss';
 
 export default function KubusHoeken() {
     return (
-        <div className="column wrapper spacing-4xl black-90-bg in-push-7xl" id="canvas_3Dspace">
+        <div className="column spacing-4xl black-90-bg in-push-7xl" id="canvas_3Dspace">
             <div className="container h3-constrainer-1 cube">
                 <div className="container h3-container-2 canvas-level-1 cube" id="cube">
 

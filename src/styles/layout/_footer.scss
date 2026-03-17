@@ -3,7 +3,7 @@
 @use "../abstracts/variables" as var;
 
 footer {
-    
+    padding: map.get(map.get(var.$design-scale, "7xl"), "c-space") 0;
     color: var(--white-80);
 
     // --- Layer 1 & 2: Logo Sectie ---
@@ -27,7 +27,7 @@ footer {
     }
 
     // --- Layer 3 Row 1: Socials ---
-    .row.wrapper.split:first-child {
+    .row.split:first-child {
         max-width: 180px;
 
         svg {
@@ -43,7 +43,7 @@ footer {
     }
 
     // --- Layer 3 Row 2: Credits / Info ---
-    .row.wrapper {
+    .row {
         max-width: 550px;
 
         address {
@@ -54,13 +54,6 @@ footer {
         #contactMail,
         small {
             display: block;
-        }
-    }
-
-    .text-wrapper {
-       
-        .text-wrapper {
-            padding: 0 10px;
         }
     }
 }

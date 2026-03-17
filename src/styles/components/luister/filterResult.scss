@@ -2,16 +2,6 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
-:root {
-    --card_width: 304px;
-    --card_height: 171px;
-
-    @include tools.respond-to(var.$screen-size-small) {
-        --card_width: 100%;
-        --card_height: auto;
-    }
-}
-
 
 
 .card {

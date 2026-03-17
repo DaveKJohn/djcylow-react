@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import Carousel from '@/components/ui/Carousel';
+import '@/styles/components/musicmoodcolours/vsKleurenCarousel.scss';
 
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
@@ -56,7 +57,7 @@ export default function VsKleurenCarousel() {
                                         className={pair.top.toLowerCase()}
                                     />
                                 ) : (
-                                    <div className="column center wrapper placeholder-mix">
+                                    <div className="column center placeholder-mix">
                                         <p className="size-xs">Geen mix</p>
                                     </div>
                                 )}
@@ -87,7 +88,7 @@ export default function VsKleurenCarousel() {
                                         className={pair.bottom.toLowerCase()}
                                     />
                                 ) : (
-                                    <div className="column center wrapper placeholder-mix">
+                                    <div className="column center placeholder-mix">
                                         <p className="size-xs">Geen mix</p>
                                     </div>
                                 )}

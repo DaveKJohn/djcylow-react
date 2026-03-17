@@ -1,5 +1,7 @@
 'use client';
 
+import '@/styles/components/luister/filter.scss';
+
 const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
     yellow: { colorVar: '--yellow-default', text: 'avontuur · passie · ambitie · gretig' },
     cyan: { colorVar: '--cyan-default', text: 'vrolijk · feestelijk · gezellig · blij · sfeervol' },
@@ -12,26 +14,26 @@ const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
 
 export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: any) {
     return (
-        <div className="column wrapper spacing-5xl black-90-bg in-push-8xl">
+        <div className="column spacing-5xl black-90-bg in-push-8xl">
             {/* Header Deel */}
-            <div className="column text-wrapper spacing-4xl show_border_bottom">
-                <div className="column text-wrapper spacing-2xl">
+            <div className="column spacing-4xl show_border_bottom">
+                <div className="column spacing-2xl center">
                     <h2>Filter</h2>
                 </div>
-                <div className="column text-wrapper spacing-2xl center">
+                <div className="column spacing-2xl center">
                     <p>Kies hieronder één van de 8 music moods.</p>
                 </div>
             </div>
 
             {/* Content Deel */}
-            <div className="column text-wrapper spacing-4xl h-push-6xl">
+            <div className="column spacing-4xl h-push-6xl">
 
                 {/* MOOD SECTIE */}
-                <div className="column wrapper spacing-xl">
-                    <div className="column text-wrapper spacing-2xl header">
+                <div className="column spacing-xl">
+                    <div className="column spacing-2xl center header">
                         <h3>Mood</h3>
                     </div>
-                    <div className="row wrapper spacing-2xl center wrap show_border_bottom" id="filter_mood">
+                    <div className="row spacing-2xl center wrap show_border_bottom" id="filter_mood">
                         <button
                             className={`btn passive select ${activeColor === 'all' ? 'is-active' : ''}`}
                             onClick={() => setActiveColor('all')}
@@ -56,12 +58,12 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
 
                 {/* MOOD OUTPUT - Nu met dynamische display: none/flex */}
                 <div
-                    className="column text-wrapper spacing-xl center show_border_bottom"
+                    className="column spacing-xl center show_border_bottom"
                     id="filter_mood_output"
                     style={{ display: activeColor === 'all' ? 'none' : 'flex' }}
                 >
                     {activeColor !== 'all' && (
-                        <div className="row text-wrapper spacing-2xl color-wrapper center flex">
+                        <div className="row spacing-2xl color-wrapper center flex">
                             <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
                                 <circle cx="10" cy="10" r="9" fill={`var(${MOOD_DATA[activeColor].colorVar})`}></circle>
                             </svg>
@@ -71,8 +73,8 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                 </div>
 
                 {/* GENRE SECTIE */}
-                <div className="column wrapper spacing-xl center show_border_bottom">
-                    <div className="column text-wrapper spacing-2xl header">
+                <div className="column spacing-xl center show_border_bottom">
+                    <div className="column spacing-2xl header">
                         <h3>Genre</h3>
                     </div>
                     <div className="wrapper spacing-2xl row center wrap" id="filter_genre">
@@ -90,11 +92,11 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                 </div>
 
                 {/* INTENSITEIT SECTIE */}
-                <div className="column wrapper spacing-xl center">
-                    <div className="column text-wrapper spacing-2xl header">
+                <div className="column spacing-xl center">
+                    <div className="column spacing-2xl header">
                         <h3>Intensiteit</h3>
                     </div>
-                    <div className="row wrapper spacing-2xl center wrap" id="filter_power">
+                    <div className="row spacing-2xl center wrap" id="filter_power">
                         {['all', 'full', 'light'].map((power) => (
                             <button
                                 key={power}

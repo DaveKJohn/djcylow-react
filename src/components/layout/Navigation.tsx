@@ -43,10 +43,10 @@ export default function Nav() {
     };
 
     return (
-        <nav className="nav-wrapper WoB column v-center black-100-bg">
-            <div className="row-1 container row">
+        <nav className="column nav-wrapper WoB v-center black-100-bg">
+            <div className="row">
 
-                <div className="col-1 container logo-wrapper">
+                <div className="column logo-wrapper">
                     <Link href="/">
                         <Image
                             src="/images/djcylow_logo.webp"
@@ -60,13 +60,13 @@ export default function Nav() {
 
                 {/* HIER GEBEURT HET: menu-wrapper krijgt 'mobile' en 'active' classes voor de SCSS */}
                 <div
-                    className={`col-2 container column menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isMenuOpen ? "active" : ""}`}
+                    className={`row menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isMenuOpen ? "active" : ""}`}
                     id="nav_menuWrapper"
                 >
-                    <div className="row-1 mobileMenuHeader-border">
-                        <div className="container row mobileMenuHeader-wrapper">
+                    <div className="mobileMenuHeader-border">
+                        <div className="row mobileMenuHeader-wrapper">
                             <button
-                                className="col-1 btn nav previousBtn"
+                                className="btn nav previousBtn"
                                 id="nav_mobileMenuHeader_previousBtn"
                                 onClick={() => setActiveSubmenu(null)}
                                 style={{ display: activeSubmenu ? 'flex' : 'none' }}
@@ -76,26 +76,26 @@ export default function Nav() {
                                 </svg>
                             </button>
                             <button
-                                className="col-2 btn nav close-btn"
+                                className="btn nav close-btn"
                                 id="nav_mobileMenuHeader_closeBtn"
                                 onClick={() => setIsMenuOpen(false)}
                             >✕</button>
                         </div>
                     </div>
 
-                    <div className={`row-2 container view-wrapper ${activeSubmenu ? 'subList-view' : ''}`} id="nav_menuWrapper_viewWrapper">
-                        <div className="container row mainList-wrapper">
+                    <div className={`view-wrapper ${activeSubmenu ? 'subList-view' : ''}`} id="nav_menuWrapper_viewWrapper">
+                        <div className="row mainList-wrapper">
                           
 
                             {/* Luister */}
-                            <ul className="col-2 btn mainList">
+                            <ul className="btn mainList">
                                 <li className=" row text-wrapper btn subList-wrapper">
                                     <Link className="btn has-subList" href="/luister">Luister</Link>
                                 </li>
                             </ul>
 
                             {/* Music Mood Colours (Heeft geen submenu, dus geen extra classes nodig) */}
-                            <ul className="col-3 btn mainList">
+                            <ul className=" btn mainList">
                                 <li className=" row text-wrapper btn subList-wrapper">
                                     <Link className="btn has-subList" href="/musicmoodcolours">Music Mood Colours</Link>
                                 </li>
@@ -105,13 +105,13 @@ export default function Nav() {
                     </div>
                 </div>
 
-                <div className="col-3 container cta-wrapper">
+                <div className=" cta-wrapper">
                     <Link className="btn cta boek-nu-btn" href="/diensten">
                         <span>Boek nu!</span>
                     </Link>
                 </div>
 
-                <div className="col-4 container hidden-wrapper">
+                <div className=" hidden-wrapper">
                     <button
                         className="btn nav hamburger-btn"
                         id="nav_hiddenWrapper_hamburgerBtn"

@@ -1,0 +1,19 @@
+@use "sass:map";
+@use "../abstracts/mixins" as tools;
+@use "../abstracts/variables" as var;
+
+.pageWrapper {
+    --card_width: 352px;
+    --card_height: 1989px;
+
+    @include tools.respond-to(var.$screen-size-medium) {
+      --card_width: 100%;
+        --card_height: auto;
+    }
+
+ 
+}
+
+
+
+
