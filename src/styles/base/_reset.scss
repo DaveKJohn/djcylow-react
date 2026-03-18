@@ -103,12 +103,18 @@ body {
 
 //OP elkaar
 .stack {
+    display: block;
     position: relative;
     overflow: hidden;
 
     .foreground {
         position: relative;
         z-index: 20;
+
+        &.is-expanded {
+            padding-top: 140px; // Ruimte voor nav
+            padding-bottom: 80px;
+        }
     }
 
     .background {
@@ -187,12 +193,15 @@ body {
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - var.$nav-height-large);
-    
+
     padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
+    transition: min-height 0.2s ease-in-out;
+   
 
     @include tools.respond-to(var.$screen-size-small) {
         min-height: calc(100vh - var.$nav-height-small);
         padding: map.get(map.get(var.$design-scale, "6xl"), "c-space") 0;
+      
     }
 }
 
@@ -209,7 +218,6 @@ body {
         0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
     );
 }
-
 
 .banner {
     padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;

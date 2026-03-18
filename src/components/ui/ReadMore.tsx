@@ -5,26 +5,34 @@ import { useState, useRef } from "react";
 interface ReadMoreProps {
   teaser: React.ReactNode;
   hiddenContent: React.ReactNode;
+  onToggle?: (isOpen: boolean) => void;
 }
 
-export default function ReadMore({ teaser, hiddenContent }: ReadMoreProps) {
+export default function ReadMore({ teaser, hiddenContent, onToggle }: ReadMoreProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const toggleReadMore = () => {
-    if (isOpen) {
-      // 1. Eerst inklappen
-      setIsOpen(false);
+    const nextState = !isOpen;
+    setIsOpen(nextState);
 
-      // 2. Wacht heel even tot de DOM is bijgewerkt, dan pas scrollen
-      setTimeout(() => {
-        containerRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "center" // "center" is vaak fijner dan de default "start"
-        });
-      }, 0);
-    } else {
-      setIsOpen(true);
+    // Breng de Promo.tsx op de hoogte om de .is-expanded class op de foreground te zetten
+    if (onToggle) {
+      onToggle(nextState);
+    }
+
+    if (!nextState) {
+      // Wacht heel even tot de 'hidden' div op display: none staat
+      requestAnimationFrame(() => {
+        // Scroll naar de hoofdsectie (Promo) om de focus weer in het midden te krijgen
+        const promoSection = document.getElementById("promo");
+        if (promoSection) {
+          promoSection.scrollIntoView({
+            behavior: "smooth",
+            block: "center", // Zet de 100vh sectie weer exact in het midden van het scherm
+          });
+        }
+      });
     }
   };
 
@@ -34,10 +42,12 @@ export default function ReadMore({ teaser, hiddenContent }: ReadMoreProps) {
         {teaser}
       </div>
 
-      {/* We toggelen de display via inline style, net als in je script */}
       <div
         className="column spacing-3xl hidden"
-        style={{ display: isOpen ? "flex" : "none" }}
+        style={{ 
+          display: isOpen ? "flex" : "none",
+          flexDirection: "column" 
+        }}
       >
         {hiddenContent}
       </div>
