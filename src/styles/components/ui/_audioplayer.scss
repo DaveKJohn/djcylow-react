@@ -42,25 +42,9 @@
    ======================================= */
 
 .audioplayer-wrapper {
-    position: relative;
-    width: 100%; // De clamp die we in variables hebben gezet
     aspect-ratio: 16 / 9;
-    overflow: hidden;
-
-    // Zorg dat alle laag-divs (ready, loading, playing) de hele kaart vullen
-    .thumbnail,
-    .ready-wrapper,
-    .loading-wrapper,
-    .playing-wrapper {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
 
     .thumbnail {
-        z-index: 1;
         background-size: cover;
         background-position: center;
         pointer-events: none;
@@ -77,12 +61,10 @@
         .ready-wrapper {
             display: flex;
             background-color: rgba(0, 0, 0, 0.3);
-            z-index: 100;
         }
         // In ready state tonen we vaak de playing-wrapper al op de achtergrond voor de lay-out
         .playing-wrapper {
             display: flex;
-            z-index: 50;
         }
     }
 
@@ -92,14 +74,12 @@
             justify-content: center;
             align-items: center;
             background-color: rgba(0, 0, 0, 0.6);
-            z-index: 110;
         }
     }
 
     &.is-playing {
         .playing-wrapper {
             display: flex;
-            z-index: 100;
         }
         .ready-wrapper,
         .loading-wrapper {
@@ -147,17 +127,13 @@
     // --- PLAYING: De Interface ---
     .playing-wrapper {
         justify-content: flex-end;
-       
 
         // Tijdstempels
         .timestamp-wrapper {
-            justify-content: space-between;
-
             .timestamp {
                 background-color: rgba(0, 0, 0, 0.5);
                 padding: 2px 5px;
                 color: rgb(231, 231, 231);
-                font-size: map.get(map.get(var.$design-scale, "xs"), "font-size");
                 width: auto;
             }
         }
@@ -165,7 +141,6 @@
         // Tijdlijn
         .timeline-wrapper {
             cursor: pointer;
-            z-index: 65;
             background-color: rgba(29, 29, 29, 0.5);
             padding: 7px 6px;
 
@@ -175,7 +150,6 @@
                 height: 5px;
                 transform-origin: left center;
                 transform: translateY(-50%);
-                z-index: 1;
             }
 
             .total {
@@ -185,13 +159,15 @@
             .progress {
                 background-color: #f1f12b;
                 transform: translateY(-50%);
-                z-index: 2;
                 transition: width 0.1s linear;
             }
         }
 
         // Onderste rij: Pause & Volume
         .layer-wrapper {
+            display: flex;
+            align-items: center; // Zorgt dat alle items op hun eigen natuurlijke hoogte blijven
+
             .pausefilters {
                 width: auto;
                 button {
@@ -213,9 +189,7 @@
                 width: auto;
                 background-color: rgba(0, 0, 0, 0.5);
 
-                .left {
-                    width: auto;
-
+                .icon {
                     button {
                         @extend %button-base-reset;
                         @extend %overlay-button-circle;
@@ -232,7 +206,7 @@
                     }
                 }
 
-                .right {
+                .slider {
                     input[type="range"] {
                         accent-color: white;
                     }

@@ -14,15 +14,12 @@ const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
 
 export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: any) {
     return (
-        <div className="column spacing-5xl black-90-bg in-push-8xl">
+        <div className="column spacing-5xl black-90-bg in-push-6xl">
             {/* Header Deel */}
             <div className="column spacing-4xl show_border_bottom">
                 <div className="column spacing-2xl center">
                     <h2>Filter</h2>
-                </div>
-                <div className="column spacing-2xl center">
-                    <p>Kies hieronder één van de 8 music moods.</p>
-                </div>
+                </div>              
             </div>
 
             {/* Content Deel */}

@@ -2,27 +2,23 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
-
-
 .card {
-    width: var(--card_width);
+    width: auto !important;   
 
-    @include tools.respond-to(var.$screen-size-small) {
-        width: 100%;
-    }
-
-    // Dummy voor layout/spatiëring
     &-dummy {
         width: var(--card_width);
         height: 0;
         visibility: hidden;
-        margin: 0;
-        padding: 0;
     }
 
     .audioplayer-wrapper {
+        width: var(--card_width); // Hier staat nu de vaste breedte
         height: auto;
         aspect-ratio: 16 / 9;
+
+        @include tools.respond-to(var.$screen-size-small) {
+            width: 100%; // Zorg dat de wrapper op mobiel ook 100% pakt
+        }
 
         .ready-wrapper {
             button {
@@ -37,7 +33,7 @@
         }
 
         .playing-wrapper {
-            padding: map.get(map.get(var.$design-scale, "sm"), "c-space");
+            padding: map.get(map.get(var.$design-scale, "base"), "c-space");
             gap: map.get(map.get(var.$design-scale, "sm"), "c-space");
 
             .timestamp-wrapper {
@@ -65,16 +61,14 @@
                 }
 
                 .volume-wrapper {
-                    
-                    height: auto;
                     border-radius: 1px;
-                    .left {
+                    .icon {
                         svg {
                             width: 20px;
                             height: 20px;
                         }
                     }
-                    .right {
+                    .slider {
                         padding-left: map.get(map.get(var.$design-scale, "sm"), "c-space");
 
                         input[type="range"] {
@@ -86,4 +80,3 @@
         }
     }
 }
-

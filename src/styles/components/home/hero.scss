@@ -3,7 +3,7 @@
 @use "../../abstracts/variables" as var;
 
 #hero {
-    .background.gradient {
+    .layer.gradient {
         background-color: rgb(0, 0, 0);
         background-image:
             radial-gradient(at 10% 60%, rgba(46, 46, 0, 0.3) 0%, transparent 40%),
@@ -20,7 +20,7 @@
         }
     }
 
-    .background.photo {
+    .layer.visual {
         justify-content: center;
         align-items: center;
         padding-left: 900px;
@@ -63,7 +63,7 @@
         }
     }
 
-    .foreground {
+    .layer.text {
         justify-content: center;
 
         .text-wrapper {

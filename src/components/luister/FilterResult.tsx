@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import '@/styles/components/luister/filterResult.scss';
+
 
 import AudioPlayer from '../ui/AudioPlayer';
 import Link from 'next/link';
@@ -22,6 +22,8 @@ import fullYellow from '@/data/mixes/full-yellow.json';
 import fullOrange from '@/data/mixes/full-orange.json';
 import fullPurple from '@/data/mixes/full-purple.json';
 import fullRed from '@/data/mixes/full-red.json';
+
+import '@/styles/components/luister/filterResult.scss';
 
 const allMixesData = [
     ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta,
@@ -44,9 +46,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
 
     return (
         <div className="column spacing-4xl center">
-
-            <h2>Luister</h2>
-
+            
             <div className="row spacing-2xl wrap center card-wrapper">
                 {filteredMixes.length > 0 ? (
                     filteredMixes.map((mix) => (
@@ -55,7 +55,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                                 id={mix.id}
                                 src={mix.audioSrc}
                                 image={mix.image}
-                                className={mix.color} // Zorgt voor de outline
+                                className={mix.color} 
                             />
                             <div className="column spacing-xs h-start text">
                                 <Link className="size-sm bold" href={`/${mix.permalink}`}>

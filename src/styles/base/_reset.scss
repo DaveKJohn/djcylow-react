@@ -96,8 +96,7 @@ body {
 
     &.flex {
         @include tools.respond-to(var.$screen-size-medium) {
-            flex-direction: column !important;     
-                   
+            flex-direction: column !important;
         }
     }
 }
@@ -108,21 +107,15 @@ body {
     position: relative;
     overflow: hidden;
 
-    .foreground {
-        position: relative;
-        z-index: 20;
-        transition: padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-       
-    }
-
-    .background {
-        position: absolute;
+    .layer {
+        position: absolute;        
+        inset: 0;
+        height: 100%;
 
         &.gradient {
-            z-index: 1;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            translate: -50% -50%;
 
             aspect-ratio: 1 / 1;
 
@@ -136,30 +129,7 @@ body {
             }
         }
 
-        &.photo {
-            top: 0;
-            left: 0;
-
-            height: 100%;
-            z-index: 2;
-        }
-
         &.feather {
-            top: 0;
-            left: 0;
-            height: 100%;
-            z-index: 15;
-            pointer-events: none;
-
-            .sides,
-            .bottom {
-                position: absolute;
-                top: 0;
-                left: 0;
-
-                height: 100%;
-            }
-
             &.sides {
                 background: linear-gradient(
                     to right,
@@ -194,12 +164,10 @@ body {
 
     padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
     transition: min-height 0.2s ease-in-out;
-   
 
     @include tools.respond-to(var.$screen-size-small) {
         min-height: calc(100vh - var.$nav-height-small);
         padding: map.get(map.get(var.$design-scale, "6xl"), "c-space") 0;
-      
     }
 }
 

@@ -28,7 +28,7 @@ export default function LuisterPage() {
                     <div className="column background feather bottom"></div>
 
                     <div className="column foreground spacing-4xl constrainer center title">
-                        <h1>Title</h1>
+                        <h1>Luister</h1>
                     </div>
                 </div>
 

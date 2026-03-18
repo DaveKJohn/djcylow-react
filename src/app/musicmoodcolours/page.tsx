@@ -21,7 +21,7 @@ export default function MusicMoodColoursPage() {
             {/* 1. BANNER */}
             <div className="banner stack WoB" id="banner_2">
 
-                <div className="column background photo"></div>
+                <div className="column background visual"></div>
 
                 <div className="column background feather sides"></div>
 

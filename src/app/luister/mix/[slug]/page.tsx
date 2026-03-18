@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import BackButton from '@/components/ui/BackButton';
-import '@/styles/pages/_luister_mix.scss';
 
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
@@ -53,7 +52,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                 <div className="column constrainer">
                     <div className="column spacing-5xl v-push-6xl">
 
-                        <div className="column spacing-3xl h-start return-wrapper">
+                        <div className="column extra spacing-3xl return-wrapper">
                             <BackButton />
                         </div>
 
@@ -66,7 +65,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                         <AudioPlayer
                             id={mix.id}
                             src={mix.audioSrc}
-                            image={mix.image} // We gebruiken de image uit de JSON
+                            image={mix.image} 
                             showVolumeSlider={true}
                             className={mix.color?.toLowerCase()}
                         />

@@ -144,7 +144,7 @@ nav {
        ======================================= */
     @include tools.respond-to(var.$screen-size-small) {
         height: var.$nav-height-small;
-        padding: 0 map.get(map.get(var.$design-scale, "xl"), "in-space");
+        padding: 0 map.get(map.get(var.$design-scale, "2xl"), "in-space");
 
         .logo-wrapper img {
             width: 120px;
