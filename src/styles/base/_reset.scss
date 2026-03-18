@@ -106,11 +106,13 @@ body {
     display: block;
     position: relative;
     overflow: hidden;
+   
 
     .layer {
-        position: absolute;        
+        position: absolute;
         inset: 0;
-        height: 100%;
+
+      
 
         &.gradient {
             top: 50%;
@@ -183,14 +185,6 @@ body {
         0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
         0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
     );
-}
-
-.banner {
-    padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
-
-    @include tools.respond-to(var.$screen-size-small) {
-        padding: map.get(map.get(var.$design-scale, "6xl"), "c-space") 0;
-    }
 }
 
 .paper {

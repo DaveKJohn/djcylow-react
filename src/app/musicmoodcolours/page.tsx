@@ -21,13 +21,13 @@ export default function MusicMoodColoursPage() {
             {/* 1. BANNER */}
             <div className="banner stack WoB" id="banner_2">
 
-                <div className="column background visual"></div>
+                <div className="column layer visual"></div>
 
-                <div className="column background feather sides"></div>
+                <div className="column layer feather sides"></div>
 
-                <div className="column background feather bottom"></div>
+                <div className="column layer feather bottom"></div>
 
-                <div className="column foreground spacing-4xl constrainer title">
+                <div className="column layer spacing-4xl constrainer v-center title">
                     <h1>Music Mood Colours</h1>
                 </div>
             </div>

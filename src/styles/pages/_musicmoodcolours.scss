@@ -3,10 +3,12 @@
 @use "../abstracts/variables" as var;
 
 #banner_2 {
+    min-height: 300px;
+
     .visual {
         background-image: url("/images/pattern.webp");
         background-repeat: repeat-x;
-        
+
         $ratio: 1.1631663974;
 
         // DESKTOP
@@ -26,12 +28,12 @@
 }
 
 @keyframes scrollPattern {
-    from { 
+    from {
         // 50% zorgt ervoor dat het patroon verticaal gecentreerd blijft
-        background-position: 0 50%; 
+        background-position: 0 50%;
     }
-    to { 
+    to {
         // De offset voor de loop, maar behoud de verticale 50%
-        background-position: var(--pattern-offset) 50%; 
+        background-position: var(--pattern-offset) 50%;
     }
 }
