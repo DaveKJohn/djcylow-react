@@ -16,42 +16,51 @@ export default function ReadMore({ teaser, hiddenContent, onToggle }: ReadMorePr
     const nextState = !isOpen;
     setIsOpen(nextState);
 
-    // Breng de Promo.tsx op de hoogte om de .is-expanded class op de foreground te zetten
     if (onToggle) {
       onToggle(nextState);
     }
 
     if (!nextState) {
-      // Wacht heel even tot de 'hidden' div op display: none staat
-      requestAnimationFrame(() => {
-        // Scroll naar de hoofdsectie (Promo) om de focus weer in het midden te krijgen
+      // Wacht tot de animatie halverwege is voordat we gaan scrollen
+      setTimeout(() => {
         const promoSection = document.getElementById("promo");
         if (promoSection) {
           promoSection.scrollIntoView({
             behavior: "smooth",
-            block: "center", // Zet de 100vh sectie weer exact in het midden van het scherm
+            block: "center",
           });
         }
-      });
+      }, 150); 
     }
   };
 
   return (
     <div className="column spacing-3xl" ref={containerRef}>
+      {/* 1. De Teaser: Altijd zichtbaar, buiten de animatie-wrapper */}
       <div className="column spacing-3xl teaser">
         {teaser}
       </div>
 
+      {/* 2. De Animatie Wrapper: Alleen voor de verborgen content */}
       <div
-        className="column spacing-3xl hidden"
-        style={{ 
-          display: isOpen ? "flex" : "none",
-          flexDirection: "column" 
+        className="hidden-content-animator"
+        style={{
+          display: "grid",
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+          transition: "grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease",
+          opacity: isOpen ? 1 : 0,
+          overflow: "hidden",
         }}
       >
-        {hiddenContent}
+        {/* De 'inner' div is nodig voor de grid-hoogte berekening */}
+        <div style={{ minHeight: 0 }}>
+          <div className="column spacing-3xl hidden-inner">
+            {hiddenContent}
+          </div>
+        </div>
       </div>
 
+      {/* 3. De Knop: Altijd onderaan de stack */}
       <div className="column extra spacing-7xl">
         <button
           className="btn passive read-more-btn"
