@@ -19,19 +19,24 @@ const Promo = () => {
             {/* Zet de class HIER op de foreground */}
             <div className={`row foreground flex constrainer spacing-6xl front ${isExpanded ? 'is-expanded' : ''}`}>
 
-                <div className={`video ${isPlaying ? 'is-playing' : ''}`} onClick={() => !isPlaying && setIsPlaying(true)}>
+                <div className={`stack video ${isPlaying ? 'is-playing' : ''}`} onClick={() => !isPlaying && setIsPlaying(true)}>
                     <div className="lazyload-wrapper" style={{ backgroundImage: !isPlaying ? `url(${thumbnail})` : 'none' }}>
                         {!isPlaying ? <div className="play-button"></div> :
                             <iframe src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`} allow="autoplay; picture-in-picture" allowFullScreen></iframe>}
                     </div>
                 </div>
 
-                <div className="column v-center spacing-4xl left">
+                <div className="column spacing-4xl">
                     <h2 dangerouslySetInnerHTML={{ __html: homeContent.promo_h3 || "" }} />
                     <ReadMore
                         onToggle={(state) => setIsExpanded(state)}
                         teaser={<p>{homeContent.promo_story_p_one}</p>}
-                        hiddenContent={<p>{homeContent.promo_story_p_two}</p>}
+                        hiddenContent={
+                            <>
+                                <p>{homeContent.promo_story_p_two}</p>
+                                <p>{homeContent.promo_story_p_three}</p>
+                            </>
+                        }
                     />
                 </div>
             </div>

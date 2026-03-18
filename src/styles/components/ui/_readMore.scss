@@ -2,8 +2,57 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
+// Haal de waarde één keer op in een variabele voor de leesbaarheid
+$read_more_container_gap: map.get(map.get(var.$design-scale, "3xl"), "in-space");
+
+.read-more-container {
+    display: flex;
+    flex-direction: column;
+    
+    // Begin op 0, negeer de utility class gap
+    gap: 0 !important;
+    transition: gap 0.5s ease;
+
+    .read-more-teaser {
+        padding-bottom: $read_more_container_gap;
+        transition: padding-bottom 0.5s ease;
+    }
+
+    .hidden-content-animator {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        transition: 
+            grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+            opacity 0.4s ease, 
+            visibility 0.5s;
+
+        .animator-inner {
+            gap: $read_more_container_gap;
+            min-height: 0;
+        }
+    }
+
+    &.is-open {
+        // Switch naar de waarde uit de design-scale map
+        gap: $read_more_container_gap !important;
+
+        .read-more-teaser {
+            padding-bottom: 0;
+        }
+
+        .hidden-content-animator {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
 .read-more-btn {
     max-width: 150px;
-    padding: map.get(map.get(var.$design-scale, "3xl"), "in-space");
+    padding: $read_more_container_gap;
     font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
 }

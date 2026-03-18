@@ -90,7 +90,7 @@
         }
 
         @include tools.respond-to(var.$screen-size-small) {
-            transform: translateY(150px);
+            transform: translateY(90px);
         }
     }
 }

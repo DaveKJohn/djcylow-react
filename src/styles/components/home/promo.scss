@@ -6,10 +6,45 @@ $gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
 
 #promo {
     .background.gradient {
-        background-image: radial-gradient(at 62% 50%, rgba(0, 61, 61, 0.4) 0%, transparent 40%);
+        background-image: radial-gradient(at 58% 50%, rgba(0, 61, 61, 0.5) 0%, transparent 20%);
 
         @include tools.respond-to(var.$screen-size-medium) {
-            background-image: radial-gradient(at 50% 48%, rgba(0, 61, 61, 0.5) 0%, transparent 50%);
+            background-image: none;
+
+            // Laag 1: De "Dichte" staat (48%)
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-image: radial-gradient(at 50% 48%, rgba(0, 61, 61, 0.5) 0%, transparent 65%);
+                opacity: 1;
+                transition: opacity 0.6s ease;
+                z-index: 1;
+            }
+
+            // Laag 2: De "Open" staat (25%)
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-image: radial-gradient(at 50% 35%, rgba(0, 61, 61, 0.6) 0%, transparent 40%);
+                opacity: 0;
+                transition: opacity 0.6s ease;
+                z-index: 2;
+            }
+        }
+    }
+
+    @include tools.respond-to(var.$screen-size-medium) {
+        &:has(.read-more-container.is-open) {
+            .background.gradient {
+                &::before {
+                    opacity: 0; // De lage gradient verdwijnt
+                }
+                &::after {
+                    opacity: 1; // De hoge gradient verschijnt
+                }
+            }
         }
     }
 

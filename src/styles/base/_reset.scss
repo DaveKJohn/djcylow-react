@@ -96,7 +96,8 @@ body {
 
     &.flex {
         @include tools.respond-to(var.$screen-size-medium) {
-            flex-direction: column !important;
+            flex-direction: column !important;     
+                   
         }
     }
 }

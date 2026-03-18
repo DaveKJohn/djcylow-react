@@ -93,7 +93,8 @@
         $small-config: map.get(var.$design-scale, $small-key);
 
         .row.spacing-#{$alias},
-        .column.spacing-#{$alias} {
+        .column.spacing-#{$alias},
+        .btn.spacing-#{$alias} {
             
             // --- DESKTOP ---
             @if $config {
