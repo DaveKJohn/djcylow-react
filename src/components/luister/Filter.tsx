@@ -23,14 +23,14 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
             </div>
 
             {/* Content Deel */}
-            <div className="column spacing-4xl h-push-6xl">
+            <div className="column spacing-4xl h-push-4xl">
 
                 {/* MOOD SECTIE */}
                 <div className="column spacing-xl">
-                    <div className="column spacing-2xl center header">
+                    <div className="column center spacing-2xl  header">
                         <h3>Mood</h3>
                     </div>
-                    <div className="row spacing-2xl center wrap show_border_bottom" id="filter_mood">
+                    <div className="row wrap center spacing-xl show_border_bottom" id="filter_mood">
                         <button
                             className={`btn passive select ${activeColor === 'all' ? 'is-active' : ''}`}
                             onClick={() => setActiveColor('all')}
@@ -55,7 +55,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
 
                 {/* MOOD OUTPUT - Nu met dynamische display: none/flex */}
                 <div
-                    className="column spacing-xl center show_border_bottom"
+                    className="column center spacing-xl show_border_bottom"
                     id="filter_mood_output"
                     style={{ display: activeColor === 'all' ? 'none' : 'flex' }}
                 >
@@ -74,7 +74,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <div className="column spacing-2xl header">
                         <h3>Genre</h3>
                     </div>
-                    <div className="wrapper spacing-2xl row center wrap" id="filter_genre">
+                    <div className="row center wrap full-w spacing-xl" id="filter_genre">
                         {['all', 'edm', 'drum & bass'].map((genre) => (
                             <button
                                 key={genre}
@@ -93,7 +93,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <div className="column spacing-2xl header">
                         <h3>Intensiteit</h3>
                     </div>
-                    <div className="row spacing-2xl center wrap" id="filter_power">
+                    <div className="row center wrap full-w spacing-xl" id="filter_power">
                         {['all', 'full', 'light'].map((power) => (
                             <button
                                 key={power}

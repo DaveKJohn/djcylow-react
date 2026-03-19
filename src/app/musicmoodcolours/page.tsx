@@ -39,7 +39,7 @@ export default function MusicMoodColoursPage() {
                     {/* 2. INTRO */}
                     <div className="column spacing-5xl" id="intro">
 
-                        <div className="column constrainer spacing-4xl">
+                        <div className="column full-w constrainer spacing-4xl">
 
                             <p>{musicMoodColoursContent.intro.s1p1}</p>
                             <p>{musicMoodColoursContent.intro.s1p2}</p>
@@ -50,7 +50,7 @@ export default function MusicMoodColoursPage() {
 
                     <div className="column spacing-5xl" id="kleurenspectrum_2">
 
-                        <div className="column constrainer spacing-4xl">
+                        <div className="column full-w constrainer spacing-4xl">
 
                             {/* 3. KLEURENSPECTRUM */}
                             <div className="column spacing-5xl">
@@ -68,7 +68,7 @@ export default function MusicMoodColoursPage() {
 
                         <BasiskleurenCarousel />
 
-                        <div className="column constrainer spacing-2xl">
+                        <div className="column full-w constrainer spacing-2xl">
 
                             <h3>De taal van emotie</h3>
                             <div className="column spacing-4xl">
@@ -89,7 +89,7 @@ export default function MusicMoodColoursPage() {
 
                     <div className="column spacing-5xl" id="complementair_3">
 
-                        <div className="column constrainer spacing-2xl">
+                        <div className="column full-w constrainer spacing-2xl">
 
                             <div className="column spacing-6xl" id="complementaire_kleuren_3">
 
@@ -109,7 +109,7 @@ export default function MusicMoodColoursPage() {
 
                         <VsKleurenCarousel />
 
-                        <div className="column constrainer spacing-5xl">
+                        <div className="column full-w constrainer spacing-5xl">
 
                             {/* 5. NEURO (Muziekale kaart) */}
                             <div className="column spacing-6xl" id="neurotransmitters_4">

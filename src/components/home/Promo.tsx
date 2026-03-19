@@ -13,11 +13,11 @@ const Promo = () => {
 
 
     return (
-        <div className="fullscreen stack WoB" id="promo">
-            <div className="column background gradient"></div>
+        <div className="stack fullscreen WoB" id="promo">
+            <div className="column layer gradient"></div>
 
             {/* Zet de class HIER op de foreground */}
-            <div className={`row foreground flex constrainer spacing-6xl front ${isExpanded ? 'is-expanded' : ''}`}>
+            <div className={`row layer text flex full-w constrainer spacing-6xl  ${isExpanded ? 'is-expanded' : ''}`}>
 
                 <div className={`stack video ${isPlaying ? 'is-playing' : ''}`} onClick={() => !isPlaying && setIsPlaying(true)}>
                     <div className="lazyload-wrapper" style={{ backgroundImage: !isPlaying ? `url(${thumbnail})` : 'none' }}>
@@ -26,7 +26,7 @@ const Promo = () => {
                     </div>
                 </div>
 
-                <div className="column spacing-4xl">
+                <div className="column h-start spacing-4xl">
                     <h2 dangerouslySetInnerHTML={{ __html: homeContent.promo_h3 || "" }} />
                     <ReadMore
                         onToggle={(state) => setIsExpanded(state)}

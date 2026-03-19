@@ -5,8 +5,6 @@
 $card-width-vs: 150px;
 $card-height-vs: 150px;
 
-
-
 .carousels {
     .arrow {
         align-items: center;
@@ -25,23 +23,33 @@ $card-height-vs: 150px;
             display: none;
         }
 
-        .carousel-wrapper {
-            display: flex;
+        .carousel-wrapper {           
             flex-wrap: nowrap;
+            align-items: stretch; // De container wordt nu zo hoog als de langste kolom
             width: max-content;
             min-width: 100%;
-            margin: map.get(map.get(var.$design-scale, "xl"), "in-space") 0;
 
+            margin: map.get(map.get(var.$design-scale, "xl"), "in-space") 0;
             padding: 7px;
 
             .vr {
+                display: flex; // We maken de .vr zelf een flexbox
                 width: 1px;
                 flex-shrink: 0;
-                height: 80%;
-                background-color: var(--black-80);
-                align-self: center;
-                opacity: 1;
                 margin: 0 map.get(map.get(var.$design-scale, "4xl"), "c-space");
+                position: relative; // Nodig voor de positionering van de lijn
+
+                // We gebruiken een pseudo-element voor de eigenlijke lijn
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 10%; // Start op 10% van boven
+                    bottom: 10%; // Eindig op 10% van onder (geeft 80% totaal)
+                    left: 0;
+                    right: 0;
+                    background-color: var(--black-80);
+                    width: 1px;
+                }
             }
 
             // Pakt alle kleurcombinaties (bijv. .cyan-vs-red)
@@ -74,14 +82,11 @@ $card-height-vs: 150px;
                     .vs {
                         height: auto;
                     }
-
-                     
                 }
 
                 .audioplayer-wrapper {
                     height: var(--card_height_vs);
                     width: var(--card_width_vs);
-                   
 
                     // Basis outline settings
                     outline-style: solid !important;

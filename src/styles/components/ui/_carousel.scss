@@ -4,16 +4,7 @@
 
 .carousels {
     position: relative;
-    width: 100%;
-    padding-bottom: map.get(map.get(var.$design-scale, "base"), "c-space");
-
-    @include tools.respond-to(var.$screen-size-medium) {
-        padding-bottom: map.get(map.get(var.$design-scale, "base"), "c-space");
-    }
-
-    @include tools.respond-to(var.$screen-size-small) {
-        padding-bottom: map.get(map.get(var.$design-scale, "base"), "c-space");
-    }
+    width: 100%;  
 
     .arrow {
         display: flex;
@@ -23,7 +14,7 @@
 
         $row-1-h: map.get(map.get(var.$design-scale, "xl"), "c-space");
         $row-2-h: 70px;
-        $gap: map.get(map.get(var.$design-scale, "base"), "c-space"); // Gebruik hier de gap-variabele die je op de container hebt staan
+        $gap: map.get(map.get(var.$design-scale, "base"), "c-space"); 
 
         top: calc(#{$row-1-h} + #{$row-2-h} + (#{$gap} * 2) + (var(--card_height) * 0.5));
 

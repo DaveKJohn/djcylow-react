@@ -46,10 +46,10 @@ export default function BasiskleurenCarousel() {
   return (
     <Carousel id="basiskleuren">
 
-      <div className="row spacing-3xl gradient"></div>
+      <div className="row full-w extra spacing-3xl gradient"></div>
 
       {/* 1. Nummers rij */}
-      <div className="row spacing-3xl numbers">
+      <div className="row spacing-2xl numbers">
         {COLORS_CONFIG.map(c => (
           <div key={c.id} className={`column stack number ${c.name}`}>
             <div className="column overlay back"></div>
@@ -61,7 +61,7 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 2. Labels rij */}
-      <div className="row spacing-3xl labels">
+      <div className="row extra spacing-2xl labels">
         {COLORS_CONFIG.map(c => (
           <div key={c.name} className="column center label">
             <div className={`colour ${c.name}`}>
@@ -72,9 +72,9 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 3. Audio Players rij */}
-      <div className="row spacing-3xl colours">
+      <div className="row extra spacing-2xl colours">
         {featuredMixes.map(({ name, mix }) => (
-          <div key={name} className={`column stack colour ${name}`}>
+          <div key={name} className={`stack colour ${name}`}>
             {mix && mix.audioSrc ? (
               <AudioPlayer
                 id={String(mix.id)}
@@ -95,12 +95,12 @@ export default function BasiskleurenCarousel() {
       </div>
 
       {/* 4. Decoratieve cirkels */}
-      <div className="row spacing-3xl circles">
+      <div className="row extra spacing-2xl circles">
         {COLORS_CONFIG.map(c => <div key={c.name} className={`column circle ${c.name}`}></div>)}
       </div>
 
       {/* 5. Beschrijvingen */}
-      <div className="row text-wrapper spacing-3xl descriptions">
+      <div className="row spacing-2xl descriptions">
         {COLORS_CONFIG.map(c => (
           <div key={c.name} className={`column text description ${c.name}`}>
             <p className="size-sm">"{c.description}"</p>

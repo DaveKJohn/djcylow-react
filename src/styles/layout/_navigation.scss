@@ -45,6 +45,9 @@ nav {
     }
 
     .menu-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
         height: 100%;
         margin: 0 auto;
         max-width: var.$desktop-max-width;
@@ -55,7 +58,7 @@ nav {
             height: 100%;
             align-items: center;
             justify-content: flex-start;
-            gap: map.get(map.get(var.$design-scale, "5xl"), "r-space");
+            gap: map.get(map.get(var.$design-scale, "5xl"), "c-space");
         }
     }
 
@@ -86,9 +89,8 @@ nav {
 
         .hidden-wrapper {
             display: flex;
-            flex-grow: 0; // Mag niet groeien
-            flex-basis: auto;
-            margin-left: 1rem; // Geeft wat ruimte naast de CTA
+            flex-grow: 0;
+            flex-basis: auto;           
             pointer-events: auto;
         }
 
@@ -133,8 +135,8 @@ nav {
                 flex-direction: column;
                 align-items: flex-start;
                 justify-content: flex-start;
-                gap: map.get(map.get(var.$design-scale, "3xl"), "r-space");
-                padding: map.get(map.get(var.$design-scale, "3xl"), "r-space");
+                gap: map.get(map.get(var.$design-scale, "4xl"), "r-space");
+                padding: map.get(map.get(var.$design-scale, "4xl"), "r-space");
             }
         }
     }

@@ -7,16 +7,9 @@
 $card-width-basiskleuren: 150px;
 $card-height-basiskleuren: 150px;
 
-$h-gap: map.get(
-    map.get(var.$design-scale, "2xl"),
-    "c-space"
-); //one horizontal gap inside id="basiskleuren" check tsx. to lookup classname
-$total-h-gap: calc(#{$h-gap} * 7); //all horizontal gaps inside id="basiskleuren"
-$h-spacing: calc(
-    (map.get(map.get(var.$design-scale, "2xl"), "in-space") * 2)
-); //additional horizontal space pushed inwards on id="basiskleuren"
-
-
+$h-gap: map.get(map.get(var.$design-scale, "2xl"), "c-space");
+$total-h-gap: calc(#{$h-gap} * 7);
+$h-spacing: calc((map.get(map.get(var.$design-scale, "2xl"), "in-space") * 2));
 
 $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} + #{$h-spacing});
 
@@ -29,27 +22,21 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
     }
 
     #basiskleuren {
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
         align-items: center;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        gap: map.get(map.get(var.$design-scale, "base"), "c-space");
+        gap: map.get(map.get(var.$design-scale, "lg"), "c-space");
 
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
         &::-webkit-scrollbar {
             display: none;
         }
-
-        .gradient,
+       
         .numbers,
         .labels,
         .colours,
         .circles,
         .descriptions {
             flex-wrap: nowrap;
-            width: max-content;
 
             .number,
             .label,
@@ -64,10 +51,8 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
         }
 
         .gradient {
-            display: block;
             flex-shrink: 0;
-            height: 8px;
-            width: calc((var(--card_width_basiskleuren) * 8) + #{$total-h-gap});
+            height: 8px;           
             background: linear-gradient(
                 to right,
                 #007fff 0%,

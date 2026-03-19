@@ -57,7 +57,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                                 image={mix.image}
                                 className={mix.color} 
                             />
-                            <div className="column spacing-xs h-start text">
+                            <div className="column full-w spacing-xs h-start text">
                                 <Link className="size-sm bold" href={`/${mix.permalink}`}>
                                     {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power} {mix.frequency} · {mix.volume}
                                 </Link>

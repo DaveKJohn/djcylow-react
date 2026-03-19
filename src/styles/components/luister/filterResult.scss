@@ -3,7 +3,11 @@
 @use "../../abstracts/variables" as var;
 
 .card {
-    width: auto !important;   
+    width: var(--card_width);
+
+    @include tools.respond-to(var.$screen-size-small) {
+        width: 100%;
+    }
 
     &-dummy {
         width: var(--card_width);
@@ -12,13 +16,8 @@
     }
 
     .audioplayer-wrapper {
-        width: var(--card_width); // Hier staat nu de vaste breedte
         height: auto;
         aspect-ratio: 16 / 9;
-
-        @include tools.respond-to(var.$screen-size-small) {
-            width: 100%; // Zorg dat de wrapper op mobiel ook 100% pakt
-        }
 
         .ready-wrapper {
             button {

@@ -73,9 +73,9 @@ export default function Erlenmeyers() {
     return (
         <>
             {/* 1. OUTPUT */}
-            <div className="column spacing-4xl black-90-bg in-push-6xl" id="canvas_erlenmeyers">
+            <div className="column spacing-5xl black-90-bg in-push-6xl" id="canvas_erlenmeyers">
                 <div className="column spacing-3xl output">
-                    <div className={`column spacing-3xl center emotion-wrapper ${activeColor}`}>
+                    <div className={`column spacing-2xl center emotion-wrapper ${activeColor}`}>
 
                         {/* Check op audioSrc om Console Error te voorkomen */}
                         {currentMix && currentMix.audioSrc ? (
@@ -95,9 +95,9 @@ export default function Erlenmeyers() {
                             </div>
                         )}
 
-                        <div className="row text-wrapper spacing-3xl center">
+                        <div className="row text-wrapper spacing-xl center">
                             <div className="column h-end">
-                                <svg viewBox="0 0 20 20" width="20" height="20">
+                                <svg viewBox="0 0 20 20" width="14" height="14">
                                     <circle cx="10" cy="10" r="9" fill={`var(--${activeColor}-default)`} />
                                 </svg>
                             </div>

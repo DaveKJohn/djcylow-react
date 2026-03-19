@@ -21,13 +21,13 @@ export default function LuisterPage() {
             {/* 2. Filter & Content Sectie */}
             <section className="center WoB">
 
-                <div className="banner stack WoB" id="banner_2">
+                <div className="stack banner WoB" id="banner_2">
 
-                    <div className="column background feather sides"></div>
+                    <div className="column layer feather sides"></div>
 
-                    <div className="column background feather bottom"></div>
+                    <div className="column layer feather bottom"></div>
 
-                    <div className="column foreground spacing-4xl constrainer center title">
+                    <div className="column layer spacing-4xl constrainer center title">
                         <h1>Luister</h1>
                     </div>
                 </div>

@@ -83,8 +83,8 @@ export default function ContactForm() {
     };
 
     return (
-        <div className="fullscreen BoW" id="contactformulier">
-            <div className="column constrainer spacing-6xl">
+        <div className="column fullscreen center BoW" id="contactformulier">
+            <div className="column full-w constrainer spacing-6xl">
                 <div className="column spacing-3xl show_border_bottom">
                     <div className="column text-wrapper spacing-4xl center">
                         <h2>Contact</h2>

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Hero = () => {
     return (
-        <div className="fullscreen stack WoB" id="hero">
+        <div className="stack fullscreen  WoB" id="hero">
 
             <div className="column layer gradient"></div>
 

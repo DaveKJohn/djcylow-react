@@ -57,7 +57,7 @@ export default function Nav() {
                 </Link>
             </div>
 
-            <div className={`column menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isMenuOpen ? "active" : ""}`} id="nav_menuWrapper">
+            <div className={`menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isMenuOpen ? "active" : ""}`} id="nav_menuWrapper">
 
 
                 <div className="column mobileMenuHeader-border">

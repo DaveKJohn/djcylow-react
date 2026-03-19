@@ -26,15 +26,17 @@ body {
 }
 
 .column,
-.row,
-.stack {
-    width: 100%;
+.row {
     display: flex;
 
     &.center {
         align-items: center;
         justify-content: center;
         text-align: center;
+    }
+
+    &.full-w {
+        width: 100%;
     }
 }
 
@@ -103,16 +105,12 @@ body {
 
 //OP elkaar
 .stack {
-    display: block;
     position: relative;
     overflow: hidden;
-   
 
     .layer {
         position: absolute;
         inset: 0;
-
-      
 
         &.gradient {
             top: 50%;
@@ -157,11 +155,7 @@ body {
     }
 }
 
-.fullscreen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.fullscreen {      
     min-height: calc(100vh - var.$nav-height-large);
 
     padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
@@ -200,6 +194,10 @@ body {
     @include tools.respond-to(var.$screen-size-small) {
         padding-bottom: map.get(map.get(var.$design-scale, "4xl"), "c-space") !important;
     }
+}
+
+.banner {
+   min-height: 350px;
 }
 
 .hidden {

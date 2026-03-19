@@ -23,15 +23,13 @@ export default function DienstenPage() {
         <main>
 
 
-            <div className="banner stack WoB" id="banner_2">
+            <div className="stack banner WoB" id="banner_2">                
 
-                
+                <div className="column layer feather sides"></div>
 
-                <div className="column background feather sides"></div>
+                <div className="column layer feather bottom"></div>
 
-                <div className="column background feather bottom"></div>
-
-                <div className="column foreground spacing-4xl constrainer title">
+                <div className="column layer spacing-4xl constrainer center title">
                     <h1>{dienstenContent.title}</h1>
                 </div>
             </div>

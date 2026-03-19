@@ -5,7 +5,7 @@
 $gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
 
 #promo {
-    .background.gradient {
+    .layer.gradient {
         background-image: radial-gradient(at 58% 50%, rgba(0, 61, 61, 0.5) 0%, transparent 20%);
 
         @include tools.respond-to(var.$screen-size-medium) {
@@ -48,13 +48,11 @@ $gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
         }
     }
 
-    .front {
-        position: relative;
-        z-index: 2;
+    .layer.text {
+        justify-content: center;
         flex-direction: row-reverse;
         align-items: center;
-        justify-content: center;
-
+       
         @include tools.respond-to(var.$screen-size-medium) {
             align-items: flex-start;
         }
