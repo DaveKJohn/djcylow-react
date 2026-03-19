@@ -11,7 +11,7 @@ nav {
     justify-content: space-between;
 
     position: fixed;
-    z-index: 1000;
+    z-index: 100;
     top: 0;
     left: 0;
     right: 0;
@@ -23,6 +23,7 @@ nav {
     .hidden-wrapper {
         display: none;
         position: relative;
+         z-index: 300;
     }
 
     .logo-wrapper {
@@ -119,7 +120,6 @@ nav {
             .mobileMenuHeader-border {
                 position: relative;
                 width: 100%;
-                z-index: 100;
                 height: var.$nav-height-small;
 
                 .mobileMenuHeader-wrapper {
