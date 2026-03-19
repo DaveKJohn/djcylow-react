@@ -59,6 +59,9 @@
             }
 
             @include tools.respond-to(var.$screen-size-medium) {
+
+                width: 100%; 
+                padding: map.get(map.get(var.$design-scale, "2xl"), "in-space");
                 &::after {
                     content: none; // Verwijdert het element volledig op mobiel
                 }

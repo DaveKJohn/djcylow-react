@@ -5,6 +5,18 @@
 $gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
 
 #promo {
+    &.fullscreen {
+        transition:
+            min-height 0.4s ease-in-out,
+            padding 0.4s ease-in-out;
+
+        &:has(.is-expanded),
+        &.is-expanded {
+            height: auto !important;
+            min-height: 100vh;           
+        }
+    }
+
     .layer.gradient {
         background-image: radial-gradient(at 58% 50%, rgba(0, 61, 61, 0.5) 0%, transparent 20%);
 
@@ -49,12 +61,18 @@ $gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
     }
 
     .layer.text {
+        position: relative;
         justify-content: center;
         flex-direction: row-reverse;
         align-items: center;
-       
+
         @include tools.respond-to(var.$screen-size-medium) {
             align-items: flex-start;
+        }
+
+        &.is-expanded {
+            height: auto;
+            justify-content: flex-start;
         }
 
         .video {
