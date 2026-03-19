@@ -46,7 +46,7 @@ export default function BasiskleurenCarousel() {
   return (
     <Carousel id="basiskleuren">
 
-      <div className="row full-w extra spacing-3xl gradient"></div>
+      <div className="row extra spacing-3xl gradient"></div>
 
       {/* 1. Nummers rij */}
       <div className="row spacing-2xl numbers">

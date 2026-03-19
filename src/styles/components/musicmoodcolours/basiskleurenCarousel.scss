@@ -7,9 +7,9 @@
 $card-width-basiskleuren: 150px;
 $card-height-basiskleuren: 150px;
 
-$h-gap: map.get(map.get(var.$design-scale, "2xl"), "c-space");
+$h-gap: map.get(map.get(var.$design-scale, "2xl"), "r-space");
 $total-h-gap: calc(#{$h-gap} * 7);
-$h-spacing: calc((map.get(map.get(var.$design-scale, "2xl"), "in-space") * 2));
+$h-spacing: calc((map.get(map.get(var.$design-scale, "6xl"), "in-space") * 9));
 
 $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} + #{$h-spacing});
 
@@ -30,7 +30,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
         &::-webkit-scrollbar {
             display: none;
         }
-       
+
         .numbers,
         .labels,
         .colours,
@@ -52,7 +52,8 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
 
         .gradient {
             flex-shrink: 0;
-            height: 8px;           
+            height: 8px;
+            width: calc((var(--card_width_basiskleuren) * 8) + #{$total-h-gap});
             background: linear-gradient(
                 to right,
                 #007fff 0%,
