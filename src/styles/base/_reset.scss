@@ -155,7 +155,7 @@ body {
     }
 }
 
-.fullscreen {      
+.fullscreen {
     min-height: calc(100vh - var.$nav-height-large);
 
     padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
@@ -197,7 +197,10 @@ body {
 }
 
 .banner {
-   min-height: 350px;
+    min-height: 350px;
+    @include tools.respond-to(var.$screen-size-small) {
+        min-height: 250px;
+    }
 }
 
 .hidden {

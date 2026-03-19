@@ -26,7 +26,7 @@ const Promo = () => {
                     </div>
                 </div>
 
-                <div className="column h-start spacing-4xl">
+                <div className="column full-w h-start spacing-4xl">
                     <h2 dangerouslySetInnerHTML={{ __html: homeContent.promo_h3 || "" }} />
                     <ReadMore
                         onToggle={(state) => setIsExpanded(state)}
