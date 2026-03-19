@@ -5,11 +5,8 @@
 // Haal de waarde één keer op in een variabele voor de leesbaarheid
 $read_more_container_gap: map.get(map.get(var.$design-scale, "3xl"), "in-space");
 
-.read-more-container {
-    display: flex;
-    flex-direction: column;
-    
-    // Begin op 0, negeer de utility class gap
+.read-more-container {     
+  
     gap: 0 !important;
     transition: gap 0.5s ease;
 

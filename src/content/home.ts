@@ -1,6 +1,6 @@
 export const homeContent = {
   title: "DJ CYLOW",
-  subtitle: "<span class='cyan-light-fg'>De expert</span><span class='yellow-light-fg'> in muziekstemmingen</span>",
+  subtitle: "<span class='cyan-light-fg'>De expert in </span><span class='yellow-light-fg'> muziekstemmingen</span>",
   description: "House & Nu-Disco DJ uit Alphen aan den Rijn",
   heroImageDesktop: "/images/hero_desktop.webp",
   heroImageMobile: "/images/hero_mobile.webp",

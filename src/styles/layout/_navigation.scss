@@ -139,7 +139,7 @@ nav {
                 align-items: flex-start;
                 justify-content: flex-start;
                 gap: 0;
-                padding: map.get(map.get(var.$design-scale, "4xl"), "r-space");
+                padding: map.get(map.get(var.$design-scale, "2xl"), "r-space");
             }
         }
     }

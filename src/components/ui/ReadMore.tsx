@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import "@/styles/components/ui/_readMore.scss";
+
 
 interface ReadMoreProps {
     teaser: React.ReactNode;

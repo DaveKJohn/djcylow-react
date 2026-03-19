@@ -156,14 +156,20 @@ body {
 }
 
 .fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     min-height: calc(100vh - var.$nav-height-large);
+    height: auto;
 
     padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
-    transition: min-height 0.2s ease-in-out;
+
 
     @include tools.respond-to(var.$screen-size-small) {
         min-height: calc(100vh - var.$nav-height-small);
-        padding: map.get(map.get(var.$design-scale, "6xl"), "c-space") 0;
+        padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
     }
 }
 
