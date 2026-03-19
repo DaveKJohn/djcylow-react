@@ -40,6 +40,35 @@
         background: none;
         color: white;
 
+        &.menu {
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: -10px;
+                bottom: -10px;
+                left: -18px;
+                right: -18px;
+                border: 1px solid transparent;
+                transition: border-color 0.5s ease;
+            }
+
+            &:hover::after {
+                border: 1px solid rgb(85, 85, 85);
+            }
+
+            @include tools.respond-to(var.$screen-size-medium) {
+                &::after {
+                    content: none; // Verwijdert het element volledig op mobiel
+                }
+
+                &:hover::after {
+                    border: none; // Zorgt dat er geen hover-activiteit meer is
+                }
+            }
+        }
+
         &.hamburger-btn {
             height: 100%;
             font-weight: 200;

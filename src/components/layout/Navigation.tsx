@@ -78,8 +78,8 @@ export default function Nav() {
                 </div>
 
                 <div className="mainList-wrapper">
-                    <Link className="btn" href="/luister">Luister</Link>
-                    <Link className="btn" href="/musicmoodcolours">Music Mood Colours</Link>
+                    <Link className="btn nav menu" href="/luister">Luister</Link>
+                    <Link className="btn nav menu" href="/musicmoodcolours">Music Mood Colours</Link>
                 </div>
             </div>
 
