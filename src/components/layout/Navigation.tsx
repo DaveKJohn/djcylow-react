@@ -39,7 +39,7 @@ export default function Nav() {
     };
 
     // Voorkom renderen totdat de client-side code klaar is
-    if (!mounted) return null; 
+    if (!mounted) return null;
 
     return (
         <nav className="row WoB">
@@ -61,7 +61,7 @@ export default function Nav() {
                 <div className="column mobileMenuHeader-border">
                     <div className="row mobileMenuHeader-wrapper">
                         {activeSubmenu && (
-                             <button
+                            <button
                                 className="btn nav previousBtn"
                                 onClick={() => setActiveSubmenu(null)}
                             >
@@ -94,6 +94,10 @@ export default function Nav() {
                 <button
                     className="btn nav hamburger-btn"
                     onClick={toggleMenu}
+                    onTouchStart={(e) => {
+                        // Alleen triggeren op echte touch om dubbele kliks te voorkomen
+                        if (e.type === 'touchstart') toggleMenu();
+                    }}
                     aria-label="Menu openen"
                 >☰</button>
             </div>

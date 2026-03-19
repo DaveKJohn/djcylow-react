@@ -23,7 +23,12 @@ nav {
     .hidden-wrapper {
         display: none;
         position: relative;
-         z-index: 300;
+        z-index: 300;
+
+        .hamburger-btn {
+            pointer-events: auto; 
+            cursor: pointer;
+        }
     }
 
     .logo-wrapper {
@@ -91,7 +96,7 @@ nav {
         .hidden-wrapper {
             display: flex;
             flex-grow: 0;
-            flex-basis: auto;           
+            flex-basis: auto;
             pointer-events: auto;
         }
 
