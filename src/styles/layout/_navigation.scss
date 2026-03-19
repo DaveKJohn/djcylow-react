@@ -23,11 +23,12 @@ nav {
     .hidden-wrapper {
         display: none;
         position: relative;
-        z-index: 300;
+        z-index: 2000;
 
         .hamburger-btn {
-            pointer-events: auto; 
+            pointer-events: auto;
             cursor: pointer;
+            position: relative;
         }
     }
 
@@ -101,25 +102,20 @@ nav {
         }
 
         .menu-wrapper {
-            display: block;
+            display: none; // Verander display: block naar display: none
             position: fixed;
             top: 0;
             right: 0;
             height: 100%;
             width: 80vw;
-            z-index: 2000;
-            overflow: hidden;
-            visibility: hidden;
-            background-color: inherit; // Of je specifieke zwarte kleur
+            background-color: inherit;
             padding: 0;
 
-            &.mobile {
-                pointer-events: none; // Blokkeert niks als hij onzichtbaar is
-
-                &.active {
-                    pointer-events: auto; // Wel klikbaar als hij open is
-                    visibility: visible;
-                }
+            &.mobile.active {
+                display: block;
+                z-index: 3000; // Menu springt VOOR de hamburger-button (1000)
+                visibility: visible;
+                pointer-events: auto;
             }
 
             .mobileMenuHeader-border {

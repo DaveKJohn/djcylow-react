@@ -93,10 +93,9 @@ export default function Nav() {
             <div className="hidden-wrapper">
                 <button
                     className="btn nav hamburger-btn"
-                    onClick={toggleMenu}
-                    onTouchStart={(e) => {
-                        // Alleen triggeren op echte touch om dubbele kliks te voorkomen
-                        if (e.type === 'touchstart') toggleMenu();
+                    onClick={(e) => {
+                        e.preventDefault();
+                        toggleMenu();
                     }}
                     aria-label="Menu openen"
                 >☰</button>
