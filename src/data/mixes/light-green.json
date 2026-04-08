@@ -1,5 +1,141 @@
 [
   {
+    "id": "20270427",
+    "featured": false,
+    "ignore": false,
+    "color": "green",
+    "genre": "EDM 128BPM",
+    "power": "light",
+    "title": "Green Light (f)",
+    "frequency": "(f)",
+    "volume": "Vol. 3",
+    "maand": "Apr",
+    "dag": "07",
+    "jaar": "2027",
+    "permalink": "luister/mix/green-light-f-EDM-128BPM-20270427.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_128BPM_20270407_Audio_V1%20(Vol.%203).mp3",
+    "image": "/images/light/green/wide/image_light_green_20270427_wide-480px.jpg",
+    "image_square": "/images/light/green/square/image_light_green_20270427_square.jpg",
+    "tracklist": [
+      {
+        "time": "01:00",
+        "track": "Jackarta - I'm Not So Different"
+      },
+      {
+        "time": "02:40",
+        "track": "Le Youth - Goodbye"
+      },
+      {
+        "time": "04:26",
+        "track": "Dezza & Dan Soleil - My Breath"
+      },
+      {
+        "time": "06:28",
+        "track": "Jerro, Otherwish - For You"
+      },
+      {
+        "time": "08:34",
+        "track": "Ruffnux, RAEYA - Fragments"
+      },
+      {
+        "time": "10:20",
+        "track": "Dokho - Seaside Breeze"
+      },
+      {
+        "time": "12:07",
+        "track": "Into the Ether - The Rebirth"
+      },
+      {
+        "time": "14:09",
+        "track": "Johan Vilborg - Mai Tai (Dezza Remix)"
+      },
+      {
+        "time": "16:11",
+        "track": "dwelyr & Matrx - Dulcet"
+      },
+      {
+        "time": "18:13",
+        "track": "Cinnamon Chasers - Highway Pacific (Deluxe Club Mix)"
+      },
+      {
+        "time": "20:15",
+        "track": "Dejan S - Behind The Mountains"
+      },
+      {
+        "time": "22:17",
+        "track": "Forty Cats & Ra5im - Hope"
+      },
+      {
+        "time": "24:19",
+        "track": "TOMB & RLSA - Prism"
+      },
+      {
+        "time": "26:20",
+        "track": "DAWA - Roll the Dice (Urban Contact Remix)"
+      },
+      {
+        "time": "28:30",
+        "track": "Lane 8 - Sunday Song (Rylan Taggart Remix)"
+      },
+      {
+        "time": "30:17",
+        "track": "Hessian - Inertia"
+      },
+      {
+        "time": "32:19",
+        "track": "16BL - Beat Organ"
+      },
+      {
+        "time": "34:20",
+        "track": "Guy Didden - Orange Clouds"
+      },
+      {
+        "time": "36:22",
+        "track": "Kasbo - Alive"
+      },
+      {
+        "time": "38:24",
+        "track": "Future Dynamic - Messy Hopes (Dreams, Flickering Bright)"
+      },
+      {
+        "time": "40:34",
+        "track": "Approaching Black - Don't Look Back"
+      },
+      {
+        "time": "42:36",
+        "track": "Kaiyan, Lumynesynth - Golden Memories"
+      },
+      {
+        "time": "44:38",
+        "track": "Jack Willard - Big Sky"
+      },
+      {
+        "time": "46:40",
+        "track": "Tinlicker, The Boxer Rebellion - Diamonds (Further Than I Ever Was)"
+      },
+      {
+        "time": "48:41",
+        "track": "Elypsis - To Be"
+      },
+      {
+        "time": "50:43",
+        "track": "Ambyion - Ozeanblau"
+      },
+      {
+        "time": "52:45",
+        "track": "Jordin Post - Everwonder"
+      },
+      {
+        "time": "54:47",
+        "track": "Kaiyan - Hinterland Rhapsody"
+      },
+      {
+        "time": "56:49",
+        "track": "TOMB - Kingfisher"
+      }
+    ]
+  },
+  {
     "id": "Green_Light_Preview",
     "featured": true,
     "ignore": true,
