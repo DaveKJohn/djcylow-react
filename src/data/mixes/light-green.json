@@ -1,21 +1,21 @@
 [
   {
-    "id": "20270427",
+    "id": "20260407",
     "featured": false,
     "ignore": false,
     "color": "green",
-    "genre": "EDM 128BPM",
+    "genre": "EDM",
     "power": "light",
     "title": "Green Light (f)",
     "frequency": "(f)",
     "volume": "Vol. 3",
     "maand": "Apr",
     "dag": "07",
-    "jaar": "2027",
-    "permalink": "luister/mix/green-light-f-EDM-128BPM-20270427.html",
-    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_128BPM_20270407_Audio_V1%20(Vol.%203).mp3",
-    "image": "/images/light/green/wide/image_light_green_20270427_wide-480px.jpg",
-    "image_square": "/images/light/green/square/image_light_green_20270427_square.jpg",
+    "jaar": "2026",
+    "permalink": "luister/mix/green-light-f-EDM-128BPM-20260407.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_128BPM_20260407_Audio_V1%20(Vol.%203).mp3",
+    "image": "/images/light/green/wide/image_light_green_20260407_wide-480px.jpg",
+    "image_square": "/images/light/green/square/image_light_green_20260407_square.jpg",
     "tracklist": [
       {
         "time": "01:00",
