@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from 'react';
-import '@/styles/components/home/promo.scss';
 import { homeContent } from "@/content/home";
 import ReadMore from "@/components/ui/ReadMore";
+
+// @ts-ignore
+import '@/styles/components/home/promo.scss';
 
 const Promo = () => {
     const [isPlaying, setIsPlaying] = useState(false);

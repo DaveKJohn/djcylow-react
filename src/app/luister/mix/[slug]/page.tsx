@@ -49,7 +49,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     return (
         <main className="luister mix">
             <section className="column text-wrapper WoB" id="luister_mix">
-                <div className="column constrainer">
+                <div className="column full-w constrainer">
                     <div className="column spacing-5xl v-push-6xl">
 
                         <div className="column extra spacing-3xl return-wrapper">
@@ -58,7 +58,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
                         <div className="column text-wrapper header">
                             <h1 className="uppercase">
-                                {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power} {mix.frequency} · {mix.volume}
+                                {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
                             </h1>
                         </div>
 

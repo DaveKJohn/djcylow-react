@@ -2,7 +2,6 @@
 
 import React, { useState, useMemo } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
-import '@/styles/components/musicmoodcolours/erlenmeyers.scss';
 
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
@@ -12,6 +11,9 @@ import lightOrange from '@/data/mixes/light-orange.json';
 import lightPurple from '@/data/mixes/light-purple.json';
 import lightRed from '@/data/mixes/light-red.json';
 import lightMagenta from '@/data/mixes/light-magenta.json';
+
+// @ts-ignore
+import '@/styles/components/musicmoodcolours/erlenmeyers.scss';
 
 
 const allMixesData = [

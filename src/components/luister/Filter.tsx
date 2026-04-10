@@ -1,5 +1,6 @@
 'use client';
 
+// @ts-ignore
 import '@/styles/components/luister/filter.scss';
 
 const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {

@@ -1,9 +1,9 @@
 import React from 'react';
-import '@/styles/components/home/diensten.scss';
-
 import { homeContent } from "@/content/home";
 import Link from "next/link";
 
+// @ts-ignore
+import '@/styles/components/home/diensten.scss';
 
 const Diensten = () => {
     return (

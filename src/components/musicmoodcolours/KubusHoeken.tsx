@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+
+// @ts-ignore
 import '@/styles/components/musicmoodcolours/kubusHoeken.scss';
 
 export default function KubusHoeken() {

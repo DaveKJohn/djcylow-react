@@ -1,12 +1,10 @@
 import React from 'react';
-import '@/styles/components/home/verzoeknummers.scss';
-
 import { homeContent } from "@/content/home";
 import Image from 'next/image'; 
 import ReadMore from "@/components/ui/ReadMore";
 
-
-
+// @ts-ignore
+import '@/styles/components/home/verzoeknummers.scss';
 
 const Promo = () => {
     return (

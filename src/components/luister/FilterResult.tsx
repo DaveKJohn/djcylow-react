@@ -1,8 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-
-
 import AudioPlayer from '../ui/AudioPlayer';
 import Link from 'next/link';
 
@@ -23,6 +21,7 @@ import fullOrange from '@/data/mixes/full-orange.json';
 import fullPurple from '@/data/mixes/full-purple.json';
 import fullRed from '@/data/mixes/full-red.json';
 
+// @ts-ignore
 import '@/styles/components/luister/filterResult.scss';
 
 const allMixesData = [
@@ -59,7 +58,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                             />
                             <div className="column full-w spacing-xs h-start text">
                                 <Link className="size-sm bold" href={`/${mix.permalink}`}>
-                                    {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre === 'edm' ? 'EDM' : 'D&B'} Mix {mix.power} {mix.frequency} · {mix.volume}
+                                    {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
                                 </Link>
                                 <p className="size-xs">{mix.maand} {mix.dag}, {mix.jaar}</p>
                             </div>

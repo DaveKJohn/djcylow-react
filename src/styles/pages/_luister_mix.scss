@@ -35,13 +35,7 @@
         .ready-wrapper {
             button {
                 width: 80px;
-                height: 80px;
-                border: none;
-                border-radius: 50%;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                height: 80px;            
 
                 svg {
                     width: 60px;
@@ -70,15 +64,9 @@
                 }
             }
 
-            .layer-wrapper {
-                          
+            .layer-wrapper {                          
           
-                .pausefilters button {
-                    width: 60px;
-                    height: 60px;
-                    background: none;
-                    border: none;
-                    cursor: pointer;
+                .pausefilters button {                   
 
                     svg {
                         width: 40px;

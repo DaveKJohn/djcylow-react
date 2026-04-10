@@ -1,8 +1,9 @@
 import React from 'react';
-import '@/styles/components/home/hero.scss';
-
 import { homeContent } from "@/content/home";
 import Link from "next/link";
+
+// @ts-ignore
+import '@/styles/components/home/hero.scss';
 
 
 const Hero = () => {

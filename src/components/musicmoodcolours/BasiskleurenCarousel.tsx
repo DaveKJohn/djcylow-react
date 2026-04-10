@@ -3,7 +3,6 @@
 import React, { useMemo, useState } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import Carousel from '@/components/ui/Carousel';
-import '@/styles/components/musicmoodcolours/basiskleurenCarousel.scss';
 
 // 1. Importeer ALLE bestanden
 import lightBlue from '@/data/mixes/light-blue.json';
@@ -14,6 +13,9 @@ import lightOrange from '@/data/mixes/light-orange.json';
 import lightPurple from '@/data/mixes/light-purple.json';
 import lightRed from '@/data/mixes/light-red.json';
 import lightMagenta from '@/data/mixes/light-magenta.json';
+
+// @ts-ignore
+import '@/styles/components/musicmoodcolours/basiskleurenCarousel.scss';
 
 const allMixesData = [
   ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta
