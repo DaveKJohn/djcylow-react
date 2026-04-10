@@ -26,8 +26,8 @@ spotify_url: https://open.spotify.com/playlist/6rSFhT7ov9wAl8IYvqWkCV?si=42a97df
 soundcloud_url: https://soundcloud.com/musicmoodcolourslight/liquid-dnb-mix-green-music-mood-gl4-1
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20220904_Audio_V2%20(Vol.%201).mp3
 image_square: /images/light/yellow/square/image_light_yellow_20220904_square.jpg
-image_wide_1200px: /images/light/yellow/wide/image_light_yellow_20220904_wide-1200px.jpg
-image_wide_480px: /images/light/yellow/wide/image_light_yellow_20220904_wide-480px.jpg
+image_wide_1200px: /images/light/yellow/wide/image_light_yellow_20220904_wide-large.jpg
+image_wide_480px: /images/light/yellow/wide/image_light_yellow_20220904_wide-small.jpg
 
 tracklist:
   - time: "00:00"

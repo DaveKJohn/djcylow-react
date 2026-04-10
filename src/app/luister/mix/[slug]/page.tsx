@@ -6,22 +6,38 @@ import BackButton from '@/components/ui/BackButton';
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
 import lightGreen from '@/data/mixes/light-green.json';
-import lightYellow from '@/data/mixes/light-yellow.json';
-import lightOrange from '@/data/mixes/light-orange.json';
-import lightRed from '@/data/mixes/light-red.json';
 import lightMagenta from '@/data/mixes/light-magenta.json';
+import lightOrange from '@/data/mixes/light-orange.json';
+import lightPurple from '@/data/mixes/light-purple.json';
+import lightRed from '@/data/mixes/light-red.json';
+import lightYellow from '@/data/mixes/light-yellow.json';
+
 
 import fullBlue from '@/data/mixes/full-blue.json';
 import fullCyan from '@/data/mixes/full-cyan.json';
 import fullGreen from '@/data/mixes/full-green.json';
-import fullYellow from '@/data/mixes/full-yellow.json';
 import fullOrange from '@/data/mixes/full-orange.json';
+import fullPurple from '@/data/mixes/full-purple.json';
 import fullRed from '@/data/mixes/full-red.json';
+import fullYellow from '@/data/mixes/full-yellow.json';
 
-const allMixes = [
-    ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightRed, ...lightMagenta,
-    ...fullBlue, ...fullCyan, ...fullGreen, ...fullYellow, ...fullOrange, ...fullRed
-];
+interface Mix {
+    id: string;
+    audioSrc: string;
+    image_wide_large: string;
+    color: string;
+    genre: string;
+    power: string;
+    frequency: string;
+    volume: string;
+    permalink: string;
+    tracklist: any[];
+}
+
+const allMixes: Mix[] = [
+    ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightRed, ...lightMagenta, ...lightPurple,
+    ...fullBlue, ...fullCyan, ...fullGreen, ...fullYellow, ...fullOrange, ...fullRed, ...fullPurple
+] as any;
 
 // 1. De Statische Params (geen verandering nodig, behalve import naam)
 export async function generateStaticParams() {
@@ -65,7 +81,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                         <AudioPlayer
                             id={mix.id}
                             src={mix.audioSrc}
-                            image={mix.image} 
+                            image={mix.image_wide_large} 
                             showVolumeSlider={true}
                             className={mix.color?.toLowerCase()}
                         />

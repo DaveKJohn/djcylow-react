@@ -1,23 +1,4 @@
-[
-  {
-    "id": "Cyan_Light_Preview",
-    "featured": true,
-    "ignore": true,
-    "color": "cyan",
-    "genre": "house",
-    "power": "light",
-    "title": "Cyan Light (f)",
-    "frequency": "(f)",
-    "volume": "",
-    "maand": "",
-    "dag": "",
-    "jaar": "",
-    "permalink": "",
-    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_Preview.mp3",
-    "image": "",
-    "image_square": "/images/light/cyan/square/image_light_cyan_preview_square.jpg",
-    "tracklist": []
-  },
+[  
   {
     "id": "20251108",
     "featured": false,
@@ -33,7 +14,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20251108.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20251108_Audio_V1%20(Vol.%205).mp3",
-    "image": "/images/light/cyan/wide/image_light_cyan_20251108_wide-480px.jpg",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20251108_wide-small.jpg",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20251108_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20251108_square.jpg",
     "tracklist": [
       {
@@ -173,7 +155,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20250619.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20250619_Audio_V4%20(Vol.%204).mp3",
-    "image": "/images/light/cyan/wide/image_light_cyan_20250619_wide-480px.jpg",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250619_wide-small.jpg",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250619_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20250619_square.jpg",
     "tracklist": [
       {
@@ -353,7 +336,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20250515.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20250515_Audio_V1%20(Vol.%203).mp3",
-    "image": "/images/light/cyan/wide/image_light_cyan_20250515_wide-480px.jpg",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250515_wide-small.jpg",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250515_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20250515_square.jpg",
     "tracklist": [
       {
@@ -493,7 +477,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20250307.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20250307_Audio_V1%20(Vol.%202).mp3",
-    "image": "/images/light/cyan/wide/image_light_cyan_20250307_wide-480px.jpg",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250307_wide-small.jpg",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250307_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20250307_square.jpg",
     "tracklist": [
       {
@@ -633,7 +618,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20241213.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20241213_Audio_V1%20(Vol.%201).mp3",
-    "image": "/images/light/cyan/wide/image_light_cyan_20241213_wide-480px.jpg",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20241213_wide-small.jpg",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20241213_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20241213_square.jpg",
     "tracklist": [
       {
@@ -769,7 +755,8 @@
     "jaar": "2022",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20220606.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_DNB_20220606_Audio_V2%20(Vol.%201).mp3",
-    "image": "/images/light/cyan/wide/image_light_cyan_20220606_wide-480px.jpg",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20220606_wide-small.jpg",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20220606_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20220606_square.jpg",
     "tracklist": [
       {
@@ -917,5 +904,25 @@
         "track": "Cnof - Summer Breeze"
       }
     ]
+  },
+  {
+    "id": "Cyan_Light_Preview",
+    "featured": true,
+    "ignore": true,
+    "color": "cyan",
+    "genre": "house",
+    "power": "light",
+    "title": "Cyan Light (f)",
+    "frequency": "(f)",
+    "volume": "",
+    "maand": "",
+    "dag": "",
+    "jaar": "",
+    "permalink": "",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_Preview.mp3",
+    "image_wide_small": "",
+    "image_wide_large": "",
+    "image_square": "/images/light/cyan/square/image_light_cyan_preview_square.jpg",
+    "tracklist": []
   }
 ]

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "magenta_light_preview",
+    "featured": true,
+    "ignore": true,
+    "color": "magenta",
+    "genre": "house",
+    "power": "light",
+    "title": "Magenta Light (f)",
+    "frequency": "(f)",
+    "volume": "",
+    "maand": "",
+    "dag": "",
+    "jaar": "",
+    "permalink": "",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/magenta/Magenta_Light_Preview.mp3",
+    "image": "",
+    "image_square": "/images/light/magenta/square/image_light_magenta_preview_square.jpg",
+    "tracklist": []
+  }
+]

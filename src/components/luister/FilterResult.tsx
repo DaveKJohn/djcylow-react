@@ -24,14 +24,29 @@ import fullRed from '@/data/mixes/full-red.json';
 // @ts-ignore
 import '@/styles/components/luister/filterResult.scss';
 
-const allMixesData = [
+interface MixData {
+    id: string;
+    ignore: boolean;
+    color: string;
+    genre: string;
+    power: string;
+    frequency: string;
+    volume: string;
+    audioSrc: string;
+    image_wide_small: string; // Deze gebruiken we nu voor het overzicht
+    permalink: string;
+    maand: string;
+    dag: string;
+    jaar: string;
+}
+
+const allMixesData: MixData[] = [
     ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta,
     ...fullBlue, ...fullCyan, ...fullGreen, ...fullYellow, ...fullOrange, ...fullPurple, ...fullRed
-];
+] as any;
 
 export default function Luister({ activeColor, activeGenre, activePower }: any) {
     const filteredMixes = useMemo(() => {
-        // We sorteren ze ook direct op ID (datum) omdat de losse bestanden dat niet overkoepelend zijn
         return allMixesData
             .filter(mix => {
                 if (mix.ignore === true) return false;
@@ -45,7 +60,6 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
 
     return (
         <div className="column spacing-4xl center">
-            
             <div className="row spacing-2xl wrap center card-wrapper">
                 {filteredMixes.length > 0 ? (
                     filteredMixes.map((mix) => (
@@ -53,8 +67,9 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                             <AudioPlayer
                                 id={mix.id}
                                 src={mix.audioSrc}
-                                image={mix.image}
-                                className={mix.color} 
+                                // Geef hier de kleine variant door aan de image prop
+                                image={mix.image_wide_small}
+                                className={mix.color?.toLowerCase()}
                             />
                             <div className="column full-w spacing-xs h-start text">
                                 <Link className="size-sm bold" href={`/${mix.permalink}`}>

@@ -27,8 +27,8 @@ spotify_url: https://open.spotify.com/playlist/3N7ZfwzoRvP509EcrXmWLl?si=c78af42
 soundcloud_url: https://soundcloud.com/musicmoodcolourslight/liquid-dnb-mix-green-music-mood-gl4-1
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_128BPM_20251011_Audio_V1%20(Vol.%206).mp3
 image_square: /images/light/orange/square/image_light_orange_20251011_square.jpg
-image_wide_1200px: /images/light/orange/wide/image_light_orange_20251011_wide-1200px.jpg
-image_wide_480px: /images/light/orange/wide/image_light_orange_20251011_wide-480px.jpg
+image_wide_1200px: /images/light/orange/wide/image_light_orange_20251011_wide-large.jpg
+image_wide_480px: /images/light/orange/wide/image_light_orange_20251011_wide-small.jpg
 
 tracklist:
   - time: "00:00:00"

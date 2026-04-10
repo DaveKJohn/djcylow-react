@@ -1,23 +1,4 @@
-[
-  {
-    "id": "Red_light_preview",
-    "featured": true,
-    "ignore": true,
-    "color": "red",
-    "genre": "house",
-    "power": "light",
-    "title": "Red Light (f)",
-    "frequency": "(f)",
-    "volume": "",
-    "maand": "",
-    "dag": "",
-    "jaar": "",
-    "permalink": "",
-    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_Preview.mp3",
-    "image": "",
-    "image_square": "/images/light/Red/square/image_light_red_preview_square.jpg",
-    "tracklist": []
-  },
+[  
   {
     "id": "20251213",
     "featured": false,
@@ -33,7 +14,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20251213.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20251213_Audio_V1%20(Vol.%205).mp3",
-    "image": "/images/light/red/wide/image_light_red_20251213_wide-480px.jpg",
+    "image_wide_small": "/images/light/red/wide/image_light_red_20251213_wide-small.jpg",
+    "image_wide_large": "/images/light/red/wide/image_light_red_20251213_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20251213_square.jpg",
     "tracklist": [
       {
@@ -169,7 +151,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20250916.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250916_Audio_V1%20(Vol.%204).mp3",
-    "image": "/images/light/red/wide/image_light_red_20250916_wide-480px.jpg",
+    "image_wide_small": "/images/light/red/wide/image_light_red_20250916_wide-small.jpg",
+    "image_wide_large": "/images/light/red/wide/image_light_red_20250916_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20250916_square.jpg",
     "tracklist": [
       {
@@ -309,7 +292,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20250401.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250401_Audio_V1%20(Vol.%203).mp3",
-    "image": "/images/light/red/wide/image_light_red_20250401_wide-480px.jpg",
+    "image_wide_small": "/images/light/red/wide/image_light_red_20250401_wide-small.jpg",
+    "image_wide_large": "/images/light/red/wide/image_light_red_20250401_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20250401_square.jpg",
     "tracklist": [
       {
@@ -453,7 +437,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20250204.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250204_Audio_V1%20(Vol.%202).mp3",
-    "image": "/images/light/red/wide/image_light_red_20250204_wide-480px.jpg",
+    "image_wide_small": "/images/light/red/wide/image_light_red_20250204_wide-small.jpg",
+    "image_wide_large": "/images/light/red/wide/image_light_red_20250204_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20250204_square.jpg",
     "tracklist": [
       {
@@ -593,7 +578,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20241009.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20241009_Audio_v1%20(Vol.%201).mp3",
-    "image": "/images/light/red/wide/image_light_red_20241009_wide-480px.jpg",
+    "image_wide_small": "/images/light/red/wide/image_light_red_20241009_wide-small.jpg",
+    "image_wide_large": "/images/light/red/wide/image_light_red_20241009_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20241009_square.jpg",
     "tracklist": [
       {
@@ -729,7 +715,8 @@
     "jaar": "2023",
     "permalink": "luister/mix/red-light-f-EDM-128BPM-20230121.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_f_EDM_112BPM_20230121_Audio_v2.mp3",
-    "image": "/images/light/red/wide/image_light_red_20230121_wide-480px.jpg",
+    "image_wide_small": "/images/light/red/wide/image_light_red_20230121_wide-small.jpg",
+    "image_wide_large": "/images/light/red/wide/image_light_red_20230121_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20230121_square.jpg",
     "tracklist": [
       {
@@ -837,7 +824,8 @@
     "jaar": "2022",
     "permalink": "luister/mix/red-light-m-EDM-DNB-20220523.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_DNB_20220523_Audio_V2%20(Vol.%201).mp3",
-    "image": "/images/light/red/wide/image_light_red_20220523_wide-480px.jpg",
+    "image_wide_small": "/images/light/red/wide/image_light_red_20220523_wide-small.jpg",
+    "image_wide_large": "/images/light/red/wide/image_light_red_20220523_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20220523_square.jpg",
     "tracklist": [
       {
@@ -977,5 +965,25 @@
         "track": "My Nu Leng & Flava D - Soul Shake (1991 Remix)"
       }
     ]
+  },
+  {
+    "id": "Red_light_preview",
+    "featured": true,
+    "ignore": true,
+    "color": "red",
+    "genre": "house",
+    "power": "light",
+    "title": "Red Light (f)",
+    "frequency": "(f)",
+    "volume": "",
+    "maand": "",
+    "dag": "",
+    "jaar": "",
+    "permalink": "",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_Preview.mp3",
+    "image_wide_small": "",
+    "image_wide_large": "",
+    "image_square": "/images/light/Red/square/image_light_red_preview_square.jpg",
+    "tracklist": []
   }
 ]

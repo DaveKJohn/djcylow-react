@@ -1,23 +1,4 @@
-[
-  {
-    "id": "Yellow_light_preview",
-    "featured": true,
-    "ignore": true,
-    "color": "yellow",
-    "genre": "house",
-    "power": "light",
-    "title": "Yellow Light (f)",
-    "frequency": "(f)",
-    "volume": "",
-    "maand": "",
-    "dag": "",
-    "jaar": "",
-    "permalink": "",
-    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_Preview.mp3",
-    "image": "",
-    "image_square": "/images/light/Yellow/square/image_light_yellow_preview_square.jpg",
-    "tracklist": []
-  },
+[  
   {
     "id": "20251021",
     "featured": false,
@@ -33,7 +14,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20251021.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20251021_Audio_V1%20(Vol.%207).mp3",
-    "image": "/images/light/yellow/wide/image_light_yellow_20251021_wide-480px.jpg",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20251021_wide-small.jpg",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20251021_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20251021_square.jpg",
     "tracklist": [
       {
@@ -173,7 +155,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20250701.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20250701_Audio_V1%20(Vol.%206).mp3",
-    "image": "/images/light/yellow/wide/image_light_yellow_20250701_wide-480px.jpg",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250701_wide-small.jpg",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250701_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20250701_square.jpg",
     "tracklist": [
       {
@@ -353,7 +336,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20250419.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20250419_Audio_V1%20(Vol.%205).mp3",
-    "image": "/images/light/yellow/wide/image_light_yellow_20250419_wide-480px.jpg",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250419_wide-small.jpg",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250419_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20250419_square.jpg",
     "tracklist": [
       {
@@ -493,7 +477,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20250313.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20250313_Audio_V1%20(Vol.%204).mp3",
-    "image": "/images/light/yellow/wide/image_light_yellow_20250313_wide-480px.jpg",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250313_wide-small.jpg",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250313_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20250313_square.jpg",
     "tracklist": [
       {
@@ -633,7 +618,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20241225.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20241225_Audio_V1%20(Vol.%203).mp3",
-    "image": "/images/light/yellow/wide/image_light_yellow_20241225_wide-480px.jpg",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20241225_wide-small.jpg",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20241225_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20241225_square.jpg",
     "tracklist": [
       {
@@ -773,7 +759,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20241126.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20241126_Audio_V1%20(Vol.%202).mp3",
-    "image": "/images/light/yellow/wide/image_light_yellow_20241126_wide-480px.jpg",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20241126_wide-small.jpg",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20241126_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20241126_square.jpg",
     "tracklist": [
       {
@@ -909,7 +896,8 @@
     "jaar": "2022",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20220904.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20220904_Audio_V2%20(Vol.%201).mp3",
-    "image": "/images/light/yellow/wide/image_light_yellow_20220904_wide-480px.jpg",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20220904_wide-small.jpg",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20220904_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20220904_square.jpg",
     "tracklist": [
       {
@@ -1057,5 +1045,25 @@
         "track": "Dilby - Rio Grande"
       }
     ]
+  },
+  {
+    "id": "Yellow_light_preview",
+    "featured": true,
+    "ignore": true,
+    "color": "yellow",
+    "genre": "house",
+    "power": "light",
+    "title": "Yellow Light (f)",
+    "frequency": "(f)",
+    "volume": "",
+    "maand": "",
+    "dag": "",
+    "jaar": "",
+    "permalink": "",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_Preview.mp3",
+    "image_wide_small": "",
+    "image_wide_large": "",
+    "image_square": "/images/light/Yellow/square/image_light_yellow_preview_square.jpg",
+    "tracklist": []
   }
 ]

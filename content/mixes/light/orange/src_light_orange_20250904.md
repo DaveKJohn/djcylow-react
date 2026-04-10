@@ -26,8 +26,8 @@ spotify_url: https://open.spotify.com/playlist/3pm2nn2vArPBVfKooPvLEy?si=c79bd38
 soundcloud_url: 
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_176BPM_20250904_Audio_V1.mp3
 image_square: /images/light/orange/square/image_light_orange_20250904_square.jpg
-image_wide_1200px: /images/light/orange/wide/image_light_orange_20250904_wide-1200px.jpg
-image_wide_480px: /images/light/orange/wide/image_light_orange_20250904_wide-480px.jpg
+image_wide_1200px: /images/light/orange/wide/image_light_orange_20250904_wide-large.jpg
+image_wide_480px: /images/light/orange/wide/image_light_orange_20250904_wide-small.jpg
 
 tracklist:
   - time: "00:00"

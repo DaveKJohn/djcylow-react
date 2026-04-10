@@ -23,6 +23,6 @@ tags: ["mixes"]
 soundcloud_url: 
 public_development_URL: https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20230130_Audio_V3%20(Vol.%205).mp3
 image_square: /images/full/orange/square/image_full_orange_20230130_square.jpg
-image_wide_1200px: /images/full/orange/wide/image_full_orange_20230130_wide-1200px.jpg
-image_wide_480px: /images/full/orange/wide/image_full_orange_20230130_wide-480px.jpg
+image_wide_1200px: /images/full/orange/wide/image_full_orange_20230130_wide-large.jpg
+image_wide_480px: /images/full/orange/wide/image_full_orange_20230130_wide-small.jpg
 ---

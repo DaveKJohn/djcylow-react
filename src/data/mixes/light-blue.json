@@ -1,24 +1,5 @@
 [
   {
-    "id": "blue_light_preview",
-    "featured": true,
-    "ignore": true,
-    "color": "blue",
-    "genre": "house",
-    "power": "light",
-    "title": "Blue Light (f)",
-    "frequency": "(f)",
-    "volume": "",
-    "maand": "",
-    "dag": "",
-    "jaar": "",
-    "permalink": "",
-    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_Preview.mp3",
-    "image": "",
-    "image_square": "/images/light/blue/square/image_light_blue_preview_square.jpg",
-    "tracklist": []
-  },
-  {
     "id": "20241003",
     "featured": false,
     "ignore": false,
@@ -33,7 +14,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20241003.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20241003_Audio_V2%20(Vol.%206).mp3",
-    "image": "/images/light/blue/wide/image_light_blue_20241003_wide-480px.jpg",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_20241003_wide-small.jpg",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_20241003_wide-large.webp",
     "image_square": "/images/light/blue/square/image_light_blue_20241003_square.jpg",
     "tracklist": [
       {
@@ -185,7 +167,8 @@
     "jaar": "2023",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20231016.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20231016_Audio_V2%20(Vol.%205).mp3",
-    "image": "/images/light/blue/wide/image_light_blue_20231016_wide-480px.jpg",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_20231016_wide-small.jpg",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_20231016_wide-large.webp",
     "image_square": "/images/light/blue/square/image_light_blue_20231016_square.jpg",
     "tracklist": [
       {
@@ -377,7 +360,8 @@
     "jaar": "2023",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20230206.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20230206_Audio_V2%20(Vol.%204).mp3",
-    "image": "/images/light/blue/wide/image_light_blue_20230206_wide-480px.jpg",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_20230206_wide-small.jpg",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_20230206_wide-large.webp",
     "image_square": "/images/light/blue/square/image_light_blue_20230206_square.jpg",
     "tracklist": [
       {
@@ -557,7 +541,8 @@
     "jaar": "2022",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20221212.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20221212_Audio_V2%20(Vol.%203).mp3",
-    "image": "/images/light/blue/wide/image_light_blue_20221212_wide-480px.jpg",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_20221212_wide-small.jpg",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_20221212_wide-large.webp",
     "image_square": "/images/light/blue/square/image_light_blue_20221212_square.jpg",
     "tracklist": [
       {
@@ -717,7 +702,8 @@
     "jaar": "2021",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20210930.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20210930_Audio_V2%20(Vol.%202).mp3",
-    "image": "/images/light/blue/wide/image_light_blue_20210930_wide-480px.jpg",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_20210930_wide-small.jpg",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_20210930_wide-large.webp",
     "image_square": "/images/light/blue/square/image_light_blue_20210930_square.jpg",
     "tracklist": [
       {
@@ -881,7 +867,8 @@
     "jaar": "2021",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20210723.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_m_EDM_DNB_20210723_Audio_V2%20(Vol.%201).mp3",
-    "image": "/images/light/blue/wide/image_light_blue_20210723_wide-480px.jpg",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_20210723_wide-small.jpg",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_20210723_wide-large.webp",
     "image_square": "/images/light/blue/square/image_light_blue_20210723_square.jpg",
     "tracklist": [
       {
@@ -1029,5 +1016,25 @@
         "track": "Maduk – Vermilion"
       }
     ]
+  },
+    {
+    "id": "blue_light_preview",
+    "featured": true,
+    "ignore": true,
+    "color": "blue",
+    "genre": "house",
+    "power": "light",
+    "title": "Blue Light (f)",
+    "frequency": "(f)",
+    "volume": "",
+    "maand": "",
+    "dag": "",
+    "jaar": "",
+    "permalink": "",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_Preview.mp3",
+    "image_wide_small": "",
+    "image_wide_large": "",
+    "image_square": "/images/light/blue/square/image_light_blue_preview_square.jpg",
+    "tracklist": []
   }
 ]

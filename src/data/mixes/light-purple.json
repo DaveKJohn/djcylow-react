@@ -1,24 +1,5 @@
 [
   {
-    "id": "Purple_light_preview",
-    "featured": true,
-    "ignore": true,
-    "color": "purple",
-    "genre": "house",
-    "power": "light",
-    "title": "Purple Light (f)",
-    "frequency": "(f)",
-    "volume": "",
-    "maand": "",
-    "dag": "",
-    "jaar": "",
-    "permalink": "",
-    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_Preview.mp3",
-    "image": "",
-    "image_square": "/images/light/Purple/square/image_light_purple_preview_square.jpg",
-    "tracklist": []
-  },
-  {
     "id": "20240803",
     "featured": false,
     "ignore": false,
@@ -33,7 +14,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20240803.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20240803_Audio_V1%20(Vol%2010).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20240803_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20240803_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20240803_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20240803_square.jpg",
     "tracklist": [
       {
@@ -181,7 +163,8 @@
     "jaar": "2023",
     "permalink": "luister/mix/purple-light-f-EDM-128BPM-20230515.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_128BPM_20230515_Audio_V2%20(Vol%201).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20230515_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20230515_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20230515_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20230515_square.jpg",
     "tracklist": [
       {
@@ -353,7 +336,8 @@
     "jaar": "2023",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20230417.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20230417_Audio_V2%20(Vol.%209).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20230417_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20230417_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20230417_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20230417_square.jpg",
     "tracklist": [
       {
@@ -517,7 +501,8 @@
     "jaar": "2023",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20230320.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20230320_Audio_V2%20(Vol.%208).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20230320_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20230320_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20230320_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20230320_square.jpg",
     "tracklist": "00:00 Friction & Flava D - Now Or Never (ft. Charlotte Haining) 02:58 HumaNature - Since I've Known You 04:48 Etherwood - Hold Your Breath (Spectrasoul Remix) 06:39 Monrroe - Winters Touch 08:29 GLXY - Proposition (ft. James Robb) 10:41 Netsky - Porcelain 12:31 Satl - So Much Better 14:21 Culprate - No Words (Dexcell Remix) 16:11 Telomic & Laura Brehm - Home 18:02 Technimatic - Abseil 19:53 Jareth - Kaleidoscope (Hybrid Minds Remix) 21:43 Riya - Ripples 23:34 Dawn Wall - Never Say 25:24 Seba - Why Can't This End 27:14 WAVES - Daydream 29:04 Pola & Bryson - Dream Days 30:55 Ownglow - Do U 32:45 Sub Focus - Follow The Light 34:36 Philosophy - Remember 36:26 BCee - Can't Choose (ft. Chords & Becca Jane Grey) 38:38 Rameses B - Stranded 40:29 KG - Life 42:19 Silver Ocean - endcliffe blues 44:15 Bert H - Gleams (ft. Elle Chante) 46:16 Raise Spirit - When Youre Ready 48:07 Hillsdom - Colours (ft. Novokan3) 49:57 Wilkinson - Afterglow 52:20 Nelver - Cosmic Gate 54:11 Riya & The Vanguard Project - No Words 56:01 Zombie Cats - Away 57:51 Goddard - Can't Let Go (ft. Ruth Royall) 59:42 Keeno - Antiphony 01:01:32 Mohican Sun - Don't Wait 01:03:22 Survival - I Found You (ft. Naomi Pryor) 01:05:13 Tatora – Faded 01:07:03 gyrofield - Because You Are You"
   },
@@ -536,7 +521,8 @@
     "jaar": "2022",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20220425.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20220425_Audio_V2%20(Vol.%207).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20220425_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20220425_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20220425_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20220425_square.jpg",
     "tracklist": [
       {
@@ -700,7 +686,8 @@
     "jaar": "2021",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20211115.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20211115_Audio_V2%20(Vol.%206).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20211115_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20211115_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20211115_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20211115_square.jpg",
     "tracklist": [
       {
@@ -860,7 +847,8 @@
     "jaar": "2021",
     "permalink": "luister/mix/purple-light-m-EDM-DNB-20210831.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_m_EDM_DNB_20210831_Audio_V2%20(Vol.%205).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20210831_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210831_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210831_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20210831_square.jpg",
     "tracklist": [
       {
@@ -1024,7 +1012,8 @@
     "jaar": "2021",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20210809.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20210809_Audio_V2%20(Vol.%204).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20210809_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210809_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210809_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20210809_square.jpg",
     "tracklist": [
       {
@@ -1188,7 +1177,8 @@
     "jaar": "2021",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20210614.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20210614_Audio_V2%20(Vol.%203).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20210614_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210614_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210614_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20210614_square.jpg",
     "tracklist": [
       {
@@ -1352,7 +1342,8 @@
     "jaar": "2021",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20210517.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20210517_Audio_V2%20(Vol.%202).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20210517_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210517_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210517_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20210517_square.jpg",
     "tracklist": [
       {
@@ -1512,7 +1503,8 @@
     "jaar": "2021",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20210329.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_128BPM_20230515_Audio_V2%20(Vol%201).mp3",
-    "image": "/images/light/purple/wide/image_light_purple_20210329_wide-480px.jpg",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210329_wide-small.jpg",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210329_wide-large.webp",
     "image_square": "/images/light/purple/square/image_light_purple_20210329_square.jpg",
     "tracklist": [
       {
@@ -1648,5 +1640,25 @@
         "track": "Variants - The Painter"
       }
     ]
+  },
+    {
+    "id": "Purple_light_preview",
+    "featured": true,
+    "ignore": true,
+    "color": "purple",
+    "genre": "house",
+    "power": "light",
+    "title": "Purple Light (f)",
+    "frequency": "(f)",
+    "volume": "",
+    "maand": "",
+    "dag": "",
+    "jaar": "",
+    "permalink": "",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_Preview.mp3",
+    "image_wide_small": "",
+    "image_wide_large": "",
+    "image_square": "/images/light/Purple/square/image_light_purple_preview_square.jpg",
+    "tracklist": []
   }
 ]

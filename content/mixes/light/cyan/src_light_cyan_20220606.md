@@ -26,8 +26,8 @@ spotify_url: https://open.spotify.com/playlist/2YDpCJ3LU2FIbV54xmn3pv?si=42d7a02
 soundcloud_url: 
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_DNB_20220606_Audio_V2%20(Vol.%201).mp3
 image_square: /images/light/cyan/square/image_light_cyan_20220606_square.jpg
-image_wide_1200px: /images/light/cyan/wide/image_light_cyan_20220606_wide-1200px.jpg
-image_wide_480px: /images/light/cyan/wide/image_light_cyan_20220606_wide-480px.jpg
+image_wide_1200px: /images/light/cyan/wide/image_light_cyan_20220606_wide-large.jpg
+image_wide_480px: /images/light/cyan/wide/image_light_cyan_20220606_wide-small.jpg
 
 
 tracklist:

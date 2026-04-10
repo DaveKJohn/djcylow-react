@@ -12,9 +12,10 @@
     "maand": "Nov",
     "dag": "27",
     "jaar": "2023",
-    "permalink": "",
-    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/green/Green_Full_f_EDM_DNB_20231127_Audio_V1%20(Vol.%202).mp3",
-    "image": "/images/full/green/wide/image_full_green_20231127_wide-480px.jpg",
+    "permalink": "luister/mix/green-full-m-EDM-176BPM-20231127.html",
+    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/green/Green_Full_m_EDM_DNB_20231127_Audio_V1%20(Vol.%202).mp3",
+    "image_wide_small": "/images/full/green/wide/image_full_green_20231127_wide-small.jpg",
+    "image_wide_large": "/images/full/green/wide/image_full_green_20231127_wide-large.webp",
     "image_square": "/images/full/green/square/image_full_green_20231127_square.jpg",
     "tracklist": []
   },
@@ -31,9 +32,10 @@
     "maand": "Apr",
     "dag": "18",
     "jaar": "2021",
-    "permalink": "",
+    "permalink": "luister/mix/green-full-f-EDM-176BPM-20210418.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/green/Green_Full_f_EDM_DNB_20210418_Audio_V1%20(Vol.%201).mp3",
-    "image": "/images/full/green/wide/image_full_green_20210418_wide-480px.jpg",
+    "image_wide_small": "/images/full/green/wide/image_full_green_20210418_wide-small.jpg",
+    "image_wide_large": "/images/full/green/wide/image_full_green_20210418_wide-large.webp",
     "image_square": "/images/full/green/square/image_full_green_20210418_square.jpg",
     "tracklist": []
   }

@@ -1,21 +1,22 @@
 [
   {
-    "id": "orange_light_preview",
-    "featured": true,
-    "ignore": true,
+    "id": "20260101",
+    "featured": false,
+    "ignore": false,
     "color": "orange",
-    "genre": "house",
+    "genre": "EDM",
     "power": "light",
     "title": "Orange Light (f)",
     "frequency": "(f)",
-    "volume": "",
-    "maand": "",
-    "dag": "",
-    "jaar": "",
-    "permalink": "",
-    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_Light_Preview.mp3",
-    "image": "",
-    "image_square": "/images/light/orange/square/image_light_orange_preview_square.jpg",
+    "volume": "Vol. 7",
+    "maand": "Jan",
+    "dag": "01",
+    "jaar": "2026",
+    "permalink": "luister/mix/orange-light-f-EDM-128BPM-20260101.html",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_128BPM_20260101_Audio_V1%20(Vol.%207).mp3",
+    "image_wide_small": "/images/light/orange/wide/image_light_orange_20260101_wide-large.webp",
+    "image_wide_large": "/images/light/orange/wide/image_light_orange_20260101_wide-large.webp",
+    "image_square": "/images/light/orange/square/image_light_orange_20260101_square.jpg",
     "tracklist": []
   },
   {
@@ -33,7 +34,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/orange-light-f-EDM-128BPM-20251011.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_128BPM_20251011_Audio_V1%20(Vol.%206).mp3",
-    "image": "/images/light/orange/wide/image_light_orange_20251011_wide-480px.jpg",
+    "image_wide_small": "/images/light/orange/wide/image_light_orange_20251011_wide-small.jpg",
+    "image_wide_large": "/images/light/orange/wide/image_light_orange_20251011_wide-large.webp",
     "image_square": "/images/light/orange/square/image_light_orange_20251011_square.jpg",
     "tracklist": [
       {
@@ -185,7 +187,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/orange-light-f-EDM-DNB-20250904.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_176BPM_20250904_Audio_V1.mp3",
-    "image": "/images/light/orange/wide/image_light_orange_20250904_wide-480px.jpg",
+    "image_wide_small": "/images/light/orange/wide/image_light_orange_20250904_wide-small.jpg",
+    "image_wide_large": "/images/light/orange/wide/image_light_orange_20250904_wide-large.webp",
     "image_square": "/images/light/orange/square/image_light_orange_20250904_square.jpg",
     "tracklist": [
       {
@@ -333,7 +336,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/orange-light-f-EDM-128BPM-20250813.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_128BPM_20250813_Audio_V1%20(Vol.%205).mp3",
-    "image": "/images/light/orange/wide/image_light_orange_20250813_wide-480px.jpg",
+    "image_wide_small": "/images/light/orange/wide/image_light_orange_20250813_wide-small.jpg",
+    "image_wide_large": "/images/light/orange/wide/image_light_orange_20250813_wide-large.webp",
     "image_square": "/images/light/orange/square/image_light_orange_20250813_square.jpg",
     "tracklist": [
       {
@@ -477,7 +481,8 @@
     "jaar": "2025",
     "permalink": "luister/mix/orange-light-f-EDM-128BPM-20250224.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_128BPM_20250224_Audio_V1%20(Vol.%204).mp3",
-    "image": "/images/light/orange/wide/image_light_orange_20250224_wide-480px.jpg",
+    "image_wide_small": "/images/light/orange/wide/image_light_orange_20250224_wide-small.jpg",
+    "image_wide_large": "/images/light/orange/wide/image_light_orange_20250224_wide-large.webp",
     "image_square": "/images/light/orange/square/image_light_orange_20250224_square.jpg",
     "tracklist": [
       {
@@ -617,7 +622,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/orange-light-f-EDM-128BPM-20241230.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_128BPM_20241230_Audio_V1%20(Vol.%203).mp3",
-    "image": "/images/light/orange/wide/image_light_orange_20241230_wide-480px.jpg",
+    "image_wide_small": "/images/light/orange/wide/image_light_orange_20241230_wide-small.jpg",
+    "image_wide_large": "/images/light/orange/wide/image_light_orange_20241230_wide-large.webp",
     "image_square": "/images/light/orange/square/image_light_orange_20241230_square.jpg",
     "tracklist": [
       {
@@ -757,7 +763,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/orange-light-f-EDM-128BPM-20241114.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_Light_f_EDM_128BPM_20241114_Audio_V2%20(Vol.%202).mp3",
-    "image": "/images/light/orange/wide/image_light_orange_20241114_wide-480px.jpg",
+    "image_wide_small": "/images/light/orange/wide/image_light_orange_20241114_wide-small.jpg",
+    "image_wide_large": "/images/light/orange/wide/image_light_orange_20241114_wide-large.webp",
     "image_square": "/images/light/orange/square/image_light_orange_20241114_square.jpg",
     "tracklist": [
       {
@@ -893,7 +900,8 @@
     "jaar": "2024",
     "permalink": "luister/mix/orange-light-f-EDM-128BPM-20240705.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_light_f_EDM_128BPM_20240705_Audio_V3%20(Vol.%201).mp3",
-    "image": "/images/light/orange/wide/image_light_orange_20240705_wide-480px.jpg",
+    "image_wide_small": "/images/light/orange/wide/image_light_orange_20240705_wide-small.jpg",
+    "image_wide_large": "/images/light/orange/wide/image_light_orange_20240705_wide-large.webp",
     "image_square": "/images/light/orange/square/image_light_orange_20240705_square.jpg",
     "tracklist": [
       {
@@ -1029,5 +1037,25 @@
         "track": "meHiLove - Stellar"
       }
     ]
+  },
+  {
+    "id": "orange_light_preview",
+    "featured": true,
+    "ignore": true,
+    "color": "orange",
+    "genre": "house",
+    "power": "light",
+    "title": "Orange Light (f)",
+    "frequency": "(f)",
+    "volume": "",
+    "maand": "",
+    "dag": "",
+    "jaar": "",
+    "permalink": "",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/orange/Orange_Light_Preview.mp3",
+    "image_wide_small": "",
+    "image_wide_large": "",
+    "image_square": "/images/light/orange/square/image_light_orange_preview_square.jpg",
+    "tracklist": []
   }
 ]

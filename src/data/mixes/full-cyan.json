@@ -12,9 +12,10 @@
     "maand": "Jan",
     "dag": "29",
     "jaar": "2024",
-    "permalink": "",
+    "permalink": "luister/mix/cyan-full-f-EDM-176BPM-20240129.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/cyan/Cyan_Full_f_EDM_DNB_20240129_Audio_V1%20(Vol.%201).mp3",
-    "image": "/images/full/cyan/wide/image_full_cyan_20240129_wide-480px.jpg",
+    "image_wide_small": "/images/full/cyan/wide/image_full_cyan_20240129_wide-small.jpg",
+    "image_wide_large": "/images/full/cyan/wide/image_full_cyan_20240129_wide-large.webp",
     "image_square": "/images/full/cyan/square/image_full_cyan_20240129_square.jpg",
     "tracklist": []
   }

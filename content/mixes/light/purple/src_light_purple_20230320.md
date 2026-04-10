@@ -25,8 +25,8 @@ tags: ["mixes"]
 soundcloud_url:
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20230320_Audio_V2%20(Vol.%208).mp3
 image_square: /images/light/purple/square/image_light_purple_20230320_square.jpg
-image_wide_1200px: /images/light/purple/wide/image_light_purple_20230320_wide-1200px.jpg
-image_wide_480px: /images/light/purple/wide/image_light_purple_20230320_wide-480px.jpg
+image_wide_1200px: /images/light/purple/wide/image_light_purple_20230320_wide-large.jpg
+image_wide_480px: /images/light/purple/wide/image_light_purple_20230320_wide-small.jpg
 
 tracklist:
     00:00 Friction & Flava D - Now Or Never (ft. Charlotte Haining)

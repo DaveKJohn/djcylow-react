@@ -26,8 +26,8 @@ spotify_url: https://open.spotify.com/playlist/3WegW142Fzr0XzwxmMA6qz?si=e667e63
 soundcloud_url: https://soundcloud.com/musicmoodcolourslight/dance-disco-house-mix-cyan-music-mood-colour-light-f-vol-3
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20250515_Audio_V1%20(Vol.%203).mp3
 image_square: /images/light/cyan/square/image_light_cyan_20250515_square.jpg
-image_wide_1200px: /images/light/cyan/wide/image_light_cyan_20250515_wide-1200px.jpg
-image_wide_480px: /images/light/cyan/wide/image_light_cyan_20250515_wide-480px.jpg
+image_wide_1200px: /images/light/cyan/wide/image_light_cyan_20250515_wide-large.jpg
+image_wide_480px: /images/light/cyan/wide/image_light_cyan_20250515_wide-small.jpg
 
 
 tracklist:

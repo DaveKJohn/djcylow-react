@@ -9,7 +9,7 @@ interface AudioPlayerProps {
 	showVolumeSlider?: boolean;
 	onPlay?: (id: string) => void;
 	activeId?: string | null;
-	className?: string; // Voeg deze regel toe aan je interface!
+	className?: string;
 }
 
 export default function AudioPlayer({
@@ -21,6 +21,7 @@ export default function AudioPlayer({
 	activeId,
 	className = ""
 }: AudioPlayerProps) {
+	console.log("AudioPlayer ID:", id, "Image path:", image);
 	const audioRef = useRef<HTMLAudioElement>(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -80,10 +81,19 @@ export default function AudioPlayer({
 		<div className={`stack audioplayer-wrapper ${stateClass} ${className}`} data-id={id}>
 
 			{/* Thumbnail */}
-			<div
-				className="column layer thumbnail"
-				style={{ backgroundImage: `url('${image}')` }}
-			></div>
+			<div className="column layer thumbnail" style={{ overflow: 'hidden', position: 'relative' }}>
+				<img
+					src={image} 
+					alt=""
+					loading="lazy"
+					style={{
+						width: '100%',
+						height: '100%',
+						objectFit: 'cover',
+						display: 'block'
+					}}
+				/>
+			</div>
 
 			{/* Playing */}
 			<div className="column layer playing-wrapper">

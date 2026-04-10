@@ -26,8 +26,8 @@ spotify_url: https://open.spotify.com/playlist/7oDh3Ut996gTfmUFU25w9H?si=27e9d89
 soundcloud_url: https://soundcloud.com/musicmoodcolourslight/deep-house-mix-cyan-music-mood-cl4-1
 public_development_URL: https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20241213_Audio_V1%20(Vol.%201).mp3
 image_square: /images/light/cyan/square/image_light_cyan_20241213_square.jpg
-image_wide_1200px: /images/light/cyan/wide/image_light_cyan_20241213_wide-1200px.jpg
-image_wide_480px: /images/light/cyan/wide/image_light_cyan_20241213_wide-480px.jpg
+image_wide_1200px: /images/light/cyan/wide/image_light_cyan_20241213_wide-large.jpg
+image_wide_480px: /images/light/cyan/wide/image_light_cyan_20241213_wide-small.jpg
 
 tracklist:
   - time: "00:00"

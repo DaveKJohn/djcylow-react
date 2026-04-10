@@ -23,6 +23,6 @@ tags: ["mixes"]
 soundcloud_url: 
 public_development_URL: https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/cyan/Cyan_Full_f_EDM_DNB_20240129_Audio_V1%20(Vol.%201).mp3
 image_square: /images/full/cyan/square/image_full_cyan_20240129_square.jpg
-image_wide_1200px: /images/full/cyan/wide/image_full_cyan_20240129_wide-1200px.jpg
-image_wide_480px: /images/full/cyan/wide/image_full_cyan_20240129_wide-480px.jpg
+image_wide_1200px: /images/full/cyan/wide/image_full_cyan_20240129_wide-large.jpg
+image_wide_480px: /images/full/cyan/wide/image_full_cyan_20240129_wide-small.jpg
 ---
