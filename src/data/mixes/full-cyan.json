@@ -1,5 +1,5 @@
 [
-  {
+{
     "id": "20240129",
     "featured": false,
     "ignore": false,
@@ -17,6 +17,183 @@
     "image_wide_small": "/images/full/cyan/wide/image_full_cyan_20240129_wide-small.jpg",
     "image_wide_large": "/images/full/cyan/wide/image_full_cyan_20240129_wide-large.webp",
     "image_square": "/images/full/cyan/square/image_full_cyan_20240129_square.jpg",
-    "tracklist": []
-  }
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "JIKES ft. Nori - Let's Fly Away Pt.2"
+      },
+      {
+        "time": "02:18",
+        "track": "Noisestorm - Leaving Now"
+      },
+      {
+        "time": "03:26",
+        "track": "Brookes Brothers - New Wave"
+      },
+      {
+        "time": "04:56",
+        "track": "Andromedik - Colours"
+      },
+      {
+        "time": "06:25",
+        "track": "Fox Stevenson - Good Time"
+      },
+      {
+        "time": "07:55",
+        "track": "Sub Focus - Out The Blue (ft. Alice Gold)"
+      },
+      {
+        "time": "09:25",
+        "track": "Rob Gasser - Taking Over (feat. Miyoki)"
+      },
+      {
+        "time": "11:29",
+        "track": "NCT - Astrophysical (ft. Skyelle)"
+      },
+      {
+        "time": "12:36",
+        "track": "Kasger - Cover It Up"
+      },
+      {
+        "time": "14:06",
+        "track": "Indivision - Time Traveler (ft. Colourz & Jonny Rose)"
+      },
+      {
+        "time": "15:36",
+        "track": "Aktive - Touch"
+      },
+      {
+        "time": "17:28",
+        "track": "Different Heaven & Sian Area - Feel Like Horrible"
+      },
+      {
+        "time": "18:35",
+        "track": "Andromedik - Tomorrow (ft. Ayah Marar)"
+      },
+      {
+        "time": "20:05",
+        "track": "Danny Byrd - Tonight (Feat. Netsky)"
+      },
+      {
+        "time": "21:35",
+        "track": "Friction - Commotion (ft. Jem Cooke)"
+      },
+      {
+        "time": "23:05",
+        "track": "Itro - Promises"
+      },
+      {
+        "time": "24:35",
+        "track": "DC Breaks - Faithless feat. Bianca"
+      },
+      {
+        "time": "26:04",
+        "track": "London Grammar - Strong (High Contrast Remix)"
+      },
+      {
+        "time": "27:57",
+        "track": "Murdock - Let It Go (ft M'Leah)"
+      },
+      {
+        "time": "29:04",
+        "track": "Futuristik - Sun"
+      },
+      {
+        "time": "30:40",
+        "track": "John Newman - Love Me Again (Kove Remix)"
+      },
+      {
+        "time": "32:09",
+        "track": "Lemon Fight - Stronger (feat. Jessica Reynoso) [Champion Remix]"
+      },
+      {
+        "time": "34:39",
+        "track": "Brookes Brothers - Flashing Lights (ft. ShezAr & Bossman Birdie)"
+      },
+      {
+        "time": "35:09",
+        "track": "Maduk - Not Alone (feat. Duckfront, MVE and Frae)"
+      },
+      {
+        "time": "36:39",
+        "track": "Matrix & Futurebound - Hindsight (M&F's Hybrid Jungle Mix)"
+      },
+      {
+        "time": "38:09",
+        "track": "Kasger - Reflections"
+      },
+      {
+        "time": "39:38",
+        "track": "BMotion - Alive (ft. Jon Lilygreen)"
+      },
+      {
+        "time": "41:08",
+        "track": "NCT - In The Sun Again ft. Laura Brehm"
+      },
+      {
+        "time": "42:38",
+        "track": "T & Sugah x NCT - Say To Me"
+      },
+      {
+        "time": "44:30",
+        "track": "Cartoon - Made Me Feel (ft. Kristel Aaslaid)"
+      },
+      {
+        "time": "46:00",
+        "track": "Axtasia - Light Up The Sky ft. Soundr"
+      },
+      {
+        "time": "47:08",
+        "track": "London Elektricity - Meteorites ft. Elsa Esmeralda (Danny Byrd Remix)"
+      },
+      {
+        "time": "48:37",
+        "track": "Maduk - Ready Now"
+      },
+      {
+        "time": "50:07",
+        "track": "Fox Stevenson - All Eyes On Me"
+      },
+      {
+        "time": "53:07",
+        "track": "Catas & Kasger - Blueshift"
+      },
+      {
+        "time": "54:37",
+        "track": "Logistics - Let The Senses Clear Your Mind"
+      },
+      {
+        "time": "56:07",
+        "track": "Lexurus - Out Of Love (ft. Leah Rye)"
+      },
+      {
+        "time": "57:36",
+        "track": "Indivision - In Vitro"
+      },
+      {
+        "time": "58:11",
+        "track": "Genetic Bros - Uplifting"
+      },
+      {
+        "time": "59:06",
+        "track": "bvd kult - VIP"
+      },
+      {
+        "time": "1:00:36",
+        "track": "Wilkinson - Flatline ft. Wretch 32"
+      },
+      {
+        "time": "1:02:06",
+        "track": "Phloem - Luminance"
+      },
+      {
+        "time": "1:03:47",
+        "track": "Rob Gasser - I'm Here"
+      },
+      {
+        "time": "1:05:17",
+        "track": "Axel Boy - Oxygen (ft. Ruth Royall)"
+      }
+    ]
+}
 ]

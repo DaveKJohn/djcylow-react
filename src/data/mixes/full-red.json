@@ -1,5 +1,5 @@
 [
-  {
+ {
     "id": "20240226",
     "featured": false,
     "ignore": false,
@@ -17,9 +17,186 @@
     "image_wide_small": "/images/full/red/wide/image_full_red_20240226_wide-small.jpg",
     "image_wide_large": "/images/full/red/wide/image_full_red_20240226_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20240226_square.jpg",
-    "tracklist": []
-  },
-  {
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "MUZZ - Nemesis"
+      },
+      {
+        "time": "02:18",
+        "track": "RIOT - Meditate"
+      },
+      {
+        "time": "03:26",
+        "track": "Joe Ford & Memtrix - Out Of Place"
+      },
+      {
+        "time": "04:56",
+        "track": "Cyntax - Pericardium"
+      },
+      {
+        "time": "06:25",
+        "track": "Dimension - Techno"
+      },
+      {
+        "time": "07:55",
+        "track": "Netsky - Cous Cous"
+      },
+      {
+        "time": "09:25",
+        "track": "Rebko - Dance"
+      },
+      {
+        "time": "11:29",
+        "track": "Barely Alive - Warrior (ft. Mad Hed City)"
+      },
+      {
+        "time": "12:36",
+        "track": "The Prototypes - Transmission"
+      },
+      {
+        "time": "14:06",
+        "track": "Delta Heavy – Gravity"
+      },
+      {
+        "time": "15:36",
+        "track": "Metrik - Ex Machina"
+      },
+      {
+        "time": "17:28",
+        "track": "Andromedik - Titan"
+      },
+      {
+        "time": "18:35",
+        "track": "Black Sun Empire & State of Mind - Fateful Hour"
+      },
+      {
+        "time": "20:05",
+        "track": "ShockOne - Follow Me (Blanke Remix)"
+      },
+      {
+        "time": "21:35",
+        "track": "DC Breaks - Vendetta (A.M.C & Turno Remix)"
+      },
+      {
+        "time": "23:05",
+        "track": "MONSTA - Holdin' On (Skrillex & Nero Remix)"
+      },
+      {
+        "time": "24:35",
+        "track": "tunnl vision - Runnin"
+      },
+      {
+        "time": "26:04",
+        "track": "Blaine Stranger - Dragon"
+      },
+      {
+        "time": "27:57",
+        "track": "Killer Hertz - Gorilla ft. Chris Girl Problem"
+      },
+      {
+        "time": "29:04",
+        "track": "DC Breaks & Prolix - Infinity"
+      },
+      {
+        "time": "30:40",
+        "track": "Junk Mail - Subscribe Now"
+      },
+      {
+        "time": "32:09",
+        "track": "Kumarion - Instinct"
+      },
+      {
+        "time": "34:39",
+        "track": "Smooth & Disaszt - Triumphant"
+      },
+      {
+        "time": "35:09",
+        "track": "Mob Tactics - Mindhunter"
+      },
+      {
+        "time": "36:39",
+        "track": "Rene LaVice - Cold Crush (ft. Gydra)"
+      },
+      {
+        "time": "38:09",
+        "track": "DC Breaks - Gambino (InsideInfo Remix)"
+      },
+      {
+        "time": "39:38",
+        "track": "Aktive - Close To Me"
+      },
+      {
+        "time": "41:08",
+        "track": "Skrillex - Ragga Bomb (Teddy Killerz Remix)"
+      },
+      {
+        "time": "42:38",
+        "track": "Black Sun Empire - Don't You Stasis (V O E Remix)"
+      },
+      {
+        "time": "44:30",
+        "track": "Qo - Krieg"
+      },
+      {
+        "time": "46:00",
+        "track": "Paperclip ft. 3xil3 - Vacuum"
+      },
+      {
+        "time": "47:08",
+        "track": "Freaks & Geeks - Function"
+      },
+      {
+        "time": "48:37",
+        "track": "Koven - Another Home (VIP Mix)"
+      },
+      {
+        "time": "50:07",
+        "track": "Fourward & The Arcturians - Alien"
+      },
+      {
+        "time": "53:07",
+        "track": "Tantrum Desire - Unleashed"
+      },
+      {
+        "time": "54:37",
+        "track": "Kompany & Teddy Killerz - Beast"
+      },
+      {
+        "time": "56:07",
+        "track": "Dextems - Synthet"
+      },
+      {
+        "time": "57:36",
+        "track": "The Clamps - Social Disorder"
+      },
+      {
+        "time": "58:11",
+        "track": "Spor ft. James Hadouken! - Empire"
+      },
+      {
+        "time": "59:06",
+        "track": "Donny Brook - Rude Boi Killa (feat. MC Shureshock) (Zeal Remix)"
+      },
+      {
+        "time": "1:00:36",
+        "track": "Prolix & The Qemists - Feel Alive"
+      },
+      {
+        "time": "1:02:06",
+        "track": "BADVOID & PERSONA NON GRATA - KEEP IT HARDCORE"
+      },
+      {
+        "time": "1:03:47",
+        "track": "ShockOne ft. Metrik & Kyza - Lazerbeam"
+      },
+      {
+        "time": "1:05:17",
+        "track": "The Prodigy - The Day Is My Enemy (Bad Company UK Remix)"
+      }
+    ]
+},
+ {
     "id": "20230502",
     "featured": false,
     "ignore": false,
@@ -37,9 +214,150 @@
     "image_wide_small": "/images/full/red/wide/image_full_red_20230502_wide-small.jpg",
     "image_wide_large": "/images/full/red/wide/image_full_red_20230502_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20230502_square.jpg",
-    "tracklist": []
-  },
-  {
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Drumsound & Bassline Smith - Violator"
+      },
+      {
+        "time": "02:36",
+        "track": "Tantrum Desire - The Flow"
+      },
+      {
+        "time": "04:26",
+        "track": "Fourward & Signal - Aversion"
+      },
+      {
+        "time": "06:16",
+        "track": "Emperor & Mefjus - Disrupted (Mefjus VIP)"
+      },
+      {
+        "time": "08:07",
+        "track": "Mob Tactics - Pure X"
+      },
+      {
+        "time": "09:57",
+        "track": "Original Sin - Vandals Back"
+      },
+      {
+        "time": "11:47",
+        "track": "Pythius - BBT"
+      },
+      {
+        "time": "13:38",
+        "track": "Teddy Killerz - Assassins VIP"
+      },
+      {
+        "time": "15:28",
+        "track": "The Prototypes - Shadows"
+      },
+      {
+        "time": "17:19",
+        "track": "Zardonic - The Time Is Now"
+      },
+      {
+        "time": "19:09",
+        "track": "Kanine - Get Down"
+      },
+      {
+        "time": "21:00",
+        "track": "Magnetude - Now Run"
+      },
+      {
+        "time": "22:50",
+        "track": "Exploid - Substance"
+      },
+      {
+        "time": "24:40",
+        "track": "Nuklear & Pythius - Whiplash"
+      },
+      {
+        "time": "26:30",
+        "track": "Pendulum - Blood Sugar"
+      },
+      {
+        "time": "28:21",
+        "track": "Phace - So Excited"
+      },
+      {
+        "time": "30:11",
+        "track": "State of Mind  Coppa - Chain Reaction"
+      },
+      {
+        "time": "32:01",
+        "track": "Sub Focus - Timewarp (Dimension Remix)"
+      },
+      {
+        "time": "33:52",
+        "track": "Delta Heavy x Muzzy - Revenge"
+      },
+      {
+        "time": "35:42",
+        "track": "Aktive - Obey Or Die"
+      },
+      {
+        "time": "37:33",
+        "track": "A.M.C & Six Blade - Killa"
+      },
+      {
+        "time": "39:23",
+        "track": "Voicians - Forsaken"
+      },
+      {
+        "time": "41:13",
+        "track": "Calyx & Teebee - Nothing Left"
+      },
+      {
+        "time": "43:03",
+        "track": "The Bloody Beetroots & Teddy Killerz - Elevate"
+      },
+      {
+        "time": "44:54",
+        "track": "Bastion - Light Work"
+      },
+      {
+        "time": "46:45",
+        "track": "Fourward - All 4 Myself"
+      },
+      {
+        "time": "48:35",
+        "track": "SiLi - TRONCE"
+      },
+      {
+        "time": "50:25",
+        "track": "Metrik - Universal Language"
+      },
+      {
+        "time": "52:15",
+        "track": "3FORCE - Abyss (feat. Scandroid) [Gancher & Ruin Remix]"
+      },
+      {
+        "time": "54:06",
+        "track": "Wilkinson - Heartbeat ft P Money & Arlissa (Mind Vortex Remix)"
+      },
+      {
+        "time": "55:56",
+        "track": "Junk Mail & A.M.C - Blocklist"
+      },
+      {
+        "time": "57:46",
+        "track": "Metrik - Dying Light (feat. ShockOne) (Flite Remix)"
+      },
+      {
+        "time": "59:37",
+        "track": "Dirtyphonics - Scorpion"
+      },
+      {
+        "time": "1:01:27",
+        "track": "Muzzy ft. UK-ID - Play"
+      },
+      {
+        "time": "1:03:15",
+        "track": "Drumsound & Bassline Smith - Violator"
+      }
+    ]
+},
+ {
     "id": "20230403",
     "featured": false,
     "ignore": false,
@@ -57,9 +375,150 @@
     "image_wide_small": "/images/full/red/wide/image_full_red_20230403_wide-small.jpg",
     "image_wide_large": "/images/full/red/wide/image_full_red_20230403_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20230403_square.jpg",
-    "tracklist": []
-  },
-  {
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "REAPER & SYN - LEVITATE"
+      },
+      {
+        "time": "02:56",
+        "track": "Delta Heavy x Everyone You Know - Anarchy (ShockOne Remix)"
+      },
+      {
+        "time": "04:48",
+        "track": "Tantrum Desire - Zealous"
+      },
+      {
+        "time": "06:07",
+        "track": "K Motionz - Reaction (ft. IC3)"
+      },
+      {
+        "time": "07:57",
+        "track": "Sophon & Pegboard Nerds - Shine"
+      },
+      {
+        "time": "09:47",
+        "track": "ODDKO - Disobey (Zardonic Remix)"
+      },
+      {
+        "time": "11:37",
+        "track": "Crissy Criss x Teddy Killerz - War on Silence"
+      },
+      {
+        "time": "13:27",
+        "track": "Blitz Union - Revolution (Zardonic Remix)"
+      },
+      {
+        "time": "15:18",
+        "track": "Memtrix - IC YR PAIN"
+      },
+      {
+        "time": "17:08",
+        "track": "Flowidus & TREi - Don't Breathe In (ft. Linguistics)"
+      },
+      {
+        "time": "18:59",
+        "track": "The Crystal Method - Play For Real (Dirtyphonics Remix)"
+      },
+      {
+        "time": "20:49",
+        "track": "Misanthrop & Synergy - Slap The Ghost"
+      },
+      {
+        "time": "22:39",
+        "track": "Mr. Frenkie - Bass Symptom"
+      },
+      {
+        "time": "24:51",
+        "track": "Metrik - Hackers"
+      },
+      {
+        "time": "26:42",
+        "track": "Muzz - Get Crazy"
+      },
+      {
+        "time": "28:32",
+        "track": "No Concept - Showdown"
+      },
+      {
+        "time": "30:22",
+        "track": "Original Sin - Red Mist"
+      },
+      {
+        "time": "32:13",
+        "track": "Phace - Beyond Number"
+      },
+      {
+        "time": "34:04",
+        "track": "State Of Mind - Giant VIP"
+      },
+      {
+        "time": "35:54",
+        "track": "V O E - Come This Far"
+      },
+      {
+        "time": "37:44",
+        "track": "A.M.C - Southpaw"
+      },
+      {
+        "time": "39:34",
+        "track": "Dimension - In Bleach"
+      },
+      {
+        "time": "41:47",
+        "track": "Camo & Krooked - Cryptkeeper"
+      },
+      {
+        "time": "43:37",
+        "track": "Cyantific - Ice Cream (Vanilla Mix)"
+      },
+      {
+        "time": "45:27",
+        "track": "Kaskade & CID - Us (Delta Heavy Remix)"
+      },
+      {
+        "time": "47:18",
+        "track": "DisasZt - Synco"
+      },
+      {
+        "time": "49:08",
+        "track": "Gydra - Lava Run"
+      },
+      {
+        "time": "50:59",
+        "track": "Black Sun Empire & State Of Mind - Until The World Ends (Mind Vortex Remix)"
+      },
+      {
+        "time": "52:49",
+        "track": "WATEVA - Ber Zer Ker (Rob Gasser Remix)"
+      },
+      {
+        "time": "55:01",
+        "track": "Circle of Dust - Neurachem (Voicians Remix)"
+      },
+      {
+        "time": "57:13",
+        "track": "Andy C - Till Dawn"
+      },
+      {
+        "time": "59:04",
+        "track": "Gancher & Ruin - Interceptor"
+      },
+      {
+        "time": "1:00:54",
+        "track": "Telekinesis - Fight Club (Pythius Remix)"
+      },
+      {
+        "time": "1:02:45",
+        "track": "The Qemists - Requiem"
+      },
+      {
+        "time": "1:04:35",
+        "track": "Krakota - Desert Strike"
+      }
+    ]
+},
+{
     "id": "20220711",
     "featured": false,
     "ignore": false,
@@ -77,6 +536,163 @@
     "image_wide_small": "/images/full/red/wide/image_full_red_20220711_wide-small.jpg",
     "image_wide_large": "/images/full/red/wide/image_full_red_20220711_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20220711_square.jpg",
-    "tracklist": []
-  }
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Drumsound & Bassline Smith vs. Teddy Killerz - Metal & Blood"
+      },
+      {
+        "time": "02:12",
+        "track": "The Prototypes - Rocket Guns Blazin' (Crissy Criss + Malux + Erb N Dub Remix)"
+      },
+      {
+        "time": "03:40",
+        "track": "ShockOne - Til Dawn"
+      },
+      {
+        "time": "05:08",
+        "track": "Dub Elements - Southern Heat"
+      },
+      {
+        "time": "06:36",
+        "track": "Apashe ft. Instasamka - Uebok (Gotta Run) VIP"
+      },
+      {
+        "time": "08:14",
+        "track": "Evol Intent - Brainswarm"
+      },
+      {
+        "time": "09:41",
+        "track": "Glitch City - Black Hole Skank"
+      },
+      {
+        "time": "11:10",
+        "track": "Sub Focus - X-Ray (Metrik Remix)"
+      },
+      {
+        "time": "12:38",
+        "track": "The Upbeats - Disorder"
+      },
+      {
+        "time": "14:05",
+        "track": "The Prodigy - Nasty (Spor Remix)"
+      },
+      {
+        "time": "15:33",
+        "track": "MUZZ - Rave Through The Apocalypse"
+      },
+      {
+        "time": "17:01",
+        "track": "Distress Signal - Earthquake"
+      },
+      {
+        "time": "19:23",
+        "track": "Dimension - Hatred"
+      },
+      {
+        "time": "20:51",
+        "track": "A.M.C & Turno - Black Jungle"
+      },
+      {
+        "time": "22:20",
+        "track": "Junk Mail - Lock Stock"
+      },
+      {
+        "time": "23:47",
+        "track": "Sub Focus - Timewarp"
+      },
+      {
+        "time": "24:23",
+        "track": "Murdock & Doctrine ft. Modestep - Start A Rampage"
+      },
+      {
+        "time": "26:20",
+        "track": "Gydra - Hangjaw"
+      },
+      {
+        "time": "27:59",
+        "track": "Drumsound & Bassline Smith - Cold Turkey (Tantrum Desire Remix)"
+      },
+      {
+        "time": "29:27",
+        "track": "Calyx & TeeBee - Conquest"
+      },
+      {
+        "time": "30:55",
+        "track": "InsideInfo - Renegade (ft. Jakes)"
+      },
+      {
+        "time": "32:23",
+        "track": "Prolix - Beyond The Satellite"
+      },
+      {
+        "time": "33:51",
+        "track": "Pythius & Black Sun Empire - Kepler"
+      },
+      {
+        "time": "35:19",
+        "track": "Futurebound & Trei - Stars Will Fall"
+      },
+      {
+        "time": "36:46",
+        "track": "Blaine Stranger - Tension"
+      },
+      {
+        "time": "38:14",
+        "track": "The Prototypes & TC - Species (DC Breaks Remix)"
+      },
+      {
+        "time": "39:41",
+        "track": "The Prototypes - Enter The Warrior VIP"
+      },
+      {
+        "time": "41:10",
+        "track": "Dirtyphonics & Bassnectar - Watch Out (feat. Ragga Twins)"
+      },
+      {
+        "time": "42:37",
+        "track": "Murdock & Doctrine - Fire (Drumsound & Bassline Smith vs. Tantrum Desire Remix)"
+      },
+      {
+        "time": "44:05",
+        "track": "Mind Vortex - Onslaught"
+      },
+      {
+        "time": "45:23",
+        "track": "Pendulum - Driver"
+      },
+      {
+        "time": "47:00",
+        "track": "Black Sun Empire & State of Mind - Caterpillar (ft. Virus Syndicate)"
+      },
+      {
+        "time": "48:28",
+        "track": "Culture Shock - East Block"
+      },
+      {
+        "time": "49:56",
+        "track": "Cyantific - Cyborg VIP (ft. BMotion)"
+      },
+      {
+        "time": "51:23",
+        "track": "Emperor - SMPL (Mefjus Remix)"
+      },
+      {
+        "time": "52:52",
+        "track": "Fourward - Sequencer"
+      },
+      {
+        "time": "54:20",
+        "track": "Joe Ford x Document One - Care For Me"
+      },
+      {
+        "time": "55:57",
+        "track": "What So Not - Divide & Conquer (Noisia Remix)"
+      },
+      {
+        "time": "57:15",
+        "track": "Delta Heavy - Space Time VIP"
+      }
+    ]
+}
 ]

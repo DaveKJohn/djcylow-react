@@ -1,45 +1,5 @@
 [
   {
-    "id": "20231106",
-    "featured": false,
-    "ignore": false,
-    "color": "yellow",
-    "genre": "Drum & Bass",
-    "power": "full",
-    "title": "yellow Full (m)",
-    "frequency": "(m)",
-    "volume": "Vol. 2",
-    "maand": "Nov",
-    "dag": "06",
-    "jaar": "2023",
-    "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20231106.html",
-    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20231106_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20231106_wide-small.jpg",
-    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20231106_wide-large.webp",
-    "image_square": "/images/full/yellow/square/image_full_yellow_20231106_square.jpg",
-    "tracklist": []
-  },
-  {
-    "id": "20230220",
-    "featured": false,
-    "ignore": false,
-    "color": "yellow",
-    "genre": "Drum & Bass",
-    "power": "full",
-    "title": "yellow Full (m)",
-    "frequency": "(m)",
-    "volume": "Vol. 1",
-    "maand": "Feb",
-    "dag": "20",
-    "jaar": "2023",
-    "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20230220.html",
-    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20230220_Audio_V3%20(Vol.%201).mp3",
-    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20230220_wide-small.jpg",
-    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20230220_wide-large.webp",
-    "image_square": "/images/full/yellow/square/image_full_yellow_20230220_square.jpg",
-    "tracklist": []
-  },
-  {
     "id": "20260303",
     "featured": false,
     "ignore": false,
@@ -59,149 +19,479 @@
     "image_square": "/images/full/yellow/square/image_full_yellow_20260303_square.jpg",
     "tracklist": [
       {
-        "time": "00:00",
-        "track": "Nymfo & Riya - Something Tells Me"
+        "time": "01:00",
+        "track": "Yolanda Be Cool - Dance and Chant"
       },
       {
-        "time": "02:35",
-        "track": "Clipz - Down 4"
+        "time": "02:40",
+        "track": "Stars on 45 - Stars on 45 (Addy Van Der Zwan Remix)"
       },
       {
-        "time": "04:25",
-        "track": "Smote - Summertime (Nelver Remix)"
+        "time": "04:51",
+        "track": "Me & My Toothbrush - Cowbells & Bitches"
       },
       {
-        "time": "06:14",
-        "track": "FD - The Feeling (ft. KinKai)"
+        "time": "06:53",
+        "track": "Me & My Toothbrush - Get Down, JB"
       },
       {
-        "time": "08:04",
-        "track": "Mediks ft. Astronaut - Blown Away"
+        "time": "08:55",
+        "track": "Dombresky - Soul Sacrifice"
       },
       {
-        "time": "09:54",
-        "track": "Villem & McLeod - Let It Breathe (ft. Leo Wood)"
+        "time": "10:41",
+        "track": "Cee-Roo - Work Song (NHYX Remix)"
       },
       {
-        "time": "11:43",
-        "track": "Screamarts - Sunbath"
+        "time": "12:36",
+        "track": "Mr. Belt & Wezol - Good Times"
       },
       {
-        "time": "13:33",
-        "track": "Pendulum ft. Fats & TC - Plastic World"
+        "time": "14:53",
+        "track": "Block & Crown - You Started This Fire (Ghostbusterz 2023 Redubb)"
       },
       {
-        "time": "15:22",
-        "track": "Flava D - Mesmerise"
+        "time": "17:10",
+        "track": "ATFC & David Penn - Hipcats"
       },
       {
-        "time": "17:12",
-        "track": "Dossa & Locuzzed - Blinded (ft. Patch Edison)"
+        "time": "18:57",
+        "track": "Mike Candys - Flexin"
       },
       {
-        "time": "19:02",
-        "track": "Seba & Emily Harkness - Breathe Deep"
+        "time": "21:14",
+        "track": "Kryder, HIIO - La Luna (Styline Remix)"
       },
       {
-        "time": "20:52",
-        "track": "Satl – All My Life (ft. Steo)"
+        "time": "23:16",
+        "track": "The Shoes - Time To Dance (Sebastian Remix)"
       },
       {
-        "time": "22:41",
-        "track": "Stranger - Her"
+        "time": "24:53",
+        "track": "Fedde Le Grand & Josh Cumbee - Dancing Shoes"
       },
       {
-        "time": "24:32",
-        "track": "PNAU - Solid Gold (Friction Remix)"
+        "time": "27:10",
+        "track": "Earth n Days - Rollin' On"
       },
       {
-        "time": "26:21",
-        "track": "René LaVice - Can't Get Enough (ft. Isaac Evans)"
+        "time": "28:57",
+        "track": "Showtek - Listen To Your Momma ft. Leon Sherman (A-Trak Remix)"
       },
       {
-        "time": "28:11",
-        "track": "Hybrid Minds – Seasons"
+        "time": "31:14",
+        "track": "VCTRY - Supernatural Delight"
       },
       {
-        "time": "30:00",
-        "track": "Rezilient & HumaNature - Lost Together"
+        "time": "33:16",
+        "track": "Ellie Sax - It Ain't Right"
       },
       {
-        "time": "31:50",
-        "track": "Camo & Krooked - Slow Down ft. ROBB (Fred V & Grafix Remix)"
+        "time": "35:25",
+        "track": "Royce & Tan - Everybody Dance Now"
       },
       {
-        "time": "33:40",
-        "track": "Ownglow - Gold"
+        "time": "37:27",
+        "track": "Syke 'n' Sugarstarr - Ticket 2 Ride (Mirko & Meex Remix)"
       },
       {
-        "time": "35:30",
-        "track": "Logistics - Take Me to Another World (ft. Stella Attar)"
+        "time": "39:29",
+        "track": "Natema & Andrey Exx - I Can't Dance"
       },
       {
-        "time": "37:19",
-        "track": "Koherent - Bliss"
+        "time": "41:31",
+        "track": "Block & Crown - The Four Letter Word (Soul)"
       },
       {
-        "time": "39:10",
-        "track": "High Contrast - Remind Me"
+        "time": "43:33",
+        "track": "Youngr & Endor - Give It Up"
       },
       {
-        "time": "41:10",
-        "track": "Zero T & Steo - Can't Hide"
+        "time": "45:50",
+        "track": "Ellie Sax - The Dance Floor"
       },
       {
-        "time": "42:37",
-        "track": "GLXY - Abstraction (ft. Ruby Wood)"
+        "time": "47:52",
+        "track": "Arno Cost & Norman Doray - Wanna Do"
       },
       {
-        "time": "44:49",
-        "track": "Polygon - High (ft. Lois Lauri)"
+        "time": "50:01",
+        "track": "Yvvan Back - Get On The Floor"
       },
       {
-        "time": "46:39",
-        "track": "Blastikz - Good View"
+        "time": "52:03",
+        "track": "ATFC - I Feel The Earth Move"
       },
       {
-        "time": "48:29",
-        "track": "LSB & Kinross – Roots"
+        "time": "53:50",
+        "track": "Croatia Squad & Me And My Toothbrush - S.L.E.D.G.E"
       },
       {
-        "time": "50:18",
-        "track": "Redemptive - Within Nature"
+        "time": "56:24",
+        "track": "Illyus & Barrientos ft. Laura Davie - Disco Hearts"
       },
       {
-        "time": "52:08",
-        "track": "The hasHorizontalPaddingrs - All Night Long (ft. Pyvot)"
+        "time": "58:26",
+        "track": "Husky ft. Lawrence Huskinson - Don't You Leave Me"
       },
       {
-        "time": "53:58",
-        "track": "Royalston & Pearse-Hawkins - Voodoo Love Dance"
+        "time": "1:00:36",
+        "track": "Kryder - MTV"
       },
       {
-        "time": "55:39",
-        "track": "Dr Meaker - Deep In My Heart ft. Lorna King (DJ Marky & Dr Meaker Remix)"
+        "time": "1:02:53",
+        "track": "Andrea Laddo - SassoBasso (The Cube Guys Remix)"
       },
       {
-        "time": "57:29",
-        "track": "Winslow - A Man & His Kettle"
+        "time": "1:04:24",
+        "track": "Ozcan & War - Low Rider"
       },
       {
-        "time": "59:19",
-        "track": "DJ Marky x Pola & Bryson - Trouble (ft. Javeon)"
-      },
-      {
-        "time": "01:01:08",
-        "track": "T & Sugah ft. Ayve - Green Valleys"
-      },
-      {
-        "time": "01:02:58",
-        "track": "Alix Perez & Ivy Lab - Arkestra"
-      },
-      {
-        "time": "01:04:48",
-        "track": "Maduk – Vermilion"
+        "time": "1:06:53",
+        "track": "Zsak - Freedom In The Rhythm"
       }
     ]
-  }
+  },
+{
+    "id": "20231106",
+    "featured": false,
+    "ignore": false,
+    "color": "yellow",
+    "genre": "Drum & Bass",
+    "power": "full",
+    "title": "yellow Full (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 2",
+    "maand": "Nov",
+    "dag": "06",
+    "jaar": "2023",
+    "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20231106.html",
+    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20231106_Audio_V1%20(Vol.%202).mp3",
+    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20231106_wide-small.jpg",
+    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20231106_wide-large.webp",
+    "image_square": "/images/full/yellow/square/image_full_yellow_20231106_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Dimension - Offender (Dimension & Grafix Remix)"
+      },
+      {
+        "time": "02:13",
+        "track": "Marlon Hoffstadt - It's That Time (Dimension Remix)"
+      },
+      {
+        "time": "03:43",
+        "track": "Sub Focus - Off The Ground"
+      },
+      {
+        "time": "05:12",
+        "track": "Delta Heavy - No Gravity"
+      },
+      {
+        "time": "06:42",
+        "track": "Andromedik - Scavenger"
+      },
+      {
+        "time": "08:12",
+        "track": "Smash Into Pieces - Boomerang (Zardonic Remix)"
+      },
+      {
+        "time": "09:42",
+        "track": "Kove - The Music"
+      },
+      {
+        "time": "11:12",
+        "track": "MUZZ - Ready For It ft. Skyelle"
+      },
+      {
+        "time": "12:30",
+        "track": "REAPER - BARRICADE"
+      },
+      {
+        "time": "14:00",
+        "track": "Fox Stevenson - Bruises"
+      },
+      {
+        "time": "15:30",
+        "track": "Diamond 6 - Title Fight (Zardonic Remix)"
+      },
+      {
+        "time": "17:00",
+        "track": "Cyantific - Body Movin' (ft. ShockOne)"
+      },
+      {
+        "time": "18:30",
+        "track": "Pierce Fulton - What Is Gonna Make You Happy (ft. Noosa) (Urbandawn Remix)"
+      },
+      {
+        "time": "20:00",
+        "track": "Calyx & Teebee - False Alarm"
+      },
+      {
+        "time": "21:29",
+        "track": "Calyx & Teebee - Where We Go (feat. Doctor)"
+      },
+      {
+        "time": "22:59",
+        "track": "Enter Shikari - Slipshod (Urbandawn Remix)"
+      },
+      {
+        "time": "24:40",
+        "track": "What So Not ft. DMA'S - The Change (Ekko & Sidetrack Remix)"
+      },
+      {
+        "time": "26:10",
+        "track": "Fox Stevenson & Curbi - Hoohah VIP"
+      },
+      {
+        "time": "27:40",
+        "track": "AC13 - Visions"
+      },
+      {
+        "time": "29:10",
+        "track": "ShockOne & Phetsta - The Sun VIP"
+      },
+      {
+        "time": "30:40",
+        "track": "Metrik  - Cadence VIP (ft. Reija Lee)"
+      },
+      {
+        "time": "32:09",
+        "track": "Tantrum Desire - Underground"
+      },
+      {
+        "time": "33:36",
+        "track": "Tantrum Desire ft. I-Kay - What Is Your Desire. Dancefloor Pressure Mix"
+      },
+      {
+        "time": "35:09",
+        "track": "Andy C & Fiora - Heartbeat Loud VIP"
+      },
+      {
+        "time": "36:39",
+        "track": "Sub Focus & Metrik – Trip"
+      },
+      {
+        "time": "38:09",
+        "track": "Delta Heavy - Ascend"
+      },
+      {
+        "time": "39:38",
+        "track": "MUZZ - F Minor Simulator"
+      },
+      {
+        "time": "41:08",
+        "track": "Metrik - Fatso (VIP)"
+      },
+      {
+        "time": "42:38",
+        "track": "Wilkinson - Frontline"
+      },
+      {
+        "time": "44:08",
+        "track": "Metrik - Engine Room"
+      },
+      {
+        "time": "45:36",
+        "track": "Junk Mail - Yellow Jacket"
+      },
+      {
+        "time": "47:08",
+        "track": "Maduk - Stand By You"
+      },
+      {
+        "time": "48:37",
+        "track": "Sub Focus - Airplane (Culture Shock Remix)"
+      },
+      {
+        "time": "50:07",
+        "track": "Dub Fx - Light Me On Fire (High Maintenance Remix)"
+      },
+      {
+        "time": "51:37",
+        "track": "High Contrast - Tobacco Road"
+      },
+      {
+        "time": "53:18",
+        "track": "Memtrix - Black Moon"
+      },
+      {
+        "time": "54:48",
+        "track": "Danny Byrd - Make It Weighty"
+      },
+      {
+        "time": "56:18",
+        "track": "Dodge & Fuski - Turn It Up (Xilent Remix)"
+      },
+      {
+        "time": "57:48",
+        "track": "XILENT - ULTRA"
+      },
+      {
+        "time": "59:29",
+        "track": "The Qemists - Warrior Sound"
+      },
+      {
+        "time": "1:00:47",
+        "track": "Brookes Brothers ft. Haz-Mat - Loveline"
+      }
+    ]
+},
+{
+  "id": "20230220",
+  "featured": false,
+  "ignore": false,
+  "color": "yellow",
+  "genre": "Drum & Bass",
+  "power": "full",
+  "title": "yellow Full (m)",
+  "frequency": "(m)",
+  "volume": "Vol. 1",
+  "maand": "Feb",
+  "dag": "20",
+  "jaar": "2023",
+  "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20230220.html",
+  "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20230220_Audio_V3%20(Vol.%201).mp3",
+  "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20230220_wide-small.jpg",
+  "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20230220_wide-large.webp",
+  "image_square": "/images/full/yellow/square/image_full_yellow_20230220_square.jpg",
+  "tracklist": [
+    {
+      "time": "00:00",
+      "track": "Danny Byrd - Make It Weighty"
+    },
+    {
+      "time": "02:34",
+      "track": "Tantrum Desire - Guided Rhythm"
+    },
+    {
+      "time": "04:24",
+      "track": "MUZZ ft. Sullivan King - In The Night"
+    },
+    {
+      "time": "06:59",
+      "track": "Brookes Brothers ft. Haz-Mat - Loveline"
+    },
+    {
+      "time": "09:23",
+      "track": "Memtrix - Black Moon"
+    },
+    {
+      "time": "10:51",
+      "track": "Kove - The Music"
+    },
+    {
+      "time": "12:41",
+      "track": "Danny Byrd - 4th Dimension"
+    },
+    {
+      "time": "14:31",
+      "track": "Xilent - Animation (ft. Diamond Eyes)"
+    },
+    {
+      "time": "16:22",
+      "track": "Zardonic ft. The Qemists  - Takeover"
+    },
+    {
+      "time": "18:12",
+      "track": "Fox Stevenson & Curbi - Hoohah VIP"
+    },
+    {
+      "time": "20:24",
+      "track": "Cyantific - Body Movin' (ft. ShockOne)"
+    },
+    {
+      "time": "22:15",
+      "track": "Pierce Fulton - What Is Gonna Make You Happy (ft. Noosa) (Urbandawn Remix)"
+    },
+    {
+      "time": "24:05",
+      "track": "Calyx & Teebee - False Alarm"
+    },
+    {
+      "time": "25:55",
+      "track": "Grabbitz - Better With Time"
+    },
+    {
+      "time": "28:08",
+      "track": "Shock One - Polygon [Ft. Reija]"
+    },
+    {
+      "time": "29:59",
+      "track": "Smash Into Pieces - Big Bang (Zardonic Remix)"
+    },
+    {
+      "time": "31:49",
+      "track": "Sub Focus - Get On Up"
+    },
+    {
+      "time": "33:39",
+      "track": "Fox Stevenson - Dreamland"
+    },
+    {
+      "time": "35:29",
+      "track": "Ruzer - Callisto"
+    },
+    {
+      "time": "37:20",
+      "track": "Calyx & Teebee - Where We Go (feat. Doctor)"
+    },
+    {
+      "time": "39:10",
+      "track": "Sub Focus - Join The Dots"
+    },
+    {
+      "time": "41:00",
+      "track": "Tantrum Desire - Reach VIP"
+    },
+    {
+      "time": "42:50",
+      "track": "Ray Charles - Hit The Road Jack (Kubrak Remix)"
+    },
+    {
+      "time": "44:41",
+      "track": "Shock One  Phetsta - The Sun VIP"
+    },
+    {
+      "time": "46:31",
+      "track": "Sid Batham - All Lies (Brookes Brothers Remix)"
+    },
+    {
+      "time": "48:22",
+      "track": "Axollo - Moonstruck"
+    },
+    {
+      "time": "50:12",
+      "track": "Dimension - Offender"
+    },
+    {
+      "time": "52:02",
+      "track": "Junk Mail - Yellow Jacket"
+    },
+    {
+      "time": "53:52",
+      "track": "Memtrix - So Alive"
+    },
+    {
+      "time": "55:43",
+      "track": "Maduk - Voyager"
+    },
+    {
+      "time": "58:17",
+      "track": "Matrix & FutureBound - American Beauty VIP"
+    },
+    {
+      "time": "1:00:08",
+      "track": "High Contrast - Tobacco Road"
+    },
+    {
+      "time": "1:01:58",
+      "track": "Sub Focus - Airplane (Culture Shock Remix)"
+    },
+    {
+      "time": "1:04:02",
+      "track": "Plan B - Stay Too Long (Pendulum Remix)"
+    }
+  ]
+}
 ]

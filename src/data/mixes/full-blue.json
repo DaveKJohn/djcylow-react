@@ -17,9 +17,178 @@
     "image_wide_small": "/images/full/blue/wide/image_full_blue_20240408_wide-small.jpg",
     "image_wide_large": "/images/full/blue/wide/image_full_blue_20240408_wide-large.webp",
     "image_square": "/images/full/blue/square/image_full_blue_20240408_square.jpg",
-    "tracklist": []
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "1991 - Power (ft. BullySongs)"
+      },
+      {
+        "time": "02:37",
+        "track": "Delta Heavy - Kaleidoscope"
+      },
+      {
+        "time": "04:07",
+        "track": "Diplo & Sonny Fodera - Turn Back Time (Wilkinson Remix)"
+      },
+      {
+        "time": "05:36",
+        "track": "Flowidus - Said & Done"
+      },
+      {
+        "time": "07:06",
+        "track": "High Contrast - Questions (ft. Boy Matthews)"
+      },
+      {
+        "time": "08:36",
+        "track": "Cartoon - Immortality ft. Kristel Aaslaid (Futuristik Remix)"
+      },
+      {
+        "time": "10:06",
+        "track": "DC Breaks - Back For More"
+      },
+      {
+        "time": "11:36",
+        "track": "T & Sugah - Walk Her Way ft. Amanda (Madface Remix)"
+      },
+      {
+        "time": "13:05",
+        "track": "Jack Mirror & Champion - Oculus"
+      },
+      {
+        "time": "14:58",
+        "track": "Maduk & Dennis Pedersen - Miles Apart ft. Ella Noel & Rino (Fox Stevenson Remix)"
+      },
+      {
+        "time": "16:05",
+        "track": "Stan SB - Anyone Out There"
+      },
+      {
+        "time": "17:35",
+        "track": "Tetracase - Call Out"
+      },
+      {
+        "time": "19:05",
+        "track": "Rameses B - Open Your Eyes (NCT Remix)"
+      },
+      {
+        "time": "20:35",
+        "track": "Jon Void - Beautiful"
+      },
+      {
+        "time": "22:04",
+        "track": "Krewella - Surrender The Throne"
+      },
+      {
+        "time": "23:45",
+        "track": "Subsonic - All For You"
+      },
+      {
+        "time": "25:15",
+        "track": "Namaste ft. Tiana Khasi - Signs"
+      },
+      {
+        "time": "26:42",
+        "track": "Kove x Dimension - Feel Love Again"
+      },
+      {
+        "time": "28:12",
+        "track": "Flume ft. Vera Blue - Rushing Back (Ekko & Sidetrack Bootleg)"
+      },
+      {
+        "time": "29:42",
+        "track": "it's different - Outlaw (feat. Miss Mary)"
+      },
+      {
+        "time": "31:12",
+        "track": "TARI & Yix - Bliss"
+      },
+      {
+        "time": "32:42",
+        "track": "Champion ft. Jumae - Keep On Running"
+      },
+      {
+        "time": "34:11",
+        "track": "Blaine Stranger - Losing Myself"
+      },
+      {
+        "time": "36:04",
+        "track": "Sigma & John Newman - High On You (Sigma VIP)"
+      },
+      {
+        "time": "37:11",
+        "track": "T & Sugah - Wicked Days"
+      },
+      {
+        "time": "39:03",
+        "track": "Feint - Mirror Signal"
+      },
+      {
+        "time": "40:11",
+        "track": "Flite - Skywalker"
+      },
+      {
+        "time": "41:41",
+        "track": "Haszan & Overload - We Can Come Back"
+      },
+      {
+        "time": "43:10",
+        "track": "Flux Pavilion & Matthew Koma - Emotional (Draper Remix)"
+      },
+      {
+        "time": "44:20",
+        "track": "Polygon - Is It You"
+      },
+      {
+        "time": "46:32",
+        "track": "Netsky & Stargate - Nobody (Lexurus Bootleg)"
+      },
+      {
+        "time": "47:40",
+        "track": "Phloem - Luminance"
+      },
+      {
+        "time": "49:10",
+        "track": "Blooom – Rush"
+      },
+      {
+        "time": "50:40",
+        "track": "Tantrum Desire - Reach (The Prototypes Remix)"
+      },
+      {
+        "time": "52:09",
+        "track": "Murdock - In Touch (ft. Veela)"
+      },
+      {
+        "time": "53:39",
+        "track": "Audioscribe - Free Fall"
+      },
+      {
+        "time": "55:31",
+        "track": "Subshock & Evangelos - If You Wanna (ft. Voicians)"
+      },
+      {
+        "time": "56:39",
+        "track": "Boxplot - We Lose It All (ft. Voicians)"
+      },
+      {
+        "time": "58:09",
+        "track": "Flux Pavilion - Pull The Trigger (Maduk Remix)"
+      },
+      {
+        "time": "59:38",
+        "track": "Rob Gasser - Supersonic"
+      },
+      {
+        "time": "1:01:08",
+        "track": "Feint - Vagrant ft. Veela (Smooth Remix)"
+      },
+      {
+        "time": "1:02:38",
+        "track": "PNAU - Solid Gold (Friction Remix)"
+      }
+    ]
   },
-  {
+{
     "id": "20220406",
     "featured": false,
     "ignore": false,
@@ -37,6 +206,151 @@
     "image_wide_small": "/images/full/blue/wide/image_full_blue_20220406_wide-small.jpg",
     "image_wide_large": "/images/full/blue/wide/image_full_blue_20220406_wide-large.webp",
     "image_square": "/images/full/blue/square/image_full_blue_20220406_square.jpg",
-    "tracklist": []
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Kanine - Want You"
+      },
+      {
+        "time": "02:56",
+        "track": "Upgrade - Cosmic"
+      },
+      {
+        "time": "04:47",
+        "track": "1991 - The People (D&B Mix)"
+      },
+      {
+        "time": "06:37",
+        "track": "Urbandawn - Together Again (I Pray)"
+      },
+      {
+        "time": "08:27",
+        "track": "Vorso - Constellation"
+      },
+      {
+        "time": "10:18",
+        "track": "Aktive - Higher"
+      },
+      {
+        "time": "12:08",
+        "track": "Blvck Crowz - Shadows"
+      },
+      {
+        "time": "13:58",
+        "track": "Subsonic - Don't Let Go (feat. Prima)"
+      },
+      {
+        "time": "15:49",
+        "track": "K Motionz - All Night"
+      },
+      {
+        "time": "17:39",
+        "track": "Murdock - Holding On (ft. James Marvel)"
+      },
+      {
+        "time": "19:30",
+        "track": "Macky Gee - Tour"
+      },
+      {
+        "time": "21:20",
+        "track": "Fox Stevenson - Miss You (D&B Mix)"
+      },
+      {
+        "time": "23:11",
+        "track": "Friction x Kanine - Your Love"
+      },
+      {
+        "time": "25:00",
+        "track": "Ganja White Night x Dirt Monkey - No Escape (Doctor P Remix)"
+      },
+      {
+        "time": "26:51",
+        "track": "Calyx & TeeBee - Cloud 9"
+      },
+      {
+        "time": "28:41",
+        "track": "Distress Signal - Horizon"
+      },
+      {
+        "time": "30:31",
+        "track": "Feint - Weavers"
+      },
+      {
+        "time": "32:22",
+        "track": "Break - Ain't No Turning Back"
+      },
+      {
+        "time": "34:13",
+        "track": "Annix - I Like To"
+      },
+      {
+        "time": "36:02",
+        "track": "Catch-22 - What I Need"
+      },
+      {
+        "time": "37:53",
+        "track": "Bare Up - Let You Go"
+      },
+      {
+        "time": "39:43",
+        "track": "DJ Phantasy & Murdock - Never Letting Go"
+      },
+      {
+        "time": "41:33",
+        "track": "Matrix & Futurebound - Believe (Flite Remix)"
+      },
+      {
+        "time": "43:24",
+        "track": "Keeno - Guesswork"
+      },
+      {
+        "time": "45:15",
+        "track": "Dux n Bass - I Need Your Love (feat. Nikisha Reyes)"
+      },
+      {
+        "time": "47:05",
+        "track": "Wilkinson - Keep Dancing"
+      },
+      {
+        "time": "48:55",
+        "track": "Matzet - Roller Coaster"
+      },
+      {
+        "time": "50:45",
+        "track": "Receptor - Avocado"
+      },
+      {
+        "time": "52:33",
+        "track": "Maduk - Go Back To The Jungle"
+      },
+      {
+        "time": "54:23",
+        "track": "Dossa & Locuzzed - Shag"
+      },
+      {
+        "time": "56:14",
+        "track": "Siimi - More Than Nothing"
+      },
+      {
+        "time": "58:04",
+        "track": "Hedex & Modestep - On My Mind"
+      },
+      {
+        "time": "59:54",
+        "track": "Blooom - Reality"
+      },
+      {
+        "time": "1:01:47",
+        "track": "Phonetic - Release Your Mind"
+      },
+      {
+        "time": "1:03:47",
+        "track": "Sharks - Light (VIP)"
+      },
+      {
+        "time": "1:05:39",
+        "track": "Freaks & Geeks - Pressure (Ft flowanastasia)"
+      }
+    ]
   }
 ]

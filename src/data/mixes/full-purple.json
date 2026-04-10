@@ -17,9 +17,194 @@
     "image_wide_small": "/images/full/purple/wide/image_full_purple_20240108_wide-small.jpg",
     "image_wide_large": "/images/full/purple/wide/image_full_purple_20240108_wide-large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20240108_square.jpg",
-    "tracklist": []
-  },
-  {
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Ellis & Laura Brehm - Start Over (Kove Remix)"
+      },
+      {
+        "time": "02:37",
+        "track": "Kanine - Deep Blue"
+      },
+      {
+        "time": "04:07",
+        "track": "Friction ft. Arlissa - Long Gone Memory"
+      },
+      {
+        "time": "05:36",
+        "track": "Kanine ft. A Little Sound - Back In Time"
+      },
+      {
+        "time": "07:06",
+        "track": "Sobo - Break My Heart"
+      },
+      {
+        "time": "08:36",
+        "track": "RVDY - The Past"
+      },
+      {
+        "time": "10:06",
+        "track": "V O E - Our Own Way"
+      },
+      {
+        "time": "11:35",
+        "track": "Cyantific - Walking Away"
+      },
+      {
+        "time": "13:05",
+        "track": "DNMO - Speed Of Light (with The Arcturians)"
+      },
+      {
+        "time": "14:35",
+        "track": "ShockOne - Higher Rush feat. Freaks & Geeks"
+      },
+      {
+        "time": "16:05",
+        "track": "Subsonic - Hold On (ft. Ruth Royall)"
+      },
+      {
+        "time": "17:35",
+        "track": "Koven - Industrial Strain"
+      },
+      {
+        "time": "19:05",
+        "track": "Memtrix - Of The Ice"
+      },
+      {
+        "time": "20:35",
+        "track": "Rollz - Burn Up (feat. Katie's Ambition)"
+      },
+      {
+        "time": "22:27",
+        "track": "Le Castle Vania - Disintegration (Memtrix Remix)"
+      },
+      {
+        "time": "23:34",
+        "track": "Friction - Running (ft. Raphaella)"
+      },
+      {
+        "time": "25:04",
+        "track": "Synergy - Lust (ft. Tasha Baxter)"
+      },
+      {
+        "time": "26:45",
+        "track": "K Motionz & Emily Makis - Only You"
+      },
+      {
+        "time": "28:15",
+        "track": "REAPER & Calivania - BLACK FIRES"
+      },
+      {
+        "time": "29:45",
+        "track": "Concord Dawn - Fly Away Home (Frankee Remix)"
+      },
+      {
+        "time": "31:15",
+        "track": "Freaks & Geeks - Pressure (Ft flowanastasia)"
+      },
+      {
+        "time": "32:44",
+        "track": "Alpine Universe - Helios (Burn Me to the Sky)"
+      },
+      {
+        "time": "34:37",
+        "track": "Vorso - Crisis"
+      },
+      {
+        "time": "35:44",
+        "track": "Near & Far - Reflections"
+      },
+      {
+        "time": "37:14",
+        "track": "Bensley - Secrets feat. Sarah Carmosino (Flite Remix)"
+      },
+      {
+        "time": "38:44",
+        "track": "NCT x T & Sugah - Electrify"
+      },
+      {
+        "time": "34:36",
+        "track": "Metrik - Dying Light (feat. ShockOne)"
+      },
+      {
+        "time": "41:43",
+        "track": "Muzz - Break Away ft. Priority One"
+      },
+      {
+        "time": "43:13",
+        "track": "The Glitch Mob - Our Demons (Hive Remix)"
+      },
+      {
+        "time": "44:43",
+        "track": "Tantrum Desire feat. Laura Bayston - Ricochet"
+      },
+      {
+        "time": "46:35",
+        "track": "Metrik - Terminus"
+      },
+      {
+        "time": "47:43",
+        "track": "MONSS - To The Edge"
+      },
+      {
+        "time": "49:12",
+        "track": "1991 - Chant"
+      },
+      {
+        "time": "50:42",
+        "track": "Wilkinson - Sleepless"
+      },
+      {
+        "time": "52:12",
+        "track": "Tantrum Desire ft. Solah - Oblivion"
+      },
+      {
+        "time": "53:42",
+        "track": "Something Something & Kleu - All My Life"
+      },
+      {
+        "time": "55:12",
+        "track": "T & Sugah - Time (ft. Bensley & C.)"
+      },
+      {
+        "time": "57:04",
+        "track": "Wilkinson - Direction VIP"
+      },
+      {
+        "time": "58:11",
+        "track": "Matrix & Futurebound - Believe (Flite Remix)"
+      },
+      {
+        "time": "59:41",
+        "track": "Feint - Snake Eyes ft. CoMa"
+      },
+      {
+        "time": "1:01:34",
+        "track": "Keeno - Guesswork"
+      },
+      {
+        "time": "1:02:41",
+        "track": "Mazare & RIENK - Kingslayer"
+      },
+      {
+        "time": "1:04:11",
+        "track": "Trei - Mirage"
+      },
+      {
+        "time": "1:05:41",
+        "track": "The Qemists - No Respect (feat. Ghetts)"
+      },
+      {
+        "time": "1:04:11",
+        "track": "Counterstrike  - Free MDMA ft. The Panacea & Robyn Chaos"
+      },
+      {
+        "time": "1:05:41",
+        "track": "Jon Void - LFG"
+      }
+    ]
+},
+{
     "id": "20230506",
     "featured": false,
     "ignore": false,
@@ -37,9 +222,158 @@
     "image_wide_small": "/images/full/purple/wide/image_full_purple_20230506_wide-small.jpg",
     "image_wide_large": "/images/full/purple/wide/image_full_purple_20230506_wide-large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20230506_square.jpg",
-    "tracklist": []
-  },
-  {
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Slippy - Feel Alive ft. Soundr"
+      },
+      {
+        "time": "02:45",
+        "track": "Bring Me The Horizon - Mother Tongue (Sub Focus Remix)"
+      },
+      {
+        "time": "04:36",
+        "track": "Netsky - Love has gone"
+      },
+      {
+        "time": "06:25",
+        "track": "Fourward - Tonight"
+      },
+      {
+        "time": "08:16",
+        "track": "T & Sugah - Sky"
+      },
+      {
+        "time": "10:07",
+        "track": "Rollz - Burn Up ft. Katie's Ambition"
+      },
+      {
+        "time": "11:57",
+        "track": "Station Earth - Astral Walker"
+      },
+      {
+        "time": "13:47",
+        "track": "Maduk - How Could You"
+      },
+      {
+        "time": "15:38",
+        "track": "NCT - Serotonin"
+      },
+      {
+        "time": "17:28",
+        "track": "Sigma ft. Birdy - Find Me (Sigma VIP Remix)"
+      },
+      {
+        "time": "19:18",
+        "track": "Culture Shock - Renaissance"
+      },
+      {
+        "time": "21:09",
+        "track": "DC Breaks - Eleven"
+      },
+      {
+        "time": "22:59",
+        "track": "Smooth x Zombie Cats - Make Me Move (ft. Sarah Pellicano)"
+      },
+      {
+        "time": "24:49",
+        "track": "The Glitch Mob - Our Demons (Hive Remix)"
+      },
+      {
+        "time": "26:39",
+        "track": "Phonetic - Losing Control"
+      },
+      {
+        "time": "28:30",
+        "track": "Nutronic - Icon"
+      },
+      {
+        "time": "30:21",
+        "track": "The Prototypes - Lights"
+      },
+      {
+        "time": "32:11",
+        "track": "Koven - Good Enough"
+      },
+      {
+        "time": "34:01",
+        "track": "Aktive - Sunchaser"
+      },
+      {
+        "time": "35:51",
+        "track": "ShockOne - A Dark Machine (feat. Reija Lee)"
+      },
+      {
+        "time": "37:42",
+        "track": "The Upbeats - Veiled"
+      },
+      {
+        "time": "39:32",
+        "track": "Delta Heavy - White Flag VIP"
+      },
+      {
+        "time": "41:22",
+        "track": "Rene LaVice - Let You Go (ft. Jareth)"
+      },
+      {
+        "time": "43:13",
+        "track": "Jon Void - Beautiful"
+      },
+      {
+        "time": "45:03",
+        "track": "KROMEA - About You"
+      },
+      {
+        "time": "46:53",
+        "track": "Spor - Count My Blessings"
+      },
+      {
+        "time": "48:44",
+        "track": "Blue Marble - Awakenings"
+      },
+      {
+        "time": "50:34",
+        "track": "Dimension - Saviour (ft. Sharlene Hector)"
+      },
+      {
+        "time": "52:24",
+        "track": "Friction ft. Arlissa - Long Gone Memory"
+      },
+      {
+        "time": "54:15",
+        "track": "Skarlett Riot - Feel (Zardonic Remix)"
+      },
+      {
+        "time": "56:05",
+        "track": "Wilkinson & Dimension - Rush"
+      },
+      {
+        "time": "57:56",
+        "track": "Feint - Words (ft. Laura Brehm)"
+      },
+      {
+        "time": "59:46",
+        "track": "Matrix & Futurebound ft. Alex Hepburn - Live Another Day (M&F's Smoke & Mirrors Mix)"
+      },
+      {
+        "time": "1:01:36",
+        "track": "Fred V & Grafix - Cinematic Party Music"
+      },
+      {
+        "time": "1:03:26",
+        "track": "Sub Focus - Endorphins (Ft. Alex Clare) (Sub Focus vs Fred V & Grafix Remix)"
+      },
+      {
+        "time": "1:05:17",
+        "track": "Cyantific - Walking Away"
+      },
+      {
+        "time": "1:07:07",
+        "track": "Slippy - Feel Alive ft. Soundr"
+      }
+    ]
+},
+{
     "id": "20221031",
     "featured": false,
     "ignore": false,
@@ -57,26 +391,324 @@
     "image_wide_small": "/images/full/purple/wide/image_full_purple_20221031_wide-small.jpg",
     "image_wide_large": "/images/full/purple/wide/image_full_purple_20221031_wide-large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20221031_square.jpg",
-    "tracklist": []
-  },
-  {
-    "id": "20210412",
-    "featured": false,
-    "ignore": false,
-    "color": "purple",
-    "genre": "Drum & Bass",
-    "power": "full",
-    "title": "Purple Full (f)",
-    "frequency": "(f)",
-    "volume": "Vol. 1",
-    "maand": "Apr",
-    "dag": "12",
-    "jaar": "2021",
-    "permalink": "luister/mix/purple-full-f-EDM-176BPM-20210412.html",
-    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/blue/Blue_Full_f_EDM_DNB_20240408_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/purple/wide/image_full_purple_20210412_wide-small.jpg",
-    "image_wide_large": "/images/full/purple/wide/image_full_purple_20210412_wide-large.webp",
-    "image_square": "/images/full/purple/square/image_full_purple_20210412_square.jpg",
-    "tracklist": []
-  }
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Fourward ft. Lukas Roher - Lose Control"
+      },
+      {
+        "time": "02:55",
+        "track": "Zombie Cats - Before My Eyes"
+      },
+      {
+        "time": "04:47",
+        "track": "Calyx & Teebee - Cloud 9"
+      },
+      {
+        "time": "06:37",
+        "track": "Lee Mvtthews & Ekko & Sidetrack – Discipline"
+      },
+      {
+        "time": "08:27",
+        "track": "Dimension - Devotion (ft. Cameron Hayes)"
+      },
+      {
+        "time": "10:20",
+        "track": "S.P.Y - Get Up"
+      },
+      {
+        "time": "12:08",
+        "track": "Muzz - Feeling Stronger (feat. Charlotte Colley) (High Maintenance Remix)"
+      },
+      {
+        "time": "13:58",
+        "track": "Justin Hawkes (fka. Flite) & Audioscribe – Hymn"
+      },
+      {
+        "time": "15:49",
+        "track": "Camo & Krooked & Mefjus - No Tomorrow (feat. Sophie Lindinger)"
+      },
+      {
+        "time": "17:39",
+        "track": "Rusty K – Limitless"
+      },
+      {
+        "time": "19:41",
+        "track": "NCT - Give In"
+      },
+      {
+        "time": "21:41",
+        "track": "Kove - The Silence"
+      },
+      {
+        "time": "23:32",
+        "track": "ShockOne - A Dark Machine"
+      },
+      {
+        "time": "25:22",
+        "track": "Wilkinson – Redemption"
+      },
+      {
+        "time": "27:13",
+        "track": "July Jones - Jump In The Water (Memtrix Remix)"
+      },
+      {
+        "time": "29:03",
+        "track": "IMANU - Music To Stay In Your House To (Buunshin's Go Outside Remix)"
+      },
+      {
+        "time": "30:54",
+        "track": "Sigma - Slow Down (ft. Jetta) (Calyx & TeeBee Remix)"
+      },
+      {
+        "time": "32:44",
+        "track": "InsideInfo & Hybrid Minds – Beneath"
+      },
+      {
+        "time": "34:35",
+        "track": "Rusko - Everyday (Netsky Remix)"
+      },
+      {
+        "time": "36:26",
+        "track": "Everyone You Know - Seen It All (Friction Remix)"
+      },
+      {
+        "time": "38:15",
+        "track": "Rollz - Triple A"
+      },
+      {
+        "time": "40:05",
+        "track": "Loadstar - Red Rock"
+      },
+      {
+        "time": "41:55",
+        "track": "Smooth - Can't Stop"
+      },
+      {
+        "time": "43:04",
+        "track": "Koven - Worlds Collide"
+      },
+      {
+        "time": "45:41",
+        "track": "Kanine – Kickons"
+      },
+      {
+        "time": "47:32",
+        "track": "Edlan - Saving You (Air.K & Cephei Remix)"
+      },
+      {
+        "time": "49:23",
+        "track": "Night Shift - Love U Better (ft. Red London)"
+      },
+      {
+        "time": "51:12",
+        "track": "Fade Black - Far Gone"
+      },
+      {
+        "time": "53:03",
+        "track": "Tantrum Desire - Be Careful (ft. Marianna Ray)"
+      },
+      {
+        "time": "54:58",
+        "track": "Wilkinson – Machina"
+      },
+      {
+        "time": "56:49",
+        "track": "Dualistic x T & Sugah – Control"
+      },
+      {
+        "time": "58:40",
+        "track": "Fred V & Grafix - Bladerunner (Loko Remix)"
+      },
+      {
+        "time": "1:00:30",
+        "track": "Essenger - Downfall (feat. Lexi Norton) [Mazare Remix]"
+      },
+      {
+        "time": "1:02:20",
+        "track": "Kove - Bring Me Life (ft. Jonny Fears)"
+      },
+      {
+        "time": "1:04:11",
+        "track": "Rival - Be Gone (feat. Caravn) (Urbandawn Remix)"
+      },
+      {
+        "time": "1:06:11",
+        "track": "Circuits - Euphoria Part 1"
+      },
+      {
+        "time": "1:08:01",
+        "track": "Deadline -Through Your Eyes (Cruk Remix)"
+      },
+      {
+        "time": "1:09:51",
+        "track": "Andromedik – Forever"
+      }
+    ]
+},
+{
+  "id": "20210412",
+  "featured": false,
+  "ignore": false,
+  "color": "purple",
+  "genre": "Drum & Bass",
+  "power": "full",
+  "title": "Purple Full (f)",
+  "frequency": "(f)",
+  "volume": "Vol. 1",
+  "maand": "Apr",
+  "dag": "12",
+  "jaar": "2021",
+  "permalink": "luister/mix/purple-full-f-EDM-176BPM-20210412.html",
+  "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/blue/Blue_Full_f_EDM_DNB_20240408_Audio_V1%20(Vol.%202).mp3",
+  "image_wide_small": "/images/full/purple/wide/image_full_purple_20210412_wide-small.jpg",
+  "image_wide_large": "/images/full/purple/wide/image_full_purple_20210412_wide-large.webp",
+  "image_square": "/images/full/purple/square/image_full_purple_20210412_square.jpg",
+  "tracklist": [
+    {
+      "time": "00:00",
+      "track": "Control - Matrix & Futurebound ft. Max Marshall"
+    },
+    {
+      "time": "02:44",
+      "track": "Fourward - How (ft. Dakota Sixx)"
+    },
+    {
+      "time": "04:35",
+      "track": "Mija & Gammer – Digressions"
+    },
+    {
+      "time": "06:25",
+      "track": "Rollz ft. Katies Ambition - Give It Time"
+    },
+    {
+      "time": "07:54",
+      "track": "Wilkinson - Afterglow"
+    },
+    {
+      "time": "09:55",
+      "track": "C418 - Aria Math (Protostar Remix)"
+    },
+    {
+      "time": "11:56",
+      "track": "Netsky - We Can Only Live Today"
+    },
+    {
+      "time": "13:24",
+      "track": "FadeX - Fearless"
+    },
+    {
+      "time": "16:05",
+      "track": "Cartoon ft. Coleman Trapp - Why We Lose"
+    },
+    {
+      "time": "18:06",
+      "track": "Gemini - Fire Inside (Day One's Lonely Hearts Remix)"
+    },
+    {
+      "time": "19:56",
+      "track": "Koven & Memtrix - Pessimist"
+    },
+    {
+      "time": "21:35",
+      "track": "Mollie Collins - Friends (ft. Emily Makis)"
+    },
+    {
+      "time": "23:26",
+      "track": "CamelPhat ft. LOWES - Easier (Sub Focus Remix)"
+    },
+    {
+      "time": "25:28",
+      "track": "Rudimental - Waiting All Night"
+    },
+    {
+      "time": "27:29",
+      "track": "Feint ft. Laura Brehm - We Won’t Be Alone"
+    },
+    {
+      "time": "29:41",
+      "track": "Gourski & Zera - Secret"
+    },
+    {
+      "time": "31:21",
+      "track": "Flite - Joy"
+    },
+    {
+      "time": "33:10",
+      "track": "XYconstant - Silverlined (Delta Heavy Remix)"
+    },
+    {
+      "time": "35:01",
+      "track": "Dimension ft. Bailey Tzuke - All I Need"
+    },
+    {
+      "time": "37:13",
+      "track": "Alora - Without You"
+    },
+    {
+      "time": "39:04",
+      "track": "Drumsound & Bassline Smith ft. Tom Cane – Through The Night"
+    },
+    {
+      "time": "41:17",
+      "track": "Smooth & Futurebound - Savoy Affair"
+    },
+    {
+      "time": "42:45",
+      "track": "Rootkit - Isolate (feat. Joe Erickson)"
+    },
+    {
+      "time": "44:30",
+      "track": "Pierce Fulton - Kuaga (Champion Remix)"
+    },
+    {
+      "time": "46:26",
+      "track": "Friction - Good To Me"
+    },
+    {
+      "time": "48:16",
+      "track": "MUZZ - Draining Atlantic"
+    },
+    {
+      "time": "50:06",
+      "track": "Orla Gartland - Lonely People (Raise Spirit Remix)"
+    },
+    {
+      "time": "51:56",
+      "track": "Rameses B – Children"
+    },
+    {
+      "time": "53:57",
+      "track": "T & Sugah ft. Ayve - Unreal"
+    },
+    {
+      "time": "55:49",
+      "track": "Dan Dakota - We Let Em Go (Ekko & Sidetrack Remix)"
+    },
+    {
+      "time": "57:39",
+      "track": "Stan SB - Anyone Out There (Maduk Remix)"
+    },
+    {
+      "time": "59:29",
+      "track": "Spor - Strange Heart"
+    },
+    {
+      "time": "1:01:47",
+      "track": "Camo & Krooked - Atlas VIP"
+    },
+    {
+      "time": "1:03:17",
+      "track": "Fred V & Grafix ft. Reija Lee - Just A Thought"
+    },
+    {
+      "time": "1:05:05",
+      "track": "Koven - All For Nothing"
+    },
+    {
+      "time": "1:07:18",
+      "track": "Subsurface ft. Leanne Louise - Mr. Magician"
+    }
+  ]
+}
 ]
