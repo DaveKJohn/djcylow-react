@@ -72,14 +72,14 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <p className="bold">Genre</p>
                 </div>
                 <div className="row center wrap full-w spacing-xl" id="filter_genre">
-                    {['all', 'edm', 'drum & bass'].map((genre) => (
+                    {['all', 'EDM', 'Drum & Bass'].map((genre) => (
                         <button
                             key={genre}
                             className={`btn passive select ${activeGenre === genre ? 'is-active' : ''}`}
                             onClick={() => setActiveGenre(genre)}
                             aria-pressed={activeGenre === genre ? 'true' : 'false'}
                         >
-                            {genre === 'all' ? 'Alles' : genre === 'edm' ? 'EDM' : 'DNB'}
+                            {genre === 'all' ? 'Alles' : genre === 'EDM' ? 'EDM' : 'DNB'}
                         </button>
                     ))}
                 </div>
@@ -91,7 +91,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <p className="bold">Intensiteit</p>
                 </div>
                 <div className="row center wrap full-w spacing-xl" id="filter_power">
-                    {['all', 'full', 'light'].map((power) => (
+                    {['all', 'Full', 'Light'].map((power) => (
                         <button
                             key={power}
                             className={`btn passive select ${activePower === power ? 'is-active' : ''}`}
