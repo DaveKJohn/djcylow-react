@@ -166,7 +166,6 @@ body {
 
     padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
 
-
     @include tools.respond-to(var.$screen-size-small) {
         min-height: calc(100vh - var.$nav-height-small);
         padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
@@ -196,7 +195,8 @@ body {
 }
 
 .show_border_bottom {
-    padding-bottom: map.get(map.get(var.$design-scale, "5xl"), "c-space") !important;
+    padding-bottom: map.get(map.get(var.$design-scale, "4xl"), "c-space") !important;
+
     @include tools.respond-to(var.$screen-size-small) {
         padding-bottom: map.get(map.get(var.$design-scale, "4xl"), "c-space") !important;
     }

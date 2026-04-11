@@ -92,7 +92,7 @@ export default function LuisterPage() {
                         </div>
                     </div>
 
-                    <div className="column spacing-2xl mainList-wrapper2">
+                    <div className="column spacing-2xl mainList-wrapper">
                         <Filter
                             activeColor={activeColor} setActiveColor={setActiveColor}
                             activeGenre={activeGenre} setActiveGenre={setActiveGenre}

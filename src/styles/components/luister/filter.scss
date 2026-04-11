@@ -24,7 +24,7 @@
     flex: 0 0 340px; // Groeit niet, krimpt niet, en is precies 340px breed
     width: 340px; // Voor extra browser-ondersteuning
 
-    .mainList-wrapper2 {
+    .mainList-wrapper {
         display: flex;
         height: 100%;
         align-items: center;
@@ -44,7 +44,7 @@
         right: 0;
         height: 100%;
         z-index: 200;
-        width: 80vw;
+        width: 90vw;
         padding: 0;
 
         &.mobile.active {
@@ -68,23 +68,23 @@
             }
         }
 
-        .mainList-wrapper2 {
+        .mainList-wrapper {
             flex-direction: column;
             align-items: flex-start;
             justify-content: flex-start;
             gap: 0;
-            padding: map.get(map.get(var.$design-scale, "2xl"), "r-space");
+            padding: map.get(map.get(var.$design-scale, "3xl"), "r-space");
         }
     }
 }
 
 .btn.select {
-    padding: map.get(map.get(var.$design-scale, "xl"), "c-space") 0;
-    font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
+    padding: map.get(map.get(var.$design-scale, "lg"), "c-space") 0;
+    font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
     text-align: center;
     font-weight: 500;
     flex: 1 1 114px;
-    max-width: 114px;
+    max-width: 80px;
 
     &.is-active,
     &[aria-pressed="true"] {

@@ -18,14 +18,14 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
         <div className="column spacing-4xl">
 
             {/* MOOD SECTIE */}
-            <div className="column spacing-xl show_border_bottom center">
+            <div className="column spacing-xs show_border_bottom center">
                 <div className="column center spacing-2xl  header">
-                    <h3>Mood</h3>
+                    <p className="bold">Mood</p>
                 </div>
 
-                <div className="column spacing-3xl center">
+                <div className="column spacing-5xl center">
 
-                    <div className="row wrap center extra spacing-xl" id="filter_mood">
+                    <div className="row wrap center extra spacing-lg" id="filter_mood">
                         <button
                             className={`btn passive select ${activeColor === 'all' ? 'is-active' : ''}`}
                             onClick={() => setActiveColor('all')}
@@ -55,7 +55,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                                 <svg className="column extra spacing-2xl" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
                                     <circle cx="10" cy="10" r="9" fill={`var(${MOOD_DATA[activeColor].colorVar})`}></circle>
                                 </svg>
-                                <p className="output">{MOOD_DATA[activeColor].text}</p>
+                                <p className="size-sm balanced">{MOOD_DATA[activeColor].text}</p>
                             </div>
                         )}
                     </div>
@@ -67,9 +67,9 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
 
 
             {/* GENRE SECTIE */}
-            <div className="column spacing-xl center show_border_bottom">
+            <div className="column spacing-xs center show_border_bottom">
                 <div className="column spacing-2xl header">
-                    <h3>Genre</h3>
+                    <p className="bold">Genre</p>
                 </div>
                 <div className="row center wrap full-w spacing-xl" id="filter_genre">
                     {['all', 'edm', 'drum & bass'].map((genre) => (
@@ -79,16 +79,16 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                             onClick={() => setActiveGenre(genre)}
                             aria-pressed={activeGenre === genre ? 'true' : 'false'}
                         >
-                            {genre === 'all' ? 'Alles' : genre === 'edm' ? 'EDM' : 'Drum&Bass'}
+                            {genre === 'all' ? 'Alles' : genre === 'edm' ? 'EDM' : 'DNB'}
                         </button>
                     ))}
                 </div>
             </div>
 
             {/* INTENSITEIT SECTIE */}
-            <div className="column spacing-xl center">
+            <div className="column spacing-xs center">
                 <div className="column spacing-2xl header">
-                    <h3>Intensiteit</h3>
+                    <p className="bold">Intensiteit</p>
                 </div>
                 <div className="row center wrap full-w spacing-xl" id="filter_power">
                     {['all', 'full', 'light'].map((power) => (
