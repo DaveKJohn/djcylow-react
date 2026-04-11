@@ -2,76 +2,82 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
-.card {
-    width: var(--card_width);
+#luister_row_filterResult {
+    flex: 1; // Dit zorgt ervoor dat deze kolom alle resterende ruimte pakt
+    min-width: 0; // Voorkomt dat flex-items groter worden dan hun container bij lange content
 
-    @include tools.respond-to(var.$screen-size-small) {
-        width: 100%;
-    }
-
-    &-dummy {
+    
+    .card {
         width: var(--card_width);
-        height: 0;
-        visibility: hidden;
-    }
 
-    .audioplayer-wrapper {
-        height: auto;
-        aspect-ratio: 16 / 9;
-
-        .ready-wrapper {
-            button {
-                width: 60px;
-                height: 60px;
-
-                svg {
-                    width: 40px;
-                    height: 40px;
-                }
-            }
+        @include tools.respond-to(var.$screen-size-small) {
+            width: 100%;
         }
 
-        .playing-wrapper {
-            padding: map.get(map.get(var.$design-scale, "base"), "c-space");
-            gap: map.get(map.get(var.$design-scale, "sm"), "c-space");
+        &-dummy {
+            width: var(--card_width);
+            height: 0;
+            visibility: hidden;
+        }
 
-            .timestamp-wrapper {
-                font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
-            }
+        .audioplayer-wrapper {
+            height: auto;
+            aspect-ratio: 16 / 9;
 
-            .timeline-wrapper {
-                padding: map.get(map.get(var.$design-scale, "sm"), "c-space");
+            .ready-wrapper {
+                button {
+                    width: 60px;
+                    height: 60px;
 
-                .total,
-                .progress {
-                    height: 5px;
+                    svg {
+                        width: 40px;
+                        height: 40px;
+                    }
                 }
             }
 
-            // Player Controls
-            .layer-wrapper {
-                .pausefilters button {
-                    width: 40px;
-                    height: 40px;
-                    svg {
-                        width: 24px;
-                        height: 24px;
+            .playing-wrapper {
+                padding: map.get(map.get(var.$design-scale, "base"), "c-space");
+                gap: map.get(map.get(var.$design-scale, "sm"), "c-space");
+
+                .timestamp-wrapper {
+                    font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
+                }
+
+                .timeline-wrapper {
+                    padding: map.get(map.get(var.$design-scale, "sm"), "c-space");
+
+                    .total,
+                    .progress {
+                        height: 5px;
                     }
                 }
 
-                .volume-wrapper {
-                    border-radius: 1px;
-                    .icon {
+                // Player Controls
+                .layer-wrapper {
+                    .pausefilters button {
+                        width: 40px;
+                        height: 40px;
                         svg {
-                            width: 20px;
-                            height: 20px;
+                            width: 24px;
+                            height: 24px;
                         }
                     }
-                    .slider {
-                        padding-left: map.get(map.get(var.$design-scale, "sm"), "c-space");
 
-                        input[type="range"] {
-                            width: 80px;
+                    .volume-wrapper {
+                        border-radius: 1px;
+                        .icon {
+                            svg {
+                                width: 20px;
+                                height: 20px;
+                            }
+                        }
+                        .slider {
+                            padding-left: map.get(map.get(var.$design-scale, "sm"), "c-space");
+
+                            input[type="range"] {
+                                width: 80px;
+                            }
                         }
                     }
                 }

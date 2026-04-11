@@ -8,7 +8,6 @@
 body {
     font-family: var.$base-font;
     -webkit-font-smoothing: antialiased;
-    // Gebruik de nieuwe key-structuur
     $body-config: map.get(var.$design-scale, "base");
     font-size: map.get($body-config, "font-size");
     line-height: map.get($body-config, "line-height");

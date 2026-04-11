@@ -6,10 +6,9 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function Nav() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);   
     const [isMobile, setIsMobile] = useState(false);
-    const [mounted, setMounted] = useState(false); // Nieuw: check of component geladen is
+    const [mounted, setMounted] = useState(false); 
     const pathname = usePathname();
 
     useEffect(() => {
@@ -18,8 +17,7 @@ export default function Nav() {
             const mobile = window.innerWidth <= 1080;
             setIsMobile(mobile);
             if (!mobile) {
-                setIsMenuOpen(false);
-                setActiveSubmenu(null);
+                setIsMenuOpen(false);                
             }
         };
 
@@ -29,8 +27,7 @@ export default function Nav() {
     }, []);
 
     useEffect(() => {
-        setIsMenuOpen(false);
-        setActiveSubmenu(null);
+        setIsMenuOpen(false);       
     }, [pathname]);
 
     // Toggle functie die betrouwbaarder is
@@ -59,17 +56,7 @@ export default function Nav() {
             {/* Menu Wrapper */}
             <div className={`menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isMenuOpen ? "active" : ""}`} id="nav_menuWrapper">
                 <div className="column mobileMenuHeader-border">
-                    <div className="row mobileMenuHeader-wrapper">
-                        {activeSubmenu && (
-                            <button
-                                className="btn nav previousBtn"
-                                onClick={() => setActiveSubmenu(null)}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path fill="currentColor" fillRule="evenodd" d="M5.293 8.793a1 1 0 0 1 1.414 0L12 14.086l5.293-5.293a1 1 0 1 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6a1 1 0 0 1 0-1.414" clipRule="evenodd"></path>
-                                </svg>
-                            </button>
-                        )}
+                    <div className="row mobileMenuHeader-wrapper">                      
                         <button
                             className="btn nav close-btn"
                             onClick={() => setIsMenuOpen(false)}
@@ -91,12 +78,10 @@ export default function Nav() {
 
             {/* Hamburger Button: Gebruik toggleMenu */}
             <div className="hidden-wrapper">
-                <button
-                    className="btn nav hamburger-btn"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        toggleMenu();
-                    }}
+                <button className="btn nav hamburger-btn" onClick={(e) => {
+                    e.preventDefault();
+                    toggleMenu();
+                }}
                     aria-label="Menu openen"
                 >☰</button>
             </div>

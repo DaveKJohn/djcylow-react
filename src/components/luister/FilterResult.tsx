@@ -59,15 +59,14 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
     }, [activeColor, activeGenre, activePower]);
 
     return (
-        <div className="column spacing-4xl center">
-            <div className="row spacing-2xl wrap center card-wrapper">
+        
+            <div className="row spacing-4xl wrap card-wrapper">
                 {filteredMixes.length > 0 ? (
                     filteredMixes.map((mix) => (
-                        <div key={mix.id} className="column extra spacing-2xl card">
+                        <div key={mix.id} className="column extra spacing-xl card">
                             <AudioPlayer
                                 id={mix.id}
-                                src={mix.audioSrc}
-                                // Geef hier de kleine variant door aan de image prop
+                                src={mix.audioSrc}                               
                                 image={mix.image_wide_small}
                                 className={mix.color?.toLowerCase()}
                             />
@@ -85,6 +84,6 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                 <div className="card-dummy"></div>
                 <div className="card-dummy"></div>
             </div>
-        </div>
+       
     );
 }

@@ -15,23 +15,17 @@ const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
 
 export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: any) {
     return (
-        <div className="column spacing-5xl black-90-bg in-push-6xl">
-            {/* Header Deel */}
-            <div className="column spacing-4xl show_border_bottom">
-                <div className="column spacing-2xl center">
-                    <h2>Filter</h2>
-                </div>              
-            </div>
+        <div className="column spacing-4xl">
 
-            {/* Content Deel */}
-            <div className="column spacing-4xl h-push-4xl">
+            {/* MOOD SECTIE */}
+            <div className="column spacing-xl show_border_bottom center">
+                <div className="column center spacing-2xl  header">
+                    <h3>Mood</h3>
+                </div>
 
-                {/* MOOD SECTIE */}
-                <div className="column spacing-xl">
-                    <div className="column center spacing-2xl  header">
-                        <h3>Mood</h3>
-                    </div>
-                    <div className="row wrap center spacing-xl show_border_bottom" id="filter_mood">
+                <div className="column spacing-3xl center">
+
+                    <div className="row wrap center extra spacing-xl" id="filter_mood">
                         <button
                             className={`btn passive select ${activeColor === 'all' ? 'is-active' : ''}`}
                             onClick={() => setActiveColor('all')}
@@ -42,7 +36,6 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                         {Object.keys(MOOD_DATA).map(color => (
                             <button
                                 key={color}
-                                // VOEG DIT TOE:
                                 data-filter-color={color}
                                 className={`btn passive select ${activeColor === color ? 'is-active' : ''}`}
                                 onClick={() => setActiveColor(color)}
@@ -52,63 +45,66 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                             </button>
                         ))}
                     </div>
-                </div>
 
-                {/* MOOD OUTPUT - Nu met dynamische display: none/flex */}
-                <div
-                    className="column center spacing-xl show_border_bottom"
-                    id="filter_mood_output"
-                    style={{ display: activeColor === 'all' ? 'none' : 'flex' }}
-                >
-                    {activeColor !== 'all' && (
-                        <div className="row spacing-2xl color-wrapper center flex">
-                            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
-                                <circle cx="10" cy="10" r="9" fill={`var(${MOOD_DATA[activeColor].colorVar})`}></circle>
-                            </svg>
-                            <p className="output">{MOOD_DATA[activeColor].text}</p>
-                        </div>
-                    )}
-                </div>
+                    {/* MOOD OUTPUT - Nu met dynamische display: none/flex */}
+                    <div
+                        className="column center spacing-xl" id="filter_mood_output" style={{ display: activeColor === 'all' ? 'none' : 'flex' }}
+                    >
+                        {activeColor !== 'all' && (
+                            <div className="column spacing-lg color-wrapper center">
+                                <svg className="column extra spacing-2xl" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
+                                    <circle cx="10" cy="10" r="9" fill={`var(${MOOD_DATA[activeColor].colorVar})`}></circle>
+                                </svg>
+                                <p className="output">{MOOD_DATA[activeColor].text}</p>
+                            </div>
+                        )}
+                    </div>
 
-                {/* GENRE SECTIE */}
-                <div className="column spacing-xl center show_border_bottom">
-                    <div className="column spacing-2xl header">
-                        <h3>Genre</h3>
-                    </div>
-                    <div className="row center wrap full-w spacing-xl" id="filter_genre">
-                        {['all', 'edm', 'drum & bass'].map((genre) => (
-                            <button
-                                key={genre}
-                                className={`btn passive select ${activeGenre === genre ? 'is-active' : ''}`}
-                                onClick={() => setActiveGenre(genre)}
-                                aria-pressed={activeGenre === genre ? 'true' : 'false'}
-                            >
-                                {genre === 'all' ? 'Alles' : genre === 'edm' ? 'EDM' : 'Drum&Bass'}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* INTENSITEIT SECTIE */}
-                <div className="column spacing-xl center">
-                    <div className="column spacing-2xl header">
-                        <h3>Intensiteit</h3>
-                    </div>
-                    <div className="row center wrap full-w spacing-xl" id="filter_power">
-                        {['all', 'full', 'light'].map((power) => (
-                            <button
-                                key={power}
-                                className={`btn passive select ${activePower === power ? 'is-active' : ''}`}
-                                onClick={() => setActivePower(power)}
-                                aria-pressed={activePower === power ? 'true' : 'false'}
-                            >
-                                {power === 'all' ? 'Alles' : power.charAt(0).toUpperCase() + power.slice(1)}
-                            </button>
-                        ))}
-                    </div>
                 </div>
 
             </div>
+
+
+
+            {/* GENRE SECTIE */}
+            <div className="column spacing-xl center show_border_bottom">
+                <div className="column spacing-2xl header">
+                    <h3>Genre</h3>
+                </div>
+                <div className="row center wrap full-w spacing-xl" id="filter_genre">
+                    {['all', 'edm', 'drum & bass'].map((genre) => (
+                        <button
+                            key={genre}
+                            className={`btn passive select ${activeGenre === genre ? 'is-active' : ''}`}
+                            onClick={() => setActiveGenre(genre)}
+                            aria-pressed={activeGenre === genre ? 'true' : 'false'}
+                        >
+                            {genre === 'all' ? 'Alles' : genre === 'edm' ? 'EDM' : 'Drum&Bass'}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* INTENSITEIT SECTIE */}
+            <div className="column spacing-xl center">
+                <div className="column spacing-2xl header">
+                    <h3>Intensiteit</h3>
+                </div>
+                <div className="row center wrap full-w spacing-xl" id="filter_power">
+                    {['all', 'full', 'light'].map((power) => (
+                        <button
+                            key={power}
+                            className={`btn passive select ${activePower === power ? 'is-active' : ''}`}
+                            onClick={() => setActivePower(power)}
+                            aria-pressed={activePower === power ? 'true' : 'false'}
+                        >
+                            {power === 'all' ? 'Alles' : power.charAt(0).toUpperCase() + power.slice(1)}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
         </div>
+
     );
 }

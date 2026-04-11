@@ -21,7 +21,7 @@
         $map: var.$small-mapping;
     }
 
-    @return if(sass(map.has-key($map, $alias)): map.get($map, $alias); else: $alias);
+    @return if(sass(map.has-key($map, $alias)): map.get($map, $alias) ; else: $alias);
 }
 /* =======================================
     2. TYPOGRAFIE & KLEUR UTILITIES
@@ -93,9 +93,7 @@
         $small-config: map.get(var.$design-scale, $small-key);
 
         .row.spacing-#{$alias},
-        .column.spacing-#{$alias}
-         {
-            
+        .column.spacing-#{$alias} {
             // --- DESKTOP ---
             @if $config {
                 &.row {
@@ -104,7 +102,7 @@
                 &.column {
                     gap: map.get($config, "c-space") !important;
                 }
-                
+
                 // Extra space alleen als de class .extra aanwezig is
                 &.extra {
                     margin-top: map.get($config, "extra-space") !important;
@@ -157,26 +155,37 @@
     $small-config: map.get(var.$design-scale, $small-key);
 
     @if $config {
-        $val: if(sass($type == "h"): map.get($config, "r-space"); 
-                 else: if(sass($type == "in"): map.get($config, "in-space"); 
-                 else: map.get($config, "c-space")));
+        $val: if(
+            sass($type == "h"): map.get($config, "r-space")
+                ;
+                else: if(
+                    sass($type == "in"): map.get($config, "in-space") ; else: map.get($config, "c-space")
+                )
+        );
         @include _execute-push($type, $val);
     }
 
     @if $med-config {
         @include respond-to(var.$screen-size-medium) {
-            $m-val: if(sass($type == "h"): map.get($med-config, "r-space"); 
-                       else: if(sass($type == "in"): map.get($med-config, "in-space"); 
-                       else: map.get($med-config, "c-space")));
+            $m-val: if(
+                sass($type == "h"): map.get($med-config, "r-space") ;
+                    else: if(
+                        sass($type == "in"): map.get($med-config, "in-space") ; else: map.get($med-config, "c-space")
+                    )
+            );
             @include _execute-push($type, $m-val);
         }
     }
 
     @if $small-config {
         @include respond-to(var.$screen-size-small) {
-            $s-val: if(sass($type == "h"): map.get($small-config, "r-space"); 
-                       else: if(sass($type == "in"): map.get($small-config, "in-space"); 
-                       else: map.get($small-config, "c-space")));
+            $s-val: if(
+                sass($type == "h"): map.get($small-config, "r-space") ;
+                    else: if(
+                        sass($type == "in"): map.get($small-config, "in-space") ;
+                            else: map.get($small-config, "c-space")
+                    )
+            );
             @include _execute-push($type, $s-val);
         }
     }
@@ -259,17 +268,6 @@
     }
 
     .menu-wrapper {
-        ul.subList {
-            background-color: var(--#{$bg-100});
-            border-top: 1px solid var(--#{$bg-70});
-            @include respond-to(var.$screen-size-medium) {
-                background-color: transparent;
-                border-top: none;
-            }
-            li:not(:last-child) {
-                border-bottom: solid 1px var(--#{$bg-80});
-            }
-        }
         a {
             color: var(--#{$fg-80});
             &:hover {
@@ -284,28 +282,13 @@
         .mobileMenuHeader-border {
             border-bottom: solid 1px var(--#{$bg-80});
         }
+    }
 
-        &:has(.view-wrapper.subList-view) {
-            background-color: var(--#{$bg-90});
-            border-left-color: var(--#{$bg-70});
-            .mobileMenuHeader-border {
-                border-bottom-color: var(--#{$bg-70});
-            }
-        }
-
-        ul.mainList {
-            &:not(:last-child):not(:has(li.subList-wrapper.open)) {
-                border-bottom: none;
-                @include respond-to(var.$screen-size-medium) {
-                    border-bottom: solid 1px var(--#{$bg-80});
-                }
-            }
-            li.subList-wrapper.open > a.has-subList {
-                border-bottom: solid 1px var(--#{$bg-70});
-            }
-            li ul li:not(:last-child) {
-                border-bottom: 1px solid var(--#{$bg-80});
-            }
+    .filter-wrapper.mobile.active {
+        background-color: var(--#{$bg-100});
+        border-left: solid 1px var(--#{$bg-80});
+        .mobileFilterHeader-border {
+            border-bottom: solid 1px var(--#{$bg-80});
         }
     }
 }

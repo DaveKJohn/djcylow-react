@@ -21,7 +21,7 @@ export default function AudioPlayer({
 	activeId,
 	className = ""
 }: AudioPlayerProps) {
-	console.log("AudioPlayer ID:", id, "Image path:", image);
+
 	const audioRef = useRef<HTMLAudioElement>(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
