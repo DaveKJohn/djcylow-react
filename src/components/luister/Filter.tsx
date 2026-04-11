@@ -15,7 +15,7 @@ const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
 
 export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: any) {
     return (
-        <div className="column spacing-4xl">
+        <div className="column spacing-3xl">
 
             {/* MOOD SECTIE */}
             <div className="column spacing-xs show_border_bottom center">
@@ -23,7 +23,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <p className="bold">Mood</p>
                 </div>
 
-                <div className="column spacing-5xl center">
+                <div className="column spacing-3xl center">
 
                     <div className="row wrap center extra spacing-lg" id="filter_mood">
                         <button
