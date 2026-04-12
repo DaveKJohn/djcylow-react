@@ -111,7 +111,7 @@ export default function Erlenmeyers() {
                 </div>
 
                 {/* 2. ERLENMEYERS */}
-                <div className="column spacing-base erlenmeyers show_border_bottom">
+                <div className="column spacing-base erlenmeyers splitter-small">
                     <div className="row text-wrapper spacing-3xl">
                         {SUBSTANCES.map((sub) => {
                             const isActive = substances[sub];

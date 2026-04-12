@@ -206,7 +206,8 @@
     .border {
         border: 1px solid var(--#{$bg-80});
     }
-    .show_border_bottom {
+    .splitter-small,
+    .splitter-large {
         border-bottom: 1px solid var(--#{$bg-80});
     }
 

@@ -83,9 +83,9 @@ export default function ContactForm() {
     };
 
     return (
-        <div className="column fullscreen center BoW" id="contactformulier">
-            <div className="column full-w constrainer spacing-6xl">
-                <div className="column spacing-3xl show_border_bottom">
+        <div className="column fullscreen center v-push-8xl BoW" id="contactformulier">
+            <div className="column full-w constrainer spacing-5xl">
+                <div className="column spacing-3xl splitter-large">
                     <div className="column text-wrapper spacing-4xl center">
                         <h2>Contact</h2>
                         <p className="size-base balanced">
@@ -98,9 +98,9 @@ export default function ContactForm() {
                     </div>
                 </div>
 
-                <div className="column spacing-6xl h-push-4xl">
+                <div className="column spacing-5xl h-push-4xl">
                     {status === "success" ? (
-                        <div className="column spacing-3xl center show_border_bottom" id="succesMessage">
+                        <div className="column spacing-3xl center splitter-large" id="succesMessage">
                             <div className="column text-wrapper center spacing-3xl">
                                 <div style={{ fontSize: '3rem' }}>✅</div>
                                 <h3 className="succes text">Bericht verzonden!</h3>
@@ -118,7 +118,7 @@ export default function ContactForm() {
                     ) : (
                         <form
                             ref={formRef}
-                            className="column spacing-4xl form-wrapper show_border_bottom"
+                            className="column spacing-4xl form-wrapper splitter-large"
                             id="contactForm"
                             onSubmit={handleSubmit}
                         >
@@ -127,7 +127,7 @@ export default function ContactForm() {
                                 <label>Bot field: <input name="bot-field" /></label>
                             </div>
 
-                            <div className="row spacing-4xl flex">
+                            <div className="row spacing-3xl flex">
                                 <input className="input-field" type="text" name="firstName" required placeholder="Voornaam" />
                                 <input className="input-field" type="text" name="lastName" required placeholder="Achternaam" />
                             </div>

@@ -34,149 +34,141 @@ export default function MusicMoodColoursPage() {
 
             <div className="column spacing-7xl paper WoB">
 
-                <div className="column spacing-7xl  ">
 
-                    {/* 2. INTRO */}
-                    <div className="column spacing-5xl" id="intro">
 
-                        <div className="column full-w constrainer spacing-4xl">
+                {/* 2. INTRO */}
+                <div className="column spacing-6xl" id="intro">
 
-                            <p>{musicMoodColoursContent.intro.s1p1}</p>
-                            <p>{musicMoodColoursContent.intro.s1p2}</p>
-                            <p>{musicMoodColoursContent.intro.s1p3}</p>
+                    <div className="column full-w constrainer spacing-4xl">
 
-                        </div>
+                        <p>{musicMoodColoursContent.intro.s1p1}</p>
+                        <p>{musicMoodColoursContent.intro.s1p2}</p>
+                        <p>{musicMoodColoursContent.intro.s1p3}</p>
+
                     </div>
+                </div>
 
-                    <div className="column spacing-5xl" id="kleurenspectrum_2">
+                <div className="column spacing-6xl" id="kleurenspectrum_2">
 
-                        <div className="column full-w constrainer spacing-4xl">
+                    <div className="column full-w constrainer spacing-4xl">
 
-                            {/* 3. KLEURENSPECTRUM */}
-                            <div className="column spacing-5xl">
+                        {/* 3. KLEURENSPECTRUM */}
+                        <div className="column spacing-5xl">
 
 
-                                <h2>Het kleurenspectrum van muziek</h2>
+                            <h2>Het kleurenspectrum van muziek</h2>
 
-                                <div className="column spacing-4xl">
-                                    <p>{musicMoodColoursContent.spectrum.s2p1}</p>
-                                    <CanvasCircle />
-                                    <p>{musicMoodColoursContent.spectrum.s2p2}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <BasiskleurenCarousel />
-
-                        <div className="column full-w constrainer spacing-2xl">
-
-                            <h3>De taal van emotie</h3>
                             <div className="column spacing-4xl">
-                                <p>{musicMoodColoursContent.spectrum.s2p3}</p>
-                                <p>{musicMoodColoursContent.spectrum.s2p4}</p>
+                                <p>{musicMoodColoursContent.spectrum.s2p1}</p>
+                                <CanvasCircle />
+                                <p>{musicMoodColoursContent.spectrum.s2p2}</p>
                             </div>
+                        </div>
+                    </div>
+
+                    <BasiskleurenCarousel />
+
+                    <div className="column full-w constrainer spacing-2xl">
+
+                        <h3>De taal van emotie</h3>
+                        <div className="column spacing-4xl">
+                            <p>{musicMoodColoursContent.spectrum.s2p3}</p>
+                            <p>{musicMoodColoursContent.spectrum.s2p4}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div className="column spacing-6xl" id="complementair_3">
+
+                    <div className="column full-w constrainer spacing-5xl">
+
+                        <h2>Complementaire muziekstemmingen</h2>
+
+                        <div className="column spacing-4xl">
+                            <p>{musicMoodColoursContent.complementair.s3p1}</p>
+                            <p>{musicMoodColoursContent.complementair.s3p2}</p>
+                            <p>{musicMoodColoursContent.complementair.s3p3}</p>
                         </div>
 
                     </div>
 
 
+                    <VsKleurenCarousel />
+
+
+                </div>
+
+                {/* 5. NEURO (Muziekale kaart) */}
+                <div className="column spacing-6xl" id="neurotransmitters_4">
+
+                    <div className="column full-w constrainer spacing-5xl">
 
 
 
+                        <h2>Muziekale kaart</h2>
+
+                        <div className="column spacing-4xl">
+
+                            <p>{musicMoodColoursContent.neuro.s4p1}</p>
+
+                            <ul className="column spacing-3xl">
+                                <li className="column spacing-xl">
+                                    <h3>Dopamine</h3>
+                                    <p>{musicMoodColoursContent.neuro.dopamine}</p>
+                                </li>
+                                <li className="column spacing-xl">
+                                    <h3>Serotonine</h3>
+                                    <p>{musicMoodColoursContent.neuro.serotonine}</p>
+                                </li>
+                                <li className="column spacing-xl">
+                                    <h3>(nor)Adrenaline</h3>
+                                    <p>{musicMoodColoursContent.neuro.adrenaline}</p>
+                                </li>
+                            </ul>
+
+                            <p>{musicMoodColoursContent.neuro.s4p5}</p>
+
+                            <KubusNeuro />
 
 
+                            <p>{musicMoodColoursContent.neuro.s4p6}</p>
 
+                            <KubusHoeken />
 
-                    <div className="column spacing-5xl" id="complementair_3">
+                            <p>{musicMoodColoursContent.neuro.s4p7}</p>
 
-                        <div className="column full-w constrainer spacing-2xl">
-
-                            <div className="column spacing-6xl" id="complementaire_kleuren_3">
-
-
-                                <h2>Complementaire muziekstemmingen</h2>
-
-                                <div className="column spacing-4xl">
-                                    <p>{musicMoodColoursContent.complementair.s3p1}</p>
-                                    <p>{musicMoodColoursContent.complementair.s3p2}</p>
-                                    <p>{musicMoodColoursContent.complementair.s3p3}</p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <VsKleurenCarousel />
-
-                        <div className="column full-w constrainer spacing-5xl">
-
-                            {/* 5. NEURO (Muziekale kaart) */}
-                            <div className="column spacing-6xl" id="neurotransmitters_4">
-
-
-                                <h2>Muziekale kaart</h2>
-
-                                <div className="column spacing-4xl">
-
-                                    <p>{musicMoodColoursContent.neuro.s4p1}</p>
-
-                                    <ul className="column spacing-3xl">
-                                        <li className="column spacing-xl">
-                                            <h3>Dopamine</h3>
-                                            <p>{musicMoodColoursContent.neuro.dopamine}</p>
-                                        </li>
-                                        <li className="column spacing-xl">
-                                            <h3>Serotonine</h3>
-                                            <p>{musicMoodColoursContent.neuro.serotonine}</p>
-                                        </li>
-                                        <li className="column spacing-xl">
-                                            <h3>(nor)Adrenaline</h3>
-                                            <p>{musicMoodColoursContent.neuro.adrenaline}</p>
-                                        </li>
-                                    </ul>
-
-                                    <p>{musicMoodColoursContent.neuro.s4p5}</p>
-
-                                    <KubusNeuro />
-
-
-                                    <p>{musicMoodColoursContent.neuro.s4p6}</p>
-
-                                    <KubusHoeken />
-
-                                    <p>{musicMoodColoursContent.neuro.s4p7}</p>
-
-                                    <Erlenmeyers />
-
-                                </div>
-
-                            </div>
-
-                            {/* 6. CONCLUSIE */}
-                            <div className="column spacing-6xl" id="conclusie_5">
-
-
-                                <h2>Conclusie</h2>
-
-                                <div className="column spacing-4xl">
-
-                                    <p>{musicMoodColoursContent.conclusie.s5p1}</p>
-                                    <p>{musicMoodColoursContent.conclusie.s5p2}</p>
-                                    <p>{musicMoodColoursContent.conclusie.s5p3}</p>
-
-                                </div>
-
-                            </div>
-
+                            <Erlenmeyers />
 
                         </div>
-
 
                     </div>
 
+                </div>
 
-                </div >
+                {/* 6. CONCLUSIE */}
+                <div className="column spacing-6xl" id="conclusie_5">
+
+                    <div className="column full-w constrainer spacing-5xl">
+
+
+                        <h2>Conclusie</h2>
+
+                        <div className="column spacing-4xl">
+
+                            <p>{musicMoodColoursContent.conclusie.s5p1}</p>
+                            <p>{musicMoodColoursContent.conclusie.s5p2}</p>
+                            <p>{musicMoodColoursContent.conclusie.s5p3}</p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
 
             </div>
             <ContactForm />

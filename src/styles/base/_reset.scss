@@ -194,12 +194,12 @@ body {
     }
 }
 
-.show_border_bottom {
+.splitter-small {
     padding-bottom: map.get(map.get(var.$design-scale, "4xl"), "c-space") !important;
+}
 
-    @include tools.respond-to(var.$screen-size-small) {
-        padding-bottom: map.get(map.get(var.$design-scale, "4xl"), "c-space") !important;
-    }
+.splitter-large {
+    padding-bottom: map.get(map.get(var.$design-scale, "5xl"), "c-space") !important;
 }
 
 .banner {

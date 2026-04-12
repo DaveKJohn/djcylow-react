@@ -18,7 +18,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
         <div className="column spacing-3xl">
 
             {/* MOOD SECTIE */}
-            <div className="column spacing-xs show_border_bottom center">
+            <div className="column spacing-xs splitter-small center">
                 <div className="column center spacing-2xl  header">
                     <p className="bold">Mood</p>
                 </div>
@@ -67,7 +67,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
 
 
             {/* GENRE SECTIE */}
-            <div className="column spacing-xs center show_border_bottom">
+            <div className="column spacing-xs center splitter-small">
                 <div className="column spacing-2xl header">
                     <p className="bold">Genre</p>
                 </div>
