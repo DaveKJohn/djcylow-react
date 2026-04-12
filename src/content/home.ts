@@ -7,6 +7,7 @@ export const homeContent = {
 
   intro_h3: "<span class='cyan-light-fg'>Meet</span><span class='yellow-light-fg'> the DJ</span>",
   diensten_h3: "<span class='cyan-light-fg'>Dien</span><span class='yellow-light-fg'>sten</span>",
+  klantervaringen_h3: "<span class='cyan-light-fg'>Klant</span><span class='yellow-light-fg'>ervaringen</span>",
   promo_h3: "<span class='cyan-light-fg'>The DJ's</span><span class='yellow-light-fg'> Special</span>",
   verzoeknummers_h3: "<span class='cyan-light-fg'>Verzoek</span><span class='yellow-light-fg'>nummers</span>",
 

@@ -4,7 +4,7 @@
 
 .carousels {
     position: relative;
-    width: 100%;  
+    width: 100%;
 
     .arrow {
         display: flex;
@@ -14,9 +14,8 @@
 
         $row-1-h: map.get(map.get(var.$design-scale, "xl"), "c-space");
         $row-2-h: 70px;
-        $gap: map.get(map.get(var.$design-scale, "base"), "c-space"); 
-
-        top: calc(#{$row-1-h} + #{$row-2-h} + (#{$gap} * 2) + (var(--card_height) * 0.5));
+        $gap: map.get(map.get(var.$design-scale, "base"), "c-space");
+       
 
         transform: translateY(-50%);
 
@@ -25,11 +24,16 @@
 
         z-index: 400;
 
-        user-select: none;
+       
         touch-action: manipulation;
         -webkit-appearance: none;
         appearance: none;
         background: transparent;
+
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        transform: translateY(-50%);
 
         // Pijl locaties
         &.left {

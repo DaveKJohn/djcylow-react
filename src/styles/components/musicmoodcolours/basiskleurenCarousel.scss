@@ -14,12 +14,7 @@ $h-spacing: calc((map.get(map.get(var.$design-scale, "6xl"), "in-space") * 9));
 $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} + #{$h-spacing});
 
 .carousels {
-    .arrow {
-        align-items: center;
-        justify-content: center;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+   
 
     #basiskleuren {
         scroll-snap-type: x mandatory;

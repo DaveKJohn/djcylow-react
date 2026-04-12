@@ -1,0 +1,54 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/variables" as var;
+
+#referenties {
+    --card_height: 300px; 
+
+    background: var(--black-90);
+
+  
+    .referentie-item {
+        width: 300px;
+        height: var(--card_height);
+        min-width: 300px;
+        min-height: var(--card_height);
+        
+      
+        justify-content: space-between;
+        padding: 2rem;
+        box-sizing: border-box;
+        border: 1px solid #FFFFFF;
+        overflow: hidden;
+
+        .text {
+            font-style: italic;
+            line-height: 1.5;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .client-info {
+            .client {
+                font-weight: bold;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+            }
+
+            .tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem !important;
+
+                span {
+                    font-size: 0.8rem;
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+}
+
+

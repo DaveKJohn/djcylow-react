@@ -6,12 +6,7 @@ $card-width-vs: 150px;
 $card-height-vs: 150px;
 
 .carousels {
-    .arrow {
-        align-items: center;
-        justify-content: center;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+    
 
     #carousel-vs {
         overflow-x: auto;
