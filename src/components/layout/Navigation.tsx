@@ -5,24 +5,45 @@ import Image from "next/image";
 import MobileContent from "@/components/ui/MobileContent";
 
 export default function Nav() {
+
+    const HamburgerIcon = (
+        <svg
+            width="28"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            {/* Lijnen op y=3 en y=21 voor maximale tussenruimte */}
+            <line x1="2" y1="3" x2="22" y2="3"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="21" x2="22" y2="21"></line>
+        </svg>
+    );
+
     return (
         <nav className="row WoB">
             <div className="column logo-wrapper">
                 <Link href="/">
-                    <Image 
-                        src="/images/djcylow_logo.webp" 
-                        width={160} height={100} 
-                        alt="Logo" priority 
-                        style={{ height: 'auto' }} 
+                    <Image
+                        src="/images/djcylow_logo.webp"
+                        width={160} height={100}
+                        alt="Logo" priority
+                        style={{ height: 'auto' }}
                     />
                 </Link>
             </div>
 
-            <MobileContent 
+            <MobileContent
+                // Voeg de class toe die je in je CSS gebruikt
+                wrapperClass="menu-wrapper"
                 trigger={(toggle) => (
                     <div className="hidden-wrapper">
                         <button className="btn nav hamburger-btn" onClick={toggle} aria-label="Menu openen">
-                            ☰
+                            {HamburgerIcon}
                         </button>
                     </div>
                 )}

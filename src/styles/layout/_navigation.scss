@@ -20,7 +20,6 @@ nav {
         height: 100%;
         order: 1;
         flex: 0 0 auto;
-
         a {
             display: flex;
             align-items: center;
@@ -28,18 +27,26 @@ nav {
         }
     }
 
+    // De menu-wrapper is nu een directe buur of onderdeel van de flow
     .menu-wrapper {
         display: flex;
         height: 100%;
         order: 2;
         flex: 1;
-        padding: 0 map.get(map.get(var.$design-scale, "6xl"), "r-space");
+
+        // Standaard desktop gedrag (wanneer GEEN .mobile class aanwezig is)
+        &:not(.mobile) {
+            position: static !important;
+            transform: none !important;
+            visibility: visible !important;
+            background: transparent !important;
+            opacity: 1 !important;
+        }
 
         .mainList-wrapper {
             display: flex;
             height: 100%;
             align-items: center;
-            gap: map.get(map.get(var.$design-scale, "5xl"), "c-space");
         }
     }
 
@@ -54,13 +61,13 @@ nav {
         display: none;
         order: 4;
         z-index: 1100;
-
         .hamburger-btn {
             cursor: pointer;
             background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
         }
     }
 
@@ -75,22 +82,14 @@ nav {
         .cta-wrapper {
             order: 2;
         }
-        
         .hidden-wrapper {
             display: flex;
             order: 3;
         }
 
-        .menu-wrapper.mobile {
+        // Verberg de desktop-versie van het menu op mobiel
+        .menu-wrapper:not(.mobile) {
             display: none;
-            padding: 0;
-
-            &.active {
-                display: flex !important;
-            }
-            .mainList-wrapper {
-                gap: 0;
-            }
         }
     }
 
@@ -100,6 +99,19 @@ nav {
 
         .logo-wrapper img {
             width: 120px;
+        }
+    }
+}
+
+// Mobile-specific styling (buiten de nav nesting voor de zekerheid)
+.menu-wrapper.mobile {
+    .btn.nav.menu {
+        width: 100%;
+        justify-content: flex-start;
+        border-bottom: 1px solid var(--black-80);
+
+        &:last-child {
+            border-bottom: none;
         }
     }
 }

@@ -2,6 +2,7 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
+// Gebruik koppeltekens zodat het matcht met je JSX (className="menu-overlay")
 .menu-overlay {
     @include tools.respond-to(var.$screen-size-medium) {
         position: fixed;
@@ -9,15 +10,11 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.5); // Half-transparant zwart
-        z-index: 1999; // Net onder de menu-wrapper (die 2000 heeft)
-
-        // Animatie
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1999;
         opacity: 0;
         visibility: hidden;
-        transition:
-            opacity 0.4s ease-in-out,
-            visibility 0.4s;
+        transition: opacity 0.4s ease-in-out, visibility 0.4s;
 
         &.active {
             opacity: 1;
@@ -32,23 +29,20 @@
 
     &.mobile {
         @include tools.respond-to(var.$screen-size-medium) {
-            // Forceer weergave zodat de transitie zichtbaar is
             display: flex !important;
             flex-direction: column !important;
             position: fixed !important;
             top: 0 !important;
             right: 0 !important;
-            width: 80vw !important;
+            width: 85vw !important;
             height: 100vh !important;
             background-color: black !important;
-           z-index: 2000 !important;
-
-            // Animatie instellingen
-            transform: translateX(100%); // Staat standaard rechts buiten beeld
-            transition:
-                transform 0.4s ease-in-out,
-                visibility 0.4s;
+            z-index: 2000 !important;
+            
+            // DIT verbergt het menu standaard:
+            transform: translateX(100%); 
             visibility: hidden;
+            transition: transform 0.4s ease-in-out, visibility 0.4s;
 
             &.active {
                 transform: translateX(0) !important;
@@ -60,22 +54,47 @@
         .mobileMenuHeader-border {
             width: 100%;
             height: var.$nav-height-small;
-            padding: 0 map.get(map.get(var.$design-scale, "2xl"), "r-space");
+            padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
 
             .mobileMenuHeader-wrapper {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: flex-end;
                 height: 100%;
+                position: relative;
+                min-height: 60px;
             }
         }
 
+        .headerTitleGroup {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none;
+            
+            .headerIcon {
+                display: flex;
+                align-items: center;
+                color: inherit;
+                min-width: 20px;
+            }
+
+            .headerTitleText {
+                margin: 0;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+        }
+        
         .mainList-wrapper {
             display: flex;
             flex-direction: column;
-            padding: map.get(map.get(var.$design-scale, "2xl"), "r-space");
+            padding: 0 map.get(map.get(var.$design-scale, "4xl"), "r-space");
         }
     }
 }

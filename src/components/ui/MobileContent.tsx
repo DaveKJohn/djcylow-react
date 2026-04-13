@@ -4,13 +4,20 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 interface MobileContentProps {
-    children: React.ReactNode;
-    trigger: (toggle: () => void) => React.ReactNode;
-    title?: string;
+    title?: React.ReactNode;
+    icon?: React.ReactNode;
     wrapperClass?: string;
+    trigger: (toggle: () => void) => React.ReactNode;
+    children: React.ReactNode | ((toggle: () => void) => React.ReactNode);
 }
 
-export default function MobileContent({ children, trigger, title, wrapperClass = "" }: MobileContentProps) {
+export default function MobileContent({
+    children,
+    trigger,
+    title,
+    wrapperClass = "",
+    icon
+}: MobileContentProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const [mounted, setMounted] = useState(false);
@@ -30,6 +37,15 @@ export default function MobileContent({ children, trigger, title, wrapperClass =
     }, []);
 
     useEffect(() => {
+        if (isMobile && isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [isOpen, isMobile]);
+
+    useEffect(() => {
         setIsOpen(false);
     }, [pathname]);
 
@@ -41,7 +57,7 @@ export default function MobileContent({ children, trigger, title, wrapperClass =
         <>
             {trigger(toggle)}
 
-            {/* Overlay / Backdrop */}
+            {/* 1. De donkere achtergrond (Overlay) */}
             {isMobile && (
                 <div
                     className={`menu-overlay ${isOpen ? "active" : ""}`}
@@ -49,18 +65,35 @@ export default function MobileContent({ children, trigger, title, wrapperClass =
                 />
             )}
 
+            {/* 2. De daadwerkelijke content schuifbalk */}
             <div className={`menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isOpen ? "active" : ""} ${wrapperClass}`}>
                 {isMobile && (
                     <div className="column mobileMenuHeader-border">
-                        <div className="row mobileMenuHeader-wrapper">
-                            {title && <p className="bold">{title}</p>}
-                            <button className="btn nav close-btn" onClick={() => setIsOpen(false)}>✕</button>
+                        <div className="row mobileMenuHeader-wrapper v-center">
+                            
+                            {/* Gecentreerde Titel + Icoon Groep */}
+                            <div className="headerTitleGroup">
+                                {icon && (
+                                    <div className="headerIcon">
+                                        {icon}
+                                    </div>
+                                )}
+                                {title && <p className="headerTitleText">{title}</p>}
+                            </div>
+
+                            {/* Sluitknop */}
+                            <button
+                                className="btn nav close-btn"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                ✕
+                            </button>
                         </div>
                     </div>
                 )}
 
                 <div className="mainList-wrapper">
-                    {children}
+                    {typeof children === 'function' ? children(toggle) : children}
                 </div>
             </div>
         </>
