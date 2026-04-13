@@ -2,157 +2,124 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
-
-.hidden-wrapper2 {
-    display: none;
-    position: relative;
+#luister {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 
     @include tools.respond-to(var.$screen-size-small) {
-        display: flex;
-        flex-grow: 0;
-        flex-basis: auto;
-        pointer-events: auto;
+        flex-direction: column;
     }
 
-    .filter-btn {
-        pointer-events: auto;
-        cursor: pointer;
-        position: relative;
-    }
-}
+    // De wrapper om de filters heen (het directe kind van #luister)
+    #luister_filter {
+        order: 2; // Links op desktop
+        flex: 0 0 340px;
+        width: 340px;
 
-.filter-wrapper {
-    flex: 0 0 340px;
-    width: 340px;
-
-    .mainList-wrapper {
-        display: flex;
-        height: 100%;
-        align-items: center;
-        justify-content: flex-start;
-        gap: map.get(map.get(var.$design-scale, "5xl"), "c-space");
-    }
-}
-
-/* =======================================
-        SMALL SCREEN (DRAWER)
-   ======================================= */
-@include tools.respond-to(var.$screen-size-small) {
-    .filter-wrapper {
-        display: none;
-        position: fixed;
-        top: 0;
-        right: 0;
-        height: 100%;
-        z-index: 200;
-        width: 90vw;
-        padding: 0;
-        background-color: map.get(map.get(var.$colors, "black"), "100");
-
-        &.mobile.active {
-            display: block;
-            z-index: 400;
-            visibility: visible;
-            pointer-events: auto;
+        @include tools.respond-to(var.$screen-size-small) {
+            order: 1; // Bovenaan op mobiel
+            width: 100%;
+            flex: none;
         }
 
-        .mainList-wrapper {
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-start;
-            gap: 0;
-            padding: map.get(map.get(var.$design-scale, "3xl"), "r-space");
-            color: map.get(map.get(var.$colors, "white"), "100");
-        }
-    }
-}
+        // De knop zit in de trigger van MobileContent, dus binnen #luister_filter
+        #luister_filter_mobile_button {
+            display: none;
 
-/* =======================================
-        BUTTON STYLING (MIXIN LOGICA)
-   ======================================= */
-.btn.select {
-    // Jouw afmetingen
-    width: var.$colour-width;
-    aspect-ratio: var.$colour-aspect-ratio;
-    padding: map.get(map.get(var.$design-scale, "lg"), "c-space") 0;
-    font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
-    text-align: center;
-    font-weight: 500;
-    flex: 1 1 114px;
-    max-width: 80px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-
-    // --- De kern logica uit je mixin ---
-    background-color: var(--black-90);
-    border: 1px solid var(--black-70);
-    color: var(--white-100);
-
-    &:not([aria-pressed="true"]):hover {
-        background-color: var(--black-100);
-        border: 1px solid var(--white-100);
-        color: var(--white-100);
-    }
-
-    &.is-active,
-    &[aria-pressed="true"] {
-        background-color: var(--white-100);
-        border: 1px solid var(--black-100);
-        color: var(--black-100);
-        font-weight: 600;
-    }
-}
-
-/* =======================================
-        MOOD SPECIFIEKE OVERRIDES
-   ======================================= */
-#filter_mood {
-    .btn.select[aria-pressed="true"] {
-        border: 1px solid var(--black-100); // Houdt de border consistent bij actieve mood
-
-        &[data-filter-color="orange"] {
-            background-color: var(--orange-default);
-            color: var(--black-100);
-        }
-        &[data-filter-color="green"] {
-            background-color: var(--green-default);
-            color: var(--black-100);
-        }
-        &[data-filter-color="purple"] {
-            background-color: var(--purple-default);
-            color: var(--white-100);
-        }
-        &[data-filter-color="red"] {
-            background-color: var(--red-default);
-            color: var(--white-100);
-        }
-        &[data-filter-color="blue"] {
-            background-color: var(--blue-default);
-            color: var(--white-100);
-        }
-        &[data-filter-color="cyan"] {
-            background-color: var(--cyan-default);
-            color: var(--black-100);
-        }
-        &[data-filter-color="yellow"] {
-            background-color: var(--yellow-default);
-            color: var(--black-100);
-        }
-    }
-}
-
-#filter_mood_output {
-    .color-wrapper {
-        align-items: center;
-        width: auto;
-        height: auto;
-
-        svg {
-            width: 15px;
-            height: 15px;
             @include tools.respond-to(var.$screen-size-small) {
-                width: 12px;
-                height: 12px;
+                display: block;
+            }
+        }
+    }
+
+    // De drawer zelf (ook binnen #luister_filter)
+    #luister_filter_mobile_drawer {
+        &.locked {
+            display: block;
+            position: sticky;
+            top: 2rem;
+
+            .drawer-header {
+                display: none;
+            }
+            .drawer-content {
+                padding: 0;
+            }
+        }
+
+        &.ready {
+            @include tools.respond-to(var.$screen-size-small) {
+                &.open {
+                    z-index: 2000;
+                }
+            }
+        }
+    }
+
+    /* =======================================
+        BUTTON & MOOD STYLING (Blijft hetzelfde)
+   ======================================= */
+    .btn.select {
+        width: var.$colour-width;
+        aspect-ratio: var.$colour-aspect-ratio;
+        padding: map.get(map.get(var.$design-scale, "lg"), "c-space") 0;
+        font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
+        text-align: center;
+        font-weight: 500;
+        flex: 1 1 114px;
+        max-width: 80px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background-color: var(--black-90);
+        border: 1px solid var(--black-70);
+        color: var(--white-100);
+
+        &:not([aria-pressed="true"]):hover {
+            background-color: var(--black-100);
+            border: 1px solid var(--white-100);
+            color: var(--white-100);
+        }
+
+        &.is-active,
+        &[aria-pressed="true"] {
+            background-color: var(--white-100);
+            border: 1px solid var(--black-100);
+            color: var(--black-100);
+            font-weight: 600;
+        }
+    }
+
+    #filter_mood {
+        .btn.select[aria-pressed="true"] {
+            border: 1px solid var(--black-100);
+            &[data-filter-color="orange"] {
+                background-color: var(--orange-default);
+                color: var(--black-100);
+            }
+            &[data-filter-color="green"] {
+                background-color: var(--green-default);
+                color: var(--black-100);
+            }
+            &[data-filter-color="purple"] {
+                background-color: var(--purple-default);
+                color: var(--white-100);
+            }
+            &[data-filter-color="red"] {
+                background-color: var(--red-default);
+                color: var(--white-100);
+            }
+            &[data-filter-color="blue"] {
+                background-color: var(--blue-default);
+                color: var(--white-100);
+            }
+            &[data-filter-color="cyan"] {
+                background-color: var(--cyan-default);
+                color: var(--black-100);
+            }
+            &[data-filter-color="yellow"] {
+                background-color: var(--yellow-default);
+                color: var(--black-100);
             }
         }
     }

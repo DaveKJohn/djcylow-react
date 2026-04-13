@@ -17,7 +17,6 @@ export default function Nav() {
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            {/* Lijnen op y=3 en y=21 voor maximale tussenruimte */}
             <line x1="2" y1="3" x2="22" y2="3"></line>
             <line x1="2" y1="12" x2="22" y2="12"></line>
             <line x1="2" y1="21" x2="22" y2="21"></line>
@@ -26,7 +25,7 @@ export default function Nav() {
 
     return (
         <nav className="row WoB">
-            <div className="column logo-wrapper">
+            <div className="column" id="nav_logo">
                 <Link href="/">
                     <Image
                         src="/images/djcylow_logo.webp"
@@ -37,22 +36,29 @@ export default function Nav() {
                 </Link>
             </div>
 
-            <MobileContent
-                // Voeg de class toe die je in je CSS gebruikt
-                wrapperClass="menu-wrapper"
-                trigger={(toggle) => (
-                    <div className="hidden-wrapper">
-                        <button className="btn nav hamburger-btn" onClick={toggle} aria-label="Menu openen">
-                            {HamburgerIcon}
-                        </button>
-                    </div>
-                )}
-            >
-                <Link className="btn nav menu" href="/luister">Luister</Link>
-                <Link className="btn nav menu" href="/musicmoodcolours">Music Mood Colours</Link>
-            </MobileContent>
+            <div className="column" id="nav_menu">
 
-            <div className="cta-wrapper">
+                <MobileContent
+                    id="nav_menu_mobile_drawer"
+                    trigger={(toggle) => (
+                        <div id="nav_menu_mobile_button" className="column">
+                            <button className="btn nav hamburger-btn" onClick={toggle} aria-label="Menu openen">
+                                {HamburgerIcon}
+                            </button>
+                        </div>
+                    )}
+                >
+
+                    <div className="row flex menu-wrapper">
+                        {/* Deze links komen op desktop in de bar (locked) en op mobiel in de lade (ready) */}
+                        <Link className="btn nav menu" href="/luister">Luister</Link>
+                        <Link className="btn nav menu" href="/musicmoodcolours">Music Mood Colours</Link>
+                    </div>
+                </MobileContent>
+
+            </div>
+
+            <div className="column" id="nav_cta">
                 <Link className="btn cta boek-nu-btn" href="/diensten">
                     <span>Boek nu!</span>
                 </Link>

@@ -15,7 +15,7 @@ const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
 
 export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: any) {
     return (
-        <div className="column spacing-3xl v-push-6xl">
+        <div className="column spacing-3xl v-push-4xl">
 
             {/* MOOD SECTIE */}
             <div className="column spacing-xs splitter-small center">

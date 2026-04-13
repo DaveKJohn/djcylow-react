@@ -22,7 +22,7 @@ import fullPurple from '@/data/mixes/full-purple.json';
 import fullRed from '@/data/mixes/full-red.json';
 
 // @ts-ignore
-import '@/styles/components/luister/filterResult.scss';
+import '@/styles/components/luister/playlist.scss';
 
 interface MixData {
     id: string;

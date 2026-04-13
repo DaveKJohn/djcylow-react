@@ -31,10 +31,10 @@
             }
         }
 
-        &.filter-btn {
+        &.mobile-button {
             width: 100%;
             max-width: 724px;
-            margin-bottom: 20px;
+            gap: 10px;
 
             padding: map.get(map.get(var.$design-scale, "2xl"), "in-space");
             font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
@@ -51,6 +51,10 @@
 
         &.menu {
             position: relative;
+            text-align: left;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 28px;
 
             &::after {
                 content: "";
@@ -119,7 +123,7 @@
 
     &.filter {
         background: none;
-        color: white;            
+        color: white;
 
         &.close-btn {
             display: none;

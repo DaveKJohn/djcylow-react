@@ -2,11 +2,16 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
-#luister_row_filterResult {
-    flex: 1; // Dit zorgt ervoor dat deze kolom alle resterende ruimte pakt
-    min-width: 0; // Voorkomt dat flex-items groter worden dan hun container bij lange content
+#luister_playlist {
+    order: 2; // Dit zet de resultaten RECHTS op desktop
+    flex: 1;
+    min-width: 0;
 
-    
+    @include tools.respond-to(var.$screen-size-small) {
+        order: 2; // Resultaten ONDER de knop op mobiel
+        width: 100%;
+    }
+
     .card {
         width: var(--card_width);
 

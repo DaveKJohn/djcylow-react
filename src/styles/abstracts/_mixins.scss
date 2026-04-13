@@ -264,7 +264,7 @@
         }
     }
 
-    .menu-wrapper {
+    .drawer {
         a {
             color: var(--#{$fg-80});
             &:hover {
@@ -273,7 +273,7 @@
         }
     }
 
-    .menu-wrapper.mobile.active {
+    .drawer.mobile.active {
         background-color: var(--#{$bg-100});
         border-left: solid 1px var(--#{$bg-80});
         .mobileMenuHeader-border {
@@ -281,7 +281,7 @@
         }
     }
 
-    .filter-wrapper.mobile.active {
+    #luister_filter_mobile_drawer.mobile.active {
         background-color: var(--#{$bg-100});
         border-left: solid 1px var(--#{$bg-80});
         .mobileFilterHeader-border {

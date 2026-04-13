@@ -2,7 +2,7 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
-// Gebruik koppeltekens zodat het matcht met je JSX (className="menu-overlay")
+// De donkere achtergrond achter de drawer
 .menu-overlay {
     @include tools.respond-to(var.$screen-size-medium) {
         position: fixed;
@@ -14,7 +14,9 @@
         z-index: 1999;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.4s ease-in-out, visibility 0.4s;
+        transition:
+            opacity 0.4s ease-in-out,
+            visibility 0.4s;
 
         &.active {
             opacity: 1;
@@ -23,11 +25,24 @@
     }
 }
 
-.menu-wrapper {
-    display: flex;
+// De hoofdcontainer van de drawer
+.drawer {
+    display: flex; // Dit moet ALTIJD gelden, ook op desktop
     z-index: 200;
 
-    &.mobile {
+    // DESKTOP / LOCKED STATUS (Hier miste de styling)
+    &.locked {
+        display: flex;
+        position: relative; // Zorg dat het gewoon in de layout blijft
+        visibility: visible;
+        transform: none;
+        width: auto;
+        height: auto;
+        // Eventuele desktop-specifieke sidebar styles hier...
+    }
+
+    // MOBIEL / READY STATUS
+    &.ready {
         @include tools.respond-to(var.$screen-size-medium) {
             display: flex !important;
             flex-direction: column !important;
@@ -38,36 +53,40 @@
             height: 100vh !important;
             background-color: black !important;
             z-index: 2000 !important;
-            
-            // DIT verbergt het menu standaard:
-            transform: translateX(100%); 
-            visibility: hidden;
-            transition: transform 0.4s ease-in-out, visibility 0.4s;
 
-            &.active {
+            transform: translateX(100%);
+            visibility: hidden;
+            transition:
+                transform 0.4s ease-in-out,
+                visibility 0.4s;
+
+            &.open {
                 transform: translateX(0) !important;
                 visibility: visible !important;
                 box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
             }
-        }
 
-        .mobileMenuHeader-border {
-            width: 100%;
-            height: var.$nav-height-small;
-            padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            flex-shrink: 0;
-
-            .mobileMenuHeader-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                height: 100%;
-                position: relative;
-                min-height: 60px;
+            &.closed {
+                transform: translateX(100%);
+                visibility: hidden;
             }
         }
 
+        // De bovenste balk in de drawer (met titel en sluitknop)
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+            height: var.$nav-height-small;
+            min-height: 60px;
+            position: relative;
+            flex-shrink: 0;
+            padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        // De groep met icoon en titel (gecentreerd)
         .headerTitleGroup {
             position: absolute;
             left: 50%;
@@ -76,7 +95,7 @@
             align-items: center;
             gap: 10px;
             pointer-events: none;
-            
+
             .headerIcon {
                 display: flex;
                 align-items: center;
@@ -90,11 +109,16 @@
                 white-space: nowrap;
             }
         }
-        
-        .mainList-wrapper {
+
+        // De content moet ALTIJD zichtbaar zijn, ongeacht ready of locked
+        .drawer-content {
             display: flex;
             flex-direction: column;
             padding: 0 map.get(map.get(var.$design-scale, "4xl"), "r-space");
         }
     }
+}
+
+.drawer.hidden-desktop.locked {
+    display: none !important;
 }

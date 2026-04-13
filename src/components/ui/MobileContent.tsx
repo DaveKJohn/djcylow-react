@@ -7,6 +7,7 @@ interface MobileContentProps {
     title?: React.ReactNode;
     icon?: React.ReactNode;
     wrapperClass?: string;
+    id?: string;           // Prop is aanwezig in interface
     trigger: (toggle: () => void) => React.ReactNode;
     children: React.ReactNode | ((toggle: () => void) => React.ReactNode);
 }
@@ -16,6 +17,7 @@ export default function MobileContent({
     trigger,
     title,
     wrapperClass = "",
+    id, // 1. Destructureer de id prop hier
     icon
 }: MobileContentProps) {
     const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +59,6 @@ export default function MobileContent({
         <>
             {trigger(toggle)}
 
-            {/* 1. De donkere achtergrond (Overlay) */}
             {isMobile && (
                 <div
                     className={`menu-overlay ${isOpen ? "active" : ""}`}
@@ -65,34 +66,34 @@ export default function MobileContent({
                 />
             )}
 
-            {/* 2. De daadwerkelijke content schuifbalk */}
-            <div className={`menu-wrapper ${isMobile ? "mobile" : "desktop"} ${isOpen ? "active" : ""} ${wrapperClass}`}>
+            {/* 2. Voeg de id={id} toe aan de div */}
+            <div
+                id={id}
+                className={`drawer ${isMobile ? "ready" : "locked"} ${isOpen ? "open" : "closed"} ${wrapperClass}`}
+            >
                 {isMobile && (
-                    <div className="column mobileMenuHeader-border">
-                        <div className="row mobileMenuHeader-wrapper v-center">
-                            
-                            {/* Gecentreerde Titel + Icoon Groep */}
-                            <div className="headerTitleGroup">
-                                {icon && (
-                                    <div className="headerIcon">
-                                        {icon}
-                                    </div>
-                                )}
-                                {title && <p className="headerTitleText">{title}</p>}
-                            </div>
+                    /* 3. Match de classnaam met je SCSS (drawer-header) */
+                    <div className="row drawer-header v-center">
 
-                            {/* Sluitknop */}
-                            <button
-                                className="btn nav close-btn"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                ✕
-                            </button>
+                        <div className="headerTitleGroup">
+                            {icon && (
+                                <div className="headerIcon">
+                                    {icon}
+                                </div>
+                            )}
+                            {title && <p className="headerTitleText">{title}</p>}
                         </div>
+
+                        <button
+                            className="btn nav close-btn"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            ✕
+                        </button>
                     </div>
                 )}
 
-                <div className="mainList-wrapper">
+                <div className="drawer-content">
                     {typeof children === 'function' ? children(toggle) : children}
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from '@/styles/modules/luister.module.scss';
 
 import Filter from '@/components/luister/Filter';
-import FilterResult from '@/components/luister/FilterResult';
+import Playlist from '@/components/luister/Playlist';
 import MobileContent from '@/components/ui/MobileContent';
 
 export default function LuisterPage() {
@@ -38,6 +38,7 @@ export default function LuisterPage() {
 
     return (
         <main className={styles.pageWrapper}>
+            {/* Banner bovenaan */}
             <section className="stack banner WoB" id="banner_2">
                 <div className="column layer feather sides"></div>
                 <div className="column layer feather bottom"></div>
@@ -46,44 +47,47 @@ export default function LuisterPage() {
                 </div>
             </section>
 
-            <MobileContent
-                title={<span style={{ color: 'white' }}>Filters</span>}
-                wrapperClass="filter-wrapper"
-                icon={<span style={{ color: 'white', display: 'flex' }}>{FilterIcon}</span>}
-                trigger={(toggle) => (
-                    <section className="column constrainer hidden-wrapper2 WoB" id="luister_mobile_button">
-                        <button
-                            className="btn passive filter-btn row v-center"
-                            onClick={toggle}
-                            aria-label="Filter openen"
-                            style={{ gap: '10px', display: 'flex' }}
-                        >
-                            {FilterIcon}
-                            Filters
-                        </button>
-                    </section>
-                )}
-            >
-                {/* We gebruiken hier ook de toggle functie om het menu te kunnen sluiten */}
-                {(toggle) => (
-                    <>
-                        <Filter
-                            activeColor={activeColor} setActiveColor={setActiveColor}
-                            activeGenre={activeGenre} setActiveGenre={setActiveGenre}
-                            activePower={activePower} setActivePower={setActivePower}
-                        />
-                        
-                    </>
-                )}
-            </MobileContent>
+            {/* De container die op desktop alles naast elkaar zet */}
+            <section className="column constrainer spacing-4xl WoB" id="luister">
 
-            <section className="row constrainer spacing-6xl WoB" id="luister_row" style={{ alignItems: 'flex-start' }}>
-                <div className="column spacing-4xl" id="luister_row_filterResult">
-                    <FilterResult
+                {/* LINKS: De resultaten (neemt de rest van de ruimte in) */}
+                <div className="column spacing-4xl" id="luister_playlist">
+                    <Playlist
                         activeColor={activeColor}
                         activeGenre={activeGenre}
                         activePower={activePower}
                     />
+                </div>
+
+                <div className="column full-w spacing-4xl" id="luister_filter">
+
+                    {/* RECHTS: De filters (op desktop locked in de kolom, op mobiel een knop) */}
+                    <MobileContent
+                        title={<span style={{ color: 'white' }}>Filters</span>}
+                        id="luister_filter_mobile_drawer"
+                        icon={<span style={{ color: 'white', display: 'flex' }}>{FilterIcon}</span>}
+                        trigger={(toggle) => (
+                            /* De knop die alleen op mobiel verschijnt via CSS */
+                            <div id="luister_filter_mobile_button" className="column">
+                                <button
+                                    className="row btn passive mobile-button v-center"
+                                    onClick={toggle}
+                                    aria-label="Filter openen"
+                                >
+                                    {FilterIcon}
+                                    Filters
+                                </button>
+                            </div>
+                        )}
+                    >
+                        {(toggle) => (
+                            <Filter
+                                activeColor={activeColor} setActiveColor={setActiveColor}
+                                activeGenre={activeGenre} setActiveGenre={setActiveGenre}
+                                activePower={activePower} setActivePower={setActivePower}
+                            />
+                        )}
+                    </MobileContent>
                 </div>
             </section>
         </main>

@@ -15,11 +15,13 @@ nav {
     background-color: black;
     padding: 0 map.get(map.get(var.$design-scale, "5xl"), "r-space");
 
-    .logo-wrapper {
+    #nav_logo {
         display: flex;
         height: 100%;
         order: 1;
-        flex: 0 0 auto;
+        flex-grow: 1;
+        flex-basis: 0;
+
         a {
             display: flex;
             align-items: center;
@@ -27,40 +29,42 @@ nav {
         }
     }
 
-    // De menu-wrapper is nu een directe buur of onderdeel van de flow
-    .menu-wrapper {
+    #nav_menu {
         display: flex;
-        height: 100%;
+        align-items: start;
+        justify-content: center;
         order: 2;
-        flex: 1;
+        flex-grow: 0;
+        height: 100%;
 
-        // Standaard desktop gedrag (wanneer GEEN .mobile class aanwezig is)
-        &:not(.mobile) {
-            position: static !important;
-            transform: none !important;
-            visibility: visible !important;
-            background: transparent !important;
-            opacity: 1 !important;
-        }
+        width: 100%;
+        margin: 0 auto;
+        max-width: var.$desktop-max-width;
+        padding: 0 map.get(map.get(var.$design-scale, "6xl"), "r-space");
 
-        .mainList-wrapper {
+        .menu-wrapper {
             display: flex;
-            height: 100%;
             align-items: center;
+            gap: map.get(map.get(var.$design-scale, "5xl"), "c-space");
         }
     }
 
-    .cta-wrapper {
+    #nav_cta {
         display: flex;
         align-items: center;
+        justify-content: center;
         order: 3;
         height: 100%;
+        flex-grow: 1;
+        flex-basis: 0;
     }
 
-    .hidden-wrapper {
+    #nav_menu_mobile_button {
         display: none;
-        order: 4;
+        height: 100%;
+        align-items: center;
         z-index: 1100;
+
         .hamburger-btn {
             cursor: pointer;
             background: none;
@@ -68,27 +72,47 @@ nav {
             color: white;
             display: flex;
             align-items: center;
+            height: 100%;
         }
     }
 
-    /* Mobiele Layout optimalisaties */
+    /* Mobiele Layout */
     @include tools.respond-to(var.$screen-size-medium) {
         height: var.$nav-height-medium;
         padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
 
-        .logo-wrapper {
-            flex: 1;
-        }
-        .cta-wrapper {
-            order: 2;
-        }
-        .hidden-wrapper {
-            display: flex;
-            order: 3;
+        #nav_logo {
+            flex-grow: 1; // Logo neemt alle ruimte in
+            flex-basis: auto;
+            order: 1;
         }
 
-        // Verberg de desktop-versie van het menu op mobiel
-        .menu-wrapper:not(.mobile) {
+        #nav_cta {
+            flex-grow: 0;
+            flex-basis: auto;
+            order: 2;
+        }
+
+        #nav_menu {
+            order: 3;
+            flex-grow: 0;
+            flex-basis: auto;
+            justify-content: flex-end;
+            align-items: center;
+
+            width: auto;
+            padding: 0;
+
+            .menu-wrapper {
+                gap: 0;
+            }
+        }
+
+        #nav_menu_mobile_button {
+            display: flex;
+        }
+
+        .drawer.locked {
             display: none;
         }
     }
@@ -97,21 +121,26 @@ nav {
         height: var.$nav-height-small;
         padding: 0 map.get(map.get(var.$design-scale, "2xl"), "in-space");
 
-        .logo-wrapper img {
+        #nav_logo img {
             width: 120px;
         }
     }
 }
 
-// Mobile-specific styling (buiten de nav nesting voor de zekerheid)
-.menu-wrapper.mobile {
-    .btn.nav.menu {
-        width: 100%;
-        justify-content: flex-start;
-        border-bottom: 1px solid var(--black-80);
+.drawer.ready {
+    .drawer-header {
+        display: none;
+    }
 
-        &:last-child {
-            border-bottom: none;
+    .drawer-content {
+        .btn.nav.menu {
+            width: 100%;
+            justify-content: flex-start;
+            border-bottom: 1px solid var(--black-80);
+
+            &:last-child {
+                border-bottom: none;
+            }
         }
     }
 }
