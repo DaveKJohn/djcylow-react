@@ -8,10 +8,11 @@
 
 
 // BASE
-@use "base/reset";
-@use "base/root";
-@use "base/buttons";
-@use "base/typography";
+@use "base/root";       // 1. Eerst de variabelen (:root)
+@use "base/reset";      // 2. Dan de globale reset en body
+@use "base/elements";   // 3. Dan de basis bouwstenen (stack, constrainer, theme-styles)
+@use "base/typography"; // 4. Dan de tekststijlen
+@use "base/buttons";    // 5. Dan de specifieke knoppen
 
 
 // LAYOUT
@@ -29,6 +30,7 @@
 @use "components/ui/backButton";
 @use "components/ui/readMore";
 @use "components/ui/audioplayer";
+@use "components/ui/mobile-content";
 
 
 // PAGES

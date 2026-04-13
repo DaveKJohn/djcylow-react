@@ -2,6 +2,7 @@
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
 
+
 .hidden-wrapper2 {
     display: none;
     position: relative;
@@ -21,8 +22,8 @@
 }
 
 .filter-wrapper {
-    flex: 0 0 340px; // Groeit niet, krimpt niet, en is precies 340px breed
-    width: 340px; // Voor extra browser-ondersteuning
+    flex: 0 0 340px;
+    width: 340px;
 
     .mainList-wrapper {
         display: flex;
@@ -34,11 +35,11 @@
 }
 
 /* =======================================
-        MEDIUM SCREEN
-       ======================================= */
+        SMALL SCREEN (DRAWER)
+   ======================================= */
 @include tools.respond-to(var.$screen-size-small) {
     .filter-wrapper {
-        display: none; // Verander display: block naar display: none
+        display: none;
         position: fixed;
         top: 0;
         right: 0;
@@ -46,26 +47,13 @@
         z-index: 200;
         width: 90vw;
         padding: 0;
+        background-color: map.get(map.get(var.$colors, "black"), "100");
 
         &.mobile.active {
             display: block;
-            z-index: 400; // Menu springt VOOR de hamburger-button (1000)
+            z-index: 400;
             visibility: visible;
             pointer-events: auto;
-        }
-
-        .mobileFilterHeader-border {
-            position: relative;
-            width: 100%;
-            height: var.$nav-height-small;
-
-            .mobileFilterHeader-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                height: 100%;
-            }
         }
 
         .mainList-wrapper {
@@ -74,54 +62,81 @@
             justify-content: flex-start;
             gap: 0;
             padding: map.get(map.get(var.$design-scale, "3xl"), "r-space");
+            color: map.get(map.get(var.$colors, "white"), "100");
         }
     }
 }
 
+/* =======================================
+        BUTTON STYLING (MIXIN LOGICA)
+   ======================================= */
 .btn.select {
+    // Jouw afmetingen
+    width: var.$colour-width;
+    aspect-ratio: var.$colour-aspect-ratio;
     padding: map.get(map.get(var.$design-scale, "lg"), "c-space") 0;
     font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
     text-align: center;
     font-weight: 500;
     flex: 1 1 114px;
     max-width: 80px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    // --- De kern logica uit je mixin ---
+    background-color: var(--black-90);
+    border: 1px solid var(--black-70);
+    color: var(--white-100);
+
+    &:not([aria-pressed="true"]):hover {
+        background-color: var(--black-100);
+        border: 1px solid var(--white-100);
+        color: var(--white-100);
+    }
 
     &.is-active,
     &[aria-pressed="true"] {
+        background-color: var(--white-100);
+        border: 1px solid var(--black-100);
+        color: var(--black-100);
         font-weight: 600;
     }
 }
 
-// MOOD specifieke styling
+/* =======================================
+        MOOD SPECIFIEKE OVERRIDES
+   ======================================= */
 #filter_mood {
-    .btn.select {
-        &[data-filter-color="orange"][aria-pressed="true"] {
-            background-color: #ff7f00;
-            color: #000000;
+    .btn.select[aria-pressed="true"] {
+        border: 1px solid var(--black-100); // Houdt de border consistent bij actieve mood
+
+        &[data-filter-color="orange"] {
+            background-color: var(--orange-default);
+            color: var(--black-100);
         }
-        &[data-filter-color="green"][aria-pressed="true"] {
-            background-color: #00ff00;
-            color: #000000;
+        &[data-filter-color="green"] {
+            background-color: var(--green-default);
+            color: var(--black-100);
         }
-        &[data-filter-color="purple"][aria-pressed="true"] {
-            background-color: #7f00ff;
-            color: #ffffff;
+        &[data-filter-color="purple"] {
+            background-color: var(--purple-default);
+            color: var(--white-100);
         }
-        &[data-filter-color="red"][aria-pressed="true"] {
-            background-color: #ff0000;
-            color: #ffffff;
+        &[data-filter-color="red"] {
+            background-color: var(--red-default);
+            color: var(--white-100);
         }
-        &[data-filter-color="blue"][aria-pressed="true"] {
-            background-color: #0000ff;
-            color: #ffffff;
+        &[data-filter-color="blue"] {
+            background-color: var(--blue-default);
+            color: var(--white-100);
         }
-        &[data-filter-color="cyan"][aria-pressed="true"] {
-            background-color: #00ffff;
-            color: #000000;
+        &[data-filter-color="cyan"] {
+            background-color: var(--cyan-default);
+            color: var(--black-100);
         }
-        &[data-filter-color="yellow"][aria-pressed="true"] {
-            background-color: #ffff00;
-            color: #000000;
+        &[data-filter-color="yellow"] {
+            background-color: var(--yellow-default);
+            color: var(--black-100);
         }
     }
 }
@@ -135,7 +150,6 @@
         svg {
             width: 15px;
             height: 15px;
-
             @include tools.respond-to(var.$screen-size-small) {
                 width: 12px;
                 height: 12px;

@@ -3,7 +3,7 @@
 @use "../abstracts/mixins" as tools;
 
 // Definieer de aliassen die we willen genereren
-$aliassen: ("9xl", "8xl", "7xl", "6xl", "5xl", "4xl", "3xl", "2xl", "xl", "lg", "base", "lg", "sm", "xs");
+$aliassen: ("9xl", "8xl", "7xl", "6xl", "5xl", "4xl", "3xl", "2xl", "xl", "lg", "base", "sm", "xs");
 
 @each $alias in $aliassen {
     .h-push-#{$alias} {
@@ -23,3 +23,4 @@ $aliassen: ("9xl", "8xl", "7xl", "6xl", "5xl", "4xl", "3xl", "2xl", "xl", "lg", 
     }
 }
 
+@include tools.apply-smart-spacing(true);

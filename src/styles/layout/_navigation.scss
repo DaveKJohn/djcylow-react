@@ -2,151 +2,98 @@
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
 
-/* =======================================
-    NAVIGATIE BASIS & DESKTOP LAYOUT
-   ======================================= */
 nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     position: fixed;
-    z-index: 100;
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1000;
     height: var.$nav-height-large;
     background-color: black;
-
     padding: 0 map.get(map.get(var.$design-scale, "5xl"), "r-space");
 
-    .hidden-wrapper {
-        display: none;
-        position: relative;
-        z-index: 300;
-
-        .hamburger-btn {
-            pointer-events: auto;
-            cursor: pointer;
-            position: relative;
-        }
-    }
-
     .logo-wrapper {
-        justify-content: center;
-        align-items: flex-start;
-        flex-grow: 1;
-        flex-basis: 0;
+        display: flex;
         height: 100%;
+        order: 1;
+        flex: 0 0 auto;
 
         a {
             display: flex;
             align-items: center;
-            line-height: 0; // Voorkomt extra witruimte onder de link
-        }
-
-        img {
-            display: block;
-            margin-left: 0; // Forceer tegen de rand
+            height: 100%;
         }
     }
 
     .menu-wrapper {
         display: flex;
-        flex-direction: row;
-        width: 100%;
         height: 100%;
-        z-index: 200;
-        margin: 0 auto;
-        max-width: var.$desktop-max-width;
+        order: 2;
+        flex: 1;
         padding: 0 map.get(map.get(var.$design-scale, "6xl"), "r-space");
 
         .mainList-wrapper {
             display: flex;
             height: 100%;
             align-items: center;
-            justify-content: flex-start;
             gap: map.get(map.get(var.$design-scale, "5xl"), "c-space");
         }
     }
 
     .cta-wrapper {
         display: flex;
-        justify-content: flex-end;
         align-items: center;
-        flex-grow: 1;
-        flex-basis: 0;
+        order: 3;
         height: 100%;
     }
 
-    /* =======================================
-        MEDIUM SCREEN
-       ======================================= */
+    .hidden-wrapper {
+        display: none;
+        order: 4;
+        z-index: 1100;
+
+        .hamburger-btn {
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Mobiele Layout optimalisaties */
     @include tools.respond-to(var.$screen-size-medium) {
         height: var.$nav-height-medium;
         padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
 
         .logo-wrapper {
-            flex-basis: auto;
+            flex: 1;
         }
-
         .cta-wrapper {
-            flex-grow: 0;
-            flex-basis: auto;
+            order: 2;
         }
-
+        
         .hidden-wrapper {
             display: flex;
-            flex-grow: 0;
-            flex-basis: auto;
-            pointer-events: auto;
+            order: 3;
         }
 
-        .menu-wrapper {
-            display: none; // Verander display: block naar display: none
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100%;
-            z-index: 200;
-            width: 80vw;
-            background-color: inherit;
+        .menu-wrapper.mobile {
+            display: none;
             padding: 0;
 
-            &.mobile.active {
-                display: block;
-                z-index: 400; // Menu springt VOOR de hamburger-button (1000)
-                visibility: visible;
-                pointer-events: auto;
+            &.active {
+                display: flex !important;
             }
-
-            .mobileMenuHeader-border {
-                position: relative;
-                width: 100%;
-                height: var.$nav-height-small;
-
-                .mobileMenuHeader-wrapper {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-
             .mainList-wrapper {
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: flex-start;
                 gap: 0;
-                padding: map.get(map.get(var.$design-scale, "2xl"), "r-space");
             }
         }
     }
 
-    /* =======================================
-        SMALL SCREEN 
-       ======================================= */
     @include tools.respond-to(var.$screen-size-small) {
         height: var.$nav-height-small;
         padding: 0 map.get(map.get(var.$design-scale, "2xl"), "in-space");

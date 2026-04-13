@@ -21,8 +21,9 @@
         $map: var.$small-mapping;
     }
 
-    @return if(sass(map.has-key($map, $alias)): map.get($map, $alias) ; else: $alias);
+    @return if(map.has-key($map, $alias), map.get($map, $alias), $alias);
 }
+
 /* =======================================
     2. TYPOGRAFIE & KLEUR UTILITIES
    ======================================= */
@@ -156,11 +157,9 @@
 
     @if $config {
         $val: if(
-            sass($type == "h"): map.get($config, "r-space")
-                ;
-                else: if(
-                    sass($type == "in"): map.get($config, "in-space") ; else: map.get($config, "c-space")
-                )
+            $type == "h",
+            map.get($config, "r-space"),
+            if($type == "in", map.get($config, "in-space"), map.get($config, "c-space"))
         );
         @include _execute-push($type, $val);
     }
@@ -168,10 +167,9 @@
     @if $med-config {
         @include respond-to(var.$screen-size-medium) {
             $m-val: if(
-                sass($type == "h"): map.get($med-config, "r-space") ;
-                    else: if(
-                        sass($type == "in"): map.get($med-config, "in-space") ; else: map.get($med-config, "c-space")
-                    )
+                $type == "h",
+                map.get($med-config, "r-space"),
+                if($type == "in", map.get($med-config, "in-space"), map.get($med-config, "c-space"))
             );
             @include _execute-push($type, $m-val);
         }
@@ -180,11 +178,9 @@
     @if $small-config {
         @include respond-to(var.$screen-size-small) {
             $s-val: if(
-                sass($type == "h"): map.get($small-config, "r-space") ;
-                    else: if(
-                        sass($type == "in"): map.get($small-config, "in-space") ;
-                            else: map.get($small-config, "c-space")
-                    )
+                $type == "h",
+                map.get($small-config, "r-space"),
+                if($type == "in", map.get($small-config, "in-space"), map.get($small-config, "c-space"))
             );
             @include _execute-push($type, $s-val);
         }
