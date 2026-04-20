@@ -35,7 +35,7 @@ export default function HomePage() {
             <section className="slideshow">
                 <Hero />
                 {/* <Referenties /> */}
-                 <GoogleReviews />
+                {/* <GoogleReviews /> */}
                 <Promo />
 
                 <ContactForm />
