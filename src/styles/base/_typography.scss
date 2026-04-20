@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
 /* =======================================
    1. BASIS INSTELLINGEN
@@ -127,6 +128,9 @@ $utility-styles: (
     ),
     ".left": (
         "text-align": left
+    ),
+    ".center": (
+        "text-align": center
     )
 );
 

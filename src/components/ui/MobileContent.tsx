@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { BREAKPOINTS } from '@/constants/design';
 
 interface MobileContentProps {
     title?: React.ReactNode;
@@ -27,14 +28,20 @@ export default function MobileContent({
 
     useEffect(() => {
         setMounted(true);
-        const checkSize = () => {
-            const mobile = window.innerWidth <= 1080;
+
+        const checkSize = () => {           
+            const mobile = window.innerWidth <= BREAKPOINTS.SMALL;
             setIsMobile(mobile);
-            if (!mobile) setIsOpen(false);
+
+            // Als het scherm groter wordt dan de mobiele grens, sluiten we het menu
+            if (!mobile) {
+                setIsOpen(false);
+            }
         };
 
         checkSize();
         window.addEventListener("resize", checkSize);
+
         return () => window.removeEventListener("resize", checkSize);
     }, []);
 
@@ -61,7 +68,7 @@ export default function MobileContent({
 
             {isMobile && (
                 <div
-                    className={`menu-overlay ${isOpen ? "active" : ""}`}
+                    className={`drawer-overlay ${isOpen ? "active" : ""}`}
                     onClick={() => setIsOpen(false)}
                 />
             )}
@@ -73,7 +80,7 @@ export default function MobileContent({
             >
                 {isMobile && (
                     /* 3. Match de classnaam met je SCSS (drawer-header) */
-                    <div className="row drawer-header v-center">
+                    <div className="drawer-header">
 
                         <div className="headerTitleGroup">
                             {icon && (
@@ -85,7 +92,7 @@ export default function MobileContent({
                         </div>
 
                         <button
-                            className="btn nav close-btn"
+                            className="btn close"
                             onClick={() => setIsOpen(false)}
                         >
                             ✕

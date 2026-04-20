@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
 footer {
     padding: map.get(map.get(var.$design-scale, "7xl"), "c-space") 0;
@@ -13,7 +14,7 @@ footer {
             height: auto;
             display: block;
 
-            @include tools.respond-to(var.$screen-size-medium) {
+            @include tools.respond-to(fn.get-breakpoint("medium")) {
                 width: 220px;
             }
         }

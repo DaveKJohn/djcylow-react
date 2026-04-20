@@ -3,8 +3,10 @@
 @use "sass:math";
 
 // Abstracts
-@use "abstracts/variables" as var;
-@use "abstracts/mixins" as tools;
+@use "abstracts/variables" as var;  // 1. De Variabele: In _variables.scss staat: "small": 660px
+@use "abstracts/functions" as fn;   // 2. De Functie: get-breakpoint("small") haalt die 660px op
+@use "abstracts/mixins" as tools;   // 3. De Mixin: respond-to(...) bouwt de @media schil om je code heen.
+
 
 
 // BASE

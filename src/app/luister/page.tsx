@@ -64,7 +64,7 @@ export default function LuisterPage() {
                     {/* RECHTS: De filters (op desktop locked in de kolom, op mobiel een knop) */}
                     <MobileContent
                         title={<span style={{ color: 'white' }}>Filters</span>}
-                        id="luister_filter_mobile_drawer"
+                        id="luister_filter_content"
                         icon={<span style={{ color: 'white', display: 'flex' }}>{FilterIcon}</span>}
                         trigger={(toggle) => (
                             /* De knop die alleen op mobiel verschijnt via CSS */

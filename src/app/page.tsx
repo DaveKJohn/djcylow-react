@@ -9,6 +9,7 @@ import styles from '@/styles/modules/home.module.scss';
 
 import Hero from "@/components/home/Hero";
 import Promo from "@/components/home/Promo";
+import GoogleReviews from "@/components/home/GoogleReviews";
 import Referenties from "@/components/home/Referenties";
 
 
@@ -34,6 +35,7 @@ export default function HomePage() {
             <section className="slideshow">
                 <Hero />
                 {/* <Referenties /> */}
+                 <GoogleReviews />
                 <Promo />
 
                 <ContactForm />

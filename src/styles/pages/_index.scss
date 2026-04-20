@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
 
 
@@ -13,7 +14,7 @@
         .diensten-btn {
             flex: 1 1 40%;
 
-            @include tools.respond-to(var.$screen-size-medium) {
+            @include tools.respond-to(fn.get-breakpoint("medium")) {
                 flex: 1 1 100%;
             }
         }

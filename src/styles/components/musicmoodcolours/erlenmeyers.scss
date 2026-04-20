@@ -2,6 +2,7 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 $card-width-erlenmeyers: 180px;
 $card-height-erlenmeyers: 180px;
@@ -192,7 +193,7 @@ $card-height-erlenmeyers: 180px;
 
             flex: 0 0 calc(25% - 15px);
 
-            @include tools.respond-to(var.$screen-size-small) {
+            @include tools.respond-to(fn.get-breakpoint("small")) {
                 flex: 0 0 calc(33.33% - 15px);
             }
 

@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 #hero {
     .layer.gradient {
@@ -11,7 +12,7 @@
             radial-gradient(at 75% 60%, rgba(0, 58, 58, 0.3) 0%, transparent 40%);
         background-blend-mode: screen;
 
-        @include tools.respond-to(var.$screen-size-small) {
+        @include tools.respond-to(fn.get-breakpoint("small")) {
             background-image:
                 radial-gradient(at 40% 70%, rgba(46, 46, 0, 0.4) 0%, transparent 30%),
                 radial-gradient(at 45% 30%, rgba(78, 0, 0, 0.4) 0%, transparent 30%),
@@ -41,11 +42,11 @@
             display: none;
         }
 
-        @include tools.respond-to(var.$screen-size-medium) {
+        @include tools.respond-to(fn.get-breakpoint("medium")) {
             padding-left: 400px;
         }
 
-        @include tools.respond-to(var.$screen-size-small) {
+        @include tools.respond-to(fn.get-breakpoint("small")) {
             justify-content: flex-start;
             align-items: center;
             padding-left: 0;
@@ -72,7 +73,7 @@
             h2 {
                 text-align: left;
 
-                @include tools.respond-to(var.$screen-size-small) {
+                @include tools.respond-to(fn.get-breakpoint("small")) {
                     text-align: center;
                 }
             }
@@ -84,12 +85,12 @@
                 padding: 14px 28px;
             }
 
-            @include tools.respond-to(var.$screen-size-small) {
+            @include tools.respond-to(fn.get-breakpoint("small")) {
                 justify-content: center;
             }
         }
 
-        @include tools.respond-to(var.$screen-size-small) {
+        @include tools.respond-to(fn.get-breakpoint("small")) {
             transform: translateY(90px);
         }
     }

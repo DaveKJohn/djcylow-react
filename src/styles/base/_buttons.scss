@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
 .btn {
     cursor: pointer;
@@ -12,6 +13,7 @@
     justify-content: center;
     transition: color 300ms ease-in-out;
     line-height: 1;
+    background: none;
 
     svg {
         display: block;
@@ -19,14 +21,13 @@
 
     &.passive {
         border: 1px solid;
-        background: none;
 
         &.diensten-btn {
             max-width: 300px;
             padding: map.get(map.get(var.$design-scale, "3xl"), "in-space");
             font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
 
-            @include tools.respond-to(var.$screen-size-medium) {
+            @include tools.respond-to(fn.get-breakpoint("medium")) {
                 max-width: none;
             }
         }
@@ -42,107 +43,6 @@
 
         &.select {
             transition: none;
-        }
-    }
-
-    &.nav {
-        background: none;
-        color: white;
-
-        &.menu {
-            position: relative;
-            text-align: left;
-            font-size: 18px;
-            font-weight: 500;
-            line-height: 28px;
-
-            &::after {
-                content: "";
-                position: absolute;
-                top: -10px;
-                bottom: -10px;
-                left: -18px;
-                right: -18px;
-                border: 1px solid transparent;
-                transition: border-color 0.5s ease;
-            }
-
-            &:hover::after {
-                border: 1px solid rgb(85, 85, 85);
-            }
-
-            @include tools.respond-to(var.$screen-size-medium) {
-                width: 100%;
-                padding: map.get(map.get(var.$design-scale, "3xl"), "in-space") 0;
-                &::after {
-                    content: none; // Verwijdert het element volledig op mobiel
-                }
-
-                &:hover::after {
-                    border: none; // Zorgt dat er geen hover-activiteit meer is
-                }
-            }
-        }
-
-        &.hamburger-btn {
-            height: 100%;
-            font-weight: 200;
-            font-size: map.get(map.get(var.$design-scale, "3xl"), "font-size");
-
-            @include tools.respond-to(var.$screen-size-medium) {
-                padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
-                margin-left: map.get(map.get(var.$design-scale, "xl"), "r-space");
-            }
-
-            @include tools.respond-to(var.$screen-size-small) {
-                padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
-                margin-left: map.get(map.get(var.$design-scale, "xl"), "r-space");
-            }
-        }
-
-        &.close-btn {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            width: 60px;
-            font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
-            margin-left: auto;
-            margin-right: 0;
-
-            svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            @include tools.respond-to(var.$screen-size-medium) {
-                display: flex;
-            }
-        }
-    }
-
-    &.filter {
-        background: none;
-        color: white;
-
-        &.close-btn {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            width: 60px;
-            font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
-            margin-left: auto;
-            margin-right: 0;
-
-            svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            @include tools.respond-to(var.$screen-size-small) {
-                display: flex;
-            }
         }
     }
 
@@ -170,7 +70,7 @@
             padding: map.get(map.get(var.$design-scale, "xl"), "in-space");
             font-size: map.get(map.get(var.$design-scale, "lg"), "font-size");
 
-            @include tools.respond-to(var.$screen-size-small) {
+            @include tools.respond-to(fn.get-breakpoint("small")) {
                 width: 90px;
                 padding: map.get(map.get(var.$design-scale, "lg"), "in-space");
                 font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");

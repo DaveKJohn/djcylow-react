@@ -1,8 +1,9 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
-// 1. Genereer alle basis-thema elementen (Splitters, Borders, Table-styles)
+// 1. Genereer alle basis-thema elementen
 @include tools.theme-styles(
     $fg-70: "white-70",
     $fg-80: "white-80",
@@ -14,15 +15,14 @@
     $bg-100: "black-100"
 );
 
-// 2. De basis voor je selectie-knoppen (zoals in de filter)
+// 2. De basis voor selectie-knoppen
 .btn.select {
     @include tools.colour-base;   
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
 
-// 3. Andere globale elementen die je mixin aanbiedt
-// Bijvoorbeeld de splitter-small specifiek als je die nog extra wilt tweaken
+// 3. Globale elementen
 .splitter-small {
     padding-bottom: map.get(map.get(var.$design-scale, "4xl"), "c-space") !important;
 }
@@ -37,18 +37,18 @@
     justify-content: center;
     align-items: center;
 
+    // GEFIXT: Namespace toegevoegd voor nav-height
     min-height: calc(100vh - var.$nav-height-large);
     height: auto;
 
     padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
 
-    @include tools.respond-to(var.$screen-size-small) {
+    @include tools.respond-to(fn.get-breakpoint("small")) {
         min-height: calc(100vh - var.$nav-height-small);
         padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
     }
 }
 
-//OP elkaar
 .stack {
     position: relative;
     overflow: hidden;
@@ -61,15 +61,13 @@
             top: 50%;
             left: 50%;
             translate: -50% -50%;
-
             aspect-ratio: 1 / 1;
-
             min-width: 100vmax;
             min-height: 100vmax;
             width: auto;
             height: auto;
 
-            @include tools.respond-to(var.$screen-size-small) {
+            @include tools.respond-to(fn.get-breakpoint("small")) {
                 min-width: 140vmax;
             }
         }
@@ -101,30 +99,30 @@
 }
 
 .constrainer {
-    margin: 0 auto; // Houdt de container gecentreerd op ultra-wide schermen
+    margin: 0 auto; 
     max-width: var.$desktop-max-width;
 
+    // GEFIXT: De mixin handelt de breakpoints nu zelf af via fn.get-breakpoint
     @include tools.responsive-spacing(
         padding,
-        // Volgorde: Top | Right | Bottom | Left
-        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "3xl"), "r-space"),
-        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")
+        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"), // Base
+        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"), // Large
+        0 map.get(map.get(var.$design-scale, "4xl"), "r-space"), // Medium
+        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")  // Small
     );
 }
 
 .paper {
     padding-bottom: map.get(map.get(var.$design-scale, "8xl"), "c-space");
 
-    @include tools.respond-to(var.$screen-size-small) {
+    @include tools.respond-to(fn.get-breakpoint("small")) {
         padding-bottom: map.get(map.get(var.$design-scale, "8xl"), "c-space");
     }
 }
 
 .banner {
     min-height: 350px;
-    @include tools.respond-to(var.$screen-size-small) {
+    @include tools.respond-to(fn.get-breakpoint("small")) {
         min-height: 250px;
     }
 }

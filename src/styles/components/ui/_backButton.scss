@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 .terug-btn {
     max-width: 190px;
@@ -11,7 +12,7 @@
     align-items: center;
     gap: 8px;
 
-    @include tools.respond-to(var.$screen-size-small) {
+    @include tools.respond-to(fn.get-breakpoint("small")) {
         padding: map.get(map.get(var.$design-scale, "2xl"), "in-space");
         font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
     }

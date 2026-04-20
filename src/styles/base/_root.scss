@@ -1,12 +1,12 @@
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
+
 
 :root {
-    // Voeg overal 'var.' toe voor de variabelenaam
-    --screen-size-large: #{var.$screen-size-large};
-    --screen-size-medium: #{var.$screen-size-medium};
-    --screen-size-small: #{var.$screen-size-small};
+    --screen-size-large: #{fn.get-breakpoint("large")};
+    --screen-size-medium: #{fn.get-breakpoint("medium")};
+    --screen-size-small: #{fn.get-breakpoint("small")};
 
-    // Gebruik var.$colors in de loop
     @each $base-color, $tints in var.$colors {
         @each $tint-name, $value in $tints {
             $css-var-name: #{$base-color}-#{$tint-name};

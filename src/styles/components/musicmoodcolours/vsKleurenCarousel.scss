@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 $card-width-vs: 150px;
 $card-height-vs: 150px;

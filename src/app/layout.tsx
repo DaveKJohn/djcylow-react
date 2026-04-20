@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
-import "@/styles/main.scss";
 import Script from "next/script";
+
+// @ts-ignore
+import "@/styles/main.scss";
 
 const poppins = Poppins({
   subsets: ["latin"],

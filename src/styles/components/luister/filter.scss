@@ -1,13 +1,14 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 #luister {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
 
-    @include tools.respond-to(var.$screen-size-small) {
+    @include tools.respond-to(fn.get-breakpoint("small")) {
         flex-direction: column;
     }
 
@@ -17,7 +18,7 @@
         flex: 0 0 340px;
         width: 340px;
 
-        @include tools.respond-to(var.$screen-size-small) {
+        @include tools.respond-to(fn.get-breakpoint("small")) {
             order: 1; // Bovenaan op mobiel
             width: 100%;
             flex: none;
@@ -27,14 +28,14 @@
         #luister_filter_mobile_button {
             display: none;
 
-            @include tools.respond-to(var.$screen-size-small) {
+            @include tools.respond-to(fn.get-breakpoint("small")) {
                 display: block;
             }
         }
     }
 
     // De drawer zelf (ook binnen #luister_filter)
-    #luister_filter_mobile_drawer {
+    #luister_filter_content {
         &.locked {
             display: block;
             position: sticky;
@@ -49,7 +50,7 @@
         }
 
         &.ready {
-            @include tools.respond-to(var.$screen-size-small) {
+            @include tools.respond-to(fn.get-breakpoint("small")) {
                 &.open {
                     z-index: 2000;
                 }

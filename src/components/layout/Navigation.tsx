@@ -39,20 +39,19 @@ export default function Nav() {
             <div className="column" id="nav_menu">
 
                 <MobileContent
-                    id="nav_menu_mobile_drawer"
+                    id="nav_menu_content"
                     trigger={(toggle) => (
-                        <div id="nav_menu_mobile_button" className="column">
-                            <button className="btn nav hamburger-btn" onClick={toggle} aria-label="Menu openen">
-                                {HamburgerIcon}
-                            </button>
-                        </div>
+
+                        <button id="nav_menu_mobile_button" className="btn" onClick={toggle} aria-label="Menu openen">
+                            {HamburgerIcon}
+                        </button>
+
                     )}
                 >
 
-                    <div className="row flex menu-wrapper">
-                        {/* Deze links komen op desktop in de bar (locked) en op mobiel in de lade (ready) */}
-                        <Link className="btn nav menu" href="/luister">Luister</Link>
-                        <Link className="btn nav menu" href="/musicmoodcolours">Music Mood Colours</Link>
+                    <div className="row flex anchor-wrapper">                     
+                        <Link className="btn anchor" href="/luister">Luister</Link>
+                        <Link className="btn anchor" href="/musicmoodcolours">Music Mood Colours</Link>
                     </div>
                 </MobileContent>
 

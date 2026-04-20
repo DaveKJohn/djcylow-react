@@ -1,13 +1,14 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 #luister_playlist {
     order: 2; // Dit zet de resultaten RECHTS op desktop
     flex: 1;
     min-width: 0;
 
-    @include tools.respond-to(var.$screen-size-small) {
+    @include tools.respond-to(fn.get-breakpoint("small")) {
         order: 2; // Resultaten ONDER de knop op mobiel
         width: 100%;
     }
@@ -15,7 +16,7 @@
     .card {
         width: var(--card_width);
 
-        @include tools.respond-to(var.$screen-size-small) {
+        @include tools.respond-to(fn.get-breakpoint("small")) {
             width: 100%;
         }
 

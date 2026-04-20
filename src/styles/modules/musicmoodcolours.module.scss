@@ -1,12 +1,13 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
 .pageWrapper {
     --card_width_erlenmeyers: 180px;
     --card_height_erlenmeyers: 180px;
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(fn.get-breakpoint("medium")) {
         --card_width_erlenmeyers: 150px;
         --card_height_erlenmeyers: 150px;
     }
@@ -14,7 +15,7 @@
     --card_width_basiskleuren: 180px;
     --card_height_basiskleuren: 180px;
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(fn.get-breakpoint("medium")) {
         --card_width_basiskleuren: 150px;
         --card_height_basiskleuren: 150px;
     }
@@ -22,7 +23,7 @@
     --card_width_vs: 180px;
     --card_height_vs: 180px;
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(fn.get-breakpoint("medium")) {
         --card_width_vs: 150px;
         --card_height_vs: 150px;
     }

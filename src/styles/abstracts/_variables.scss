@@ -2,16 +2,6 @@
 @use "sass:string";
 @use "sass:map";
 
-@function str-replace($string, $search, $replace: "") {
-    $index: string.index($string, $search); // string. toevoegen
-
-    @if $index {
-        @return string.slice($string, 1, $index - 1) + $replace +
-            str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
-    }
-
-    @return $string;
-}
 
 // --- Font ---
 $base-font: var(--font-poppins), "Poppins", Arial, sans-serif;
@@ -29,10 +19,13 @@ $banner-height-large: 110px 0;
 $banner-height-medium: 50px 0;
 $banner-height-small: 40px 0;
 
-// Body Breekpunten
-$screen-size-large: 1530px;
-$screen-size-medium: 1250px;
-$screen-size-small: 660px;
+// Body Breekpunten | LET OP: Als je deze waarden aanpast, pas ze dan ook aan in src/constants/design.ts!
+$breakpoints: (
+  "large": 1710px,
+  "medium": 1000px,
+  "small": 760px
+);
+
 
 /* =======================================
     ALIASED DESIGN SCALE (Responsive Mapping)

@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 // Haal de waarde één keer op in een variabele voor de leesbaarheid
 $read_more_container_gap: map.get(map.get(var.$design-scale, "3xl"), "in-space");

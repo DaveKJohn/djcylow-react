@@ -1,9 +1,9 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
 nav {
-    display: flex;
     align-items: center;
     justify-content: space-between;
     position: fixed;
@@ -16,7 +16,6 @@ nav {
     padding: 0 map.get(map.get(var.$design-scale, "5xl"), "r-space");
 
     #nav_logo {
-        display: flex;
         height: 100%;
         order: 1;
         flex-grow: 1;
@@ -30,28 +29,25 @@ nav {
     }
 
     #nav_menu {
-        display: flex;
+        flex-grow: 0;
+        height: 100%;
+        margin: 0 auto;
+        max-width: var.$desktop-max-width;
+
         align-items: start;
         justify-content: center;
         order: 2;
-        flex-grow: 0;
-        height: 100%;
-
         width: 100%;
-        margin: 0 auto;
-        max-width: var.$desktop-max-width;
         padding: 0 map.get(map.get(var.$design-scale, "6xl"), "r-space");
 
-        .menu-wrapper {
-            display: flex;
+        .anchor-wrapper {
             align-items: center;
             gap: map.get(map.get(var.$design-scale, "5xl"), "c-space");
         }
     }
 
     #nav_cta {
-        display: flex;
-        align-items: center;
+        align-items: end;
         justify-content: center;
         order: 3;
         height: 100%;
@@ -65,27 +61,85 @@ nav {
         align-items: center;
         z-index: 1100;
 
-        .hamburger-btn {
+        height: 100%;
+        font-weight: 200;
+        font-size: map.get(map.get(var.$design-scale, "3xl"), "font-size");
+
+        @include tools.respond-to(fn.get-breakpoint("medium")) {
+            padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
+            margin-left: map.get(map.get(var.$design-scale, "xl"), "r-space");
+        }
+
+        @include tools.respond-to(fn.get-breakpoint("small")) {
+            padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
+            margin-left: map.get(map.get(var.$design-scale, "xl"), "r-space");
+        }
+
+        .hamburger {
             cursor: pointer;
             background: none;
             border: none;
             color: white;
-            display: flex;
+
             align-items: center;
             height: 100%;
         }
     }
 
-    /* Mobiele Layout */
-    @include tools.respond-to(var.$screen-size-medium) {
-        height: var.$nav-height-medium;
-        padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
+    #nav_menu_content {
+        .btn.anchor {
+            position: relative;
+            text-align: left;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 28px;
 
-        #nav_logo {
-            flex-grow: 1; // Logo neemt alle ruimte in
-            flex-basis: auto;
-            order: 1;
+            &::after {
+                content: "";
+                position: absolute;
+                top: -10px;
+                bottom: -10px;
+                left: -18px;
+                right: -18px;
+                border: 1px solid transparent;
+                transition: border-color 0.5s ease;
+            }
+
+            &:hover::after {
+                border: 1px solid rgb(85, 85, 85);
+            }
+
+            @include tools.respond-to(fn.get-breakpoint("medium")) {
+                &::after {
+                    content: none; // Verwijdert het element volledig op mobiel
+                }
+
+                &:hover::after {
+                    border: none; // Zorgt dat er geen hover-activiteit meer is
+                }
+            }
         }
+    }
+
+    @include tools.respond-to(fn.get-breakpoint("large")) {
+        #nav_menu {
+            align-items: flex-end;           
+        }
+
+        #nav_cta {
+             flex-grow: 0;
+        }
+    }
+
+    @include tools.respond-to(fn.get-breakpoint("medium")) {
+        height: var.$nav-height-medium;
+        padding: 0 map.get(map.get(var.$design-scale, "4xl"), "in-space");
+    }
+
+    /* Mobiele Layout */
+    @include tools.respond-to(fn.get-breakpoint("small")) {
+        height: var.$nav-height-small;
+        padding: 0 map.get(map.get(var.$design-scale, "2xl"), "in-space");
 
         #nav_cta {
             flex-grow: 0;
@@ -95,15 +149,15 @@ nav {
 
         #nav_menu {
             order: 3;
-            flex-grow: 0;
+
             flex-basis: auto;
             justify-content: flex-end;
-            align-items: center;
+            align-items: flex-end;
 
             width: auto;
             padding: 0;
 
-            .menu-wrapper {
+            .anchor-wrapper {
                 gap: 0;
             }
         }
@@ -115,11 +169,6 @@ nav {
         .drawer.locked {
             display: none;
         }
-    }
-
-    @include tools.respond-to(var.$screen-size-small) {
-        height: var.$nav-height-small;
-        padding: 0 map.get(map.get(var.$design-scale, "2xl"), "in-space");
 
         #nav_logo img {
             width: 120px;
@@ -133,10 +182,11 @@ nav {
     }
 
     .drawer-content {
-        .btn.nav.menu {
+        .btn.anchor {
             width: 100%;
             justify-content: flex-start;
             border-bottom: 1px solid var(--black-80);
+            padding: map.get(map.get(var.$design-scale, "2xl"), "c-space") 0;
 
             &:last-child {
                 border-bottom: none;

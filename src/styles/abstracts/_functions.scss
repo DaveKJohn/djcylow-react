@@ -1,0 +1,38 @@
+@use "sass:math";
+@use "sass:string";
+@use "sass:map";
+@use "variables" as var;
+
+
+@function str-replace($string, $search, $replace: "") {
+    $index: string.index($string, $search); // string. toevoegen
+
+    @if $index {
+        @return string.slice($string, 1, $index - 1) + $replace +
+            str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+/* =======================================
+    2. SCALES
+   ======================================= */
+@function get-scale-key($alias, $breakpoint: "base") {
+    $map: var.$base-mapping;
+
+    @if $breakpoint == "medium" {
+        $map: var.$medium-mapping;
+    } @else if $breakpoint == "small" {
+        $map: var.$small-mapping;
+    }
+
+    @return if(map.has-key($map, $alias), map.get($map, $alias), $alias);
+}
+
+/* =======================================
+    3. BREAKPOINTS
+   ======================================= */
+@function get-breakpoint($size) {   
+    @return map.get(var.$breakpoints, $size);
+}

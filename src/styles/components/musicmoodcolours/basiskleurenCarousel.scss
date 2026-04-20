@@ -3,6 +3,7 @@
 @use "sass:string";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 $card-width-basiskleuren: 150px;
 $card-height-basiskleuren: 150px;

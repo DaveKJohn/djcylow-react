@@ -2,6 +2,7 @@
 @use "sass:map";
 @use "sass:string";
 @use "variables" as var;
+@use "functions" as fn;
 
 /* =======================================
     1. LAYOUT & SPACING
@@ -12,17 +13,6 @@
     }
 }
 
-@function get-scale-key($alias, $breakpoint: "base") {
-    $map: var.$base-mapping;
-
-    @if $breakpoint == "medium" {
-        $map: var.$medium-mapping;
-    } @else if $breakpoint == "small" {
-        $map: var.$small-mapping;
-    }
-
-    @return if(map.has-key($map, $alias), map.get($map, $alias), $alias);
-}
 
 /* =======================================
     2. TYPOGRAFIE & KLEUR UTILITIES
@@ -38,9 +28,10 @@
 
             $alias: map.get($properties, "scale-key");
             @if $alias {
-                $base-key: get-scale-key($alias, "base");
-                $med-key: get-scale-key($alias, "medium");
-                $small-key: get-scale-key($alias, "small");
+                // Gebruik de functies uit functions.scss
+                $base-key: fn.get-scale-key($alias, "base");
+                $med-key: fn.get-scale-key($alias, "medium");
+                $small-key: fn.get-scale-key($alias, "small");
 
                 $config: map.get(var.$design-scale, $base-key);
                 @if $config {
@@ -48,7 +39,8 @@
                     line-height: map.get($config, "line-height");
                 }
 
-                @include respond-to(var.$screen-size-medium) {
+                // GEFIXT: Gebruikt nu fn.get-breakpoint
+                @include respond-to(fn.get-breakpoint("medium")) {
                     $m-config: map.get(var.$design-scale, $med-key);
                     @if $m-config {
                         font-size: map.get($m-config, "font-size");
@@ -56,7 +48,8 @@
                     }
                 }
 
-                @include respond-to(var.$screen-size-small) {
+                // GEFIXT: Gebruikt nu fn.get-breakpoint
+                @include respond-to(fn.get-breakpoint("small")) {
                     $s-config: map.get(var.$design-scale, $small-key);
                     @if $s-config {
                         font-size: map.get($s-config, "font-size");
@@ -85,9 +78,9 @@
 
 @mixin apply-smart-spacing($with-margin: false) {
     @each $alias, $unused in var.$base-mapping {
-        $base-key: get-scale-key($alias, "base");
-        $med-key: get-scale-key($alias, "medium");
-        $small-key: get-scale-key($alias, "small");
+        $base-key: fn.get-scale-key($alias, "base");
+        $med-key: fn.get-scale-key($alias, "medium");
+        $small-key: fn.get-scale-key($alias, "small");
 
         $config: map.get(var.$design-scale, $base-key);
         $med-config: map.get(var.$design-scale, $med-key);
@@ -104,7 +97,6 @@
                     gap: map.get($config, "c-space") !important;
                 }
 
-                // Extra space alleen als de class .extra aanwezig is
                 &.extra {
                     margin-top: map.get($config, "extra-space") !important;
                     margin-bottom: map.get($config, "extra-space") !important;
@@ -113,7 +105,8 @@
 
             // --- MEDIUM ---
             @if $med-config {
-                @include respond-to(var.$screen-size-medium) {
+                // GEFIXT: Gebruikt nu fn.get-breakpoint
+                @include respond-to(fn.get-breakpoint("medium")) {
                     &.row {
                         gap: map.get($med-config, "r-space") !important;
                     }
@@ -129,7 +122,8 @@
 
             // --- SMALL ---
             @if $small-config {
-                @include respond-to(var.$screen-size-small) {
+                // GEFIXT: Gebruikt nu fn.get-breakpoint
+                @include respond-to(fn.get-breakpoint("small")) {
                     &.row {
                         gap: map.get($small-config, "r-space") !important;
                     }
@@ -147,9 +141,9 @@
 }
 
 @mixin apply-push($type, $alias) {
-    $base-key: get-scale-key($alias, "base");
-    $med-key: get-scale-key($alias, "medium");
-    $small-key: get-scale-key($alias, "small");
+    $base-key: fn.get-scale-key($alias, "base");
+    $med-key: fn.get-scale-key($alias, "medium");
+    $small-key: fn.get-scale-key($alias, "small");
 
     $config: map.get(var.$design-scale, $base-key);
     $med-config: map.get(var.$design-scale, $med-key);
@@ -165,7 +159,8 @@
     }
 
     @if $med-config {
-        @include respond-to(var.$screen-size-medium) {
+        // GEFIXT: Gebruikt nu fn.get-breakpoint
+        @include respond-to(fn.get-breakpoint("medium")) {
             $m-val: if(
                 $type == "h",
                 map.get($med-config, "r-space"),
@@ -176,7 +171,8 @@
     }
 
     @if $small-config {
-        @include respond-to(var.$screen-size-small) {
+        // GEFIXT: Gebruikt nu fn.get-breakpoint
+        @include respond-to(fn.get-breakpoint("small")) {
             $s-val: if(
                 $type == "h",
                 map.get($small-config, "r-space"),
@@ -224,7 +220,7 @@
     }
 
     a {
-        color: var(--#{$fg-80});
+        color: var(--#{$fg-90});
         &:hover {
             color: var(--#{$fg-100});
         }
@@ -239,9 +235,8 @@
         color: var(--#{$fg-90});
     }
 
-    .btn.passive {
-        color: var(--#{$fg-70});
-        background: none;
+    .btn {
+        color: var(--#{$fg-80});
         &:hover {
             color: var(--#{$fg-100});
         }
@@ -264,14 +259,6 @@
         }
     }
 
-    .drawer {
-        a {
-            color: var(--#{$fg-80});
-            &:hover {
-                color: var(--#{$fg-100});
-            }
-        }
-    }
 
     .drawer.mobile.active {
         background-color: var(--#{$bg-100});
@@ -281,7 +268,7 @@
         }
     }
 
-    #luister_filter_mobile_drawer.mobile.active {
+    #luister_filter_content.mobile.active {
         background-color: var(--#{$bg-100});
         border-left: solid 1px var(--#{$bg-80});
         .mobileFilterHeader-border {
@@ -313,7 +300,6 @@
     justify-content: center;
     aspect-ratio: var.$colour-aspect-ratio;
     text-align: center;
-    // GEFIXT: Verwees naar "size", moet "font-size" zijn
     font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
     width: var.$colour-width;
     height: auto;
@@ -383,13 +369,14 @@
 @mixin responsive-spacing($property, $base, $large, $medium, $small) {
     #{$property}: $base;
 
-    @include respond-to(var.$screen-size-large) {
+    // GEFIXT: Alle breekpunten via fn.get-breakpoint
+    @include respond-to(fn.get-breakpoint("large")) {
         #{$property}: $large;
     }
-    @include respond-to(var.$screen-size-medium) {
+    @include respond-to(fn.get-breakpoint("medium")) {
         #{$property}: $medium;
     }
-    @include respond-to(var.$screen-size-small) {
+    @include respond-to(fn.get-breakpoint("small")) {
         #{$property}: $small;
     }
 }

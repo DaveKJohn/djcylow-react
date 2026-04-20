@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
 #banner_2 {
    
@@ -18,7 +19,7 @@
 
         animation: scrollPattern 40s linear infinite;
 
-        @include tools.respond-to(var.$screen-size-small) {
+        @include tools.respond-to(fn.get-breakpoint("small")) {
             // MOBILE
             $h-mobile: 310px;
             background-size: ($h-mobile * $ratio) $h-mobile;

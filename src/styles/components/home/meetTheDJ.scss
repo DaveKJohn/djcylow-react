@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 .hero {
     $hero-height: clamp(500px, 60vw, 520px);
@@ -31,7 +32,7 @@
     }
 
     // ALLES VOOR MOBILE HIER SAMENVOEGEN
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(fn.get-breakpoint("medium")) {
         display: grid;
         grid-template-columns: 45% 55%;
         min-height: auto;

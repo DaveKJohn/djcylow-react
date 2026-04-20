@@ -1,10 +1,11 @@
 @use "sass:map";
 @use "../../abstracts/mixins" as tools;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 // De donkere achtergrond achter de drawer
-.menu-overlay {
-    @include tools.respond-to(var.$screen-size-medium) {
+.drawer-overlay {
+    @include tools.respond-to(fn.get-breakpoint("medium")) {
         position: fixed;
         top: 0;
         left: 0;
@@ -43,7 +44,8 @@
 
     // MOBIEL / READY STATUS
     &.ready {
-        @include tools.respond-to(var.$screen-size-medium) {
+        @include tools.respond-to(fn.get-breakpoint("medium")) {
+            border-left: 1px solid var(--black-80);
             display: flex !important;
             flex-direction: column !important;
             position: fixed !important;
@@ -84,6 +86,26 @@
             flex-shrink: 0;
             padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            .btn.close {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                width: 60px;
+                font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
+                margin-left: auto;
+                margin-right: 0;
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                }
+
+                @include tools.respond-to(fn.get-breakpoint("small")) {
+                    display: flex;
+                }
+            }
         }
 
         // De groep met icoon en titel (gecentreerd)

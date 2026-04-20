@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../abstracts/mixins" as tools;
 @use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
 
 // _reset.scss
 * {
@@ -16,11 +17,11 @@ body {
     overflow-y: visible;
     padding-top: calc(var.$nav-height-large + 0px);
 
-    @include tools.respond-to(var.$screen-size-medium) {
+    @include tools.respond-to(fn.get-breakpoint("medium")) {
         padding-top: calc(var.$nav-height-medium + 0px);
     }
 
-    @include tools.respond-to(var.$screen-size-small) {
+    @include tools.respond-to(fn.get-breakpoint("small")) {
         padding-top: calc(var.$nav-height-small + 0px);
     }
 }
@@ -64,7 +65,7 @@ body {
     }
 
     &.flex {
-        @include tools.respond-to(var.$screen-size-medium) {
+        @include tools.respond-to(fn.get-breakpoint("medium")) {
             align-items: flex-start !important;
             text-align: left !important;
             align-self: start;
@@ -97,7 +98,7 @@ body {
     }
 
     &.flex {
-        @include tools.respond-to(var.$screen-size-medium) {
+        @include tools.respond-to(fn.get-breakpoint("small")) {
             flex-direction: column !important;
         }
     }

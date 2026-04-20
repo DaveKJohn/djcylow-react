@@ -4,6 +4,7 @@ import Carousel from '@/components/ui/Carousel';
 import { homeContent } from "@/content/home";
 import { referentiesData, Referentie } from '@/content/referenties';
 
+
 // @ts-ignore
 import '@/styles/components/home/referenties.scss';
 
