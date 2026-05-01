@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -32,7 +32,7 @@
     }
 
     // ALLES VOOR MOBILE HIER SAMENVOEGEN
-    @include tools.respond-to(fn.get-breakpoint("medium")) {
+    @include global.respond-to(fn.get-breakpoint("medium")) {
         display: grid;
         grid-template-columns: 45% 55%;
         min-height: auto;

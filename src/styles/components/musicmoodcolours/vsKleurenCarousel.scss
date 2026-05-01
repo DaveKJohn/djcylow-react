@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -24,9 +24,6 @@ $card-height-vs: 150px;
             align-items: stretch; // De container wordt nu zo hoog als de langste kolom
             width: max-content;
             min-width: 100%;
-
-            margin: map.get(map.get(var.$design-scale, "xl"), "in-space") 0;
-            padding: 7px;
 
             .vr {
                 display: flex; // We maken de .vr zelf een flexbox
@@ -58,11 +55,11 @@ $card-height-vs: 150px;
                 gap: map.get(map.get(var.$design-scale, "3xl"), "c-space");
 
                 .middle {
-                    @include tools.color-generator;
+                    @include global.color-generator;
                     gap: 3px;
 
                     .colour {
-                        @include tools.colour-base;
+                        @include global.colour-base;
                         z-index: 200;
                         bottom: 0;
                         right: 0;
@@ -104,7 +101,7 @@ $card-height-vs: 150px;
                     }
 
                     .label {
-                        @include tools.colour-base;
+                        @include global.colour-base;
                         z-index: 200;
                         bottom: 0;
                         right: 0;

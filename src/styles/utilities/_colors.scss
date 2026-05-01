@@ -1,20 +1,98 @@
 @use "sass:map";
+@use "sass:string";
 @use "../abstracts/variables" as var;
-@use "../abstracts/mixins" as tools;
-
+@use "../abstracts/mixins/tools" as tools;
+@use "../abstracts/functions" as fn;
 
 @each $base-color, $tints in var.$colors {
-    @each $tint-name, $value in $tints {
-        $css-var-name: #{$base-color}-#{$tint-name};
+    $is-ux-color: string.index($base-color, "ux-");
 
-        // Dit maakt .cyan-light-bg aan
-        .#{$css-var-name}-bg {
-            @include tools.color-utility(background-color, $css-var-name);
-        }
+    @if not($is-ux-color and not var.$ux-mode) {
+        @each $tint-name, $value in $tints {
+            $tint-str: #{$tint-name};
+            $display-value: $value;        
 
-        // Dit maakt .cyan-light-fg aan
-        .#{$css-var-name}-fg {
-            @include tools.color-utility(color, $css-var-name);
+            // 1. De "P" class generator (UX-MODE)
+            @if var.$ux-mode and $is-ux-color {
+                $last-char: string.slice($tint-str, -1);
+
+                // Dwing ALLES in deze generator onder body.ux-mode
+                @at-root body.ux-mode {
+                    @if $last-char == "0" {
+                        @if $tint-str == "10" {
+                            .WoB.P10,
+                            .WoB .P10 {
+                                $ux-black: map.get(var.$colors, "ux-black");
+                                outline: 1px solid map.get($ux-black, "70") !important;
+                                background-color: transparent !important;
+                                color: white !important; // Altijd wit in UX mode
+                            }
+                            .BoW.P10,
+                            .BoW .P10 {
+                                $ux-white: map.get(var.$colors, "ux-white");
+                                outline: 1px solid map.get($ux-white, "70") !important;
+                                background-color: transparent !important;
+                                color: black !important;
+                            }
+                        } @else {
+                            .WoB.P#{$tint-str},
+                            .WoB .P#{$tint-str} {
+                                $ux-black: map.get(var.$colors, "ux-black");
+                                background-color: map.get($ux-black, $tint-str) !important;
+                                color: white !important;
+                                outline: none !important;
+                            }
+                            .BoW.P#{$tint-str},
+                            .BoW .P#{$tint-str} {
+                                $ux-white: map.get(var.$colors, "ux-white");
+                                background-color: map.get($ux-white, $tint-str) !important;
+                                color: black !important;
+                                outline: none !important;
+                            }
+                        }
+                    } @else if $last-char == "5" {
+                        .WoB.P#{$tint-str},
+                        .WoB .P#{$tint-str} {
+                            $ux-black: map.get(var.$colors, "ux-black");
+                            outline: 1px solid map.get($ux-black, $tint-str) !important;
+                            background-color: transparent !important;
+                            color: white !important;
+                        }
+                        .BoW.P#{$tint-str},
+                        .BoW .P#{$tint-str} {
+                            $ux-white: map.get(var.$colors, "ux-white");
+                            outline: 1px solid map.get($ux-white, $tint-str) !important;
+                            background-color: transparent !important;
+                            color: black !important;
+                        }
+                    }
+                }
+            }
+       
+
+            // 2. Modus-afhankelijke Fill Classes (LIVE)
+            // Hier halen we !important weg zodat UX-mode (met !important) kan winnen
+            @if $base-color == "white" {
+                .BoW.fill-#{$tint-str},
+                .BoW .fill-#{$tint-str} {
+                    background-color: $display-value;
+                }
+            } @else if $base-color == "black" {
+                .WoB.fill-#{$tint-str},
+                .WoB .fill-#{$tint-str} {
+                    background-color: $display-value;
+                }
+            }
+
+            // 3. ALGEMENE UTILITIES
+            // Ook hier !important weg als je wilt dat P-classes op hetzelfde element winnen
+            .#{$base-color}-#{$tint-str}-fill {
+                background-color: $display-value;
+            }
+
+            .#{$base-color}-#{$tint-str}-fg {
+                color: $display-value !important; // Text mag vaak wel priority houden
+            }
         }
     }
 }

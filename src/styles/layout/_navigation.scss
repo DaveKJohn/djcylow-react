@@ -1,196 +1,125 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 @use "../abstracts/variables" as var;
 @use "../abstracts/functions" as fn;
 
 nav {
-    align-items: center;
-    justify-content: space-between;
     position: fixed;
+    height: auto;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    height: var.$nav-height-large;
-    background-color: black;
-    padding: 0 map.get(map.get(var.$design-scale, "5xl"), "r-space");
 
     #nav_logo {
-        height: 100%;
+        flex: 1 1 0;
         order: 1;
-        flex-grow: 1;
-        flex-basis: 0;
 
-        a {
-            display: flex;
-            align-items: center;
-            height: 100%;
-        }
-    }
-
-    #nav_menu {
-        flex-grow: 0;
-        height: 100%;
-        margin: 0 auto;
-        max-width: var.$desktop-max-width;
-
-        align-items: start;
-        justify-content: center;
-        order: 2;
-        width: 100%;
-        padding: 0 map.get(map.get(var.$design-scale, "6xl"), "r-space");
-
-        .anchor-wrapper {
-            align-items: center;
-            gap: map.get(map.get(var.$design-scale, "5xl"), "c-space");
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            img {
+                width: 115px;
+            }
         }
     }
 
     #nav_cta {
-        align-items: end;
-        justify-content: center;
-        order: 3;
-        height: 100%;
         flex-grow: 1;
         flex-basis: 0;
-    }
+        order: 3;
 
-    #nav_menu_mobile_button {
-        display: none;
-        height: 100%;
-        align-items: center;
-        z-index: 1100;
-
-        height: 100%;
-        font-weight: 200;
-        font-size: map.get(map.get(var.$design-scale, "3xl"), "font-size");
-
-        @include tools.respond-to(fn.get-breakpoint("medium")) {
-            padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
-            margin-left: map.get(map.get(var.$design-scale, "xl"), "r-space");
-        }
-
-        @include tools.respond-to(fn.get-breakpoint("small")) {
-            padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
-            margin-left: map.get(map.get(var.$design-scale, "xl"), "r-space");
-        }
-
-        .hamburger {
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: white;
-
-            align-items: center;
-            height: 100%;
-        }
-    }
-
-    #nav_menu_content {
-        .btn.anchor {
-            position: relative;
-            text-align: left;
-            font-size: 18px;
-            font-weight: 500;
-            line-height: 28px;
-
-            &::after {
-                content: "";
-                position: absolute;
-                top: -10px;
-                bottom: -10px;
-                left: -18px;
-                right: -18px;
-                border: 1px solid transparent;
-                transition: border-color 0.5s ease;
-            }
-
-            &:hover::after {
-                border: 1px solid rgb(85, 85, 85);
-            }
-
-            @include tools.respond-to(fn.get-breakpoint("medium")) {
-                &::after {
-                    content: none; // Verwijdert het element volledig op mobiel
-                }
-
-                &:hover::after {
-                    border: none; // Zorgt dat er geen hover-activiteit meer is
-                }
-            }
-        }
-    }
-
-    @include tools.respond-to(fn.get-breakpoint("large")) {
-        #nav_menu {
-            align-items: flex-end;           
-        }
-
-        #nav_cta {
-             flex-grow: 0;
-        }
-    }
-
-    @include tools.respond-to(fn.get-breakpoint("medium")) {
-        height: var.$nav-height-medium;
-        padding: 0 map.get(map.get(var.$design-scale, "4xl"), "in-space");
-    }
-
-    /* Mobiele Layout */
-    @include tools.respond-to(fn.get-breakpoint("small")) {
-        height: var.$nav-height-small;
-        padding: 0 map.get(map.get(var.$design-scale, "2xl"), "in-space");
-
-        #nav_cta {
+        @include global.respond-to(fn.get-breakpoint("medium")) {
             flex-grow: 0;
             flex-basis: auto;
             order: 2;
         }
+    }
 
-        #nav_menu {
-            order: 3;
+    #nav_menu {
+        justify-content: flex-start;
 
-            flex-basis: auto;
+        margin: 0 auto;
+        max-width: var.$desktop-max-width;
+        order: 2;
+
+        @include global.respond-to(fn.get-breakpoint("large")) {
             justify-content: flex-end;
-            align-items: flex-end;
+        }
 
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            order: 3;
+            flex-basis: auto;
             width: auto;
-            padding: 0;
+        }
 
-            .anchor-wrapper {
-                gap: 0;
+        #nav_menu_content {
+            .btn.anchor {
+                position: relative;
+                text-align: left;
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 28px;
+                white-space: nowrap;
+
+                @include global.respond-to(fn.get-breakpoint("small")) {
+                    &::after {
+                        content: none; // Verwijdert het element volledig op mobiel
+                    }
+
+                    &:hover::after {
+                        border: none; // Zorgt dat er geen hover-activiteit meer is
+                    }
+                }
             }
         }
 
-        #nav_menu_mobile_button {
-            display: flex;
-        }
+        #nav_menu_mobileBtn {
+            cursor: pointer;
+            border: none;
+            color: white;
+            background: transparent;
+            z-index: 1100;
 
-        .drawer.locked {
-            display: none;
-        }
+            display: none; // Standaard volledig verbergen (ook uit de layout)
 
-        #nav_logo img {
-            width: 120px;
-        }
-    }
-}
-
-.drawer.ready {
-    .drawer-header {
-        display: none;
-    }
-
-    .drawer-content {
-        .btn.anchor {
-            width: 100%;
-            justify-content: flex-start;
-            border-bottom: 1px solid var(--black-80);
-            padding: map.get(map.get(var.$design-scale, "2xl"), "c-space") 0;
-
-            &:last-child {
-                border-bottom: none;
+            @include global.respond-to(fn.get-breakpoint("small")) {
+                display: flex; // Alleen tonen op het kleine breakpoint
             }
+
+            svg {
+                display: block; // Voorkom inline spacing issues
+            }
+        }
+    }
+
+    
+    &.P10 {
+        @include global.apply-ux-bg("10");
+    }
+
+    .P20 {
+        @include global.apply-ux-bg("20");
+        padding: 0 map.get(map.get(var.$design-scale, "4xl"), "r-space");
+
+        @include global.respond-to(fn.get-breakpoint("large")) {
+            padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
+        }
+    }
+
+    .P30 {
+        @include global.apply-ux-bg("30");
+        padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
+        }
+    }
+
+    .P35 {
+        @include global.apply-ux-bg("35");
+        padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
         }
     }
 }

@@ -1,7 +1,25 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 @use "../abstracts/variables" as var;
 @use "../abstracts/functions" as fn;
 
+#luister {    
 
+    #luister_content {
+        #luister_content_playlist {
+            order: 1;
 
+            @include global.respond-to(fn.get-breakpoint("small")) {
+                order: 2;
+            }
+        }
+
+        #luister_content_filter {
+            order: 2;
+
+            @include global.respond-to(fn.get-breakpoint("small")) {
+                order: 1;
+            }
+        }
+    }
+}

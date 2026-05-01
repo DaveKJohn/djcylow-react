@@ -1,16 +1,18 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 @use "../abstracts/variables" as var;
 @use "../abstracts/functions" as fn;
 
+button,
 .btn {
+    display: flex;
+    align-items: center; // Verticaal centreren
+    justify-content: center; // Horizontaal centreren
     cursor: pointer;
     text-decoration: none;
     list-style: none;
     border: none;
 
-    text-align: center;
-    justify-content: center;
     transition: color 300ms ease-in-out;
     line-height: 1;
     background: none;
@@ -27,7 +29,7 @@
             padding: map.get(map.get(var.$design-scale, "3xl"), "in-space");
             font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
 
-            @include tools.respond-to(fn.get-breakpoint("medium")) {
+            @include global.respond-to(fn.get-breakpoint("medium")) {
                 max-width: none;
             }
         }
@@ -39,6 +41,7 @@
 
             padding: map.get(map.get(var.$design-scale, "2xl"), "in-space");
             font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
+            background-color: var(--black-100);
         }
 
         &.select {
@@ -47,17 +50,17 @@
     }
 
     &.cta {
-        @include tools.cta-hover-effect(width);
+        @include global.apply-ux-bg(width);
 
-        @include tools.color-utility(background-color, yellow-light);
-        @include tools.color-utility(color, black-100);
+        @include global.color-utility(background-color, yellow-light);
+        @include global.color-utility(color, black-100);
 
         &:hover {
-            @include tools.color-utility(background-color, yellow-light);
-            @include tools.color-utility(color, black-100);
+            @include global.color-utility(background-color, yellow-light);
+            @include global.color-utility(color, black-100);
         }
         &::before {
-            @include tools.color-utility(background-color, cyan-light);
+            @include global.color-utility(background-color, cyan-light);
         }
 
         position: relative;
@@ -70,7 +73,7 @@
             padding: map.get(map.get(var.$design-scale, "xl"), "in-space");
             font-size: map.get(map.get(var.$design-scale, "lg"), "font-size");
 
-            @include tools.respond-to(fn.get-breakpoint("small")) {
+            @include global.respond-to(fn.get-breakpoint("small")) {
                 width: 90px;
                 padding: map.get(map.get(var.$design-scale, "lg"), "in-space");
                 font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");

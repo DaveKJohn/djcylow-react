@@ -23,7 +23,7 @@ export default function DienstenPage() {
         <main>
 
 
-            <div className="stack banner WoB" id="banner_2">                
+            <div className="stack banner WoB" id="luister_banner">                
 
                 <div className="column layer feather sides"></div>
 

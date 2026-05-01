@@ -1,6 +1,6 @@
 @use "sass:list";
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -93,7 +93,7 @@ $card-height-erlenmeyers: 180px;
             width: auto;
 
             .audioplayer-wrapper {
-                @include tools.color-generator;
+                @include global.color-generator;
                 flex-shrink: 0;
                 position: relative;
 
@@ -101,7 +101,7 @@ $card-height-erlenmeyers: 180px;
                 width: var(--card_width_erlenmeyers);
 
                 .label {
-                    @include tools.colour-base;
+                    @include global.colour-base;
                     z-index: 200;
                     bottom: 0;
                     right: 0;
@@ -193,7 +193,7 @@ $card-height-erlenmeyers: 180px;
 
             flex: 0 0 calc(25% - 15px);
 
-            @include tools.respond-to(fn.get-breakpoint("small")) {
+            @include global.respond-to(fn.get-breakpoint("small")) {
                 flex: 0 0 calc(33.33% - 15px);
             }
 

@@ -1,10 +1,12 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 @use "../abstracts/variables" as var;
 @use "../abstracts/functions" as fn;
 
-#banner_2 {
-   
+#mmc_banner {
+    #mmc_banner_front {
+        z-index: 2;
+    }
 
     .visual {
         background-image: url("/images/pattern.webp");
@@ -19,7 +21,7 @@
 
         animation: scrollPattern 40s linear infinite;
 
-        @include tools.respond-to(fn.get-breakpoint("small")) {
+        @include global.respond-to(fn.get-breakpoint("small")) {
             // MOBILE
             $h-mobile: 310px;
             background-size: ($h-mobile * $ratio) $h-mobile;

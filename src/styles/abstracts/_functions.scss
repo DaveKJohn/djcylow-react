@@ -27,7 +27,11 @@
         $map: var.$small-mapping;
     }
 
-    @return if(map.has-key($map, $alias), map.get($map, $alias), $alias);
+    @if map.has-key($map, $alias) {
+        @return map.get($map, $alias);
+    } @else {
+        @return $alias;
+    }
 }
 
 /* =======================================

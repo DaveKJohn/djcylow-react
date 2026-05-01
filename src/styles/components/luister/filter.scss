@@ -1,59 +1,61 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
-#luister {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+#luister_content_filter {
+    position: sticky;
+    top: calc(var.$nav-height-large + 11px);
+    height: fit-content; // Belangrijk: de container mag niet hoger zijn dan de inhoud
+    align-self: flex-start; // Voorkomt dat de sidebar meerekt met de rechterkolom
 
-    @include tools.respond-to(fn.get-breakpoint("small")) {
-        flex-direction: column;
+    order: 2;
+    flex: 0 0 340px;
+    width: 340px;
+    z-index: 500;
+
+    &:has(.drawer.open) {
+        z-index: 5000;
     }
 
-    // De wrapper om de filters heen (het directe kind van #luister)
-    #luister_filter {
-        order: 2; // Links op desktop
-        flex: 0 0 340px;
-        width: 340px;
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        position: relative;
+        top: 0;
+        order: 1;
+        width: 100%;
+        flex: none;
+    }
 
-        @include tools.respond-to(fn.get-breakpoint("small")) {
-            order: 1; // Bovenaan op mobiel
-            width: 100%;
-            flex: none;
+    // De trigger knop (volgt de logica van #nav_menu_mobileBtn)
+    #luister_content_filter_mobile_button {
+        display: none;
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            display: flex;
         }
 
-        // De knop zit in de trigger van MobileContent, dus binnen #luister_filter
-        #luister_filter_mobile_button {
-            display: none;
+        .P35 {
+            color: #fff;
 
-            @include tools.respond-to(fn.get-breakpoint("small")) {
-                display: block;
+            svg {
+                stroke: currentColor;
+                fill: none; /* Of currentColor als het icoon gevuld moet zijn */
             }
         }
     }
 
-    // De drawer zelf (ook binnen #luister_filter)
-    #luister_filter_content {
+    // Specifieke overschrijvingen voor de drawer in de Luister-context
+    #luister_content_filter_drawer {
         &.locked {
-            display: block;
-            position: sticky;
-            top: 2rem;
-
-            .drawer-header {
+            // Op desktop de header verbergen die in mobile-content.scss staat
+            .drawer-header,
+            .drawer-overlay,
+            .splitter.mobile {
                 display: none;
             }
+
             .drawer-content {
                 padding: 0;
-            }
-        }
-
-        &.ready {
-            @include tools.respond-to(fn.get-breakpoint("small")) {
-                &.open {
-                    z-index: 2000;
-                }
             }
         }
     }

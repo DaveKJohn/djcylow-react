@@ -1,93 +1,40 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
-#luister_playlist {
-    order: 2; // Dit zet de resultaten RECHTS op desktop
-    flex: 1;
-    min-width: 0;
-
-    @include tools.respond-to(fn.get-breakpoint("small")) {
-        order: 2; // Resultaten ONDER de knop op mobiel
-        width: 100%;
-    }
-
+#luister_content_playlist {
     .card {
-        width: var(--card_width);
+        width: auto;
 
-        @include tools.respond-to(fn.get-breakpoint("small")) {
+        @include global.respond-to(fn.get-breakpoint("small")) {
             width: 100%;
         }
 
-        &-dummy {
-            width: var(--card_width);
-            height: 0;
-            visibility: hidden;
-        }
-
         .audioplayer-wrapper {
-            height: auto;
-            aspect-ratio: 16 / 9;
+            width: 400px;
 
-            .ready-wrapper {
-                button {
-                    width: 60px;
-                    height: 60px;
-
-                    svg {
-                        width: 40px;
-                        height: 40px;
-                    }
-                }
+            @include global.respond-to(fn.get-breakpoint("small")) {
+                width: 100%;
             }
 
             .playing-wrapper {
-                padding: map.get(map.get(var.$design-scale, "base"), "c-space");
-                gap: map.get(map.get(var.$design-scale, "sm"), "c-space");
-
                 .timestamp-wrapper {
-                    font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
+                    font-size: map.get(map.get(var.$design-scale, "xs"), "font-size");
                 }
 
                 .timeline-wrapper {
-                    padding: map.get(map.get(var.$design-scale, "sm"), "c-space");
-
                     .total,
                     .progress {
                         height: 5px;
                     }
                 }
-
-                // Player Controls
-                .layer-wrapper {
-                    .pausefilters button {
-                        width: 40px;
-                        height: 40px;
-                        svg {
-                            width: 24px;
-                            height: 24px;
-                        }
-                    }
-
-                    .volume-wrapper {
-                        border-radius: 1px;
-                        .icon {
-                            svg {
-                                width: 20px;
-                                height: 20px;
-                            }
-                        }
-                        .slider {
-                            padding-left: map.get(map.get(var.$design-scale, "sm"), "c-space");
-
-                            input[type="range"] {
-                                width: 80px;
-                            }
-                        }
-                    }
-                }
             }
+        }
+
+        &-dummy {
+            height: 0;
+            visibility: hidden;
         }
     }
 }

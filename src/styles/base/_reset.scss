@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 @use "../abstracts/variables" as var;
 @use "../abstracts/functions" as fn;
 
@@ -13,99 +13,27 @@
 // Body Basis
 body {
     background-color: var(--black-100);
-    overflow-x: clip;
-    overflow-y: visible;
-    padding-top: calc(var.$nav-height-large + 0px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    padding-top: calc(var.$nav-height-large);
 
-    @include tools.respond-to(fn.get-breakpoint("medium")) {
-        padding-top: calc(var.$nav-height-medium + 0px);
+    @include global.respond-to(fn.get-breakpoint("medium")) {
+        padding-top: calc(var.$nav-height-medium);
     }
 
-    @include tools.respond-to(fn.get-breakpoint("small")) {
-        padding-top: calc(var.$nav-height-small + 0px);
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        padding-top: calc(var.$nav-height-small);
     }
+
+    &.ux-mode {
+        
+        // Gebruik map.get in plaats van map-get
+        background-color: map.get(map.get(var.$colors, "ux-white"), "100");
+        color: map.get(map.get(var.$colors, "ux-black"), "100");
+    }
+
+
+
+    
 }
-
-.column,
-.row {
-    display: flex;
-
-    &.center {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-
-    &.full-w {
-        width: 100%;
-    }
-}
-
-.column {
-    flex-direction: column;
-
-    &.h-center {
-        align-items: center;
-        text-align: center;
-    }
-    &.v-center {
-        justify-content: center;
-    }
-    &.h-start {
-        align-items: flex-start !important;
-        text-align: left;
-        align-self: center;
-    }
-    &.h-end {
-        align-items: flex-end !important;
-        text-align: right;
-    }
-    &.v-start {
-        justify-content: flex-start !important;
-    }
-
-    &.flex {
-        @include tools.respond-to(fn.get-breakpoint("medium")) {
-            align-items: flex-start !important;
-            text-align: left !important;
-            align-self: start;
-        }
-    }
-}
-
-.row {
-    flex-direction: row;
-
-    &.h-center {
-        justify-content: center;
-        text-align: center;
-    }
-    &.v-center {
-        align-items: center;
-    }
-    &.h-start {
-        justify-content: flex-start;
-        text-align: left;
-    }
-    &.v-start {
-        align-items: flex-start;
-    }
-    &.split {
-        justify-content: space-between;
-    }
-    &.wrap {
-        flex-wrap: wrap;
-    }
-
-    &.flex {
-        @include tools.respond-to(fn.get-breakpoint("small")) {
-            flex-direction: column !important;
-        }
-    }
-}
-
-
-
-
-
-

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MobileContent from "@/components/ui/MobileContent";
@@ -23,44 +24,76 @@ export default function Nav() {
         </svg>
     );
 
+
+
     return (
-        <nav className="row WoB">
-            <div className="column" id="nav_logo">
-                <Link href="/">
-                    <Image
-                        src="/images/djcylow_logo.webp"
-                        width={160} height={100}
-                        alt="Logo" priority
-                        style={{ height: 'auto' }}
-                    />
-                </Link>
-            </div>
+        <nav className="WoB column w-fill AMC P10 fill-100">
 
-            <div className="column" id="nav_menu">
+            <div className="column w-fill AMC P20">
+                <div className="row w-fix AMC constrainer-nav">
 
-                <MobileContent
-                    id="nav_menu_content"
-                    trigger={(toggle) => (
-
-                        <button id="nav_menu_mobile_button" className="btn" onClick={toggle} aria-label="Menu openen">
-                            {HamburgerIcon}
-                        </button>
-
-                    )}
-                >
-
-                    <div className="row flex anchor-wrapper">                     
-                        <Link className="btn anchor" href="/luister">Luister</Link>
-                        <Link className="btn anchor" href="/musicmoodcolours">Music Mood Colours</Link>
+                    <div className="column w-hug AML P30" id="nav_logo">
+                        <div className="column w-hug AMC P35">
+                            <Link className="btn" href="/">
+                                <Image
+                                    src="/images/djcylow_logo.webp"
+                                    width={130} height={51}
+                                    alt="Logo" priority
+                                    style={{ height: 'auto' }}
+                                />
+                            </Link>
+                        </div>
                     </div>
-                </MobileContent>
 
-            </div>
 
-            <div className="column" id="nav_cta">
-                <Link className="btn cta boek-nu-btn" href="/diensten">
-                    <span>Boek nu!</span>
-                </Link>
+                    <div className="row-c w-fill constrainer" id="nav_menu">
+
+
+
+
+                        <MobileContent
+                            id="nav_menu_content"
+                            trigger={(toggle) => (
+                                <div id="nav_menu_mobileBtn" className="column w-fill AMC P30" >
+                                    <div className="column w-fill AMC P35">
+                                        <button className="btn" onClick={toggle} aria-label="Menu openen">
+                                            {HamburgerIcon}
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        >
+
+                            <div className="row-c w-fill AML P40 break-s spacing-2xl anchor-wrapper">
+
+                                <Link className="column w-fill AML P45 btn anchor" href="/luister">
+                                    <span className="left">Luister</span>
+                                </Link>
+
+
+                                <div className="splitter mobile"></div>
+
+                                <Link className="column w-fill AML P45 btn anchor" href="/musicmoodcolours">
+                                    <span className="left">Music Mood Colours</span>
+                                </Link>
+
+
+
+                            </div>
+                        </MobileContent>
+
+
+                    </div>
+
+
+                    <div className="column w-hug AMR P30" id="nav_cta">
+                        <div className="column w-hug AMC P35">
+                            <Link className="btn cta center boek-nu-btn" href="/diensten">
+                                <span>Boek nu!</span>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     );

@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -17,7 +17,13 @@
     $rot-y: 35deg;
     $anti-rotation: rotateY(-$rot-y) rotateX(-$rot-x);
 
-    max-width: 570px;
+    width: 650px;
+    max-width: 100%; // Zorgt dat hij nooit buiten de viewport loopt
+    
+
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        width: 100%;
+    }
 
     .cube-outside {
         position: relative;
@@ -26,11 +32,11 @@
         align-items: center;
         width: var(--cube-size);
         height: var(--cube-size);
-        margin: 50px auto 50px auto;
+        margin: 100px auto 100px auto;
         transform-style: preserve-3d;
 
-        @include tools.respond-to(fn.get-breakpoint("small")) {
-            margin: 35px auto 35px auto;
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            margin: 70px auto 70px auto;
         }
 
         /* Level 1: De roterende kubus basis */
@@ -56,7 +62,6 @@
                     border: 1px solid rgba(145, 145, 145, 0.2);
                     backface-visibility: visible;
 
-
                     // Posities op basis van classes uit de nieuwe HTML
                     &.front {
                         transform: rotateY(0deg) translateZ(var(--half-cube));
@@ -80,20 +85,20 @@
             }
 
             /* --- LIJNEN (Gecorrigeerd naar #cube_lines_3) --- */
-           .lines {
+            .lines {
                 position: absolute;
                 inset: 0;
                 transform-style: preserve-3d;
                 pointer-events: none;
 
-              .line {
+                .line {
                     position: absolute;
                     width: var(--cube-size);
                     height: 2px;
-                    transform-style: preserve-3d;                  
-                    transform-origin: 0 0; 
+                    transform-style: preserve-3d;
+                    transform-origin: 0 0;
                     left: 0;
-                    top: 100%; 
+                    top: 100%;
                     margin-top: -1px;
 
                     svg {
@@ -144,7 +149,7 @@
                     border-radius: 50%;
 
                     .colour {
-                        @include tools.colour-base;
+                        @include global.colour-base;
                         position: absolute;
                         z-index: 200;
                         bottom: 25px;
@@ -209,7 +214,7 @@
                         background-color: var(--#{$name}-default);
 
                         .colour.#{$name} {
-                            @include tools.colour-theme($name);
+                            @include global.colour-theme($name);
                         }
                     }
                 }

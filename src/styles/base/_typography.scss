@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 @use "../abstracts/variables" as var;
 @use "../abstracts/functions" as fn;
 
@@ -15,11 +15,11 @@ body {
 }
 
 .WoB {
-    @include tools.theme-styles(white-70, white-80, white-90, white-100, black-70, black-80, black-90, black-100);
+    @include global.theme-styles(white-70, white-80, white-90, white-100, black-70, black-80, black-90, black-100);
 }
 
 .BoW {
-    @include tools.theme-styles(black-70, black-80, black-90, black-100, white-70, white-80, white-90, white-100);
+    @include global.theme-styles(black-70, black-80, black-90, black-100, white-70, white-80, white-90, white-100);
 }
 
 /* =======================================
@@ -30,11 +30,12 @@ $heading-styles: (
     "#hero h1": (
             "font-weight": 700,
             "text-wrap": balance,
+            "width": fit-content,
             "scale-key": "9xl" // Gebruikt automatisch: 9xl -> 8xl -> 7xl
         ),
     "#hero h2": (
         "font-weight": 400,
-        "max-width": 800px,
+        "width": fit-content,
         "letter-spacing": 0px,
         "scale-key": "5xl" // Gebruikt automatisch: 4xl -> 3xl -> 2xl (zoals h3)
     ),
@@ -42,11 +43,13 @@ $heading-styles: (
     // Standaard headings
     "h1": (
             "font-weight": 700,
+            "width": fit-content,
             "scale-key": "7xl" // Gebruikt automatisch: 7xl -> 6xl -> 5xl
         ),
     "h2": (
-        "font-weight": 600,
+        "font-weight": 700,
         "letter-spacing": 0px,
+        "width": fit-content,
         "scale-key": "5xl" // Gebruikt automatisch: 5xl -> 4xl -> 3xl
     ),
     "h3": (
@@ -82,7 +85,7 @@ $list-styles: (
         "gap": map.get(map.get(var.$design-scale, "base"), "r-space")
     ),
     "li.column": (
-        "padding-left": map.get(map.get(var.$design-scale, "6xl"), "in-space"),
+        "padding-left": map.get(map.get(var.$design-scale, "5xl"), "in-space"),
         "gap": map.get(map.get(var.$design-scale, "xl"), "r-space")
     ),
     "li.column *:first-child::before": (
@@ -121,7 +124,7 @@ $utility-styles: (
         "text-wrap": balance
     ),
     ".bold": (
-        "font-weight": 600
+        "font-weight": 800
     ),
     ".italic": (
         "font-style": italic
@@ -139,19 +142,19 @@ $utility-styles: (
    ======================================= */
 
 // 1. Genereer de typography styles (fonts & line-heights)
-@include tools.generate-typography($heading-styles);
-@include tools.generate-typography($text-element-styles);
-@include tools.generate-typography($list-styles);
-@include tools.generate-typography($utility-styles);
-@include tools.generate-typography($table-styles);
+@include global.generate-typography($heading-styles);
+@include global.generate-typography($text-element-styles);
+@include global.generate-typography($list-styles);
+@include global.generate-typography($utility-styles);
+@include global.generate-typography($table-styles);
 
 /* =======================================
    4. SPECIALS
    ======================================= */
 .feedback-message.error {
-    @include tools.color-utility(color, error-fg);
-    @include tools.color-utility(background-color, error-bg);
-    @include tools.color-utility(border-color, error-border);
+    @include global.color-utility(color, error-fg);
+    @include global.color-utility(background-color, error-bg);
+    @include global.color-utility(border-color, error-border);
     border: 1px solid;
     padding: 0.75rem;
     display: block !important;

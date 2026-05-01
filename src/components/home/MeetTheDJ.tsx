@@ -35,9 +35,9 @@ const MeetTheDJ = () => {
             }
             hiddenContent={
               <>
-                <p>{homeContent.intro_story_p_two}</p>
+                <p className="left">{homeContent.intro_story_p_two}</p>
                 <p className="size-base" dangerouslySetInnerHTML={{ __html: homeContent.intro_story_p_three || "" }} />
-                <p>{homeContent.intro_story_p_four}</p>
+                <p className="left">{homeContent.intro_story_p_four}</p>
               </>
             }
           />

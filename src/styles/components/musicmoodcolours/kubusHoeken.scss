@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -11,15 +11,19 @@
     --half-cube: calc(var(--cube-size) / 2);
     --neg-half-cube: calc(var(--cube-size) / -2);
 
-    
-
     $corner-size: 10px;
     $half-corner: calc($corner-size / 2);
     $rot-x: -15deg;
     $rot-y: 35deg;
     $anti-rotation: rotateY(-$rot-y) rotateX(-$rot-x);
 
-    max-width: 600px;
+    width: 650px;
+    max-width: 100%; // Zorgt dat hij nooit buiten de viewport loopt
+    
+
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        width: 100%;
+    }
 
     .h3-constrainer-1 {
         position: relative;
@@ -28,11 +32,11 @@
         align-items: center;
         width: var(--cube-size);
         height: var(--cube-size);
-        margin: 120px auto 80px auto;
+        margin: 140px auto 90px auto;
         transform-style: preserve-3d;
 
-        @include tools.respond-to(fn.get-breakpoint("small")) {
-            margin: 80px auto 35px auto;
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            margin: 120px auto 70px auto;
         }
 
         /* Level 1: De roterende kubus basis */
@@ -63,7 +67,6 @@
                     background: rgba(43, 43, 43, 0.1);
                     border: 1px solid rgba(187, 187, 187, 0.2);
                     backface-visibility: visible;
-
                 }
 
                 #cube_plates_front {
@@ -105,7 +108,7 @@
                     border-radius: 50%;
 
                     .colour {
-                        @include tools.colour-base;
+                        @include global.colour-base;
                         position: absolute;
                         z-index: 200;
                         bottom: 25px;
@@ -124,7 +127,7 @@
                         background-color: var(--#{$name}-default);
 
                         .colour.colour-#{$name} {
-                            @include tools.colour-theme($name);
+                            @include global.colour-theme($name);
                         }
                     }
                 }

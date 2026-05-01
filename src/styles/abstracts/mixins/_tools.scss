@@ -1,8 +1,8 @@
 @use "sass:list";
 @use "sass:map";
 @use "sass:string";
-@use "variables" as var;
-@use "functions" as fn;
+@use "../variables" as var;
+@use "../functions" as fn;
 
 /* =======================================
     1. LAYOUT & SPACING
@@ -12,7 +12,6 @@
         @content;
     }
 }
-
 
 /* =======================================
     2. TYPOGRAFIE & KLEUR UTILITIES
@@ -28,7 +27,6 @@
 
             $alias: map.get($properties, "scale-key");
             @if $alias {
-                // Gebruik de functies uit functions.scss
                 $base-key: fn.get-scale-key($alias, "base");
                 $med-key: fn.get-scale-key($alias, "medium");
                 $small-key: fn.get-scale-key($alias, "small");
@@ -39,7 +37,6 @@
                     line-height: map.get($config, "line-height");
                 }
 
-                // GEFIXT: Gebruikt nu fn.get-breakpoint
                 @include respond-to(fn.get-breakpoint("medium")) {
                     $m-config: map.get(var.$design-scale, $med-key);
                     @if $m-config {
@@ -48,7 +45,6 @@
                     }
                 }
 
-                // GEFIXT: Gebruikt nu fn.get-breakpoint
                 @include respond-to(fn.get-breakpoint("small")) {
                     $s-config: map.get(var.$design-scale, $small-key);
                     @if $s-config {
@@ -87,29 +83,33 @@
         $small-config: map.get(var.$design-scale, $small-key);
 
         .row.spacing-#{$alias},
-        .column.spacing-#{$alias} {
-            // --- DESKTOP ---
+        .row-c.spacing-#{$alias},
+        .column.spacing-#{$alias},
+        .layer.spacing-#{$alias} {
             @if $config {
-                &.row {
+                &.row,
+                &.row-c,
+                &.layer {
                     gap: map.get($config, "r-space") !important;
                 }
+
                 &.column {
                     gap: map.get($config, "c-space") !important;
                 }
-
                 &.extra {
                     margin-top: map.get($config, "extra-space") !important;
                     margin-bottom: map.get($config, "extra-space") !important;
                 }
             }
 
-            // --- MEDIUM ---
             @if $med-config {
-                // GEFIXT: Gebruikt nu fn.get-breakpoint
                 @include respond-to(fn.get-breakpoint("medium")) {
-                    &.row {
+                    &.row,
+                    &.row-c,
+                    &.layer {
                         gap: map.get($med-config, "r-space") !important;
                     }
+
                     &.column {
                         gap: map.get($med-config, "c-space") !important;
                     }
@@ -120,11 +120,11 @@
                 }
             }
 
-            // --- SMALL ---
             @if $small-config {
-                // GEFIXT: Gebruikt nu fn.get-breakpoint
                 @include respond-to(fn.get-breakpoint("small")) {
-                    &.row {
+                    &.row,
+                    &.row-c,
+                    &.layer {
                         gap: map.get($small-config, "r-space") !important;
                     }
                     &.column {
@@ -150,34 +150,41 @@
     $small-config: map.get(var.$design-scale, $small-key);
 
     @if $config {
-        $val: if(
-            $type == "h",
-            map.get($config, "r-space"),
-            if($type == "in", map.get($config, "in-space"), map.get($config, "c-space"))
-        );
+        $val: null;
+        @if $type == "h" {
+            $val: map.get($config, "r-space");
+        } @else if $type == "in" {
+            $val: map.get($config, "in-space");
+        } @else {
+            $val: map.get($config, "c-space");
+        }
         @include _execute-push($type, $val);
     }
 
     @if $med-config {
-        // GEFIXT: Gebruikt nu fn.get-breakpoint
         @include respond-to(fn.get-breakpoint("medium")) {
-            $m-val: if(
-                $type == "h",
-                map.get($med-config, "r-space"),
-                if($type == "in", map.get($med-config, "in-space"), map.get($med-config, "c-space"))
-            );
+            $m-val: null;
+            @if $type == "h" {
+                $m-val: map.get($med-config, "r-space");
+            } @else if $type == "in" {
+                $m-val: map.get($med-config, "in-space");
+            } @else {
+                $m-val: map.get($med-config, "c-space");
+            }
             @include _execute-push($type, $m-val);
         }
     }
 
     @if $small-config {
-        // GEFIXT: Gebruikt nu fn.get-breakpoint
         @include respond-to(fn.get-breakpoint("small")) {
-            $s-val: if(
-                $type == "h",
-                map.get($small-config, "r-space"),
-                if($type == "in", map.get($small-config, "in-space"), map.get($small-config, "c-space"))
-            );
+            $s-val: null;
+            @if $type == "h" {
+                $s-val: map.get($small-config, "r-space");
+            } @else if $type == "in" {
+                $s-val: map.get($small-config, "in-space");
+            } @else {
+                $s-val: map.get($small-config, "c-space");
+            }
             @include _execute-push($type, $s-val);
         }
     }
@@ -190,7 +197,6 @@
 /* =======================================
     3. THEMA & MOOD COLOURS
    ======================================= */
-
 @mixin theme-styles($fg-70, $fg-80, $fg-90, $fg-100, $bg-70, $bg-80, $bg-90, $bg-100) {
     $active-fg: $bg-100;
     $active-bg: $fg-100;
@@ -201,6 +207,9 @@
     .splitter-small,
     .splitter-large {
         border-bottom: 1px solid var(--#{$bg-80});
+    }
+    .splitter {
+        background-color: var(--#{$bg-80});
     }
 
     table {
@@ -258,23 +267,6 @@
             color: var(--#{$active-fg});
         }
     }
-
-
-    .drawer.mobile.active {
-        background-color: var(--#{$bg-100});
-        border-left: solid 1px var(--#{$bg-80});
-        .mobileMenuHeader-border {
-            border-bottom: solid 1px var(--#{$bg-80});
-        }
-    }
-
-    #luister_filter_content.mobile.active {
-        background-color: var(--#{$bg-100});
-        border-left: solid 1px var(--#{$bg-80});
-        .mobileFilterHeader-border {
-            border-bottom: solid 1px var(--#{$bg-80});
-        }
-    }
 }
 
 @mixin colour-theme($color-name) {
@@ -309,7 +301,6 @@
 @mixin color-generator {
     @each $color in var.$all-colors {
         $c: string.to-lower-case($color);
-
         &.colour.#{$c},
         .colour.#{$c} {
             background-color: var(--#{$c}-default) !important;
@@ -317,7 +308,6 @@
             .label {
                 background-color: var(--#{$c}-default) !important;
             }
-
             p {
                 @if list.index(var.$dark-text-colors, $c) {
                     color: var(--black-100) !important;
@@ -349,7 +339,6 @@
     }
 }
 
-// Interne hulp-mixin om herhaling van padding-eigenschappen te voorkomen
 @mixin _execute-push($type, $val) {
     @if $type == "in" {
         padding: $val;
@@ -366,17 +355,48 @@
     }
 }
 
-@mixin responsive-spacing($property, $base, $large, $medium, $small) {
-    #{$property}: $base;
+@mixin apply-ux-bg($shade) {
+    @if var.$ux-mode == true {
+        $ux-black-map: map.get(var.$colors, "ux-black");
+        $ux-white-map: map.get(var.$colors, "ux-white");
 
-    // GEFIXT: Alle breekpunten via fn.get-breakpoint
-    @include respond-to(fn.get-breakpoint("large")) {
-        #{$property}: $large;
-    }
-    @include respond-to(fn.get-breakpoint("medium")) {
-        #{$property}: $medium;
-    }
-    @include respond-to(fn.get-breakpoint("small")) {
-        #{$property}: $small;
+        // We dwingen de shade naar een string om vergelijking-fouten te voorkomen
+        $s: "#{$shade}"; 
+
+        $target-key: null;
+        @if $s == "10" or $s == "20" { $target-key: "90"; } 
+        @else if $s == "30" { $target-key: "80"; } 
+        @else if $s == "35" { $target-key: "70"; } 
+        @else if $s == "40" { $target-key: "60"; }
+        @else if $s == "45" { $target-key: "50"; }
+        @else if $s == "50" { $target-key: "40"; } 
+        @else if $s == "55" { $target-key: "30"; }
+
+        @if $target-key {
+            $use-stroke: (string.slice($s, -1) == "5");
+
+            @at-root body.ux-mode #{&} {
+                @if $use-stroke {
+                    outline: 1px solid map.get($ux-black-map, $target-key) !important;
+                    background-color: transparent !important;
+                } @else {
+                    background-color: map.get($ux-black-map, $target-key) !important;
+                    outline: none !important;
+                }
+                color: #ffffff !important;
+                border: none !important;
+            }
+
+            @at-root body.ux-mode .BoW #{&}, body.ux-mode #{&}.BoW {
+                @if $use-stroke {
+                    outline: 1px solid map.get($ux-white-map, $target-key) !important;
+                    background-color: transparent !important;
+                } @else {
+                    background-color: map.get($ux-white-map, $target-key) !important;
+                    outline: none !important;
+                }
+                color: #000000 !important;
+            }
+        }
     }
 }

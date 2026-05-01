@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -16,21 +16,8 @@
     }
 }
 
-%button-base-reset {
-    border: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 %overlay-button-circle {
     display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: rgba(0, 0, 0, 0.6);
     border: 4px solid transparent;
 
@@ -44,12 +31,10 @@
 
 .audioplayer-wrapper {
     aspect-ratio: 16 / 9;
-
-    .thumbnail {
-        background-size: cover;
-        background-position: center;
-        pointer-events: none;
-    }
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     // --- State Management ---
     .ready-wrapper,
@@ -72,8 +57,6 @@
     &.is-loading {
         .loading-wrapper {
             display: flex;
-            justify-content: center;
-            align-items: center;
             background-color: rgba(0, 0, 0, 0.6);
         }
     }
@@ -95,10 +78,11 @@
     // --- READY: De Grote Play Button ---
     .ready-wrapper {
         button {
-            @extend %button-base-reset;
-            @extend %overlay-button-circle;
-            width: 60px;
-            height: 60px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 12px;
 
             &:hover {
                 background-color: rgba(30, 30, 30, 0.5);
@@ -106,8 +90,10 @@
             }
 
             svg {
-                width: 40px;
-                height: 40px;
+                width: 26px;
+                height: 26px;
+                display: block;
+                fill: currentColor;
                 color: white;
             }
         }
@@ -133,86 +119,138 @@
         .timestamp-wrapper {
             .timestamp {
                 background-color: rgba(0, 0, 0, 0.5);
-                padding: 2px 5px;
                 color: rgb(231, 231, 231);
                 width: auto;
+                line-height: 1;
             }
         }
 
         // Tijdlijn
         .timeline-wrapper {
             cursor: pointer;
-            background-color: rgba(29, 29, 29, 0.5);
-            padding: 7px 6px;
 
-            .total,
-            .progress {
-                top: 50%;
+            .stack {
                 height: 5px;
-                transform-origin: left center;
-                transform: translateY(-50%);
-            }
+                .total,
+                .progress {
+                    top: 50%;
+                    transform-origin: left center;
+                    transform: translateY(-50%);
+                }
 
-            .total {
-                background-color: #b3b3b3;
-            }
+                .total {
+                    background-color: #b3b3b3;
+                }
 
-            .progress {
-                background-color: #f1f12b;
-                transform: translateY(-50%);
-                transition: width 0.1s linear;
+                .progress {
+                    background-color: #f1f12b;
+                    transform: translateY(-50%);
+                    transition: width 0.1s linear;
+                }
             }
         }
 
         // Onderste rij: Pause & Volume
         .layer-wrapper {
-            display: flex;
-            align-items: center; // Zorgt dat alle items op hun eigen natuurlijke hoogte blijven
+            .pauseFilters {
+                .pause.column.w-hug {
+                    button {
+                        background-color: rgba(0, 0, 0, 0.8);
+                        padding: 12px;
+                        border-radius: 50%;
 
-            .pausefilters {
-                width: auto;
-                button {
-                    @extend %button-base-reset;
-                    @extend %overlay-button-circle;
-                    background-color: rgba(0, 0, 0, 0.8);
+                        &:hover {
+                            background-color: rgba(30, 30, 30, 0.5);
+                        }
 
-                    &:hover {
-                        background-color: rgba(30, 30, 30, 0.5);
-                        border-color: rgba(5, 5, 5, 0.5);
-                    }
-                    svg {
-                        color: white;
+                        svg {
+                            width: 14px;
+                            height: 14px;
+                            display: block;
+                            fill: currentColor;
+                            color: white;
+                        }
                     }
                 }
             }
 
             .volume-wrapper {
                 width: auto;
-                background-color: rgba(0, 0, 0, 0.5);
 
-                .icon {
-                    button {
-                        @extend %button-base-reset;
-                        @extend %overlay-button-circle;
-                        background-color: rgba(0, 0, 0, 0.5);
+                button.mute {
+                    background-color: rgba(0, 0, 0, 0.5);
+                    padding: 8px;
+                    border-radius: 50%;
 
-                        &:hover {
-                            background-color: rgba(30, 30, 30, 0.5);
-                            border-color: rgba(5, 5, 5, 0.5);
-                        }
+                    &:hover {
+                        background-color: rgba(30, 30, 30, 0.5);
+                        border-color: rgba(5, 5, 5, 0.5);
+                    }
 
-                        svg {
-                            color: white;
-                        }
+                    svg {
+                        width: 14px;
+                        height: 14px;
+                        display: block;
+                        fill: currentColor;
+                        color: white;
                     }
                 }
 
-                .slider {
+                .btn.slider {
+                    background-color: rgba(0, 0, 0, 0.5);
+                    padding: 8px;
+
                     input[type="range"] {
+                        display: block;
+                        width: 80px !important; // Of de gewenste breedte van je slider
+                        cursor: pointer;
+                        margin: 0; // Reset eventuele browser margin
                         accent-color: white;
                     }
                 }
             }
+        }
+    }
+
+    .P40 {
+        @include global.apply-ux-bg("40");
+        padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+            gap: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        }
+    }
+
+    .P45 {
+        @include global.apply-ux-bg("45");
+        padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        }
+    }
+
+    .P50 {
+        // Standaard padding/gap (altijd zichtbaar)
+        padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+
+        // UX-Modus: Alleen als body de class heeft
+        @at-root body.ux-mode & {
+            @include global.apply-ux-bg("50");
+        }
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        }
+    }
+
+    .P55 {
+        @include global.apply-ux-bg("55");
+        padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
         }
     }
 }

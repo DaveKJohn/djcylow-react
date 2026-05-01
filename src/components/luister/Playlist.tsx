@@ -59,31 +59,34 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
     }, [activeColor, activeGenre, activePower]);
 
     return (
-        
-            <div className="row spacing-4xl wrap card-wrapper">
-                {filteredMixes.length > 0 ? (
-                    filteredMixes.map((mix) => (
-                        <div key={mix.id} className="column extra spacing-xl card">
-                            <AudioPlayer
-                                id={mix.id}
-                                src={mix.audioSrc}                               
-                                image={mix.image_wide_small}
-                                className={mix.color?.toLowerCase()}
-                            />
-                            <div className="column full-w spacing-xs h-start text">
-                                <Link className="size-sm bold" href={`/${mix.permalink}`}>
+
+        <div className="row wrap w-hug AMC P30 spacing-xl fill-90" id="luister_content_playlist">
+            {filteredMixes.length > 0 ? (
+                filteredMixes.map((mix) => (
+                    <div key={mix.id} className="column w-hug AML P35 spacing-xl card ">
+                        <AudioPlayer
+                            id={mix.id}
+                            src={mix.audioSrc}
+                            image={mix.image_wide_small}
+                            className={mix.color?.toLowerCase()}
+                        />
+                        <div className="column w-fill AML ">
+                            <div className="column w-hug AML spacing-xs">
+                                <Link className="size-sm" href={`/${mix.permalink}`}>
                                     {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
                                 </Link>
                                 <p className="size-xs">{mix.maand} {mix.dag}, {mix.jaar}</p>
                             </div>
                         </div>
-                    ))
-                ) : (
-                    <p>Geen mixen gevonden voor deze combinatie.</p>
-                )}
-                <div className="card-dummy"></div>
-                <div className="card-dummy"></div>
-            </div>
-       
+                    </div>
+                ))
+            ) : (
+                <p>Geen mixen gevonden voor deze combinatie.</p>
+            )}
+            <div className="card-dummy"></div>
+            <div className="card-dummy"></div>
+        </div>
+
+
     );
 }

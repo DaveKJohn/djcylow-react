@@ -28,7 +28,7 @@ export default function ReadMore({ teaser, hiddenContent, onToggle }: ReadMorePr
     };
 
     return (
-        <div className={`column full-w h-start read-more-container ${isOpen ? "is-open" : ""}`}>
+        <div className={`column read-more-container ${isOpen ? "is-open" : ""}`}>
             <div className="column read-more-teaser">
                 {teaser}
             </div>

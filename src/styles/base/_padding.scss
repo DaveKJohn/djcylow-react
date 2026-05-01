@@ -1,0 +1,64 @@
+@use "sass:map";
+@use "../abstracts/mixins" as global;
+@use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
+
+.P10 {
+    @include global.apply-ux-bg("10");
+}
+
+.P20 {
+    @include global.apply-ux-bg("20");
+    padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+
+    @include global.respond-to(fn.get-breakpoint("medium")) {
+        padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
+    }
+}
+
+.P30 {
+    @include global.apply-ux-bg("30");
+    padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
+    }
+
+    .P35 {
+        @include global.apply-ux-bg("35");
+        padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
+        }
+    }
+}
+
+.P40 {
+    @include global.apply-ux-bg("40");
+    padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        padding: map.get(map.get(var.$design-scale, "2xl"), "r-space");
+        gap: map.get(map.get(var.$design-scale, "2xl"), "r-space");
+    }
+
+    .P45 {
+        @include global.apply-ux-bg("45");
+        padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
+        }
+    }
+}
+
+/*BANNER*/
+.P30-banner {
+    @include global.apply-ux-bg("30");
+    padding: 53px map.get(map.get(var.$design-scale, "xl"), "r-space");
+
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        padding: 93px map.get(map.get(var.$design-scale, "base"), "r-space");
+    }
+}

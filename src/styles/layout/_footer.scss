@@ -1,60 +1,38 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 @use "../abstracts/variables" as var;
 @use "../abstracts/functions" as fn;
 
 footer {
-    padding: map.get(map.get(var.$design-scale, "7xl"), "c-space") 0;
     color: var(--white-80);
 
-    // --- Layer 1 & 2: Logo Sectie ---
-    .logo {
-        img {
-            width: 280px;
-            height: auto;
-            display: block;
+    img {
+        width: 220px;
 
-            @include tools.respond-to(fn.get-breakpoint("medium")) {
-                width: 220px;
-            }
+        @include global.respond-to(fn.get-breakpoint("medium")) {
+            width: 220px;
         }
     }
 
-    // Algemene stijl voor containers binnen layer-3
-    .row-2 {
-        width: max-content;
-        flex: 0 0 auto;
-        white-space: nowrap;
-    }
+    svg {
+        display: block;
+        width: 32px;
+        height: 32px;
+        transition: transform 0.3s ease-in-out;
 
-    // --- Layer 3 Row 1: Socials ---
-    .row.split:first-child {
-        max-width: 180px;
-
-        svg {
-            display: block;
-            width: 32px;
-            height: 32px;
-            transition: transform 0.3s ease-in-out;
-
-            &:hover {
-                transform: scale(1.1);
-            }
+        &:hover {
+            transform: scale(1.1);
         }
     }
 
-    // --- Layer 3 Row 2: Credits / Info ---
-    .row {
-        max-width: 550px;
+    .btn {
+        display: inline;
+    }
 
-        address {
-            font-style: normal;
-            display: inline-block;
-        }
+    .constrainer {
 
-        #contactMail,
-        small {
-            display: block;
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            gap: 24px;
         }
     }
 }

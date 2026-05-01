@@ -1,7 +1,7 @@
 @use "sass:list";
 @use "sass:map";
 @use "sass:string";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -113,7 +113,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
         }
 
         .labels {
-            @include tools.color-generator;
+            @include global.color-generator;
 
             .label {
                 display: flex;
@@ -123,7 +123,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
                 flex-shrink: 0;
 
                 .colour {
-                    @include tools.colour-base;
+                    @include global.colour-base;
 
                     // Dwing de breedte af en voorkom rekken
                     width: var.$colour-width !important;
@@ -148,14 +148,14 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
 
         .colours {
             .colour {
-                @include tools.color-generator;
+                @include global.color-generator;
 
                 .audioplayer-wrapper {
                     height: var(--card_height_basiskleuren);
                     width: var(--card_width_basiskleuren);
 
                     .label {
-                        @include tools.colour-base;
+                        @include global.colour-base;
                         z-index: 200;
                         bottom: 0;
                         right: 0;

@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -12,7 +12,7 @@
     --half-cube: calc(var(--cube-size) / 2);
     --neg-half-cube: calc(var(--cube-size) / -2); // Voor de achterkant
 
-    @include tools.respond-to(fn.get-breakpoint("small")) {
+    @include global.respond-to(fn.get-breakpoint("small")) {
         --cube-size: 200px;
     }
 
@@ -43,7 +43,7 @@
             transform-style: preserve-3d;
             transform: rotateX($rot-x) rotateY($rot-y);
             margin: -50px auto 120px auto;
-            @include tools.respond-to(fn.get-breakpoint("small")) {
+            @include global.respond-to(fn.get-breakpoint("small")) {
                 margin: -10px auto 120px auto;
             }
 

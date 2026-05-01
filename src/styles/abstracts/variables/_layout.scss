@@ -2,30 +2,34 @@
 @use "sass:string";
 @use "sass:map";
 
-
 // --- Font ---
 $base-font: var(--font-poppins), "Poppins", Arial, sans-serif;
 
 // --- Body Afmetingen ---
 $desktop-max-width: 1300px;
 
-// --- Nav heights ---
-$nav-height-large: 100px;
-$nav-height-medium: 90px;
-$nav-height-small: 65px;
-
-// --- Banner heights ---
-$banner-height-large: 110px 0;
-$banner-height-medium: 50px 0;
-$banner-height-small: 40px 0;
-
 // Body Breekpunten | LET OP: Als je deze waarden aanpast, pas ze dan ook aan in src/constants/design.ts!
 $breakpoints: (
-  "large": 1710px,
-  "medium": 1000px,
-  "small": 760px
+    "large": 1774px,
+    "medium": 1331px,
+    "small": 844px
 );
 
+$breakpoint-map: (
+    "l": "large",
+    "m": "medium",
+    "s": "small"
+);
+
+// --- Nav heights ---
+$nav-height-large: 86px;
+$nav-height-medium: 86px;
+$nav-height-small: 52px;
+
+// --- Banner heights ---
+$banner-height-large: 96px 0;
+$banner-height-medium: 96px 0;
+$banner-height-small: 60px 0;
 
 /* =======================================
     ALIASED DESIGN SCALE (Responsive Mapping)
@@ -64,11 +68,11 @@ $medium-mapping: (
 
 $small-mapping: (
     "9xl": "6xl",
-    "8xl": "6xl",
-    "7xl": "5xl",
-    "6xl": "4xl",
+    "8xl": "5xl",
+    "7xl": "6xl",
+    "6xl": "6xl",
     "5xl": "3xl",
-    "4xl": "3xl",
+    "4xl": "4xl",
     "3xl": "3xl",
     "2xl": "2xl",
     "xl": "lg",
@@ -109,7 +113,7 @@ $design-scale: (
         c-space: 8px,
         r-space: 8px,
         in-space: 8px,
-        extra-space: 3px
+        extra-space: 5px
     ),
     "xl": (
         font-size: 20px,
@@ -117,7 +121,7 @@ $design-scale: (
         c-space: 11px,
         r-space: 11px,
         in-space: 11px,
-        extra-space: 4px
+        extra-space: 5px
     ),
     "2xl": (
         font-size: 24px,
@@ -125,7 +129,7 @@ $design-scale: (
         c-space: 15px,
         r-space: 15px,
         in-space: 15px,
-        extra-space: 4px
+        extra-space: 5px
     ),
     "3xl": (
         font-size: 30px,
@@ -153,11 +157,11 @@ $design-scale: (
     ),
     "6xl": (
         font-size: 60px,
-        line-height: 80px,
+        line-height: 70px,
         c-space: 58px,
         r-space: 58px,
         in-space: 58px,
-        extra-space: 8px
+        extra-space: 18px
     ),
     "7xl": (
         font-size: 72px,
@@ -184,79 +188,3 @@ $design-scale: (
         extra-space: 9px
     )
 );
-
-// =======================================
-// 1. Gecentraliseerde Kleurdefinities (SCSS Map)
-// =======================================
-$colors: (
-    // --- Black & White tinten ---
-    "black": (
-            "100": #000000,
-            "90": #0f0f0f,
-            "80": #2e2e2e,
-            "70": #5a5a5a
-        ),
-    "white": (
-        "100": #ffffff,
-        "90": #f3f3f3,
-        "80": #d1d1d1,
-        "70": #919191
-    ),
-    // --- Primaire & Accentkleuren ---
-    "yellow": (
-            "default": #ffff00,
-            "light": #ffffb2
-        ),
-    "cyan": (
-        "default": #00ffff,
-        "light": #b2ffff
-    ),
-    "green": (
-        "default": #00ff00,
-        "light": #b3ffb2
-    ),
-    "blue": (
-        "default": #0000ff,
-        "light": #3333ff
-    ),
-    "orange": (
-        "default": #ff7f00,
-        "light": #ffd9b3
-    ),
-    "red": (
-        "default": #ff0000,
-        "light": #ff8080
-    ),
-    "purple": (
-        "default": #7f00ff,
-        "light": #cc99ff
-    ),
-    "magenta": (
-        "default": #ff00ff,
-        "light": #ff2bff
-    ),
-    // --- Feedbackkleuren ---
-    "error": (
-            "bg": #991b1b,
-            "border": #fca5a5,
-            "fg": #fee2e2
-        )
-);
-
-/* =======================================
-    3. Music Mood Colours variabelen
-   ======================================= */
-// Aspect Ratio instellingen (overal hergebruikt)
-
-// --- Progressieve Clamp (320px -> 800px) ---
-$colour-width: clamp(70px, 1.46vw + 73.33px, 95px);
-$colour-aspect-w: 20;
-$colour-aspect-h: 7;
-$colour-aspect-ratio: #{$colour-aspect-w} / #{$colour-aspect-h};
-$colour-height-multiplier: math.div($colour-aspect-h, $colour-aspect-w);
-
-$canvas-max-width: 680px;
-
-// Kleurenlijsten voor loops
-$all-colors: ("cyan", "yellow", "red", "purple", "green", "orange", "magenta", "blue");
-$dark-text-colors: ("cyan", "yellow", "green", "orange");

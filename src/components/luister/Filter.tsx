@@ -15,17 +15,18 @@ const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
 
 export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: any) {
     return (
-        <div className="column spacing-3xl v-push-4xl">
 
+
+        <div className="column w-fill AMC P35 spacing-2xl">
             {/* MOOD SECTIE */}
-            <div className="column spacing-xs splitter-small center">
-                <div className="column center spacing-2xl  header">
-                    <p className="bold">Mood</p>
+            <div className="column w-fill AMC spacing-xs">
+                <div className="column w-fill AMC">
+                    <p className="">Mood</p>
                 </div>
 
-                <div className="column spacing-3xl center">
+                <div className="column w-fill AMC spacing-base">
 
-                    <div className="row wrap center extra spacing-lg" id="filter_mood">
+                    <div className="row wrap w-fill AMC extra spacing-lg" id="filter_mood">
                         <button
                             className={`btn passive select ${activeColor === 'all' ? 'is-active' : ''}`}
                             onClick={() => setActiveColor('all')}
@@ -47,11 +48,9 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     </div>
 
                     {/* MOOD OUTPUT - Nu met dynamische display: none/flex */}
-                    <div
-                        className="column center spacing-xl" id="filter_mood_output" style={{ display: activeColor === 'all' ? 'none' : 'flex' }}
-                    >
+                    <div className="column w-fill AMC extra spacing-xl" id="filter_mood_output" style={{ display: activeColor === 'all' ? 'none' : 'flex' }}                   >
                         {activeColor !== 'all' && (
-                            <div className="column spacing-lg color-wrapper center">
+                            <div className="column w-fill AMC spacing-lg color-wrapper">
                                 <svg className="column extra spacing-2xl" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
                                     <circle cx="10" cy="10" r="9" fill={`var(${MOOD_DATA[activeColor].colorVar})`}></circle>
                                 </svg>
@@ -59,19 +58,17 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                             </div>
                         )}
                     </div>
-
                 </div>
-
             </div>
 
-
+            <div className="splitter "></div>
 
             {/* GENRE SECTIE */}
-            <div className="column spacing-xs center splitter-small">
+            <div className="column w-fill AMC spacing-xs">
                 <div className="column spacing-2xl header">
-                    <p className="bold">Genre</p>
+                    <p className="">Genre</p>
                 </div>
-                <div className="row center wrap full-w spacing-xl" id="filter_genre">
+                <div className="row wrap w-fill AMC extra spacing-lg" id="filter_genre">
                     {['all', 'EDM', 'Drum & Bass'].map((genre) => (
                         <button
                             key={genre}
@@ -85,12 +82,14 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                 </div>
             </div>
 
+            <div className="splitter"></div>
+
             {/* INTENSITEIT SECTIE */}
-            <div className="column spacing-xs center">
+            <div className="column w-fill AMC spacing-xs">
                 <div className="column spacing-2xl header">
-                    <p className="bold">Intensiteit</p>
+                    <p className="">Intensiteit</p>
                 </div>
-                <div className="row center wrap full-w spacing-xl" id="filter_power">
+                <div className="row wrap w-fill AMC extra spacing-lg" id="filter_power">
                     {['all', 'Full', 'Light'].map((power) => (
                         <button
                             key={power}

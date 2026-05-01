@@ -41,7 +41,7 @@ export default function VsKleurenCarousel() {
 
     return (
         <Carousel id="carousel-vs">
-            <div className="row carousel-wrapper center">
+            <div className="row w-fill AMC carousel-wrapper">
                 {vsPairs.map((pair, index) => (
                     <React.Fragment key={pair.id}>
                         <div className={`column ${pair.id}`}>

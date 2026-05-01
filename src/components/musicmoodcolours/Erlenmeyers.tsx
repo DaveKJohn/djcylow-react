@@ -75,8 +75,10 @@ export default function Erlenmeyers() {
     return (
         <>
             {/* 1. OUTPUT */}
-            <div className="column spacing-5xl black-90-bg in-push-6xl" id="canvas_erlenmeyers">
+            <div className="column spacing-4xl fill-90 in-push-5xl" id="canvas_erlenmeyers">
                 <div className="column spacing-3xl output">
+
+                     
                     <div className={`column spacing-2xl center emotion-wrapper ${activeColor}`}>
 
                         {/* Check op audioSrc om Console Error te voorkomen */}
@@ -97,7 +99,7 @@ export default function Erlenmeyers() {
                             </div>
                         )}
 
-                        <div className="row text-wrapper spacing-xl center">
+                        <div className="row AMC text-wrapper spacing-xl">
                             <div className="column h-end">
                                 <svg viewBox="0 0 20 20" width="14" height="14">
                                     <circle cx="10" cy="10" r="9" fill={`var(--${activeColor}-default)`} />
@@ -110,8 +112,10 @@ export default function Erlenmeyers() {
                     </div>
                 </div>
 
+                <div className="splitter"></div>
+
                 {/* 2. ERLENMEYERS */}
-                <div className="column spacing-base erlenmeyers splitter-small">
+                <div className="column spacing-base erlenmeyers">
                     <div className="row text-wrapper spacing-3xl">
                         {SUBSTANCES.map((sub) => {
                             const isActive = substances[sub];
@@ -150,8 +154,10 @@ export default function Erlenmeyers() {
                     </div>
                 </div>
 
+                <div className="splitter"></div>
+
                 {/* 3. BUTTONS */}
-                <div className="row spacing-xl center wrap buttons">
+                <div className="row AMC wrap extra spacing-2xl buttons">
                     {["cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue"].map((color) => (
                         <button
                             key={color}

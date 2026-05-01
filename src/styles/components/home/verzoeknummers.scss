@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 
 $gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
@@ -11,7 +11,7 @@ $gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
         flex: 0 0 calc(50% - (#{$gap-size} / 2));
         max-width: calc(50% - (#{$gap-size} / 2));
 
-        @include tools.respond-to(fn.get-breakpoint("medium")) {
+        @include global.respond-to(fn.get-breakpoint("medium")) {
             flex: 1 1 100%; // Reset op mobile
             max-width: none;
         }
@@ -21,7 +21,7 @@ $gap-size: map.get(map.get(var.$design-scale, "6xl"), "r-space");
         flex: 0 0 calc(50% - (#{$gap-size} / 2));
         max-width: calc(50% - (#{$gap-size} / 2));
 
-        @include tools.respond-to(fn.get-breakpoint("medium")) {
+        @include global.respond-to(fn.get-breakpoint("medium")) {
             flex: 1 1 100%; // Reset op mobile
             max-width: none;
         }

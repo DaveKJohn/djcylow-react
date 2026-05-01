@@ -36,7 +36,7 @@ export default function HomePage() {
                 <Hero />
                 {/* <Referenties /> */}
                 {/* <GoogleReviews /> */}
-                <Promo />
+                 <Promo /> 
 
                 <ContactForm />
             </section>

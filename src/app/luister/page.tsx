@@ -7,6 +7,8 @@ import Filter from '@/components/luister/Filter';
 import Playlist from '@/components/luister/Playlist';
 import MobileContent from '@/components/ui/MobileContent';
 
+
+
 export default function LuisterPage() {
     const [activeColor, setActiveColor] = useState('all');
     const [activeGenre, setActiveGenre] = useState('all');
@@ -17,12 +19,9 @@ export default function LuisterPage() {
             width="20"
             height="20"
             viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ display: 'block', minWidth: '20px' }}
         >
             <line x1="4" y1="21" x2="4" y2="14"></line>
             <line x1="4" y1="10" x2="4" y2="3"></line>
@@ -39,55 +38,69 @@ export default function LuisterPage() {
     return (
         <main className={styles.pageWrapper}>
             {/* Banner bovenaan */}
-            <section className="stack banner WoB" id="banner_2">
-                <div className="column layer feather sides"></div>
-                <div className="column layer feather bottom"></div>
-                <div className="column layer spacing-4xl constrainer center title">
-                    <h1>Luister</h1>
-                </div>
-            </section>
+            <section className="WoB column w-fill AMC P10 spacing-xl fill-100" id="luister">
 
-            {/* De container die op desktop alles naast elkaar zet */}
-            <section className="column constrainer spacing-4xl WoB" id="luister">
-
-                {/* LINKS: De resultaten (neemt de rest van de ruimte in) */}
-                <div className="column spacing-4xl" id="luister_playlist">
-                    <Playlist
-                        activeColor={activeColor}
-                        activeGenre={activeGenre}
-                        activePower={activePower}
-                    />
-                </div>
-
-                <div className="column full-w spacing-4xl" id="luister_filter">
-
-                    {/* RECHTS: De filters (op desktop locked in de kolom, op mobiel een knop) */}
-                    <MobileContent
-                        title={<span style={{ color: 'white' }}>Filters</span>}
-                        id="luister_filter_content"
-                        icon={<span style={{ color: 'white', display: 'flex' }}>{FilterIcon}</span>}
-                        trigger={(toggle) => (
-                            /* De knop die alleen op mobiel verschijnt via CSS */
-                            <div id="luister_filter_mobile_button" className="column">
-                                <button
-                                    className="row btn passive mobile-button v-center"
-                                    onClick={toggle}
-                                    aria-label="Filter openen"
-                                >
-                                    {FilterIcon}
-                                    Filters
-                                </button>
+                <div className="column w-fill AMC P20 spacing-2xl" id="luister_banner">
+                    <div className="column w-fix AMC constrainer">
+                        <div className="column w-fill AMC P30-banner">
+                            <div className="column w-fill AMC P35">
+                                <h1>Luister</h1>
                             </div>
-                        )}
-                    >
-                        {(toggle) => (
-                            <Filter
-                                activeColor={activeColor} setActiveColor={setActiveColor}
-                                activeGenre={activeGenre} setActiveGenre={setActiveGenre}
-                                activePower={activePower} setActivePower={setActivePower}
-                            />
-                        )}
-                    </MobileContent>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="column w-hug AMC P20 spacing-2xl" id="luister_content">
+                    <div className="row-c break-s w-fix ATC constrainer spacing-5xl">
+
+
+
+                        <Playlist
+                            activeColor={activeColor}
+                            activeGenre={activeGenre}
+                            activePower={activePower}
+                        />
+
+
+                        <div className="column w-fill AMC P30 spacing-2xl fill-90 " id="luister_content_filter">
+
+                            {/* RECHTS: De filters (op desktop locked in de kolom, op mobiel een knop) */}
+                            <MobileContent
+                                title="Filters"
+                                id="luister_content_filter_drawer"
+                                icon={FilterIcon}
+                                trigger={(toggle) => (
+                                    <div
+                                        id="luister_content_filter_mobile_button"
+                                        className="column w-fill AMC P30 btn"
+                                        onClick={toggle}
+                                        role="button"
+                                        tabIndex={0} // Gebruik accolades voor een number
+                                        aria-label="Filter openen"
+                                    >
+                                        <div className="row w-fill AMC P35 spacing-xl">
+                                            {FilterIcon}
+                                            <span>Filters</span>
+                                        </div>
+                                    </div>
+                                )}
+                            >
+                                {() => (
+                                    <div className="column w-fill AML P40 break-s spacing-2xl">
+                                        <Filter
+                                            activeColor={activeColor}
+                                            setActiveColor={setActiveColor}
+                                            activeGenre={activeGenre}
+                                            setActiveGenre={setActiveGenre}
+                                            activePower={activePower}
+                                            setActivePower={setActivePower}
+                                        />
+                                    </div>
+                                )}
+                            </MobileContent>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </main>

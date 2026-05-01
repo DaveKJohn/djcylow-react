@@ -8,7 +8,7 @@ interface MobileContentProps {
     title?: React.ReactNode;
     icon?: React.ReactNode;
     wrapperClass?: string;
-    id?: string;           // Prop is aanwezig in interface
+    id?: string;
     trigger: (toggle: () => void) => React.ReactNode;
     children: React.ReactNode | ((toggle: () => void) => React.ReactNode);
 }
@@ -18,7 +18,7 @@ export default function MobileContent({
     trigger,
     title,
     wrapperClass = "",
-    id, // 1. Destructureer de id prop hier
+    id,
     icon
 }: MobileContentProps) {
     const [isOpen, setIsOpen] = useState(false);
@@ -29,20 +29,23 @@ export default function MobileContent({
     useEffect(() => {
         setMounted(true);
 
-        const checkSize = () => {           
-            const mobile = window.innerWidth <= BREAKPOINTS.SMALL;
-            setIsMobile(mobile);
+        // Maak een media query die EXACT matcht met je SCSS map ($breakpoints small: 811px)
+        const mql = window.matchMedia(`(max-width: ${BREAKPOINTS.SMALL}px)`);
 
-            // Als het scherm groter wordt dan de mobiele grens, sluiten we het menu
-            if (!mobile) {
-                setIsOpen(false);
+        const checkSize = (e: MediaQueryListEvent | MediaQueryList) => {
+            setIsMobile(e.matches);
+            if (!e.matches) {
+                setIsOpen(false); // Sluit drawer als we naar desktop gaan
             }
         };
 
-        checkSize();
-        window.addEventListener("resize", checkSize);
+        // Voer de check direct uit zodra de component mount
+        checkSize(mql);
 
-        return () => window.removeEventListener("resize", checkSize);
+        // Gebruik de moderne event listener voor media queries
+        mql.addEventListener("change", checkSize);
+
+        return () => mql.removeEventListener("change", checkSize);
     }, []);
 
     useEffect(() => {
@@ -51,7 +54,6 @@ export default function MobileContent({
         } else {
             document.body.style.overflow = '';
         }
-        return () => { document.body.style.overflow = ''; };
     }, [isOpen, isMobile]);
 
     useEffect(() => {
@@ -60,50 +62,43 @@ export default function MobileContent({
 
     const toggle = () => setIsOpen(prev => !prev);
 
-    if (!mounted) return null;
-
     return (
         <>
-            {trigger(toggle)}
+            {/* 1. Eerst de drawer (nav_menu_content) */}
+            {mounted && (
+                <>
+                    {isMobile && (
+                        <div
+                            className={`drawer-overlay ${isOpen ? "active" : ""}`}
+                            onClick={() => setIsOpen(false)}
+                        />
+                    )}
 
-            {isMobile && (
-                <div
-                    className={`drawer-overlay ${isOpen ? "active" : ""}`}
-                    onClick={() => setIsOpen(false)}
-                />
+                    <div
+                        id={id}
+                        className={`row-c break-s w-fill ATC P30 drawer ${isMobile ? "ready" : "locked"} ${isOpen ? "open" : "closed"} ${wrapperClass}`}
+                    >
+                        {isMobile && (
+                            <div className="column w-fill AMC P35 drawer-header">
+                                <div className="headerTitleGroup">
+                                    {icon && <div className="headerIcon">{icon}</div>}
+                                    {title && <p className="headerTitleText">{title}</p>}
+                                </div>
+                                <button className="btn close" onClick={() => setIsOpen(false)}>✕</button>
+                            </div>
+                        )}
+
+                        <div className="splitter mobile"></div>
+
+                        <div className="column w-fill ATC P35 drawer-content">
+                            {typeof children === 'function' ? children(toggle) : children}
+                        </div>
+                    </div>
+                </>
             )}
 
-            {/* 2. Voeg de id={id} toe aan de div */}
-            <div
-                id={id}
-                className={`drawer ${isMobile ? "ready" : "locked"} ${isOpen ? "open" : "closed"} ${wrapperClass}`}
-            >
-                {isMobile && (
-                    /* 3. Match de classnaam met je SCSS (drawer-header) */
-                    <div className="drawer-header">
-
-                        <div className="headerTitleGroup">
-                            {icon && (
-                                <div className="headerIcon">
-                                    {icon}
-                                </div>
-                            )}
-                            {title && <p className="headerTitleText">{title}</p>}
-                        </div>
-
-                        <button
-                            className="btn close"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            ✕
-                        </button>
-                    </div>
-                )}
-
-                <div className="drawer-content">
-                    {typeof children === 'function' ? children(toggle) : children}
-                </div>
-            </div>
+            {/* 2. Daarna pas de trigger (de button) */}
+            {trigger(toggle)}
         </>
     );
 }

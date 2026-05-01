@@ -1,6 +1,7 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
+@use "../../abstracts/functions" as fn;
 
 /* =======================================
    Contact Formulier Sectie
@@ -8,7 +9,15 @@
 
 #contactformulier {
    
-    background-color: var(--white-90);
+
+    #contactForm {
+        width: 700px;
+        flex-shrink: 0;
+
+        @include global.respond-to(fn.get-breakpoint("medium")) {
+            width: 100%;
+        }
+    }
 
     #honeypot {
         display: none;
@@ -107,8 +116,6 @@
         }
     }
 
-    // Omdat 'content' animatie in CSS soms lastig is per browser,
-    // is dit een betere fallback voor de puntjes:
     .dots {
         &::after {
             content: "";
@@ -131,3 +138,4 @@
         }
     }
 }
+

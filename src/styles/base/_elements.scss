@@ -1,132 +1,71 @@
 @use "sass:map";
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 @use "../abstracts/variables" as var;
 @use "../abstracts/functions" as fn;
 
-// 1. Genereer alle basis-thema elementen
-@include tools.theme-styles(
-    $fg-70: "white-70",
-    $fg-80: "white-80",
-    $fg-90: "white-90",
-    $fg-100: "white-100",
-    $bg-70: "black-70",
-    $bg-80: "black-80",
-    $bg-90: "black-90",
-    $bg-100: "black-100"
-);
-
-// 2. De basis voor selectie-knoppen
-.btn.select {
-    @include tools.colour-base;   
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-// 3. Globale elementen
-.splitter-small {
-    padding-bottom: map.get(map.get(var.$design-scale, "4xl"), "c-space") !important;
-}
-
-.splitter-large {
-    padding-bottom: map.get(map.get(var.$design-scale, "5xl"), "c-space") !important;
-}
-
 .fullscreen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    // GEFIXT: Namespace toegevoegd voor nav-height
     min-height: calc(100vh - var.$nav-height-large);
-    height: auto;
 
-    padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
-
-    @include tools.respond-to(fn.get-breakpoint("small")) {
-        min-height: calc(100vh - var.$nav-height-small);
-        padding: map.get(map.get(var.$design-scale, "8xl"), "c-space") 0;
+    @include global.respond-to(fn.get-breakpoint("medium")) {
+        min-height: calc(100vh - var.$nav-height-medium);
     }
-}
 
-.stack {
-    position: relative;
-    overflow: hidden;
-
-    .layer {
-        position: absolute;
-        inset: 0;
-
-        &.gradient {
-            top: 50%;
-            left: 50%;
-            translate: -50% -50%;
-            aspect-ratio: 1 / 1;
-            min-width: 100vmax;
-            min-height: 100vmax;
-            width: auto;
-            height: auto;
-
-            @include tools.respond-to(fn.get-breakpoint("small")) {
-                min-width: 140vmax;
-            }
-        }
-
-        &.feather {
-            &.sides {
-                background: linear-gradient(
-                    to right,
-                    black 0%,
-                    rgba(0, 0, 0, 0.5) 15%,
-                    transparent 30%,
-                    transparent 70%,
-                    rgba(0, 0, 0, 0.5) 85%,
-                    black 100%
-                );
-            }
-
-            &.bottom {
-                background: linear-gradient(
-                    to bottom,
-                    transparent 0%,
-                    transparent 20%,
-                    rgba(0, 0, 0, 0.5) 70%,
-                    black 100%
-                );
-            }
-        }
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        min-height: calc(100vh - var.$nav-height-small);
     }
 }
 
 .constrainer {
-    margin: 0 auto; 
+    margin: 0 auto;
     max-width: var.$desktop-max-width;
+    width: var.$desktop-max-width;
 
-    // GEFIXT: De mixin handelt de breakpoints nu zelf af via fn.get-breakpoint
-    @include tools.responsive-spacing(
-        padding,
-        0 map.get(map.get(var.$design-scale, "6xl"), "r-space"), // Base
-        0 map.get(map.get(var.$design-scale, "5xl"), "r-space"), // Large
-        0 map.get(map.get(var.$design-scale, "4xl"), "r-space"), // Medium
-        0 map.get(map.get(var.$design-scale, "2xl"), "r-space")  // Small
-    );
-}
-
-.paper {
-    padding-bottom: map.get(map.get(var.$design-scale, "8xl"), "c-space");
-
-    @include tools.respond-to(fn.get-breakpoint("small")) {
-        padding-bottom: map.get(map.get(var.$design-scale, "8xl"), "c-space");
+    @include global.respond-to(fn.get-breakpoint("medium")) {
+        max-width: none;
+        width: 100%;
     }
 }
 
-.banner {
-    min-height: 350px;
-    @include tools.respond-to(fn.get-breakpoint("small")) {
-        min-height: 250px;
-    }
+.constrainer-nav {
+    max-width: none;
+    width: 100%;
 }
 
 .hidden {
     display: none;
+}
+
+.splitter {
+    height: 1px;
+    width: 100%;
+
+    @if var.$ux-mode == true {
+        $ux-black-70: map.get(map.get(var.$colors, "ux-black"), "70");
+        $ux-white-70: map.get(map.get(var.$colors, "ux-white"), "70");
+
+        .WoB & {
+            background-color: $ux-black-70;
+        }
+
+        .BoW & {
+            background-color: $ux-white-70;
+        }
+    }
+
+    &.mobile {
+        display: none;
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            display: block;
+        }
+    }
+}
+
+
+
+// 2. De basis voor selectie-knoppen
+.btn.select {
+    @include global.colour-base;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }

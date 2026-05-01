@@ -1,0 +1,80 @@
+@use "sass:math";
+@use "sass:string";
+@use "sass:map";
+
+$ux-mode: true;
+
+$colors: (
+    // --- Black & White tinten ---
+    "black": (
+            "100": #000000,
+            "90": #131313,
+            "80": #2e2e2e,
+            "70": #5a5a5a,
+            "60": #4c4c4c
+        ),
+    "white": (
+        "100": #ffffff,
+        "90": #f3f3f3,
+        "80": #e6e6e6,
+        "70": #cccccc,
+        "60": #c0c0c0
+    ),
+    // --- UX test kleuren ---
+    "ux-black": (
+            "100": #000000,
+            "90": #1a1a1a,
+            "80": #2d2d2d,
+            "70": #424242,
+            "60": #404b40,
+            "50": #5c705e
+        ),
+    "ux-white": (
+        "100": #ffffff,
+        "90": #e9e9e9,
+        "80": #d1d1d1,
+        "70": #bababa,
+        "60": #9ab99d,
+        "50": #b6d8b9
+    ),
+    // --- Primaire & Accentkleuren ---
+    "yellow": (
+            "default": #ffff00,
+            "light": #ffffb2
+        ),
+    "cyan": (
+        "default": #00ffff,
+        "light": #b2ffff
+    ),
+    "green": (
+        "default": #00ff00,
+        "light": #b3ffb2
+    ),
+    "blue": (
+        "default": #0000ff,
+        "light": #3333ff
+    ),
+    "orange": (
+        "default": #ff7f00,
+        "light": #ffd9b3
+    ),
+    "red": (
+        "default": #ff0000,
+        "light": #ff8080
+    ),
+    "purple": (
+        "default": #7f00ff,
+        "light": #cc99ff
+    ),
+    "magenta": (
+        "default": #ff00ff,
+        "light": #ff2bff
+    ),
+    // --- Feedbackkleuren ---
+    "error": (
+            "bg": #991b1b,
+            "border": #fca5a5,
+            "fg": #fee2e2
+        )
+);
+

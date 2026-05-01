@@ -1,26 +1,26 @@
 @use "sass:map";
 @use "../abstracts/variables" as var;
-@use "../abstracts/mixins" as tools;
+@use "../abstracts/mixins" as global;
 
 // Definieer de aliassen die we willen genereren
 $aliassen: ("9xl", "8xl", "7xl", "6xl", "5xl", "4xl", "3xl", "2xl", "xl", "lg", "base", "sm", "xs");
 
 @each $alias in $aliassen {
     .h-push-#{$alias} {
-        @include tools.apply-push("h", $alias);
+        @include global.apply-push("h", $alias);
     }
     .v-push-#{$alias} {
-        @include tools.apply-push("v", $alias);
+        @include global.apply-push("v", $alias);
     }
     .top-push-#{$alias} {
-        @include tools.apply-push("top", $alias);
+        @include global.apply-push("top", $alias);
     }
     .bot-push-#{$alias} {
-        @include tools.apply-push("bot", $alias);
+        @include global.apply-push("bot", $alias);
     }
     .in-push-#{$alias} {
-        @include tools.apply-push("in", $alias);
+        @include global.apply-push("in", $alias);
     }
 }
 
-@include tools.apply-smart-spacing(true);
+@include global.apply-smart-spacing(true);

@@ -1,37 +1,18 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
 #hero {
-    .layer.gradient {
-        background-color: rgb(0, 0, 0);
-        background-image:
-            radial-gradient(at 10% 60%, rgba(46, 46, 0, 0.3) 0%, transparent 40%),
-            radial-gradient(at 55% 35%, rgba(78, 0, 0, 0.3) 0%, transparent 40%),
-            radial-gradient(at 75% 60%, rgba(0, 58, 58, 0.3) 0%, transparent 40%);
-        background-blend-mode: screen;
-
-        @include tools.respond-to(fn.get-breakpoint("small")) {
-            background-image:
-                radial-gradient(at 40% 70%, rgba(46, 46, 0, 0.4) 0%, transparent 30%),
-                radial-gradient(at 45% 30%, rgba(78, 0, 0, 0.4) 0%, transparent 30%),
-                radial-gradient(at 65% 50%, rgba(0, 58, 58, 0.4) 0%, transparent 40%);
-            background-blend-mode: screen;
-        }
-    }
-
-    .layer.visual {
-        justify-content: center;
-        align-items: center;
+    .visual {
         padding-left: 900px;
 
         img {
-            height: 105%;
+            height: 110%;
             width: auto;
             object-fit: contain;
             flex-shrink: 0;
-            transform: translateY(20px);
+            transform: translateY(0px);
         }
 
         .hero-img-desktop {
@@ -42,13 +23,11 @@
             display: none;
         }
 
-        @include tools.respond-to(fn.get-breakpoint("medium")) {
+        @include global.respond-to(fn.get-breakpoint("medium")) {
             padding-left: 400px;
         }
 
-        @include tools.respond-to(fn.get-breakpoint("small")) {
-            justify-content: flex-start;
-            align-items: center;
+        @include global.respond-to(fn.get-breakpoint("small")) {
             padding-left: 0;
 
             .hero-img-desktop {
@@ -57,41 +36,43 @@
 
             .hero-img-mobile {
                 display: block;
-                height: 60%;
+                height: 75%;
                 width: auto;
+                transform: translateY(-10px);
+            }
+        }
+    }
+
+    #hero_front {
+        z-index: 2;
+
+        .constrainer {
+            .button-group {
+                .btn {
+                    padding: 14px 28px;
+                }
+            }
+
+            @include global.respond-to(fn.get-breakpoint("small")) {
                 transform: translateY(0px);
             }
         }
     }
 
-    .layer.text {
-        justify-content: center;
+    .gradient {
+        background-color: rgb(0, 0, 0);
+        background-image:
+            radial-gradient(at 10% 60%, rgba(46, 46, 0, 0.3) 0%, transparent 40%),
+            radial-gradient(at 55% 35%, rgba(78, 0, 0, 0.3) 0%, transparent 40%),
+            radial-gradient(at 75% 60%, rgba(0, 58, 58, 0.3) 0%, transparent 40%);
+        background-blend-mode: screen;
 
-        .text-wrapper {
-            transform: translateY(-50px);
-            h1,
-            h2 {
-                text-align: left;
-
-                @include tools.respond-to(fn.get-breakpoint("small")) {
-                    text-align: center;
-                }
-            }
-        }
-
-        .button-group {
-            transform: translateY(-50px);
-            .btn {
-                padding: 14px 28px;
-            }
-
-            @include tools.respond-to(fn.get-breakpoint("small")) {
-                justify-content: center;
-            }
-        }
-
-        @include tools.respond-to(fn.get-breakpoint("small")) {
-            transform: translateY(90px);
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            background-image:
+                radial-gradient(at 40% 70%, rgba(46, 46, 0, 0.4) 0%, transparent 30%),
+                radial-gradient(at 45% 30%, rgba(78, 0, 0, 0.4) 0%, transparent 30%),
+                radial-gradient(at 65% 50%, rgba(0, 58, 58, 0.4) 0%, transparent 40%);
+            background-blend-mode: screen;
         }
     }
 }

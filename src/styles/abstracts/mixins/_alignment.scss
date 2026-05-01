@@ -1,0 +1,122 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:string";
+@use "../variables" as var;
+@use "../functions" as fn;
+@use "./tools" as global;
+
+@mixin _apply-breakpoint-logic($ver, $hor, $forced-break, $break-target) {
+    display: flex !important;
+    flex-direction: column !important;
+
+    @if $forced-break {
+        @if $break-target == flex-end or $break-target == flex-start {
+            justify-content: $break-target !important;
+            align-items: $hor !important;
+        } @else {
+            justify-content: $ver !important;
+            align-items: $break-target !important;
+        }
+    } @else {
+        justify-content: $ver !important;
+        align-items: $hor !important;
+    }
+
+    $current-align: $hor;
+    @if $forced-break and $break-target == center {
+        $current-align: $break-target;
+    }
+
+    @if $current-align == center {
+        text-align: center !important;
+    } @else if $current-align == flex-end {
+        text-align: right !important;
+    } @else {
+        text-align: left !important;
+    }
+}
+
+@mixin _set-align-logic($ver, $hor, $direction, $forced-break: false, $break-target: center) {
+    $is-row: $direction == row;
+
+    @if $is-row {
+        justify-content: $hor;
+        align-items: $ver;
+    } @else {
+        justify-content: $ver;
+        align-items: $hor;
+    }
+
+    @at-root :is(.row-c, .stack, .column)#{&} {
+        @if $is-row {
+            justify-content: $hor !important;
+            align-items: $ver !important;
+        } @else {
+            justify-content: $ver !important;
+            align-items: $hor !important;
+        }
+
+        @if $hor == flex-start {
+            text-align: left !important;
+        } @else if $hor == flex-end {
+            text-align: right !important;
+        } @else {
+            text-align: center !important;
+        }
+
+        &.break-m {
+            @include global.respond-to(fn.get-breakpoint("medium")) {
+                @include _apply-breakpoint-logic($ver, $hor, $forced-break, $break-target);
+            }
+        }
+
+        &.break-s {
+            @include global.respond-to(fn.get-breakpoint("small")) {
+                @include _apply-breakpoint-logic($ver, $hor, $forced-break, $break-target);
+            }
+        }
+    }
+}
+
+@mixin alignment-grid($direction: row) {
+    $start: flex-start;
+    $end: flex-end;
+    $center: center;
+
+    &.ATL {
+        @include _set-align-logic($start, $start, $direction);
+    }
+    &.ATC {
+        @include _set-align-logic($start, $center, $direction);
+    }
+    &.ATR {
+        @include _set-align-logic($start, $end, $direction);
+    }
+    &.AML {
+        @include _set-align-logic($center, $start, $direction);
+    }
+    &.AMC {
+        @include _set-align-logic($center, $center, $direction);
+    }
+    &.AMR {
+        @include _set-align-logic($center, $end, $direction);
+    }
+    &.ABL {
+        @include _set-align-logic($end, $start, $direction);
+    }
+    &.ABC {
+        @include _set-align-logic($end, $center, $direction);
+    }
+    &.ABR {
+        @include _set-align-logic($end, $end, $direction);
+    }
+    &.AML-C {
+        @include _set-align-logic($center, $start, $direction, true, $center);
+    }
+    &.AMC-L {
+        @include _set-align-logic($center, $center, $direction, true, $start);
+    }
+    &.AMC-BC {
+        @include _set-align-logic($center, $center, $direction, true, $end);
+    }
+}

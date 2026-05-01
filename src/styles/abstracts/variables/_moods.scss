@@ -1,0 +1,17 @@
+@use "sass:math";
+@use "sass:string";
+@use "sass:map";
+
+
+// --- Progressieve Clamp (320px -> 800px) ---
+$colour-width: clamp(70px, 1.46vw + 73.33px, 95px);
+$colour-aspect-w: 20;
+$colour-aspect-h: 7;
+$colour-aspect-ratio: #{$colour-aspect-w} / #{$colour-aspect-h};
+$colour-height-multiplier: math.div($colour-aspect-h, $colour-aspect-w);
+
+$canvas-max-width: 680px;
+
+// Kleurenlijsten voor loops
+$all-colors: ("cyan", "yellow", "red", "purple", "green", "orange", "magenta", "blue");
+$dark-text-colors: ("cyan", "yellow", "green", "orange");

@@ -1,11 +1,11 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
 // De donkere achtergrond achter de drawer
 .drawer-overlay {
-    @include tools.respond-to(fn.get-breakpoint("medium")) {
+    @include global.respond-to(fn.get-breakpoint("medium")) {
         position: fixed;
         top: 0;
         left: 0;
@@ -44,17 +44,16 @@
 
     // MOBIEL / READY STATUS
     &.ready {
-        @include tools.respond-to(fn.get-breakpoint("medium")) {
+        background-color: var(--black-100);
+        @include global.respond-to(fn.get-breakpoint("medium")) {
             border-left: 1px solid var(--black-80);
-            display: flex !important;
-            flex-direction: column !important;
-            position: fixed !important;
-            top: 0 !important;
-            right: 0 !important;
-            width: 85vw !important;
-            height: 100vh !important;
-            background-color: black !important;
-            z-index: 2000 !important;
+
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 85vw;
+            height: 100vh;
+            z-index: 2000;
 
             transform: translateX(100%);
             visibility: hidden;
@@ -63,8 +62,8 @@
                 visibility 0.4s;
 
             &.open {
-                transform: translateX(0) !important;
-                visibility: visible !important;
+                transform: translateX(0);
+                visibility: visible;
                 box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
             }
 
@@ -84,8 +83,6 @@
             min-height: 60px;
             position: relative;
             flex-shrink: 0;
-            padding: 0 map.get(map.get(var.$design-scale, "3xl"), "r-space");
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
             .btn.close {
                 display: none;
@@ -102,7 +99,7 @@
                     height: 24px;
                 }
 
-                @include tools.respond-to(fn.get-breakpoint("small")) {
+                @include global.respond-to(fn.get-breakpoint("small")) {
                     display: flex;
                 }
             }
@@ -117,30 +114,41 @@
             align-items: center;
             gap: 10px;
             pointer-events: none;
+            color: #ffffff;
 
-            .headerIcon {
-                display: flex;
-                align-items: center;
-                color: inherit;
-                min-width: 20px;
+            .headerIcon svg {
+                fill: currentColor;
+                stroke: currentColor;
+                display: block;
             }
 
             .headerTitleText {
-                margin: 0;
-                font-weight: bold;
-                white-space: nowrap;
+                color: inherit; /* Pakt de kleur van .headerTitleGroup */
             }
-        }
-
-        // De content moet ALTIJD zichtbaar zijn, ongeacht ready of locked
-        .drawer-content {
-            display: flex;
-            flex-direction: column;
-            padding: 0 map.get(map.get(var.$design-scale, "4xl"), "r-space");
         }
     }
 }
 
 .drawer.hidden-desktop.locked {
-    display: none !important;
+    display: none;
+}
+
+/*DRAWER*/
+.P30.drawer {
+    padding: 0;
+
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        @include global.apply-ux-bg("30");
+        padding: map.get(map.get(var.$design-scale, "base"), "r-space");
+    }
+
+    .P35.drawer-content,
+    .P35.drawer-header {
+        padding: 0;
+
+        @include global.respond-to(fn.get-breakpoint("small")) {
+            @include global.apply-ux-bg("35");
+            padding: map.get(map.get(var.$design-scale, "base"), "r-space");
+        }
+    }
 }

@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as tools;
+@use "../../abstracts/mixins" as global;
 @use "../../abstracts/variables" as var;
 @use "../../abstracts/functions" as fn;
 
@@ -12,10 +12,14 @@
     // Gebaseerd op: 320px -> 800px
     --radius: clamp(110px, 28.95vw + 17.37px, 220px);
 
-    max-width: 650px;
+    width: 650px;
+    max-width: 100%; // Zorgt dat hij nooit buiten de viewport loopt
+    
 
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        width: 100%;
+    }
 
-    // Layer 2: De lijnen met bolletjes
     .lines {
         .line {
             position: absolute;
@@ -84,7 +88,7 @@
         }
     }
 
-    .gradient {
+    .circle {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -133,7 +137,7 @@
         }
 
         .colour {
-            @include tools.colour-base;
+            @include global.colour-base;
             z-index: 5;
 
             p {
@@ -145,51 +149,51 @@
                 @include position-on-circle(22.5);
                 transform: translate(-50%, -50%) rotate(22.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
                     rotate(-22.5deg) translateX(calc(-1 * #{$h-off}));
-                @include tools.colour-theme("blue");
+                @include global.colour-theme("blue");
             }
             &.purple {
                 @include position-on-circle(67.5);
                 transform: translate(-50%, -50%) rotate(67.5deg) translateY(calc(-1 * var(--radius))) rotate(-67.5deg)
                     translateY(#{$v-off-side}) translateX(calc(-1 * #{$h-off-side}));
-                @include tools.colour-theme("purple");
+                @include global.colour-theme("purple");
             }
             &.magenta {
                 @include position-on-circle(112.5);
                 transform: translate(-50%, -50%) rotate(112.5deg) translateY(calc(-1 * var(--radius))) rotate(-112.5deg)
                     translateY(calc(-1 * #{$v-off-side})) translateX(calc(-1 * #{$h-off-side}));
-                @include tools.colour-theme("magenta");
+                @include global.colour-theme("magenta");
             }
             &.red {
                 @include position-on-circle(157.5);
                 transform: translate(-50%, -50%) rotate(157.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
                     rotate(-157.5deg) translateX(calc(-1 * #{$h-off}));
-                @include tools.colour-theme("red");
+                @include global.colour-theme("red");
             }
             &.orange {
                 @include position-on-circle(202.5);
                 transform: translate(-50%, -50%) rotate(202.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
                     rotate(-202.5deg) translateX(#{$h-off});
-                @include tools.colour-theme("orange");
+                @include global.colour-theme("orange");
             }
 
             &.green {
                 @include position-on-circle(292.5);
                 transform: translate(-50%, -50%) rotate(292.5deg) translateY(calc(-1 * var(--radius))) rotate(-292.5deg)
                     translateY(#{$v-off-side}) translateX(#{$h-off-side});
-                @include tools.colour-theme("green");
+                @include global.colour-theme("green");
             }
 
             &.yellow {
                 @include position-on-circle(247.5);
                 transform: translate(-50%, -50%) rotate(247.5deg) translateY(calc(-1 * var(--radius))) rotate(-247.5deg)
                     translateY(calc(-1 * #{$v-off-side})) translateX(#{$h-off-side});
-                @include tools.colour-theme("yellow");
+                @include global.colour-theme("yellow");
             }
             &.cyan {
                 @include position-on-circle(337.5);
                 transform: translate(-50%, -50%) rotate(337.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
                     rotate(-337.5deg) translateX(#{$h-off});
-                @include tools.colour-theme("cyan");
+                @include global.colour-theme("cyan");
             }
         }
     }

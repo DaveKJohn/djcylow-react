@@ -1,0 +1,97 @@
+@use "sass:map";
+@use "../abstracts/mixins" as global;
+@use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
+
+.column,
+.row,
+.row-c,
+.stack {
+    display: flex;
+
+    &.w-fill {
+        width: 100%;
+    }
+
+    &.w-hug {
+        width: fit-content;
+    }
+}
+
+.column {
+    flex-direction: column;
+    @include global.alignment-grid(column);
+}
+
+.row,
+.row-c {
+    flex-direction: row;
+
+    &.split {
+        justify-content: space-between;
+    }
+    &.wrap {
+        flex-wrap: wrap;
+    }
+
+    @include global.alignment-grid(row);
+}
+
+.stack {
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+    @include global.alignment-grid(column);
+
+    .layer {
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible !important;
+        @include global.alignment-grid(column);
+
+        &.gradient {
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            aspect-ratio: 1 / 1;
+            min-width: 100vmax;
+            min-height: 100vmax;
+            width: auto;
+            height: auto;
+
+            @include global.respond-to(fn.get-breakpoint("small")) {
+                min-width: 140vmax;
+            }
+        }
+
+        &.feathers {
+            .sides {
+                
+                background: linear-gradient(
+                    to right,
+                    black 0%,
+                    rgba(0, 0, 0, 0.5) 15%,
+                    transparent 30%,
+                    transparent 70%,
+                    rgba(0, 0, 0, 0.5) 85%,
+                    black 100%
+                );
+            }
+
+            .bottom {                
+                background: linear-gradient(
+                    to bottom,
+                    transparent 0%,
+                    transparent 20%,
+                    rgba(0, 0, 0, 0.5) 70%,
+                    black 100%
+                );
+            }
+        }
+    }
+}
