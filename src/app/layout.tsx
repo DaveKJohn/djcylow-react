@@ -55,31 +55,25 @@ export default function RootLayout({
                 {/* UX Toggle Script */}
                 <Script id="ux-mode-toggle" strategy="afterInteractive">
                     {`
-                        (function() {
-                            console.log("UX Toggle actief: Druk op 'W' om te switchen.");
+                        (function() {           
 
                             function toggle() {
-                                const isEnabled = document.body.classList.toggle('ux-mode');
+                                document.body.classList.toggle('ux-mode');
                                 document.documentElement.classList.toggle('ux-mode');
-                                localStorage.setItem('ux-mode-enabled', isEnabled);
+                                
+                                const isEnabled = document.body.classList.contains('ux-mode');
                                 console.log('✅ UX Mode:', isEnabled ? 'AAN' : 'UIT');
                             }
 
                             window.addEventListener('keydown', (e) => {
                                 const isTyping = e.target.tagName === 'INPUT' || 
-                                                 e.target.tagName === 'TEXTAREA' || 
-                                                 e.target.isContentEditable;
+                                                e.target.tagName === 'TEXTAREA' || 
+                                                e.target.isContentEditable;
 
                                 if (e.code === 'KeyW' && !isTyping) {
                                     toggle();
                                 }
                             });
-
-                            // Bij laden direct checken
-                            if (localStorage.getItem('ux-mode-enabled') === 'true') {
-                                document.body.classList.add('ux-mode');
-                                document.documentElement.classList.add('ux-mode');
-                            }
                         })();
                     `}
                 </Script>

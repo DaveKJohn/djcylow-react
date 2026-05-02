@@ -204,12 +204,9 @@
     .border {
         border: 1px solid var(--#{$bg-80});
     }
-    .splitter-small,
-    .splitter-large {
-        border-bottom: 1px solid var(--#{$bg-80});
-    }
+  
     .splitter {
-        background-color: var(--#{$bg-80});
+        background-color: var(--#{$bg-70});
     }
 
     table {
@@ -360,7 +357,6 @@
         $ux-black-map: map.get(var.$colors, "ux-black");
         $ux-white-map: map.get(var.$colors, "ux-white");
 
-        // We dwingen de shade naar een string om vergelijking-fouten te voorkomen
         $s: "#{$shade}"; 
 
         $target-key: null;
@@ -369,8 +365,8 @@
         @else if $s == "35" { $target-key: "70"; } 
         @else if $s == "40" { $target-key: "60"; }
         @else if $s == "45" { $target-key: "50"; }
-        @else if $s == "50" { $target-key: "40"; } 
-        @else if $s == "55" { $target-key: "30"; }
+        @else if $s == "50" { $target-key: "80"; } // Aangepast naar 80
+        @else if $s == "55" { $target-key: "70"; } // Aangepast naar 70
 
         @if $target-key {
             $use-stroke: (string.slice($s, -1) == "5");
@@ -383,8 +379,7 @@
                     background-color: map.get($ux-black-map, $target-key) !important;
                     outline: none !important;
                 }
-                color: #ffffff !important;
-                border: none !important;
+              
             }
 
             @at-root body.ux-mode .BoW #{&}, body.ux-mode #{&}.BoW {

@@ -23,14 +23,13 @@
     @include global.respond-to(fn.get-breakpoint("small")) {
         padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
     }
+}
+.P35 {
+    @include global.apply-ux-bg("35");
+    padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
 
-    .P35 {
-        @include global.apply-ux-bg("35");
-        padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
-
-        @include global.respond-to(fn.get-breakpoint("small")) {
-            padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
-        }
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
     }
 }
 
@@ -42,14 +41,14 @@
         padding: map.get(map.get(var.$design-scale, "2xl"), "r-space");
         gap: map.get(map.get(var.$design-scale, "2xl"), "r-space");
     }
+}
 
-    .P45 {
-        @include global.apply-ux-bg("45");
-        padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+.P45 {
+    @include global.apply-ux-bg("45");
+    padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
-            padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
-        }
+    @include global.respond-to(fn.get-breakpoint("small")) {
+        padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
     }
 }
 

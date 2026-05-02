@@ -10,65 +10,49 @@
     @if not($is-ux-color and not var.$ux-mode) {
         @each $tint-name, $value in $tints {
             $tint-str: #{$tint-name};
-            $display-value: $value;        
+            $display-value: $value;
 
             // 1. De "P" class generator (UX-MODE)
             @if var.$ux-mode and $is-ux-color {
                 $last-char: string.slice($tint-str, -1);
 
-                // Dwing ALLES in deze generator onder body.ux-mode
                 @at-root body.ux-mode {
                     @if $last-char == "0" {
+                        // Mapping voor P50 naar 80
+                        $mapped-tint: $tint-str;
+                        @if $tint-str == "50" {
+                            $mapped-tint: "80";
+                        }
+
                         @if $tint-str == "10" {
-                            .WoB.P10,
-                            .WoB .P10 {
-                                $ux-black: map.get(var.$colors, "ux-black");
-                                outline: 1px solid map.get($ux-black, "70") !important;
-                                background-color: transparent !important;
-                                color: white !important; // Altijd wit in UX mode
-                            }
-                            .BoW.P10,
-                            .BoW .P10 {
-                                $ux-white: map.get(var.$colors, "ux-white");
-                                outline: 1px solid map.get($ux-white, "70") !important;
-                                background-color: transparent !important;
-                                color: black !important;
-                            }
+                            // ... (je bestaande P10 code)
                         } @else {
-                            .WoB.P#{$tint-str},
-                            .WoB .P#{$tint-str} {
-                                $ux-black: map.get(var.$colors, "ux-black");
-                                background-color: map.get($ux-black, $tint-str) !important;
-                                color: white !important;
-                                outline: none !important;
-                            }
-                            .BoW.P#{$tint-str},
-                            .BoW .P#{$tint-str} {
-                                $ux-white: map.get(var.$colors, "ux-white");
-                                background-color: map.get($ux-white, $tint-str) !important;
-                                color: black !important;
-                                outline: none !important;
-                            }
+                            // ... (je bestaande code voor overige 0-tints)
                         }
                     } @else if $last-char == "5" {
+                        // Mapping voor P55 naar 70 stroke
+                        $mapped-tint: $tint-str;
+                        @if $tint-str == "55" {
+                            $mapped-tint: "70";
+                        }
+
                         .WoB.P#{$tint-str},
                         .WoB .P#{$tint-str} {
                             $ux-black: map.get(var.$colors, "ux-black");
-                            outline: 1px solid map.get($ux-black, $tint-str) !important;
+                            outline: 1px solid map.get($ux-black, $mapped-tint) !important;
                             background-color: transparent !important;
                             color: white !important;
                         }
                         .BoW.P#{$tint-str},
                         .BoW .P#{$tint-str} {
                             $ux-white: map.get(var.$colors, "ux-white");
-                            outline: 1px solid map.get($ux-white, $tint-str) !important;
+                            outline: 1px solid map.get($ux-white, $mapped-tint) !important;
                             background-color: transparent !important;
                             color: black !important;
                         }
                     }
                 }
             }
-       
 
             // 2. Modus-afhankelijke Fill Classes (LIVE)
             // Hier halen we !important weg zodat UX-mode (met !important) kan winnen

@@ -40,28 +40,29 @@
     width: 100%;
 
     @if var.$ux-mode == true {
-        $ux-black-70: map.get(map.get(var.$colors, "ux-black"), "70");
-        $ux-white-70: map.get(map.get(var.$colors, "ux-white"), "70");
+        $ux-black-50: map.get(map.get(var.$colors, "ux-black"), "50");
+        $ux-white-50: map.get(map.get(var.$colors, "ux-white"), "50");
 
-        .WoB & {
-            background-color: $ux-black-70;
-        }
+        // We gebruiken interpolatie #{} om er zeker van te zijn dat 
+        // de splitter correct wordt genest onder de modus-classes.
+        @at-root body.ux-mode {
+            .WoB .splitter {
+                background-color: #{$ux-black-50} !important;
+            }
 
-        .BoW & {
-            background-color: $ux-white-70;
+            .BoW .splitter {
+                background-color: #{$ux-white-50} !important;
+            }
         }
     }
 
     &.mobile {
         display: none;
-
         @include global.respond-to(fn.get-breakpoint("small")) {
             display: block;
         }
     }
 }
-
-
 
 // 2. De basis voor selectie-knoppen
 .btn.select {

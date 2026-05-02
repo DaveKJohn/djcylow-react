@@ -70,7 +70,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                             image={mix.image_wide_small}
                             className={mix.color?.toLowerCase()}
                         />
-                        <div className="column w-fill AML ">
+                        <div className="column w-hug AML ">
                             <div className="column w-hug AML spacing-xs">
                                 <Link className="size-sm" href={`/${mix.permalink}`}>
                                     {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
