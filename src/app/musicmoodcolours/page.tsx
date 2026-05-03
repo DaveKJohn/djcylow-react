@@ -48,7 +48,7 @@ export default function MusicMoodColoursPage() {
             </div>
 
 
-            <div className="WoB column w-fill AMC P10 spacing-7xl bot-push-7xl">
+            <div className="WoB column w-fill AMC P10 spacing-6xl bot-push-7xl">
 
                 {/* 2. INTRO */}
                 <div className="column w-fill AMC P20 spacing-6xl" id="intro">

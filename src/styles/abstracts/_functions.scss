@@ -1,11 +1,10 @@
 @use "sass:math";
 @use "sass:string";
 @use "sass:map";
-@use "variables" as var;
-
+@use "config" as c; // Je gebruikt hier 'c'
 
 @function str-replace($string, $search, $replace: "") {
-    $index: string.index($string, $search); // string. toevoegen
+    $index: string.index($string, $search);
 
     @if $index {
         @return string.slice($string, 1, $index - 1) + $replace +
@@ -19,12 +18,12 @@
     2. SCALES
    ======================================= */
 @function get-scale-key($alias, $breakpoint: "base") {
-    $map: var.$base-mapping;
+    $map: c.$base-mapping; // Veranderd van v naar c
 
     @if $breakpoint == "medium" {
-        $map: var.$medium-mapping;
+        $map: c.$medium-mapping; // Veranderd van v naar c
     } @else if $breakpoint == "small" {
-        $map: var.$small-mapping;
+        $map: c.$small-mapping; // Veranderd van v naar c
     }
 
     @if map.has-key($map, $alias) {
@@ -38,5 +37,5 @@
     3. BREAKPOINTS
    ======================================= */
 @function get-breakpoint($size) {   
-    @return map.get(var.$breakpoints, $size);
+    @return map.get(c.$breakpoints, $size); // Veranderd van v naar c
 }

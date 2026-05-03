@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 /* =======================================
@@ -12,7 +12,7 @@
     --half-cube: calc(var(--cube-size) / 2);
     --neg-half-cube: calc(var(--cube-size) / -2); // Voor de achterkant
 
-    @include global.respond-to(fn.get-breakpoint("small")) {
+    @include mix.respond-to(v.$bp-small) {
         --cube-size: 200px;
     }
 
@@ -43,7 +43,7 @@
             transform-style: preserve-3d;
             transform: rotateX($rot-x) rotateY($rot-y);
             margin: -50px auto 120px auto;
-            @include global.respond-to(fn.get-breakpoint("small")) {
+            @include mix.respond-to(v.$bp-small) {
                 margin: -10px auto 120px auto;
             }
 
@@ -83,7 +83,7 @@
                     display: inline-block;
                     text-align: center;
                     white-space: nowrap;
-                    font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
+                    font-size: map.get(map.get(v.$design-scale, "xl"), "font-size");
                 }
             }
 
@@ -121,7 +121,7 @@
         ======================================= */
             .axis-label {
                 position: absolute;
-                font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
+                font-size: map.get(map.get(v.$design-scale, "xl"), "font-size");
                 color: white; // Of een kleur naar keuze
                 pointer-events: none;
                 white-space: nowrap;
@@ -136,10 +136,10 @@
                     white-space: nowrap;
 
                     .title {
-                        font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
+                        font-size: map.get(map.get(v.$design-scale, "xl"), "font-size");
                     }
                     .date {
-                        font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
+                        font-size: map.get(map.get(v.$design-scale, "xl"), "font-size");
                         opacity: 0.8;
                     }
                 }
@@ -197,7 +197,7 @@
                     left: 50%;
                     transform: translateX(-50%) translateZ(20px); // Centreer en duw iets naar voren
 
-                    font-size: map.get(map.get(var.$design-scale, "xl"), "font-size");
+                    font-size: map.get(map.get(v.$design-scale, "xl"), "font-size");
                     font-weight: 200;
                     white-space: nowrap;
                     pointer-events: none;
@@ -232,7 +232,7 @@
                 @each $color-name in ("cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue") {
                     &.#{$color-name} {
                         // Haal eerst de specifieke kleuren-map op (bijv. de map voor 'cyan')
-                        $color-map: map.get(var.$colors, $color-name);
+                        $color-map: map.get(v.$colors, $color-name);
 
                         // Pak daaruit de 'default' kleur voor de cirkel
                         background-color: map.get($color-map, "default");

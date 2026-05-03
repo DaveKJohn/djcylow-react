@@ -90,8 +90,8 @@ export default function AudioPlayer({
 				<div className="column w-fill AMC P45">
 
 					<div className="row w-fill P50 split timestamp-wrapper">
-						<div className="column w-hug AMC P55 fill-90 current timestamp">{formatTime(currentTime)}</div>
-						<div className="column w-hug AMC P55 fill-90 final timestamp">{formatTime(duration)}</div>
+						<div className="column w-hug AMC P55 fill-90 current size-xs timestamp">{formatTime(currentTime)}</div>
+						<div className="column w-hug AMC P55 fill-90 final size-xs timestamp">{formatTime(duration)}</div>
 					</div>
 
 					<div className="row w-fill AMC P50 timeline-wrapper">

@@ -1,10 +1,10 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 // Haal de waarde één keer op in een variabele voor de leesbaarheid
-$read_more_container_gap: map.get(map.get(var.$design-scale, "3xl"), "in-space");
+$read_more_container_gap: map.get(map.get(v.$design-scale, "3xl"), "in-space");
 
 .read-more-container {
     max-width: 100%;
@@ -12,7 +12,7 @@ $read_more_container_gap: map.get(map.get(var.$design-scale, "3xl"), "in-space")
     gap: 0 !important;
     transition: gap 0.5s ease;
 
-    @include global.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(fn.get-breakpoint("medium")) {
         width: 100%;
     }
 
@@ -57,5 +57,5 @@ $read_more_container_gap: map.get(map.get(var.$design-scale, "3xl"), "in-space")
 .read-more-btn {
     max-width: 150px;
     padding: 14px 28px;
-    font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
+    font-size: map.get(map.get(v.$design-scale, "base"), "font-size");
 }

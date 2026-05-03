@@ -65,7 +65,7 @@ exports.handler = async (event) => {
         });
 
         const mailOptions = {
-            from: `"Contactformulier" <${process.env.MAIL_USER}>`,
+            from: `"contact-formulier" <${process.env.MAIL_USER}>`,
             to: RECEIVING_EMAIL,
             replyTo: email,
             subject: `Boekingsaanvraag: ${firstName} ${lastName}`,

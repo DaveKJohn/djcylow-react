@@ -1,11 +1,12 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 #luister_content_filter {
+  
     position: sticky;
-    top: calc(var.$nav-height-large + 11px);
+    top: calc(v.$nav-height-large + 0px);
     height: fit-content; // Belangrijk: de container mag niet hoger zijn dan de inhoud
     align-self: flex-start; // Voorkomt dat de sidebar meerekt met de rechterkolom
 
@@ -18,7 +19,7 @@
         z-index: 5000;
     }
 
-    @include global.respond-to(fn.get-breakpoint("small")) {
+    @include mix.respond-to(v.$bp-small) {
         position: relative;
         top: 0;
         order: 1;
@@ -30,7 +31,7 @@
     #luister_content_filter_mobile_button {
         display: none;
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             display: flex;
         }
 
@@ -64,10 +65,10 @@
         BUTTON & MOOD STYLING (Blijft hetzelfde)
    ======================================= */
     .btn.select {
-        width: var.$colour-width;
-        aspect-ratio: var.$colour-aspect-ratio;
-        padding: map.get(map.get(var.$design-scale, "lg"), "c-space") 0;
-        font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
+        width: v.$colour-width;
+        aspect-ratio: v.$colour-aspect-ratio;
+        padding: map.get(map.get(v.$design-scale, "lg"), "c-space") 0;
+        font-size: map.get(map.get(v.$design-scale, "sm"), "font-size");
         text-align: center;
         font-weight: 500;
         flex: 1 1 114px;

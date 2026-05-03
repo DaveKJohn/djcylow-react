@@ -3,18 +3,17 @@
 @use "sass:math";
 
 // Abstracts
-@use "./abstracts/variables" as var; // 1. De Variabele: In _variables.scss staat: "small": 660px
-@use "abstracts/functions" as fn; // 2. De Functie: get-breakpoint("small") haalt die 660px op
-@use "./abstracts/mixins" as global; // Bundelt nu tools en alignment
+@use "abstracts/variables" as v; 
+@use "abstracts/functions" as fn;
+@use "abstracts/mixins" as mix;
 
 // BASE
 @use "base/root"; // 1. CSS variabelen
 @use "base/reset"; // 2. Browser reset & body stijlen
 @use "base/typography"; // 3. Typography (h1-h6, p) -> Voor elements, want knoppen gebruiken vaak tekststijlen
-@use "base/elements"; // 4a. Flex-bouwstenen (stack, row, column, constrainer)
-@use "base/flow"; // 4b. Flex-bouwstenen (stack, row, column, constrainer)
+@use "base/layout"; // 4b. Flex-bouwstenen (stack, row, column, constrainer)
 @use "base/padding"; // 4c. De main padding
-@use "base/buttons"; // 5. Specifieke component-stijlen
+
 
 // LAYOUT
 @use "layout/navigation";
@@ -22,14 +21,15 @@
 @use "layout/onderhoud";
 
 // COMPONENTS -> Gloabal
-@use "components/sections/contactForm";
+@use "components/sections/contact-form";
 
 // COMPONENTS -> UI
 @use "components/ui/carousel";
-@use "components/ui/backButton";
-@use "components/ui/readMore";
+@use "components/ui/back-button";
+@use "components/ui/read-more";
 @use "components/ui/audioplayer";
 @use "components/ui/mobile-content";
+@use "components/ui/buttons"; 
 
 // PAGES
 @use "pages/index";

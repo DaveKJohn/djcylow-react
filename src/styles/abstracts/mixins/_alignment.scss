@@ -1,9 +1,9 @@
 @use "sass:list";
 @use "sass:map";
 @use "sass:string";
-@use "../variables" as var;
+@use "../variables" as v;
 @use "../functions" as fn;
-@use "./tools" as global;
+@use "./tools" as mix;
 
 @mixin _apply-breakpoint-logic($ver, $hor, $forced-break, $break-target) {
     display: flex !important;
@@ -65,13 +65,13 @@
         }
 
         &.break-m {
-            @include global.respond-to(fn.get-breakpoint("medium")) {
+            @include mix.respond-to(fn.get-breakpoint("medium")) {
                 @include _apply-breakpoint-logic($ver, $hor, $forced-break, $break-target);
             }
         }
 
         &.break-s {
-            @include global.respond-to(fn.get-breakpoint("small")) {
+            @include mix.respond-to(fn.get-breakpoint("small")) {
                 @include _apply-breakpoint-logic($ver, $hor, $forced-break, $break-target);
             }
         }

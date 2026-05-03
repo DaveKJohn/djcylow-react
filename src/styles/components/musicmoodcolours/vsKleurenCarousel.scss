@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 $card-width-vs: 150px;
@@ -29,7 +29,7 @@ $card-height-vs: 150px;
                 display: flex; // We maken de .vr zelf een flexbox
                 width: 1px;
                 flex-shrink: 0;
-                margin: 0 map.get(map.get(var.$design-scale, "4xl"), "c-space");
+                margin: 0 map.get(map.get(v.$design-scale, "4xl"), "c-space");
                 position: relative; // Nodig voor de positionering van de lijn
 
                 // We gebruiken een pseudo-element voor de eigenlijke lijn
@@ -52,14 +52,14 @@ $card-height-vs: 150px;
                 width: var(--card_width_vs);
                 align-items: center;
                 text-align: center;
-                gap: map.get(map.get(var.$design-scale, "3xl"), "c-space");
+                gap: map.get(map.get(v.$design-scale, "3xl"), "c-space");
 
                 .middle {
-                    @include global.color-generator;
+                    @include mix.color-generator;
                     gap: 3px;
 
                     .colour {
-                        @include global.colour-base;
+                        @include mix.colour-base;
                         z-index: 200;
                         bottom: 0;
                         right: 0;
@@ -86,7 +86,7 @@ $card-height-vs: 150px;
                     outline-width: 1px !important;
                     outline-offset: 5px !important;
 
-                    @each $name in var.$all-colors {
+                    @each $name in v.$all-colors {
                         // We targeten de specifiek wanneer deze een nakomeling is van .colour.#{$name}
                         // De extra .carousels prefix verhoogt de specificity
                         .carousels .colour.#{$name} & {
@@ -101,7 +101,7 @@ $card-height-vs: 150px;
                     }
 
                     .label {
-                        @include global.colour-base;
+                        @include mix.colour-base;
                         z-index: 200;
                         bottom: 0;
                         right: 0;
@@ -120,7 +120,7 @@ $card-height-vs: 150px;
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(map.get(var.$design-scale, "base"), "c-space");
+                        gap: map.get(map.get(v.$design-scale, "base"), "c-space");
 
                         .timeline-wrapper {
                             padding: 5px;

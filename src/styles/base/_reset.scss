@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../abstracts/mixins" as global;
-@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+@use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
 // _reset.scss
@@ -16,21 +16,21 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
-    padding-top: calc(var.$nav-height-large);
+    padding-top: calc(v.$nav-height-large);
 
-    @include global.respond-to(fn.get-breakpoint("medium")) {
-        padding-top: calc(var.$nav-height-medium);
+    @include mix.respond-to(fn.get-breakpoint("medium")) {
+        padding-top: calc(v.$nav-height-medium);
     }
 
-    @include global.respond-to(fn.get-breakpoint("small")) {
-        padding-top: calc(var.$nav-height-small);
+    @include mix.respond-to(v.$bp-small) {
+        padding-top: calc(v.$nav-height-small);
     }
 
     &.ux-mode {
         
         // Gebruik map.get in plaats van map-get
-        background-color: map.get(map.get(var.$colors, "ux-white"), "100");
-        color: map.get(map.get(var.$colors, "ux-black"), "100");
+        background-color: map.get(map.get(v.$colors, "ux-white"), "100");
+        color: map.get(map.get(v.$colors, "ux-black"), "100");
     }
 
 

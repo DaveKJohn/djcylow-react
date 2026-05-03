@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../abstracts/mixins" as global;
-@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+@use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
 .column,
@@ -20,7 +20,7 @@
 
 .column {
     flex-direction: column;
-    @include global.alignment-grid(column);
+    @include mix.alignment-grid(column);
 }
 
 .row,
@@ -34,14 +34,14 @@
         flex-wrap: wrap;
     }
 
-    @include global.alignment-grid(row);
+    @include mix.alignment-grid(row);
 }
 
 .stack {
     position: relative;
     flex-direction: column;
     overflow: hidden;
-    @include global.alignment-grid(column);
+    @include mix.alignment-grid(column);
 
     .layer {
         display: flex;
@@ -52,7 +52,7 @@
         width: 100%;
         height: 100%;
         overflow: visible !important;
-        @include global.alignment-grid(column);
+        @include mix.alignment-grid(column);
 
         &.gradient {
             top: 50%;
@@ -64,7 +64,7 @@
             width: auto;
             height: auto;
 
-            @include global.respond-to(fn.get-breakpoint("small")) {
+            @include mix.respond-to(v.$bp-small) {
                 min-width: 140vmax;
             }
         }
@@ -95,3 +95,67 @@
         }
     }
 }
+
+
+
+.fullscreen {
+    min-height: calc(100vh - v.$nav-height-large);
+
+    @include mix.respond-to(fn.get-breakpoint("medium")) {
+        min-height: calc(100vh - v.$nav-height-medium);
+    }
+
+    @include mix.respond-to(v.$bp-small) {
+        min-height: calc(100vh - v.$nav-height-small);
+    }
+}
+
+.constrainer {
+    margin: 0 auto;
+    max-width: v.$desktop-max-width;
+    width: v.$desktop-max-width;
+
+    @include mix.respond-to(fn.get-breakpoint("medium")) {
+        max-width: none;
+        width: 100%;
+    }
+}
+
+.constrainer-nav {
+    max-width: none;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.splitter {
+    height: 1px;
+    width: 100%;
+
+    @if v.$ux-mode == true {
+        $ux-black-50: map.get(map.get(v.$colors, "ux-black"), "50");
+        $ux-white-50: map.get(map.get(v.$colors, "ux-white"), "50");
+
+        // We gebruiken interpolatie #{} om er zeker van te zijn dat 
+        // de splitter correct wordt genest onder de modus-classes.
+        @at-root body.ux-mode {
+            .WoB .splitter {
+                background-color: #{$ux-black-50} !important;
+            }
+
+            .BoW .splitter {
+                background-color: #{$ux-white-50} !important;
+            }
+        }
+    }
+
+    &.mobile {
+        display: none;
+        @include mix.respond-to(v.$bp-small) {
+            display: block;
+        }
+    }
+}
+

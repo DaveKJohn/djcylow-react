@@ -31,7 +31,7 @@ export default function HouseDJPage() {
         </div>
       </section>
 
-      {/* Contactformulier sectie */}
+      {/* contact-formulier sectie */}
 
       <ContactForm />
 

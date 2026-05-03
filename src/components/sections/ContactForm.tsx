@@ -83,7 +83,7 @@ export default function ContactForm() {
     };
 
     return (
-        <div className="BoW column w-fill AMC P10 v-push-7xl spacing-2xl fill-90" id="contactformulier">
+        <div className="BoW column w-fill AMC P10 v-push-7xl spacing-2xl fill-90" id="contact-formulier">
 
             <div className="column w-fill AMC P20 spacing-3xl">
                 <div className="column w-fix AMC constrainer">
@@ -123,7 +123,7 @@ export default function ContactForm() {
                         <form
                             ref={formRef}
                             className="column w-fix AML P30 "
-                            id="contactForm"
+                            id="contact-form"
                             onSubmit={handleSubmit}
                         >
 

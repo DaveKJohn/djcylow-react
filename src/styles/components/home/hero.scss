@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 #hero {
@@ -23,11 +23,11 @@
             display: none;
         }
 
-        @include global.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(fn.get-breakpoint("medium")) {
             padding-left: 400px;
         }
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             padding-left: 0;
 
             .hero-img-desktop {
@@ -53,7 +53,7 @@
                 }
             }
 
-            @include global.respond-to(fn.get-breakpoint("small")) {
+            @include mix.respond-to(v.$bp-small) {
                 transform: translateY(0px);
             }
         }
@@ -67,7 +67,7 @@
             radial-gradient(at 75% 60%, rgba(0, 58, 58, 0.3) 0%, transparent 40%);
         background-blend-mode: screen;
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             background-image:
                 radial-gradient(at 40% 70%, rgba(46, 46, 0, 0.4) 0%, transparent 30%),
                 radial-gradient(at 45% 30%, rgba(78, 0, 0, 0.4) 0%, transparent 30%),

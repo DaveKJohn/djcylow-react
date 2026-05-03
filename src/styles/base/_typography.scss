@@ -1,25 +1,25 @@
 @use "sass:map";
-@use "../abstracts/mixins" as global;
-@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+@use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
 /* =======================================
    1. BASIS INSTELLINGEN
    ======================================= */
 body {
-    font-family: var.$base-font;
+    font-family: v.$base-font;
     -webkit-font-smoothing: antialiased;
-    $body-config: map.get(var.$design-scale, "base");
+    $body-config: map.get(v.$design-scale, "base");
     font-size: map.get($body-config, "font-size");
     line-height: map.get($body-config, "line-height");
 }
 
 .WoB {
-    @include global.theme-styles(white-70, white-80, white-90, white-100, black-70, black-80, black-90, black-100);
+    @include mix.theme-styles(white-70, white-80, white-90, white-100, black-70, black-80, black-90, black-100);
 }
 
 .BoW {
-    @include global.theme-styles(black-70, black-80, black-90, black-100, white-70, white-80, white-90, white-100);
+    @include mix.theme-styles(black-70, black-80, black-90, black-100, white-70, white-80, white-90, white-100);
 }
 
 /* =======================================
@@ -70,7 +70,7 @@ $text-element-styles: (
         "transition": color 300ms ease-in-out
     ),
     "input, textarea": (
-        "font-family": var.$base-font,
+        "font-family": v.$base-font,
         "scale-key": "base"
     ),
     ".mainList-wrapper a": (
@@ -82,11 +82,11 @@ $text-element-styles: (
 
 $list-styles: (
     "ul.column": (
-        "gap": map.get(map.get(var.$design-scale, "base"), "r-space")
+        "gap": map.get(map.get(v.$design-scale, "base"), "r-space")
     ),
     "li.column": (
-        "padding-left": map.get(map.get(var.$design-scale, "5xl"), "in-space"),
-        "gap": map.get(map.get(var.$design-scale, "xl"), "r-space")
+        "padding-left": map.get(map.get(v.$design-scale, "5xl"), "in-space"),
+        "gap": map.get(map.get(v.$design-scale, "xl"), "r-space")
     ),
     "li.column *:first-child::before": (
         "content": "•",
@@ -101,7 +101,7 @@ $list-styles: (
 $table-styles: (
     "td": (
         "scale-key": "sm",
-        "padding": map.get(map.get(var.$design-scale, "2xl"), "c-space") 0
+        "padding": map.get(map.get(v.$design-scale, "2xl"), "c-space") 0
     ),
     "td.track": (
         "font-weight": 600,
@@ -142,19 +142,19 @@ $utility-styles: (
    ======================================= */
 
 // 1. Genereer de typography styles (fonts & line-heights)
-@include global.generate-typography($heading-styles);
-@include global.generate-typography($text-element-styles);
-@include global.generate-typography($list-styles);
-@include global.generate-typography($utility-styles);
-@include global.generate-typography($table-styles);
+@include mix.generate-typography($heading-styles);
+@include mix.generate-typography($text-element-styles);
+@include mix.generate-typography($list-styles);
+@include mix.generate-typography($utility-styles);
+@include mix.generate-typography($table-styles);
 
 /* =======================================
    4. SPECIALS
    ======================================= */
 .feedback-message.error {
-    @include global.color-utility(color, error-fg);
-    @include global.color-utility(background-color, error-bg);
-    @include global.color-utility(border-color, error-border);
+    @include mix.color-utility(color, error-fg);
+    @include mix.color-utility(background-color, error-bg);
+    @include mix.color-utility(border-color, error-border);
     border: 1px solid;
     padding: 0.75rem;
     display: block !important;

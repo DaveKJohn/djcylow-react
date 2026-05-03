@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 /* =======================================
@@ -21,7 +21,7 @@
     max-width: 100%; // Zorgt dat hij nooit buiten de viewport loopt
     
 
-    @include global.respond-to(fn.get-breakpoint("small")) {
+    @include mix.respond-to(v.$bp-small) {
         width: 100%;
     }
 
@@ -35,7 +35,7 @@
         margin: 100px auto 100px auto;
         transform-style: preserve-3d;
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             margin: 70px auto 70px auto;
         }
 
@@ -149,7 +149,7 @@
                     border-radius: 50%;
 
                     .colour {
-                        @include global.colour-base;
+                        @include mix.colour-base;
                         position: absolute;
                         z-index: 200;
                         bottom: 25px;
@@ -214,7 +214,7 @@
                         background-color: var(--#{$name}-default);
 
                         .colour.#{$name} {
-                            @include global.colour-theme($name);
+                            @include mix.colour-theme($name);
                         }
                     }
                 }

@@ -157,7 +157,7 @@ export default function Erlenmeyers() {
                 <div className="splitter"></div>
 
                 {/* 3. BUTTONS */}
-                <div className="row AMC wrap extra spacing-2xl buttons">
+                <div className="row AMC wrap extra spacing-xl buttons">
                     {["cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue"].map((color) => (
                         <button
                             key={color}

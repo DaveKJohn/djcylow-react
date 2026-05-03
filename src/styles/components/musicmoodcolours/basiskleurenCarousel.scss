@@ -1,16 +1,16 @@
 @use "sass:list";
 @use "sass:map";
 @use "sass:string";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 $card-width-basiskleuren: 150px;
 $card-height-basiskleuren: 150px;
 
-$h-gap: map.get(map.get(var.$design-scale, "2xl"), "r-space");
+$h-gap: map.get(map.get(v.$design-scale, "2xl"), "r-space");
 $total-h-gap: calc(#{$h-gap} * 7);
-$h-spacing: calc((map.get(map.get(var.$design-scale, "6xl"), "in-space") * 9));
+$h-spacing: calc((map.get(map.get(v.$design-scale, "6xl"), "in-space") * 9));
 
 $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} + #{$h-spacing});
 
@@ -21,7 +21,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
         align-items: center;
-        gap: map.get(map.get(var.$design-scale, "lg"), "c-space");
+        gap: map.get(map.get(v.$design-scale, "lg"), "c-space");
 
         &::-webkit-scrollbar {
             display: none;
@@ -101,7 +101,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
                         }
 
                         p {
-                            @if list.index(var.$dark-text-colors, $c) {
+                            @if list.index(v.$dark-text-colors, $c) {
                                 color: var(--black-100) !important;
                             } @else {
                                 color: var(--white-100) !important;
@@ -113,7 +113,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
         }
 
         .labels {
-            @include global.color-generator;
+            @include mix.color-generator;
 
             .label {
                 display: flex;
@@ -123,14 +123,14 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
                 flex-shrink: 0;
 
                 .colour {
-                    @include global.colour-base;
+                    @include mix.colour-base;
 
                     // Dwing de breedte af en voorkom rekken
-                    width: var.$colour-width !important;
-                    flex: 0 0 map.get(map.get(var.$design-scale, "2xl"), "c-space"); // Of de specifieke waarde van je label
+                    width: v.$colour-width !important;
+                    flex: 0 0 map.get(map.get(v.$design-scale, "2xl"), "c-space"); // Of de specifieke waarde van je label
 
                     // Zorg dat hij niet naar 100% springt
-                    max-width: var.$colour-width;
+                    max-width: v.$colour-width;
 
                     // Reset posities die centrering verstoren
                     position: relative;
@@ -148,14 +148,14 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
 
         .colours {
             .colour {
-                @include global.color-generator;
+                @include mix.color-generator;
 
                 .audioplayer-wrapper {
                     height: var(--card_height_basiskleuren);
                     width: var(--card_width_basiskleuren);
 
                     .label {
-                        @include global.colour-base;
+                        @include mix.colour-base;
                         z-index: 200;
                         bottom: 0;
                         right: 0;
@@ -177,7 +177,7 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
 
                     .playing-wrapper {
                         padding: 3px;
-                        gap: map.get(map.get(var.$design-scale, "sm"), "c-space");
+                        gap: map.get(map.get(v.$design-scale, "sm"), "c-space");
 
                         .timeline-wrapper {
                             padding: 5px;

@@ -1,26 +1,26 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 #luister_content_playlist {
     .card {
         width: auto;
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             width: 100%;
         }
 
         .audioplayer-wrapper {
             width: 400px;
 
-            @include global.respond-to(fn.get-breakpoint("small")) {
+            @include mix.respond-to(v.$bp-small) {
                 width: 100%;
             }
 
             .playing-wrapper {
                 .timestamp-wrapper {
-                    font-size: map.get(map.get(var.$design-scale, "xs"), "font-size");
+                    font-size: map.get(map.get(v.$design-scale, "xs"), "font-size");
                 }
 
                 .timeline-wrapper {

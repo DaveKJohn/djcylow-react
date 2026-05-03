@@ -1,25 +1,20 @@
 @use "sass:math";
 @use "sass:string";
 @use "sass:map";
+@use "../functions" as fn;
+@use "../config" as c;
+
+// 1. Variabele definiëren voor hergebruik
+$bp-large: fn.get-breakpoint("large");
+$bp-medium: fn.get-breakpoint("medium");
+$bp-small: fn.get-breakpoint("small");
+
 
 // --- Font ---
 $base-font: var(--font-poppins), "Poppins", Arial, sans-serif;
 
 // --- Body Afmetingen ---
 $desktop-max-width: 1300px;
-
-// Body Breekpunten | LET OP: Als je deze waarden aanpast, pas ze dan ook aan in src/constants/design.ts!
-$breakpoints: (
-    "large": 1774px,
-    "medium": 1331px,
-    "small": 844px
-);
-
-$breakpoint-map: (
-    "l": "large",
-    "m": "medium",
-    "s": "small"
-);
 
 // --- Nav heights ---
 $nav-height-large: 86px;
@@ -30,161 +25,3 @@ $nav-height-small: 52px;
 $banner-height-large: 96px 0;
 $banner-height-medium: 96px 0;
 $banner-height-small: 60px 0;
-
-/* =======================================
-    ALIASED DESIGN SCALE (Responsive Mapping)
-   ======================================= */
-$base-mapping: (
-    "9xl": "9xl",
-    "8xl": "8xl",
-    "7xl": "7xl",
-    "6xl": "6xl",
-    "5xl": "5xl",
-    "4xl": "4xl",
-    "3xl": "3xl",
-    "2xl": "2xl",
-    "xl": "xl",
-    "lg": "lg",
-    "base": "base",
-    "sm": "sm",
-    "xs": "xs"
-);
-
-$medium-mapping: (
-    "9xl": "8xl",
-    "8xl": "7xl",
-    "7xl": "6xl",
-    "6xl": "5xl",
-    "5xl": "4xl",
-    "4xl": "3xl",
-    "3xl": "3xl",
-    "2xl": "2xl",
-    "xl": "xl",
-    "lg": "lg",
-    "base": "base",
-    "sm": "sm",
-    "xs": "xs"
-);
-
-$small-mapping: (
-    "9xl": "6xl",
-    "8xl": "5xl",
-    "7xl": "6xl",
-    "6xl": "6xl",
-    "5xl": "3xl",
-    "4xl": "4xl",
-    "3xl": "3xl",
-    "2xl": "2xl",
-    "xl": "lg",
-    "lg": "lg",
-    "base": "base",
-    "sm": "sm",
-    "xs": "xs"
-);
-
-$design-scale: (
-    "xs": (
-        font-size: 12px,
-        line-height: 16px,
-        c-space: 3px,
-        r-space: 3px,
-        in-space: 3px,
-        extra-space: 2px
-    ),
-    "sm": (
-        font-size: 14px,
-        line-height: 20px,
-        c-space: 4px,
-        r-space: 4px,
-        in-space: 4px,
-        extra-space: 3px
-    ),
-    "base": (
-        font-size: 16px,
-        line-height: 30px,
-        c-space: 6px,
-        r-space: 6px,
-        in-space: 6px,
-        extra-space: 3px
-    ),
-    "lg": (
-        font-size: 18px,
-        line-height: 28px,
-        c-space: 8px,
-        r-space: 8px,
-        in-space: 8px,
-        extra-space: 5px
-    ),
-    "xl": (
-        font-size: 20px,
-        line-height: 28px,
-        c-space: 11px,
-        r-space: 11px,
-        in-space: 11px,
-        extra-space: 5px
-    ),
-    "2xl": (
-        font-size: 24px,
-        line-height: 32px,
-        c-space: 15px,
-        r-space: 15px,
-        in-space: 15px,
-        extra-space: 5px
-    ),
-    "3xl": (
-        font-size: 30px,
-        line-height: 42px,
-        c-space: 21px,
-        r-space: 21px,
-        in-space: 21px,
-        extra-space: 5px
-    ),
-    "4xl": (
-        font-size: 36px,
-        line-height: 50px,
-        c-space: 30px,
-        r-space: 30px,
-        in-space: 30px,
-        extra-space: 6px
-    ),
-    "5xl": (
-        font-size: 48px,
-        line-height: 56px,
-        c-space: 42px,
-        r-space: 42px,
-        in-space: 42px,
-        extra-space: 7px
-    ),
-    "6xl": (
-        font-size: 60px,
-        line-height: 70px,
-        c-space: 58px,
-        r-space: 58px,
-        in-space: 58px,
-        extra-space: 18px
-    ),
-    "7xl": (
-        font-size: 72px,
-        line-height: 84px,
-        c-space: 81px,
-        r-space: 81px,
-        in-space: 81px,
-        extra-space: 8px
-    ),
-    "8xl": (
-        font-size: 96px,
-        line-height: 120px,
-        c-space: 113px,
-        r-space: 113px,
-        in-space: 113px,
-        extra-space: 9px
-    ),
-    "9xl": (
-        font-size: 128px,
-        line-height: 130px,
-        c-space: 133px,
-        r-space: 133px,
-        in-space: 133px,
-        extra-space: 9px
-    )
-);

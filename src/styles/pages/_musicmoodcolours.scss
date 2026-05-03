@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../abstracts/mixins" as global;
-@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+@use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
 #mmc_banner {
@@ -21,7 +21,7 @@
 
         animation: scrollPattern 40s linear infinite;
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             // MOBILE
             $h-mobile: 310px;
             background-size: ($h-mobile * $ratio) $h-mobile;

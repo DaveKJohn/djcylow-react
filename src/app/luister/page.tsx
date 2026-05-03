@@ -62,7 +62,7 @@ export default function LuisterPage() {
                         />
 
 
-                        <div className="column w-fill AMC P30 spacing-2xl fill-90 " id="luister_content_filter">
+                        <div className="column w-fill AMC spacing-2xl fill-90 " id="luister_content_filter">
 
                             {/* RECHTS: De filters (op desktop locked in de kolom, op mobiel een knop) */}
                             <MobileContent

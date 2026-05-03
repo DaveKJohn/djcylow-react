@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../abstracts/mixins" as global;
-@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+@use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
 footer {
@@ -9,7 +9,7 @@ footer {
     img {
         width: 220px;
 
-        @include global.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(fn.get-breakpoint("medium")) {
             width: 220px;
         }
     }
@@ -31,7 +31,7 @@ footer {
 
     .constrainer {
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             gap: 24px;
         }
     }

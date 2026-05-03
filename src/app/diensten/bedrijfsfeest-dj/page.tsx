@@ -32,7 +32,7 @@ export default function BedrijfsfeestDJ() {
         </div>
       </section>
 
-      {/* Contactformulier sectie */}
+      {/* contact-formulier sectie */}
 
       <ContactForm />
 

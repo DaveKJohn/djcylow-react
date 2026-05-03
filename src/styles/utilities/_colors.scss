@@ -1,19 +1,19 @@
 @use "sass:map";
 @use "sass:string";
-@use "../abstracts/variables" as var;
+@use "../abstracts/variables" as v;
 @use "../abstracts/mixins/tools" as tools;
 @use "../abstracts/functions" as fn;
 
-@each $base-color, $tints in var.$colors {
+@each $base-color, $tints in v.$colors {
     $is-ux-color: string.index($base-color, "ux-");
 
-    @if not($is-ux-color and not var.$ux-mode) {
+    @if not($is-ux-color and not v.$ux-mode) {
         @each $tint-name, $value in $tints {
             $tint-str: #{$tint-name};
             $display-value: $value;
 
             // 1. De "P" class generator (UX-MODE)
-            @if var.$ux-mode and $is-ux-color {
+            @if v.$ux-mode and $is-ux-color {
                 $last-char: string.slice($tint-str, -1);
 
                 @at-root body.ux-mode {
@@ -38,14 +38,14 @@
 
                         .WoB.P#{$tint-str},
                         .WoB .P#{$tint-str} {
-                            $ux-black: map.get(var.$colors, "ux-black");
+                            $ux-black: map.get(v.$colors, "ux-black");
                             outline: 1px solid map.get($ux-black, $mapped-tint) !important;
                             background-color: transparent !important;
                             color: white !important;
                         }
                         .BoW.P#{$tint-str},
                         .BoW .P#{$tint-str} {
-                            $ux-white: map.get(var.$colors, "ux-white");
+                            $ux-white: map.get(v.$colors, "ux-white");
                             outline: 1px solid map.get($ux-white, $mapped-tint) !important;
                             background-color: transparent !important;
                             color: black !important;

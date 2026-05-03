@@ -32,7 +32,7 @@ export default function BruiloftDJPage() {
         </div>
       </section>
 
-      {/* Contactformulier sectie */}
+      {/* contact-formulier sectie */}
 
       <ContactForm />
 

@@ -1,7 +1,7 @@
 @use "sass:list";
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 $card-width-erlenmeyers: 180px;
@@ -12,7 +12,7 @@ $card-height-erlenmeyers: 180px;
     ERLENMEYERS MIXER
    ======================================= */
 #canvas_erlenmeyers {
-    max-width: 570px;
+    max-width: 500px;
 
     .erlenmeyers {
         .row {
@@ -93,7 +93,7 @@ $card-height-erlenmeyers: 180px;
             width: auto;
 
             .audioplayer-wrapper {
-                @include global.color-generator;
+                @include mix.color-generator;
                 flex-shrink: 0;
                 position: relative;
 
@@ -101,7 +101,7 @@ $card-height-erlenmeyers: 180px;
                 width: var(--card_width_erlenmeyers);
 
                 .label {
-                    @include global.colour-base;
+                    @include mix.colour-base;
                     z-index: 200;
                     bottom: 0;
                     right: 0;
@@ -123,7 +123,7 @@ $card-height-erlenmeyers: 180px;
 
                 .playing-wrapper {
                     padding: 3px;
-                    gap: map.get(map.get(var.$design-scale, "sm"), "c-space");
+                    gap: map.get(map.get(v.$design-scale, "sm"), "c-space");
 
                     .timeline-wrapper {
                         padding: 5px;
@@ -159,7 +159,7 @@ $card-height-erlenmeyers: 180px;
 
             .labels {
                 width: auto;
-                gap: map.get(map.get(var.$design-scale, "base"), "c-space");
+                gap: map.get(map.get(v.$design-scale, "base"), "c-space");
 
                 .column.wrapper.h-end {
                     flex: 1;
@@ -175,7 +175,7 @@ $card-height-erlenmeyers: 180px;
 
                     .text {
                         font-weight: 500;
-                        font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
+                        font-size: map.get(map.get(v.$design-scale, "base"), "font-size");
                         white-space: nowrap; // Voorkomt dat de tekst onbedoeld afbreekt
                     }
                 }
@@ -185,15 +185,15 @@ $card-height-erlenmeyers: 180px;
 
     .buttons {
         button {
-            padding: map.get(map.get(var.$design-scale, "xl"), "c-space") 0;
-            font-size: map.get(map.get(var.$design-scale, "base"), "font-size");
+            padding: map.get(map.get(v.$design-scale, "xl"), "c-space") 0;
+            font-size: map.get(map.get(v.$design-scale, "base"), "font-size");
             text-align: center;
             font-weight: 500;
             transition: none;
 
             flex: 0 0 calc(25% - 15px);
 
-            @include global.respond-to(fn.get-breakpoint("small")) {
+            @include mix.respond-to(v.$bp-small) {
                 flex: 0 0 calc(33.33% - 15px);
             }
 
@@ -201,12 +201,12 @@ $card-height-erlenmeyers: 180px;
             &[aria-pressed="true"] {
                 border-color: transparent;
 
-                @each $color in var.$all-colors {
+                @each $color in v.$all-colors {
                     &[data-filter-color="#{$color}"] {
                         background-color: var(--#{$color}-default);
 
                         // FIX: Gebruik list.index in plaats van index
-                        @if list.index(var.$dark-text-colors, $color) {
+                        @if list.index(v.$dark-text-colors, $color) {
                             color: #000000;
                         } @else {
                             color: #ffffff;

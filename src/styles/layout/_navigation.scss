@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../abstracts/mixins" as global;
-@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+@use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
 nav {
@@ -15,7 +15,7 @@ nav {
         flex: 1 1 0;
         order: 1;
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             img {
                 width: 115px;
             }
@@ -27,7 +27,7 @@ nav {
         flex-basis: 0;
         order: 3;
 
-        @include global.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(fn.get-breakpoint("medium")) {
             flex-grow: 0;
             flex-basis: auto;
             order: 2;
@@ -38,14 +38,14 @@ nav {
         justify-content: flex-start;
 
         margin: 0 auto;
-        max-width: var.$desktop-max-width;
+        max-width: v.$desktop-max-width;
         order: 2;
 
-        @include global.respond-to(fn.get-breakpoint("large")) {
+        @include mix.respond-to(fn.get-breakpoint("large")) {
             justify-content: flex-end;
         }
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
+        @include mix.respond-to(v.$bp-small) {
             order: 3;
             flex-basis: auto;
             width: auto;
@@ -60,7 +60,7 @@ nav {
                 line-height: 28px;
                 white-space: nowrap;
 
-                @include global.respond-to(fn.get-breakpoint("small")) {
+                @include mix.respond-to(v.$bp-small) {
                     &::after {
                         content: none; // Verwijdert het element volledig op mobiel
                     }
@@ -81,7 +81,7 @@ nav {
 
             display: none; // Standaard volledig verbergen (ook uit de layout)
 
-            @include global.respond-to(fn.get-breakpoint("small")) {
+            @include mix.respond-to(v.$bp-small) {
                 display: flex; // Alleen tonen op het kleine breakpoint
             }
 
@@ -93,33 +93,33 @@ nav {
 
     
     &.P10 {
-        @include global.apply-ux-bg("10");
+        @include mix.apply-ux-bg("10");
     }
 
     .P20 {
-        @include global.apply-ux-bg("20");
-        padding: 0 map.get(map.get(var.$design-scale, "4xl"), "r-space");
+        @include mix.apply-ux-bg("20");
+        padding: 0 map.get(map.get(v.$design-scale, "4xl"), "r-space");
 
-        @include global.respond-to(fn.get-breakpoint("large")) {
-            padding: 0 map.get(map.get(var.$design-scale, "xl"), "r-space");
+        @include mix.respond-to(fn.get-breakpoint("large")) {
+            padding: 0 map.get(map.get(v.$design-scale, "base"), "r-space");
         }
     }
 
     .P30 {
-        @include global.apply-ux-bg("30");
-        padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+        @include mix.apply-ux-bg("30");
+        padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
-            padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
         }
     }
 
     .P35 {
-        @include global.apply-ux-bg("35");
-        padding: map.get(map.get(var.$design-scale, "xl"), "r-space");
+        @include mix.apply-ux-bg("35");
+        padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
-            padding: map.get(map.get(var.$design-scale, "sm"), "r-space");
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
         }
     }
 }

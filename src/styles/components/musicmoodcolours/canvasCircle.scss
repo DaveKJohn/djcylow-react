@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 /* =======================================
@@ -16,7 +16,7 @@
     max-width: 100%; // Zorgt dat hij nooit buiten de viewport loopt
     
 
-    @include global.respond-to(fn.get-breakpoint("small")) {
+    @include mix.respond-to(v.$bp-small) {
         width: 100%;
     }
 
@@ -137,7 +137,7 @@
         }
 
         .colour {
-            @include global.colour-base;
+            @include mix.colour-base;
             z-index: 5;
 
             p {
@@ -149,51 +149,51 @@
                 @include position-on-circle(22.5);
                 transform: translate(-50%, -50%) rotate(22.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
                     rotate(-22.5deg) translateX(calc(-1 * #{$h-off}));
-                @include global.colour-theme("blue");
+                @include mix.colour-theme("blue");
             }
             &.purple {
                 @include position-on-circle(67.5);
                 transform: translate(-50%, -50%) rotate(67.5deg) translateY(calc(-1 * var(--radius))) rotate(-67.5deg)
                     translateY(#{$v-off-side}) translateX(calc(-1 * #{$h-off-side}));
-                @include global.colour-theme("purple");
+                @include mix.colour-theme("purple");
             }
             &.magenta {
                 @include position-on-circle(112.5);
                 transform: translate(-50%, -50%) rotate(112.5deg) translateY(calc(-1 * var(--radius))) rotate(-112.5deg)
                     translateY(calc(-1 * #{$v-off-side})) translateX(calc(-1 * #{$h-off-side}));
-                @include global.colour-theme("magenta");
+                @include mix.colour-theme("magenta");
             }
             &.red {
                 @include position-on-circle(157.5);
                 transform: translate(-50%, -50%) rotate(157.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
                     rotate(-157.5deg) translateX(calc(-1 * #{$h-off}));
-                @include global.colour-theme("red");
+                @include mix.colour-theme("red");
             }
             &.orange {
                 @include position-on-circle(202.5);
                 transform: translate(-50%, -50%) rotate(202.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
                     rotate(-202.5deg) translateX(#{$h-off});
-                @include global.colour-theme("orange");
+                @include mix.colour-theme("orange");
             }
 
             &.green {
                 @include position-on-circle(292.5);
                 transform: translate(-50%, -50%) rotate(292.5deg) translateY(calc(-1 * var(--radius))) rotate(-292.5deg)
                     translateY(#{$v-off-side}) translateX(#{$h-off-side});
-                @include global.colour-theme("green");
+                @include mix.colour-theme("green");
             }
 
             &.yellow {
                 @include position-on-circle(247.5);
                 transform: translate(-50%, -50%) rotate(247.5deg) translateY(calc(-1 * var(--radius))) rotate(-247.5deg)
                     translateY(calc(-1 * #{$v-off-side})) translateX(#{$h-off-side});
-                @include global.colour-theme("yellow");
+                @include mix.colour-theme("yellow");
             }
             &.cyan {
                 @include position-on-circle(337.5);
                 transform: translate(-50%, -50%) rotate(337.5deg) translateY(calc(-1 * var(--radius) - #{$v-off}))
                     rotate(-337.5deg) translateX(#{$h-off});
-                @include global.colour-theme("cyan");
+                @include mix.colour-theme("cyan");
             }
         }
     }

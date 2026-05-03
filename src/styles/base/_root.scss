@@ -1,4 +1,4 @@
-@use "../abstracts/variables" as var;
+@use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
 
@@ -7,7 +7,7 @@
     --screen-size-medium: #{fn.get-breakpoint("medium")};
     --screen-size-small: #{fn.get-breakpoint("small")};
 
-    @each $base-color, $tints in var.$colors {
+    @each $base-color, $tints in v.$colors {
         @each $tint-name, $value in $tints {
             $css-var-name: #{$base-color}-#{$tint-name};
             --#{$css-var-name}: #{$value};

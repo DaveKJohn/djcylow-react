@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global; // We gebruiken de namespace 'tools'
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix; // We gebruiken de namespace 'tools'
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 #promo {
@@ -11,7 +11,7 @@
     .gradient {
         background-image: radial-gradient(at 58% 50%, rgba(0, 61, 61, 0.5) 0%, transparent 20%);
 
-        @include global.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(fn.get-breakpoint("medium")) {
             background-image: none;
 
             // Laag 1: De "Dichte" staat (48%)
@@ -38,7 +38,7 @@
         }
     }
 
-    @include global.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(fn.get-breakpoint("medium")) {
         &:has(.read-more-container.is-open) {
             .background.gradient {
                 &::before {
@@ -63,7 +63,7 @@
             aspect-ratio: 16 / 9;
             position: relative;
 
-            @include global.respond-to(fn.get-breakpoint("medium")) {
+            @include mix.respond-to(fn.get-breakpoint("medium")) {
                 width: 100%;
             }
 

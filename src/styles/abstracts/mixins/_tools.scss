@@ -1,7 +1,8 @@
 @use "sass:list";
 @use "sass:map";
 @use "sass:string";
-@use "../variables" as var;
+@use "../config" as c;    
+@use "../variables" as v;
 @use "../functions" as fn;
 
 /* =======================================
@@ -31,14 +32,14 @@
                 $med-key: fn.get-scale-key($alias, "medium");
                 $small-key: fn.get-scale-key($alias, "small");
 
-                $config: map.get(var.$design-scale, $base-key);
+                $config: map.get(c.$design-scale, $base-key);
                 @if $config {
                     font-size: map.get($config, "font-size");
                     line-height: map.get($config, "line-height");
                 }
 
                 @include respond-to(fn.get-breakpoint("medium")) {
-                    $m-config: map.get(var.$design-scale, $med-key);
+                    $m-config: map.get(c.$design-scale, $med-key);
                     @if $m-config {
                         font-size: map.get($m-config, "font-size");
                         line-height: map.get($m-config, "line-height");
@@ -46,7 +47,7 @@
                 }
 
                 @include respond-to(fn.get-breakpoint("small")) {
-                    $s-config: map.get(var.$design-scale, $small-key);
+                    $s-config: map.get(c.$design-scale, $small-key);
                     @if $s-config {
                         font-size: map.get($s-config, "font-size");
                         line-height: map.get($s-config, "line-height");
@@ -59,7 +60,7 @@
                     @if type-of($resp) == "map" {
                         @include respond-to(map.get($resp, "breakpoint")) {
                             $resp-key: map.get($resp, "scale-key");
-                            $resp-config: map.get(var.$design-scale, $resp-key);
+                            $resp-config: map.get(c.$design-scale, $resp-key);
                             @if $resp-config {
                                 font-size: map.get($resp-config, "font-size") !important;
                                 line-height: map.get($resp-config, "line-height") !important;
@@ -73,14 +74,14 @@
 }
 
 @mixin apply-smart-spacing($with-margin: false) {
-    @each $alias, $unused in var.$base-mapping {
+    @each $alias, $unused in c.$base-mapping {
         $base-key: fn.get-scale-key($alias, "base");
         $med-key: fn.get-scale-key($alias, "medium");
         $small-key: fn.get-scale-key($alias, "small");
 
-        $config: map.get(var.$design-scale, $base-key);
-        $med-config: map.get(var.$design-scale, $med-key);
-        $small-config: map.get(var.$design-scale, $small-key);
+        $config: map.get(c.$design-scale, $base-key);
+        $med-config: map.get(c.$design-scale, $med-key);
+        $small-config: map.get(c.$design-scale, $small-key);
 
         .row.spacing-#{$alias},
         .row-c.spacing-#{$alias},
@@ -145,9 +146,9 @@
     $med-key: fn.get-scale-key($alias, "medium");
     $small-key: fn.get-scale-key($alias, "small");
 
-    $config: map.get(var.$design-scale, $base-key);
-    $med-config: map.get(var.$design-scale, $med-key);
-    $small-config: map.get(var.$design-scale, $small-key);
+    $config: map.get(c.$design-scale, $base-key);
+    $med-config: map.get(c.$design-scale, $med-key);
+    $small-config: map.get(c.$design-scale, $small-key);
 
     @if $config {
         $val: null;
@@ -270,7 +271,7 @@
     $c: string.to-lower-case($color-name);
     background-color: var(--#{$c}-default);
 
-    @if list.index(var.$dark-text-colors, $c) {
+    @if list.index(v.$dark-text-colors, $c) {
         color: var(--black-100);
         p {
             color: var(--black-100);
@@ -287,16 +288,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: var.$colour-aspect-ratio;
+    aspect-ratio: v.$colour-aspect-ratio;
     text-align: center;
-    font-size: map.get(map.get(var.$design-scale, "sm"), "font-size");
-    width: var.$colour-width;
+    font-size: map.get(map.get(c.$design-scale, "sm"), "font-size");
+    width: v.$colour-width;
     height: auto;
     line-height: 1;
 }
 
 @mixin color-generator {
-    @each $color in var.$all-colors {
+    @each $color in v.$all-colors {
         $c: string.to-lower-case($color);
         &.colour.#{$c},
         .colour.#{$c} {
@@ -306,7 +307,7 @@
                 background-color: var(--#{$c}-default) !important;
             }
             p {
-                @if list.index(var.$dark-text-colors, $c) {
+                @if list.index(v.$dark-text-colors, $c) {
                     color: var(--black-100) !important;
                 } @else {
                     color: var(--white-100) !important;
@@ -353,9 +354,9 @@
 }
 
 @mixin apply-ux-bg($shade) {
-    @if var.$ux-mode == true {
-        $ux-black-map: map.get(var.$colors, "ux-black");
-        $ux-white-map: map.get(var.$colors, "ux-white");
+    @if v.$ux-mode == true {
+        $ux-black-map: map.get(v.$colors, "ux-black");
+        $ux-white-map: map.get(v.$colors, "ux-white");
 
         $s: "#{$shade}"; 
 

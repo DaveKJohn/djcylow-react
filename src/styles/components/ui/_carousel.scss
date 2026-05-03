@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 .carousels {
@@ -13,9 +13,9 @@
         justify-content: center;
         position: absolute;
 
-        $row-1-h: map.get(map.get(var.$design-scale, "xl"), "c-space");
+        $row-1-h: map.get(map.get(v.$design-scale, "xl"), "c-space");
         $row-2-h: 70px;
-        $gap: map.get(map.get(var.$design-scale, "base"), "c-space");
+        $gap: map.get(map.get(v.$design-scale, "base"), "c-space");
        
 
         transform: translateY(-50%);

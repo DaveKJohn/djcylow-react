@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../abstracts/mixins" as global;
-@use "../../abstracts/variables" as var;
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
 /* =======================================
@@ -213,44 +213,39 @@
     }
 
     .P40 {
-        @include global.apply-ux-bg("40");
-        padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        @include mix.apply-ux-bg("40");
+        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
-            padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
-            gap: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+            gap: map.get(map.get(v.$design-scale, "xs"), "r-space");
         }
     }
 
     .P45 {
-        @include global.apply-ux-bg("45");
-        padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        @include mix.apply-ux-bg("45");
+        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
-            padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
         }
     }
 
-    .P50 {
-        // Standaard padding/gap (altijd zichtbaar)
-        padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+   .P50 {
+        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+        @include mix.apply-ux-bg("50");
 
-        // UX-Modus: Alleen als body de class heeft
-        @at-root body.ux-mode & {
-            @include global.apply-ux-bg("50");
-        }
-
-        @include global.respond-to(fn.get-breakpoint("small")) {
-            padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
         }
     }
 
     .P55 {
-        @include global.apply-ux-bg("55");
-        padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        @include mix.apply-ux-bg("55");
+        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
 
-        @include global.respond-to(fn.get-breakpoint("small")) {
-            padding: map.get(map.get(var.$design-scale, "xs"), "r-space");
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
         }
     }
 }

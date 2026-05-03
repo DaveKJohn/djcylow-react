@@ -1,0 +1,98 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
+@use "../../abstracts/functions" as fn;
+
+button,
+.btn {
+    display: flex;
+    align-items: center; // Verticaal centreren
+    justify-content: center; // Horizontaal centreren
+    cursor: pointer;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+
+    transition: color 300ms ease-in-out;
+    line-height: 1;
+    background: none;
+
+    svg {
+        display: block;
+    }
+
+    &.passive {
+        border: 1px solid;
+
+        &.diensten-btn {
+            max-width: 300px;
+            padding: map.get(map.get(v.$design-scale, "3xl"), "in-space");
+            font-size: map.get(map.get(v.$design-scale, "base"), "font-size");
+
+            @include mix.respond-to(fn.get-breakpoint("medium")) {
+                max-width: none;
+            }
+        }
+
+        &.mobile-button {
+            width: 100%;
+            max-width: 724px;
+            gap: 10px;
+
+            padding: map.get(map.get(v.$design-scale, "2xl"), "in-space");
+            font-size: map.get(map.get(v.$design-scale, "base"), "font-size");
+            background-color: var(--black-100);
+        }
+
+        &.select {
+             @include mix.colour-base;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+           
+        }
+    }
+
+    &.cta {
+        @include mix.apply-ux-bg(width);
+
+        @include mix.color-utility(background-color, yellow-light);
+        @include mix.color-utility(color, black-100);
+
+        &:hover {
+            @include mix.color-utility(background-color, yellow-light);
+            @include mix.color-utility(color, black-100);
+        }
+        &::before {
+            @include mix.color-utility(background-color, cyan-light);
+        }
+
+        position: relative;
+        overflow: hidden;
+        font-weight: 700;
+        border: 1px solid;
+
+        &.boek-nu-btn {
+            width: 119px;
+            padding: map.get(map.get(v.$design-scale, "xl"), "in-space");
+            font-size: map.get(map.get(v.$design-scale, "lg"), "font-size");
+
+            @include mix.respond-to(v.$bp-small) {
+                width: 90px;
+                padding: map.get(map.get(v.$design-scale, "lg"), "in-space");
+                font-size: map.get(map.get(v.$design-scale, "sm"), "font-size");
+            }
+        }
+
+        &.verzend-form-btn {
+            width: 100%;
+            padding: map.get(map.get(v.$design-scale, "3xl"), "in-space");
+            font-size: map.get(map.get(v.$design-scale, "lg"), "font-size");
+        }
+
+        span {
+            position: relative;
+            display: block;
+            white-space: nowrap;
+        }
+    }
+}
