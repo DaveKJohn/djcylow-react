@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import AudioPlayer from '@/components/ui/AudioPlayer';
-import back-button from '@/components/ui/back-button';
+import BackButton from '@/components/ui/BackButton';
 
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
@@ -69,7 +69,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                     <div className="column spacing-5xl v-push-6xl">
 
                         <div className="column extra spacing-3xl return-wrapper">
-                            <back-button />
+                            <BackButton />
                         </div>
 
                         <div className="column text-wrapper header">
