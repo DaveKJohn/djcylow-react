@@ -85,17 +85,17 @@ export default function AudioPlayer({
 		>
 
 			{/* Playing */}
-			<div className="layer w-fix ABC P40 playing-wrapper">
+			<div className="layer w-fix ABC P50 playing-wrapper">
 
-				<div className="column w-fill AMC P45">
+				<div className="column w-fill AMC P55">
 
-					<div className="row w-fill P50 split timestamp-wrapper">
-						<div className="column w-hug AMC P55 fill-90 current size-xs timestamp">{formatTime(currentTime)}</div>
-						<div className="column w-hug AMC P55 fill-90 final size-xs timestamp">{formatTime(duration)}</div>
+					<div className="row w-fill P60 split timestamp-wrapper">
+						<div className="column w-hug AMC P65 fill-90 current size-xs timestamp">{formatTime(currentTime)}</div>
+						<div className="column w-hug AMC P65 fill-90 final size-xs timestamp">{formatTime(duration)}</div>
 					</div>
 
-					<div className="row w-fill AMC P50 timeline-wrapper">
-						<div className="column w-fill AMC P55 fill-90">
+					<div className="row w-fill AMC P60 timeline-wrapper">
+						<div className="column w-fill AMC P65 fill-90">
 							<div
 								className="stack w-fill AMC"
 								onClick={(e) => {
@@ -113,8 +113,8 @@ export default function AudioPlayer({
 						</div>
 					</div>
 
-					<div className="row w-fill split P50 layer-wrapper">
-						<div className="column w-hug AMC P55 pauseFilters">
+					<div className="row w-fill split P60 layer-wrapper">
+						<div className="column w-hug AMC P65 pauseFilters">
 							<div className="column w-hug AMC pause">
 								<button className="btn w-hug pause fill-100" onClick={handleTogglePlay} aria-label="Pauzeer audio">
 									<svg className="w-fix pause" viewBox="6 5 12 14" aria-hidden="true">
@@ -124,7 +124,7 @@ export default function AudioPlayer({
 							</div>
 						</div>
 
-						<div className="row w-hug AMC P55 spacing-xs volume-wrapper">
+						<div className="row w-hug AMC P65 spacing-xs volume-wrapper">
 
 
 
@@ -162,13 +162,13 @@ export default function AudioPlayer({
 			</div>
 
 			{/* Loading */}
-			<div className="layer w-fix AMC P40 loading-wrapper">
+			<div className="layer w-fix AMC P50 loading-wrapper">
 
-				<div className="column w-fill AMC P45 playfilters">
+				<div className="column w-fill AMC P55 playfilters">
 
-					<div className="column w-hug AMC P50">
+					<div className="column w-hug AMC P60">
 
-						<div className="column w-hug AMC P55">
+						<div className="column w-hug AMC P65">
 
 							<div className="loading spinner"></div>
 
@@ -179,13 +179,13 @@ export default function AudioPlayer({
 			</div>
 
 			{/* Ready */}
-			<div className="layer w-fix AMC P40 ready-wrapper">
+			<div className="layer w-fix AMC P50 ready-wrapper">
 
-				<div className="column w-fill AMC P45 playfilters">
+				<div className="column w-fill AMC P55 playfilters">
 
-					<div className="column w-hug AMC P50">
+					<div className="column w-hug AMC P60">
 
-						<div className="column w-hug AMC P55">
+						<div className="column w-hug AMC P65">
 
 							<button className="btn w-hug play" onClick={handleTogglePlay} aria-label="Speel audio af">
 								<svg className="w-fix play" viewBox="5 5 14 14" aria-hidden="true">

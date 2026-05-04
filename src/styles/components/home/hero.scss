@@ -23,7 +23,7 @@
             display: none;
         }
 
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(v.$bp-medium) {
             padding-left: 400px;
         }
 

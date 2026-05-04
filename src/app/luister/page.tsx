@@ -38,7 +38,7 @@ export default function LuisterPage() {
     return (
         <main className={styles.pageWrapper}>
             {/* Banner bovenaan */}
-            <section className="WoB column w-fill AMC P10 spacing-xl fill-100" id="luister">
+            <section className="WoB column w-fill AMC P10 v-push-4xl" id="luister">
 
                 <div className="column w-fill AMC P20 spacing-2xl" id="luister_banner">
                     <div className="column w-fix AMC constrainer">
@@ -50,8 +50,8 @@ export default function LuisterPage() {
                     </div>
                 </div>
 
-                <div className="column w-hug AMC P20 spacing-2xl" id="luister_content">
-                    <div className="row-c break-s w-fix ATC constrainer spacing-5xl">
+                <div className="column w-fill AMC P20 spacing-2xl " id="luister_content">
+                    <div className="row-c break-s w-fix ATC constrainer">
 
 
 
@@ -61,45 +61,53 @@ export default function LuisterPage() {
                             activePower={activePower}
                         />
 
+                        <div className="column w-fix AMC P30 spacing-xl " id="luister_content_filter">
 
-                        <div className="column w-fill AMC spacing-2xl fill-90 " id="luister_content_filter">
+                            <div className="column w-fill AMC P35 spacing-xl">
 
-                            {/* RECHTS: De filters (op desktop locked in de kolom, op mobiel een knop) */}
-                            <MobileContent
-                                title="Filters"
-                                id="luister_content_filter_drawer"
-                                icon={FilterIcon}
-                                trigger={(toggle) => (
-                                    <div
-                                        id="luister_content_filter_mobile_button"
-                                        className="column w-fill AMC P30 btn"
-                                        onClick={toggle}
-                                        role="button"
-                                        tabIndex={0} // Gebruik accolades voor een number
-                                        aria-label="Filter openen"
-                                    >
-                                        <div className="column w-fill AMC P35">
-                                            <div className="row w-hug AMC spacing-xl in-push-xl">
-                                                {FilterIcon}
-                                                <span>Filters</span>
-                                            </div>
-                                        </div>
+                                <div className="column w-fill AMC P40 spacing-xl fill-90">
+
+                                    <div className="column w-fill AMC P45 spacing-xl">
+
+                                        {/* RECHTS: De filters (op desktop locked in de kolom, op mobiel een knop) */}
+                                        <MobileContent
+                                            title="Filters"
+                                            id="luister_content_filter_drawer"
+                                            icon={FilterIcon}
+                                            trigger={(toggle) => (
+                                                <div
+                                                    id="luister_content_filter_mobile_button"
+                                                    className="column w-fill AMC P50 btn"
+                                                    onClick={toggle}
+                                                    role="button"
+                                                    tabIndex={0} // Gebruik accolades voor een number
+                                                    aria-label="Filter openen"
+                                                >
+                                                    <div className="row w-fill AMC P55 spacing-xl">
+                                                       
+                                                            {FilterIcon}
+                                                            <span>Filters</span>
+                                                        
+                                                    </div>
+                                                </div>
+                                            )}
+                                        >
+                                            {() => (
+                                                <div className="column w-fill AML P50 break-s spacing-2xl">
+                                                    <Filter
+                                                        activeColor={activeColor}
+                                                        setActiveColor={setActiveColor}
+                                                        activeGenre={activeGenre}
+                                                        setActiveGenre={setActiveGenre}
+                                                        activePower={activePower}
+                                                        setActivePower={setActivePower}
+                                                    />
+                                                </div>
+                                            )}
+                                        </MobileContent>
                                     </div>
-                                )}
-                            >
-                                {() => (
-                                    <div className="column w-fill AML P40 break-s spacing-2xl">
-                                        <Filter
-                                            activeColor={activeColor}
-                                            setActiveColor={setActiveColor}
-                                            activeGenre={activeGenre}
-                                            setActiveGenre={setActiveGenre}
-                                            activePower={activePower}
-                                            setActivePower={setActivePower}
-                                        />
-                                    </div>
-                                )}
-                            </MobileContent>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

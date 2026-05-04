@@ -5,7 +5,7 @@
 
 // De donkere achtergrond achter de drawer
 .drawer-overlay {
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(v.$bp-medium) {
         position: fixed;
         top: 0;
         left: 0;
@@ -45,7 +45,7 @@
     // MOBIEL / READY STATUS
     &.ready {
         background-color: var(--black-100);
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(v.$bp-medium) {
             border-left: 1px solid var(--black-80);
 
             position: fixed;
@@ -134,15 +134,15 @@
 }
 
 /*DRAWER*/
-.P30.drawer {
+.P50.drawer {
     padding: 0;
 
     @include mix.respond-to(v.$bp-small) {
         padding: map.get(map.get(v.$design-scale, "base"), "r-space");
     }
 
-    .P35.drawer-content,
-    .P35.drawer-header {
+    .P55.drawer-content,
+    .P55.drawer-header {
         padding: 0;
 
         @include mix.respond-to(v.$bp-small) {

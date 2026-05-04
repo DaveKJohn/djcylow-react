@@ -361,13 +361,14 @@
         $s: "#{$shade}"; 
 
         $target-key: null;
-        @if $s == "10" or $s == "20" { $target-key: "90"; } 
+        @if $s == "10" { $target-key: "100"; } 
+        @else if $s == "20" { $target-key: "90"; } 
         @else if $s == "30" { $target-key: "80"; } 
         @else if $s == "35" { $target-key: "70"; } 
         @else if $s == "40" { $target-key: "60"; }
         @else if $s == "45" { $target-key: "50"; }
-        @else if $s == "50" { $target-key: "80"; } // Aangepast naar 80
-        @else if $s == "55" { $target-key: "70"; } // Aangepast naar 70
+        @else if $s == "50" { $target-key: "80"; } 
+        @else if $s == "55" { $target-key: "70"; } 
 
         @if $target-key {
             $use-stroke: (string.slice($s, -1) == "5");

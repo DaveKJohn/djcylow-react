@@ -101,7 +101,7 @@
 .fullscreen {
     min-height: calc(100vh - v.$nav-height-large);
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(v.$bp-medium) {
         min-height: calc(100vh - v.$nav-height-medium);
     }
 
@@ -115,7 +115,7 @@
     max-width: v.$desktop-max-width;
     width: v.$desktop-max-width;
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(v.$bp-medium) {
         max-width: none;
         width: 100%;
     }

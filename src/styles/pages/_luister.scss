@@ -3,9 +3,22 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
-#luister {    
+#luister {
+    gap: map.get(map.get(v.$design-scale, "xs"), "c-space");
+
+    @include mix.respond-to(v.$bp-medium) {
+        gap: map.get(map.get(v.$design-scale, "xl"), "c-space");
+    }
 
     #luister_content {
+        .constrainer {
+            gap: map.get(map.get(v.$design-scale, "xs"), "c-space");
+
+            @include mix.respond-to(fn.get-breakpoint("small")) {
+                gap: map.get(map.get(v.$design-scale, "xl"), "c-space");
+            }
+        }
+
         #luister_content_playlist {
             order: 1;
 

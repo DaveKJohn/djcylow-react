@@ -16,24 +16,19 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
-    padding-top: calc(v.$nav-height-large + map.get(map.get(v.$design-scale, "xl"), "c-space"));
+    padding-top: v.$nav-height-large;
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
-        padding-top: calc(v.$nav-height-medium  + map.get(map.get(v.$design-scale, "xl"), "c-space"));
+    @include mix.respond-to(v.$bp-medium) {
+        padding-top: v.$nav-height-medium;
     }
 
     @include mix.respond-to(v.$bp-small) {
-        padding-top: calc(v.$nav-height-small + map.get(map.get(v.$design-scale, "base"), "c-space"));
+        padding-top: v.$nav-height-small;
     }
 
     &.ux-mode {
-        
         // Gebruik map.get in plaats van map-get
         background-color: map.get(map.get(v.$colors, "ux-black"), "100");
         color: map.get(map.get(v.$colors, "ux-black"), "100");
     }
-
-
-
-    
 }

@@ -14,7 +14,7 @@
         .diensten-btn {
             flex: 1 1 40%;
 
-            @include mix.respond-to(fn.get-breakpoint("medium")) {
+            @include mix.respond-to(v.$bp-medium) {
                 flex: 1 1 100%;
             }
         }

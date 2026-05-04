@@ -65,7 +65,7 @@
         }
 
         &.break-m {
-            @include mix.respond-to(fn.get-breakpoint("medium")) {
+            @include mix.respond-to(v.$bp-medium) {
                 @include _apply-breakpoint-logic($ver, $hor, $forced-break, $break-target);
             }
         }

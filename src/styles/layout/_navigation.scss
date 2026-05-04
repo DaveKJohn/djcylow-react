@@ -27,7 +27,7 @@ nav {
         flex-basis: 0;
         order: 3;
 
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(v.$bp-medium) {
             flex-grow: 0;
             flex-basis: auto;
             order: 2;
@@ -41,7 +41,7 @@ nav {
         max-width: v.$desktop-max-width;
         order: 2;
 
-        @include mix.respond-to(fn.get-breakpoint("large")) {
+        @include mix.respond-to(v.$bp-large) {
             justify-content: flex-end;
         }
 
@@ -91,26 +91,16 @@ nav {
         }
     }
 
-    &.P10 {
-        @include mix.apply-ux-bg("10");
-    }
-
     .P20 {
-        @include mix.apply-ux-bg("20");
-        padding: 0 map.get(map.get(v.$design-scale, "xl"), "r-space");
+        padding: 0 map.get(map.get(v.$design-scale, "lg"), "r-space");
 
-        @include mix.respond-to(fn.get-breakpoint("large")) {
-            padding: 0 map.get(map.get(v.$design-scale, "xl"), "r-space");
-        }
-
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
-            padding: 0 map.get(map.get(v.$design-scale, "base"), "r-space");
+        @include mix.respond-to(v.$bp-small) {
+            padding: 0 map.get(map.get(v.$design-scale, "sm"), "r-space");
         }
     }
 
     .P30 {
-        @include mix.apply-ux-bg("30");
-        padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
+        padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
         @include mix.respond-to(v.$bp-small) {
             padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
@@ -118,8 +108,7 @@ nav {
     }
 
     .P35 {
-        @include mix.apply-ux-bg("35");
-        padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
+        padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
         @include mix.respond-to(v.$bp-small) {
             padding: map.get(map.get(v.$design-scale, "sm"), "r-space");

@@ -4,34 +4,13 @@
 @use "../abstracts/functions" as fn;
 
 footer {
-    color: var(--white-80);
-     margin-top: map.get(map.get(v.$design-scale, "xl"), "c-space");
-
-  
-    @include mix.respond-to(v.$bp-medium) {
-        margin-top: map.get(map.get(v.$design-scale, "base"), "c-space");
-    }
-
-    &.P10 {
-        padding: map.get(map.get(v.$design-scale, "4xl"), "c-space") 0;
-
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
-            padding: map.get(map.get(v.$design-scale, "5xl"), "c-space") 0;
-        }
-    }
-
-    .P20 {
-        gap: map.get(map.get(v.$design-scale, "xs"), "c-space");
-
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
-            gap: map.get(map.get(v.$design-scale, "3xl"), "c-space");
-        }
-    }
+    w
+    
 
     img {
-        width: 220px;
+        width: 260px;
 
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(v.$bp-medium) {
             width: 200px;
         }
     }
@@ -53,7 +32,9 @@ footer {
 
     .constrainer {
         @include mix.respond-to(v.$bp-small) {
-            gap: 24px;
+            gap: 14px;
         }
     }
+
+    
 }

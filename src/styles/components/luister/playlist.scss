@@ -4,6 +4,15 @@
 @use "../../abstracts/functions" as fn;
 
 #luister_content_playlist {
+    .P40 {
+        @include mix.respond-to(v.$bp-large) {
+            gap: map.get(map.get(v.$design-scale, "xs"), "r-space");
+        }
+
+        @include mix.respond-to(v.$bp-medium) {
+            gap: map.get(map.get(v.$design-scale, "2xl"), "r-space");
+        }
+    }
     .card {
         width: auto;
 
@@ -12,7 +21,7 @@
         }
 
         .audioplayer-wrapper {
-            width: 400px;
+            width: 380px;
 
             @include mix.respond-to(v.$bp-small) {
                 width: 100%;

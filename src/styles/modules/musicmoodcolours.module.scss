@@ -7,7 +7,7 @@
     --card_width_erlenmeyers: 180px;
     --card_height_erlenmeyers: 180px;
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(v.$bp-medium) {
         --card_width_erlenmeyers: 180px;
         --card_height_erlenmeyers: 180px;
     }
@@ -15,7 +15,7 @@
     --card_width_basiskleuren: 180px;
     --card_height_basiskleuren: 180px;
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(v.$bp-medium) {
         --card_width_basiskleuren: 180px;
         --card_height_basiskleuren: 180px;
     }
@@ -23,7 +23,7 @@
     --card_width_vs: 180px;
     --card_height_vs: 180px;
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(v.$bp-medium) {
         --card_width_vs: 180px;
         --card_height_vs: 180px;
     }

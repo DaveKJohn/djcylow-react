@@ -4,15 +4,14 @@
 @use "../../abstracts/functions" as fn;
 
 #luister_content_filter {
-  
     position: sticky;
     top: calc(v.$nav-height-large + 0px);
     height: fit-content; // Belangrijk: de container mag niet hoger zijn dan de inhoud
     align-self: flex-start; // Voorkomt dat de sidebar meerekt met de rechterkolom
 
     order: 2;
-    flex: 0 0 340px;
-    width: 340px;
+    flex: 0 0 400px;
+    width: 400px;
     z-index: 500;
 
     &:has(.drawer.open) {
@@ -35,7 +34,7 @@
             display: flex;
         }
 
-        .P35 {
+        .P55 {
             color: #fff;
 
             svg {
@@ -125,6 +124,42 @@
                 background-color: var(--yellow-default);
                 color: var(--black-100);
             }
+        }
+    }
+
+    .P50 {
+        @include mix.apply-ux-bg("20");
+        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+        }
+    }
+
+    .P55 {
+        @include mix.apply-ux-bg("35");
+        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+        }
+    }
+
+    .P60 {
+        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+        @include mix.apply-ux-bg("30");
+
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+        }
+    }
+
+    .P65 {
+        @include mix.apply-ux-bg("45");
+        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
+
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
         }
     }
 }

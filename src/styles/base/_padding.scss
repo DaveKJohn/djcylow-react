@@ -4,21 +4,21 @@
 @use "../abstracts/functions" as fn;
 
 .P10 {
-    @include mix.apply-ux-bg("10");
+    @include mix.apply-ux-bg("35");
 }
 
 .P20 {
     @include mix.apply-ux-bg("20");
-    padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
+    padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
-        padding: 0 map.get(map.get(v.$design-scale, "base"), "r-space");
+    @include mix.respond-to(v.$bp-small) {
+        padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
     }
 }
 
 .P30 {
     @include mix.apply-ux-bg("30");
-    padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
+    padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
     @include mix.respond-to(v.$bp-small) {
         padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
@@ -26,7 +26,7 @@
 }
 .P35 {
     @include mix.apply-ux-bg("35");
-    padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
+    padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
     @include mix.respond-to(v.$bp-small) {
         padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
@@ -35,17 +35,60 @@
 
 .P40 {
     @include mix.apply-ux-bg("40");
-    padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
+    &[class*="fill-"] {
+        padding: map.get(map.get(v.$design-scale, "3xl"), "r-space");
 
-    @include mix.respond-to(v.$bp-small) {
-        padding: map.get(map.get(v.$design-scale, "2xl"), "r-space");
-        gap: map.get(map.get(v.$design-scale, "2xl"), "r-space");
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "2xl"), "r-space");
+        }
+    }
+
+    &:not([class*="fill-"]) {
+        padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
+
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+        }
     }
 }
 
 .P45 {
     @include mix.apply-ux-bg("45");
-    padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
+    padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
+
+    @include mix.respond-to(v.$bp-small) {
+        padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+    }
+}
+
+.P50 {
+    @include mix.apply-ux-bg("20");
+    padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
+
+    @include mix.respond-to(v.$bp-small) {
+        padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+    }
+}
+.P55 {
+    @include mix.apply-ux-bg("35");
+    padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
+
+    @include mix.respond-to(v.$bp-small) {
+        padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+    }
+}
+
+.P60 {
+    @include mix.apply-ux-bg("30");
+    padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
+
+    @include mix.respond-to(v.$bp-small) {
+        padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+    }
+}
+.P65 {
+    @include mix.apply-ux-bg("45");
+    padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
     @include mix.respond-to(v.$bp-small) {
         padding: map.get(map.get(v.$design-scale, "sm"), "r-space");

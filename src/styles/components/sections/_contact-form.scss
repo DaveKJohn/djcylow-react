@@ -14,7 +14,7 @@
         width: 700px;
         flex-shrink: 0;
 
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(v.$bp-medium) {
             width: 100%;
         }
     }

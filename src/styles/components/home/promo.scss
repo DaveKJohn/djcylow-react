@@ -11,7 +11,7 @@
     .gradient {
         background-image: radial-gradient(at 58% 50%, rgba(0, 61, 61, 0.5) 0%, transparent 20%);
 
-        @include mix.respond-to(fn.get-breakpoint("medium")) {
+        @include mix.respond-to(v.$bp-medium) {
             background-image: none;
 
             // Laag 1: De "Dichte" staat (48%)
@@ -38,7 +38,7 @@
         }
     }
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(v.$bp-medium) {
         &:has(.read-more-container.is-open) {
             .background.gradient {
                 &::before {
@@ -63,7 +63,7 @@
             aspect-ratio: 16 / 9;
             position: relative;
 
-            @include mix.respond-to(fn.get-breakpoint("medium")) {
+            @include mix.respond-to(v.$bp-medium) {
                 width: 100%;
             }
 

@@ -12,7 +12,7 @@ $read_more_container_gap: map.get(map.get(v.$design-scale, "3xl"), "in-space");
     gap: 0 !important;
     transition: gap 0.5s ease;
 
-    @include mix.respond-to(fn.get-breakpoint("medium")) {
+    @include mix.respond-to(v.$bp-medium) {
         width: 100%;
     }
 
