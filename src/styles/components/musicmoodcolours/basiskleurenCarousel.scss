@@ -10,7 +10,7 @@ $card-height-basiskleuren: 150px;
 
 $h-gap: map.get(map.get(v.$design-scale, "2xl"), "r-space");
 $total-h-gap: calc(#{$h-gap} * 7);
-$h-spacing: calc((map.get(map.get(v.$design-scale, "6xl"), "in-space") * 9));
+$h-spacing: calc((map.get(map.get(v.$design-scale, "5xl"), "in-space") * 9));
 
 $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} + #{$h-spacing});
 
@@ -176,18 +176,9 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
                     }
 
                     .playing-wrapper {
-                        padding: 3px;
-                        gap: map.get(map.get(v.$design-scale, "sm"), "c-space");
+                     
 
-                        .timeline-wrapper {
-                            padding: 5px;
-
-                            .total,
-                            .progress {
-                                height: 4px;
-                            }
-                        }
-
+                       
                         // Player Controls
                         .layer-wrapper {
                             .pausefilters button {
@@ -243,7 +234,6 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
 
         @media (max-width: #{$total-content-width}) {
             align-items: flex-start !important;
-            padding-left: 0;
         }
     }
 }

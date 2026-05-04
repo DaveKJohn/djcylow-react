@@ -4,8 +4,26 @@
 @use "../../abstracts/functions" as fn;
 
 .carousels {
-    position: relative;
-    width: 100%;
+
+   
+
+    .no-scrollbar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        width: 100%;
+
+        // Verberg scrollbar
+        scrollbar-width: none; // Firefox
+        &::-webkit-scrollbar {
+            display: none; // Chrome/Safari
+        }
+
+        // Zorg dat de items niet krimpen
+        > * {
+            flex-shrink: 0;
+        }
+    }
 
     .arrow {
         display: flex;
@@ -16,7 +34,6 @@
         $row-1-h: map.get(map.get(v.$design-scale, "xl"), "c-space");
         $row-2-h: 70px;
         $gap: map.get(map.get(v.$design-scale, "base"), "c-space");
-       
 
         transform: translateY(-50%);
 
@@ -25,7 +42,6 @@
 
         z-index: 400;
 
-       
         touch-action: manipulation;
         -webkit-appearance: none;
         appearance: none;

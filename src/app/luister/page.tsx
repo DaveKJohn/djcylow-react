@@ -78,9 +78,11 @@ export default function LuisterPage() {
                                         tabIndex={0} // Gebruik accolades voor een number
                                         aria-label="Filter openen"
                                     >
-                                        <div className="row w-fill AMC P35 spacing-xl">
-                                            {FilterIcon}
-                                            <span>Filters</span>
+                                        <div className="column w-fill AMC P35">
+                                            <div className="row w-hug AMC spacing-xl in-push-xl">
+                                                {FilterIcon}
+                                                <span>Filters</span>
+                                            </div>
                                         </div>
                                     </div>
                                 )}

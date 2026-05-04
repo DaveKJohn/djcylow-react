@@ -42,33 +42,35 @@ export default function Carousel({ children, className = "", id }: CarouselProps
 	};
 
 	return (
-		<div className={`row AMC carousels ${className}`}>
-			{/* Linker Pijl */}
-			<div className={`arrow left ${!showLeftArrow ? 'hidden' : ''}`} onClick={() => scroll(-1)}>
-				<button className="btn">
-					<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-						<path fill="currentColor" fillRule="evenodd" d="M8.793 5.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.086 12 8.793 6.707a1 1 0 0 1 0-1.414" clipRule="evenodd" transform="rotate(180 12 12)" />
-					</svg>
-				</button>
-			</div>
+		<div className={`column w-fill AMC P30 carousels ${className}`}>
+			<div className={`stack w-fill AMC P35`}>
+				{/* Linker Pijl */}
+				<div className={`arrow left ${!showLeftArrow ? 'hidden' : ''}`} onClick={() => scroll(-1)}>
+					<button className="btn">
+						<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path fill="currentColor" fillRule="evenodd" d="M8.793 5.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.086 12 8.793 6.707a1 1 0 0 1 0-1.414" clipRule="evenodd" transform="rotate(180 12 12)" />
+						</svg>
+					</button>
+				</div>
 
-			{/* De Scroll Container */}
-			<div
-				className="column no-scrollbar"
-				id={id}
-				ref={scrollRef}
-				style={{ overflowX: 'auto', scrollBehavior: 'smooth' }}
-			>
-				{children}
-			</div>
+				{/* De Scroll Container */}
+				<div
+					className="column no-scrollbar"
+					id={id}
+					ref={scrollRef}
+					
+				>
+					{children}
+				</div>
 
-			{/* Rechter Pijl */}
-			<div className={`arrow right ${!showRightArrow ? 'hidden' : ''}`} onClick={() => scroll(1)}>
-				<button className="btn">
-					<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-						<path fill="currentColor" fillRule="evenodd" d="M8.793 5.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.086 12 8.793 6.707a1 1 0 0 1 0-1.414" clipRule="evenodd" />
-					</svg>
-				</button>
+				{/* Rechter Pijl */}
+				<div className={`arrow right ${!showRightArrow ? 'hidden' : ''}`} onClick={() => scroll(1)}>
+					<button className="btn">
+						<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path fill="currentColor" fillRule="evenodd" d="M8.793 5.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.086 12 8.793 6.707a1 1 0 0 1 0-1.414" clipRule="evenodd" />
+						</svg>
+					</button>
+				</div>
 			</div>
 		</div>
 	);

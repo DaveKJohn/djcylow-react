@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
+// Zorg dat useState en useEffect hier staan:
+import { useMemo, useState, useEffect } from 'react';
 import AudioPlayer from '../ui/AudioPlayer';
 import Link from 'next/link';
 
@@ -33,7 +34,7 @@ interface MixData {
     frequency: string;
     volume: string;
     audioSrc: string;
-    image_wide_small: string; // Deze gebruiken we nu voor het overzicht
+    image_wide_small: string;
     permalink: string;
     maand: string;
     dag: string;
@@ -46,6 +47,17 @@ const allMixesData: MixData[] = [
 ] as any;
 
 export default function Luister({ activeColor, activeGenre, activePower }: any) {
+    const [limit, setLimit] = useState(10);
+
+    // Reset de limiet naar 15 als de filters veranderen
+    useEffect(() => {
+        setLimit(10);
+    }, [activeColor, activeGenre, activePower]);
+
+    const showMore = () => {
+        setLimit((prevLimit) => prevLimit + 10);
+    };
+
     const filteredMixes = useMemo(() => {
         return allMixesData
             .filter(mix => {
@@ -59,34 +71,41 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
     }, [activeColor, activeGenre, activePower]);
 
     return (
-
-        <div className="row wrap w-hug AMC P30 spacing-xl fill-90" id="luister_content_playlist">
-            {filteredMixes.length > 0 ? (
-                filteredMixes.map((mix) => (
-                    <div key={mix.id} className="column w-hug AML P35 spacing-xl card ">
-                        <AudioPlayer
-                            id={mix.id}
-                            src={mix.audioSrc}
-                            image={mix.image_wide_small}
-                            className={mix.color?.toLowerCase()}
-                        />
-                        <div className="column w-hug AML ">
-                            <div className="column w-hug AML spacing-xs">
-                                <Link className="size-sm" href={`/${mix.permalink}`}>
-                                    {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
-                                </Link>
-                                <p className="size-xs">{mix.maand} {mix.dag}, {mix.jaar}</p>
+        <div className="column w-fill spacing-xl">
+            <div className="row wrap w-hug AMC P30 spacing-xl fill-90" id="luister_content_playlist">
+                {filteredMixes.length > 0 ? (
+                    filteredMixes.slice(0, limit).map((mix) => (
+                        <div key={mix.id} className="column w-hug AML P35 spacing-xl card ">
+                            <AudioPlayer
+                                id={mix.id}
+                                src={mix.audioSrc}
+                                image={mix.image_wide_small}
+                                className={mix.color?.toLowerCase()}
+                            />
+                            <div className="column w-hug AML ">
+                                <div className="column w-hug AML spacing-xs">
+                                    <Link className="size-sm" href={`/${mix.permalink}`}>
+                                        {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
+                                    </Link>
+                                    <p className="size-xs">{mix.maand} {mix.dag}, {mix.jaar}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))
-            ) : (
-                <p>Geen mixen gevonden voor deze combinatie.</p>
-            )}
-            <div className="card-dummy"></div>
-            <div className="card-dummy"></div>
+                    ))
+                ) : (
+                    <p>Geen mixen gevonden voor deze combinatie.</p>
+                )}
+
+                <div className="column w-hug AMC P35 spacing-xl">
+                    {filteredMixes.length > limit && (
+                        <button onClick={showMore} className="btn passive load-more">
+                            Laad meer
+                        </button>
+                    )}
+                </div>
+            </div>
+
+
         </div>
-
-
     );
 }

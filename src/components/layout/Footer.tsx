@@ -4,30 +4,33 @@ import EmailDisplay from "@/components/common/EmailDisplay";
 
 export default function Footer() {
     return (
-        <footer className="WoB column w-fill AMC P10 v-push-6xl  fill-100">
+        <footer className="WoB column w-fill AMC P10 fill-90">
 
-            <div className="column w-fill AMC P20 spacing-3xl">
+            <div className="column w-fill AMC P20">
 
                 <div className="column w-fix AMC constrainer">
 
                     <div className="column w-fill AMC P30">
-                        <Link href="/" className="btn">
-                            <Image
-                                src="/images/djcylow_logo.webp"
-                                alt="DJ Cylow logo"
-                                width={280}
-                                height={88}
-                                priority
-                                style={{
-                                    height: 'auto'
-                                }}
-                            />
-                        </Link>
+
+                        <div className="column w-hug AMC P35">
+                            <Link href="/" className="btn">
+                                <Image
+                                    src="/images/djcylow_logo.webp"
+                                    alt="DJ Cylow logo"
+                                    width={280}
+                                    height={88}
+                                    priority
+                                    style={{
+                                        height: 'auto'
+                                    }}
+                                />
+                            </Link>
+                        </div>
                     </div>
                 </div>
 
                 <div className="column w-fix AMC constrainer">
-                   
+
                     <div className="row w-fill AMC P30 spacing-2xl">
 
                         <div className="column w-hug AMC P35">

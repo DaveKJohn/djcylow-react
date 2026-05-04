@@ -119,16 +119,8 @@ $card-height-vs: 150px;
                     }
 
                     .playing-wrapper {
-                        padding: 3px;
-                        gap: map.get(map.get(v.$design-scale, "base"), "c-space");
 
-                        .timeline-wrapper {
-                            padding: 5px;
-                            .total,
-                            .progress {
-                                height: 4px;
-                            }
-                        }
+                        
 
                         .layer-wrapper {
                             .pausefilters button {

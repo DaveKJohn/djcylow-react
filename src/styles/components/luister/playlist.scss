@@ -37,4 +37,10 @@
             visibility: hidden;
         }
     }
+
+    .btn.load-more {
+        max-width: 150px;
+        padding: 14px 28px;
+        font-size: map.get(map.get(v.$design-scale, "base"), "font-size");
+    }
 }

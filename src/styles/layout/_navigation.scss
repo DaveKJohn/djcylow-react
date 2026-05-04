@@ -91,16 +91,19 @@ nav {
         }
     }
 
-    
     &.P10 {
         @include mix.apply-ux-bg("10");
     }
 
     .P20 {
         @include mix.apply-ux-bg("20");
-        padding: 0 map.get(map.get(v.$design-scale, "4xl"), "r-space");
+        padding: 0 map.get(map.get(v.$design-scale, "xl"), "r-space");
 
         @include mix.respond-to(fn.get-breakpoint("large")) {
+            padding: 0 map.get(map.get(v.$design-scale, "xl"), "r-space");
+        }
+
+        @include mix.respond-to(fn.get-breakpoint("medium")) {
             padding: 0 map.get(map.get(v.$design-scale, "base"), "r-space");
         }
     }

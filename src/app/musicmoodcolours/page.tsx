@@ -48,7 +48,7 @@ export default function MusicMoodColoursPage() {
             </div>
 
 
-            <div className="WoB column w-fill AMC P10 spacing-6xl bot-push-7xl">
+            <div className="WoB column w-fill AMC P10 spacing-4xl bot-push-7xl">
 
                 {/* 2. INTRO */}
                 <div className="column w-fill AMC P20 spacing-6xl" id="intro">
@@ -75,12 +75,12 @@ export default function MusicMoodColoursPage() {
                         <div className="column w-hug AML P30 spacing-4xl">
 
                             {/* 3. KLEURENSPECTRUM */}
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
                                 <h2>Het kleurenspectrum van muziek</h2>
                             </div>
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
                                 <p>{musicMoodColoursContent.spectrum.s2p1}</p>
 
@@ -92,7 +92,7 @@ export default function MusicMoodColoursPage() {
 
                             </div>
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
                                 <p>{musicMoodColoursContent.spectrum.s2p2}</p>
                             </div>
                         </div>
@@ -107,13 +107,14 @@ export default function MusicMoodColoursPage() {
 
                         <div className="column w-hug AML P30 spacing-2xl">
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                           
 
-                                <h3>De taal van emotie</h3>
+                               
 
-                            </div>
+                          
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
+                                 <h3>De taal van emotie</h3>
 
                                 <p>{musicMoodColoursContent.spectrum.s2p3}</p>
                                 <p>{musicMoodColoursContent.spectrum.s2p4}</p>
@@ -133,7 +134,7 @@ export default function MusicMoodColoursPage() {
 
                         <div className="column w-hug AML P30 spacing-2xl">
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
                                 <h2>Complementaire muziekstemmingen</h2>
 
@@ -141,7 +142,7 @@ export default function MusicMoodColoursPage() {
 
                             </div>
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
 
                                 <div className="column spacing-4xl">
@@ -173,7 +174,7 @@ export default function MusicMoodColoursPage() {
 
                         <div className="column w-hug AML P30 spacing-2xl">
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
 
 
@@ -186,13 +187,13 @@ export default function MusicMoodColoursPage() {
 
 
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
                                 <p>{musicMoodColoursContent.neuro.s4p1}</p>
 
                             </div>
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
                                 <ul className="column spacing-3xl">
                                     <li className="column spacing-xl">
@@ -211,7 +212,7 @@ export default function MusicMoodColoursPage() {
 
                             </div>
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
                                 <p>{musicMoodColoursContent.neuro.s4p5}</p>
 
@@ -223,7 +224,7 @@ export default function MusicMoodColoursPage() {
 
                             </div>
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
                                 <p>{musicMoodColoursContent.neuro.s4p6}</p>
                             </div>
@@ -232,7 +233,7 @@ export default function MusicMoodColoursPage() {
                                 <KubusHoeken />
                             </div>
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
                                 <p>{musicMoodColoursContent.neuro.s4p7}</p>
                             </div>
 
@@ -257,7 +258,7 @@ export default function MusicMoodColoursPage() {
 
                         <div className="column w-hug AML P30 spacing-2xl">
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
 
                                 <h2>Conclusie</h2>
@@ -265,7 +266,7 @@ export default function MusicMoodColoursPage() {
 
                             </div>
 
-                            <div className="column w-hug AML P35 spacing-5xl">
+                            <div className="column w-hug AML P35 spacing-3xl">
 
 
                                 <div className="column spacing-4xl">

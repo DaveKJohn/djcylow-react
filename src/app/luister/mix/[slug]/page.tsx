@@ -64,37 +64,55 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
     return (
         <main className="luister mix">
-            <section className="WoB column text-wrapper " id="luister_mix">
-                <div className="column w-fill constrainer">
-                    <div className="column spacing-5xl v-push-6xl">
+            <section className="WoB column w-fill AML P10 fill-100   v-push-3xl" id="luister_mix">
 
-                        <div className="column extra spacing-3xl return-wrapper">
-                            <BackButton />
-                        </div>
+                <div className="column w-fill AML P20 ">
 
-                        <div className="column text-wrapper header">
-                            <h1 className="uppercase">
-                                {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
-                            </h1>
-                        </div>
+                    <div className="column w-fix AML constrainer">
 
-                        <AudioPlayer
-                            id={mix.id}
-                            src={mix.audioSrc}
-                            image={mix.image_wide_large} 
-                            showVolumeSlider={true}
-                            className={mix.color?.toLowerCase()}
-                        />
 
-                        {/* TRACKLIST */}
-                        <div className="column text-wrapper spacing-xl tracklist">
-                            <div className="row text-wrapper">
-                                <div className="column text-wrapper h-start header">
-                                    <h3 className="size-base bold">Tracklist</h3>
-                                </div>
-                                {/* Spotify link logica blijft gelijk */}
+
+                        <div className="column w-fill AML P30 spacing-3xl">
+
+
+
+                            <div className="column w-hug AML P35 return-wrapper">
+
+
+                                <BackButton />
+
+
                             </div>
-                            <div className="column text-wrapper table v-push-xs">
+
+                            <div className="column w-hug AML P35 header">
+                                <h1 className="uppercase">
+                                    {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
+                                </h1>
+                            </div>
+
+                            <div className="column w-fill AML P35">
+
+                                <AudioPlayer
+                                    id={mix.id}
+                                    src={mix.audioSrc}
+                                    image={mix.image_wide_large}
+                                    showVolumeSlider={true}
+                                    className={mix.color?.toLowerCase()}
+                                />
+
+                            </div>
+
+                            <div className="column w-hug AML P35 spacing-xl tracklist">
+
+                                {/* TRACKLIST */}
+
+                                <div className="row text-wrapper">
+                                    <div className="column text-wrapper h-start header">
+                                        <h3 className="size-base bold">Tracklist</h3>
+                                    </div>
+                                    {/* Spotify link logica blijft gelijk */}
+                                </div>
+
                                 <table>
                                     <tbody>
                                         {Array.isArray(mix.tracklist) && mix.tracklist.length > 0 ? (
@@ -111,7 +129,11 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                         )}
                                     </tbody>
                                 </table>
+
+
                             </div>
+
+
                         </div>
                     </div>
                 </div>

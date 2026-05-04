@@ -98,7 +98,7 @@ $list-styles: (
     )
 );
 
-$table-styles: (
+$table-styles: (   
     "td": (
         "scale-key": "sm",
         "padding": map.get(map.get(v.$design-scale, "2xl"), "c-space") 0
