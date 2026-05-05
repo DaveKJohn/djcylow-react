@@ -95,10 +95,6 @@
     }
 }
 
-.P40-xl {
-    @include mix.apply-ux-bg("40");
-    @include mix.p-spacing("3xl", "xl");
-}
 
 /*BANNER*/
 .P30-banner {

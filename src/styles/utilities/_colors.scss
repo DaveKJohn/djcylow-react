@@ -77,3 +77,11 @@
         }
     }
 }
+
+// Verander 'mix' naar 'tools' in deze loop
+@each $val in "35", "40", "45" {
+    .P#{$val}-xl {
+        @include tools.apply-ux-bg($val);
+        @include tools.p-spacing("3xl", "xl");
+    }
+}

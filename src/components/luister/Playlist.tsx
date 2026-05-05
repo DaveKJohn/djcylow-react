@@ -103,7 +103,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                         <p>Geen mixen gevonden voor deze combinatie.</p>
                     )}
 
-                    <div className="column w-hug AMC P45 extra spacing-6xl"> 
+                    <div className="column w-hug AMC P45-xl extra spacing-6xl"> 
                         {filteredMixes.length > limit && (
                             <button onClick={showMore} className="btn passive P50 load-more">
                                 Laad meer

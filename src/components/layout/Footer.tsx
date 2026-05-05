@@ -31,7 +31,7 @@ export default function Footer() {
 
                     <div className="column w-fill AMC P30 ">
 
-                        <div className="column w-hug AMC P35 spacing-xl">
+                        <div className="column w-hug AMC P35 ">
 
                             <div className="row w-hug AMC P40 spacing-2xl">
 

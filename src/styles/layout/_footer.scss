@@ -7,7 +7,7 @@ footer {
     color: var(--white-80);
 
     img {
-        width: 230px;
+        width: 240px;
         height: auto;
     }
 
@@ -34,7 +34,14 @@ footer {
 
     .constrainer {
         @include mix.respond-to(v.$bp-small) {
-            gap: 14px;
+            gap: 4px;
+        }
+    }
+
+    .P35 {
+        gap: 8px;
+        @include mix.respond-to(v.$bp-small) {
+            gap: 20px;
         }
     }
 }
