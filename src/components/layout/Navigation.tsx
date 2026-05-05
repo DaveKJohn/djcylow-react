@@ -33,7 +33,9 @@ export default function Nav() {
                 <div className="row w-fix AMC constrainer-nav">
 
                     <div className="column w-hug AML P30" id="nav_logo">
+
                         <div className="column w-hug AMC P35">
+
                             <Link className="btn" href="/">
                                 <Image
                                     src="/images/djcylow_logo.webp"
@@ -42,38 +44,37 @@ export default function Nav() {
                                     alt="Logo"
                                 />
                             </Link>
+
                         </div>
+
                     </div>
 
 
                     <div className="row-c w-fill constrainer" id="nav_menu">
 
-
-
-
                         <MobileContent
                             id="nav_menu_content"
                             trigger={(toggle) => (
                                 <div id="nav_menu_mobileBtn" className="column w-fill AMC P30" >
-                                    <div className="column w-fill AMC P35">
-                                        <button className="btn" onClick={toggle} aria-label="Menu openen">
-                                            {HamburgerIcon}
-                                        </button>
-                                    </div>
+
+                                    <button className="btn" onClick={toggle} aria-label="Menu openen">
+                                        {HamburgerIcon}
+                                    </button>
+
                                 </div>
                             )}
                         >
 
-                            <div className="row-c w-fill AML P40 break-s spacing-2xl anchor-wrapper">
+                            <div className="row-c w-fill AML P50 break-s anchor-wrapper">
 
-                                <Link className="column w-fill AML P45 btn anchor" href="/luister">
+                                <Link className="column w-fill AML P55 btn anchor" href="/luister">
                                     <span className="left">Luister</span>
                                 </Link>
 
 
                                 <div className="splitter mobile"></div>
 
-                                <Link className="column w-fill AML P45 btn anchor" href="/musicmoodcolours">
+                                <Link className="column w-fill AML P55 btn anchor" href="/musicmoodcolours">
                                     <span className="left">Music Mood Colours</span>
                                 </Link>
 
@@ -87,11 +88,15 @@ export default function Nav() {
 
 
                     <div className="column w-hug AMR P30" id="nav_cta">
+
                         <div className="column w-hug AMC P35">
+
                             <Link className="btn cta center boek-nu-btn" href="/diensten">
                                 <span>Boek nu!</span>
                             </Link>
+
                         </div>
+
                     </div>
                 </div>
             </div>

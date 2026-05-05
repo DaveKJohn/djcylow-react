@@ -76,10 +76,10 @@ export default function MobileContent({
 
                     <div
                         id={id}
-                        className={`row-c break-s w-fill ATC drawer ${isMobile ? "ready" : "locked"} ${isOpen ? "open" : "closed"} ${wrapperClass}`}
+                        className={`row-c break-s ATC P40 drawer ${isMobile ? "ready" : "locked"} ${isOpen ? "open" : "closed"} ${wrapperClass}`}
                     >
                         {isMobile && (
-                            <div className="column w-fill AMC P40 drawer-header">
+                            <div className="column w-fill AMC P45 drawer-header">
                                 <div className="headerTitleGroup">
                                     {icon && <div className="headerIcon">{icon}</div>}
                                     {title && <p className="headerTitleText">{title}</p>}
@@ -90,7 +90,7 @@ export default function MobileContent({
 
                         <div className="splitter mobile"></div>
 
-                        <div className="column w-fill ATC drawer-content">
+                        <div className="column w-fill ATC P45 drawer-content">
                             {typeof children === 'function' ? children(toggle) : children}
                         </div>
                     </div>

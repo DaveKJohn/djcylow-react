@@ -24,5 +24,6 @@ body {
 
     @include mix.respond-to(v.$bp-small) {
         padding-top: v.$nav-height-small;
-    }   
+    }
+   
 }

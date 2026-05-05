@@ -101,6 +101,6 @@
     padding: 53px map.get(map.get(v.$design-scale, "xl"), "r-space");
 
     @include mix.respond-to(v.$bp-small) {
-        padding: 93px map.get(map.get(v.$design-scale, "base"), "r-space");
+        padding: 93px map.get(map.get(v.$design-scale, "sm"), "r-space");
     }
 }

@@ -11,112 +11,114 @@ nav {
     right: 0;
     z-index: 1000;
 
-    #nav_logo {
-        flex: 1 1 0;
-        order: 1;
-
-        img {
-            width: 160px;
-            height: auto;
-        }
+    .constrainer-nav {
+        max-width: none;
+        width: 100%;
+        gap: map.get(map.get(v.$design-scale, "2xl"), "r-space");
 
         @include mix.respond-to(v.$bp-small) {
+            gap: map.get(map.get(v.$design-scale, "xs"), "r-space");
+        }
+
+        #nav_logo {
+            flex: 1 1 0;
+            order: 1;
+
             img {
-                width: 115px;
+                width: 160px;
+                height: auto;
             }
-        }
-    }
 
-    #nav_cta {
-        flex-grow: 1;
-        flex-basis: 0;
-        order: 3;
-
-        @include mix.respond-to(v.$bp-medium) {
-            flex-grow: 0;
-            flex-basis: auto;
-            order: 2;
-        }
-    }
-
-    #nav_menu {
-        justify-content: flex-start;
-
-        margin: 0 auto;
-        max-width: v.$desktop-max-width;
-        order: 2;
-
-        @include mix.respond-to(v.$bp-large) {
-            justify-content: flex-end;
-        }
-
-        @include mix.respond-to(v.$bp-small) {
-            order: 3;
-            flex-basis: auto;
-            width: auto;
-        }
-
-        #nav_menu_content {
-            .btn.anchor {
-                position: relative;
-                text-align: left;
-                font-size: 18px;
-                font-weight: 500;
-                line-height: 28px;
-                white-space: nowrap;
-
-                @include mix.respond-to(v.$bp-small) {
-                    &::after {
-                        content: none; // Verwijdert het element volledig op mobiel
-                    }
-
-                    &:hover::after {
-                        border: none; // Zorgt dat er geen hover-activiteit meer is
-                    }
+            @include mix.respond-to(v.$bp-small) {
+                img {
+                    width: 115px;
                 }
             }
         }
 
-        #nav_menu_mobileBtn {
-            cursor: pointer;
-            border: none;
-            color: white;
-            background: transparent;
-            z-index: 1100;
+        #nav_cta {
+            flex-grow: 1;
+            flex-basis: 0;
+            order: 3;
 
-            display: none; // Standaard volledig verbergen (ook uit de layout)
+            @include mix.respond-to(v.$bp-medium) {
+                flex-grow: 0;
+                flex-basis: auto;
+                order: 2;
+            }
+        }
 
-            @include mix.respond-to(v.$bp-small) {
-                display: flex; // Alleen tonen op het kleine breakpoint
+        #nav_menu {
+            justify-content: flex-start;
+
+            margin: 0 auto;
+            max-width: v.$desktop-max-width;
+            order: 2;
+
+            @include mix.respond-to(v.$bp-large) {
+                justify-content: flex-end;
             }
 
-            svg {
-                display: block; // Voorkom inline spacing issues
+            @include mix.respond-to(v.$bp-small) {
+                order: 3;
+                flex-basis: auto;
+                width: auto;
+            }
+
+            #nav_menu_content {
+                .btn.anchor {
+                    position: relative;
+                    text-align: left;
+                    font-size: 18px;
+                    font-weight: 500;
+                    line-height: 28px;
+                    white-space: nowrap;
+
+                    @include mix.respond-to(v.$bp-small) {
+                        &::after {
+                            content: none; // Verwijdert het element volledig op mobiel
+                        }
+
+                        &:hover::after {
+                            border: none; // Zorgt dat er geen hover-activiteit meer is
+                        }
+                    }
+                }
+            }
+
+            #nav_menu_mobileBtn {
+                cursor: pointer;
+                border: none;
+                color: white;
+                background: transparent;
+                z-index: 1100;
+
+                display: none; // Standaard volledig verbergen (ook uit de layout)
+
+                @include mix.respond-to(v.$bp-small) {
+                    display: flex; // Alleen tonen op het kleine breakpoint
+                }
+
+                svg {
+                    display: block; // Voorkom inline spacing issues
+                }
             }
         }
     }
 
     .P20 {
-        padding: 0 map.get(map.get(v.$design-scale, "lg"), "r-space");
+        padding: 0 map.get(map.get(v.$design-scale, "2xl"), "r-space");
 
         @include mix.respond-to(v.$bp-small) {
-            padding: 0 map.get(map.get(v.$design-scale, "sm"), "r-space");
+            padding: 0 map.get(map.get(v.$design-scale, "base"), "r-space");
         }
     }
 
-    .P30 {
-        padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
+    .P50 {
+        gap: map.get(map.get(v.$design-scale, "4xl"), "r-space");
 
         @include mix.respond-to(v.$bp-small) {
-            padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
-        }
-    }
-
-    .P35 {
-        padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
-
-        @include mix.respond-to(v.$bp-small) {
-            padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+            gap: map.get(map.get(v.$design-scale, "xl"), "r-space");
         }
     }
 }

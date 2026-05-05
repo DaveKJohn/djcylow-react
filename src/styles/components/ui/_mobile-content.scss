@@ -31,6 +31,22 @@
     display: flex; // Dit moet ALTIJD gelden, ook op desktop
     z-index: 200;
 
+    &.P40 {
+        padding: 0;
+
+        @include mix.respond-to(v.$bp-small) {
+            padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+        }
+
+        .P45 {
+            padding: 0;
+
+            @include mix.respond-to(v.$bp-small) {
+                padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+            }
+        }
+    }
+
     // DESKTOP / LOCKED STATUS (Hier miste de styling)
     &.locked {
         display: flex;
@@ -129,24 +145,7 @@
     }
 }
 
+// Jouw bestaande desktop hide rule
 .drawer.hidden-desktop.locked {
     display: none;
-}
-
-/*DRAWER*/
-.P50.drawer {
-    padding: 0;
-
-    @include mix.respond-to(v.$bp-small) {
-        padding: map.get(map.get(v.$design-scale, "base"), "r-space");
-    }
-
-    .P55.drawer-content,
-    .P55.drawer-header {
-        padding: 0;
-
-        @include mix.respond-to(v.$bp-small) {
-            padding: map.get(map.get(v.$design-scale, "base"), "r-space");
-        }
-    }
 }
