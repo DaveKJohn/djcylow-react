@@ -362,30 +362,21 @@
         $target-key: null;
 
         // Mapping van P-shades naar de nieuwe UX kleur-keys
-        @if $s == "15" {
-            $target-key: "R80";
-        } @else if $s == "20" {
-            $target-key: "R90";
-        } @else if $s == "30" {
-            $target-key: "G90";
-        } @else if $s == "35" {
-            $target-key: "G80";
-        } @else if $s == "40" {
-            $target-key: "B90";
-        } @else if $s == "45" {
-            $target-key: "B80";
-        } @else if $s == "50" {
-            $target-key: "Y90";
-        } @else if $s == "55" {
-            $target-key: "Y80";
-        } @else if $s == "60" {
-            $target-key: "M90";
-        } @else if $s == "65" {
-            $target-key: "M80";
-        }
+        @if v.$ux-mode == true {
+            $shade-map: (
+                "15": "R80",
+                "20": "R90",
+                "30": "G90",
+                "35": "G80",
+                "40": "B90",
+                "45": "B80",
+                "50": "Y90",
+                "55": "Y80",
+                "60": "M90",
+                "65": "M80"
+            );
 
-        @if $target-key {
-            // Logica: eindigt op 5? Dan outline.
+            $target-key: map.get($shade-map, "#{$shade}");           
             $use-stroke: (string.slice($s, -1) == "5");
 
             @at-root body.ux-mode #{&} {
@@ -410,5 +401,14 @@
                 color: #000000 !important;
             }
         }
+    }
+}
+
+@mixin p-spacing($lg: "lg", $sm: "sm") {
+    padding: map.get(map.get(v.$design-scale, $lg), "r-space");
+
+    // VERWIJDER "mix." hier:
+    @include respond-to(v.$bp-small) { 
+        padding: map.get(map.get(v.$design-scale, $sm), "r-space");
     }
 }

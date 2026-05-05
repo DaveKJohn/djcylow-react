@@ -110,11 +110,30 @@ nav {
         padding: 0 map.get(map.get(v.$design-scale, "2xl"), "r-space");
 
         @include mix.respond-to(v.$bp-small) {
-            padding: 0 map.get(map.get(v.$design-scale, "base"), "r-space");
+            padding: 0 map.get(map.get(v.$design-scale, "sm"), "r-space");
         }
     }
 
-    .P50 {
+    .P40 {
+        @include mix.apply-ux-bg("40");
+        &[class*="fill-"] {
+            padding: map.get(map.get(v.$design-scale, "3xl"), "r-space");
+
+            @include mix.respond-to(v.$bp-small) {
+                padding: map.get(map.get(v.$design-scale, "2xl"), "r-space");
+            }
+        }
+
+        &:not([class*="fill-"]) {
+            padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
+
+            @include mix.respond-to(v.$bp-small) {
+                padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+            }
+        }
+    }
+
+    .P60 {
         gap: map.get(map.get(v.$design-scale, "4xl"), "r-space");
 
         @include mix.respond-to(v.$bp-small) {

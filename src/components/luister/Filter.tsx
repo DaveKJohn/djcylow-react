@@ -17,7 +17,7 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
     return (
 
 
-        <div className="column w-fill AMC P55 spacing-3xl">
+        <div className="column w-fill AMC P65 spacing-3xl">
             {/* MOOD SECTIE */}
             <div className="column w-fill AMC spacing-xs">
                 <div className="column w-fill AMC">

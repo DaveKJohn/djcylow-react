@@ -9,6 +9,7 @@ $bp-large: fn.get-breakpoint("large");
 $bp-medium: fn.get-breakpoint("medium");
 $bp-small: fn.get-breakpoint("small");
 
+$p-values: "15", "20", "30", "35", "40", "45", "50", "55", "60", "65";
 
 // --- Font ---
 $base-font: var(--font-poppins), "Poppins", Arial, sans-serif;
@@ -19,7 +20,7 @@ $desktop-max-width: 1300px;
 // --- Nav heights ---
 $nav-height-large: 79px;
 $nav-height-medium: 79px;
-$nav-height-small: 50px;
+$nav-height-small: 58px;
 
 // --- Banner heights ---
 $banner-height-large: 96px 0;

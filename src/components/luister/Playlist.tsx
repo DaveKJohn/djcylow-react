@@ -76,7 +76,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
 
             <div className="column w-hug AMC P35 spacing-xl">
 
-                <div className="row wrap w-hug AMC P40 spacing-xl fill-90">
+                <div className="row wrap w-hug AMC P40-xl spacing-xl fill-90">
 
 
 

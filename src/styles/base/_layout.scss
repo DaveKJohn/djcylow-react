@@ -71,7 +71,6 @@
 
         &.feathers {
             .sides {
-                
                 background: linear-gradient(
                     to right,
                     black 0%,
@@ -83,7 +82,7 @@
                 );
             }
 
-            .bottom {                
+            .bottom {
                 background: linear-gradient(
                     to bottom,
                     transparent 0%,
@@ -96,7 +95,20 @@
     }
 }
 
+.P40-xl {
+    @include mix.apply-ux-bg("40");
+    @include mix.p-spacing("3xl", "xl");
+}
 
+/*BANNER*/
+.P30-banner {
+    @include mix.apply-ux-bg("30");
+    padding: 53px map.get(map.get(v.$design-scale, "xl"), "r-space");
+
+    @include mix.respond-to(v.$bp-small) {
+        padding: 93px map.get(map.get(v.$design-scale, "sm"), "r-space");
+    }
+}
 
 .fullscreen {
     min-height: calc(100vh - v.$nav-height-large);
@@ -121,7 +133,6 @@
     }
 }
 
-
 .hidden {
     display: none;
 }
@@ -134,7 +145,7 @@
         $ux-black-50: map.get(map.get(v.$colors, "ux-black"), "50");
         $ux-white-50: map.get(map.get(v.$colors, "ux-white"), "50");
 
-        // We gebruiken interpolatie #{} om er zeker van te zijn dat 
+        // We gebruiken interpolatie #{} om er zeker van te zijn dat
         // de splitter correct wordt genest onder de modus-classes.
         @at-root body.ux-mode {
             .WoB .splitter {
@@ -154,4 +165,3 @@
         }
     }
 }
-

@@ -130,7 +130,7 @@ export default function ContactForm() {
 
                             <div className="column w-fill AML P35">
 
-                                <div className="column w-fill AML P40 fill-80">
+                                <div className="column w-fill AML P40-xl fill-80">
                                     <input className="column w-fill AML P45" type="hidden" name="form-name" value="contact" />
 
                                     <div className="column w-fill AML P45" style={{ display: "none" }}>
@@ -200,7 +200,7 @@ export default function ContactForm() {
 
                         <div className="column w-fill AMC P35">
 
-                            <div className="column w-fill AMC P40 fill-80">
+                            <div className="column w-fill AMC P40-xl fill-80">
 
                                 <div className="column w-fill AMC P45 spacing-2xl">
 

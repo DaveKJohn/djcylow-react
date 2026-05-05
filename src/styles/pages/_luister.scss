@@ -15,7 +15,7 @@
             gap: map.get(map.get(v.$design-scale, "xs"), "c-space");
 
             @include mix.respond-to(fn.get-breakpoint("small")) {
-                gap: map.get(map.get(v.$design-scale, "xl"), "c-space");
+                gap: map.get(map.get(v.$design-scale, "xs"), "c-space");
             }
         }
 

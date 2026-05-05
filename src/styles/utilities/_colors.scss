@@ -67,3 +67,13 @@
         }
     }
 }
+
+@each $val in v.$p-values {
+    .P#{$val} {
+        @include tools.apply-ux-bg($val); // Verander mix naar tools
+        
+        @if $val != "15" {
+            @include tools.p-spacing; 
+        }
+    }
+}

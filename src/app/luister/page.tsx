@@ -93,7 +93,7 @@ export default function LuisterPage() {
                                             )}
                                         >
                                             {() => (
-                                                <div className="column w-fill AML P50 break-s spacing-2xl">
+                                                <div className="column w-fill AML P60 break-s spacing-2xl">
                                                     <Filter
                                                         activeColor={activeColor}
                                                         setActiveColor={setActiveColor}

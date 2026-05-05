@@ -74,7 +74,7 @@ export default function Footer() {
                             </div>
 
 
-                            <div className="row-c w-fill AMC P40 break-s spacing-xl">
+                            <div className="row-c w-fill AMC P40 break-s spacing-2xl">
 
                                 <span className="size-xs P45"><EmailDisplay user="info" domain="djcylow.com" /></span>
 

@@ -127,39 +127,4 @@
         }
     }
 
-    .P50 {
-        @include mix.apply-ux-bg("20");
-        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
-
-        @include mix.respond-to(v.$bp-small) {
-            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
-        }
-    }
-
-    .P55 {
-        @include mix.apply-ux-bg("35");
-        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
-
-        @include mix.respond-to(v.$bp-small) {
-            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
-        }
-    }
-
-    .P60 {
-        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
-        @include mix.apply-ux-bg("30");
-
-        @include mix.respond-to(v.$bp-small) {
-            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
-        }
-    }
-
-    .P65 {
-        @include mix.apply-ux-bg("45");
-        padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
-
-        @include mix.respond-to(v.$bp-small) {
-            padding: map.get(map.get(v.$design-scale, "xs"), "r-space");
-        }
-    }
 }

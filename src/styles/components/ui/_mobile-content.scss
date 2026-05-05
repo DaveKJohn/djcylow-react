@@ -31,14 +31,14 @@
     display: flex; // Dit moet ALTIJD gelden, ook op desktop
     z-index: 200;
 
-    &.P40 {
+    &.P50 {
         padding: 0;
 
         @include mix.respond-to(v.$bp-small) {
             padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
         }
 
-        .P45 {
+        .P55 {
             padding: 0;
 
             @include mix.respond-to(v.$bp-small) {

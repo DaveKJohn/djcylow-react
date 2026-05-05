@@ -12,7 +12,6 @@
 @use "base/reset"; // 2. Browser reset & body stijlen
 @use "base/typography"; // 3. Typography (h1-h6, p) -> Voor elements, want knoppen gebruiken vaak tekststijlen
 @use "base/layout"; // 4b. Flex-bouwstenen (stack, row, column, constrainer)
-@use "base/padding"; // 4c. De main padding
 
 
 // LAYOUT

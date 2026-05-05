@@ -57,24 +57,26 @@ export default function Nav() {
                             trigger={(toggle) => (
                                 <div id="nav_menu_mobileBtn" className="column w-fill AMC P30" >
 
-                                    <button className="btn" onClick={toggle} aria-label="Menu openen">
-                                        {HamburgerIcon}
-                                    </button>
+                                    <div className="column w-hug AMC P35">
 
+                                        <button className="btn" onClick={toggle} aria-label="Menu openen">
+                                            {HamburgerIcon}
+                                        </button>
+                                    </div>
                                 </div>
                             )}
                         >
 
-                            <div className="row-c w-fill AML P50 break-s anchor-wrapper">
+                            <div className="row-c w-fill AML P60 break-s anchor-wrapper">
 
-                                <Link className="column w-fill AML P55 btn anchor" href="/luister">
+                                <Link className="column w-fill AML P65 btn anchor" href="/luister">
                                     <span className="left">Luister</span>
                                 </Link>
 
 
                                 <div className="splitter mobile"></div>
 
-                                <Link className="column w-fill AML P55 btn anchor" href="/musicmoodcolours">
+                                <Link className="column w-fill AML P65 btn anchor" href="/musicmoodcolours">
                                     <span className="left">Music Mood Colours</span>
                                 </Link>
 
