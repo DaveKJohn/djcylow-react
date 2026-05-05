@@ -21,7 +21,7 @@ export default function MusicMoodColoursPage() {
 
 
             {/* 1. BANNER */}
-            <div className="WoB stack w-fill AMC P10 banner  v-push-7xl" id="mmc_banner">
+            <div className="WoB stack w-fill AMC P15 banner  v-push-7xl" id="mmc_banner">
 
                 <div className="layer AMC visual back" id="mmc_banner_back"></div>
 
@@ -48,7 +48,7 @@ export default function MusicMoodColoursPage() {
             </div>
 
 
-            <div className="WoB column w-fill AMC P10 spacing-4xl bot-push-7xl">
+            <div className="WoB column w-fill AMC P15 spacing-4xl bot-push-7xl">
 
                 {/* 2. INTRO */}
                 <div className="column w-fill AMC P20 spacing-6xl" id="intro">

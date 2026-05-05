@@ -15,7 +15,7 @@ const Promo = () => {
 
 
     return (
-        <div className="WoB stack w-fill AMC P10 fullscreen v-push-7xl fill-100" id="promo">
+        <div className="WoB stack w-fill AMC P15 fullscreen v-push-7xl fill-100" id="promo">
 
             <div className="layer gradient" id="promo_back"></div>
 

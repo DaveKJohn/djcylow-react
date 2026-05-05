@@ -5,12 +5,14 @@
 
 footer {
     color: var(--white-80);
-    
 
     img {
-        width: 260px;
+        width: 230px;
+        height: auto;
+    }
 
-        @include mix.respond-to(v.$bp-medium) {
+    @include mix.respond-to(v.$bp-small) {
+        img {
             width: 200px;
         }
     }
@@ -35,6 +37,4 @@ footer {
             gap: 14px;
         }
     }
-
-    
 }

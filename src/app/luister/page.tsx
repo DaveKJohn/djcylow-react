@@ -38,7 +38,7 @@ export default function LuisterPage() {
     return (
         <main className={styles.pageWrapper}>
             {/* Banner bovenaan */}
-            <section className="WoB column w-fill AMC P10 v-push-4xl" id="luister">
+            <section className="WoB column w-fill AMC P15 v-push-4xl" id="luister">
 
                 <div className="column w-fill AMC P20 spacing-2xl" id="luister_banner">
                     <div className="column w-fix AMC constrainer">

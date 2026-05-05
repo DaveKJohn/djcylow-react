@@ -15,6 +15,11 @@ nav {
         flex: 1 1 0;
         order: 1;
 
+        img {
+            width: 160px;
+            height: auto;
+        }
+
         @include mix.respond-to(v.$bp-small) {
             img {
                 width: 115px;

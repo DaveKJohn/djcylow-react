@@ -27,7 +27,7 @@ export default function Nav() {
 
 
     return (
-        <nav className="WoB column w-fill AMC P10 fill-100">
+        <nav className="WoB column w-fill AMC P15 fill-100">
 
             <div className="column w-fill AMC P20">
                 <div className="row w-fix AMC constrainer-nav">
@@ -37,9 +37,9 @@ export default function Nav() {
                             <Link className="btn" href="/">
                                 <Image
                                     src="/images/djcylow_logo.webp"
-                                    width={130} height={51}
-                                    alt="Logo" priority
-                                    style={{ height: 'auto' }}
+                                    width={130}
+                                    height={51}
+                                    alt="Logo"
                                 />
                             </Link>
                         </div>

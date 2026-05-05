@@ -3,8 +3,8 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
-.P10 {
-    @include mix.apply-ux-bg("35");
+.P15 {
+    @include mix.apply-ux-bg("15");
 }
 
 .P20 {
@@ -62,7 +62,7 @@
 }
 
 .P50 {
-    @include mix.apply-ux-bg("20");
+    @include mix.apply-ux-bg("50");
     padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
     @include mix.respond-to(v.$bp-small) {
@@ -70,7 +70,7 @@
     }
 }
 .P55 {
-    @include mix.apply-ux-bg("35");
+    @include mix.apply-ux-bg("55");
     padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
     @include mix.respond-to(v.$bp-small) {
@@ -79,7 +79,7 @@
 }
 
 .P60 {
-    @include mix.apply-ux-bg("30");
+    @include mix.apply-ux-bg("60");
     padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
     @include mix.respond-to(v.$bp-small) {
@@ -87,7 +87,7 @@
     }
 }
 .P65 {
-    @include mix.apply-ux-bg("45");
+    @include mix.apply-ux-bg("65");
     padding: map.get(map.get(v.$design-scale, "lg"), "r-space");
 
     @include mix.respond-to(v.$bp-small) {

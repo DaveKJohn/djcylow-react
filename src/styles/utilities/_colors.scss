@@ -14,48 +14,36 @@
 
             // 1. De "P" class generator (UX-MODE)
             @if v.$ux-mode and $is-ux-color {
-                $last-char: string.slice($tint-str, -1);
-
                 @at-root body.ux-mode {
-                    @if $last-char == "0" {
-                        // Mapping voor P50 naar 80
-                        $mapped-tint: $tint-str;
-                        @if $tint-str == "50" {
-                            $mapped-tint: "80";
-                        }
+                    // Genereert bijvoorbeeld .P-R90 of .P-G80
+                    .WoB.P-#{$tint-str},
+                    .WoB .P-#{$tint-str} {
+                        $ux-black: map.get(v.$colors, "ux-black");
+                        background-color: map.get($ux-black, $tint-str) !important;
+                        outline: none !important;
+                        color: white !important;
+                    }
 
-                        @if $tint-str == "10" {
-                            // ... (je bestaande P10 code)
-                        } @else {
-                            // ... (je bestaande code voor overige 0-tints)
-                        }
-                    } @else if $last-char == "5" {
-                        // Mapping voor P55 naar 70 stroke
-                        $mapped-tint: $tint-str;
-                        @if $tint-str == "55" {
-                            $mapped-tint: "70";
-                        }
+                    .BoW.P-#{$tint-str},
+                    .BoW .P-#{$tint-str} {
+                        $ux-white: map.get(v.$colors, "ux-white");
+                        background-color: map.get($ux-white, $tint-str) !important;
+                        outline: none !important;
+                        color: black !important;
+                    }
 
-                        .WoB.P#{$tint-str},
-                        .WoB .P#{$tint-str} {
-                            $ux-black: map.get(v.$colors, "ux-black");
-                            outline: 1px solid map.get($ux-black, $mapped-tint) !important;
-                            background-color: transparent !important;
-                            color: white !important;
-                        }
-                        .BoW.P#{$tint-str},
-                        .BoW .P#{$tint-str} {
-                            $ux-white: map.get(v.$colors, "ux-white");
-                            outline: 1px solid map.get($ux-white, $mapped-tint) !important;
-                            background-color: transparent !important;
-                            color: black !important;
-                        }
+                    // Stroke varianten (optioneel, bv .P-R90-stroke)
+                    .WoB.P-#{$tint-str}-stroke,
+                    .WoB .P-#{$tint-str}-stroke {
+                        $ux-black: map.get(v.$colors, "ux-black");
+                        outline: 1px solid map.get($ux-black, $tint-str) !important;
+                        background-color: transparent !important;
+                        color: white !important;
                     }
                 }
             }
 
             // 2. Modus-afhankelijke Fill Classes (LIVE)
-            // Hier halen we !important weg zodat UX-mode (met !important) kan winnen
             @if $base-color == "white" {
                 .BoW.fill-#{$tint-str},
                 .BoW .fill-#{$tint-str} {
@@ -69,13 +57,12 @@
             }
 
             // 3. ALGEMENE UTILITIES
-            // Ook hier !important weg als je wilt dat P-classes op hetzelfde element winnen
             .#{$base-color}-#{$tint-str}-fill {
                 background-color: $display-value;
             }
 
             .#{$base-color}-#{$tint-str}-fg {
-                color: $display-value !important; // Text mag vaak wel priority houden
+                color: $display-value !important;
             }
         }
     }

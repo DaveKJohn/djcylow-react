@@ -24,11 +24,5 @@ body {
 
     @include mix.respond-to(v.$bp-small) {
         padding-top: v.$nav-height-small;
-    }
-
-    &.ux-mode {
-        // Gebruik map.get in plaats van map-get
-        background-color: map.get(map.get(v.$colors, "ux-black"), "100");
-        color: map.get(map.get(v.$colors, "ux-black"), "100");
-    }
+    }   
 }

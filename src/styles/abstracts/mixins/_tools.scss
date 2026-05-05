@@ -1,7 +1,7 @@
 @use "sass:list";
 @use "sass:map";
 @use "sass:string";
-@use "../config" as c;    
+@use "../config" as c;
 @use "../variables" as v;
 @use "../functions" as fn;
 
@@ -205,7 +205,7 @@
     .border {
         border: 1px solid var(--#{$bg-80});
     }
-  
+
     .splitter {
         background-color: var(--#{$bg-70});
     }
@@ -358,19 +358,34 @@
         $ux-black-map: map.get(v.$colors, "ux-black");
         $ux-white-map: map.get(v.$colors, "ux-white");
 
-        $s: "#{$shade}"; 
-
+        $s: "#{$shade}";
         $target-key: null;
-        @if $s == "10" { $target-key: "100"; } 
-        @else if $s == "20" { $target-key: "90"; } 
-        @else if $s == "30" { $target-key: "80"; } 
-        @else if $s == "35" { $target-key: "70"; } 
-        @else if $s == "40" { $target-key: "60"; }
-        @else if $s == "45" { $target-key: "50"; }
-        @else if $s == "50" { $target-key: "80"; } 
-        @else if $s == "55" { $target-key: "70"; } 
+
+        // Mapping van P-shades naar de nieuwe UX kleur-keys
+        @if $s == "15" {
+            $target-key: "R80";
+        } @else if $s == "20" {
+            $target-key: "R90";
+        } @else if $s == "30" {
+            $target-key: "G90";
+        } @else if $s == "35" {
+            $target-key: "G80";
+        } @else if $s == "40" {
+            $target-key: "B90";
+        } @else if $s == "45" {
+            $target-key: "B80";
+        } @else if $s == "50" {
+            $target-key: "Y90";
+        } @else if $s == "55" {
+            $target-key: "Y80";
+        } @else if $s == "60" {
+            $target-key: "M90";
+        } @else if $s == "65" {
+            $target-key: "M80";
+        }
 
         @if $target-key {
+            // Logica: eindigt op 5? Dan outline.
             $use-stroke: (string.slice($s, -1) == "5");
 
             @at-root body.ux-mode #{&} {
@@ -381,10 +396,10 @@
                     background-color: map.get($ux-black-map, $target-key) !important;
                     outline: none !important;
                 }
-              
             }
 
-            @at-root body.ux-mode .BoW #{&}, body.ux-mode #{&}.BoW {
+            @at-root body.ux-mode .BoW #{&},
+                body.ux-mode #{&}.BoW {
                 @if $use-stroke {
                     outline: 1px solid map.get($ux-white-map, $target-key) !important;
                     background-color: transparent !important;

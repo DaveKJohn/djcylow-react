@@ -4,7 +4,7 @@ import EmailDisplay from "@/components/common/EmailDisplay";
 
 export default function Footer() {
     return (
-        <footer className="WoB column w-fill AMC P10 fill-90 in-push-4xl">
+        <footer className="WoB column w-fill AMC P15 fill-90 v-push-4xl">
 
             <div className="column w-fill AMC P20 ">
 
@@ -18,13 +18,9 @@ export default function Footer() {
                             <Link href="/" className="btn ">
                                 <Image
                                     src="/images/djcylow_logo.webp"
-                                    alt="DJ Cylow logo"
-                                    width={280}
-                                    height={88}
-                                    priority
-                                    style={{
-                                        height: 'auto'
-                                    }}
+                                    width={130}
+                                    height={51}
+                                    alt="Logo"
                                 />
                             </Link>
 
@@ -35,7 +31,7 @@ export default function Footer() {
 
                     <div className="column w-fill AMC P30 ">
 
-                        <div className="column w-hug AMC P35 spacing-3xl">
+                        <div className="column w-hug AMC P35 spacing-xl">
 
                             <div className="row w-hug AMC P40 spacing-2xl">
 
