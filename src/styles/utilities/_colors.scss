@@ -70,7 +70,8 @@
 
 @each $val in v.$p-values {
     .P#{$val} {
-        @include tools.apply-ux-bg($val); // Verander mix naar tools
+        // Gebruik 'tools.' omdat dit een mixin is, geen variabele
+        @include tools.apply-ux-bg($val); 
         
         @if $val != "15" {
             @include tools.p-spacing; 
@@ -78,7 +79,6 @@
     }
 }
 
-// Verander 'mix' naar 'tools' in deze loop
 @each $val in "35", "40", "45" {
     .P#{$val}-xl {
         @include tools.apply-ux-bg($val);

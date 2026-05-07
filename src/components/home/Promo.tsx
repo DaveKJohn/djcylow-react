@@ -23,7 +23,7 @@ const Promo = () => {
         
                 <div className={`column w-fix AMC constrainer  ${isExpanded ? 'is-expanded' : ''}`}>
 
-                    <div className="row-c break-m w-fill AMC P30 spacing-2xl">
+                    <div className="row-c break-m w-fill AMC P30 spacing-4xl">
 
                         <div className="column w-fill AML P35 spacing-3xl">
                             <h2 dangerouslySetInnerHTML={{ __html: homeContent.promo_h3 || "" }} />

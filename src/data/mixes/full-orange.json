@@ -1,5 +1,25 @@
 [
- {
+  {
+    "id": "20260507",
+    "featured": false,
+    "ignore": false,
+    "color": "orange",
+    "genre": "Drum & Bass",
+    "power": "Full",
+    "title": "Orange Full (m)",
+    "frequency": "(m)",
+    "volume": "Vol. 9",
+    "maand": "May",
+    "dag": "07",
+    "jaar": "2026",
+    "permalink": "luister/mix/orange-full-f-DRUM-BASS-176BPM-20260507.html",
+    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20260507_Audio_V1%20(Vol.%209).mp3",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_20260507_wide-large.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_20260507_wide-large.webp",
+    "image_square": "/images/full/orange/square/image_full_orange_20260507_square.jpg",
+    "tracklist": []
+  },
+  {
     "id": "20250521",
     "featured": false,
     "ignore": false,
@@ -179,8 +199,8 @@
         "track": "Pendulum - Hold your Colour (Bi-polar Mix)"
       }
     ]
-},
- {
+  },
+  {
     "id": "20231218",
     "featured": false,
     "ignore": false,
@@ -376,8 +396,8 @@
         "track": "Wilkinson ft. Matt Wills - We Will Be"
       }
     ]
-},
- {
+  },
+  {
     "id": "20230705",
     "featured": false,
     "ignore": false,
@@ -565,7 +585,7 @@
         "track": "Delta Heavy ft. Modestep - Here With Me (The Prototypes Remix)"
       }
     ]
-},
+  },
   {
     "id": "20230130",
     "featured": false,
@@ -734,7 +754,7 @@
         "track": "T & Sugah x Quoone - Leaving"
       }
     ]
-},
+  },
   {
     "id": "20221003",
     "featured": false,
@@ -895,8 +915,8 @@
         "track": "Millbrook - Power (ft. Flowdan)"
       }
     ]
-},
-{
+  },
+  {
     "id": "20220509",
     "featured": false,
     "ignore": false,
@@ -1052,8 +1072,8 @@
         "track": "Crissy Criss - Need You Now"
       }
     ]
-},
-{
+  },
+  {
     "id": "20211105",
     "featured": false,
     "ignore": false,
@@ -1221,170 +1241,170 @@
         "track": "Junk Mail - Yellow Jacket"
       }
     ]
-},
- {
-  "id": "20210621",
-  "featured": false,
-  "ignore": false,
-  "color": "orange",
-  "genre": "Drum & Bass",
-  "power": "Full",
-  "title": "Orange Full (f)",
-  "frequency": "(f)",
-  "volume": "Vol. 1",
-  "maand": "Jun",
-  "dag": "21",
-  "jaar": "2021",
-  "permalink": "luister/mix/orange-full-f-DRUM-BASS-176BPM-20210621.html",
-  "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20210621_Audio_V4%20(Vol.%201).mp3",
-  "image_wide_small": "/images/full/orange/wide/image_full_orange_20210621_wide-small.jpg",
-  "image_wide_large": "/images/full/orange/wide/image_full_orange_20210621_wide-large.webp",
-  "image_square": "/images/full/orange/square/image_full_orange_20210621_square.jpg",
-  "tracklist": [
-    {
-      "time": "00:00",
-      "track": "Metrik - Electric Echo (ft. Gunship)"
-    },
-    {
-      "time": "02:34",
-      "track": "High Maintenance - Breathe In ft. Ayah Marar"
-    },
-    {
-      "time": "04:22",
-      "track": "Subsonic - Emotions"
-    },
-    {
-      "time": "05:50",
-      "track": "T & Sugah x Quoone - Leaving"
-    },
-    {
-      "time": "08:01",
-      "track": "Delta Heavy x MUZZ - Higher Ground (ft. Cammie Robinson)"
-    },
-    {
-      "time": "09:34",
-      "track": "Cyantific - Fade Into The Night"
-    },
-    {
-      "time": "11:25",
-      "track": "Mind Vortex - Alive"
-    },
-    {
-      "time": "13:03",
-      "track": "Pendulum - Crush"
-    },
-    {
-      "time": "14:31",
-      "track": "Crissy Criss x WiDE AWAKE - Real"
-    },
-    {
-      "time": "16:21",
-      "track": "Sub Focus - Safe In Sound"
-    },
-    {
-      "time": "18:11",
-      "track": "T & Sugah - Demons (ft. Voicians) (Lexurus Remix)"
-    },
-    {
-      "time": "20:00",
-      "track": "Polygon - One Day"
-    },
-    {
-      "time": "21:51",
-      "track": "Voicians - Unbreakable"
-    },
-    {
-      "time": "23:40",
-      "track": "Andromedik - Holding On"
-    },
-    {
-      "time": "25:30",
-      "track": "NuTronic - Give Into"
-    },
-    {
-      "time": "27:21",
-      "track": "Freaks & Geeks - Discovery (ft. Ruth Royall)"
-    },
-    {
-      "time": "29:11",
-      "track": "Kove - Le Retour"
-    },
-    {
-      "time": "31:01",
-      "track": "Feint ft. Veela - Vagrant"
-    },
-    {
-      "time": "32:50",
-      "track": "Claptone & Mylo - Drop The Pressure (1991 Remix)"
-    },
-    {
-      "time": "34:41",
-      "track": "TOKYO ROSE & ALEX - Dark Sun (BLOSSO Remix)"
-    },
-    {
-      "time": "36:31",
-      "track": "Sub Focus & Wilkinson - Air I Breathe"
-    },
-    {
-      "time": "38:20",
-      "track": "Koven - Worlds Collide (Grafix Remix)"
-    },
-    {
-      "time": "40:09",
-      "track": "Friction Vs Dimension - Kinetic"
-    },
-    {
-      "time": "41:59",
-      "track": "Andy C & Fiora - Heartbeat Loud"
-    },
-    {
-      "time": "43:49",
-      "track": "InsideInfo - Quicksilver"
-    },
-    {
-      "time": "45:38",
-      "track": "Jack Mirror - This Lie (ft. Voicians)"
-    },
-    {
-      "time": "47:28",
-      "track": "Fliwo - I Know You Better"
-    },
-    {
-      "time": "49:18",
-      "track": "Rene LaVice - Let You Go (ft. Jareth)"
-    },
-    {
-      "time": "51:08",
-      "track": "Coastal - Here We Go"
-    },
-    {
-      "time": "52:57",
-      "track": "Ekko & Sidetrack - Let The Light In 2020 (ft. Reija Lee)"
-    },
-    {
-      "time": "54:47",
-      "track": "Maduk - Colours (ft. Diamond Eyes)"
-    },
-    {
-      "time": "56:37",
-      "track": "Blaine Stranger - Arms Of Mine"
-    },
-    {
-      "time": "58:26",
-      "track": "Ember ft. MewOne - Good Night Good Luck"
-    },
-    {
-      "time": "1:00:05",
-      "track": "Kokiri - Retrospect (Koven Remix)"
-    },
-    {
-      "time": "1:01:55",
-      "track": "Approaching Nirvana - Deep Dark Blue"
-    },
-    {
-      "time": "1:03:45",
-      "track": "The Prototypes - Into The Night"
-    }
-  ]
-}
+  },
+  {
+    "id": "20210621",
+    "featured": false,
+    "ignore": false,
+    "color": "orange",
+    "genre": "Drum & Bass",
+    "power": "Full",
+    "title": "Orange Full (f)",
+    "frequency": "(f)",
+    "volume": "Vol. 1",
+    "maand": "Jun",
+    "dag": "21",
+    "jaar": "2021",
+    "permalink": "luister/mix/orange-full-f-DRUM-BASS-176BPM-20210621.html",
+    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20210621_Audio_V4%20(Vol.%201).mp3",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_20210621_wide-small.jpg",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_20210621_wide-large.webp",
+    "image_square": "/images/full/orange/square/image_full_orange_20210621_square.jpg",
+    "tracklist": [
+      {
+        "time": "00:00",
+        "track": "Metrik - Electric Echo (ft. Gunship)"
+      },
+      {
+        "time": "02:34",
+        "track": "High Maintenance - Breathe In ft. Ayah Marar"
+      },
+      {
+        "time": "04:22",
+        "track": "Subsonic - Emotions"
+      },
+      {
+        "time": "05:50",
+        "track": "T & Sugah x Quoone - Leaving"
+      },
+      {
+        "time": "08:01",
+        "track": "Delta Heavy x MUZZ - Higher Ground (ft. Cammie Robinson)"
+      },
+      {
+        "time": "09:34",
+        "track": "Cyantific - Fade Into The Night"
+      },
+      {
+        "time": "11:25",
+        "track": "Mind Vortex - Alive"
+      },
+      {
+        "time": "13:03",
+        "track": "Pendulum - Crush"
+      },
+      {
+        "time": "14:31",
+        "track": "Crissy Criss x WiDE AWAKE - Real"
+      },
+      {
+        "time": "16:21",
+        "track": "Sub Focus - Safe In Sound"
+      },
+      {
+        "time": "18:11",
+        "track": "T & Sugah - Demons (ft. Voicians) (Lexurus Remix)"
+      },
+      {
+        "time": "20:00",
+        "track": "Polygon - One Day"
+      },
+      {
+        "time": "21:51",
+        "track": "Voicians - Unbreakable"
+      },
+      {
+        "time": "23:40",
+        "track": "Andromedik - Holding On"
+      },
+      {
+        "time": "25:30",
+        "track": "NuTronic - Give Into"
+      },
+      {
+        "time": "27:21",
+        "track": "Freaks & Geeks - Discovery (ft. Ruth Royall)"
+      },
+      {
+        "time": "29:11",
+        "track": "Kove - Le Retour"
+      },
+      {
+        "time": "31:01",
+        "track": "Feint ft. Veela - Vagrant"
+      },
+      {
+        "time": "32:50",
+        "track": "Claptone & Mylo - Drop The Pressure (1991 Remix)"
+      },
+      {
+        "time": "34:41",
+        "track": "TOKYO ROSE & ALEX - Dark Sun (BLOSSO Remix)"
+      },
+      {
+        "time": "36:31",
+        "track": "Sub Focus & Wilkinson - Air I Breathe"
+      },
+      {
+        "time": "38:20",
+        "track": "Koven - Worlds Collide (Grafix Remix)"
+      },
+      {
+        "time": "40:09",
+        "track": "Friction Vs Dimension - Kinetic"
+      },
+      {
+        "time": "41:59",
+        "track": "Andy C & Fiora - Heartbeat Loud"
+      },
+      {
+        "time": "43:49",
+        "track": "InsideInfo - Quicksilver"
+      },
+      {
+        "time": "45:38",
+        "track": "Jack Mirror - This Lie (ft. Voicians)"
+      },
+      {
+        "time": "47:28",
+        "track": "Fliwo - I Know You Better"
+      },
+      {
+        "time": "49:18",
+        "track": "Rene LaVice - Let You Go (ft. Jareth)"
+      },
+      {
+        "time": "51:08",
+        "track": "Coastal - Here We Go"
+      },
+      {
+        "time": "52:57",
+        "track": "Ekko & Sidetrack - Let The Light In 2020 (ft. Reija Lee)"
+      },
+      {
+        "time": "54:47",
+        "track": "Maduk - Colours (ft. Diamond Eyes)"
+      },
+      {
+        "time": "56:37",
+        "track": "Blaine Stranger - Arms Of Mine"
+      },
+      {
+        "time": "58:26",
+        "track": "Ember ft. MewOne - Good Night Good Luck"
+      },
+      {
+        "time": "1:00:05",
+        "track": "Kokiri - Retrospect (Koven Remix)"
+      },
+      {
+        "time": "1:01:55",
+        "track": "Approaching Nirvana - Deep Dark Blue"
+      },
+      {
+        "time": "1:03:45",
+        "track": "The Prototypes - Into The Night"
+      }
+    ]
+  }
 ]

@@ -30,7 +30,7 @@ export default function Nav() {
         <nav className="WoB column w-fill AMC P15 fill-100">
 
             <div className="column w-fill AMC P20">
-                <div className="row w-fix AMC constrainer-nav">
+                <div className="row w-fill AMC constrainer-nav">
 
                     <div className="column w-hug AML P30" id="nav_logo">
 
@@ -55,7 +55,7 @@ export default function Nav() {
                         <MobileContent
                             id="nav_menu_content"
                             trigger={(toggle) => (
-                                <div id="nav_menu_mobileBtn" className="column w-fill AMC P30" >
+                                <div id="nav_menu_mobileBtn" className="column w-fill P30" >
 
                                     <div className="column w-hug AMC P35">
 
@@ -67,16 +67,16 @@ export default function Nav() {
                             )}
                         >
 
-                            <div className="row-c w-fill AML P60 break-s anchor-wrapper">
+                            <div className="row-c w-hug AMC P60 break-s anchor-wrapper">
 
-                                <Link className="column w-fill AML P65 btn anchor" href="/luister">
+                                <Link className="column w-hug AMC P65 btn anchor" href="/luister">
                                     <span className="left">Luister</span>
                                 </Link>
 
 
                                 <div className="splitter mobile"></div>
 
-                                <Link className="column w-fill AML P65 btn anchor" href="/musicmoodcolours">
+                                <Link className="column w-hug AML P65 btn anchor" href="/musicmoodcolours">
                                     <span className="left">Music Mood Colours</span>
                                 </Link>
 

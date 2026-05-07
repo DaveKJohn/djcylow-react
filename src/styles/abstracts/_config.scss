@@ -4,6 +4,7 @@ $breakpoints: (
     "small": 884px
 );
 
+$p-values: "15", "20", "30", "35", "40", "45", "50", "55", "60", "65";
 
 /* =======================================
     ALIASED DESIGN SCALE (Responsive Mapping)
@@ -168,4 +169,3 @@ $breakpoint-map: (
     "m": "medium",
     "s": "small"
 );
-
