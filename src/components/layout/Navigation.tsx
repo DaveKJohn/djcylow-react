@@ -67,7 +67,7 @@ export default function Nav() {
                             )}
                         >
 
-                            <div className="row-c w-hug AMC P60 break-s anchor-wrapper">
+                            <div className="row-c w-fill AML P60 break-s anchor-wrapper">
 
                                 <Link className="column w-hug AMC P65 btn anchor" href="/luister">
                                     <span className="left">Luister</span>
