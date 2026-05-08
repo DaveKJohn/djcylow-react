@@ -18,10 +18,6 @@ body {
     width: 100%;
     padding-top: v.$nav-height-large;
 
-    @include mix.respond-to(v.$bp-medium) {
-        padding-top: v.$nav-height-medium;
-    }
-
     @include mix.respond-to(v.$bp-small) {
         padding-top: v.$nav-height-small;
     }

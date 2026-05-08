@@ -95,7 +95,6 @@
     }
 }
 
-
 /*BANNER*/
 .P30-banner {
     @include mix.apply-ux-bg("30");
@@ -108,11 +107,7 @@
 
 .fullscreen {
     min-height: calc(100vh - v.$nav-height-large);
-
-    @include mix.respond-to(v.$bp-medium) {
-        min-height: calc(100vh - v.$nav-height-medium);
-    }
-
+   
     @include mix.respond-to(v.$bp-small) {
         min-height: calc(100vh - v.$nav-height-small);
     }
