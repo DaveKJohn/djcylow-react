@@ -78,12 +78,32 @@ $heading-styles: (
         "font-weight": 700,
         "letter-spacing": 0px,
         "width": fit-content,
-        "scale-key": "5xl"
+        "scale-key": "5xl",
+        "responsive": (
+            (
+                "breakpoint": "medium",
+                "scale-key": "5xl"
+            ),
+            (
+                "breakpoint": "small",
+                "scale-key": "4xl"
+            )
+        )
     ),
     "h3": (
         "font-weight": 600,
         "text-wrap": balance,
-        "scale-key": "xl"
+        "scale-key": "xl",
+        "responsive": (
+            (
+                "breakpoint": "medium",
+                "scale-key": "xl"
+            ),
+            (
+                "breakpoint": "small",
+                "scale-key": "xl"
+            )
+        )
     )
 );
 
