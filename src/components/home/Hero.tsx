@@ -8,7 +8,7 @@ import '@/styles/components/home/hero.scss';
 
 const Hero = () => {
     return (
-        <div className="WoB stack w-fill AMC-BC P15 fullscreen break-s v-push-9xl fill-100" id="hero">            
+        <div className="WoB stack w-fill AMC-BC P15 fullscreen break-s v-push-7xl fill-100" id="hero">            
 
             <div className="layer AMC gradient" id="hero_back"></div>
 

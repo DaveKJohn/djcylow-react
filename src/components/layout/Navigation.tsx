@@ -69,15 +69,15 @@ export default function Nav() {
 
                             <div className="row-c w-fill AML P60 break-s anchor-wrapper">
 
-                                <Link className="column w-hug AMC P65 btn anchor" href="/luister">
-                                    <span className="left">Luister</span>
+                                <Link className="column w-fill AML P65 btn anchor" href="/luister">
+                                    <span>Luister</span>
                                 </Link>
 
 
                                 <div className="splitter mobile"></div>
 
-                                <Link className="column w-hug AML P65 btn anchor" href="/musicmoodcolours">
-                                    <span className="left">Music Mood Colours</span>
+                                <Link className="column w-fill AML P65 btn anchor" href="/musicmoodcolours">
+                                    <span>Music Mood Colours</span>
                                 </Link>
 
 

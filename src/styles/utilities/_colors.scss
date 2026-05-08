@@ -79,7 +79,7 @@
     }
 }
 
-@each $val in "35", "40", "45" {
+@each $val in "35", "40", "45", "50", "55", "60", "65"{
     .P#{$val}-xl {
         @include tools.apply-ux-bg($val);
         @include tools.p-spacing("3xl", "xl");

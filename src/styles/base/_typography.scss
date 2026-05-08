@@ -26,31 +26,59 @@ body {
    2. TYPOGRAPHY CONFIGURATIE (Maps)
    ======================================= */
 $heading-styles: (
-    // Specifieke banner styles
     "#hero h1": (
-            "font-weight": 700,
-            "text-wrap": balance,
-            "width": fit-content,
-            "scale-key": "9xl" // Gebruikt automatisch: 9xl -> 8xl -> 7xl
-        ),
+        "font-weight": 700,
+        "text-wrap": balance,
+        "width": fit-content,
+        "scale-key": "9xl",
+        "responsive": (
+            (
+                "breakpoint": "medium",
+                "scale-key": "8xl"
+            ),
+            (
+                "breakpoint": "small",
+                "scale-key": "6xl"
+            )
+        )
+    ),
     "#hero h2": (
         "font-weight": 400,
         "width": fit-content,
         "letter-spacing": 0px,
-        "scale-key": "5xl" // Gebruikt automatisch: 4xl -> 3xl -> 2xl (zoals h3)
+        "scale-key": "5xl",
+        "responsive": (
+            (
+                "breakpoint": "medium",
+                "scale-key": "4xl"
+            ),
+            (
+                "breakpoint": "small",
+                "scale-key": "3xl"
+            )
+        )
     ),
 
-    // Standaard headings
     "h1": (
-            "font-weight": 700,
-            "width": fit-content,
-            "scale-key": "7xl" // Gebruikt automatisch: 7xl -> 6xl -> 5xl
-        ),
+        "font-weight": 700,
+        "width": fit-content,
+        "scale-key": "7xl",
+        "responsive": (
+            (
+                "breakpoint": "medium",
+                "scale-key": "5xl"
+            ),
+            (
+                "breakpoint": "small",
+                "scale-key": "4xl"
+            )
+        )
+    ),
     "h2": (
         "font-weight": 700,
         "letter-spacing": 0px,
         "width": fit-content,
-        "scale-key": "5xl" // Gebruikt automatisch: 5xl -> 4xl -> 3xl
+        "scale-key": "5xl"
     ),
     "h3": (
         "font-weight": 600,
@@ -98,7 +126,7 @@ $list-styles: (
     )
 );
 
-$table-styles: (   
+$table-styles: (
     "td": (
         "scale-key": "sm",
         "padding": map.get(map.get(v.$design-scale, "2xl"), "c-space") 0

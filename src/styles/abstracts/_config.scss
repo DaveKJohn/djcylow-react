@@ -6,57 +6,6 @@ $breakpoints: (
 
 $p-values: "15", "20", "30", "35", "40", "45", "50", "55", "60", "65";
 
-/* =======================================
-    ALIASED DESIGN SCALE (Responsive Mapping)
-   ======================================= */
-$base-mapping: (
-    "9xl": "9xl",
-    "8xl": "8xl",
-    "7xl": "7xl",
-    "6xl": "6xl",
-    "5xl": "5xl",
-    "4xl": "4xl",
-    "3xl": "3xl",
-    "2xl": "2xl",
-    "xl": "xl",
-    "lg": "lg",
-    "base": "base",
-    "sm": "sm",
-    "xs": "xs"
-);
-
-$medium-mapping: (
-    "9xl": "8xl",
-    "8xl": "7xl",
-    "7xl": "6xl",
-    "6xl": "5xl",
-    "5xl": "4xl",
-    "4xl": "3xl",
-    "3xl": "3xl",
-    "2xl": "2xl",
-    "xl": "xl",
-    "lg": "lg",
-    "base": "base",
-    "sm": "sm",
-    "xs": "xs"
-);
-
-$small-mapping: (
-    "9xl": "6xl",
-    "8xl": "5xl",
-    "7xl": "5xl",
-    "6xl": "6xl",
-    "5xl": "3xl",
-    "4xl": "4xl",
-    "3xl": "3xl",
-    "2xl": "2xl",
-    "xl": "lg",
-    "lg": "lg",
-    "base": "base",
-    "sm": "sm",
-    "xs": "xs"
-);
-
 $design-scale: (
     "xs": (
         font-size: 12px,

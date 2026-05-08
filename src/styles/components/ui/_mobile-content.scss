@@ -42,7 +42,7 @@
             padding: 0;
 
             @include mix.respond-to(v.$bp-small) {
-                padding: map.get(map.get(v.$design-scale, "sm"), "r-space");
+                padding: map.get(map.get(v.$design-scale, "xl"), "r-space");
             }
         }
     }

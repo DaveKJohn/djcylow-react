@@ -1,26 +1,82 @@
 @use "sass:map";
 @use "../abstracts/variables" as v;
+@use "../abstracts/functions" as fn;
 @use "../abstracts/mixins" as mix;
 
-// Definieer de aliassen die we willen genereren
-$aliassen: ("9xl", "8xl", "7xl", "6xl", "5xl", "4xl", "3xl", "2xl", "xl", "lg", "base", "sm", "xs");
+/* =======================================
+   1. PUSH UTILITIES (Paddings via Mixin)
+   ======================================= */
+@each $alias, $config in v.$design-scale {
+    $push-types: (
+        "h": "h-push",
+        "v": "v-push",
+        "top": "top-push",
+        "bot": "bot-push",
+        "in": "in-push"
+    );
 
-@each $alias in $aliassen {
-    .h-push-#{$alias} {
-        @include mix.apply-push("h", $alias);
-    }
-    .v-push-#{$alias} {
-        @include mix.apply-push("v", $alias);
-    }
-    .top-push-#{$alias} {
-        @include mix.apply-push("top", $alias);
-    }
-    .bot-push-#{$alias} {
-        @include mix.apply-push("bot", $alias);
-    }
-    .in-push-#{$alias} {
-        @include mix.apply-push("in", $alias);
+    @each $type, $class-name in $push-types {
+        .#{$class-name}-#{$alias} {
+            $base-key: fn.get-scale-key($alias, "base");
+            $base-conf: map.get(v.$design-scale, $base-key);
+            $val: if(
+                $type == "h",
+                map.get($base-conf, "r-space"),
+                if($type == "in", map.get($base-conf, "in-space"), map.get($base-conf, "c-space"))
+            );
+
+            // FIX: Verwijder de underscore hier ook
+            @include mix.execute-push($type, $val);
+
+            $med-key: fn.get-scale-key($alias, "medium");
+            @if $med-key != $base-key {
+                @include mix.respond-to(fn.get-breakpoint("medium")) {
+                    $med-conf: map.get(v.$design-scale, $med-key);
+                    $m-val: if(
+                        $type == "h",
+                        map.get($med-conf, "r-space"),
+                        if($type == "in", map.get($med-conf, "in-space"), map.get($med-conf, "c-space"))
+                    );
+
+                    @include mix.execute-push($type, $m-val);
+                }
+            }
+
+            $small-key: fn.get-scale-key($alias, "small");
+            @if $small-key != $med-key {
+                @include mix.respond-to(fn.get-breakpoint("small")) {
+                    $small-conf: map.get(v.$design-scale, $small-key);
+                    $s-val: if(
+                        $type == "h",
+                        map.get($small-conf, "r-space"),
+                        if($type == "in", map.get($small-conf, "in-space"), map.get($small-conf, "c-space"))
+                    );
+
+                    @include mix.execute-push($type, $s-val);
+                }
+            }
+        }
     }
 }
+/* =======================================
+   2. SPACING UTILITIES (Gaps & Extra Margin)
+   ======================================= */
+@each $alias, $config in v.$design-scale {
+    .spacing-#{$alias} {
+        &.row,
+        &.row-c,
+        &.column,
+        &.layer {
+            gap: map.get($config, "r-space") !important;
 
-@include mix.apply-smart-spacing(true);
+            &.column {
+                gap: map.get($config, "c-space") !important;
+            }
+        }
+
+        &.extra {
+            margin-top: map.get($config, "extra-space") !important;
+            margin-bottom: map.get($config, "extra-space") !important;
+        }
+    }
+}

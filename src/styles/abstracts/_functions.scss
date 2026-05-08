@@ -1,7 +1,7 @@
 @use "sass:math";
 @use "sass:string";
 @use "sass:map";
-@use "config" as c; // Je gebruikt hier 'c'
+@use "config" as c;
 
 @function str-replace($string, $search, $replace: "") {
     $index: string.index($string, $search);
@@ -18,24 +18,14 @@
     2. SCALES
    ======================================= */
 @function get-scale-key($alias, $breakpoint: "base") {
-    $map: c.$base-mapping; // Veranderd van v naar c
-
-    @if $breakpoint == "medium" {
-        $map: c.$medium-mapping; // Veranderd van v naar c
-    } @else if $breakpoint == "small" {
-        $map: c.$small-mapping; // Veranderd van v naar c
-    }
-
-    @if map.has-key($map, $alias) {
-        @return map.get($map, $alias);
-    } @else {
-        @return $alias;
-    }
+    // Omdat de mapping-scales zijn verwijderd, retourneren we nu direct de alias.
+    // Dit voorkomt "Undefined variable" errors in de rest van je systeem.
+    @return $alias;
 }
 
 /* =======================================
     3. BREAKPOINTS
    ======================================= */
 @function get-breakpoint($size) {   
-    @return map.get(c.$breakpoints, $size); // Veranderd van v naar c
+    @return map.get(c.$breakpoints, $size);
 }
