@@ -1,16 +1,14 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function BackButton() {
-    const router = useRouter();
     return (
-        <button
+        <Link 
+            href="/luister" 
             className="btn passive terug-btn"
-            type="button"
-            onClick={() => router.back()}
             aria-label="Terug naar overzicht"
         >
             <span className="">Terug naar overzicht</span>
-        </button>
+        </Link>
     );
 }
