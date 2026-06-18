@@ -62,7 +62,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
         return allMixesData
             .filter(mix => {
                 if (mix.ignore === true) return false;
-                const matchColor = activeColor === 'all' || mix.color === activeColor;
+                const matchColor = activeColor === 'all' || mix.color?.toLowerCase() === activeColor.toLowerCase();
                 const matchGenre = activeGenre === 'all' || mix.genre === activeGenre;
                 const matchPower = activePower === 'all' || mix.power === activePower;
                 return matchColor && matchGenre && matchPower;
@@ -81,29 +81,36 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
 
 
                     {filteredMixes.length > 0 ? (
-                        filteredMixes.slice(0, limit).map((mix) => (
-                            <div key={mix.id} className="column w-hug AML P45 spacing-xl card">
-                                <AudioPlayer
-                                    id={mix.id}
-                                    src={mix.audioSrc}
-                                    image={mix.image_wide_small}
-                                    className={mix.color?.toLowerCase()}
-                                />
-                                <div className="column w-hug AML ">
-                                    <div className="column w-hug AML spacing-xs">
-                                        <Link className="size-sm" href={`/${mix.permalink}`}>
-                                            {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
-                                        </Link>
-                                        <p className="size-xs">{mix.maand} {mix.dag}, {mix.jaar}</p>
+                        filteredMixes.slice(0, limit).map((mix) => {
+                            // Bereken de schone slug exact zoals in de backend
+                            const filename = mix.permalink.split('/').pop() || '';
+                            const cleanSlug = filename.split('.html')[0].toLowerCase().trim();
+
+                            return (
+                                <div key={mix.id} className="column w-hug AML P45 spacing-xl card">
+                                    <AudioPlayer
+                                        id={mix.id}
+                                        src={mix.audioSrc}
+                                        image={mix.image_wide_small}
+                                        className={mix.color?.toLowerCase()}
+                                    />
+                                    <div className="column w-hug AML ">
+                                        <div className="column w-hug AML spacing-xs">
+                                            {/* Wijs nu naar de dynamic route met de schone slug */}
+                                            <Link className="size-sm" href={`/luister/mix/${cleanSlug}`}>
+                                                {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
+                                            </Link>
+                                            <p className="size-xs">{mix.maand} {mix.dag}, {mix.jaar}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))
+                            );
+                        })
                     ) : (
                         <p>Geen mixen gevonden voor deze combinatie.</p>
                     )}
 
-                    <div className="column w-hug AMC P45-xl extra spacing-6xl"> 
+                    <div className="column w-hug AMC P45-xl extra spacing-6xl">
                         {filteredMixes.length > limit && (
                             <button onClick={showMore} className="btn passive P50 load-more">
                                 Laad meer

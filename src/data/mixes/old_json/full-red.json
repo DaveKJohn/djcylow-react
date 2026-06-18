@@ -1,25 +1,22 @@
 [
-  {
+ {
     "id": "20240226",
     "featured": false,
     "ignore": false,
-    "title": "Yellow Full (m)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
     "color": "red",
+    "genre": "Drum & Bass",
     "power": "Full",
+    "title": "Yellow Full (m)",
     "frequency": "(m)",
     "volume": "Vol. 4",
-    "date": "",
-    "jaar": "2024",
     "maand": "Feb",
     "dag": "26",
+    "jaar": "2024",
     "permalink": "luister/mix/red-full-m-EDM-176BPM-20240226.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020240226_Audio_v1%20(Vol.%204).mp3",
     "image_wide_small": "/images/full/red/wide/image_full_red_20240226_wide-small.jpg",
     "image_wide_large": "/images/full/red/wide/image_full_red_20240226_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20240226_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "00:00",
@@ -198,28 +195,25 @@
         "track": "The Prodigy - The Day Is My Enemy (Bad Company UK Remix)"
       }
     ]
-  },
-  {
+},
+ {
     "id": "20230502",
     "featured": false,
     "ignore": false,
-    "title": "Yellow Full (m)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
     "color": "red",
+    "genre": "Drum & Bass",
     "power": "Full",
+    "title": "Yellow Full (m)",
     "frequency": "(m)",
     "volume": "Vol. 3",
-    "date": "",
-    "jaar": "2023",
     "maand": "May",
     "dag": "02",
+    "jaar": "2023",
     "permalink": "luister/mix/red-full-m-EDM-176BPM-20230502.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020230502_Audio_v1%20(Vol.%203).mp3",
     "image_wide_small": "/images/full/red/wide/image_full_red_20230502_wide-small.jpg",
     "image_wide_large": "/images/full/red/wide/image_full_red_20230502_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20230502_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "00:00",
@@ -362,28 +356,25 @@
         "track": "Drumsound & Bassline Smith - Violator"
       }
     ]
-  },
-  {
+},
+ {
     "id": "20230403",
     "featured": false,
     "ignore": false,
-    "title": "Yellow Full (m)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
     "color": "red",
+    "genre": "Drum & Bass",
     "power": "Full",
+    "title": "Yellow Full (m)",
     "frequency": "(m)",
     "volume": "Vol. 2",
-    "date": "",
-    "jaar": "2023",
     "maand": "Apr",
     "dag": "03",
+    "jaar": "2023",
     "permalink": "luister/mix/red-full-m-EDM-176BPM-20230403.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020230403_Audio_v1%20(Vol.%202).mp3",
     "image_wide_small": "/images/full/red/wide/image_full_red_20230403_wide-small.jpg",
     "image_wide_large": "/images/full/red/wide/image_full_red_20230403_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20230403_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "00:00",
@@ -526,28 +517,25 @@
         "track": "Krakota - Desert Strike"
       }
     ]
-  },
-  {
+},
+{
     "id": "20220711",
     "featured": false,
     "ignore": false,
-    "title": "Yellow Full (m)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
     "color": "red",
+    "genre": "Drum & Bass",
     "power": "Full",
+    "title": "Yellow Full (m)",
     "frequency": "(m)",
     "volume": "Vol. 1",
-    "date": "",
-    "jaar": "2022",
     "maand": "Jul",
     "dag": "11",
+    "jaar": "2022",
     "permalink": "luister/mix/red-full-m-EDM-176BPM-20220711.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020220711_Audio_v1%20(Vol.%201).mp3",
     "image_wide_small": "/images/full/red/wide/image_full_red_20220711_wide-small.jpg",
     "image_wide_large": "/images/full/red/wide/image_full_red_20220711_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20220711_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "00:00",
@@ -706,5 +694,5 @@
         "track": "Delta Heavy - Space Time VIP"
       }
     ]
-  }
+}
 ]

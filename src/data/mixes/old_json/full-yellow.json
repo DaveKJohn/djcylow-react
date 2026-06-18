@@ -3,23 +3,20 @@
     "id": "20260303",
     "featured": false,
     "ignore": false,
-    "title": "yellow Full (m)",
-    "genre": "EDM",
-    "subgenre": "",
     "color": "yellow",
+    "genre": "EDM",
     "power": "Full",
+    "title": "yellow Full (m)",
     "frequency": "(m)",
     "volume": "Vol. 1",
-    "date": "",
-    "jaar": "2026",
     "maand": "Mar",
     "dag": "03",
+    "jaar": "2026",
     "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20260303.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_128BPM_20260303_Audio_V1.mp3",
     "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20260303_wide-small.jpg",
     "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20260303_wide-large.webp",
     "image_square": "/images/full/yellow/square/image_full_yellow_20260303_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "01:00",
@@ -155,27 +152,24 @@
       }
     ]
   },
-  {
+{
     "id": "20231106",
     "featured": false,
     "ignore": false,
-    "title": "yellow Full (m)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
     "color": "yellow",
+    "genre": "Drum & Bass",
     "power": "Full",
+    "title": "yellow Full (m)",
     "frequency": "(m)",
     "volume": "Vol. 2",
-    "date": "",
-    "jaar": "2023",
     "maand": "Nov",
     "dag": "06",
+    "jaar": "2023",
     "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20231106.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20231106_Audio_V1%20(Vol.%202).mp3",
     "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20231106_wide-small.jpg",
     "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20231106_wide-large.webp",
     "image_square": "/images/full/yellow/square/image_full_yellow_20231106_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "00:00",
@@ -342,165 +336,162 @@
         "track": "Brookes Brothers ft. Haz-Mat - Loveline"
       }
     ]
-  },
-  {
-    "id": "20230220",
-    "featured": false,
-    "ignore": false,
-    "title": "yellow Full (m)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
-    "color": "yellow",
-    "power": "Full",
-    "frequency": "(m)",
-    "volume": "Vol. 1",
-    "date": "",
-    "jaar": "2023",
-    "maand": "Feb",
-    "dag": "20",
-    "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20230220.html",
-    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20230220_Audio_V3%20(Vol.%201).mp3",
-    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20230220_wide-small.jpg",
-    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20230220_wide-large.webp",
-    "image_square": "/images/full/yellow/square/image_full_yellow_20230220_square.jpg",
-    "description": "",
-    "tracklist": [
-      {
-        "time": "00:00",
-        "track": "Danny Byrd - Make It Weighty"
-      },
-      {
-        "time": "02:34",
-        "track": "Tantrum Desire - Guided Rhythm"
-      },
-      {
-        "time": "04:24",
-        "track": "MUZZ ft. Sullivan King - In The Night"
-      },
-      {
-        "time": "06:59",
-        "track": "Brookes Brothers ft. Haz-Mat - Loveline"
-      },
-      {
-        "time": "09:23",
-        "track": "Memtrix - Black Moon"
-      },
-      {
-        "time": "10:51",
-        "track": "Kove - The Music"
-      },
-      {
-        "time": "12:41",
-        "track": "Danny Byrd - 4th Dimension"
-      },
-      {
-        "time": "14:31",
-        "track": "Xilent - Animation (ft. Diamond Eyes)"
-      },
-      {
-        "time": "16:22",
-        "track": "Zardonic ft. The Qemists  - Takeover"
-      },
-      {
-        "time": "18:12",
-        "track": "Fox Stevenson & Curbi - Hoohah VIP"
-      },
-      {
-        "time": "20:24",
-        "track": "Cyantific - Body Movin' (ft. ShockOne)"
-      },
-      {
-        "time": "22:15",
-        "track": "Pierce Fulton - What Is Gonna Make You Happy (ft. Noosa) (Urbandawn Remix)"
-      },
-      {
-        "time": "24:05",
-        "track": "Calyx & Teebee - False Alarm"
-      },
-      {
-        "time": "25:55",
-        "track": "Grabbitz - Better With Time"
-      },
-      {
-        "time": "28:08",
-        "track": "Shock One - Polygon [Ft. Reija]"
-      },
-      {
-        "time": "29:59",
-        "track": "Smash Into Pieces - Big Bang (Zardonic Remix)"
-      },
-      {
-        "time": "31:49",
-        "track": "Sub Focus - Get On Up"
-      },
-      {
-        "time": "33:39",
-        "track": "Fox Stevenson - Dreamland"
-      },
-      {
-        "time": "35:29",
-        "track": "Ruzer - Callisto"
-      },
-      {
-        "time": "37:20",
-        "track": "Calyx & Teebee - Where We Go (feat. Doctor)"
-      },
-      {
-        "time": "39:10",
-        "track": "Sub Focus - Join The Dots"
-      },
-      {
-        "time": "41:00",
-        "track": "Tantrum Desire - Reach VIP"
-      },
-      {
-        "time": "42:50",
-        "track": "Ray Charles - Hit The Road Jack (Kubrak Remix)"
-      },
-      {
-        "time": "44:41",
-        "track": "Shock One  Phetsta - The Sun VIP"
-      },
-      {
-        "time": "46:31",
-        "track": "Sid Batham - All Lies (Brookes Brothers Remix)"
-      },
-      {
-        "time": "48:22",
-        "track": "Axollo - Moonstruck"
-      },
-      {
-        "time": "50:12",
-        "track": "Dimension - Offender"
-      },
-      {
-        "time": "52:02",
-        "track": "Junk Mail - Yellow Jacket"
-      },
-      {
-        "time": "53:52",
-        "track": "Memtrix - So Alive"
-      },
-      {
-        "time": "55:43",
-        "track": "Maduk - Voyager"
-      },
-      {
-        "time": "58:17",
-        "track": "Matrix & FutureBound - American Beauty VIP"
-      },
-      {
-        "time": "1:00:08",
-        "track": "High Contrast - Tobacco Road"
-      },
-      {
-        "time": "1:01:58",
-        "track": "Sub Focus - Airplane (Culture Shock Remix)"
-      },
-      {
-        "time": "1:04:02",
-        "track": "Plan B - Stay Too Long (Pendulum Remix)"
-      }
-    ]
-  }
+},
+{
+  "id": "20230220",
+  "featured": false,
+  "ignore": false,
+  "color": "yellow",
+  "genre": "Drum & Bass",
+  "power": "Full",
+  "title": "yellow Full (m)",
+  "frequency": "(m)",
+  "volume": "Vol. 1",
+  "maand": "Feb",
+  "dag": "20",
+  "jaar": "2023",
+  "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20230220.html",
+  "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20230220_Audio_V3%20(Vol.%201).mp3",
+  "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20230220_wide-small.jpg",
+  "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20230220_wide-large.webp",
+  "image_square": "/images/full/yellow/square/image_full_yellow_20230220_square.jpg",
+  "tracklist": [
+    {
+      "time": "00:00",
+      "track": "Danny Byrd - Make It Weighty"
+    },
+    {
+      "time": "02:34",
+      "track": "Tantrum Desire - Guided Rhythm"
+    },
+    {
+      "time": "04:24",
+      "track": "MUZZ ft. Sullivan King - In The Night"
+    },
+    {
+      "time": "06:59",
+      "track": "Brookes Brothers ft. Haz-Mat - Loveline"
+    },
+    {
+      "time": "09:23",
+      "track": "Memtrix - Black Moon"
+    },
+    {
+      "time": "10:51",
+      "track": "Kove - The Music"
+    },
+    {
+      "time": "12:41",
+      "track": "Danny Byrd - 4th Dimension"
+    },
+    {
+      "time": "14:31",
+      "track": "Xilent - Animation (ft. Diamond Eyes)"
+    },
+    {
+      "time": "16:22",
+      "track": "Zardonic ft. The Qemists  - Takeover"
+    },
+    {
+      "time": "18:12",
+      "track": "Fox Stevenson & Curbi - Hoohah VIP"
+    },
+    {
+      "time": "20:24",
+      "track": "Cyantific - Body Movin' (ft. ShockOne)"
+    },
+    {
+      "time": "22:15",
+      "track": "Pierce Fulton - What Is Gonna Make You Happy (ft. Noosa) (Urbandawn Remix)"
+    },
+    {
+      "time": "24:05",
+      "track": "Calyx & Teebee - False Alarm"
+    },
+    {
+      "time": "25:55",
+      "track": "Grabbitz - Better With Time"
+    },
+    {
+      "time": "28:08",
+      "track": "Shock One - Polygon [Ft. Reija]"
+    },
+    {
+      "time": "29:59",
+      "track": "Smash Into Pieces - Big Bang (Zardonic Remix)"
+    },
+    {
+      "time": "31:49",
+      "track": "Sub Focus - Get On Up"
+    },
+    {
+      "time": "33:39",
+      "track": "Fox Stevenson - Dreamland"
+    },
+    {
+      "time": "35:29",
+      "track": "Ruzer - Callisto"
+    },
+    {
+      "time": "37:20",
+      "track": "Calyx & Teebee - Where We Go (feat. Doctor)"
+    },
+    {
+      "time": "39:10",
+      "track": "Sub Focus - Join The Dots"
+    },
+    {
+      "time": "41:00",
+      "track": "Tantrum Desire - Reach VIP"
+    },
+    {
+      "time": "42:50",
+      "track": "Ray Charles - Hit The Road Jack (Kubrak Remix)"
+    },
+    {
+      "time": "44:41",
+      "track": "Shock One  Phetsta - The Sun VIP"
+    },
+    {
+      "time": "46:31",
+      "track": "Sid Batham - All Lies (Brookes Brothers Remix)"
+    },
+    {
+      "time": "48:22",
+      "track": "Axollo - Moonstruck"
+    },
+    {
+      "time": "50:12",
+      "track": "Dimension - Offender"
+    },
+    {
+      "time": "52:02",
+      "track": "Junk Mail - Yellow Jacket"
+    },
+    {
+      "time": "53:52",
+      "track": "Memtrix - So Alive"
+    },
+    {
+      "time": "55:43",
+      "track": "Maduk - Voyager"
+    },
+    {
+      "time": "58:17",
+      "track": "Matrix & FutureBound - American Beauty VIP"
+    },
+    {
+      "time": "1:00:08",
+      "track": "High Contrast - Tobacco Road"
+    },
+    {
+      "time": "1:01:58",
+      "track": "Sub Focus - Airplane (Culture Shock Remix)"
+    },
+    {
+      "time": "1:04:02",
+      "track": "Plan B - Stay Too Long (Pendulum Remix)"
+    }
+  ]
+}
 ]

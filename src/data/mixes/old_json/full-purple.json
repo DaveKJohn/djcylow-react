@@ -3,23 +3,20 @@
     "id": "20240108",
     "featured": false,
     "ignore": false,
-    "title": "Purple Full (m)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
     "color": "purple",
+    "genre": "Drum & Bass",
     "power": "Full",
+    "title": "Purple Full (m)",
     "frequency": "(m)",
     "volume": "Vol. 4",
-    "date": "",
-    "jaar": "2024",
     "maand": "Jan",
     "dag": "08",
+    "jaar": "2024",
     "permalink": "luister/mix/purple-full-m-EDM-176BPM-20240108.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/purple/Purple_Full_m_EDM_DNB_20240108_Audio_V1%20(Vol.%204).mp3",
     "image_wide_small": "/images/full/purple/wide/image_full_purple_20240108_wide-small.jpg",
     "image_wide_large": "/images/full/purple/wide/image_full_purple_20240108_wide-large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20240108_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "00:00",
@@ -206,28 +203,25 @@
         "track": "Jon Void - LFG"
       }
     ]
-  },
-  {
+},
+{
     "id": "20230506",
     "featured": false,
     "ignore": false,
-    "title": "Purple Full (f)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
     "color": "purple",
+    "genre": "Drum & Bass",
     "power": "Full",
+    "title": "Purple Full (f)",
     "frequency": "(f)",
     "volume": "Vol. 3",
-    "date": "",
-    "jaar": "2023",
     "maand": "May",
     "dag": "06",
+    "jaar": "2023",
     "permalink": "luister/mix/purple-full-f-EDM-176BPM-20230506.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/purple/Purple_Full_f_EDM_DNB_20230506_Audio_V1%20(Vol.%203).mp3",
     "image_wide_small": "/images/full/purple/wide/image_full_purple_20230506_wide-small.jpg",
     "image_wide_large": "/images/full/purple/wide/image_full_purple_20230506_wide-large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20230506_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "00:00",
@@ -378,28 +372,25 @@
         "track": "Slippy - Feel Alive ft. Soundr"
       }
     ]
-  },
-  {
+},
+{
     "id": "20221031",
     "featured": false,
     "ignore": false,
-    "title": "Purple Full (m)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
     "color": "purple",
+    "genre": "Drum & Bass",
     "power": "Full",
+    "title": "Purple Full (m)",
     "frequency": "(m)",
     "volume": "Vol. 2",
-    "date": "",
-    "jaar": "2022",
     "maand": "Oct",
     "dag": "31",
+    "jaar": "2022",
     "permalink": "luister/mix/purple-full-m-EDM-176BPM-20221031.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/purple/Purple_Full_m_EDM_DNB_20221031_Audio_V1%20(Vol.%202).mp3",
     "image_wide_small": "/images/full/purple/wide/image_full_purple_20221031_wide-small.jpg",
     "image_wide_large": "/images/full/purple/wide/image_full_purple_20221031_wide-large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20221031_square.jpg",
-    "description": "",
     "tracklist": [
       {
         "time": "00:00",
@@ -554,173 +545,170 @@
         "track": "Andromedik – Forever"
       }
     ]
-  },
-  {
-    "id": "20210412",
-    "featured": false,
-    "ignore": false,
-    "title": "Purple Full (f)",
-    "genre": "Drum & Bass",
-    "subgenre": "",
-    "color": "purple",
-    "power": "Full",
-    "frequency": "(f)",
-    "volume": "Vol. 1",
-    "date": "",
-    "jaar": "2021",
-    "maand": "Apr",
-    "dag": "12",
-    "permalink": "luister/mix/purple-full-f-EDM-176BPM-20210412.html",
-    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/blue/Blue_Full_f_EDM_DNB_20240408_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/purple/wide/image_full_purple_20210412_wide-small.jpg",
-    "image_wide_large": "/images/full/purple/wide/image_full_purple_20210412_wide-large.webp",
-    "image_square": "/images/full/purple/square/image_full_purple_20210412_square.jpg",
-    "description": "",
-    "tracklist": [
-      {
-        "time": "00:00",
-        "track": "Control - Matrix & Futurebound ft. Max Marshall"
-      },
-      {
-        "time": "02:44",
-        "track": "Fourward - How (ft. Dakota Sixx)"
-      },
-      {
-        "time": "04:35",
-        "track": "Mija & Gammer – Digressions"
-      },
-      {
-        "time": "06:25",
-        "track": "Rollz ft. Katies Ambition - Give It Time"
-      },
-      {
-        "time": "07:54",
-        "track": "Wilkinson - Afterglow"
-      },
-      {
-        "time": "09:55",
-        "track": "C418 - Aria Math (Protostar Remix)"
-      },
-      {
-        "time": "11:56",
-        "track": "Netsky - We Can Only Live Today"
-      },
-      {
-        "time": "13:24",
-        "track": "FadeX - Fearless"
-      },
-      {
-        "time": "16:05",
-        "track": "Cartoon ft. Coleman Trapp - Why We Lose"
-      },
-      {
-        "time": "18:06",
-        "track": "Gemini - Fire Inside (Day One's Lonely Hearts Remix)"
-      },
-      {
-        "time": "19:56",
-        "track": "Koven & Memtrix - Pessimist"
-      },
-      {
-        "time": "21:35",
-        "track": "Mollie Collins - Friends (ft. Emily Makis)"
-      },
-      {
-        "time": "23:26",
-        "track": "CamelPhat ft. LOWES - Easier (Sub Focus Remix)"
-      },
-      {
-        "time": "25:28",
-        "track": "Rudimental - Waiting All Night"
-      },
-      {
-        "time": "27:29",
-        "track": "Feint ft. Laura Brehm - We Won’t Be Alone"
-      },
-      {
-        "time": "29:41",
-        "track": "Gourski & Zera - Secret"
-      },
-      {
-        "time": "31:21",
-        "track": "Flite - Joy"
-      },
-      {
-        "time": "33:10",
-        "track": "XYconstant - Silverlined (Delta Heavy Remix)"
-      },
-      {
-        "time": "35:01",
-        "track": "Dimension ft. Bailey Tzuke - All I Need"
-      },
-      {
-        "time": "37:13",
-        "track": "Alora - Without You"
-      },
-      {
-        "time": "39:04",
-        "track": "Drumsound & Bassline Smith ft. Tom Cane – Through The Night"
-      },
-      {
-        "time": "41:17",
-        "track": "Smooth & Futurebound - Savoy Affair"
-      },
-      {
-        "time": "42:45",
-        "track": "Rootkit - Isolate (feat. Joe Erickson)"
-      },
-      {
-        "time": "44:30",
-        "track": "Pierce Fulton - Kuaga (Champion Remix)"
-      },
-      {
-        "time": "46:26",
-        "track": "Friction - Good To Me"
-      },
-      {
-        "time": "48:16",
-        "track": "MUZZ - Draining Atlantic"
-      },
-      {
-        "time": "50:06",
-        "track": "Orla Gartland - Lonely People (Raise Spirit Remix)"
-      },
-      {
-        "time": "51:56",
-        "track": "Rameses B – Children"
-      },
-      {
-        "time": "53:57",
-        "track": "T & Sugah ft. Ayve - Unreal"
-      },
-      {
-        "time": "55:49",
-        "track": "Dan Dakota - We Let Em Go (Ekko & Sidetrack Remix)"
-      },
-      {
-        "time": "57:39",
-        "track": "Stan SB - Anyone Out There (Maduk Remix)"
-      },
-      {
-        "time": "59:29",
-        "track": "Spor - Strange Heart"
-      },
-      {
-        "time": "1:01:47",
-        "track": "Camo & Krooked - Atlas VIP"
-      },
-      {
-        "time": "1:03:17",
-        "track": "Fred V & Grafix ft. Reija Lee - Just A Thought"
-      },
-      {
-        "time": "1:05:05",
-        "track": "Koven - All For Nothing"
-      },
-      {
-        "time": "1:07:18",
-        "track": "Subsurface ft. Leanne Louise - Mr. Magician"
-      }
-    ]
-  }
+},
+{
+  "id": "20210412",
+  "featured": false,
+  "ignore": false,
+  "color": "purple",
+  "genre": "Drum & Bass",
+  "power": "Full",
+  "title": "Purple Full (f)",
+  "frequency": "(f)",
+  "volume": "Vol. 1",
+  "maand": "Apr",
+  "dag": "12",
+  "jaar": "2021",
+  "permalink": "luister/mix/purple-full-f-EDM-176BPM-20210412.html",
+  "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/blue/Blue_Full_f_EDM_DNB_20240408_Audio_V1%20(Vol.%202).mp3",
+  "image_wide_small": "/images/full/purple/wide/image_full_purple_20210412_wide-small.jpg",
+  "image_wide_large": "/images/full/purple/wide/image_full_purple_20210412_wide-large.webp",
+  "image_square": "/images/full/purple/square/image_full_purple_20210412_square.jpg",
+  "tracklist": [
+    {
+      "time": "00:00",
+      "track": "Control - Matrix & Futurebound ft. Max Marshall"
+    },
+    {
+      "time": "02:44",
+      "track": "Fourward - How (ft. Dakota Sixx)"
+    },
+    {
+      "time": "04:35",
+      "track": "Mija & Gammer – Digressions"
+    },
+    {
+      "time": "06:25",
+      "track": "Rollz ft. Katies Ambition - Give It Time"
+    },
+    {
+      "time": "07:54",
+      "track": "Wilkinson - Afterglow"
+    },
+    {
+      "time": "09:55",
+      "track": "C418 - Aria Math (Protostar Remix)"
+    },
+    {
+      "time": "11:56",
+      "track": "Netsky - We Can Only Live Today"
+    },
+    {
+      "time": "13:24",
+      "track": "FadeX - Fearless"
+    },
+    {
+      "time": "16:05",
+      "track": "Cartoon ft. Coleman Trapp - Why We Lose"
+    },
+    {
+      "time": "18:06",
+      "track": "Gemini - Fire Inside (Day One's Lonely Hearts Remix)"
+    },
+    {
+      "time": "19:56",
+      "track": "Koven & Memtrix - Pessimist"
+    },
+    {
+      "time": "21:35",
+      "track": "Mollie Collins - Friends (ft. Emily Makis)"
+    },
+    {
+      "time": "23:26",
+      "track": "CamelPhat ft. LOWES - Easier (Sub Focus Remix)"
+    },
+    {
+      "time": "25:28",
+      "track": "Rudimental - Waiting All Night"
+    },
+    {
+      "time": "27:29",
+      "track": "Feint ft. Laura Brehm - We Won’t Be Alone"
+    },
+    {
+      "time": "29:41",
+      "track": "Gourski & Zera - Secret"
+    },
+    {
+      "time": "31:21",
+      "track": "Flite - Joy"
+    },
+    {
+      "time": "33:10",
+      "track": "XYconstant - Silverlined (Delta Heavy Remix)"
+    },
+    {
+      "time": "35:01",
+      "track": "Dimension ft. Bailey Tzuke - All I Need"
+    },
+    {
+      "time": "37:13",
+      "track": "Alora - Without You"
+    },
+    {
+      "time": "39:04",
+      "track": "Drumsound & Bassline Smith ft. Tom Cane – Through The Night"
+    },
+    {
+      "time": "41:17",
+      "track": "Smooth & Futurebound - Savoy Affair"
+    },
+    {
+      "time": "42:45",
+      "track": "Rootkit - Isolate (feat. Joe Erickson)"
+    },
+    {
+      "time": "44:30",
+      "track": "Pierce Fulton - Kuaga (Champion Remix)"
+    },
+    {
+      "time": "46:26",
+      "track": "Friction - Good To Me"
+    },
+    {
+      "time": "48:16",
+      "track": "MUZZ - Draining Atlantic"
+    },
+    {
+      "time": "50:06",
+      "track": "Orla Gartland - Lonely People (Raise Spirit Remix)"
+    },
+    {
+      "time": "51:56",
+      "track": "Rameses B – Children"
+    },
+    {
+      "time": "53:57",
+      "track": "T & Sugah ft. Ayve - Unreal"
+    },
+    {
+      "time": "55:49",
+      "track": "Dan Dakota - We Let Em Go (Ekko & Sidetrack Remix)"
+    },
+    {
+      "time": "57:39",
+      "track": "Stan SB - Anyone Out There (Maduk Remix)"
+    },
+    {
+      "time": "59:29",
+      "track": "Spor - Strange Heart"
+    },
+    {
+      "time": "1:01:47",
+      "track": "Camo & Krooked - Atlas VIP"
+    },
+    {
+      "time": "1:03:17",
+      "track": "Fred V & Grafix ft. Reija Lee - Just A Thought"
+    },
+    {
+      "time": "1:05:05",
+      "track": "Koven - All For Nothing"
+    },
+    {
+      "time": "1:07:18",
+      "track": "Subsurface ft. Leanne Louise - Mr. Magician"
+    }
+  ]
+}
 ]

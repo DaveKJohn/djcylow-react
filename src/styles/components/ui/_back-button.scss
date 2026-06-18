@@ -3,8 +3,7 @@
 @use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
-.terug-btn {
-    max-width: 190px;
+.terug-btn {    
     padding: map.get(map.get(v.$design-scale, "3xl"), "in-space");
     font-size: map.get(map.get(v.$design-scale, "base"), "font-size");
 
