@@ -107,7 +107,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const titleText = `${colorName} ${mix.genre} Mix ${mix.volume} (${mix.power} Energy) | DJ Cylow`;
     const topArtists = getTopArtists(mix.tracklist, 4);
 
-    // Gebruik handmatige beschrijving indien aanwezig, anders de fallback genereren
     const descriptionText = mix.description || `Beluister de ${colorName} ${mix.genre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
@@ -150,13 +149,12 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
 
-    // Uitgebreide en verbeterde gestructureerde data voor Google Bots
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'MusicPlaylist',
         'name': `${colorName} ${mix.genre} Mix ${mix.volume} - DJ Cylow`,
         'description': mix.description || `Beluister de ${colorName} ${mix.genre} set van DJ Cylow met tracks van top artiesten.`,
-        'numTracks': mix.tracklist?.length || 0,
+        'numTracks': Array.isArray(mix.tracklist) ? mix.tracklist.length : 0,
         'genre': mix.genre,
         'image': `https://www.djcylow.nl${mix.image_wide_large}`,
         'url': `https://www.djcylow.nl/luister/mix/${cleanSlug}`,
@@ -165,9 +163,9 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
             'name': 'DJ Cylow',
             'url': 'https://www.djcylow.nl'
         },
-        'track': mix.tracklist?.map((t, index) => {
-            const artistPart = t.track.split(' - ')[0] || 'Unknown Artist';
-            const trackPart = t.track.split(' - ')[1] || t.track;
+        'track': (Array.isArray(mix.tracklist) ? mix.tracklist : []).map((t, index) => {
+            const artistPart = t.track ? t.track.split(' - ')[0] || 'Unknown Artist' : 'Unknown Artist';
+            const trackPart = t.track ? t.track.split(' - ')[1] || t.track : 'Unknown Track';
             return {
                 '@type': 'MusicRecording',
                 'position': index + 1,
