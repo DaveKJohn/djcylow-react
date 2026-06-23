@@ -1,6 +1,6 @@
 # Release notes — DJ Cylow website (djcylow-react)
 
-Dit is de officiële release-historie van de live website op **djcylow.nl**, gedeployed via
+Dit is de officiële release-historie van de live website op **djcylow.com**, gedeployed via
 **Netlify** vanuit de `main`-branch op GitHub.
 
 ## Wat is een release?
@@ -107,11 +107,19 @@ gh release create v1.3.0 --title "v1.3.0 - UX MODUS (donker/licht mode)" \
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
-| [1.8.0](1.8.0.md) | 2026-06-18 | Refactor | Code structuur & JSON tracklist verbeterd |
-| [1.7.0](1.7.0.md) | 2026-06-16 | Feature | Nieuwe mix: Red Light EDM (Vol. 6) |
-| [1.6.0](1.6.0.md) | 2026-05-07 | Feature | Nieuwe mix: Orange Drum & Bass (Vol. 9) |
-| [1.5.0](1.5.0.md) | 2026-05-05 | Feature | UX kleuren uitgebreid + layout responsive |
-| [1.4.0](1.4.0.md) | 2026-05-01 | Feature | UX MODUS — donker/licht mode |
-| [1.3.0](1.3.0.md) | 2026-04-13 | Feature | Mobile Content 2.0 |
-| [1.2.0](1.2.0.md) | 2026-04-11 | Feature | Luister pagina 2.0 + Referenties component |
+| [1.13.0](1.13.0.md) | 2026-06-18 | Refactor | Code structuur & JSON tracklist verbeterd |
+| [1.12.0](1.12.0.md) | 2026-06-16 | Feature | Nieuwe mix: Red Light EDM (Vol. 6) |
+| [1.11.1](1.11.1.md) | 2026-05-10 | Patch | BackButton navigatie via Link |
+| [1.11.0](1.11.0.md) | 2026-05-08 | Feature | Nieuwe mix: Orange Drum & Bass (Vol. 9) + responsive |
+| [1.10.0](1.10.0.md) | 2026-05-05 | Feature | UX kleuren uitgebreid + layout responsive |
+| [1.9.0](1.9.0.md) | 2026-05-01 | Feature | UX MODUS — donker/licht mode |
+| [1.8.0](1.8.0.md) | 2026-04-20 | Feature | Reviews verborgen + responsive breakpoints |
+| [1.7.0](1.7.0.md) | 2026-04-13 | Feature | Referenties component + Mobile Content 2.0 |
+| [1.6.0](1.6.0.md) | 2026-04-11 | Feature | Filter 2.0 + Luister pagina 2.0 |
+| [1.5.0](1.5.0.md) | 2026-04-10 | Feature | Nieuwe mix + mix detail refactor |
+| [1.4.0](1.4.0.md) | 2026-03-20 | Feature | Nieuwe mix: Yellow EDM (Full) |
+| [1.3.0](1.3.0.md) | 2026-03-19 | Feature | BasiskleurenCarousel + Promo sectie + Navigatie |
+| [1.2.0](1.2.0.md) | 2026-03-13 | Feature | Hero Banner |
+| [1.1.0](1.1.0.md) | 2026-03-11 | Feature | AudioPlayer + Light Yellow mixes |
+| [1.0.1](1.0.1.md) | 2026-03-08 | Patch | Succes message contactformulier |
 | [1.0.0](1.0.0.md) | 2026-03-07 | Baseline | Eerste livegang op Netlify |
