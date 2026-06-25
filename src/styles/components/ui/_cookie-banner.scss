@@ -1,0 +1,54 @@
+@use "sass:map";
+@use "../../abstracts/mixins" as mix;
+@use "../../abstracts/variables" as v;
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: map.get(map.get(v.$design-scale, "2xl"), "in-space");
+    flex-wrap: wrap;
+
+    padding: map.get(map.get(v.$design-scale, "xl"), "in-space");
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--black-100);
+
+    &__text {
+        flex: 1;
+        min-width: 200px;
+        font-size: map.get(map.get(v.$design-scale, "sm"), "font-size");
+        line-height: map.get(map.get(v.$design-scale, "sm"), "line-height");
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: map.get(map.get(v.$design-scale, "lg"), "in-space");
+        flex-shrink: 0;
+
+        .btn.passive {
+            padding: map.get(map.get(v.$design-scale, "lg"), "in-space");
+            font-size: map.get(map.get(v.$design-scale, "sm"), "font-size");
+            color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+
+            &:hover {
+                color: rgba(255, 255, 255, 0.8);
+                border-color: rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        .btn.cta {
+            padding: map.get(map.get(v.$design-scale, "lg"), "in-space");
+            font-size: map.get(map.get(v.$design-scale, "sm"), "font-size");
+        }
+    }
+}

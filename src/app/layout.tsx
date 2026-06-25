@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
+import CookieBanner from "@/components/ui/CookieBanner";
 import Script from "next/script";
 
 // @ts-ignore
@@ -27,31 +28,6 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
-                {/* GTM Script */}
-                <Script id="gtm-delayed" strategy="afterInteractive">
-                    {`
-                        (function() {
-                        var gtmLoaded = false;
-                        function loadGTM() {
-                            if (gtmLoaded) return;
-                            gtmLoaded = true;
-                            window.removeEventListener('scroll', loadGTM);
-                            window.removeEventListener('mousemove', loadGTM);
-                            window.removeEventListener('touchstart', loadGTM);
-                            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                            })(window,document,'script','dataLayer','GTM-PK7VHJ46');
-                        }
-                        window.addEventListener('scroll', loadGTM, {passive: true});
-                        window.addEventListener('mousemove', loadGTM);
-                        window.addEventListener('touchstart', loadGTM, {passive: true});
-                        setTimeout(loadGTM, 6000); 
-                        })();
-                    `}
-                </Script>
-
                 {/* UX Toggle Script */}
                 <Script id="ux-mode-toggle" strategy="afterInteractive">
                     {`
@@ -83,6 +59,7 @@ export default function RootLayout({
                 <Navigation />
                 {children}
                 <Footer />
+                <CookieBanner />
             </body>
         </html>
     );

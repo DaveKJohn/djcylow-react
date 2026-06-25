@@ -13,6 +13,12 @@ Bij een release: hernoem `[Unreleased]` naar `[vX.X.X] - YYYY-MM-DD`, maak een
 
 ## [Unreleased]
 
+### Added
+- Cookiebanner toegevoegd (`CookieBanner` component) — toont bij eerste bezoek, slaat keuze op in `localStorage`. GTM laadt alleen na accepteren; bij weigeren blijft GTM uitgeschakeld.
+
+### Changed
+- GTM-script verwijderd uit `layout.tsx` — GTM wordt nu volledig beheerd door de cookiebanner.
+
 ---
 
 ## [v1.16.0] - 2026-06-25
