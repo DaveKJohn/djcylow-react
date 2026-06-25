@@ -3,7 +3,7 @@
 // Zorg dat useState en useEffect hier staan:
 import { useMemo, useState, useEffect } from 'react';
 import AudioPlayer from '../ui/AudioPlayer';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
