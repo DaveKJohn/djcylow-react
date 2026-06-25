@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "images:webp": "node scripts/convert-to-webp.js",
+    "images:webp:dry": "node scripts/convert-to-webp.js --dry-run"
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",
@@ -28,6 +30,7 @@
     "@types/react-google-recaptcha": "^2.1.9",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
