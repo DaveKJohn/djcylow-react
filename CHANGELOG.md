@@ -13,8 +13,11 @@ Bij een release: hernoem `[Unreleased]` naar `[vX.X.X] - YYYY-MM-DD`, maak een
 
 ## [Unreleased]
 
-### Added
-- `tags` veld toegevoegd aan alle mix JSON entries (77 entries in 14 bestanden) — YouTube-stijl zoektags per mix op basis van subgenre, color/mood, jaar en tracklist-artiesten. Entries met `ignore: true` zijn overgeslagen.
+---
+
+## [v1.16.0] - 2026-06-25
+
+Zie [release-notes/1.16.0.md](release-notes/1.16.0.md)
 
 ---
 
