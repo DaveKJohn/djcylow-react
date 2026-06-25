@@ -28,7 +28,21 @@
     "languageOfEmotion": "De taal van emotie",
     "complementaryMoods": "Complementaire muziekstemmingen",
     "musicMap": "Muziekale kaart",
-    "conclusion": "Conclusie"
+    "conclusion": "Conclusie",
+    "emotions": {
+      "cyan": "Vermaakt",
+      "green": "Dankbaar",
+      "yellow": "Ambitieus",
+      "orange": "Hoopvol",
+      "red": "Bang",
+      "magenta": "Geïrriteerd",
+      "purple": "Verdrietig",
+      "blue": "Onverschillig"
+    },
+    "high": "Hoog",
+    "low": "Laag",
+    "selectSubstances": "Selecteer stoffen...",
+    "noMix": "Geen mix."
   },
   "diensten": {
     "weddingTitle": "Boek DJ Cylow voor je bruiloft!",

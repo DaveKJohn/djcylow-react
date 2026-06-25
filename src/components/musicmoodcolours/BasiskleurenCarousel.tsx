@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import Carousel from '@/components/ui/Carousel';
 
@@ -22,17 +23,20 @@ const allMixesData = [
 ];
 
 const COLORS_CONFIG = [
-	{ id: 1, name: 'cyan', description: 'Vermaakt' },
-	{ id: 2, name: 'green', description: 'Dankbaar' },
-	{ id: 3, name: 'yellow', description: 'Ambitieus' },
-	{ id: 4, name: 'orange', description: 'Hoopvol' },
-	{ id: 5, name: 'red', description: 'Bang' },
-	{ id: 6, name: 'magenta', description: 'Geïrriteerd' },
-	{ id: 7, name: 'purple', description: 'Verdrietig' },
-	{ id: 8, name: 'blue', description: 'Onverschillig' },
+	{ id: 1, name: 'cyan' },
+	{ id: 2, name: 'green' },
+	{ id: 3, name: 'yellow' },
+	{ id: 4, name: 'orange' },
+	{ id: 5, name: 'red' },
+	{ id: 6, name: 'magenta' },
+	{ id: 7, name: 'purple' },
+	{ id: 8, name: 'blue' },
 ];
 
+type ColorName = 'cyan' | 'green' | 'yellow' | 'orange' | 'red' | 'magenta' | 'purple' | 'blue';
+
 export default function BasiskleurenCarousel() {
+	const t = useTranslations('musicMoodColours');
 	const [activeMixId, setActiveMixId] = useState<string | null>(null);
 
 	const featuredMixes = useMemo(() => {
@@ -89,7 +93,7 @@ export default function BasiskleurenCarousel() {
 							/>
 						) : (
 							<div className="column center" style={{ height: '100%', minHeight: '150px' }}>
-								<p className="error center size-sm">Geen mix.</p>
+								<p className="error center size-sm">{t('noMix')}</p>
 							</div>
 						)}
 					</div>
@@ -105,7 +109,7 @@ export default function BasiskleurenCarousel() {
 			<div className="row spacing-2xl descriptions">
 				{COLORS_CONFIG.map(c => (
 					<div key={c.name} className={`column text description ${c.name}`}>
-						<p className="size-sm">"{c.description}"</p>
+						<p className="size-sm">&ldquo;{t(`emotions.${c.name}` as `emotions.${ColorName}`)}&rdquo;</p>
 					</div>
 				))}
 			</div>

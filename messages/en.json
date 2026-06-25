@@ -28,7 +28,21 @@
     "languageOfEmotion": "The language of emotion",
     "complementaryMoods": "Complementary music moods",
     "musicMap": "Music map",
-    "conclusion": "Conclusion"
+    "conclusion": "Conclusion",
+    "emotions": {
+      "cyan": "Entertained",
+      "green": "Grateful",
+      "yellow": "Ambitious",
+      "orange": "Hopeful",
+      "red": "Anxious",
+      "magenta": "Irritated",
+      "purple": "Melancholic",
+      "blue": "Indifferent"
+    },
+    "high": "High",
+    "low": "Low",
+    "selectSubstances": "Select substances...",
+    "noMix": "No mix."
   },
   "diensten": {
     "weddingTitle": "Book DJ Cylow for your wedding!",

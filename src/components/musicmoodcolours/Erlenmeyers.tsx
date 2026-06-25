@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 
 import lightBlue from '@/data/mixes/light-blue.json';
@@ -22,20 +23,23 @@ const allMixesData = [
 ];
 
 
-const COLOR_TO_STATE: Record<string, { dopamine: boolean; serotonine: boolean; adrenaline: boolean; label: string }> = {
-    "blue": { dopamine: false, serotonine: false, adrenaline: false, label: "Onverschillig" },
-    "cyan": { dopamine: true, serotonine: false, adrenaline: false, label: "Vermaakt" },
-    "purple": { dopamine: false, serotonine: true, adrenaline: false, label: "Verdrietig" },
-    "magenta": { dopamine: false, serotonine: false, adrenaline: true, label: "Geirriteerd" },
-    "green": { dopamine: true, serotonine: true, adrenaline: false, label: "Dankbaar" },
-    "yellow": { dopamine: true, serotonine: false, adrenaline: true, label: "Ambitieus" },
-    "red": { dopamine: false, serotonine: true, adrenaline: true, label: "Bang" },
-    "orange": { dopamine: true, serotonine: true, adrenaline: true, label: "Hoopvol" }
+type ColorName = 'cyan' | 'green' | 'yellow' | 'orange' | 'red' | 'magenta' | 'purple' | 'blue';
+
+const COLOR_TO_STATE: Record<string, { dopamine: boolean; serotonine: boolean; adrenaline: boolean }> = {
+    "blue":    { dopamine: false, serotonine: false, adrenaline: false },
+    "cyan":    { dopamine: true,  serotonine: false, adrenaline: false },
+    "purple":  { dopamine: false, serotonine: true,  adrenaline: false },
+    "magenta": { dopamine: false, serotonine: false, adrenaline: true  },
+    "green":   { dopamine: true,  serotonine: true,  adrenaline: false },
+    "yellow":  { dopamine: true,  serotonine: false, adrenaline: true  },
+    "red":     { dopamine: false, serotonine: true,  adrenaline: true  },
+    "orange":  { dopamine: true,  serotonine: true,  adrenaline: true  },
 };
 
 const SUBSTANCES = ['dopamine', 'serotonine', 'adrenaline'] as const;
 
 export default function Erlenmeyers() {
+    const t = useTranslations('musicMoodColours');
     const [substances, setSubstances] = useState({ dopamine: false, serotonine: false, adrenaline: false });
     const [activeMixId, setActiveMixId] = useState<string | null>(null);
 
@@ -95,7 +99,7 @@ export default function Erlenmeyers() {
                             />
                         ) : (
                             <div className="column center wrapper" style={{ minHeight: '150px' }}>
-                                <p className="size-xs">Selecteer stoffen...</p>
+                                <p className="size-xs">{t('selectSubstances')}</p>
                             </div>
                         )}
 
@@ -106,7 +110,7 @@ export default function Erlenmeyers() {
                                 </svg>
                             </div>
                             <div className="column h-start text">
-                                <p className="text" id="emotion-text">"{COLOR_TO_STATE[activeColor].label}"</p>
+                                <p className="text" id="emotion-text">&ldquo;{t(`emotions.${activeColor}` as `emotions.${ColorName}`)}&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -139,7 +143,7 @@ export default function Erlenmeyers() {
                                         </g>
                                         <path d="M35 10 L35 40 L15 85 Q10 95 25 95 L75 95 Q90 95 85 85 L65 40 L65 10" fill="none" stroke="white" strokeWidth="1" className="glass-outline" />
                                     </svg>
-                                    <p className="status-text size-sm">{isActive ? 'Hoog' : 'Laag'}</p>
+                                    <p className="status-text size-sm">{isActive ? t('high') : t('low')}</p>
                                 </div>
                             );
                         })}
