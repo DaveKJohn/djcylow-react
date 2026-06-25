@@ -111,10 +111,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
-    const pageUrl = `https://www.djcylow.nl/luister/mix/${cleanSlug}`;
+    const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
 
     return {
-        metadataBase: new URL('https://www.djcylow.nl'),
+        metadataBase: new URL('https://www.djcylow.com'),
         title: titleText,
         description: descriptionText,
         alternates: {
@@ -157,12 +157,12 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         'numTracks': Array.isArray(mix.tracklist) ? mix.tracklist.length : 0,
         'genre': mix.subgenre || mix.genre,
         ...(mix.date && { 'datePublished': mix.date }),
-        'image': `https://www.djcylow.nl${mix.image_wide_large}`,
-        'url': `https://www.djcylow.nl/luister/mix/${cleanSlug}`,
+        'image': `https://www.djcylow.com${mix.image_wide_large}`,
+        'url': `https://www.djcylow.com/luister/mix/${cleanSlug}`,
         'creator': {
             '@type': 'MusicGroup',
             'name': 'DJ Cylow',
-            'url': 'https://www.djcylow.nl'
+            'url': 'https://www.djcylow.com'
         },
         'track': (Array.isArray(mix.tracklist) ? mix.tracklist : []).map((t, index) => {
             const artistPart = t.track ? t.track.split(' - ')[0] || 'Unknown Artist' : 'Unknown Artist';

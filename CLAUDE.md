@@ -96,7 +96,7 @@ npm run lint     # ESLint + TypeScript check
 
 - **Static export**: `output: 'export'` in `next.config.ts` — no server-side rendering, no Next.js API routes. Contact form runs via Netlify Functions.
 - **Images unoptimized**: `images: { unoptimized: true }` — required for static export. Do not remove.
-- **Dutch content**: all user-facing text is in Dutch. Keep it that way.
+- **English content**: all user-facing text must be in English. The site domain is `djcylow.com` (not `.nl`). Do not add Dutch text to components, pages, or content files.
 - **Tailwind v4 + SCSS**: both are used side by side. SCSS lives in `src/styles/`, Tailwind as utility classes in components.
 
 ### Where content lives
@@ -123,7 +123,7 @@ See `src/data/mixes/README.md` for the full schema spec.
 Quick rules:
 - `color` field: capitalized (`"Red"`, not `"red"`)
 - `date` field: ISO format `"YYYY-MM-DD"` (not empty)
-- `description`: unique per mix, 120–160 chars, Dutch, mention subgenre + 2–4 artists
+- `description`: unique per mix, 120–160 chars, English, mention subgenre + 2–4 artists
 - `tracklist` time format: `"HH:MM:SS"` with leading zeros
 - New mixes go at the **top** of the array
 
