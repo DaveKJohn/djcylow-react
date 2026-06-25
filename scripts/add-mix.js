@@ -16,8 +16,19 @@
  *   - Subgenre       vrije tekst          bijv. Tech House
  *   - BPM            getal                bijv. 128
  *   - Volume         getal of Enter       script stelt het volgende voor
- *   - Beschrijving   120–160 tekens NL    subgenre + 2–4 artiesten
- *   - Tracklist      optioneel            tijdcode HH:MM:SS + naam
+ *   - Tracklist      tijdcode HH:MM:SS + naam per track
+ *
+ * BESCHRIJVING (AUTOMATISCH GEGENEREERD)
+ * ---------------------------------------
+ * Claude genereert de beschrijving automatisch op basis van de tracklist.
+ * Je krijgt de gegenereerde tekst te zien en kiest dan:
+ *   j      — gebruik deze beschrijving
+ *   n      — sla beschrijving over (veld blijft leeg)
+ *   edit   — typ zelf een vervangende tekst
+ *
+ * Vereist: ANTHROPIC_API_KEY als omgevingsvariabele.
+ * Stel in via: $env:ANTHROPIC_API_KEY="sk-ant-..."  (PowerShell)
+ *           of: set ANTHROPIC_API_KEY=sk-ant-...     (cmd)
  *
  * WAT AUTOMATISCH WORDT GEGENEREERD
  * ----------------------------------
@@ -48,6 +59,20 @@
 const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
+const Anthropic = require('@anthropic-ai/sdk');
+
+// Laad .env uit de projectroot zodat ANTHROPIC_API_KEY beschikbaar is
+const envPath = path.join(__dirname, '..', '.env');
+if (fs.existsSync(envPath)) {
+  fs.readFileSync(envPath, 'utf8')
+    .split('\n')
+    .forEach(line => {
+      const [key, ...rest] = line.split('=');
+      if (key && rest.length && !process.env[key.trim()]) {
+        process.env[key.trim()] = rest.join('=').trim();
+      }
+    });
+}
 
 const R2_BASE = 'https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/';
 const MIXES_DIR = path.join(__dirname, '..', 'src', 'data', 'mixes');
@@ -121,17 +146,91 @@ async function pickFromList(prompt, options) {
   }
 }
 
+function parseTracklistText(text) {
+  // Parses pasted tracklist lines: "HH:MM:SS Artiest - Titel" or "MM:SS Artiest - Titel"
+  return text
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => /^\d{1,2}:\d{2}(:\d{2})?/.test(line))
+    .map(line => {
+      const spaceIdx = line.indexOf(' ');
+      let time = line.slice(0, spaceIdx).trim();
+      const track = line.slice(spaceIdx + 1).trim();
+      // Normalize MM:SS → HH:MM:SS
+      if (/^\d{2}:\d{2}$/.test(time)) time = `00:${time}`;
+      return { time, track };
+    })
+    .filter(t => t.track.length > 0);
+}
+
 async function askTracklist() {
-  const tracks = [];
-  console.log('\nTracklist invoeren (leeg laten om te stoppen):');
-  while (true) {
-    const time = await ask(`  Track ${tracks.length + 1} tijd (HH:MM:SS): `);
-    if (!time.trim()) break;
-    const track = await ask(`  Track ${tracks.length + 1} naam (Artiest - Titel): `);
-    if (!track.trim()) break;
-    tracks.push({ time: time.trim(), track: track.trim() });
+  console.log('\nTracklist plakken (HH:MM:SS Artiest - Titel per regel).');
+  console.log('Typ daarna END en druk Enter:\n');
+
+  return new Promise((resolve) => {
+    const lines = [];
+
+    const onLine = (line) => {
+      if (line.trim().toUpperCase() === 'END') {
+        rl.removeListener('line', onLine);
+        const tracks = parseTracklistText(lines.join('\n'));
+        if (tracks.length > 0) {
+          console.log(`\n✓ ${tracks.length} tracks ingelezen.`);
+        } else {
+          console.log('\nGeen tracks herkend — tracklist blijft leeg.');
+        }
+        resolve(tracks);
+      } else {
+        lines.push(line);
+      }
+    };
+
+    rl.on('line', onLine);
+  });
+}
+
+async function generateDescription(subgenre, genre, color, power, tracklist) {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.log('\n⚠ ANTHROPIC_API_KEY niet ingesteld — beschrijving overgeslagen.');
+    return '';
   }
-  return tracks;
+  if (tracklist.length === 0) {
+    console.log('\n⚠ Geen tracklist — beschrijving kan niet worden gegenereerd.');
+    return '';
+  }
+
+  const client = new Anthropic();
+  const trackLines = tracklist.map(t => `${t.time} — ${t.track}`).join('\n');
+
+  process.stdout.write('\nBeschrijving genereren...');
+
+  const msg = await client.messages.create({
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 300,
+    messages: [{
+      role: 'user',
+      content: `Schrijf een beschrijving voor een DJ mix. Geef ALLEEN de beschrijvingstekst terug, geen uitleg of aanhalingstekens.
+
+Mix info:
+- Subgenre: ${subgenre}
+- Genre: ${genre}
+- Kleur/sfeer: ${color} ${power}
+
+Tracklist:
+${trackLines}
+
+Regels:
+- Exact 120–160 tekens
+- Nederlands
+- Noem het subgenre
+- Noem 2–4 opvallende artiesten uit de tracklist
+- Sfeer beschrijven (bijv. "warm en meeslepend", "strak en gedreven")
+- Formaat: "${subgenre} mix van DJ Cylow — [sfeer]. Met [artiesten]."`,
+    }],
+  });
+
+  process.stdout.write(' klaar.\n');
+  return msg.content[0].text.trim();
 }
 
 async function main() {
@@ -182,17 +281,28 @@ async function main() {
   const volNum = volInput ? parseInt(volInput.replace(/\D/g, ''), 10) : suggestedVol;
   const volume = `Vol. ${volNum}`;
 
-  // Beschrijving
-  let description;
-  while (true) {
-    description = (await ask('\nBeschrijving (120-160 tekens, NL, subgenre + 2-4 artiesten):\n> ')).trim();
-    if (description.length >= 100) break;
-    console.log(`Te kort (${description.length} tekens). Minimaal 100 tekens.`);
-  }
-
   // Tracklist
-  const doTracklist = (await ask('\nTracklist nu invoeren? (j/n): ')).trim().toLowerCase();
-  const tracklist = doTracklist === 'j' ? await askTracklist() : [];
+  const tracklist = await askTracklist();
+
+  // Beschrijving — automatisch genereren via Claude
+  const generated = await generateDescription(subgenre, genre, color, power, tracklist);
+  let description = '';
+
+  if (generated) {
+    console.log(`\nGegenereerde beschrijving (${generated.length} tekens):`);
+    console.log(`  "${generated}"`);
+    const keuze = (await ask('\nGebruiken? (j = ja / n = overslaan / edit = zelf typen): ')).trim().toLowerCase();
+    if (keuze === 'j') {
+      description = generated;
+    } else if (keuze === 'edit') {
+      description = (await ask('Beschrijving: ')).trim();
+    }
+  } else {
+    const handmatig = (await ask('\nBeschrijving handmatig invoeren? (j/n): ')).trim().toLowerCase();
+    if (handmatig === 'j') {
+      description = (await ask('> ')).trim();
+    }
+  }
 
   // Genereer afgeleide velden
   const title = buildTitle(subgenre, color, power, freq, volNum);
