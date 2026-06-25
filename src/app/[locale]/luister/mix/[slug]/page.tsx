@@ -43,6 +43,7 @@ interface Mix {
     image_wide_large: string;
     image_square: string;
     description?: string;
+    description_en?: string;
     tracklist: { time: string; track: string }[];
 }
 
@@ -98,7 +99,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     const colorName = mix.color.charAt(0).toUpperCase() + mix.color.slice(1);
     const titleText = `${colorName} ${mix.genre} Mix ${mix.volume} (${mix.power} Energy) | DJ Cylow`;
     const topArtists = getTopArtists(mix.tracklist, 4);
-    const descriptionText = mix.description || `Listen to the ${colorName} ${mix.genre} set (${mix.volume}) by DJ Cylow. A non-stop mix featuring ${topArtists}. Stream free now!`;
+    const descriptionText = locale === 'nl'
+        ? (mix.description || `Luister naar de ${colorName} ${mix.genre} set (${mix.volume}) van DJ Cylow. Met tracks van ${topArtists}. Gratis streamen!`)
+        : (mix.description_en || `Listen to the ${colorName} ${mix.genre} set (${mix.volume}) by DJ Cylow. A non-stop mix featuring ${topArtists}. Stream free now!`);
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
@@ -146,7 +149,9 @@ export default async function MixDetail({ params }: { params: Promise<{ locale: 
         '@context': 'https://schema.org',
         '@type': 'MusicPlaylist',
         'name': `${colorName} ${mix.genre} Mix ${mix.volume} - DJ Cylow`,
-        'description': mix.description || `Listen to the ${colorName} ${mix.genre} set by DJ Cylow.`,
+        'description': locale === 'nl'
+            ? (mix.description || `Luister naar de ${colorName} ${mix.genre} set van DJ Cylow.`)
+            : (mix.description_en || `Listen to the ${colorName} ${mix.genre} set by DJ Cylow.`),
         'numTracks': Array.isArray(mix.tracklist) ? mix.tracklist.length : 0,
         'genre': mix.subgenre || mix.genre,
         ...(mix.date && { 'datePublished': mix.date }),

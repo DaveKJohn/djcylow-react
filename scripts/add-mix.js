@@ -189,32 +189,54 @@ async function askTracklist() {
   });
 }
 
-async function generateDescription(subgenre, genre, color, power, tracklist) {
+async function generateDescriptions(subgenre, genre, color, power, tracklist) {
   if (!process.env.ANTHROPIC_API_KEY) {
-    console.log('\n⚠ ANTHROPIC_API_KEY niet ingesteld — beschrijving overgeslagen.');
-    return '';
+    console.log('\n⚠ ANTHROPIC_API_KEY niet ingesteld — beschrijvingen overgeslagen.');
+    return { nl: '', en: '' };
   }
   if (tracklist.length === 0) {
-    console.log('\n⚠ Geen tracklist — beschrijving kan niet worden gegenereerd.');
-    return '';
+    console.log('\n⚠ Geen tracklist — beschrijvingen kunnen niet worden gegenereerd.');
+    return { nl: '', en: '' };
   }
 
   const client = new Anthropic();
   const trackLines = tracklist.map(t => `${t.time} — ${t.track}`).join('\n');
+  const mixInfo = `Subgenre: ${subgenre}\nGenre: ${genre}\nColor/vibe: ${color} ${power}`;
 
-  process.stdout.write('\nBeschrijving genereren...');
+  process.stdout.write('\nBeschrijvingen genereren (NL + EN)...');
 
-  const msg = await client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 300,
-    messages: [{
-      role: 'user',
-      content: `Write a description for a DJ mix. Return ONLY the description text, no explanation or quotation marks.
+  const [msgNl, msgEn] = await Promise.all([
+    client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
+      messages: [{
+        role: 'user',
+        content: `Schrijf een beschrijving voor een DJ mix. Geef ALLEEN de beschrijvingstekst terug, geen uitleg of aanhalingstekens.
 
 Mix info:
-- Subgenre: ${subgenre}
-- Genre: ${genre}
-- Color/vibe: ${color} ${power}
+${mixInfo}
+
+Tracklist:
+${trackLines}
+
+Regels:
+- Exact 120–160 tekens
+- Nederlands
+- Noem het subgenre
+- Noem 2–4 artiesten uit de tracklist
+- Beschrijf de vibe (bijv. "warm en gedreven", "strak en energiek")
+- Formaat: "${subgenre} mix van DJ Cylow — [vibe]. Met [artiesten]."`,
+      }],
+    }),
+    client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
+      messages: [{
+        role: 'user',
+        content: `Write a description for a DJ mix. Return ONLY the description text, no explanation or quotation marks.
+
+Mix info:
+${mixInfo}
 
 Tracklist:
 ${trackLines}
@@ -226,11 +248,15 @@ Rules:
 - Mention 2–4 notable artists from the tracklist
 - Describe the vibe (e.g. "warm and driving", "tight and energetic")
 - Format: "${subgenre} mix by DJ Cylow — [vibe]. Featuring [artists]."`,
-    }],
-  });
+      }],
+    }),
+  ]);
 
   process.stdout.write(' klaar.\n');
-  return msg.content[0].text.trim();
+  return {
+    nl: msgNl.content[0].text.trim(),
+    en: msgEn.content[0].text.trim(),
+  };
 }
 
 async function main() {
@@ -284,23 +310,31 @@ async function main() {
   // Tracklist
   const tracklist = await askTracklist();
 
-  // Beschrijving — automatisch genereren via Claude
-  const generated = await generateDescription(subgenre, genre, color, power, tracklist);
+  // Beschrijvingen — automatisch genereren via Claude (NL + EN)
+  const generated = await generateDescriptions(subgenre, genre, color, power, tracklist);
   let description = '';
+  let descriptionEn = '';
 
-  if (generated) {
-    console.log(`\nGegenereerde beschrijving (${generated.length} tekens):`);
-    console.log(`  "${generated}"`);
-    const keuze = (await ask('\nGebruiken? (j = ja / n = overslaan / edit = zelf typen): ')).trim().toLowerCase();
-    if (keuze === 'j') {
-      description = generated;
-    } else if (keuze === 'edit') {
-      description = (await ask('Beschrijving: ')).trim();
+  if (generated.nl || generated.en) {
+    if (generated.nl) {
+      console.log(`\nGegenereerde NL beschrijving (${generated.nl.length} tekens):`);
+      console.log(`  "${generated.nl}"`);
+      const keuzeNl = (await ask('Gebruiken? (j = ja / n = overslaan / edit = zelf typen): ')).trim().toLowerCase();
+      if (keuzeNl === 'j') description = generated.nl;
+      else if (keuzeNl === 'edit') description = (await ask('NL beschrijving: ')).trim();
+    }
+    if (generated.en) {
+      console.log(`\nGegenereerde EN beschrijving (${generated.en.length} tekens):`);
+      console.log(`  "${generated.en}"`);
+      const keuzeEn = (await ask('Gebruiken? (j = ja / n = overslaan / edit = zelf typen): ')).trim().toLowerCase();
+      if (keuzeEn === 'j') descriptionEn = generated.en;
+      else if (keuzeEn === 'edit') descriptionEn = (await ask('EN description: ')).trim();
     }
   } else {
-    const handmatig = (await ask('\nBeschrijving handmatig invoeren? (j/n): ')).trim().toLowerCase();
+    const handmatig = (await ask('\nBeschrijvingen handmatig invoeren? (j/n): ')).trim().toLowerCase();
     if (handmatig === 'j') {
-      description = (await ask('> ')).trim();
+      description = (await ask('NL beschrijving: ')).trim();
+      descriptionEn = (await ask('EN description: ')).trim();
     }
   }
 
@@ -331,6 +365,7 @@ async function main() {
     image_wide_large: imgs.wide_large,
     image_square:     imgs.square,
     description,
+    description_en: descriptionEn,
     tracklist,
   };
 

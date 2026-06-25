@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from 'react';
-import { homeContent } from "@/content/home";
+import { useLocale } from 'next-intl';
+import { getHomeContent } from "@/content/home";
 import ReadMore from "@/components/ui/ReadMore";
 
 // @ts-ignore
 import '@/styles/components/home/promo.scss';
 
 const Promo = () => {
+    const locale = useLocale();
+    const content = getHomeContent(locale);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false); // Nieuwe state voor hoogte
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const videoId = "YLNznh1ixT8";
     const thumbnail = "https://i.ytimg.com/vi/YLNznh1ixT8/hqdefault.jpg";
@@ -20,20 +23,20 @@ const Promo = () => {
             <div className="layer gradient" id="promo_back"></div>
 
             <div className="column w-fill AMC P20" id="promo_front">
-        
+
                 <div className={`column w-fix AMC constrainer  ${isExpanded ? 'is-expanded' : ''}`}>
 
                     <div className="row-c break-m w-fill AMC P30 spacing-4xl">
 
                         <div className="column w-fill AML P35 spacing-3xl">
-                            <h2 dangerouslySetInnerHTML={{ __html: homeContent.promo_h3 || "" }} />
+                            <h2 dangerouslySetInnerHTML={{ __html: content.promo_h3 || "" }} />
                             <ReadMore
                                 onToggle={(state) => setIsExpanded(state)}
-                                teaser={<p className="left">{homeContent.promo_story_p_one}</p>}
+                                teaser={<p className="left">{content.promo_story_p_one}</p>}
                                 hiddenContent={
                                     <>
-                                        <p className="left">{homeContent.promo_story_p_two}</p>
-                                        <p className="left">{homeContent.promo_story_p_three}</p>
+                                        <p className="left">{content.promo_story_p_two}</p>
+                                        <p className="left">{content.promo_story_p_three}</p>
                                     </>
                                 }
                             />

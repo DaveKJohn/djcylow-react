@@ -1,7 +1,8 @@
 "use client";
 import React from 'react';
+import { useLocale } from 'next-intl';
+import { getHomeContent } from "@/content/home";
 import Carousel from '@/components/ui/Carousel';
-import { homeContent } from "@/content/home";
 import { referentiesData, Referentie } from '@/content/referenties';
 
 
@@ -9,11 +10,14 @@ import { referentiesData, Referentie } from '@/content/referenties';
 import '@/styles/components/home/referenties.scss';
 
 const Referenties = () => {
+    const locale = useLocale();
+    const content = getHomeContent(locale);
+
     return (
         <div className="column center v-push-8xl WoB" id="referenties">
 
             <div className="column text-wrapper spacing-4xl center">
-                <h2 dangerouslySetInnerHTML={{ __html: homeContent.klantervaringen_h3 || "" }} />
+                <h2 dangerouslySetInnerHTML={{ __html: content.klantervaringen_h3 || "" }} />
 
             </div>
             <Carousel>

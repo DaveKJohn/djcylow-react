@@ -4,13 +4,14 @@ import ContactForm from "@/components/sections/ContactForm";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: 'diensten' });
     return {
-        title: "Boek DJ Cylow voor jouw evenement!",
-        description: "De DJ die iedereen op de dansvloer krijgt.",
+        title: t('eventTitle'),
+        description: t('description'),
         alternates: { canonical: `https://www.djcylow.com/${locale}/diensten/house-dj` },
         openGraph: {
-            title: "Boek DJ Cylow voor jouw evenement!",
-            description: "De DJ die iedereen op de dansvloer krijgt.",
+            title: t('eventTitle'),
+            description: t('description'),
             images: [{ url: "/images/diensten.jpg" }],
         },
     };

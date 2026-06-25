@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { setRequestLocale } from 'next-intl/server';
-import { homeContent } from "@/content/home";
+import { getHomeContent } from "@/content/home";
 import ContactForm from "@/components/sections/ContactForm";
 import styles from '@/styles/modules/home.module.scss';
 import Hero from "@/components/home/Hero";
@@ -8,16 +8,17 @@ import Promo from "@/components/home/Promo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
+    const content = getHomeContent(locale);
     const url = `https://www.djcylow.com/${locale}`;
     return {
-        title: homeContent.title,
-        description: homeContent.description,
+        title: content.title,
+        description: content.description,
         alternates: { canonical: url },
         openGraph: {
             type: "website",
             url,
-            title: homeContent.title,
-            description: homeContent.description,
+            title: content.title,
+            description: content.description,
         },
     };
 }

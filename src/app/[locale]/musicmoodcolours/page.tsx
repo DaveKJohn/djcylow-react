@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import styles from '@/styles/modules/musicmoodcolours.module.scss';
-import { musicMoodColoursContent } from "@/content/musicmoodcolours";
+import { getMusicMoodColoursContent } from "@/content/musicmoodcolours";
 import BasiskleurenCarousel from '@/components/musicmoodcolours/BasiskleurenCarousel';
 import CanvasCircle from '@/components/musicmoodcolours/CanvasCircle';
 import VsKleurenCarousel from '@/components/musicmoodcolours/VsKleurenCarousel';
@@ -14,6 +14,8 @@ import ContactForm from "@/components/sections/ContactForm";
 
 export default function MusicMoodColoursPage() {
     const t = useTranslations('musicMoodColours');
+    const locale = useLocale();
+    const musicMoodColoursContent = getMusicMoodColoursContent(locale);
     return (
         <main className={styles.pageWrapper}>
             <div className="WoB stack w-fill AMC P15 banner v-push-7xl" id="mmc_banner">
