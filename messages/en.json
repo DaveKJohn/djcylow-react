@@ -1,2 +1,40 @@
 {
+  "nav": {
+    "listen": "Listen",
+    "musicMoodColours": "Music Mood Colours",
+    "bookNow": "Book now!"
+  },
+  "common": {
+    "backToOverview": "Back to overview",
+    "filters": "Filters",
+    "openFilter": "Open filter"
+  },
+  "mix": {
+    "notFound": "Mix not found.",
+    "tracklist": "Tracklist",
+    "noTracklist": "No tracklist available",
+    "disclaimerTitle": "Disclaimer",
+    "disclaimerText": "All music rights belong to their respective owners. Support the artists featured in this DJ Cylow {genre} mix by buying their tracks.",
+    "seoIntro": "Looking for an energetic {genre} mix? In {title}, DJ Cylow delivers a smooth, non-stop selection of the best tracks right now. This set has a {power} feel — perfect for streaming, working out, or your pre-party warm-up.",
+    "seoArtists": "Enjoy seamless transitions and records from top producers like {artists} and many more."
+  },
+  "luister": {
+    "title": "Listen"
+  },
+  "musicMoodColours": {
+    "colourSpectrum": "The colour spectrum of music",
+    "languageOfEmotion": "The language of emotion",
+    "complementaryMoods": "Complementary music moods",
+    "musicMap": "Music map",
+    "conclusion": "Conclusion"
+  },
+  "diensten": {
+    "weddingTitle": "Book DJ Cylow for your wedding!",
+    "corporateTitle": "Book DJ Cylow for your corporate event!",
+    "eventTitle": "Book DJ Cylow for your event!"
+  },
+  "footer": {
+    "madeBy": "Made by",
+    "copyright": "© 2025 DJ Cylow"
+  }
 }

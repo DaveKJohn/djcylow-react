@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import MobileContent from "@/components/ui/MobileContent";
 
 export default function Nav() {
+    const t = useTranslations('nav');
 
     const HamburgerIcon = (
         <svg
@@ -70,14 +72,14 @@ export default function Nav() {
                             <div className="row-c w-fill AML P60 break-s anchor-wrapper">
 
                                 <Link className="column w-fill AML P65 btn anchor" href="/luister">
-                                    <span>Luister</span>
+                                    <span>{t('listen')}</span>
                                 </Link>
 
 
                                 <div className="splitter mobile"></div>
 
                                 <Link className="column w-fill AML P65 btn anchor" href="/musicmoodcolours">
-                                    <span>Music Mood Colours</span>
+                                    <span>{t('musicMoodColours')}</span>
                                 </Link>
 
 
@@ -94,7 +96,7 @@ export default function Nav() {
                         <div className="column w-hug AMC P35">
 
                             <Link className="btn cta center boek-nu-btn" href="/diensten">
-                                <span>Boek nu!</span>
+                                <span>{t('bookNow')}</span>
                             </Link>
 
                         </div>

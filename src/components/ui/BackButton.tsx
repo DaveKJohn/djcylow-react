@@ -1,14 +1,16 @@
 'use client';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 
 export default function BackButton() {
+    const t = useTranslations('common');
     return (
-        <Link 
-            href="/luister" 
+        <Link
+            href="/luister"
             className="btn passive terug-btn"
-            aria-label="Terug naar overzicht"
+            aria-label={t('backToOverview')}
         >
-            <span className="">Terug naar overzicht</span>
+            <span>{t('backToOverview')}</span>
         </Link>
     );
 }

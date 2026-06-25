@@ -1,2 +1,40 @@
 {
+  "nav": {
+    "listen": "Luister",
+    "musicMoodColours": "Music Mood Colours",
+    "bookNow": "Boek nu!"
+  },
+  "common": {
+    "backToOverview": "Terug naar overzicht",
+    "filters": "Filters",
+    "openFilter": "Filter openen"
+  },
+  "mix": {
+    "notFound": "Mix niet gevonden.",
+    "tracklist": "Tracklist",
+    "noTracklist": "Geen tracklist beschikbaar",
+    "disclaimerTitle": "Disclaimer",
+    "disclaimerText": "Alle muziekrechten zijn eigendom van de respectievelijke eigenaren. Steun de artiesten in deze DJ Cylow {genre} mix door hun tracks te kopen.",
+    "seoIntro": "Ben je op zoek naar een energieke {genre} mix? In {title} brengt DJ Cylow een vloeiende, non-stop selectie van de beste tracks van dit moment. Deze set heeft een {power} feel en is perfect voor streamen, sporten of je pre-party.",
+    "seoArtists": "Geniet van unieke overgangen en platen van top-producers zoals {artists} en vele anderen."
+  },
+  "luister": {
+    "title": "Luister"
+  },
+  "musicMoodColours": {
+    "colourSpectrum": "Het kleurenspectrum van muziek",
+    "languageOfEmotion": "De taal van emotie",
+    "complementaryMoods": "Complementaire muziekstemmingen",
+    "musicMap": "Muziekale kaart",
+    "conclusion": "Conclusie"
+  },
+  "diensten": {
+    "weddingTitle": "Boek DJ Cylow voor je bruiloft!",
+    "corporateTitle": "Boek DJ Cylow voor je bedrijfsfeest!",
+    "eventTitle": "Boek DJ Cylow voor jouw evenement!"
+  },
+  "footer": {
+    "madeBy": "Gemaakt door",
+    "copyright": "© 2025 DJ Cylow"
+  }
 }

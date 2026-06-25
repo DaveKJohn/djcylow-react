@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import styles from '@/styles/modules/musicmoodcolours.module.scss';
 import { musicMoodColoursContent } from "@/content/musicmoodcolours";
 import BasiskleurenCarousel from '@/components/musicmoodcolours/BasiskleurenCarousel';
@@ -12,6 +13,7 @@ import Erlenmeyers from '@/components/musicmoodcolours/Erlenmeyers';
 import ContactForm from "@/components/sections/ContactForm";
 
 export default function MusicMoodColoursPage() {
+    const t = useTranslations('musicMoodColours');
     return (
         <main className={styles.pageWrapper}>
             <div className="WoB stack w-fill AMC P15 banner v-push-7xl" id="mmc_banner">
@@ -48,7 +50,7 @@ export default function MusicMoodColoursPage() {
                     <div className="column w-fix AML constrainer spacing-4xl">
                         <div className="column w-hug AML P30 spacing-4xl">
                             <div className="column w-hug AML P35 spacing-3xl">
-                                <h2>Het kleurenspectrum van muziek</h2>
+                                <h2>{t('colourSpectrum')}</h2>
                             </div>
                             <div className="column w-hug AML P35 spacing-3xl">
                                 <p>{musicMoodColoursContent.spectrum.s2p1}</p>
@@ -65,7 +67,7 @@ export default function MusicMoodColoursPage() {
                     <div className="column w-fix AML constrainer spacing-2xl">
                         <div className="column w-hug AML P30 spacing-2xl">
                             <div className="column w-hug AML P35 spacing-3xl">
-                                <h3>De taal van emotie</h3>
+                                <h3>{t('languageOfEmotion')}</h3>
                                 <p>{musicMoodColoursContent.spectrum.s2p3}</p>
                                 <p>{musicMoodColoursContent.spectrum.s2p4}</p>
                             </div>
@@ -77,7 +79,7 @@ export default function MusicMoodColoursPage() {
                     <div className="column w-fix AML constrainer spacing-2xl">
                         <div className="column w-hug AML P30 spacing-2xl">
                             <div className="column w-hug AML P35 spacing-3xl">
-                                <h2>Complementaire muziekstemmingen</h2>
+                                <h2>{t('complementaryMoods')}</h2>
                             </div>
                             <div className="column w-hug AML P35 spacing-3xl">
                                 <div className="column spacing-4xl">
@@ -95,7 +97,7 @@ export default function MusicMoodColoursPage() {
                     <div className="column w-fix AML constrainer spacing-2xl">
                         <div className="column w-hug AML P30 spacing-2xl">
                             <div className="column w-hug AML P35 spacing-3xl">
-                                <h2>Muziekale kaart</h2>
+                                <h2>{t('musicMap')}</h2>
                             </div>
                             <div className="column w-hug AML P35 spacing-3xl">
                                 <p>{musicMoodColoursContent.neuro.s4p1}</p>
@@ -142,7 +144,7 @@ export default function MusicMoodColoursPage() {
                     <div className="column w-fix AML constrainer spacing-2xl">
                         <div className="column w-hug AML P30 spacing-2xl">
                             <div className="column w-hug AML P35 spacing-3xl">
-                                <h2>Conclusie</h2>
+                                <h2>{t('conclusion')}</h2>
                             </div>
                             <div className="column w-hug AML P35 spacing-3xl">
                                 <div className="column spacing-4xl">

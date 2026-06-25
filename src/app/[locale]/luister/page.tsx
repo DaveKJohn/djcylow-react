@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import styles from '@/styles/modules/luister.module.scss';
 import Filter from '@/components/luister/Filter';
 import Playlist from '@/components/luister/Playlist';
@@ -21,6 +22,8 @@ const FilterIcon = (
 );
 
 export default function LuisterPage() {
+    const t = useTranslations('luister');
+    const tc = useTranslations('common');
     const [activeColor, setActiveColor] = useState('all');
     const [activeGenre, setActiveGenre] = useState('all');
     const [activePower, setActivePower] = useState('all');
@@ -32,7 +35,7 @@ export default function LuisterPage() {
                     <div className="column w-fix AMC constrainer">
                         <div className="column w-fill AMC P30-banner">
                             <div className="column w-fill AMC P35">
-                                <h1>Luister</h1>
+                                <h1>{t('title')}</h1>
                             </div>
                         </div>
                     </div>
@@ -45,7 +48,7 @@ export default function LuisterPage() {
                                 <div className="column w-fill AMC P40 spacing-xl fill-90">
                                     <div className="column w-fill AMC P45 spacing-xl">
                                         <MobileContent
-                                            title="Filters"
+                                            title={tc('filters')}
                                             id="luister_content_filter_drawer"
                                             icon={FilterIcon}
                                             trigger={(toggle) => (
@@ -55,11 +58,11 @@ export default function LuisterPage() {
                                                     onClick={toggle}
                                                     role="button"
                                                     tabIndex={0}
-                                                    aria-label="Filter openen"
+                                                    aria-label={tc('openFilter')}
                                                 >
                                                     <div className="row w-fill AMC P55 spacing-xl">
                                                         {FilterIcon}
-                                                        <span>Filters</span>
+                                                        <span>{tc('filters')}</span>
                                                     </div>
                                                 </div>
                                             )}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import BackButton from '@/components/ui/BackButton';
@@ -122,14 +122,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function MixDetail({ params }: { params: Promise<{ locale: string; slug: string }> }) {
     const { locale, slug } = await params;
     setRequestLocale(locale);
+    const t = await getTranslations('mix');
+    const tc = await getTranslations('common');
 
     const mix = findMixBySlug(slug);
 
     if (!mix) {
         return (
             <main className="column spacing-3xl center v-push-7xl">
-                <p>Mix not found.</p>
-                <Link href="/luister" className="btn passive">Back to overview</Link>
+                <p>{t('notFound')}</p>
+                <Link href="/luister" className="btn passive">{tc('backToOverview')}</Link>
             </main>
         );
     }
@@ -194,9 +196,8 @@ export default async function MixDetail({ params }: { params: Promise<{ locale: 
 
                             <div className="column w-fill AML P35 seo-description">
                                 <p className="size-base">
-                                    Looking for an energetic {mix.genre} mix? In <strong>{colorName} {mix.volume}</strong>, DJ Cylow delivers a smooth, non-stop selection of the best tracks right now.
-                                    This set has a <strong>{mix.power}</strong> feel — perfect for streaming, working out, or your pre-party warm-up.
-                                    {topArtists && <span> Enjoy seamless transitions and records from top producers like <em>{topArtists}</em> and many more.</span>}
+                                    {t('seoIntro', { genre: mix.genre, title: `${colorName} ${mix.volume}`, power: mix.power })}
+                                    {topArtists && <span> {t('seoArtists', { artists: topArtists })}</span>}
                                 </p>
                             </div>
 
@@ -214,7 +215,7 @@ export default async function MixDetail({ params }: { params: Promise<{ locale: 
                                 <div className="row text-wrapper">
                                     <div className="column text-wrapper h-start header">
                                         <h2 className="size-lg bold uppercase">
-                                            Tracklist {colorName} {mix.genre} Mix
+                                            {t('tracklist')} {colorName} {mix.genre} Mix
                                         </h2>
                                     </div>
                                 </div>
@@ -230,14 +231,14 @@ export default async function MixDetail({ params }: { params: Promise<{ locale: 
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan={2} className="size-xs italic">No tracklist available</td>
+                                                <td colSpan={2} className="size-xs italic">{t('noTracklist')}</td>
                                             </tr>
                                         )}
                                     </tbody>
                                 </table>
 
                                 <div className="seo-disclaimer">
-                                    <p><strong>Disclaimer:</strong> All music rights belong to their respective owners. Support the artists featured in this DJ Cylow {mix.genre} mix by buying their tracks.</p>
+                                    <p><strong>{t('disclaimerTitle')}:</strong> {t('disclaimerText', { genre: mix.genre })}</p>
                                 </div>
                             </div>
 

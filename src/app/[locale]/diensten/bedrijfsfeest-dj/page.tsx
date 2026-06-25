@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import ContactForm from "@/components/sections/ContactForm";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function BedrijfsfeestDJ({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
+    const t = await getTranslations('diensten');
 
     return (
         <main className="diensten">
@@ -29,7 +30,7 @@ export default async function BedrijfsfeestDJ({ params }: { params: Promise<{ lo
                 <div className="column overlay constrainer spacing-3xl header">
                     <div className="column banner-wrapper v-push-9xl center">
                         <div className="column text-wrapper spacing-3xl center">
-                            <h1>Boek DJ Cylow voor je bedrijfsfeest!</h1>
+                            <h1>{t('corporateTitle')}</h1>
                         </div>
                     </div>
                 </div>

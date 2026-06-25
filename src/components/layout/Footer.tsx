@@ -1,8 +1,10 @@
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import EmailDisplay from "@/components/common/EmailDisplay";
 
-export default function Footer() {
+export default async function Footer() {
+    const t = await getTranslations('footer');
     return (
         <footer className="WoB column w-fill AMC P15 fill-90 v-push-4xl">
 
@@ -78,9 +80,9 @@ export default function Footer() {
 
                                 <span className="size-xs P45"><EmailDisplay user="info" domain="djcylow.com" /></span>
 
-                                <span className="size-xs P45">Gemaakt door <a className="btn" href="https://www.linkedin.com/in/dave-kok-34553798/" target="_blank" rel="noopener noreferrer">Dave Kok</a></span>
+                                <span className="size-xs P45">{t('madeBy')} <a className="btn" href="https://www.linkedin.com/in/dave-kok-34553798/" target="_blank" rel="noopener noreferrer">Dave Kok</a></span>
 
-                                <span className="size-xs P45">© 2025 DJ Cylow</span>
+                                <span className="size-xs P45">{t('copyright')}</span>
 
                             </div>
 
