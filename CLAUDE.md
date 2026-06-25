@@ -37,6 +37,7 @@ git checkout -b [branch-name]
 ### After completing a task
 
 - Commit changes on the feature branch with a clear message.
+- **Update `[Unreleased]` in `CHANGELOG.md`** — voeg toe wat er veranderd is. Dit is de werkende notitie die bij een release wordt omgezet naar een release note.
 - Tell the user what changed and ask whether to merge into `main` or open a PR.
 - **Never merge or push to `main` without explicit user approval.**
 
@@ -96,19 +97,22 @@ npm run lint     # ESLint + TypeScript check
 
 - **Static export**: `output: 'export'` in `next.config.ts` — no server-side rendering, no Next.js API routes. Contact form runs via Netlify Functions.
 - **Images unoptimized**: `images: { unoptimized: true }` — required for static export. Do not remove.
-- **English content**: all user-facing text must be in English. The site domain is `djcylow.com` (not `.nl`). Do not add Dutch text to components, pages, or content files.
+- **Bilingual (EN/NL) via next-intl**: the site is fully bilingual. All user-facing strings belong in `messages/en.json` and `messages/nl.json` — never hardcoded in components. Use `useTranslations()` (client) or `getTranslations()` (server). The domain is `djcylow.com`; default locale is `en`.
+- **No inline CSS**: do not use `style={{}}` in JSX. All CSS belongs in SCSS files under `src/styles/`. Exception: truly dynamic runtime values (e.g. `backgroundImage: url(${src})`, progress bar width percentages).
 - **Tailwind v4 + SCSS**: both are used side by side. SCSS lives in `src/styles/`, Tailwind as utility classes in components.
 
 ### Where content lives
 
 | What | Where |
 |---|---|
+| UI strings (buttons, labels, errors) | `messages/en.json` + `messages/nl.json` |
 | Mix metadata & tracklists | `src/data/mixes/[power]-[color].json` |
 | Home page text | `src/content/home.ts` |
 | Services text | `src/content/diensten.ts` |
 | Music Mood Colours text | `src/content/musicmoodcolours.ts` |
 | Testimonials | `src/content/referenties.ts` |
 | Breakpoints | `src/constants/design.ts` |
+| In-progress changes (unreleased) | `CHANGELOG.md` → `[Unreleased]` |
 
 ### Audio storage
 
