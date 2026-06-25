@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Navigation from "@/components/layout/Navigation";
-import Footer from "@/components/layout/Footer";
 import Script from "next/script";
 
 // @ts-ignore
@@ -80,9 +78,7 @@ export default function RootLayout({
             </head>
 
             <body className={`${poppins.variable} antialiased`}>
-                <Navigation />
                 {children}
-                <Footer />
             </body>
         </html>
     );

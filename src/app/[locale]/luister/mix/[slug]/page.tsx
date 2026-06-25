@@ -1,6 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import BackButton from '@/components/ui/BackButton';
 
@@ -64,81 +65,71 @@ function getTopArtists(tracklist: any[], limit = 5) {
 
 function findMixBySlug(slug: string) {
     if (!slug) return undefined;
-
     const decodedIncomingSlug = decodeURIComponent(slug).toLowerCase().trim();
-
     return allMixes.find((m) => {
         if (!m || !m.permalink || m.ignore) return false;
-
         const filename = m.permalink.split('/').pop() || '';
         const pureSlug = filename.split('.html')[0];
         const cleanCurrentSlug = decodeURIComponent(pureSlug).toLowerCase().trim();
-
         return cleanCurrentSlug === decodedIncomingSlug;
     });
 }
 
 export async function generateStaticParams() {
-    const params = allMixes
+    const slugs = allMixes
         .map((mix) => {
             if (!mix || !mix.permalink || mix.ignore) return null;
-
             const filename = mix.permalink.split('/').pop() || '';
             const pureSlug = filename.split('.html')[0];
-
             if (!pureSlug || pureSlug.trim() === '') return null;
-
-            return {
-                slug: decodeURIComponent(pureSlug).toLowerCase().trim(),
-            };
+            return { slug: decodeURIComponent(pureSlug).toLowerCase().trim() };
         })
         .filter((param): param is { slug: string } => param !== null);
 
-    return params;
+    return slugs;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-    const { slug } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+    const { locale, slug } = await params;
     const mix = findMixBySlug(slug);
 
-    if (!mix) return { title: 'Mix Niet Gevonden | DJ Cylow' };
+    if (!mix) return { title: 'Mix Not Found | DJ Cylow' };
 
     const colorName = mix.color.charAt(0).toUpperCase() + mix.color.slice(1);
     const titleText = `${colorName} ${mix.genre} Mix ${mix.volume} (${mix.power} Energy) | DJ Cylow`;
     const topArtists = getTopArtists(mix.tracklist, 4);
-
-    const descriptionText = mix.description || `Beluister de ${colorName} ${mix.genre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
+    const descriptionText = mix.description || `Listen to the ${colorName} ${mix.genre} set (${mix.volume}) by DJ Cylow. A non-stop mix featuring ${topArtists}. Stream free now!`;
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
-    const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
+    const pageUrl = `https://www.djcylow.com/${locale}/luister/mix/${cleanSlug}`;
 
     return {
         metadataBase: new URL('https://www.djcylow.com'),
         title: titleText,
         description: descriptionText,
-        alternates: {
-            canonical: pageUrl,
-        },
+        alternates: { canonical: pageUrl },
         openGraph: {
             title: titleText,
             description: descriptionText,
             url: pageUrl,
             type: 'music.playlist',
             images: mix.image_wide_large ? [{ url: mix.image_wide_large }] : [],
-        }
+        },
     };
 }
 
-export default async function MixDetail({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
+export default async function MixDetail({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+    const { locale, slug } = await params;
+    setRequestLocale(locale);
+
     const mix = findMixBySlug(slug);
 
     if (!mix) {
         return (
             <main className="column spacing-3xl center v-push-7xl">
-                <p>Mix niet gevonden.</p>
-                <Link href="/luister" className="btn passive">Terug naar overzicht</Link>
+                <p>Mix not found.</p>
+                <Link href="/luister" className="btn passive">Back to overview</Link>
             </main>
         );
     }
@@ -153,14 +144,14 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         '@context': 'https://schema.org',
         '@type': 'MusicPlaylist',
         'name': `${colorName} ${mix.genre} Mix ${mix.volume} - DJ Cylow`,
-        'description': mix.description || `Beluister de ${colorName} ${mix.genre} set van DJ Cylow met tracks van top artiesten.`,
+        'description': mix.description || `Listen to the ${colorName} ${mix.genre} set by DJ Cylow.`,
         'numTracks': Array.isArray(mix.tracklist) ? mix.tracklist.length : 0,
         'genre': mix.subgenre || mix.genre,
         ...(mix.date && { 'datePublished': mix.date }),
         'image': `https://www.djcylow.com${mix.image_wide_large}`,
-        'url': `https://www.djcylow.com/luister/mix/${cleanSlug}`,
+        'url': `https://www.djcylow.com/${locale}/luister/mix/${cleanSlug}`,
         'creator': {
-            '@type': 'MusicGroup',
+            '@type': 'Person',
             'name': 'DJ Cylow',
             'url': 'https://www.djcylow.com'
         },
@@ -171,23 +162,17 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                 '@type': 'MusicRecording',
                 'position': index + 1,
                 'name': trackPart.trim(),
-                'byArtist': {
-                    '@type': 'MusicGroup',
-                    'name': artistPart.trim()
-                }
+                'byArtist': { '@type': 'MusicGroup', 'name': artistPart.trim() }
             };
         })
     };
 
     return (
         <main className="luister mix">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
             <section className="WoB column w-fill AML P15 fill-100 v-push-3xl" id="luister_mix">
-                <div className="column w-fill AML P20 ">
+                <div className="column w-fill AML P20">
                     <div className="column w-fix AML constrainer">
                         <div className="column w-fill AML P30 spacing-3xl">
 
@@ -209,10 +194,9 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
                             <div className="column w-fill AML P35 seo-description">
                                 <p className="size-base">
-                                    Ben je op zoek naar een energieke {mix.genre} mix? In <strong>{colorName} {mix.volume}</strong> brengt
-                                    DJ Cylow een vloeiende, non-stop selectie van de beste tracks van dit moment.
-                                    Deze set heeft een <strong>{mix.power}</strong> feel en is perfect geschikt voor tijdens het streamen, sporten of je pre-party.
-                                    {topArtists && <span> Geniet van unieke overgangen en platen van top-producers zoals <em>{topArtists}</em> en vele anderen.</span>}
+                                    Looking for an energetic {mix.genre} mix? In <strong>{colorName} {mix.volume}</strong>, DJ Cylow delivers a smooth, non-stop selection of the best tracks right now.
+                                    This set has a <strong>{mix.power}</strong> feel — perfect for streaming, working out, or your pre-party warm-up.
+                                    {topArtists && <span> Enjoy seamless transitions and records from top producers like <em>{topArtists}</em> and many more.</span>}
                                 </p>
                             </div>
 
@@ -246,7 +230,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan={2} className="size-xs italic">Geen tracklist beschikbaar</td>
+                                                <td colSpan={2} className="size-xs italic">No tracklist available</td>
                                             </tr>
                                         )}
                                     </tbody>

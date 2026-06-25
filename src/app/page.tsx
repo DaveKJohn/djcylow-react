@@ -1,45 +1,19 @@
-import { Metadata } from "next";
-import { homeContent } from "@/content/home";
-import ContactForm from "@/components/sections/ContactForm";
+import Link from 'next/link';
 
-
-import styles from '@/styles/modules/home.module.scss';
-
-
-
-import Hero from "@/components/home/Hero";
-import Promo from "@/components/home/Promo";
-import GoogleReviews from "@/components/home/GoogleReviews";
-import Referenties from "@/components/home/Referenties";
-
-
-
-
-export const metadata: Metadata = {
-    title: homeContent.title,
-    description: homeContent.description,
-    alternates: {
-        canonical: "https://www.djcylow.com/",
-    },
-    openGraph: {
-        type: "website",
-        url: "https://www.djcylow.com/",
-        title: homeContent.title,
-        description: homeContent.description,
-    },
-};
-
-export default function HomePage() {
+export default function RootPage() {
     return (
-        <main className={styles.pageWrapper}>
-            <section className="slideshow">
-                <Hero />
-                {/* <Referenties /> */}
-                {/* <GoogleReviews /> */}
-                 <Promo /> 
-
-                <ContactForm />
-            </section>
+        <main className="WoB column w-fill AMC" style={{ minHeight: '100vh', justifyContent: 'center', alignItems: 'center', gap: '3rem' }}>
+            <div className="column" style={{ alignItems: 'center', gap: '1rem' }}>
+                <h1 className="uppercase" style={{ letterSpacing: '0.1em' }}>DJ Cylow</h1>
+            </div>
+            <div className="row" style={{ gap: '1.5rem' }}>
+                <Link href="/en" className="btn cta center" style={{ minWidth: '8rem', justifyContent: 'center' }}>
+                    English
+                </Link>
+                <Link href="/nl" className="btn passive center" style={{ minWidth: '8rem', justifyContent: 'center' }}>
+                    Nederlands
+                </Link>
+            </div>
         </main>
     );
 }
