@@ -13,7 +13,11 @@ Bij een release: hernoem `[Unreleased]` naar `[vX.X.X] - YYYY-MM-DD`, maak een
 
 ## [Unreleased]
 
-*(nog niets — wordt gevuld zodra een feature branch klaar is voor release)*
+---
+
+## [v1.16.0] - 2026-06-25
+
+Zie [release-notes/1.16.0.md](release-notes/1.16.0.md)
 
 ---
 
