@@ -107,7 +107,6 @@ gh release create v1.3.0 --title "v1.3.0 - UX MODUS (donker/licht mode)" \
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
-| [1.16.0](1.16.0.md) | 2026-06-25 | Minor | Volledig tweetalig (EN/NL) via next-intl |
 | [1.15.0](1.15.0.md) | 2026-06-25 | Minor | Mix detail verbeteringen + domein en taal gecorrigeerd |
 | [1.14.4](1.14.4.md) | 2026-06-25 | Patch | add-mix script: automatische afbeelding controle en conversie |
 | [1.14.3](1.14.3.md) | 2026-06-25 | Patch | add-mix script: AI beschrijving + tracklist plakken |

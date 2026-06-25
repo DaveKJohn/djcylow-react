@@ -145,21 +145,22 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
    - PATCH (`x.y.Z+1`): bugfix, hotfix, kleine correctie
    - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
    - MAJOR: ingrijpende verbouwing (zelden)
-5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik vorige versie als template
-6. **Voeg versie toe** aan overzichtstabel in `release-notes/README.md` (bovenaan)
-7. **Stage en commit** op de feature branch
-8. **Merge naar main** (na gebruikersbevestiging):
+5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud
+6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum>` met een link naar de nieuwe release note
+7. **Voeg versie toe** aan overzichtstabel in `release-notes/README.md` (bovenaan)
+8. **Stage en commit** op de feature branch
+9. **Merge naar main** (na gebruikersbevestiging):
    ```bash
    git checkout main
    git merge [branch] --no-ff -m "Merge branch '[branch]' — v<versie>"
    ```
-9. **Tag en push**:
+10. **Tag en push**:
    ```bash
    git tag -a v<versie> -m "v<versie> - <korte titel>"
    git push origin main
    git push origin v<versie>
    ```
-10. **GitHub Release aanmaken**:
+11. **GitHub Release aanmaken**:
     ```bash
     gh release create v<versie> \
       --title "v<versie> - <korte titel>" \
