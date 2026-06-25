@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import MobileContent from "@/components/ui/MobileContent";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 export default function Nav() {
     const t = useTranslations('nav');
@@ -91,7 +92,11 @@ export default function Nav() {
                     </div>
 
 
-                    <div className="column w-hug AMR P30" id="nav_cta">
+                    <div className="row w-hug AMR P30 spacing-xl" id="nav_cta">
+
+                        <div className="column w-hug AMC P35">
+                            <LanguageSwitcher />
+                        </div>
 
                         <div className="column w-hug AMC P35">
 

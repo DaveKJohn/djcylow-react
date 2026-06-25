@@ -106,6 +106,32 @@ nav {
         }
     }
 
+    .lang-switcher {
+        gap: 6px;
+        align-items: center;
+
+        .lang-btn {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 4px 6px;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            text-decoration: none;
+
+            &:hover,
+            &.active {
+                opacity: 1;
+            }
+        }
+
+        .lang-divider {
+            opacity: 0.3;
+            font-size: 12px;
+            user-select: none;
+        }
+    }
+
     .P20 {
         padding: 0 map.get(map.get(v.$design-scale, "2xl"), "r-space");
 
