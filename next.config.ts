@@ -1,14 +1,17 @@
 import type { NextConfig } from "next";
 import path from "path";
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
-  output: 'export', // Dit dwingt de statische export af
+  output: 'export',
   images: {
-    unoptimized: true, // Nodig omdat een statische export geen image-server heeft
+    unoptimized: true,
   },
   sassOptions: {
     includePaths: [path.join(__dirname, "src/styles")],
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
