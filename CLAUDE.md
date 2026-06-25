@@ -1,0 +1,117 @@
+# CLAUDE.md — DJ Cylow Website
+
+Project instructions for Claude Code. Read this before every task.
+
+## Git Workflow — Branch Protection
+
+`main` is the **production branch**, directly deployed to Netlify. Never commit to it directly.
+
+### At the start of every task
+
+1. Run `git status` and `git branch` to check the current state.
+2. If on `main`: create a branch first, then make changes.
+3. If already on a feature branch: continue on that branch.
+
+### Branch naming
+
+| Type of work | Branch name |
+|---|---|
+| New feature or page | `feature/[short-description]` |
+| Bug fix | `fix/[short-description]` |
+| Mix data (JSON) | `data/[color-or-description]` |
+| Text/content updates | `content/[short-description]` |
+| Styling/CSS | `style/[short-description]` |
+| Docs/README | `docs/[short-description]` |
+| Config changes | `config/[short-description]` |
+
+**Examples:** `data/light-red-descriptions`, `feature/mix-bpm-filter`, `fix/audio-player-volume`
+
+### Creating a branch
+
+```bash
+git checkout -b [branch-name]
+```
+
+### After completing a task
+
+- Commit changes on the feature branch with a clear message.
+- Tell the user what changed and ask whether to merge into `main` or open a PR.
+- **Never merge or push to `main` without explicit user approval.**
+
+---
+
+## Safety Rules
+
+### Never do without explicit user confirmation
+
+- `git push --force` (any branch)
+- `git reset --hard`
+- `git rebase` on a shared branch
+- Delete files from `public/images/` (images are referenced by path in JSON)
+- Modify `next.config.ts` (static export config — breaks the Netlify build if wrong)
+- Modify `netlify.toml`
+
+### Before writing JSON data files
+
+- Verify the result is valid JSON (parseable, no trailing commas)
+- Keep array sorted **newest first** (highest `id` date at top)
+- Never modify entries with `"ignore": true` (preview entries)
+- Never overwrite a non-empty `description` field unless asked
+
+### Before committing
+
+- Run `npm run lint` to catch TypeScript/ESLint errors
+- Check that image paths referenced in JSON actually exist in `public/images/`
+
+---
+
+## Project Quick Reference
+
+### Key commands
+
+```bash
+npm run dev      # dev server → http://localhost:3000
+npm run build    # static export → .next/
+npm run lint     # ESLint + TypeScript check
+```
+
+### Critical constraints
+
+- **Static export**: `output: 'export'` in `next.config.ts` — no server-side rendering, no Next.js API routes. Contact form runs via Netlify Functions.
+- **Images unoptimized**: `images: { unoptimized: true }` — required for static export. Do not remove.
+- **Dutch content**: all user-facing text is in Dutch. Keep it that way.
+- **Tailwind v4 + SCSS**: both are used side by side. SCSS lives in `src/styles/`, Tailwind as utility classes in components.
+
+### Where content lives
+
+| What | Where |
+|---|---|
+| Mix metadata & tracklists | `src/data/mixes/[power]-[color].json` |
+| Home page text | `src/content/home.ts` |
+| Services text | `src/content/diensten.ts` |
+| Music Mood Colours text | `src/content/musicmoodcolours.ts` |
+| Testimonials | `src/content/referenties.ts` |
+| Breakpoints | `src/constants/design.ts` |
+
+### Audio storage
+
+Active Cloudflare R2 bucket: `https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/`
+
+---
+
+## Mix JSON Rules (src/data/mixes/)
+
+See `src/data/mixes/README.md` for the full schema spec.
+
+Quick rules:
+- `color` field: capitalized (`"Red"`, not `"red"`)
+- `date` field: ISO format `"YYYY-MM-DD"` (not empty)
+- `description`: unique per mix, 120–160 chars, Dutch, mention subgenre + 2–4 artists
+- `tracklist` time format: `"HH:MM:SS"` with leading zeros
+- New mixes go at the **top** of the array
+
+---
+
+## Deployment
+
+Netlify auto-deploys on every push to `main`. There is no staging environment. This is why branch protection matters — a broken build on `main` means the live site is down.
