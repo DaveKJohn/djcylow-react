@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import { localeAlternates, ogLocale, ogAlternateLocale } from '@/lib/metadata';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import BackButton from '@/components/ui/BackButton';
 
@@ -111,13 +112,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         metadataBase: new URL('https://www.djcylow.com'),
         title: titleText,
         description: descriptionText,
-        alternates: { canonical: pageUrl },
+        alternates: {
+            ...localeAlternates(locale, `/luister/mix/${cleanSlug}`),
+            canonical: pageUrl,
+        },
         openGraph: {
             title: titleText,
             description: descriptionText,
             url: pageUrl,
             type: 'music.playlist',
             images: mix.image_wide_large ? [{ url: mix.image_wide_large }] : [],
+            locale: ogLocale(locale),
+            alternateLocale: ogAlternateLocale(locale),
         },
     };
 }

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { setRequestLocale } from 'next-intl/server';
 import { getHomeContent } from "@/content/home";
+import { localeAlternates, ogLocale, ogAlternateLocale } from '@/lib/metadata';
 import ContactForm from "@/components/sections/ContactForm";
 import styles from '@/styles/modules/home.module.scss';
 import Hero from "@/components/home/Hero";
@@ -13,12 +14,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     return {
         title: content.title,
         description: content.description,
-        alternates: { canonical: url },
+        alternates: { ...localeAlternates(locale, '/'), canonical: url },
         openGraph: {
             type: "website",
             url,
             title: content.title,
             description: content.description,
+            locale: ogLocale(locale),
+            alternateLocale: ogAlternateLocale(locale),
         },
     };
 }

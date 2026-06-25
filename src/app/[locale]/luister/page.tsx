@@ -1,92 +1,32 @@
-'use client';
+import { Metadata } from 'next';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
+import LuisterPageContent from '@/components/luister/LuisterPageContent';
+import { localeAlternates, ogLocale, ogAlternateLocale } from '@/lib/metadata';
 
-import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import styles from '@/styles/modules/luister.module.scss';
-import Filter from '@/components/luister/Filter';
-import Playlist from '@/components/luister/Playlist';
-import MobileContent from '@/components/ui/MobileContent';
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: 'luister' });
+    const title = `${t('title')} | DJ Cylow`;
+    const description = locale === 'nl'
+        ? 'Luister naar de beste House en Drum & Bass mixen van DJ Cylow. Filter op kleur, genre en energie.'
+        : 'Listen to the best House and Drum & Bass mixes by DJ Cylow. Filter by colour, genre and energy.';
 
-const FilterIcon = (
-    <svg width="20" height="20" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="4" y1="21" x2="4" y2="14"></line>
-        <line x1="4" y1="10" x2="4" y2="3"></line>
-        <line x1="12" y1="21" x2="12" y2="12"></line>
-        <line x1="12" y1="8" x2="12" y2="3"></line>
-        <line x1="20" y1="21" x2="20" y2="16"></line>
-        <line x1="20" y1="12" x2="20" y2="3"></line>
-        <line x1="1" y1="14" x2="7" y2="14"></line>
-        <line x1="9" y1="8" x2="15" y2="8"></line>
-        <line x1="17" y1="16" x2="23" y2="16"></line>
-    </svg>
-);
+    return {
+        title,
+        description,
+        alternates: localeAlternates(locale, '/luister'),
+        openGraph: {
+            type: 'website',
+            title,
+            description,
+            locale: ogLocale(locale),
+            alternateLocale: ogAlternateLocale(locale),
+        },
+    };
+}
 
-export default function LuisterPage() {
-    const t = useTranslations('luister');
-    const tc = useTranslations('common');
-    const [activeColor, setActiveColor] = useState('all');
-    const [activeGenre, setActiveGenre] = useState('all');
-    const [activePower, setActivePower] = useState('all');
-
-    return (
-        <main className={styles.pageWrapper}>
-            <section className="WoB column w-fill AMC P15 v-push-4xl" id="luister">
-                <div className="column w-fill AMC P20 spacing-2xl" id="luister_banner">
-                    <div className="column w-fix AMC constrainer">
-                        <div className="column w-fill AMC P30-banner">
-                            <div className="column w-fill AMC P35">
-                                <h1>{t('title')}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="column w-fill AMC P20 spacing-2xl" id="luister_content">
-                    <div className="row-c break-s w-fix ATC constrainer">
-                        <Playlist activeColor={activeColor} activeGenre={activeGenre} activePower={activePower} />
-                        <div className="column w-fix AMC P30 spacing-xl" id="luister_content_filter">
-                            <div className="column w-fill AMC P35 spacing-xl">
-                                <div className="column w-fill AMC P40 spacing-xl fill-90">
-                                    <div className="column w-fill AMC P45 spacing-xl">
-                                        <MobileContent
-                                            title={tc('filters')}
-                                            id="luister_content_filter_drawer"
-                                            icon={FilterIcon}
-                                            trigger={(toggle) => (
-                                                <div
-                                                    id="luister_content_filter_mobile_button"
-                                                    className="column w-fill AMC P50 btn"
-                                                    onClick={toggle}
-                                                    role="button"
-                                                    tabIndex={0}
-                                                    aria-label={tc('openFilter')}
-                                                >
-                                                    <div className="row w-fill AMC P55 spacing-xl">
-                                                        {FilterIcon}
-                                                        <span>{tc('filters')}</span>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        >
-                                            {() => (
-                                                <div className="column w-fill AML P60 break-s spacing-2xl">
-                                                    <Filter
-                                                        activeColor={activeColor}
-                                                        setActiveColor={setActiveColor}
-                                                        activeGenre={activeGenre}
-                                                        setActiveGenre={setActiveGenre}
-                                                        activePower={activePower}
-                                                        setActivePower={setActivePower}
-                                                    />
-                                                </div>
-                                            )}
-                                        </MobileContent>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    );
+export default async function LuisterPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
+    return <LuisterPageContent />;
 }

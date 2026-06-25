@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import ContactForm from "@/components/sections/ContactForm";
+import { localeAlternates, ogLocale, ogAlternateLocale } from '@/lib/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
@@ -8,11 +9,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     return {
         title: t('eventTitle'),
         description: t('description'),
-        alternates: { canonical: `https://www.djcylow.com/${locale}/diensten/house-dj` },
+        alternates: localeAlternates(locale, '/diensten/house-dj'),
         openGraph: {
             title: t('eventTitle'),
             description: t('description'),
             images: [{ url: "/images/diensten.jpg" }],
+            locale: ogLocale(locale),
+            alternateLocale: ogAlternateLocale(locale),
         },
     };
 }
