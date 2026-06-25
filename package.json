@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "images:webp": "node scripts/convert-to-webp.js",
-    "images:webp:dry": "node scripts/convert-to-webp.js --dry-run"
+    "images:webp:dry": "node scripts/convert-to-webp.js --dry-run",
+    "mix:add": "node scripts/add-mix.js"
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",

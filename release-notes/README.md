@@ -107,6 +107,7 @@ gh release create v1.3.0 --title "v1.3.0 - UX MODUS (donker/licht mode)" \
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
+| [1.14.2](1.14.2.md) | 2026-06-25 | Patch | Script: nieuwe mix toevoegen |
 | [1.14.1](1.14.1.md) | 2026-06-25 | Patch | Alle afbeeldingen geconverteerd naar WebP |
 | [1.14.0](1.14.0.md) | 2026-06-25 | Content | Mix beschrijvingen alle kleuren + Red image update |
 | [1.13.0](1.13.0.md) | 2026-06-18 | Refactor | Code structuur & JSON tracklist verbeterd |
