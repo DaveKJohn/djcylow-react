@@ -112,6 +112,50 @@ Quick rules:
 
 ---
 
+## Release Workflow
+
+When the user says "commit en push live" or "maak een nieuwe release en push live":
+
+### Stap voor stap
+
+1. **Check de status**: `git status && git branch`
+2. **Maak een branch** (nooit direct op `main` committen):
+   ```bash
+   git checkout -b data/[omschrijving]   # of ander passend prefix
+   ```
+3. **Run lint**: `npm run lint` — controleer of nieuwe fouten zijn geïntroduceerd (pre-existing errors zijn acceptabel als wij geen .tsx/.ts bestanden wijzigden)
+4. **Bepaal versienummer** (zie `release-notes/README.md`):
+   - PATCH (`x.y.Z+1`): bugfix, hotfix, kleine correctie
+   - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
+   - MAJOR: ingrijpende verbouwing (zelden)
+5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik vorige versie als template
+6. **Voeg versie toe** aan overzichtstabel in `release-notes/README.md` (bovenaan)
+7. **Stage en commit** op de feature branch
+8. **Merge naar main** (na gebruikersbevestiging):
+   ```bash
+   git checkout main
+   git merge [branch] --no-ff -m "Merge branch '[branch]' — v<versie>"
+   ```
+9. **Tag en push**:
+   ```bash
+   git tag -a v<versie> -m "v<versie> - <korte titel>"
+   git push origin main
+   git push origin v<versie>
+   ```
+
+Netlify deployt automatisch na de push naar `main`.
+
+### Versienummer bepalen
+
+| Type wijziging | Versie |
+|---|---|
+| Bugfix, hotfix, kleine correctie | PATCH |
+| Nieuwe beschrijvingen, content updates | MINOR |
+| Nieuwe mix, nieuwe pagina, nieuw component | MINOR |
+| Volledig redesign of framework-migratie | MAJOR |
+
+---
+
 ## Deployment
 
 Netlify auto-deploys on every push to `main`. There is no staging environment. This is why branch protection matters — a broken build on `main` means the live site is down.
