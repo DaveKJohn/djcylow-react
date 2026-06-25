@@ -34,6 +34,26 @@
     "eventTitle": "Boek DJ Cylow voor jouw evenement!",
     "description": "De DJ die iedereen op de dansvloer krijgt."
   },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Heb je een vraag? Ik help je graag verder!",
+    "captchaLoading": "Captcha laden...",
+    "captchaRequired": "Bevestig a.u.b. dat je geen robot bent.",
+    "serverError": "Server fout",
+    "unknownError": "Er is een fout opgetreden.",
+    "successTitle": "Bericht verzonden!",
+    "successMessage": "Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.",
+    "sendNew": "Nieuw bericht sturen",
+    "formTitle": "Laat een bericht achter",
+    "formSubtitle": "Stuur een e-mail naar info@djcylow.com, of vul hieronder je gegevens in en laat een bericht achter.",
+    "namePlaceholder": "Naam",
+    "emailPlaceholder": "E-mail",
+    "messagePlaceholder": "Vraag / opmerking",
+    "sending": "Bezig met verzenden",
+    "send": "Verzenden",
+    "directTitle": "Direct Contact",
+    "directSubtitle": "Liever direct contact? WhatsApp mag ook!"
+  },
   "footer": {
     "madeBy": "Gemaakt door",
     "copyright": "© 2025 DJ Cylow"

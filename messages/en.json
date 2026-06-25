@@ -34,6 +34,26 @@
     "eventTitle": "Book DJ Cylow for your event!",
     "description": "The DJ who gets everyone on the dance floor."
   },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Do you have a question? I'm happy to help!",
+    "captchaLoading": "Loading captcha...",
+    "captchaRequired": "Please confirm you are not a robot.",
+    "serverError": "Server error",
+    "unknownError": "An error occurred.",
+    "successTitle": "Message sent!",
+    "successMessage": "Thank you for your message. I will get back to you as soon as possible.",
+    "sendNew": "Send new message",
+    "formTitle": "Leave a message",
+    "formSubtitle": "Send an email to info@djcylow.com, or fill in your details below and leave a message.",
+    "namePlaceholder": "Name",
+    "emailPlaceholder": "E-mail",
+    "messagePlaceholder": "Question / comment",
+    "sending": "Sending",
+    "send": "Send",
+    "directTitle": "Direct Contact",
+    "directSubtitle": "Prefer direct contact? WhatsApp works too!"
+  },
   "footer": {
     "madeBy": "Made by",
     "copyright": "© 2025 DJ Cylow"

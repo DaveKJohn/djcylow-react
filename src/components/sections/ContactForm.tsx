@@ -2,15 +2,17 @@
 
 import { useState, useEffect, useRef } from "react";
 import dynamic from 'next/dynamic';
-import EmailDisplay from "@/components/common/EmailDisplay";
+import { useTranslations } from 'next-intl';
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
     ssr: false,
-    loading: () => <div style={{ height: "78px" }}>Captcha laden...</div>,
+    loading: () => <div style={{ height: "78px" }}>Loading captcha...</div>,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 }) as any;
 
 export default function ContactForm() {
-    // 1. Slechts één status definitie met alle opties
+    const t = useTranslations('contact');
+
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -18,7 +20,6 @@ export default function ContactForm() {
 
     const formRef = useRef<HTMLFormElement>(null);
 
-    // EFFECT 1: De "Lazy Load" observer voor reCAPTCHA
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -37,7 +38,6 @@ export default function ContactForm() {
         return () => observer.disconnect();
     }, []);
 
-    // EFFECT 2: Scrollen naar succesbericht
     useEffect(() => {
         if (status === "success") {
             const element = document.getElementById("succesMessage");
@@ -52,11 +52,11 @@ export default function ContactForm() {
 
         if (!captchaToken) {
             setStatus("error");
-            setErrorMessage("Bevestig a.u.b. dat je geen robot bent.");
+            setErrorMessage(t('captchaRequired'));
             return;
         }
 
-        setStatus("loading"); // Start loading animatie
+        setStatus("loading");
 
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
@@ -74,11 +74,11 @@ export default function ContactForm() {
                 setCaptchaToken(null);
             } else {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error || "Server fout");
+                throw new Error(errorData.error || t('serverError'));
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             setStatus("error");
-            setErrorMessage(error.message || "Er is een fout opgetreden.");
+            setErrorMessage(error instanceof Error ? error.message : t('unknownError'));
         }
     };
 
@@ -89,9 +89,9 @@ export default function ContactForm() {
                 <div className="column w-fix AMC constrainer">
                     <div className="column w-fill AMC P30">
                         <div className="column w-fill AMC P35 spacing-2xl">
-                            <h2>Contact</h2>
+                            <h2>{t('title')}</h2>
                             <p className="size-base center balanced">
-                                Heb je een vraag? Ik help je graag verder!
+                                {t('subtitle')}
                             </p>
                         </div>
                     </div>
@@ -100,23 +100,19 @@ export default function ContactForm() {
 
                 <div className="row-c break-m w-fix ATC constrainer spacing-2xl">
 
-
-
-
                     {status === "success" ? (
                         <div className="column spacing-3xl center" id="succesMessage">
                             <div className="column text-wrapper center spacing-3xl">
                                 <div style={{ fontSize: '3rem' }}>✅</div>
-                                <h3 className="succes text">Bericht verzonden!</h3>
-                                <p>Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.</p>
+                                <h3 className="succes text">{t('successTitle')}</h3>
+                                <p>{t('successMessage')}</p>
                             </div>
-                            {/* Knop om terug te gaan naar het formulier */}
                             <button
                                 className="btn size-base"
                                 onClick={() => setStatus("idle")}
                                 style={{ marginTop: '1rem' }}
                             >
-                                Nieuw bericht sturen
+                                {t('sendNew')}
                             </button>
                         </div>
                     ) : (
@@ -126,8 +122,6 @@ export default function ContactForm() {
                             id="contact-form"
                             onSubmit={handleSubmit}
                         >
-
-
                             <div className="column w-fill AML P35">
 
                                 <div className="column w-fill AML P40-xl fill-80">
@@ -138,20 +132,20 @@ export default function ContactForm() {
                                     </div>
 
                                     <div className="column w-fill AML P45 spacing-xl">
-                                        <h3 className="bold">Laat een bericht achter</h3>
-                                        <p className="size-base balanced">Stuur een e-mail naar info@djcylow.com, of vul hieronder je gegevens in en laat een bericht achter.</p>
+                                        <h3 className="bold">{t('formTitle')}</h3>
+                                        <p className="size-base balanced">{t('formSubtitle')}</p>
                                     </div>
 
                                     <div className="column w-fill AML P45">
-                                        <input className="input-field" type="text" name="name" required placeholder="Naam" />
+                                        <input className="input-field" type="text" name="name" required placeholder={t('namePlaceholder')} />
                                     </div>
 
                                     <div className="column w-fill AML P45">
-                                        <input className="input-field" type="email" name="email" required placeholder="E-mail" />
+                                        <input className="input-field" type="email" name="email" required placeholder={t('emailPlaceholder')} />
                                     </div>
 
                                     <div className="column w-fill AML P45">
-                                        <textarea className="input-field textarea-field" name="message" rows={4} required placeholder="Vraag / opmerking"></textarea>
+                                        <textarea className="input-field textarea-field" name="message" rows={4} required placeholder={t('messagePlaceholder')}></textarea>
                                     </div>
 
                                     <div className="column w-fill AML P45">
@@ -179,10 +173,10 @@ export default function ContactForm() {
                                             >
                                                 {status === "loading" ? (
                                                     <span className="loading-text">
-                                                        Bezig met verzenden<span className="dots">...</span>
+                                                        {t('sending')}<span className="dots">...</span>
                                                     </span>
                                                 ) : (
-                                                    <span>Verzenden</span>
+                                                    <span>{t('send')}</span>
                                                 )}
                                             </button>
                                         </div>
@@ -190,12 +184,10 @@ export default function ContactForm() {
                                 </div>
                             </div>
 
-
                         </form>
                     )}
 
-
-                    {/* WhatsApp Sectie */}
+                    {/* WhatsApp */}
                     <div className="column w-fill AMC P30" id="whatsapp">
 
                         <div className="column w-fill AMC P35">
@@ -204,11 +196,8 @@ export default function ContactForm() {
 
                                 <div className="column w-fill AMC P45 spacing-2xl">
 
-
-                                    <h3 className="bold">Direct Contact</h3>
-                                    <p className="size-base center balanced">Liever direct contact? WhatsApp mag ook!</p>
-
-
+                                    <h3 className="bold">{t('directTitle')}</h3>
+                                    <p className="size-base center balanced">{t('directSubtitle')}</p>
 
                                     <a className="btn" href="https://wa.me/31611531263" target="_blank" rel="noopener noreferrer">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="40" height="40">
