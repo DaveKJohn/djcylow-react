@@ -71,7 +71,6 @@
         border: 1px solid;
 
         &.boek-nu-btn {
-            width: 119px;
             padding: map.get(map.get(v.$design-scale, "xl"), "in-space");
             font-size: map.get(map.get(v.$design-scale, "lg"), "font-size");
 
