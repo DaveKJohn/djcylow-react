@@ -61,6 +61,19 @@ const fs = require('fs');
 const path = require('path');
 const Anthropic = require('@anthropic-ai/sdk');
 
+// Laad .env uit de projectroot zodat ANTHROPIC_API_KEY beschikbaar is
+const envPath = path.join(__dirname, '..', '.env');
+if (fs.existsSync(envPath)) {
+  fs.readFileSync(envPath, 'utf8')
+    .split('\n')
+    .forEach(line => {
+      const [key, ...rest] = line.split('=');
+      if (key && rest.length && !process.env[key.trim()]) {
+        process.env[key.trim()] = rest.join('=').trim();
+      }
+    });
+}
+
 const R2_BASE = 'https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/';
 const MIXES_DIR = path.join(__dirname, '..', 'src', 'data', 'mixes');
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
