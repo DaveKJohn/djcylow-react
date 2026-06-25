@@ -77,6 +77,21 @@ npm run build    # static export → .next/
 npm run lint     # ESLint + TypeScript check
 ```
 
+### Hulpscripts
+
+| Commando | Script | Wat het doet |
+|---|---|---|
+| `npm run mix:add` | `scripts/add-mix.js` | Voeg interactief een nieuwe mix toe aan het juiste JSON bestand |
+| `npm run images:webp` | `scripts/convert-to-webp.js` | Converteer alle `.jpg` in `public/images/` naar `.webp` en verwijder de originelen |
+| `npm run images:webp:dry` | `scripts/convert-to-webp.js --dry-run` | Preview: laat zien welke bestanden geconverteerd zouden worden |
+
+**Workflow nieuwe mix toevoegen:**
+1. `npm run mix:add` — vul alle gegevens in, script genereert afgeleide velden automatisch
+2. Afbeeldingen neerzetten in `public/images/{power}/{color}/`
+3. `npm run images:webp` — als je `.jpg` afbeeldingen hebt aangeleverd
+4. Controleer het JSON bestand in de editor
+5. Commit + push via de release workflow (zie verderop)
+
 ### Critical constraints
 
 - **Static export**: `output: 'export'` in `next.config.ts` — no server-side rendering, no Next.js API routes. Contact form runs via Netlify Functions.
