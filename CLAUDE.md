@@ -8,8 +8,10 @@ Project instructions for Claude Code. Read this before every task.
 
 ### At the start of every task
 
+**Before touching any file:** check the branch and create one if on `main`. Never write, create, or modify files before this step — not even a script or a config file.
+
 1. Run `git status` and `git branch` to check the current state.
-2. If on `main`: create a branch first, then make changes.
+2. If on `main`: run `git checkout -b [branch-name]` first, then make changes.
 3. If already on a feature branch: continue on that branch.
 
 ### Branch naming
