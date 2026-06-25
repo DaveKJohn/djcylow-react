@@ -1,6 +1,49 @@
 #!/usr/bin/env node
-// Voeg een nieuwe mix toe aan het juiste JSON bestand.
-// Gebruik: node scripts/add-mix.js
+/**
+ * add-mix.js — Interactief script voor het toevoegen van een nieuwe mix
+ * =====================================================================
+ * Gebruik: npm run mix:add
+ *
+ * WAT HET DOET
+ * ------------
+ * Dit script vraagt stap voor stap de gegevens van een nieuwe mix op en
+ * voegt het resultaat bovenaan het juiste JSON bestand in (nieuwste eerst).
+ *
+ * WAT JE ZELF INVULT
+ * ------------------
+ *   - Kleur + power + frequentie + genre  (keuzelijst)
+ *   - Datum          YYYY-MM-DD           bijv. 2026-06-25
+ *   - Subgenre       vrije tekst          bijv. Tech House
+ *   - BPM            getal                bijv. 128
+ *   - Volume         getal of Enter       script stelt het volgende voor
+ *   - Beschrijving   120–160 tekens NL    subgenre + 2–4 artiesten
+ *   - Tracklist      optioneel            tijdcode HH:MM:SS + naam
+ *
+ * WAT AUTOMATISCH WORDT GEGENEREERD
+ * ----------------------------------
+ *   - id             YYYYMMDD uit datum
+ *   - title          "Subgenre · Color Power (f) Mix · Vol. N"
+ *   - jaar/maand/dag uit datum
+ *   - permalink      luister/mix/color-power-f-Genre-BPMbpm-YYYYMMDD.html
+ *   - audioSrc       R2-URL naar het mp3 bestand op Cloudflare
+ *   - image paden    /images/power/color/wide|square/... (altijd .webp)
+ *
+ * NA HET SCRIPT
+ * -------------
+ *   1. Voeg de afbeeldingen toe in public/images/{power}/{color}/
+ *      Bestandsnamen volgen het patroon in de gegenereerde image-paden.
+ *   2. Als je .jpg aanlevert: npm run images:webp
+ *   3. Controleer de JSON in de editor.
+ *   4. Commit + push live via de normale release workflow.
+ *
+ * AUDIO BESTANDSNAAM OP R2
+ * ------------------------
+ * Het script genereert de audioSrc op basis van dit patroon:
+ *   {Color}_{Power}_{freq}_{Genre}_{BPM}BPM_{YYYYMMDD}_Audio_V1 (Vol. N).mp3
+ * Voorbeeld: Red_Light_m_EDM_128BPM_20260615_Audio_V1 (Vol. 6).mp3
+ * Controleer altijd of de bestandsnaam op R2 exact overeenkomt — R2 is
+ * hoofdlettergevoelig. Pas audioSrc handmatig aan als de naam afwijkt.
+ */
 
 const readline = require('readline');
 const fs = require('fs');
