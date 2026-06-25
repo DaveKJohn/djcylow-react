@@ -133,15 +133,45 @@ async function pickFromList(prompt, options) {
   }
 }
 
+function parseTracklistText(text) {
+  // Parses pasted tracklist lines: "HH:MM:SS Artiest - Titel" or "MM:SS Artiest - Titel"
+  return text
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => /^\d{1,2}:\d{2}(:\d{2})?/.test(line))
+    .map(line => {
+      const spaceIdx = line.indexOf(' ');
+      let time = line.slice(0, spaceIdx).trim();
+      const track = line.slice(spaceIdx + 1).trim();
+      // Normalize MM:SS → HH:MM:SS
+      if (/^\d{2}:\d{2}$/.test(time)) time = `00:${time}`;
+      return { time, track };
+    })
+    .filter(t => t.track.length > 0);
+}
+
 async function askTracklist() {
-  const tracks = [];
-  console.log('\nTracklist invoeren (leeg laten bij tijd om te stoppen):');
+  console.log('\nTracklist plakken (één track per regel: HH:MM:SS Artiest - Titel)');
+  console.log('Sluit af met een lege regel:\n');
+
+  const lines = [];
+  // Collect lines until two consecutive empty lines or one empty after content
+  let emptyCount = 0;
   while (true) {
-    const time = await ask(`  Track ${tracks.length + 1} tijd (HH:MM:SS): `);
-    if (!time.trim()) break;
-    const track = await ask(`  Track ${tracks.length + 1} naam (Artiest - Titel): `);
-    if (!track.trim()) break;
-    tracks.push({ time: time.trim(), track: track.trim() });
+    const line = await ask('');
+    if (line.trim() === '') {
+      if (lines.length > 0) break;
+    } else {
+      emptyCount = 0;
+      lines.push(line);
+    }
+  }
+
+  const tracks = parseTracklistText(lines.join('\n'));
+  if (tracks.length > 0) {
+    console.log(`✓ ${tracks.length} tracks ingelezen.`);
+  } else {
+    console.log('Geen tracks herkend — tracklist blijft leeg.');
   }
   return tracks;
 }
