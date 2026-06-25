@@ -171,6 +171,11 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
       --notes-file release-notes/<versie>.md \
       --verify-tag
     ```
+12. **Verwijder de feature branch** (lokaal + remote):
+    ```bash
+    git branch -d [branch]
+    git push origin --delete [branch]
+    ```
 
 Netlify deployt automatisch na de push naar `main`.
 
