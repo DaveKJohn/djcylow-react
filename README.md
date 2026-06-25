@@ -79,7 +79,7 @@ Create a `.env` file in the project root (never commit this):
 ```env
 MAIL_HOST=smtp.hostinger.com
 MAIL_PORT=465
-MAIL_USER=info@djcylow.com
+MAIL_USER=<smtp username>
 MAIL_PASS=<smtp password>
 RECAPTCHA_SECRET_KEY=<google recaptcha v2 secret>
 ```
@@ -293,7 +293,7 @@ Each JSON file is an **array** of mix objects:
     "maand": "Apr",
     "dag": "08",
     "permalink": "luister/mix/blue-full-f-DNB-20240408.html",
-    "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/...",
+    "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/...",
     "image_wide_small": "/images/full/blue/wide/image_full_blue_20240408_wide-small.jpg",
     "image_wide_large": "/images/full/blue/wide/image_full_blue_20240408_wide-large.webp",
     "image_square": "/images/full/blue/square/image_full_blue_20240408_square.jpg",
@@ -421,7 +421,7 @@ To update text content on any page, edit the corresponding file in `src/content/
 ## Audio & Media
 
 - All mix audio files are hosted on a **Cloudflare R2 CDN bucket**:
-  `https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/`
+  `https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/`
 - The `audioSrc` field in each mix JSON points to the full CDN URL.
 - The custom `<AudioPlayer>` component manages an HTML `<audio>` element via a React ref.
 - The promo video on the home page is an **embedded YouTube video** (via `@next/third-parties`).
@@ -436,7 +436,7 @@ The contact form (`src/components/sections/ContactForm.tsx`):
 2. Validates with Google reCAPTCHA v2 (lazy-loaded)
 3. POSTs to a Netlify serverless function at `netlify/functions/`
 4. The function uses **Nodemailer** to send via SMTP (`smtp.hostinger.com`, port 465)
-5. Email is sent to `info@djcylow.com`
+5. Email is sent to the DJ Cylow inbox.
 
 Required environment variables: `MAIL_HOST`, `MAIL_PORT`, `MAIL_USER`, `MAIL_PASS`, `RECAPTCHA_SECRET_KEY`.
 
