@@ -68,7 +68,7 @@ function findMixBySlug(slug: string) {
     const decodedIncomingSlug = decodeURIComponent(slug).toLowerCase().trim();
 
     return allMixes.find((m) => {
-        if (!m || !m.permalink) return false;
+        if (!m || !m.permalink || m.ignore) return false;
 
         const filename = m.permalink.split('/').pop() || '';
         const pureSlug = filename.split('.html')[0];
@@ -81,7 +81,7 @@ function findMixBySlug(slug: string) {
 export async function generateStaticParams() {
     const params = allMixes
         .map((mix) => {
-            if (!mix || !mix.permalink) return null;
+            if (!mix || !mix.permalink || mix.ignore) return null;
 
             const filename = mix.permalink.split('/').pop() || '';
             const pureSlug = filename.split('.html')[0];
@@ -111,10 +111,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
-    const pageUrl = `https://www.djcylow.nl/luister/mix/${cleanSlug}`;
+    const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
 
     return {
-        metadataBase: new URL('https://www.djcylow.nl'),
+        metadataBase: new URL('https://www.djcylow.com'),
         title: titleText,
         description: descriptionText,
         alternates: {
@@ -155,13 +155,14 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         'name': `${colorName} ${mix.genre} Mix ${mix.volume} - DJ Cylow`,
         'description': mix.description || `Beluister de ${colorName} ${mix.genre} set van DJ Cylow met tracks van top artiesten.`,
         'numTracks': Array.isArray(mix.tracklist) ? mix.tracklist.length : 0,
-        'genre': mix.genre,
-        'image': `https://www.djcylow.nl${mix.image_wide_large}`,
-        'url': `https://www.djcylow.nl/luister/mix/${cleanSlug}`,
+        'genre': mix.subgenre || mix.genre,
+        ...(mix.date && { 'datePublished': mix.date }),
+        'image': `https://www.djcylow.com${mix.image_wide_large}`,
+        'url': `https://www.djcylow.com/luister/mix/${cleanSlug}`,
         'creator': {
             '@type': 'MusicGroup',
             'name': 'DJ Cylow',
-            'url': 'https://www.djcylow.nl'
+            'url': 'https://www.djcylow.com'
         },
         'track': (Array.isArray(mix.tracklist) ? mix.tracklist : []).map((t, index) => {
             const artistPart = t.track ? t.track.split(' - ')[0] || 'Unknown Artist' : 'Unknown Artist';
@@ -198,6 +199,12 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 <h1 className="uppercase">
                                     {colorName} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
                                 </h1>
+                                {mix.subgenre && (
+                                    <p className="size-sm uppercase">{mix.subgenre}</p>
+                                )}
+                                {mix.jaar && (
+                                    <p className="size-xs">{mix.dag} {mix.maand} {mix.jaar}</p>
+                                )}
                             </div>
 
                             <div className="column w-fill AML P35 seo-description">

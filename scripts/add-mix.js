@@ -209,23 +209,23 @@ async function generateDescription(subgenre, genre, color, power, tracklist) {
     max_tokens: 300,
     messages: [{
       role: 'user',
-      content: `Schrijf een beschrijving voor een DJ mix. Geef ALLEEN de beschrijvingstekst terug, geen uitleg of aanhalingstekens.
+      content: `Write a description for a DJ mix. Return ONLY the description text, no explanation or quotation marks.
 
 Mix info:
 - Subgenre: ${subgenre}
 - Genre: ${genre}
-- Kleur/sfeer: ${color} ${power}
+- Color/vibe: ${color} ${power}
 
 Tracklist:
 ${trackLines}
 
-Regels:
-- Exact 120–160 tekens
-- Nederlands
-- Noem het subgenre
-- Noem 2–4 opvallende artiesten uit de tracklist
-- Sfeer beschrijven (bijv. "warm en meeslepend", "strak en gedreven")
-- Formaat: "${subgenre} mix van DJ Cylow — [sfeer]. Met [artiesten]."`,
+Rules:
+- Exactly 120–160 characters
+- English
+- Mention the subgenre
+- Mention 2–4 notable artists from the tracklist
+- Describe the vibe (e.g. "warm and driving", "tight and energetic")
+- Format: "${subgenre} mix by DJ Cylow — [vibe]. Featuring [artists]."`,
     }],
   });
 

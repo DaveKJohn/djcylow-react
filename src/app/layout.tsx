@@ -25,7 +25,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="nl">
+        <html lang="en">
             <head>
                 {/* GTM Script */}
                 <Script id="gtm-delayed" strategy="afterInteractive">
