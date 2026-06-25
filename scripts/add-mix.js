@@ -151,29 +151,29 @@ function parseTracklistText(text) {
 }
 
 async function askTracklist() {
-  console.log('\nTracklist plakken (één track per regel: HH:MM:SS Artiest - Titel)');
-  console.log('Sluit af met een lege regel:\n');
+  console.log('\nTracklist plakken (HH:MM:SS Artiest - Titel per regel).');
+  console.log('Typ daarna END en druk Enter:\n');
 
-  const lines = [];
-  // Collect lines until two consecutive empty lines or one empty after content
-  let emptyCount = 0;
-  while (true) {
-    const line = await ask('');
-    if (line.trim() === '') {
-      if (lines.length > 0) break;
-    } else {
-      emptyCount = 0;
-      lines.push(line);
-    }
-  }
+  return new Promise((resolve) => {
+    const lines = [];
 
-  const tracks = parseTracklistText(lines.join('\n'));
-  if (tracks.length > 0) {
-    console.log(`✓ ${tracks.length} tracks ingelezen.`);
-  } else {
-    console.log('Geen tracks herkend — tracklist blijft leeg.');
-  }
-  return tracks;
+    const onLine = (line) => {
+      if (line.trim().toUpperCase() === 'END') {
+        rl.removeListener('line', onLine);
+        const tracks = parseTracklistText(lines.join('\n'));
+        if (tracks.length > 0) {
+          console.log(`\n✓ ${tracks.length} tracks ingelezen.`);
+        } else {
+          console.log('\nGeen tracks herkend — tracklist blijft leeg.');
+        }
+        resolve(tracks);
+      } else {
+        lines.push(line);
+      }
+    };
+
+    rl.on('line', onLine);
+  });
 }
 
 async function generateDescription(subgenre, genre, color, power, tracklist) {
