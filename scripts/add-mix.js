@@ -350,10 +350,36 @@ async function main() {
   mixes.unshift(entry);
   fs.writeFileSync(file, JSON.stringify(mixes, null, 2) + '\n', 'utf8');
   console.log(`\n✓ Mix toegevoegd aan ${path.basename(file)}`);
-  console.log(`  Vergeet niet de afbeeldingen toe te voegen in public/images/${power.toLowerCase()}/${color.toLowerCase()}/`);
-  console.log(`  en daarna: npm run images:webp (als je .jpg aanlevert)`);
+
+  // Controleer en converteer afbeeldingen
+  await checkAndConvertImages(entry);
 
   rl.close();
+}
+
+async function checkAndConvertImages(entry) {
+  const PUBLIC = path.join(__dirname, '..', 'public');
+  const imagePaths = [entry.image_wide_small, entry.image_wide_large, entry.image_square];
+
+  console.log('\nAfbeeldingen controleren...');
+
+  for (const imgPath of imagePaths) {
+    const webpAbs = path.join(PUBLIC, imgPath);
+    const jpgAbs  = webpAbs.replace(/\.webp$/, '.jpg');
+
+    if (fs.existsSync(webpAbs)) {
+      console.log(`  ✓ ${path.basename(webpAbs)}`);
+    } else if (fs.existsSync(jpgAbs)) {
+      process.stdout.write(`  ↻ ${path.basename(jpgAbs)} → webp...`);
+      const sharp = require('sharp');
+      await sharp(jpgAbs).webp({ quality: 85 }).toFile(webpAbs);
+      fs.unlinkSync(jpgAbs);
+      process.stdout.write(' klaar.\n');
+    } else {
+      console.log(`  ⚠ Ontbreekt: ${imgPath}`);
+      console.log(`    Voeg toe in: public${path.dirname(imgPath)}/`);
+    }
+  }
 }
 
 main().catch(err => {
