@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
 
 
 interface ReadMoreProps {
@@ -10,6 +11,7 @@ interface ReadMoreProps {
 }
 
 export default function ReadMore({ teaser, hiddenContent, onToggle }: ReadMoreProps) {
+    const t = useTranslations('common');
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleReadMore = () => {
@@ -41,7 +43,7 @@ export default function ReadMore({ teaser, hiddenContent, onToggle }: ReadMorePr
 
             <div className="column extra spacing-2xl">
                 <button className="btn passive read-more-btn" onClick={toggleReadMore}>
-                    {isOpen ? "Lees minder" : "Lees meer"}
+                    {isOpen ? t('readLess') : t('readMore')}
                 </button>
             </div>
         </div>

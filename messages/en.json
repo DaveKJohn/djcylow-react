@@ -7,7 +7,9 @@
   "common": {
     "backToOverview": "Back to overview",
     "filters": "Filters",
-    "openFilter": "Open filter"
+    "openFilter": "Open filter",
+    "readMore": "Read more",
+    "readLess": "Read less"
   },
   "mix": {
     "notFound": "Mix not found.",

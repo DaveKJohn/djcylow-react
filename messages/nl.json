@@ -7,7 +7,9 @@
   "common": {
     "backToOverview": "Terug naar overzicht",
     "filters": "Filters",
-    "openFilter": "Filter openen"
+    "openFilter": "Filter openen",
+    "readMore": "Lees meer",
+    "readLess": "Lees minder"
   },
   "mix": {
     "notFound": "Mix niet gevonden.",
