@@ -93,6 +93,17 @@
         }
     }
 
+    #filter_mood_output {
+        &.is-hidden {
+            display: none;
+        }
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
     #filter_mood {
         .btn.select[aria-pressed="true"] {
             border: 1px solid var(--black-100);

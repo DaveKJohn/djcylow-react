@@ -23,6 +23,24 @@
         display: none;
     }
 
+    .captcha-loader {
+        height: 78px;
+    }
+
+    .success-emoji {
+        font-size: 3rem;
+    }
+
+    #succesMessage {
+        .send-new-btn {
+            margin-top: 1rem;
+        }
+    }
+
+    .error-message {
+        color: #d93025;
+    }
+
     .input-field {
         width: 100%;
         padding: map.get(map.get(v.$design-scale, "2xl"), "in-space");

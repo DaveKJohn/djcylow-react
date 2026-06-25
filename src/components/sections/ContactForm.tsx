@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
     ssr: false,
-    loading: () => <div style={{ height: "78px" }}>Loading captcha...</div>,
+    loading: () => <div className="captcha-loader">Loading captcha...</div>,
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }) as any;
 
@@ -103,14 +103,13 @@ export default function ContactForm() {
                     {status === "success" ? (
                         <div className="column spacing-3xl center" id="succesMessage">
                             <div className="column text-wrapper center spacing-3xl">
-                                <div style={{ fontSize: '3rem' }}>✅</div>
+                                <div className="success-emoji">✅</div>
                                 <h3 className="succes text">{t('successTitle')}</h3>
                                 <p>{t('successMessage')}</p>
                             </div>
                             <button
-                                className="btn size-base"
+                                className="btn size-base send-new-btn"
                                 onClick={() => setStatus("idle")}
-                                style={{ marginTop: '1rem' }}
                             >
                                 {t('sendNew')}
                             </button>
@@ -127,7 +126,7 @@ export default function ContactForm() {
                                 <div className="column w-fill AML P40-xl fill-80">
                                     <input className="column w-fill AML P45" type="hidden" name="form-name" value="contact" />
 
-                                    <div className="column w-fill AML P45" style={{ display: "none" }}>
+                                    <div id="honeypot">
                                         <label>Bot field: <input name="bot-field" /></label>
                                     </div>
 
@@ -160,7 +159,7 @@ export default function ContactForm() {
 
                                     {status === "error" && (
                                         <div className="column spacing-3xl">
-                                            <p className="size-base error text" style={{ color: 'red' }}>{errorMessage}</p>
+                                            <p className="size-base error-message">{errorMessage}</p>
                                         </div>
                                     )}
 

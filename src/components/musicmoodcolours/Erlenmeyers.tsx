@@ -98,7 +98,7 @@ export default function Erlenmeyers() {
                                 className={activeColor}
                             />
                         ) : (
-                            <div className="column center wrapper" style={{ minHeight: '150px' }}>
+                            <div className="column center wrapper no-mix-placeholder">
                                 <p className="size-xs">{t('selectSubstances')}</p>
                             </div>
                         )}

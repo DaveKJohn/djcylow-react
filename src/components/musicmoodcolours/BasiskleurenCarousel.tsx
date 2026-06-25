@@ -92,7 +92,7 @@ export default function BasiskleurenCarousel() {
 								className={name}
 							/>
 						) : (
-							<div className="column center" style={{ height: '100%', minHeight: '150px' }}>
+							<div className="column center no-mix-placeholder">
 								<p className="error center size-sm">{t('noMix')}</p>
 							</div>
 						)}

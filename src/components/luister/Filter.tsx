@@ -48,10 +48,10 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     </div>
 
                     {/* MOOD OUTPUT - Nu met dynamische display: none/flex */}
-                    <div className="column w-fill AMC extra spacing-xl" id="filter_mood_output" style={{ display: activeColor === 'all' ? 'none' : 'flex' }}                   >
+                    <div className={`column w-fill AMC extra spacing-xl ${activeColor === 'all' ? 'is-hidden' : ''}`} id="filter_mood_output">
                         {activeColor !== 'all' && (
                             <div className="column w-fill AMC spacing-lg color-wrapper">
-                                <svg className="column extra spacing-2xl" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
+                                <svg className="column extra spacing-2xl" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="10" cy="10" r="9" fill={`var(${MOOD_DATA[activeColor].colorVar})`}></circle>
                                 </svg>
                                 <p className="size-sm balanced">{MOOD_DATA[activeColor].text}</p>

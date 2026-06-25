@@ -6,6 +6,34 @@
 
 
 // =======================================
+// locale picker (root page /)
+// =======================================
+#locale-picker {
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+
+    .locale-picker__header {
+        align-items: center;
+        gap: 1rem;
+
+        h1 {
+            letter-spacing: 0.1em;
+        }
+    }
+
+    .locale-picker__buttons {
+        gap: 1.5rem;
+    }
+
+    .locale-picker__btn {
+        min-width: 8rem;
+        justify-content: center;
+    }
+}
+
+// =======================================
 // diensten section
 // =======================================
 #diensten {

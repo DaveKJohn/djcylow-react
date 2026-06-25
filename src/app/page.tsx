@@ -2,15 +2,15 @@ import Link from 'next/link';
 
 export default function RootPage() {
     return (
-        <main className="WoB column w-fill AMC" style={{ minHeight: '100vh', justifyContent: 'center', alignItems: 'center', gap: '3rem' }}>
-            <div className="column" style={{ alignItems: 'center', gap: '1rem' }}>
-                <h1 className="uppercase" style={{ letterSpacing: '0.1em' }}>DJ Cylow</h1>
+        <main id="locale-picker" className="WoB column w-fill AMC">
+            <div className="column locale-picker__header">
+                <h1 className="uppercase">DJ Cylow</h1>
             </div>
-            <div className="row" style={{ gap: '1.5rem' }}>
-                <Link href="/en" className="btn cta center" style={{ minWidth: '8rem', justifyContent: 'center' }}>
+            <div className="row locale-picker__buttons">
+                <Link href="/en" className="btn cta center locale-picker__btn">
                     English
                 </Link>
-                <Link href="/nl" className="btn passive center" style={{ minWidth: '8rem', justifyContent: 'center' }}>
+                <Link href="/nl" className="btn passive center locale-picker__btn">
                     Nederlands
                 </Link>
             </div>

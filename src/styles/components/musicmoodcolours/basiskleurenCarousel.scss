@@ -15,7 +15,11 @@ $h-spacing: calc((map.get(map.get(v.$design-scale, "5xl"), "in-space") * 9));
 $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} + #{$h-spacing});
 
 .carousels {
-   
+
+    .no-mix-placeholder {
+        height: 100%;
+        min-height: 150px;
+    }
 
     #basiskleuren {
         scroll-snap-type: x mandatory;
