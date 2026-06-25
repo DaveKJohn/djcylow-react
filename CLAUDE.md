@@ -142,6 +142,13 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
    git push origin main
    git push origin v<versie>
    ```
+10. **GitHub Release aanmaken**:
+    ```bash
+    gh release create v<versie> \
+      --title "v<versie> - <korte titel>" \
+      --notes-file release-notes/<versie>.md \
+      --verify-tag
+    ```
 
 Netlify deployt automatisch na de push naar `main`.
 
