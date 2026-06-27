@@ -61,6 +61,8 @@ Elke entry in `[Unreleased]` op `main` vermeldt de branchnaam en merge-datum op 
 ```markdown
 ### Titel van de wijziging
 **Branch:** `feature/branch-naam` · **Gemergd:** YYYY-MM-DD
+
+Korte beschrijving van wat er veranderd is op deze branch.
 ```
 
 De datum is de dag waarop de branch naar `main` werd gemergd.

@@ -91,16 +91,27 @@ gh release create v2.3.0 --title "v2.3.0 - UX MODUS (donker/licht mode)" \
 
 ## Nieuwe release aanmaken — stap voor stap
 
-1. Zorg dat `main` up-to-date is en de wijzigingen live staan op Netlify.
-2. Bepaal het versienummer (zie tabel hierboven).
-3. Maak het release-note bestand aan: `release-notes/<versie>.md`.
-4. Voeg de versie toe aan de overzichtstabel onderaan in deze README.
-5. Zet de annotated tag op de juiste commit en push:
-   ```sh
-   git tag -a v<versie> <commit-hash> -m "v<versie> - <korte titel>"
-   git push origin v<versie>
+De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort samengevat:
+
+1. Bepaal het versienummer (zie semver-tabel hierboven).
+2. Maak het release-note bestand aan: `release-notes/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als basis. Formaat:
+   ```markdown
+   # v<versie> — <korte titel>
+   **Datum:** YYYY-MM-DD
+   **Type:** Patch/Minor/Major
+
+   ## Wijzigingen
+
+   <korte samenvatting van alle wijzigingen>
+
+   ### <Titel van wijziging>
+   **Branch:** `<branch-naam>` · **Gemergd:** YYYY-MM-DD
+
+   <beschrijving>
    ```
-6. Maak optioneel een GitHub Release aan via `gh release create` (zie hierboven).
+3. Voeg de versie toe aan de overzichtstabel in deze README (bovenaan de tabel).
+4. Update `CHANGELOG.md`: hernoem `[Unreleased]` naar `[v<versie>] - YYYY-MM-DD — Patch/Minor/Major`.
+5. Tag en push via de stappen in `CLAUDE.md`.
 
 ## Overzicht
 
@@ -113,20 +124,20 @@ gh release create v2.3.0 --title "v2.3.0 - UX MODUS (donker/licht mode)" \
 | [2.14.3](2.14.3.md) | 2026-06-25 | Patch | add-mix script: AI beschrijving + tracklist plakken |
 | [2.14.2](2.14.2.md) | 2026-06-25 | Patch | Script: nieuwe mix toevoegen |
 | [2.14.1](2.14.1.md) | 2026-06-25 | Patch | Alle afbeeldingen geconverteerd naar WebP |
-| [2.14.0](2.14.0.md) | 2026-06-25 | Content | Mix beschrijvingen alle kleuren + Red image update |
-| [2.13.0](2.13.0.md) | 2026-06-18 | Refactor | Code structuur & JSON tracklist verbeterd |
-| [2.12.0](2.12.0.md) | 2026-06-16 | Feature | Nieuwe mix: Red Light EDM (Vol. 6) |
+| [2.14.0](2.14.0.md) | 2026-06-25 | Minor | Mix beschrijvingen alle kleuren + Red image update |
+| [2.13.0](2.13.0.md) | 2026-06-18 | Minor | Code structuur & JSON tracklist verbeterd |
+| [2.12.0](2.12.0.md) | 2026-06-16 | Minor | Nieuwe mix: Red Light EDM (Vol. 6) |
 | [2.11.1](2.11.1.md) | 2026-05-10 | Patch | BackButton navigatie via Link |
-| [2.11.0](2.11.0.md) | 2026-05-08 | Feature | Nieuwe mix: Orange Drum & Bass (Vol. 9) + responsive |
-| [2.10.0](2.10.0.md) | 2026-05-05 | Feature | UX kleuren uitgebreid + layout responsive |
-| [2.9.0](2.9.0.md) | 2026-05-01 | Feature | UX MODUS — donker/licht mode |
-| [2.8.0](2.8.0.md) | 2026-04-20 | Feature | Reviews verborgen + responsive breakpoints |
-| [2.7.0](2.7.0.md) | 2026-04-13 | Feature | Referenties component + Mobile Content 2.0 |
-| [2.6.0](2.6.0.md) | 2026-04-11 | Feature | Filter 2.0 + Luister pagina 2.0 |
-| [2.5.0](2.5.0.md) | 2026-04-10 | Feature | Nieuwe mix + mix detail refactor |
-| [2.4.0](2.4.0.md) | 2026-03-20 | Feature | Nieuwe mix: Yellow EDM (Full) |
-| [2.3.0](2.3.0.md) | 2026-03-19 | Feature | BasiskleurenCarousel + Promo sectie + Navigatie |
-| [2.2.0](2.2.0.md) | 2026-03-13 | Feature | Hero Banner |
-| [2.1.0](2.1.0.md) | 2026-03-11 | Feature | AudioPlayer + Light Yellow mixes |
+| [2.11.0](2.11.0.md) | 2026-05-08 | Minor | Nieuwe mix: Orange Drum & Bass (Vol. 9) + responsive |
+| [2.10.0](2.10.0.md) | 2026-05-05 | Minor | UX kleuren uitgebreid + layout responsive |
+| [2.9.0](2.9.0.md) | 2026-05-01 | Minor | UX MODUS — donker/licht mode |
+| [2.8.0](2.8.0.md) | 2026-04-20 | Minor | Reviews verborgen + responsive breakpoints |
+| [2.7.0](2.7.0.md) | 2026-04-13 | Minor | Referenties component + Mobile Content 2.0 |
+| [2.6.0](2.6.0.md) | 2026-04-11 | Minor | Filter 2.0 + Luister pagina 2.0 |
+| [2.5.0](2.5.0.md) | 2026-04-10 | Minor | Nieuwe mix + mix detail refactor |
+| [2.4.0](2.4.0.md) | 2026-03-20 | Minor | Nieuwe mix: Yellow EDM (Full) |
+| [2.3.0](2.3.0.md) | 2026-03-19 | Minor | BasiskleurenCarousel + Promo sectie + Navigatie |
+| [2.2.0](2.2.0.md) | 2026-03-13 | Minor | Hero Banner |
+| [2.1.0](2.1.0.md) | 2026-03-11 | Minor | AudioPlayer + Light Yellow mixes |
 | [2.0.1](2.0.1.md) | 2026-03-08 | Patch | Succes message contactformulier |
-| [2.0.0](2.0.0.md) | 2026-03-07 | Baseline | Eerste livegang op Netlify |
+| [2.0.0](2.0.0.md) | 2026-03-07 | Major | Eerste livegang op Netlify |
