@@ -208,6 +208,7 @@ Netlify deployt automatisch na de push naar `main`.
 | Type wijziging | Versie |
 |---|---|
 | Bugfix, hotfix, kleine correctie | PATCH |
+| Docs, workflow, CLAUDE.md, CHANGELOG-wijzigingen | PATCH |
 | Nieuwe beschrijvingen, content updates | MINOR |
 | Nieuwe mix, nieuwe pagina, nieuw component | MINOR |
 | Volledig redesign of framework-migratie | MAJOR |
