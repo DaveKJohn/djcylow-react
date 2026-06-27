@@ -39,8 +39,9 @@ git checkout -b [branch-name]
 - Commit changes on the feature branch with a clear message.
 - **Update `[Unreleased]` in `CHANGELOG.md` op de branch — dit is verplicht, geen uitzondering.** Gebruik het formaat:
   ```markdown
-  ### Titel van de wijziging
-  **Branch:** `branch-naam` · **Gemergd:** YYYY-MM-DD
+  ### branch-naam
+  **Datum merge** YYYY-MM-DD
+  **Branch type** Docs/Feature/Fix/Data/Content/Style/Config
 
   Korte beschrijving van wat er veranderd is op deze branch.
   ```
@@ -66,8 +67,9 @@ onder ## [Unreleased] in de hoofd-CHANGELOG. Zie de werkwijze in CLAUDE.md.
 Elke entry in `[Unreleased]` op `main` vermeldt de branchnaam en merge-datum op een aparte regel direct onder de heading:
 
 ```markdown
-### Titel van de wijziging
-**Branch:** `feature/branch-naam` · **Gemergd:** YYYY-MM-DD
+### branch-naam
+**Datum merge** YYYY-MM-DD
+**Branch type** Docs/Feature/Fix/Data/Content/Style/Config
 
 Korte beschrijving van wat er veranderd is op deze branch.
 ```
