@@ -56,6 +56,12 @@ onder ## [Unreleased] in de hoofd-CHANGELOG. Zie de werkwijze in CLAUDE.md.
 
 **Op `main`** is de changelog volledig: "Hoe dit werkt"-sectie, levenscyclus-uitleg, `[Unreleased]` met alles wat gemergd is maar nog niet live, en de volledige versiegeschiedenis met `← LIVE` op de meest recente versie.
 
+Elke entry in `[Unreleased]` op `main` vermeldt de branchnaam als inline code aan het einde van de heading, zodat de herkomst traceerbaar is:
+
+```markdown
+### Titel van de wijziging `feature/branch-naam`
+```
+
 ---
 
 ## Safety Rules
