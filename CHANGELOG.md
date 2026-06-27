@@ -22,10 +22,6 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-### Docs — CHANGELOG.md workflow uitgebreid
-
-`CHANGELOG.md` uitgebreid met een "Hoe dit werkt"-sectie: uitleg over `[Unreleased]` vs versieblokken, de `← LIVE`-markering, de levenscyclus van een regel (branch → main → live), en hoe merge-conflicten op `[Unreleased]` triviaal op te lossen zijn.
-
 ### Documentatie — GA4 + GTM setup (nog uit te voeren)
 
 Doel: meten welke mix het meest bezocht wordt en hoe lang bezoekers gemiddeld blijven.
