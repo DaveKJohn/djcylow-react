@@ -45,7 +45,11 @@
       "DJ Cylow mix"
     ],
     "description": "Drum & Bass mix van DJ Cylow — elektrisch en strak, vol energie voor een thuisfeest. Met Sub Focus, Maduk, Fox Stevenson en Wilkinson.",
-    "top_artists": [],
+    "top_artists": [
+      "Sub Focus",
+      "Wilkinson",
+      "Maduk"
+    ],
     "tracklist": [
       {
         "time": "00:00",

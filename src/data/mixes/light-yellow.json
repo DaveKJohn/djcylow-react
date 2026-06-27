@@ -44,7 +44,11 @@
       "home party mix"
     ],
     "description": "Nu-Disco mix van DJ Cylow — vrolijk en dansbaar, ideaal voor een zonnig thuisfeest. Met Yvvan Back, David Penn en Block & Crown.",
-    "top_artists": [],
+    "top_artists": [
+      "Yvvan Back",
+      "David Penn",
+      "CASSIMM"
+    ],
     "tracklist": [
       {
         "time": "00:01:00",
@@ -213,7 +217,11 @@
       "groovy house mix"
     ],
     "description": "Funky House mix van DJ Cylow — luchtig en vol energie, perfect voor een zomers feest. Met CASSIMM, Jack Back en Seamus Haji.",
-    "top_artists": [],
+    "top_artists": [
+      "Purple Disco Machine",
+      "CASSIMM",
+      "Claptone"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -422,7 +430,11 @@
       "focus music"
     ],
     "description": "Funky House mix van DJ Cylow — zacht en blij, met een positieve groove voor elk moment van de dag. Met Yvvan Back, Babert en TJR.",
-    "top_artists": [],
+    "top_artists": [
+      "Purple Disco Machine",
+      "Yvvan Back",
+      "TJR"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -591,7 +603,11 @@
       "disco house mix"
     ],
     "description": "Nu-Disco mix van DJ Cylow — opgewekt en groovy, een heerlijke set voor een relaxt thuisfeest. Met Antoine Clamaran, CASSIMM en KPD.",
-    "top_artists": [],
+    "top_artists": [
+      "CASSIMM",
+      "Antoine Clamaran",
+      "Yvvan Back"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -760,7 +776,11 @@
       "dance music 2024"
     ],
     "description": "Funky House mix van DJ Cylow — feestelijk en licht, een kerstse set vol discogevoel. Met Purple Disco Machine, Zsak en Qubiko.",
-    "top_artists": [],
+    "top_artists": [
+      "Purple Disco Machine",
+      "David Penn",
+      "Yvvan Back"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -929,7 +949,11 @@
       "house music 2024"
     ],
     "description": "Nu-Disco mix van DJ Cylow — luchtig en dansbaar, vol warme house-energy voor een avond vol beweging. Met CASSIMM, Zsak en Earth n Days.",
-    "top_artists": [],
+    "top_artists": [
+      "Purple Disco Machine",
+      "CASSIMM",
+      "David Penn"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -1094,7 +1118,11 @@
       "groovy dance music"
     ],
     "description": "Funky House mix van DJ Cylow — energiek en zonnig, de perfecte start voor deze serie. Met Camelphat, David Penn en Purple Disco Machine.",
-    "top_artists": [],
+    "top_artists": [
+      "CamelPhat",
+      "Purple Disco Machine",
+      "David Penn"
+    ],
     "tracklist": [
       {
         "time": "00:00",

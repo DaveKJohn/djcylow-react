@@ -42,7 +42,11 @@
       "DJ Cylow mix"
     ],
     "description": "Nu-Disco mix van DJ Cylow — fris en helder, perfect voor een zonnige middag thuis. Met The Magician, Cosmo's Midnight en Phats & Small.",
-    "top_artists": [],
+    "top_artists": [
+      "The Magician",
+      "Cosmo's Midnight",
+      "Phats & Small"
+    ],
     "tracklist": [
       {
         "time": "00:00:00",
@@ -209,7 +213,11 @@
       "DJ Cylow mix"
     ],
     "description": "Helder en opzwepend nu-disco van DJ Cylow — een mix vol discoklassiekers en festivalgroovers. Met Jax Jones, Phats & Small en Block & Crown.",
-    "top_artists": [],
+    "top_artists": [
+      "Purple Disco Machine",
+      "Jax Jones",
+      "Phats & Small"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -416,7 +424,11 @@
       "DJ Cylow mix"
     ],
     "description": "Dance mix van DJ Cylow — rustig en gefocust, met frisse club vibes voor een lange avond. Met Sophie Ellis-Bextor, Vintage & Morelli en Block & Crown.",
-    "top_artists": [],
+    "top_artists": [
+      "Sophie Ellis-Bextor",
+      "Purple Disco Machine",
+      "Soulsearcher"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -583,7 +595,11 @@
       "DJ Cylow mix"
     ],
     "description": "Nu-Disco house mix van DJ Cylow — warm en helder, ideaal voor een relaxte avond aan huis. Met Armand Van Helden, The Magician en Sonny Fodera.",
-    "top_artists": [],
+    "top_artists": [
+      "Armand Van Helden",
+      "The Magician",
+      "Jax Jones"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -750,7 +766,11 @@
       "DJ Cylow mix"
     ],
     "description": "House mix van DJ Cylow — helder en fris, een klassieker vol tijdloze dancefloor grooves. Met Frankie Knuckles, Purple Disco Machine en Mark Knight.",
-    "top_artists": [],
+    "top_artists": [
+      "Frankie Knuckles",
+      "Purple Disco Machine",
+      "Bob Sinclair"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -913,7 +933,11 @@
       "DJ Cylow mix"
     ],
     "description": "Drum & Bass mix van DJ Cylow — helder en energiek, van liquid vibes tot melodische rollers. Met Wilkinson, Maduk, BCee en High Contrast.",
-    "top_artists": [],
+    "top_artists": [
+      "Wilkinson",
+      "High Contrast",
+      "Maduk"
+    ],
     "tracklist": [
       {
         "time": "00:00",

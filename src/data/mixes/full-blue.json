@@ -45,7 +45,11 @@
       "epic dnb mix"
     ],
     "description": "Drum & Bass mix van DJ Cylow — krachtig en episch, perfect voor een lange avondrit. Met Delta Heavy, Wilkinson, Netsky en Feint.",
-    "top_artists": [],
+    "top_artists": [
+      "Wilkinson",
+      "Netsky",
+      "Delta Heavy"
+    ],
     "tracklist": [
       {
         "time": "00:00",
@@ -263,7 +267,11 @@
       "home party mix"
     ],
     "description": "Drum & Bass mix van DJ Cylow — vol energie en donkere diepgang, ideaal voor een thuisfeest. Met Keeno, Wilkinson, Maduk en Hedex.",
-    "top_artists": [],
+    "top_artists": [
+      "Wilkinson",
+      "Maduk",
+      "Keeno"
+    ],
     "tracklist": [
       {
         "time": "00:00",
