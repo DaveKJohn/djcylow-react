@@ -37,7 +37,14 @@ git checkout -b [branch-name]
 ### After completing a task
 
 - Commit changes on the feature branch with a clear message.
-- **Update `[Unreleased]` in `CHANGELOG.md`** — voeg toe wat er veranderd is. Dit is de werkende notitie die bij een release wordt omgezet naar een release note.
+- **Update `[Unreleased]` in `CHANGELOG.md` op de branch — dit is verplicht, geen uitzondering.** Gebruik het formaat:
+  ```markdown
+  ### Titel van de wijziging
+  **Branch:** `branch-naam` · **Gemergd:** YYYY-MM-DD
+
+  Korte beschrijving van wat er veranderd is op deze branch.
+  ```
+- **Merge nooit naar `main` zonder een [Unreleased] entry op de branch.** Dit geldt ook voor kleine of puur documentatie-wijzigingen.
 - Tell the user what changed and ask whether to merge into `main` or open a PR.
 - **Never merge or push to `main` without explicit user approval.**
 
