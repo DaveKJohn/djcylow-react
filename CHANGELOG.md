@@ -36,6 +36,13 @@ Definitief formaat: beschrijvende titel als heading, `**Branch naam**`, `**Datum
 
 Formaat nogmaals bijgesteld: beschrijvende titel als heading met branch naam, merge-datum en branch type als losse velden eronder.
 
+### Nooit "final" in een branchnaam
+**Branch naam** docs/branch-naming-convention
+**Datum merge op main** 2026-06-27
+**Branch type** Docs
+
+Conventie vastgelegd in CLAUDE.md en memory: gebruik `-v2`, `-v3` in plaats van "final" bij een herziening. Voorkomt `final-v2`, `final-final` etc.
+
 ---
 
 ## [v2.16.3] - 2026-06-27 — Patch ← LIVE

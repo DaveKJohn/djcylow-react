@@ -28,6 +28,8 @@ Project instructions for Claude Code. Read this before every task.
 
 **Examples:** `data/light-red-descriptions`, `feature/mix-bpm-filter`, `fix/audio-player-volume`
 
+**Nooit "final" in een branchnaam.** Als een tweede poging nodig is, gebruik dan `-v2`, `-v3` etc. — dat is eerlijker dan "final" en voorkomt `final-v2`, `final-final` etc.
+
 ### Creating a branch
 
 ```bash
