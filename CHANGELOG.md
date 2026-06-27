@@ -29,6 +29,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 Definitief formaat: beschrijvende titel als heading, `**Branch naam**`, `**Datum merge op main**` en `**Branch type**` als losse velden. Bijgewerkt in CLAUDE.md, release-notes/README.md en 2.16.3.md.
 
+### Definitief entry-formaat doorgevoerd
+**Branch naam** docs/final-entry-format
+**Datum merge op main** 2026-06-27
+**Branch type** Docs
+
+Formaat nogmaals bijgesteld: beschrijvende titel als heading met branch naam, merge-datum en branch type als losse velden eronder.
+
 ---
 
 ## [v2.16.3] - 2026-06-27 — Patch ← LIVE
