@@ -49,7 +49,8 @@ git checkout -b [branch-name]
   Korte beschrijving van wat er veranderd is op deze branch.
   ```
 - **Merge nooit naar `main` zonder een [Unreleased] entry op de branch.** Dit geldt ook voor kleine of puur documentatie-wijzigingen.
-- Tell the user what changed and ask whether to merge into `main` or open a PR.
+- Tell the user what changed. Stop there — do not ask about merging, releasing, or pushing.
+- **A release is always initiated by the user. Never propose it.**
 - **Never merge or push to `main` without explicit user approval.**
 
 ### CHANGELOG.md — twee formaten
