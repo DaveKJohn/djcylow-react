@@ -22,11 +22,12 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-### docs/new-entry-format
-**Datum merge** 2026-06-27
+### Entry-formaat definitief vastgesteld
+**Branch naam** docs/new-entry-format
+**Datum merge op main** 2026-06-27
 **Branch type** Docs
 
-Entry-formaat gewijzigd: branch-naam als heading, `**Datum merge**` en `**Branch type**` als losse velden. Bijgewerkt in CLAUDE.md, release-notes/README.md en 2.16.3.md.
+Definitief formaat: beschrijvende titel als heading, `**Branch naam**`, `**Datum merge op main**` en `**Branch type**` als losse velden. Bijgewerkt in CLAUDE.md, release-notes/README.md en 2.16.3.md.
 
 ---
 

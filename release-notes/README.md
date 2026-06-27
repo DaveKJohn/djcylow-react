@@ -104,8 +104,9 @@ De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort sam
 
    <korte samenvatting van alle wijzigingen>
 
-   ### <branch-naam>
-   **Datum merge** YYYY-MM-DD
+   ### Korte sterke titel van de wijziging
+   **Branch naam** branch-naam
+   **Datum merge op main** YYYY-MM-DD
    **Branch type** Docs/Feature/Fix/Data/Content/Style/Config
 
    <beschrijving>
