@@ -44,6 +44,7 @@ interface Mix {
     image_square: string;
     description?: string;
     tags?: string[];
+    top_artists?: string[];
     tracklist: { time: string; track: string }[];
 }
 
@@ -108,7 +109,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const colorName = mix.color.charAt(0).toUpperCase() + mix.color.slice(1);
     const genreLabel = mix.subgenre || mix.genre;
     const titleText = `${colorName} ${genreLabel} Mix ${mix.volume} | DJ Cylow`;
-    const topArtists = getTopArtists(mix.tracklist, 4);
+    const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 4);
 
     const descriptionText = mix.description || `Beluister de ${colorName} ${genreLabel} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
 
@@ -163,7 +164,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
     const colorName = mix.color.charAt(0).toUpperCase() + mix.color.slice(1);
     const genreLabel = mix.subgenre || mix.genre;
-    const topArtists = getTopArtists(mix.tracklist, 6);
+    const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 6);
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
