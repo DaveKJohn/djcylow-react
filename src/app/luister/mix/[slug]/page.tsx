@@ -5,6 +5,7 @@ import AudioPlayer from '@/components/ui/AudioPlayer';
 import BackButton from '@/components/ui/BackButton';
 import MixAnalytics from '@/components/analytics/MixAnalytics';
 
+// Alle JSON-bestanden met mix-data inladen (één bestand per kleur + power-combinatie)
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
 import lightGreen from '@/data/mixes/light-green.json';
@@ -22,6 +23,8 @@ import fullPurple from '@/data/mixes/full-purple.json';
 import fullRed from '@/data/mixes/full-red.json';
 import fullYellow from '@/data/mixes/full-yellow.json';
 
+// Interface = een beschrijving van welke velden een mix-object heeft en wat voor type data erin zit.
+// TypeScript gebruikt dit om fouten te vangen als je een veld verkeerd gebruikt.
 interface Mix {
     id: string;
     featured: boolean;
@@ -42,19 +45,25 @@ interface Mix {
     image_wide_small: string;
     image_wide_large: string;
     image_square: string;
-    description?: string;
-    tags?: string[];
-    top_artists?: string[];
+    description?: string;       // ? = optioneel veld (hoeft niet ingevuld te zijn)
+    tags?: string[];            // ? = optioneel veld
+    top_artists?: string[];     // ? = optioneel veld
     tracklist: { time: string; track: string }[];
 }
 
+// Alle losse JSON-arrays samenvoegen tot één grote lijst met alle mixen.
+// De ... (spread-operator) pakt alle items uit een array en plakt ze erin.
 const allMixes: Mix[] = [
     ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightRed, ...lightMagenta, ...lightPurple,
     ...fullBlue, ...fullCyan, ...fullGreen, ...fullYellow, ...fullOrange, ...fullRed, ...fullPurple
 ] as any;
 
+// Vertelt Next.js dat er geen dynamische URL's bestaan buiten de vooraf gegenereerde lijst.
+// Bij een onbekend pad geeft de site een 404 in plaats van het op de server te proberen.
 export const dynamicParams = false;
 
+// Fallback: als top_artists leeg is, haal de eerste unieke artiesten op uit de tracklist.
+// Niet ideaal (tracklist-volgorde ≠ populariteit) maar beter dan niets.
 function getTopArtists(tracklist: any[], limit = 5) {
     if (!Array.isArray(tracklist)) return '';
     const artists = tracklist.map(t => {
@@ -65,6 +74,8 @@ function getTopArtists(tracklist: any[], limit = 5) {
     return uniqueArtists.slice(0, limit).join(', ');
 }
 
+// Zoek een mix op basis van de URL-slug (het stukje tekst achter /luister/mix/).
+// Vergelijkt de slug uit de URL met de slug afgeleid uit het permalink-veld in de JSON.
 function findMixBySlug(slug: string) {
     if (!slug) return undefined;
 
@@ -81,6 +92,9 @@ function findMixBySlug(slug: string) {
     });
 }
 
+// Next.js roept deze functie aan tijdens het bouwen van de site.
+// Het resultaat is een lijst van alle geldige URL-slugs — voor elke slug
+// wordt bij de build alvast een statische HTML-pagina aangemaakt.
 export async function generateStaticParams() {
     const params = allMixes
         .map((mix) => {
@@ -100,6 +114,8 @@ export async function generateStaticParams() {
     return params;
 }
 
+// Genereert de SEO-metatags voor deze pagina: de <title>, description, Open Graph (voor
+// linkpreviews op social media) en Twitter card. Next.js plaatst dit automatisch in de <head>.
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const mix = findMixBySlug(slug);
@@ -107,10 +123,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!mix) return { title: 'Mix Niet Gevonden | DJ Cylow' };
 
     const titleText = `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume} | DJ Cylow`;
+
+    // top_artists heeft prioriteit boven de tracklist-fallback
     const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 4);
 
+    // Gebruik de handgeschreven description als die bestaat; anders een automatisch gegenereerde tekst
     const descriptionText = mix.description || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
 
+    // Zet de .html-extensie om naar een schone slug voor de canonieke URL
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
     const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
@@ -120,11 +140,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         metadataBase: new URL('https://www.djcylow.com'),
         title: titleText,
         description: descriptionText,
-        keywords: mix.tags,
+        keywords: mix.tags,     // Zoekwoorden uit het tags-veld in de JSON
         alternates: {
-            canonical: pageUrl,
+            canonical: pageUrl, // Vertelt Google wat de "officiële" URL van deze pagina is
         },
         openGraph: {
+            // Open Graph = de preview die verschijnt als je de link deelt op Facebook, WhatsApp, etc.
             title: titleText,
             description: descriptionText,
             url: pageUrl,
@@ -139,6 +160,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             }] : [],
         },
         twitter: {
+            // Twitter card = de preview die verschijnt als je de link deelt op X/Twitter
             card: 'summary_large_image',
             title: titleText,
             description: descriptionText,
@@ -151,6 +173,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     const { slug } = await params;
     const mix = findMixBySlug(slug);
 
+    // Als de mix niet gevonden wordt (onbekende slug), toon een foutpagina
     if (!mix) {
         return (
             <main className="column spacing-3xl center v-push-7xl">
@@ -160,6 +183,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         );
     }
 
+    // top_artists heeft prioriteit; als het veld leeg is valt het terug op de tracklist
     const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 6);
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
@@ -167,6 +191,9 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
     const mixDescription = mix.description || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set van DJ Cylow met tracks van top artiesten.`;
 
+    // JSON-LD = gestructureerde data die Google leest om rich results te tonen in de zoekresultaten
+    // (bijv. een muziekkaart met artiestnamen, trackaantal en een directe luisterknop).
+    // Dit blok beschrijft de mix als een MusicPlaylist volgens het schema.org-standaard.
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'MusicPlaylist',
@@ -185,11 +212,13 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
             'jobTitle': 'DJ',
             'url': 'https://www.djcylow.com',
         },
+        // AudioObject vertelt Google dat er een beluisterbaar audiobestand aan deze pagina gekoppeld is
         'associatedMedia': {
             '@type': 'AudioObject',
             'contentUrl': mix.audioSrc,
             'encodingFormat': 'audio/mpeg',
         },
+        // Elke track in de tracklist wordt als afzonderlijk MusicRecording-object meegestuurd
         'track': (Array.isArray(mix.tracklist) ? mix.tracklist : []).map((t, index) => {
             const artistPart = t.track ? t.track.split(' - ')[0] || 'Unknown Artist' : 'Unknown Artist';
             const trackPart = t.track ? t.track.split(' - ')[1] || t.track : 'Unknown Track';
@@ -205,6 +234,8 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         }),
     };
 
+    // BreadcrumbList = de "kruimelpad"-navigatie die Google toont in de zoekresultaten:
+    // djcylow.com › Listen › Red Tech House Mix Vol. 6
     const breadcrumbLd = {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
@@ -217,6 +248,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
     return (
         <main className="luister mix">
+            {/* JSON-LD structured data — onzichtbaar voor bezoekers, gelezen door Google */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -225,6 +257,8 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
             />
+
+            {/* Stuurt mix-gegevens naar Google Analytics zodat je kunt zien welke mixen bekeken worden */}
             <MixAnalytics
                 id={mix.id}
                 title={`${mix.color} ${mix.genre} Mix ${mix.volume}`}
@@ -244,6 +278,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 <BackButton />
                             </div>
 
+                            {/* Titel, energieniveau en publicatiedatum */}
                             <div className="column w-hug AML P35 header">
                                 <h1 className="uppercase">
                                     {mix.color} {mix.subgenre || mix.genre} Mix {mix.volume}
@@ -251,11 +286,13 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 <p className="size-sm uppercase">{mix.power} Energy{mix.frequency ? ` · ${mix.frequency}` : ''}</p>
                                 {mix.jaar && (
                                     <p className="size-xs">
+                                        {/* <time> met dateTime helpt zoekmachines de datum correct te lezen */}
                                         <time dateTime={mix.date}>{mix.dag} {mix.maand} {mix.jaar}</time>
                                     </p>
                                 )}
                             </div>
 
+                            {/* Gestructureerde feitenblok — duidelijk leesbaar voor zowel bezoekers als AI-zoekmachines */}
                             <div className="column w-fill AML P35 key-facts">
                                 <dl className="row spacing-xl">
                                     <div>
@@ -273,6 +310,8 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 </dl>
                             </div>
 
+                            {/* Beschrijving: toon de handgeschreven tekst uit de JSON als die bestaat,
+                                anders een automatisch gegenereerde fallback-tekst */}
                             <div className="column w-fill AML P35 seo-description">
                                 {mix.description ? (
                                     <p className="size-base">{mix.description}</p>
@@ -296,6 +335,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 />
                             </div>
 
+                            {/* Tracklist als tabel: linkerkolom = artiest + titel, rechterkolom = tijdcode */}
                             <div className="column w-hug AML P35 spacing-xl tracklist">
                                 <div className="row text-wrapper">
                                     <div className="column text-wrapper h-start header">
