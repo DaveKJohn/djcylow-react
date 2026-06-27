@@ -1,17 +1,30 @@
 # Changelog
 
-Alle noemenswaardige wijzigingen worden hier bijgehouden.
+De belangrijkste wijzigingen aan deze repo en de thema's, kort bijgehouden. Eén regel per noemenswaardige wijziging.
 
-- **`[Unreleased]`** — werk op een feature-branch, nog niet live
-- **`[vX.X.X]`** — op die datum live gegaan via merge naar `main`
+## Hoe dit werkt
 
-Bij een release: hernoem `[Unreleased]` naar `[vX.X.X] - YYYY-MM-DD`, maak een
-`release-notes/X.X.X.md` aan op basis van deze inhoud, en voeg de versie toe aan
-`release-notes/README.md`.
+- **`## [Unreleased]`** — wijzigingen die al in `main` zitten maar nog niet live zijn. Dit blok vult zich met elke branch die naar `main` wordt gemergd, en blijft staan tot de eerstvolgende live-push.
+- **`## [vX.Y.Z] — YYYY-MM-DD`** — op die datum live gegaan via een push naar het live thema. De volledige uitwerking staat in `release-notes/X.Y.Z.md`.
+
+De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de versie die op dit moment op het live thema staat. Bij elke live-push verschuift die markering naar de nieuwe versie.
+
+### Levenscyclus van een regel
+
+1. **Op een branch** schrijf je je belangrijkste wijzigingen onder `## [Unreleased]` (op de branch zelf, in dezelfde commit als het werk). Een branch mag gerust weken geparkeerd blijven.
+2. **Branch klaar en goedgekeurd** → merge naar `main`, branch verwijderen. Je `[Unreleased]`-regels reizen mee naar `main`.
+3. **Meer branches** die later mergen vullen `[Unreleased]` op `main` verder aan. `main` kan dus een tijd met een gevulde `[Unreleased]` rondlopen — dat is gewoon "wel gemergd, nog niet live".
+4. **`main` naar live pushen** → alles onder `## [Unreleased]` is nieuw en wordt de eerstvolgende release-note: maak `release-notes/X.Y.Z.md` op basis van de inhoud, voeg de versie toe aan `release-notes/README.md`, hernoem het blok naar `## [vX.Y.Z] — YYYY-MM-DD` (met "Zie release-notes/X.Y.Z.md"), en maak een vers leeg `## [Unreleased]` bovenaan aan.
+
+> **Merge-conflict op `[Unreleased]`?** Dat kan, want elke branch bewerkt hetzelfde blok. Het is een verwacht, triviaal conflict: behoud simpelweg beide sets regels onder `[Unreleased]`. Geen werk gaat verloren — de volgorde maakt niet uit.
 
 ---
 
 ## [Unreleased]
+
+### Docs — CHANGELOG.md workflow uitgebreid
+
+`CHANGELOG.md` uitgebreid met een "Hoe dit werkt"-sectie: uitleg over `[Unreleased]` vs versieblokken, de `← LIVE`-markering, de levenscyclus van een regel (branch → main → live), en hoe merge-conflicten op `[Unreleased]` triviaal op te lossen zijn.
 
 ### Documentatie — GA4 + GTM setup (nog uit te voeren)
 
@@ -44,7 +57,7 @@ mix naam, power, kleur, tags meesturen zodat je in GA4 ook op die dimensies kunt
 
 ---
 
-## [v1.16.0] - 2026-06-25
+## [v1.16.0] - 2026-06-25 ← LIVE
 
 Zie [release-notes/1.16.0.md](release-notes/1.16.0.md)
 
