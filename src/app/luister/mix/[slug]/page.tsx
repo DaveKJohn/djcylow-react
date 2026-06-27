@@ -280,14 +280,14 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
                             {/* Titel, energieniveau en publicatiedatum */}
                             <div className="column w-hug AML P35 header">
-                                <h1 className="uppercase">
+                                <h1>
                                     {mix.color} {mix.subgenre || mix.genre} Mix {mix.volume}
                                 </h1>
-                                <p className="size-sm uppercase">{mix.power} Energy{mix.frequency ? ` · ${mix.frequency}` : ''}</p>
+                                <p className="size-sm">{mix.power} Energy{mix.frequency ? ` · ${mix.frequency}` : ''}</p>
                                 {mix.jaar && (
                                     <p className="size-xs">
                                         {/* <time> met dateTime helpt zoekmachines de datum correct te lezen */}
-                                        <time dateTime={mix.date}>{mix.dag} {mix.maand} {mix.jaar}</time>
+                                        <time dateTime={mix.date}>{mix.dag} {mix.maand}, {mix.jaar}</time>
                                     </p>
                                 )}
                             </div>
@@ -296,15 +296,15 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                             <div className="column w-fill AML P35 key-facts">
                                 <dl className="row spacing-xl">
                                     <div>
-                                        <dt className="size-xs uppercase">Genre</dt>
+                                        <dt className="size-xs">Genre</dt>
                                         <dd className="size-sm">{mix.subgenre || mix.genre}</dd>
                                     </div>
                                     <div>
-                                        <dt className="size-xs uppercase">Energy</dt>
+                                        <dt className="size-xs">Energy</dt>
                                         <dd className="size-sm">{mix.power}</dd>
                                     </div>
                                     <div>
-                                        <dt className="size-xs uppercase">Tracks</dt>
+                                        <dt className="size-xs">Tracks</dt>
                                         <dd className="size-sm">{Array.isArray(mix.tracklist) ? mix.tracklist.length : '—'}</dd>
                                     </div>
                                 </dl>
@@ -339,7 +339,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                             <div className="column w-hug AML P35 spacing-xl tracklist">
                                 <div className="row text-wrapper">
                                     <div className="column text-wrapper h-start header">
-                                        <h2 className="size-lg bold uppercase">
+                                        <h2 className="size-lg bold">
                                             Tracklist {mix.color} {mix.genre} Mix
                                         </h2>
                                     </div>
