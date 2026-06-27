@@ -106,11 +106,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     if (!mix) return { title: 'Mix Niet Gevonden | DJ Cylow' };
 
-    const genreLabel = mix.subgenre || mix.genre;
-    const titleText = `${mix.color} ${genreLabel} Mix ${mix.volume} | DJ Cylow`;
+    const titleText = `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume} | DJ Cylow`;
     const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 4);
 
-    const descriptionText = mix.description || `Beluister de ${mix.color} ${genreLabel} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
+    const descriptionText = mix.description || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
@@ -136,7 +135,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
                 url: ogImageUrl,
                 width: 1200,
                 height: 630,
-                alt: `${mix.color} ${genreLabel} Mix ${mix.volume} - DJ Cylow`,
+                alt: `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume} - DJ Cylow`,
             }] : [],
         },
         twitter: {
@@ -161,21 +160,20 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         );
     }
 
-    const genreLabel = mix.subgenre || mix.genre;
     const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 6);
 
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
     const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
-    const mixDescription = mix.description || `Beluister de ${mix.color} ${genreLabel} set van DJ Cylow met tracks van top artiesten.`;
+    const mixDescription = mix.description || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set van DJ Cylow met tracks van top artiesten.`;
 
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'MusicPlaylist',
-        'name': `${mix.color} ${genreLabel} Mix ${mix.volume} - DJ Cylow`,
+        'name': `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume} - DJ Cylow`,
         'description': mixDescription,
         'numTracks': Array.isArray(mix.tracklist) ? mix.tracklist.length : 0,
-        'genre': genreLabel,
+        'genre': mix.subgenre || mix.genre,
         ...(mix.date && { 'datePublished': mix.date, 'dateModified': mix.date }),
         'image': `https://www.djcylow.com${mix.image_wide_large}`,
         'url': pageUrl,
@@ -213,7 +211,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         'itemListElement': [
             { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.djcylow.com' },
             { '@type': 'ListItem', 'position': 2, 'name': 'Listen', 'item': 'https://www.djcylow.com/luister' },
-            { '@type': 'ListItem', 'position': 3, 'name': `${mix.color} ${genreLabel} Mix ${mix.volume}`, 'item': pageUrl },
+            { '@type': 'ListItem', 'position': 3, 'name': `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume}`, 'item': pageUrl },
         ],
     };
 
@@ -248,7 +246,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
                             <div className="column w-hug AML P35 header">
                                 <h1 className="uppercase">
-                                    {mix.color} {genreLabel} Mix {mix.volume}
+                                    {mix.color} {mix.subgenre || mix.genre} Mix {mix.volume}
                                 </h1>
                                 <p className="size-sm uppercase">{mix.power} Energy{mix.frequency ? ` · ${mix.frequency}` : ''}</p>
                                 {mix.jaar && (
@@ -262,7 +260,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 <dl className="row spacing-xl">
                                     <div>
                                         <dt className="size-xs uppercase">Genre</dt>
-                                        <dd className="size-sm">{genreLabel}</dd>
+                                        <dd className="size-sm">{mix.subgenre || mix.genre}</dd>
                                     </div>
                                     <div>
                                         <dt className="size-xs uppercase">Energy</dt>
@@ -280,7 +278,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                     <p className="size-base">{mix.description}</p>
                                 ) : (
                                     <p className="size-base">
-                                        Ben je op zoek naar een energieke {genreLabel} mix? In <strong>{mix.color} {mix.volume}</strong> brengt
+                                        Ben je op zoek naar een energieke {mix.subgenre || mix.genre} mix? In <strong>{mix.color} {mix.volume}</strong> brengt
                                         DJ Cylow een vloeiende, non-stop selectie van de beste tracks van dit moment.
                                         Deze set heeft een <strong>{mix.power}</strong> feel en is perfect geschikt voor tijdens het streamen, sporten of je pre-party.
                                         {topArtists && <span> Geniet van unieke overgangen en platen van top-producers zoals <em>{topArtists}</em> en vele anderen.</span>}
