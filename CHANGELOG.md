@@ -22,7 +22,7 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-_Nog geen wijzigingen. Elke branch die naar `main` wordt gemergd voegt hier een entry toe met de branchnaam, merge-datum en een korte beschrijving. Bij de volgende release wordt dit blok omgezet naar een versienummer._
+_Nog geen wijzigingen. Elke branch die naar `main` wordt gemergd voegt hier een entry toe. Zie het formaat in CLAUDE.md onder "After completing a task"._
 
 ---
 
