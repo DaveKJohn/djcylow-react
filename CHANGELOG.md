@@ -22,24 +22,15 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-### Docs — Consistentie gefixeerd in CHANGELOG, CLAUDE.md en release-notes README
-**Branch:** `docs/consistency-fixes` · **Gemergd:** 2026-06-27
+---
 
-Headerformaat-voorbeelden in CHANGELOG.md gecorrigeerd naar `## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major`, garbled UTF-8 encoding gerepareerd, release-notes README herschreven met verwijzing naar CLAUDE.md en correct release-note formaat, type-labels in overzichtstabel genormaliseerd naar Patch/Minor/Major, en [Unreleased] entry-voorbeeld in CLAUDE.md uitgebreid met beschrijvingsregel.
+## [v2.16.2] - 2026-06-27 — Patch ← LIVE
 
-### Docs — Versienummer type toegevoegd aan CHANGELOG headers
-**Branch:** `docs/changelog-version-types` · **Gemergd:** 2026-06-27
-
-Alle 24 versie-headers in CHANGELOG.md uitgebreid met het type (Patch/Minor/Major), bijv. `## [v2.16.1] - 2026-06-27 — Patch`. CLAUDE.md stap 6 bijgewerkt met het nieuwe header-formaat.
-
-### Docs — Samenvatting toegevoegd aan release notes
-**Branch:** `docs/release-note-summaries` · **Gemergd:** 2026-06-27
-
-Korte samenvattingsregel toegevoegd direct onder `## Wijzigingen` in release notes, vóór de individuele branch-entries.
+Zie [release-notes/2.16.2.md](release-notes/2.16.2.md)
 
 ---
 
-## [v2.16.1] - 2026-06-27 — Patch ← LIVE
+## [v2.16.1] - 2026-06-27 — Patch
 
 Zie [release-notes/2.16.1.md](release-notes/2.16.1.md)
 

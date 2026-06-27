@@ -117,6 +117,7 @@ De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort sam
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
+| [2.16.2](2.16.2.md) | 2026-06-27 | Patch | Changelog & release-notes workflow verfijnd |
 | [2.16.1](2.16.1.md) | 2026-06-27 | Patch | Changelog workflow + versienummering |
 | [2.16.0](2.16.0.md) | 2026-06-25 | Minor | Mix tags toegevoegd |
 | [2.15.0](2.15.0.md) | 2026-06-25 | Minor | Mix detail verbeteringen + domein en taal gecorrigeerd |
