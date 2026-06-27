@@ -106,7 +106,7 @@ gh release create v2.3.0 --title "v2.3.0 - UX MODUS (donker/licht mode)" \
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
-| [2.17.0](2.17.0.md) | 2026-06-27 | Minor | Changelog workflow + versienummering |
+| [2.16.1](2.16.1.md) | 2026-06-27 | Patch | Changelog workflow + versienummering |
 | [2.16.0](2.16.0.md) | 2026-06-25 | Minor | Mix tags toegevoegd |
 | [2.15.0](2.15.0.md) | 2026-06-25 | Minor | Mix detail verbeteringen + domein en taal gecorrigeerd |
 | [2.14.4](2.14.4.md) | 2026-06-25 | Patch | add-mix script: automatische afbeelding controle en conversie |

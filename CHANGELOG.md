@@ -24,9 +24,9 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ---
 
-## [v2.17.0] - 2026-06-27 ← LIVE
+## [v2.16.1] - 2026-06-27 ← LIVE
 
-Zie [release-notes/2.17.0.md](release-notes/2.17.0.md)
+Zie [release-notes/2.16.1.md](release-notes/2.16.1.md)
 
 ---
 
