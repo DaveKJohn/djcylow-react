@@ -22,16 +22,17 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-### GA4 + GTM analytics — view_mix dataLayer event
-**Branch naam** docs/ga4-gtm-setup
-**Datum merge op main** 2026-06-27
-**Branch type** Feature/Docs
-
-GA4 property aangemaakt (Measurement ID: `G-6DS3L2SR6C`). GTM geconfigureerd met `GA4 - Configuration` tag (All Pages). Nieuw `MixAnalytics` component vuurt `view_mix` dataLayer event op elke mix-pagina met dimensies mix_id, title, power, color, genre, subgenre, volume. GTM Laag 2: 7 DLV variables, trigger `CE - view_mix` en `GA4 - view_mix` event tag gepubliceerd (versie 4). CLAUDE.md bijgewerkt: release initiatief ligt altijd bij de gebruiker.
+_Nog geen wijzigingen._
 
 ---
 
-## [v2.16.4] - 2026-06-27 — Patch ← LIVE
+## [v2.17.0] - 2026-06-27 — Minor ← LIVE
+
+Zie [release-notes/2.17/2.17.0.md](release-notes/2.17/2.17.0.md)
+
+---
+
+## [v2.16.4] - 2026-06-27 — Patch
 
 Zie [release-notes/2.16/2.16.4.md](release-notes/2.16/2.16.4.md)
 
