@@ -41,6 +41,21 @@ git checkout -b [branch-name]
 - Tell the user what changed and ask whether to merge into `main` or open a PR.
 - **Never merge or push to `main` without explicit user approval.**
 
+### CHANGELOG.md — twee formaten
+
+**Op een branch** is de changelog minimaal. Alleen een korte intro + `[Unreleased]` met de wijzigingen van die branch. Geen "Hoe dit werkt"-sectie, geen versiegeschiedenis:
+
+```markdown
+# Changelog
+Wijzigingen op deze branch ([branch-naam]). Bij merge naar main schuiven deze regels
+onder ## [Unreleased] in de hoofd-CHANGELOG. Zie de werkwijze in CLAUDE.md.
+
+## [Unreleased]
+[beschrijving van de wijzigingen op deze branch]
+```
+
+**Op `main`** is de changelog volledig: "Hoe dit werkt"-sectie, levenscyclus-uitleg, `[Unreleased]` met alles wat gemergd is maar nog niet live, en de volledige versiegeschiedenis met `← LIVE` op de meest recente versie.
+
 ---
 
 ## Safety Rules
