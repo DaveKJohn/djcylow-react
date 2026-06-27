@@ -22,7 +22,15 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-_Nog geen wijzigingen. Elke branch die naar `main` wordt gemergd voegt hier een entry toe met de branchnaam, merge-datum en een korte beschrijving. Bij de volgende release wordt dit blok omgezet naar een versienummer._
+### Docs — Release-notes geherstructureerd in mappen per minor versie
+**Branch:** `docs/release-notes-folders` · **Gemergd:** 2026-06-27
+
+Alle 25 release-note bestanden verplaatst naar `release-notes/<major.minor>/`. Links bijgewerkt in CHANGELOG.md, release-notes/README.md en CLAUDE.md.
+
+### Docs — Placeholder tekst toegevoegd aan lege [Unreleased] sectie
+**Branch:** `docs/changelog-placeholder` · **Gemergd:** 2026-06-27
+
+Italics-placeholder toegevoegd zodat de lege [Unreleased] sectie uitlegt wat er thuishoort en hoe het werkt.
 
 ---
 
