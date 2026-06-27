@@ -284,7 +284,7 @@ Each JSON file is an **array** of mix objects:
     "title": "Blue Full (f)",
     "genre": "Drum & Bass",
     "subgenre": "",
-    "color": "blue",
+    "color": "Blue",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 2",
