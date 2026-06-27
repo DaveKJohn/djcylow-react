@@ -24,7 +24,7 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ### `top_artists` veld toegevoegd aan mix JSON schema
 **Branch naam** data/top-artists-field
-**Datum merge op main** nog niet gemergd
+**Datum merge op main** 2026-06-27
 **Branch type** Data
 
 Nieuw veld `top_artists` toegevoegd aan alle 77 bestaande mix-entries (als lege array `[]`). De DJ vult per mix de meest gezochte artiesten in. De mix-detailpagina laadt het veld en gebruikt het als artistvermelding in de fallback-beschrijving. Het `add-mix.js` script zet het veld bij nieuwe mixen automatisch als lege array klaar. Schema-documentatie (README.md) bijgewerkt.
