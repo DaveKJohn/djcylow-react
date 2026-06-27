@@ -166,15 +166,15 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
 1. **Check de status**: `git status && git branch`
 2. **Maak een branch** (nooit direct op `main` committen):
    ```bash
-   git checkout -b data/[omschrijving]   # of ander passend prefix
+   git checkout -b docs/release-v<versie>
    ```
 3. **Run lint**: `npm run lint` — controleer of nieuwe fouten zijn geïntroduceerd (pre-existing errors zijn acceptabel als wij geen .tsx/.ts bestanden wijzigden)
 4. **Bepaal versienummer** (zie `release-notes/README.md`):
    - PATCH (`x.y.Z+1`): bugfix, hotfix, kleine correctie
    - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
    - MAJOR: ingrijpende verbouwing (zelden)
-5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief branchnamen en merge-datums achter elke heading
-6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum>` met een link naar de nieuwe release note
+5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief het metadata-blok (`**Branch:** ... · **Gemergd:** ...`) onder elke heading
+6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum>` met een link naar de nieuwe release note, voeg `← LIVE` toe aan de nieuwe versie, verwijder `← LIVE` bij de vorige versie, en maak een vers leeg `## [Unreleased]` bovenaan aan
 7. **Voeg versie toe** aan overzichtstabel in `release-notes/README.md` (bovenaan)
 8. **Stage en commit** op de feature branch
 9. **Merge naar main** (na gebruikersbevestiging):
