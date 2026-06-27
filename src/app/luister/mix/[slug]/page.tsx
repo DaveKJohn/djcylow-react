@@ -287,7 +287,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 {mix.jaar && (
                                     <p className="size-xs">
                                         {/* <time> met dateTime helpt zoekmachines de datum correct te lezen */}
-                                        <time dateTime={mix.date}>{mix.dag} {mix.maand} {mix.jaar}</time>
+                                        <time dateTime={mix.date}>{mix.dag} {mix.maand}, {mix.jaar}</time>
                                     </p>
                                 )}
                             </div>
