@@ -22,7 +22,11 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-_Nog geen wijzigingen. Elke branch die naar `main` wordt gemergd voegt hier een entry toe. Zie het formaat in CLAUDE.md onder "After completing a task"._
+### docs/new-entry-format
+**Datum merge** 2026-06-27
+**Branch type** Docs
+
+Entry-formaat gewijzigd: branch-naam als heading, `**Datum merge**` en `**Branch type**` als losse velden. Bijgewerkt in CLAUDE.md, release-notes/README.md en 2.16.3.md.
 
 ---
 
