@@ -56,11 +56,13 @@ onder ## [Unreleased] in de hoofd-CHANGELOG. Zie de werkwijze in CLAUDE.md.
 
 **Op `main`** is de changelog volledig: "Hoe dit werkt"-sectie, levenscyclus-uitleg, `[Unreleased]` met alles wat gemergd is maar nog niet live, en de volledige versiegeschiedenis met `← LIVE` op de meest recente versie.
 
-Elke entry in `[Unreleased]` op `main` vermeldt de branchnaam als inline code aan het einde van de heading, zodat de herkomst traceerbaar is:
+Elke entry in `[Unreleased]` op `main` vermeldt de branchnaam en merge-datum aan het einde van de heading, zodat de herkomst en het tijdstip traceerbaar zijn:
 
 ```markdown
-### Titel van de wijziging `feature/branch-naam`
+### Titel van de wijziging `feature/branch-naam` — YYYY-MM-DD
 ```
+
+De datum is de dag waarop de branch naar `main` werd gemergd.
 
 ---
 
@@ -170,7 +172,7 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
    - PATCH (`x.y.Z+1`): bugfix, hotfix, kleine correctie
    - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
    - MAJOR: ingrijpende verbouwing (zelden)
-5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief de branchnamen achter elke heading
+5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief branchnamen en merge-datums achter elke heading
 6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum>` met een link naar de nieuwe release note
 7. **Voeg versie toe** aan overzichtstabel in `release-notes/README.md` (bovenaan)
 8. **Stage en commit** op de feature branch
