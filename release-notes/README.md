@@ -119,6 +119,7 @@ De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort sam
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
+| [2.18.0](2.18/2.18.0.md) | 2026-06-27 | Minor | SEO/GEO verbeteringen, top_artists & subgenre backfill |
 | [2.17.0](2.17/2.17.0.md) | 2026-06-27 | Minor | GA4 + GTM analytics — view_mix dataLayer event |
 | [2.16.4](2.16/2.16.4.md) | 2026-06-27 | Patch | Entry-formaat en branch-naamgeving vastgelegd |
 | [2.16.3](2.16/2.16.3.md) | 2026-06-27 | Patch | Changelog workflow en mapstructuur verfijnd |
