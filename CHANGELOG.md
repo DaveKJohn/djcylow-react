@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Dode `uppercase` Tailwind classes verwijderd
+**Branch naam** fix/remove-unused-uppercase-h1
+**Datum merge op main** 2026-06-27
+**Branch type** Fix
+
+Zes `uppercase` className-waarden verwijderd uit de mix-detailpagina (`page.tsx`). De classes hadden geen effect omdat Tailwind utility classes niet geladen zijn in dit project — alleen SCSS is actief. Verwijderd van: H1, Energy-label, key-facts labels (Genre/Energy/Tracks) en de Tracklist H2.
+
 ---
 
 ## [v2.18.0] - 2026-06-27 — Minor ← LIVE
