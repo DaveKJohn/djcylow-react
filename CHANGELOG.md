@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### `subgenre` veld ingevuld voor alle actieve mixen
+**Branch naam** data/subgenre-fill
+**Datum merge op main** 2026-06-27
+**Branch type** Data
+
+Subgenre bepaald en ingevuld voor alle actieve mixen met een leeg `subgenre` veld — op basis van tags, tracklist en artiestenlinknamen. Gebruikte subgenres: Liquid Drum & Bass, Neurofunk, Progressive House, Tech House, Nu-Disco, Deep House en House. Preview-entries (ignore:true) zijn ongewijzigd gelaten.
+
 ### `top_artists` veld toegevoegd aan mix JSON schema
 **Branch naam** data/top-artists-field
 **Datum merge op main** 2026-06-27
