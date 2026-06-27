@@ -22,6 +22,11 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Docs — Consistentie gefixeerd in CHANGELOG, CLAUDE.md en release-notes README
+**Branch:** `docs/consistency-fixes` · **Gemergd:** 2026-06-27
+
+Headerformaat-voorbeelden in CHANGELOG.md gecorrigeerd naar `## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major`, garbled UTF-8 encoding gerepareerd, release-notes README herschreven met verwijzing naar CLAUDE.md en correct release-note formaat, type-labels in overzichtstabel genormaliseerd naar Patch/Minor/Major, en [Unreleased] entry-voorbeeld in CLAUDE.md uitgebreid met beschrijvingsregel.
+
 ### Docs — Versienummer type toegevoegd aan CHANGELOG headers
 **Branch:** `docs/changelog-version-types` · **Gemergd:** 2026-06-27
 
