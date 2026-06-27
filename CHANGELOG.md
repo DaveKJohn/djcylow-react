@@ -22,6 +22,11 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Docs — [Unreleased] verplichting aangescherpt in CLAUDE.md
+**Branch:** `docs/enforce-unreleased-rule` · **Gemergd:** 2026-06-27
+
+Elke branch die naar `main` wordt gemergd moet een [Unreleased] entry hebben — geen uitzonderingen. Regel en formaat expliciet gemaakt in CLAUDE.md onder "After completing a task".
+
 ### Docs — Release-notes geherstructureerd in mappen per minor versie
 **Branch:** `docs/release-notes-folders` · **Gemergd:** 2026-06-27
 
