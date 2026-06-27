@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### SEO/GEO verbeteringen mix-detailpagina's
+**Branch naam** feature/seo-geo-mix-pages
+**Datum merge op main** nog niet gemergd
+**Branch type** Feature
+
+Sitemap.xml en robots.txt toegevoegd zodat Google alle mix-URL's systematisch kan ontdekken. Mix-detailpagina verbeterd met: `keywords` meta-tag gevuld vanuit de `tags` array in JSON, Twitter/X card tags, BreadcrumbList JSON-LD voor rich snippets in de SERP, `AudioObject` in de MusicPlaylist JSON-LD zodat Google de audio-URL herkent, `isAccessibleForFree`, `dateModified`, en een gecorrigeerd `creator` type (Person i.p.v. MusicGroup). Visueel: de unieke `mix.description` is nu zichtbaar op de pagina, een key-facts blok toont genre/energy/tracks als gestructureerde data voor AI-crawlers, datum is omgezet naar een `<time>` element, H1 en title tag zijn consistent gemaakt, en subgenre wordt nu als primaire genrelabel gebruikt.
+
 ### GA4 IP-filter — eigen bezoeken uitsluiten
 **Branch naam** config/ga4-ip-filter
 **Datum merge op main** 2026-06-27
