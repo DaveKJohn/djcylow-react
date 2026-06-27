@@ -119,6 +119,7 @@ De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort sam
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
+| [2.16.4](2.16/2.16.4.md) | 2026-06-27 | Patch | Entry-formaat en branch-naamgeving vastgelegd |
 | [2.16.3](2.16/2.16.3.md) | 2026-06-27 | Patch | Changelog workflow en mapstructuur verfijnd |
 | [2.16.2](2.16/2.16.2.md) | 2026-06-27 | Patch | Changelog & release-notes workflow verfijnd |
 | [2.16.1](2.16/2.16.1.md) | 2026-06-27 | Patch | Changelog workflow + versienummering |

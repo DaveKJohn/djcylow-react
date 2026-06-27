@@ -22,30 +22,17 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-### Entry-formaat definitief vastgesteld
-**Branch naam** docs/new-entry-format
-**Datum merge op main** 2026-06-27
-**Branch type** Docs
-
-Definitief formaat: beschrijvende titel als heading, `**Branch naam**`, `**Datum merge op main**` en `**Branch type**` als losse velden. Bijgewerkt in CLAUDE.md, release-notes/README.md en 2.16.3.md.
-
-### Definitief entry-formaat doorgevoerd
-**Branch naam** docs/final-entry-format
-**Datum merge op main** 2026-06-27
-**Branch type** Docs
-
-Formaat nogmaals bijgesteld: beschrijvende titel als heading met branch naam, merge-datum en branch type als losse velden eronder.
-
-### Nooit "final" in een branchnaam
-**Branch naam** docs/branch-naming-convention
-**Datum merge op main** 2026-06-27
-**Branch type** Docs
-
-Conventie vastgelegd in CLAUDE.md en memory: gebruik `-v2`, `-v3` in plaats van "final" bij een herziening. Voorkomt `final-v2`, `final-final` etc.
+_Nog geen wijzigingen. Elke branch die naar `main` wordt gemergd voegt hier een entry toe. Zie het formaat in CLAUDE.md onder "After completing a task"._
 
 ---
 
-## [v2.16.3] - 2026-06-27 — Patch ← LIVE
+## [v2.16.4] - 2026-06-27 — Patch ← LIVE
+
+Zie [release-notes/2.16/2.16.4.md](release-notes/2.16/2.16.4.md)
+
+---
+
+## [v2.16.3] - 2026-06-27 — Patch
 
 Zie [release-notes/2.16/2.16.3.md](release-notes/2.16/2.16.3.md)
 
