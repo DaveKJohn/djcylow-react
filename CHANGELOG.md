@@ -1,26 +1,31 @@
 ﻿# Changelog
 
-De belangrijkste wijzigingen aan deze repo kort bijgehouden. EÃ©n regel per noemenswaardige wijziging.
+De belangrijkste wijzigingen aan deze repo kort bijgehouden. Één regel per noemenswaardige wijziging.
 
 ## Hoe dit werkt
 
-- **`## [Unreleased]`** â€” wijzigingen die al in `main` zitten maar nog niet live zijn. Dit blok vult zich met elke branch die naar `main` wordt gemergd, en blijft staan tot de eerstvolgende live-push.
-- **`## [vX.Y.Z] â€” YYYY-MM-DD`** â€” op die datum live gegaan via een push naar het live thema. De volledige uitwerking staat in `release-notes/X.Y.Z.md`.
+- **`## [Unreleased]`** — wijzigingen die al in `main` zitten maar nog niet live zijn. Dit blok vult zich met elke branch die naar `main` wordt gemergd, en blijft staan tot de eerstvolgende live-push.
+- **`## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major`** — op die datum live gegaan via een push naar het live thema. De volledige uitwerking staat in `release-notes/X.Y.Z.md`.
 
-De bovenste uitgebrachte versie draagt de markering **â† LIVE**: dat is de versie die op dit moment op het live thema staat. Bij elke live-push verschuift die markering naar de nieuwe versie.
+De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de versie die op dit moment op het live thema staat. Bij elke live-push verschuift die markering naar de nieuwe versie.
 
 ### Levenscyclus van een regel
 
 1. **Op een branch** schrijf je je belangrijkste wijzigingen onder `## [Unreleased]` (op de branch zelf, in dezelfde commit als het werk). Een branch mag gerust weken geparkeerd blijven.
-2. **Branch klaar en goedgekeurd** â†’ merge naar `main`, branch verwijderen. Je `[Unreleased]`-regels reizen mee naar `main`.
-3. **Meer branches** die later mergen vullen `[Unreleased]` op `main` verder aan. `main` kan dus een tijd met een gevulde `[Unreleased]` rondlopen â€” dat is gewoon "wel gemergd, nog niet live".
-4. **`main` naar live pushen** â†’ alles onder `## [Unreleased]` is nieuw en wordt de eerstvolgende release-note: maak `release-notes/X.Y.Z.md` op basis van de inhoud, voeg de versie toe aan `release-notes/README.md`, hernoem het blok naar `## [vX.Y.Z] â€” YYYY-MM-DD` (met "Zie release-notes/X.Y.Z.md"), en maak een vers leeg `## [Unreleased]` bovenaan aan.
+2. **Branch klaar en goedgekeurd** → merge naar `main`, branch verwijderen. Je `[Unreleased]`-regels reizen mee naar `main`.
+3. **Meer branches** die later mergen vullen `[Unreleased]` op `main` verder aan. `main` kan dus een tijd met een gevulde `[Unreleased]` rondlopen — dat is gewoon "wel gemergd, nog niet live".
+4. **`main` naar live pushen** → alles onder `## [Unreleased]` is nieuw en wordt de eerstvolgende release-note: maak `release-notes/X.Y.Z.md` op basis van de inhoud, voeg de versie toe aan `release-notes/README.md`, hernoem het blok naar `## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major` (met "Zie release-notes/X.Y.Z.md"), en maak een vers leeg `## [Unreleased]` bovenaan aan.
 
-> **Merge-conflict op `[Unreleased]`?** Dat kan, want elke branch bewerkt hetzelfde blok. Het is een verwacht, triviaal conflict: behoud simpelweg beide sets regels onder `[Unreleased]`. Geen werk gaat verloren â€” de volgorde maakt niet uit.
+> **Merge-conflict op `[Unreleased]`?** Dat kan, want elke branch bewerkt hetzelfde blok. Het is een verwacht, triviaal conflict: behoud simpelweg beide sets regels onder `[Unreleased]`. Geen werk gaat verloren — de volgorde maakt niet uit.
 
 ---
 
 ## [Unreleased]
+
+### Docs — Consistentie gefixeerd in CHANGELOG, CLAUDE.md en release-notes README
+**Branch:** `docs/consistency-fixes` · **Gemergd:** 2026-06-27
+
+Headerformaat-voorbeelden in CHANGELOG.md gecorrigeerd naar `## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major`, garbled UTF-8 encoding gerepareerd, release-notes README herschreven met verwijzing naar CLAUDE.md en correct release-note formaat, type-labels in overzichtstabel genormaliseerd naar Patch/Minor/Major, en [Unreleased] entry-voorbeeld in CLAUDE.md uitgebreid met beschrijvingsregel.
 
 ### Docs — Versienummer type toegevoegd aan CHANGELOG headers
 **Branch:** `docs/changelog-version-types` · **Gemergd:** 2026-06-27
