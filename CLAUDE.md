@@ -56,10 +56,11 @@ onder ## [Unreleased] in de hoofd-CHANGELOG. Zie de werkwijze in CLAUDE.md.
 
 **Op `main`** is de changelog volledig: "Hoe dit werkt"-sectie, levenscyclus-uitleg, `[Unreleased]` met alles wat gemergd is maar nog niet live, en de volledige versiegeschiedenis met `← LIVE` op de meest recente versie.
 
-Elke entry in `[Unreleased]` op `main` vermeldt de branchnaam en merge-datum aan het einde van de heading, zodat de herkomst en het tijdstip traceerbaar zijn:
+Elke entry in `[Unreleased]` op `main` vermeldt de branchnaam en merge-datum op een aparte regel direct onder de heading:
 
 ```markdown
-### Titel van de wijziging `feature/branch-naam` — YYYY-MM-DD
+### Titel van de wijziging
+**Branch:** `feature/branch-naam` · **Gemergd:** YYYY-MM-DD
 ```
 
 De datum is de dag waarop de branch naar `main` werd gemergd.
