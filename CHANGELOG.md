@@ -27,6 +27,11 @@ De bovenste uitgebrachte versie draagt de markering **â† LIVE**: dat is de 
 
 Alle 24 versie-headers in CHANGELOG.md uitgebreid met het type (Patch/Minor/Major), bijv. `## [v2.16.1] - 2026-06-27 — Patch`. CLAUDE.md stap 6 bijgewerkt met het nieuwe header-formaat.
 
+### Docs — Samenvatting toegevoegd aan release notes
+**Branch:** `docs/release-note-summaries` · **Gemergd:** 2026-06-27
+
+Korte samenvattingsregel toegevoegd direct onder `## Wijzigingen` in release notes, vóór de individuele branch-entries.
+
 ---
 
 ## [v2.16.1] - 2026-06-27 — Patch ← LIVE
