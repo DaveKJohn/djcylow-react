@@ -52,6 +52,11 @@ git checkout -b [branch-name]
 - Tell the user what changed. Stop there — do not ask about merging, releasing, or pushing.
 - **A release is always initiated by the user. Never propose it.**
 - **Never merge or push to `main` without explicit user approval.**
+- **After a merge into `main`: delete the feature branch immediately** (lokaal + remote):
+  ```bash
+  git branch -d [branch]
+  git push origin --delete [branch]
+  ```
 
 ### CHANGELOG.md — twee formaten
 
