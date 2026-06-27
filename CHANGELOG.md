@@ -22,6 +22,8 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+_Nog geen wijzigingen. Elke branch die naar `main` wordt gemergd voegt hier een entry toe met de branchnaam, merge-datum en een korte beschrijving. Bij de volgende release wordt dit blok omgezet naar een versienummer._
+
 ---
 
 ## [v2.16.2] - 2026-06-27 — Patch ← LIVE
