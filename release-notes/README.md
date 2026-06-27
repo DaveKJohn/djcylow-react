@@ -15,12 +15,11 @@ We volgen [Semantic Versioning](https://semver.org/lang/nl/): `MAJOR.MINOR.PATCH
 
 | Onderdeel | Voorbeeld | Wanneer ophogen |
 |-----------|-----------|-----------------|
-| **MAJOR** | `1.x` → `2.0.0` | Ingrijpende verbouwing of redesign (bijv. volledige nieuwe layout of framework-migratie) |
-| **MINOR** | `1.0` → `1.1.0` | Nieuwe feature, backwards-compatible (nieuwe pagina, nieuw component, nieuwe mix-categorie) |
-| **PATCH** | `1.1.0` → `1.1.1` | Bugfix, hotfix of kleine stijlcorrectie op de laatste release |
+| **MAJOR** | `2.x` → `3.0.0` | Ingrijpende verbouwing of redesign (bijv. volledige nieuwe layout of framework-migratie) |
+| **MINOR** | `2.0` → `2.1.0` | Nieuwe feature, backwards-compatible (nieuwe pagina, nieuw component, nieuwe mix-categorie) |
+| **PATCH** | `2.1.0` → `2.1.1` | Bugfix, hotfix of kleine stijlcorrectie op de laatste release |
 
-We starten op **1.0.0** (de baseline op de eerste livegang). `MAJOR` blijft voorlopig op `1`;
-`2.0.0` reserveren we voor een toekomstig volledig redesign.
+De React-versie van de website is gestart op **2.0.0** (framework-migratie van de vorige stack). `MAJOR` blijft voorlopig op `2`; `3.0.0` reserveren we voor een toekomstig volledig redesign.
 
 ## Git tags & rollback
 
@@ -31,14 +30,14 @@ naamplaatje dat je op een commit plakt. Het verschil met een branch is wat het b
 maakt als release-anker:
 
 - Een **branch** (zoals `main`) **beweegt mee**: elke nieuwe commit schuift `main` vooruit.
-- Een **tag** (zoals `v1.3.0`) **staat stil**: hij wijst voor altijd naar dezelfde commit,
-  wat er daarna ook gebeurt. `v1.3.0` blijft dus exact de staat die destijds live ging,
+- Een **tag** (zoals `v2.3.0`) **staat stil**: hij wijst voor altijd naar dezelfde commit,
+  wat er daarna ook gebeurt. `v2.3.0` blijft dus exact de staat die destijds live ging,
   ook al is `main` intussen tientallen commits verder.
 
 ```
 commits:   A --- B --- C --- D --- E   ← main (beweegt mee naar rechts)
                  ↑           ↑
-              v1.1.0      v1.3.0        (blijven staan waar ze staan)
+              v2.1.0      v2.3.0        (blijven staan waar ze staan)
 ```
 
 ### Annotated tags (wat wij gebruiken)
@@ -48,30 +47,30 @@ datum en bericht). Voor releases gebruiken we altijd **annotated** — je wilt w
 waarom een versie is gezet:
 
 ```sh
-git tag -a v1.3.0 <commit> -m "v1.3.0 - UX MODUS (donker/licht mode)"
+git tag -a v2.3.0 <commit> -m "v2.3.0 - UX MODUS (donker/licht mode)"
 ```
 
-> Bij het pushen zie je een annotated tag tweemaal in de remote-lijst, bv. `v1.3.0` en
-> `v1.3.0^{}`. Dat is geen dubbeling: de eerste is het tag-object (met het bericht), de
+> Bij het pushen zie je een annotated tag tweemaal in de remote-lijst, bv. `v2.3.0` en
+> `v2.3.0^{}`. Dat is geen dubbeling: de eerste is het tag-object (met het bericht), de
 > tweede (`^{}`) is de commit waar die tag uiteindelijk naar verwijst.
 
 ### Werken met tags
 
 ```sh
 git tag -n1                # lijst alle tags mét hun bericht
-git show v1.3.0            # bekijk de tag + de wijzigingen van die commit
-git checkout v1.3.0        # zet de werkmap exact op die release (rollback / inspectie)
+git show v2.3.0            # bekijk de tag + de wijzigingen van die commit
+git checkout v2.3.0        # zet de werkmap exact op die release (rollback / inspectie)
 git checkout main          # weer terug naar het heden
 ```
 
-`git checkout v1.3.0` zet je in "detached HEAD" — je kijkt naar het verleden zonder op een
+`git checkout v2.3.0` zet je in "detached HEAD" — je kijkt naar het verleden zonder op een
 branch te zitten. Prima om te inspecteren of een hotfix-branch vanaf dat punt te starten; ga
 daarna terug met `git checkout main`.
 
 **Let op:** een gewone `git push` neemt tags **niet** mee. Push een release-tag apart:
 
 ```sh
-git push origin v1.3.0     # één tag
+git push origin v2.3.0     # één tag
 git push origin --tags     # alle nog niet-gepushte tags
 ```
 
@@ -86,8 +85,8 @@ een Release kun je via *Compare* precies zien wat er tussen twee versies verande
 Release maak je vanuit een bestaande tag zo:
 
 ```sh
-gh release create v1.3.0 --title "v1.3.0 - UX MODUS (donker/licht mode)" \
-  --notes-file release-notes/1.3.0.md --verify-tag
+gh release create v2.3.0 --title "v2.3.0 - UX MODUS (donker/licht mode)" \
+  --notes-file release-notes/2.3.0.md --verify-tag
 ```
 
 ## Nieuwe release aanmaken — stap voor stap
@@ -107,26 +106,26 @@ gh release create v1.3.0 --title "v1.3.0 - UX MODUS (donker/licht mode)" \
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
-| [1.16.0](1.16.0.md) | 2026-06-25 | Minor | Mix tags toegevoegd |
-| [1.15.0](1.15.0.md) | 2026-06-25 | Minor | Mix detail verbeteringen + domein en taal gecorrigeerd |
-| [1.14.4](1.14.4.md) | 2026-06-25 | Patch | add-mix script: automatische afbeelding controle en conversie |
-| [1.14.3](1.14.3.md) | 2026-06-25 | Patch | add-mix script: AI beschrijving + tracklist plakken |
-| [1.14.2](1.14.2.md) | 2026-06-25 | Patch | Script: nieuwe mix toevoegen |
-| [1.14.1](1.14.1.md) | 2026-06-25 | Patch | Alle afbeeldingen geconverteerd naar WebP |
-| [1.14.0](1.14.0.md) | 2026-06-25 | Content | Mix beschrijvingen alle kleuren + Red image update |
-| [1.13.0](1.13.0.md) | 2026-06-18 | Refactor | Code structuur & JSON tracklist verbeterd |
-| [1.12.0](1.12.0.md) | 2026-06-16 | Feature | Nieuwe mix: Red Light EDM (Vol. 6) |
-| [1.11.1](1.11.1.md) | 2026-05-10 | Patch | BackButton navigatie via Link |
-| [1.11.0](1.11.0.md) | 2026-05-08 | Feature | Nieuwe mix: Orange Drum & Bass (Vol. 9) + responsive |
-| [1.10.0](1.10.0.md) | 2026-05-05 | Feature | UX kleuren uitgebreid + layout responsive |
-| [1.9.0](1.9.0.md) | 2026-05-01 | Feature | UX MODUS — donker/licht mode |
-| [1.8.0](1.8.0.md) | 2026-04-20 | Feature | Reviews verborgen + responsive breakpoints |
-| [1.7.0](1.7.0.md) | 2026-04-13 | Feature | Referenties component + Mobile Content 2.0 |
-| [1.6.0](1.6.0.md) | 2026-04-11 | Feature | Filter 2.0 + Luister pagina 2.0 |
-| [1.5.0](1.5.0.md) | 2026-04-10 | Feature | Nieuwe mix + mix detail refactor |
-| [1.4.0](1.4.0.md) | 2026-03-20 | Feature | Nieuwe mix: Yellow EDM (Full) |
-| [1.3.0](1.3.0.md) | 2026-03-19 | Feature | BasiskleurenCarousel + Promo sectie + Navigatie |
-| [1.2.0](1.2.0.md) | 2026-03-13 | Feature | Hero Banner |
-| [1.1.0](1.1.0.md) | 2026-03-11 | Feature | AudioPlayer + Light Yellow mixes |
-| [1.0.1](1.0.1.md) | 2026-03-08 | Patch | Succes message contactformulier |
-| [1.0.0](1.0.0.md) | 2026-03-07 | Baseline | Eerste livegang op Netlify |
+| [2.16.0](2.16.0.md) | 2026-06-25 | Minor | Mix tags toegevoegd |
+| [2.15.0](2.15.0.md) | 2026-06-25 | Minor | Mix detail verbeteringen + domein en taal gecorrigeerd |
+| [2.14.4](2.14.4.md) | 2026-06-25 | Patch | add-mix script: automatische afbeelding controle en conversie |
+| [2.14.3](2.14.3.md) | 2026-06-25 | Patch | add-mix script: AI beschrijving + tracklist plakken |
+| [2.14.2](2.14.2.md) | 2026-06-25 | Patch | Script: nieuwe mix toevoegen |
+| [2.14.1](2.14.1.md) | 2026-06-25 | Patch | Alle afbeeldingen geconverteerd naar WebP |
+| [2.14.0](2.14.0.md) | 2026-06-25 | Content | Mix beschrijvingen alle kleuren + Red image update |
+| [2.13.0](2.13.0.md) | 2026-06-18 | Refactor | Code structuur & JSON tracklist verbeterd |
+| [2.12.0](2.12.0.md) | 2026-06-16 | Feature | Nieuwe mix: Red Light EDM (Vol. 6) |
+| [2.11.1](2.11.1.md) | 2026-05-10 | Patch | BackButton navigatie via Link |
+| [2.11.0](2.11.0.md) | 2026-05-08 | Feature | Nieuwe mix: Orange Drum & Bass (Vol. 9) + responsive |
+| [2.10.0](2.10.0.md) | 2026-05-05 | Feature | UX kleuren uitgebreid + layout responsive |
+| [2.9.0](2.9.0.md) | 2026-05-01 | Feature | UX MODUS — donker/licht mode |
+| [2.8.0](2.8.0.md) | 2026-04-20 | Feature | Reviews verborgen + responsive breakpoints |
+| [2.7.0](2.7.0.md) | 2026-04-13 | Feature | Referenties component + Mobile Content 2.0 |
+| [2.6.0](2.6.0.md) | 2026-04-11 | Feature | Filter 2.0 + Luister pagina 2.0 |
+| [2.5.0](2.5.0.md) | 2026-04-10 | Feature | Nieuwe mix + mix detail refactor |
+| [2.4.0](2.4.0.md) | 2026-03-20 | Feature | Nieuwe mix: Yellow EDM (Full) |
+| [2.3.0](2.3.0.md) | 2026-03-19 | Feature | BasiskleurenCarousel + Promo sectie + Navigatie |
+| [2.2.0](2.2.0.md) | 2026-03-13 | Feature | Hero Banner |
+| [2.1.0](2.1.0.md) | 2026-03-11 | Feature | AudioPlayer + Light Yellow mixes |
+| [2.0.1](2.0.1.md) | 2026-03-08 | Patch | Succes message contactformulier |
+| [2.0.0](2.0.0.md) | 2026-03-07 | Baseline | Eerste livegang op Netlify |
