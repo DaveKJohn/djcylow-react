@@ -22,6 +22,10 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Docs — Versienummering omgezet van v1.x naar v2.x
+
+Alle 23 release-notes hernoemd (`1.x.y.md` → `2.x.y.md`), CHANGELOG.md en release-notes/README.md bijgewerkt. Git-tags hernoemd (`v1.x.y` → `v2.x.y` op dezelfde commits), 7 GitHub Releases overgezet inclusief titels. Reden: de overstap naar React was een MAJOR-wijziging; v2.0.0 is de correcte baseline voor deze stack.
+
 ### Docs — CHANGELOG.md workflow uitgebreid
 
 `CHANGELOG.md` uitgebreid met een "Hoe dit werkt"-sectie: uitleg over `[Unreleased]` vs versieblokken, de `← LIVE`-markering, de levenscyclus van een regel (branch → main → live), en hoe merge-conflicten op `[Unreleased]` triviaal op te lossen zijn.
