@@ -17,7 +17,7 @@ We volgen [Semantic Versioning](https://semver.org/lang/nl/): `MAJOR.MINOR.PATCH
 |-----------|-----------|-----------------|
 | **MAJOR** | `2.x` → `3.0.0` | Ingrijpende verbouwing of redesign (bijv. volledige nieuwe layout of framework-migratie) |
 | **MINOR** | `2.0` → `2.1.0` | Nieuwe feature, backwards-compatible (nieuwe pagina, nieuw component, nieuwe mix-categorie) |
-| **PATCH** | `2.1.0` → `2.1.1` | Bugfix, hotfix of kleine stijlcorrectie op de laatste release |
+| **PATCH** | `2.1.0` → `2.1.1` | Bugfix, Docs, hotfix of kleine stijlcorrectie op de laatste release |
 
 De React-versie van de website is gestart op **2.0.0** (framework-migratie van de vorige stack). `MAJOR` blijft voorlopig op `2`; `3.0.0` reserveren we voor een toekomstig volledig redesign.
 
