@@ -175,7 +175,7 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
    - PATCH (`x.y.Z+1`): bugfix, hotfix, kleine correctie
    - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
    - MAJOR: ingrijpende verbouwing (zelden)
-5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief het metadata-blok (`**Branch:** ... · **Gemergd:** ...`) onder elke heading
+5. **Maak release note** aan: `release-notes/<major.minor>/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief het metadata-blok (`**Branch:** ... · **Gemergd:** ...`) onder elke heading
 6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum> — Patch/Minor/Major` met een link naar de nieuwe release note, voeg `← LIVE` toe aan de nieuwe versie, verwijder `← LIVE` bij de vorige versie, en maak een vers leeg `## [Unreleased]` bovenaan aan
 7. **Voeg versie toe** aan overzichtstabel in `release-notes/README.md` (bovenaan)
 8. **Stage en commit** op de feature branch
@@ -194,7 +194,7 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
     ```bash
     gh release create v<versie> \
       --title "v<versie> - <korte titel>" \
-      --notes-file release-notes/<versie>.md \
+      --notes-file release-notes/<major.minor>/<versie>.md \
       --verify-tag
     ```
 12. **Verwijder de feature branch** (lokaal + remote):
