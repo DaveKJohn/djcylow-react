@@ -174,7 +174,7 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
    - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
    - MAJOR: ingrijpende verbouwing (zelden)
 5. **Maak release note** aan: `release-notes/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief het metadata-blok (`**Branch:** ... · **Gemergd:** ...`) onder elke heading
-6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum>` met een link naar de nieuwe release note, voeg `← LIVE` toe aan de nieuwe versie, verwijder `← LIVE` bij de vorige versie, en maak een vers leeg `## [Unreleased]` bovenaan aan
+6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum> — Patch/Minor/Major` met een link naar de nieuwe release note, voeg `← LIVE` toe aan de nieuwe versie, verwijder `← LIVE` bij de vorige versie, en maak een vers leeg `## [Unreleased]` bovenaan aan
 7. **Voeg versie toe** aan overzichtstabel in `release-notes/README.md` (bovenaan)
 8. **Stage en commit** op de feature branch
 9. **Merge naar main** (na gebruikersbevestiging):
