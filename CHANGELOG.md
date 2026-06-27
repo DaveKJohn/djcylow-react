@@ -22,6 +22,12 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+---
+
+## [v2.18.0] - 2026-06-27 — Minor ← LIVE
+
+Zie [release-notes/2.18/2.18.0.md](release-notes/2.18/2.18.0.md)
+
 ### `subgenre` veld ingevuld voor alle actieve mixen
 **Branch naam** data/subgenre-fill
 **Datum merge op main** 2026-06-27
@@ -52,7 +58,7 @@ GA4 gegevensfilter "Eigen bezoeken" aangemaakt en geactiveerd. IP-adresregel ing
 
 ---
 
-## [v2.17.0] - 2026-06-27 — Minor ← LIVE
+## [v2.17.0] - 2026-06-27 — Minor
 
 Zie [release-notes/2.17/2.17.0.md](release-notes/2.17/2.17.0.md)
 
