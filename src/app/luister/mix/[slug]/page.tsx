@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import BackButton from '@/components/ui/BackButton';
+import MixAnalytics from '@/components/analytics/MixAnalytics';
 
 import lightBlue from '@/data/mixes/light-blue.json';
 import lightCyan from '@/data/mixes/light-cyan.json';
@@ -184,6 +185,15 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <MixAnalytics
+                id={mix.id}
+                title={`${colorName} ${mix.genre} Mix ${mix.volume}`}
+                power={mix.power}
+                color={colorName}
+                genre={mix.genre}
+                subgenre={mix.subgenre || ''}
+                volume={mix.volume}
             />
 
             <section className="WoB column w-fill AML P15 fill-100 v-push-3xl" id="luister_mix">

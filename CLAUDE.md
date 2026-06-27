@@ -38,7 +38,8 @@ git checkout -b [branch-name]
 
 - Commit changes on the feature branch with a clear message.
 - **Update `[Unreleased]` in `CHANGELOG.md`** — voeg toe wat er veranderd is. Dit is de werkende notitie die bij een release wordt omgezet naar een release note.
-- Tell the user what changed and ask whether to merge into `main` or open a PR.
+- Tell the user what changed. Stop there — do not ask about merging, releasing, or pushing.
+- **A release is always initiated by the user. Never propose it.**
 - **Never merge or push to `main` without explicit user approval.**
 
 ---

@@ -3,31 +3,29 @@ Wijzigingen op deze branch (docs/ga4-gtm-setup). Bij merge naar main schuiven de
 
 ## [Unreleased]
 
-### Documentatie — GA4 + GTM setup (nog uit te voeren)
+### Documentatie — GA4 + GTM setup ✅ voltooid op 2026-06-27
 
 Doel: meten welke mix het meest bezocht wordt en hoe lang bezoekers gemiddeld blijven.
-GTM container `GTM-PK7VHJ46` is al actief op de site. Enkel GA4 property + tag aanmaken is nodig.
+GTM container `GTM-PK7VHJ46` is actief op de site.
 
-**Stap 1 — GA4 property aanmaken**
-1. Ga naar analytics.google.com → Admin → Create property
-2. Property name: `DJ Cylow` — Time zone: Netherlands — Currency: EUR
-3. Platform: Web — URL: `https://www.djcylow.com` — Stream name: `DJ Cylow website`
-4. Kopieer de **Measurement ID** (`G-XXXXXXXXXX`)
+**GA4 Property aangemaakt**
+- Property naam: `DJ Cylow`
+- Tijdzone: Nederland (GMT+02:00) — Valuta: Euro (€)
+- Platform: Web — Stream URL: `https://www.djcylow.com` — Stream naam: `DJ Cylow website`
+- **Measurement ID: `G-6DS3L2SR6C`**
 
-**Stap 2 — GA4 tag in GTM aanmaken**
-1. Ga naar tagmanager.google.com → container `GTM-PK7VHJ46`
-2. Tags → New → Tag Configuration → **Google Tag**
-3. Tag naam: `GA4 - Configuration` — Tag ID: jouw `G-XXXXXXXXXX`
-4. Triggering: **All Pages** → Save
+**GA4 tag aangemaakt in GTM**
+- Tag naam: `GA4 - Configuration` — Tagtype: Google-tag
+- Tag-ID: `G-6DS3L2SR6C` — Trigger: All Pages
+- GTM container: `GTM-PK7VHJ46` — Versie 3 gepubliceerd op 2026-06-27 15:43
 
-**Stap 3 — Publiceren in GTM**
-1. Rechtsbovenin → Submit → Version name: `GA4 configuratie` → Publish
+**Laag 2 — dataLayer events ✅ geïmplementeerd**
+- Nieuw client component `src/components/analytics/MixAnalytics.tsx`
+- Vuurt `view_mix` event op elke mix-pagina met dimensies: `mix_id`, `mix_title`, `mix_power`, `mix_color`, `mix_genre`, `mix_subgenre`, `mix_volume`
+- Toegevoegd aan `src/app/luister/mix/[slug]/page.tsx`
 
-**Resultaat**
-Na 24–48 uur zichtbaar in GA4 → Reports → Engagement → **Pages and screens**:
-per mix-URL → aantal bezoeken + gemiddelde engagement time.
-
-**Volgende stap (optioneel — Laag 2)**
-Rijkere data via `dataLayer` events in de mix-pagina component:
-mix naam, power, kleur, tags meesturen zodat je in GA4 ook op die dimensies kunt filteren
-(los van de URL). Hiervoor zijn code-aanpassingen nodig.
+**GTM configuratie Laag 2 ✅ gepubliceerd op 2026-06-27 16:02 — Versie 4**
+- 7 Data Layer Variables aangemaakt: `DLV - mix_id/title/power/color/genre/subgenre/volume`
+- Custom Event trigger `CE - view_mix` aangemaakt (luistert op event `view_mix`)
+- GA4 Event tag `GA4 - view_mix` aangemaakt: stuurt alle 7 dimensies naar `G-6DS3L2SR6C`
+- Controleerbaar in GA4 → Events → `view_mix`
