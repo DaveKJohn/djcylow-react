@@ -19,7 +19,6 @@
     "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20251021_wide-small.webp",
     "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20251021_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20251021_square.webp",
-    "description": "Nu-Disco mix van DJ Cylow — vrolijk en dansbaar, ideaal voor een zonnig thuisfeest. Met Yvvan Back, David Penn en Block & Crown.",
     "tags": [
       "nu-disco mix 2025",
       "nu-disco",
@@ -44,6 +43,8 @@
       "sunny day mix",
       "home party mix"
     ],
+    "description": "Nu-Disco mix van DJ Cylow — vrolijk en dansbaar, ideaal voor een zonnig thuisfeest. Met Yvvan Back, David Penn en Block & Crown.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:01:00",
@@ -187,7 +188,6 @@
     "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250701_wide-small.webp",
     "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250701_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20250701_square.webp",
-    "description": "Funky House mix van DJ Cylow — luchtig en vol energie, perfect voor een zomers feest. Met CASSIMM, Jack Back en Seamus Haji.",
     "tags": [
       "funky house mix 2025",
       "funky house",
@@ -212,6 +212,8 @@
       "happy electronic music",
       "groovy house mix"
     ],
+    "description": "Funky House mix van DJ Cylow — luchtig en vol energie, perfect voor een zomers feest. Met CASSIMM, Jack Back en Seamus Haji.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -395,7 +397,6 @@
     "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250419_wide-small.webp",
     "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250419_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20250419_square.webp",
-    "description": "Funky House mix van DJ Cylow — zacht en blij, met een positieve groove voor elk moment van de dag. Met Yvvan Back, Babert en TJR.",
     "tags": [
       "funky house mix 2025",
       "funky house",
@@ -420,6 +421,8 @@
       "happy electronic mix",
       "focus music"
     ],
+    "description": "Funky House mix van DJ Cylow — zacht en blij, met een positieve groove voor elk moment van de dag. Met Yvvan Back, Babert en TJR.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -563,7 +566,6 @@
     "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250313_wide-small.webp",
     "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250313_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20250313_square.webp",
-    "description": "Nu-Disco mix van DJ Cylow — opgewekt en groovy, een heerlijke set voor een relaxt thuisfeest. Met Antoine Clamaran, CASSIMM en KPD.",
     "tags": [
       "nu-disco mix 2025",
       "nu-disco",
@@ -588,6 +590,8 @@
       "house music 2025",
       "disco house mix"
     ],
+    "description": "Nu-Disco mix van DJ Cylow — opgewekt en groovy, een heerlijke set voor een relaxt thuisfeest. Met Antoine Clamaran, CASSIMM en KPD.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -731,7 +735,6 @@
     "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20241225_wide-small.webp",
     "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20241225_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20241225_square.webp",
-    "description": "Funky House mix van DJ Cylow — feestelijk en licht, een kerstse set vol discogevoel. Met Purple Disco Machine, Zsak en Qubiko.",
     "tags": [
       "funky house mix 2024",
       "funky house",
@@ -756,6 +759,8 @@
       "uplifting disco house",
       "dance music 2024"
     ],
+    "description": "Funky House mix van DJ Cylow — feestelijk en licht, een kerstse set vol discogevoel. Met Purple Disco Machine, Zsak en Qubiko.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -899,7 +904,6 @@
     "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20241126_wide-small.webp",
     "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20241126_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20241126_square.webp",
-    "description": "Nu-Disco mix van DJ Cylow — luchtig en dansbaar, vol warme house-energy voor een avond vol beweging. Met CASSIMM, Zsak en Earth n Days.",
     "tags": [
       "nu-disco mix 2024",
       "nu-disco",
@@ -924,6 +928,8 @@
       "groovy dance music",
       "house music 2024"
     ],
+    "description": "Nu-Disco mix van DJ Cylow — luchtig en dansbaar, vol warme house-energy voor een avond vol beweging. Met CASSIMM, Zsak en Earth n Days.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -1063,7 +1069,6 @@
     "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20220904_wide-small.webp",
     "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20220904_wide-large.webp",
     "image_square": "/images/light/yellow/square/image_light_yellow_20220904_square.webp",
-    "description": "Funky House mix van DJ Cylow — energiek en zonnig, de perfecte start voor deze serie. Met Camelphat, David Penn en Purple Disco Machine.",
     "tags": [
       "funky house mix 2022",
       "funky house",
@@ -1088,6 +1093,8 @@
       "house music classics",
       "groovy dance music"
     ],
+    "description": "Funky House mix van DJ Cylow — energiek en zonnig, de perfecte start voor deze serie. Met Camelphat, David Penn en Purple Disco Machine.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -1256,6 +1263,7 @@
     "image_wide_large": "",
     "image_square": "/images/light/Yellow/square/image_light_yellow_preview_square.webp",
     "description": "",
+    "top_artists": [],
     "tracklist": []
   }
 ]

@@ -284,28 +284,6 @@ async function main() {
   // Tracklist
   const tracklist = await askTracklist();
 
-  // Top artists — meest gezochte artiesten uit de tracklist
-  let top_artists = [];
-  if (tracklist.length > 0) {
-    const allArtists = [...new Set(
-      tracklist.flatMap(t => {
-        const part = (t.track || '').split(' - ')[0];
-        return part.split(/[&,]/).map(n => n.trim()).filter(Boolean);
-      })
-    )];
-    console.log('\nArtiesten in de tracklist:');
-    allArtists.forEach((a, i) => console.log(`  ${i + 1}. ${a}`));
-    console.log('\nTop 3 meest gezochte artiesten (nummers gescheiden door komma, bijv. 2,5,8):');
-    const input = (await ask('> ')).trim();
-    if (input) {
-      top_artists = input.split(',')
-        .map(n => parseInt(n.trim(), 10) - 1)
-        .filter(i => i >= 0 && i < allArtists.length)
-        .slice(0, 3)
-        .map(i => allArtists[i]);
-    }
-  }
-
   // Beschrijving — automatisch genereren via Claude
   const generated = await generateDescription(subgenre, genre, color, power, tracklist);
   let description = '';
@@ -353,7 +331,7 @@ async function main() {
     image_wide_large: imgs.wide_large,
     image_square:     imgs.square,
     description,
-    top_artists,
+    top_artists: [],
     tracklist,
   };
 

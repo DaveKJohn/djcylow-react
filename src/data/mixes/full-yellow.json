@@ -19,7 +19,6 @@
     "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20260303_wide-small.webp",
     "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20260303_wide-large.webp",
     "image_square": "/images/full/yellow/square/image_full_yellow_20260303_square.webp",
-    "description": "Tech House mix van DJ Cylow — zonnige dansenergie vol dopamine en groovy vibes. Met Mr. Belt & Wezol, Fedde Le Grand en Dombresky.",
     "tags": [
       "edm mix 2026",
       "edm mix",
@@ -45,6 +44,8 @@
       "happy dance music",
       "dance floor mix"
     ],
+    "description": "Tech House mix van DJ Cylow — zonnige dansenergie vol dopamine en groovy vibes. Met Mr. Belt & Wezol, Fedde Le Grand en Dombresky.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "01:00",
@@ -200,7 +201,6 @@
     "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20231106_wide-small.webp",
     "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20231106_wide-large.webp",
     "image_square": "/images/full/yellow/square/image_full_yellow_20231106_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — explosieve energie en positieve dansvibes voor een thuisfeest. Met Sub Focus, Maduk, Metrik en Delta Heavy.",
     "tags": [
       "drum and bass mix 2023",
       "drum and bass mix",
@@ -226,6 +226,8 @@
       "high energy electronic mix",
       "home party mix"
     ],
+    "description": "Drum & Bass mix van DJ Cylow — explosieve energie en positieve dansvibes voor een thuisfeest. Met Sub Focus, Maduk, Metrik en Delta Heavy.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -413,7 +415,6 @@
     "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20230220_wide-small.webp",
     "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20230220_wide-large.webp",
     "image_square": "/images/full/yellow/square/image_full_yellow_20230220_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — vrolijk en vol zonnige dansenergie, ideaal voor een lange rit. Met Danny Byrd, Fox Stevenson en Calyx & Teebee.",
     "tags": [
       "drum and bass mix 2023",
       "drum and bass mix",
@@ -439,6 +440,8 @@
       "energetic dnb",
       "rave mix 2023"
     ],
+    "description": "Drum & Bass mix van DJ Cylow — vrolijk en vol zonnige dansenergie, ideaal voor een lange rit. Met Danny Byrd, Fox Stevenson en Calyx & Teebee.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",

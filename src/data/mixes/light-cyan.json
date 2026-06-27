@@ -19,7 +19,6 @@
     "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20251108_wide-small.webp",
     "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20251108_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20251108_square.webp",
-    "description": "Nu-Disco mix van DJ Cylow — fris en helder, perfect voor een zonnige middag thuis. Met The Magician, Cosmo's Midnight en Phats & Small.",
     "tags": [
       "nu disco mix 2025",
       "nu disco",
@@ -42,6 +41,8 @@
       "uplifting dance mix",
       "DJ Cylow mix"
     ],
+    "description": "Nu-Disco mix van DJ Cylow — fris en helder, perfect voor een zonnige middag thuis. Met The Magician, Cosmo's Midnight en Phats & Small.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00:00",
@@ -185,7 +186,6 @@
     "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250619_wide-small.webp",
     "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250619_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20250619_square.webp",
-    "description": "Helder en opzwepend nu-disco van DJ Cylow — een mix vol discoklassiekers en festivalgroovers. Met Jax Jones, Phats & Small en Block & Crown.",
     "tags": [
       "nu disco mix 2025",
       "nu disco",
@@ -208,6 +208,8 @@
       "summer disco mix",
       "DJ Cylow mix"
     ],
+    "description": "Helder en opzwepend nu-disco van DJ Cylow — een mix vol discoklassiekers en festivalgroovers. Met Jax Jones, Phats & Small en Block & Crown.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -391,7 +393,6 @@
     "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250515_wide-small.webp",
     "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250515_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20250515_square.webp",
-    "description": "Dance mix van DJ Cylow — rustig en gefocust, met frisse club vibes voor een lange avond. Met Sophie Ellis-Bextor, Vintage & Morelli en Block & Crown.",
     "tags": [
       "edm mix 2025",
       "electronic dance music mix",
@@ -414,6 +415,8 @@
       "house music 2025",
       "DJ Cylow mix"
     ],
+    "description": "Dance mix van DJ Cylow — rustig en gefocust, met frisse club vibes voor een lange avond. Met Sophie Ellis-Bextor, Vintage & Morelli en Block & Crown.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -557,7 +560,6 @@
     "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250307_wide-small.webp",
     "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250307_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20250307_square.webp",
-    "description": "Nu-Disco house mix van DJ Cylow — warm en helder, ideaal voor een relaxte avond aan huis. Met Armand Van Helden, The Magician en Sonny Fodera.",
     "tags": [
       "nu disco house mix 2025",
       "nu disco",
@@ -580,6 +582,8 @@
       "late night drive mix",
       "DJ Cylow mix"
     ],
+    "description": "Nu-Disco house mix van DJ Cylow — warm en helder, ideaal voor een relaxte avond aan huis. Met Armand Van Helden, The Magician en Sonny Fodera.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -723,7 +727,6 @@
     "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20241213_wide-small.webp",
     "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20241213_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20241213_square.webp",
-    "description": "House mix van DJ Cylow — helder en fris, een klassieker vol tijdloze dancefloor grooves. Met Frankie Knuckles, Purple Disco Machine en Mark Knight.",
     "tags": [
       "house mix 2024",
       "edm mix 2024",
@@ -746,6 +749,8 @@
       "disco house classics",
       "DJ Cylow mix"
     ],
+    "description": "House mix van DJ Cylow — helder en fris, een klassieker vol tijdloze dancefloor grooves. Met Frankie Knuckles, Purple Disco Machine en Mark Knight.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -885,7 +890,6 @@
     "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20220606_wide-small.webp",
     "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20220606_wide-large.webp",
     "image_square": "/images/light/cyan/square/image_light_cyan_20220606_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — helder en energiek, van liquid vibes tot melodische rollers. Met Wilkinson, Maduk, BCee en High Contrast.",
     "tags": [
       "drum and bass mix 2022",
       "drum and bass",
@@ -908,6 +912,8 @@
       "late night drive mix",
       "DJ Cylow mix"
     ],
+    "description": "Drum & Bass mix van DJ Cylow — helder en energiek, van liquid vibes tot melodische rollers. Met Wilkinson, Maduk, BCee en High Contrast.",
+    "top_artists": [],
     "tracklist": [
       {
         "time": "00:00",
@@ -1076,6 +1082,7 @@
     "image_wide_large": "",
     "image_square": "/images/light/cyan/square/image_light_cyan_preview_square.webp",
     "description": "",
+    "top_artists": [],
     "tracklist": []
   }
 ]

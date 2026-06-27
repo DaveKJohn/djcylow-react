@@ -27,7 +27,7 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 **Datum merge op main** nog niet gemergd
 **Branch type** Data
 
-Nieuw optioneel veld `top_artists` in het mix JSON schema: een array van maximaal 3 artistnamen die de DJ zelf aanwijst als de meest gezochte artiesten in de mix. De mix-detailpagina gebruikt dit veld als fallback voor de beschrijvingstekst wanneer geen description ingesteld is. Het `add-mix.js` script toont bij het aanmaken van een nieuwe mix alle unieke artiesten uit de tracklist genummerd en vraagt de gebruiker de top 3 te kiezen. Schema-documentatie (README.md) bijgewerkt.
+Nieuw veld `top_artists` toegevoegd aan alle 77 bestaande mix-entries (als lege array `[]`). De DJ vult per mix de meest gezochte artiesten in. De mix-detailpagina laadt het veld en gebruikt het als artistvermelding in de fallback-beschrijving. Het `add-mix.js` script zet het veld bij nieuwe mixen automatisch als lege array klaar. Schema-documentatie (README.md) bijgewerkt.
 
 ### SEO/GEO verbeteringen mix-detailpagina's
 **Branch naam** feature/seo-geo-mix-pages
