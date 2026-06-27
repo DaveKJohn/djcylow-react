@@ -19,7 +19,6 @@
     "image_wide_small": "/images/full/green/wide/image_full_green_20231127_wide-small.webp",
     "image_wide_large": "/images/full/green/wide/image_full_green_20231127_wide-large.webp",
     "image_square": "/images/full/green/square/image_full_green_20231127_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — energiek en groovy, vol natuurlijke kracht en flow. Met Hybrid Minds, Sub Focus, Metrik en Pendulum.",
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -46,6 +45,12 @@
       "gaming mix",
       "Hospital Records style",
       "Ram Records vibe"
+    ],
+    "description": "Drum & Bass mix van DJ Cylow — energiek en groovy, vol natuurlijke kracht en flow. Met Hybrid Minds, Sub Focus, Metrik en Pendulum.",
+    "top_artists": [
+      "Pendulum",
+      "Sub Focus",
+      "Hybrid Minds"
     ],
     "tracklist": [
       {
@@ -222,7 +227,6 @@
     "image_wide_small": "/images/full/green/wide/image_full_green_20210418_wide-small.webp",
     "image_wide_large": "/images/full/green/wide/image_full_green_20210418_wide-large.webp",
     "image_square": "/images/full/green/square/image_full_green_20210418_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — melodieus en opbouwend, ideaal voor een lange rit. Met T & Sugah, Dimension, Rameses B en Wilkinson.",
     "tags": [
       "drum and bass mix 2021",
       "drum and bass",
@@ -249,6 +253,12 @@
       "gaming mix",
       "Hospital Records style",
       "Ram Records vibe"
+    ],
+    "description": "Drum & Bass mix van DJ Cylow — melodieus en opbouwend, ideaal voor een lange rit. Met T & Sugah, Dimension, Rameses B en Wilkinson.",
+    "top_artists": [
+      "Sub Focus",
+      "Wilkinson",
+      "Metrik"
     ],
     "tracklist": [
       {

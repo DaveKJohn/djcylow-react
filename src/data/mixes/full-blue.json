@@ -19,7 +19,6 @@
     "image_wide_small": "/images/full/blue/wide/image_full_blue_20240408_wide-small.webp",
     "image_wide_large": "/images/full/blue/wide/image_full_blue_20240408_wide-large.webp",
     "image_square": "/images/full/blue/square/image_full_blue_20240408_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — krachtig en episch, perfect voor een lange avondrit. Met Delta Heavy, Wilkinson, Netsky en Feint.",
     "tags": [
       "drum and bass mix 2024",
       "drum and bass",
@@ -44,6 +43,12 @@
       "dnb mix 2024",
       "energetic drum and bass",
       "epic dnb mix"
+    ],
+    "description": "Drum & Bass mix van DJ Cylow — krachtig en episch, perfect voor een lange avondrit. Met Delta Heavy, Wilkinson, Netsky en Feint.",
+    "top_artists": [
+      "Wilkinson",
+      "Netsky",
+      "Delta Heavy"
     ],
     "tracklist": [
       {
@@ -236,7 +241,6 @@
     "image_wide_small": "/images/full/blue/wide/image_full_blue_20220406_wide-small.webp",
     "image_wide_large": "/images/full/blue/wide/image_full_blue_20220406_wide-large.webp",
     "image_square": "/images/full/blue/square/image_full_blue_20220406_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — vol energie en donkere diepgang, ideaal voor een thuisfeest. Met Keeno, Wilkinson, Maduk en Hedex.",
     "tags": [
       "drum and bass mix 2021",
       "drum and bass",
@@ -261,6 +265,12 @@
       "dnb mix 2021",
       "energetic drum and bass",
       "home party mix"
+    ],
+    "description": "Drum & Bass mix van DJ Cylow — vol energie en donkere diepgang, ideaal voor een thuisfeest. Met Keeno, Wilkinson, Maduk en Hedex.",
+    "top_artists": [
+      "Wilkinson",
+      "Maduk",
+      "Keeno"
     ],
     "tracklist": [
       {

@@ -331,6 +331,7 @@ async function main() {
     image_wide_large: imgs.wide_large,
     image_square:     imgs.square,
     description,
+    top_artists: [],
     tracklist,
   };
 

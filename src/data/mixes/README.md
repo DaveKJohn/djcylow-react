@@ -81,6 +81,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "image_wide_large": "/images/light/red/wide/image_light_red_20260615_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20260615_square.jpg",
     "description": "Stream de nieuwste Red Light EDM mix van DJ Cylow. Een dikke uurset vol met de hardste festival tracks, unieke overgangen en de nieuwste releases.",
+    "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"],
     "tracklist": [
       { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
       { "time": "00:03:00", "track": "Roddy Lima - Shadows" }
@@ -406,6 +407,26 @@ tracks, unieke overgangen en de nieuwste releases."
 
 ---
 
+### `top_artists` — array of strings, optional, **SEO-critical**
+
+The 3 most-searched artists featured in this mix. Used in the mix description fallback and as SEO signal when no `description` is set.
+
+**Format:** Array of 1–3 artist name strings, exactly as they appear in the tracklist.
+
+**Example:**
+```json
+"top_artists": ["Tiësto", "MEDUZA", "Chris Lake"]
+```
+
+**Rules:**
+- Pick by online search volume / artist fame, not by tracklist order or frequency
+- Maximum 3 entries — use the most recognizable names
+- Spelling must match the tracklist exactly (used for consistency)
+- Optional: if omitted, the page falls back to the first unique artists in tracklist order
+- Fill this in for all new mixes — leave empty `[]` only if the tracklist has no well-known names
+
+---
+
 ### `tracklist` — array, required
 
 Array of track objects, ordered chronologically from start to end of the mix.
@@ -634,6 +655,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
   "image_wide_large": "/images/light/red/wide/image_light_red_20260615_wide-large.webp",
   "image_square": "/images/light/red/square/image_light_red_20260615_square.jpg",
   "description": "Tech House mix van DJ Cylow — een uur pumping grooves, strakke kicks en melodische elementen. Met tracks van Tiësto, deadmau5, MEDUZA en SIDEPIECE. Perfect voor een avondfeest of een lange drive.",
+  "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"],
   "tracklist": [
     { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
     { "time": "00:03:00", "track": "Roddy Lima - Shadows" },
@@ -650,6 +672,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
 - [ ] `power` is `"Full"` or `"Light"` and matches the filename
 - [ ] `date` is filled as `"YYYY-MM-DD"`
 - [ ] `description` is unique, 120–160 chars, in Dutch, mentions genre + artists
+- [ ] `top_artists` contains the 3 most-searched artists from the tracklist
 - [ ] `audioSrc` uses the active R2 bucket
 - [ ] All three image paths are correct and files exist in `public/images/`
 - [ ] Tracklist times use `"HH:MM:SS"` format

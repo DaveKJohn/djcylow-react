@@ -19,7 +19,6 @@
     "image_wide_small": "/images/full/red/wide/image_full_red_20240226_wide-small.webp",
     "image_wide_large": "/images/full/red/wide/image_full_red_20240226_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20240226_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — explosieve energie en maximale adrenaline, ideaal voor een festival. Met DC Breaks, Black Sun Empire, Metrik en Netsky.",
     "tags": [
       "drum and bass mix 2024",
       "drum and bass",
@@ -44,6 +43,12 @@
       "high energy electronic mix",
       "rave mix 2024",
       "heavy bass mix"
+    ],
+    "description": "Drum & Bass mix van DJ Cylow — explosieve energie en maximale adrenaline, ideaal voor een festival. Met DC Breaks, Black Sun Empire, Metrik en Netsky.",
+    "top_artists": [
+      "Netsky",
+      "Metrik",
+      "Delta Heavy"
     ],
     "tracklist": [
       {
@@ -244,7 +249,6 @@
     "image_wide_small": "/images/full/red/wide/image_full_red_20230502_wide-small.webp",
     "image_wide_large": "/images/full/red/wide/image_full_red_20230502_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20230502_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — ongenadige kracht en non-stop drive, perfect voor een thuisfeest. Met Mefjus, Pendulum, Teddy Killerz en Delta Heavy.",
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -270,6 +274,12 @@
       "rave mix 2023",
       "heavy bass mix",
       "gaming mix"
+    ],
+    "description": "Drum & Bass mix van DJ Cylow — ongenadige kracht en non-stop drive, perfect voor een thuisfeest. Met Mefjus, Pendulum, Teddy Killerz en Delta Heavy.",
+    "top_artists": [
+      "Pendulum",
+      "Mefjus",
+      "Delta Heavy"
     ],
     "tracklist": [
       {
@@ -434,7 +444,6 @@
     "image_wide_small": "/images/full/red/wide/image_full_red_20230403_wide-small.webp",
     "image_wide_large": "/images/full/red/wide/image_full_red_20230403_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20230403_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — donkere basslines en agressieve energie, rauw en compromisloos. Met Camo & Krooked, Phace, Metrik en Delta Heavy.",
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -459,6 +468,12 @@
       "high energy electronic mix",
       "rave mix 2023",
       "dark bass music mix"
+    ],
+    "description": "Drum & Bass mix van DJ Cylow — donkere basslines en agressieve energie, rauw en compromisloos. Met Camo & Krooked, Phace, Metrik en Delta Heavy.",
+    "top_artists": [
+      "Pendulum",
+      "Camo & Krooked",
+      "Andy C"
     ],
     "tracklist": [
       {
@@ -623,7 +638,6 @@
     "image_wide_small": "/images/full/red/wide/image_full_red_20220711_wide-small.webp",
     "image_wide_large": "/images/full/red/wide/image_full_red_20220711_wide-large.webp",
     "image_square": "/images/full/red/square/image_full_red_20220711_square.webp",
-    "description": "Drum & Bass mix van DJ Cylow — vol spanning en pure festivalvibes, van begin tot einde op volle kracht. Met ShockOne, Black Sun Empire en Pendulum.",
     "tags": [
       "drum and bass mix 2022",
       "drum and bass",
@@ -649,6 +663,12 @@
       "rave mix 2022",
       "heavy bass mix",
       "focus music"
+    ],
+    "description": "Drum & Bass mix van DJ Cylow — vol spanning en pure festivalvibes, van begin tot einde op volle kracht. Met ShockOne, Black Sun Empire en Pendulum.",
+    "top_artists": [
+      "Pendulum",
+      "The Prodigy",
+      "Black Sun Empire"
     ],
     "tracklist": [
       {
