@@ -1,9 +1,9 @@
 [
   {
     "id": "20260615",
-    "featured": false,
-    "ignore": false,
     "title": "Tech House · Red Light (m) Mix · Vol. 6",
+    "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, van underground naar club, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
+    "description_en": "Tech House mix by DJ Cylow. Warm and driven, from underground to club, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "genre": "EDM",
     "subgenre": "Tech House",
     "color": "Red",
@@ -16,9 +16,16 @@
     "dag": "15",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20260615.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20260615_Audio_V1%20(Vol.%206).mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20260615_wide-small.webp",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20260615_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20260615_square.webp",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20260615_small.webp",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20260615_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20260615.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Tiësto",
+      "deadmau5",
+      "MEDUZA"
+    ],
     "tags": [
       "tech house mix 2026",
       "tech house",
@@ -42,13 +49,6 @@
       "Anabel Englund",
       "electronic music 2026",
       "DJ mix tech house"
-    ],
-    "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, van underground naar club, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
-    "description_en": "Tech House mix by DJ Cylow. Warm and driven, from underground to club, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
-    "top_artists": [
-      "Tiësto",
-      "deadmau5",
-      "MEDUZA"
     ],
     "tracklist": [
       {
@@ -191,9 +191,9 @@
   },
   {
     "id": "20251213",
-    "featured": false,
-    "ignore": false,
     "title": "Melodic Techno · Red Light (m) Mix · Vol. 5",
+    "description_nl": "Melodic Techno mix van DJ Cylow. Hypnotisch en opbouwend, vol diepe texturen, donkere synths en een warme sfeer. Perfect voor een late nacht of focussessie.",
+    "description_en": "Melodic Techno mix by DJ Cylow. Hypnotic and building, full of deep textures, dark synths and a warm atmosphere. Perfect for a late night or focus session.",
     "genre": "EDM",
     "subgenre": "Melodic Techno",
     "color": "Red",
@@ -206,9 +206,16 @@
     "dag": "13",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20251213.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20251213_Audio_V1%20(Vol.%205).mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20251213_wide-small.webp",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20251213_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20251213_square.webp",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20251213_small.webp",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20251213_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20251213.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "MEDUZA",
+      "Matan Caspi",
+      "Animal Trainer"
+    ],
     "tags": [
       "melodic techno mix 2025",
       "melodic techno",
@@ -232,13 +239,6 @@
       "chilled electronic mix",
       "deep hypnotic techno",
       "electronic DJ mix 2025"
-    ],
-    "description_nl": "Melodic Techno mix van DJ Cylow. Hypnotisch en opbouwend, vol diepe texturen, donkere synths en een warme sfeer. Perfect voor een late nacht of focussessie.",
-    "description_en": "Melodic Techno mix by DJ Cylow. Hypnotic and building, full of deep textures, dark synths and a warm atmosphere. Perfect for a late night or focus session.",
-    "top_artists": [
-      "MEDUZA",
-      "Matan Caspi",
-      "Animal Trainer"
     ],
     "tracklist": [
       {
@@ -361,9 +361,9 @@
   },
   {
     "id": "20250916",
-    "featured": false,
-    "ignore": false,
     "title": "Progressive House · Red Light (m) Mix · Vol. 4",
+    "description_nl": "Progressive House mix van DJ Cylow. Melodisch en meeslepend, vol emotionele builds en opbouwende energie. Perfect voor een lange sessie of avondrit.",
+    "description_en": "Progressive House mix by DJ Cylow. Melodic and captivating, full of emotional builds and sustained energy. Perfect for a long session or evening drive.",
     "genre": "EDM",
     "subgenre": "Progressive House",
     "color": "Red",
@@ -376,9 +376,16 @@
     "dag": "16",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20250916.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250916_Audio_V1%20(Vol.%204).mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20250916_wide-small.webp",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20250916_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20250916_square.webp",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20250916_small.webp",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20250916_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20250916.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Matan Caspi",
+      "Stan Kolev",
+      "Jiggler"
+    ],
     "tags": [
       "progressive house mix 2025",
       "progressive house",
@@ -402,13 +409,6 @@
       "deep melodic house mix",
       "electronic music 2025",
       "DJ mix progressive house"
-    ],
-    "description_nl": "Progressive House mix van DJ Cylow. Melodisch en meeslepend, vol emotionele builds en opbouwende energie. Perfect voor een lange sessie of avondrit.",
-    "description_en": "Progressive House mix by DJ Cylow. Melodic and captivating, full of emotional builds and sustained energy. Perfect for a long session or evening drive.",
-    "top_artists": [
-      "Matan Caspi",
-      "Stan Kolev",
-      "Jiggler"
     ],
     "tracklist": [
       {
@@ -531,9 +531,9 @@
   },
   {
     "id": "20250401",
-    "featured": false,
-    "ignore": false,
     "title": "Progressive House · Red Light (m) Mix · Vol. 3",
+    "description_nl": "Progressive House mix van DJ Cylow. Gedreven en emotioneel geladen, vol diepe synths en donkere melodieën. Perfect voor een avondrit of nachtelijke sessie.",
+    "description_en": "Progressive House mix by DJ Cylow. Driven and emotionally charged, full of deep synths and dark melodies. Perfect for an evening drive or night session.",
     "genre": "EDM",
     "subgenre": "Progressive House",
     "color": "Red",
@@ -546,9 +546,16 @@
     "dag": "01",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20250401.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250401_Audio_V1%20(Vol.%203).mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20250401_wide-small.webp",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20250401_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20250401_square.webp",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20250401_small.webp",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20250401_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20250401.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Jiggler",
+      "Khainz",
+      "Second Sine"
+    ],
     "tags": [
       "melodic techno mix 2026",
       "melodic techno",
@@ -572,13 +579,6 @@
       "Jiggler techno",
       "Fabrication gravity",
       "khainz remix"
-    ],
-    "description_nl": "Progressive House mix van DJ Cylow. Gedreven en emotioneel geladen, vol diepe synths en donkere melodieën. Perfect voor een avondrit of nachtelijke sessie.",
-    "description_en": "Progressive House mix by DJ Cylow. Driven and emotionally charged, full of deep synths and dark melodies. Perfect for an evening drive or night session.",
-    "top_artists": [
-      "Jiggler",
-      "Khainz",
-      "Second Sine"
     ],
     "tracklist": [
       {
@@ -709,9 +709,9 @@
   },
   {
     "id": "20250204",
-    "featured": false,
-    "ignore": false,
     "title": "Progressive House · Red Light (m) Mix · Vol. 2",
+    "description_nl": "Progressive House mix van DJ Cylow. Warm en diepgaand, vol rijke melodieën en emotionele harmonieën. Ideaal voor een late wintersessie of een koude avond.",
+    "description_en": "Progressive House mix by DJ Cylow. Warm and deep, full of rich melodies and emotional harmonies. Ideal for a late winter session or a cold evening.",
     "genre": "EDM",
     "subgenre": "Progressive House",
     "color": "Red",
@@ -724,9 +724,16 @@
     "dag": "04",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20250204.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20250204_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20250204_wide-small.webp",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20250204_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20250204_square.webp",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20250204_small.webp",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20250204_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20250204.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Stan Kolev",
+      "Rafael Cerato",
+      "Animal Trainer"
+    ],
     "tags": [
       "progressive house mix 2025",
       "progressive house",
@@ -750,13 +757,6 @@
       "deep melodic DJ mix",
       "electronic music 2025",
       "winter electronic mix"
-    ],
-    "description_nl": "Progressive House mix van DJ Cylow. Warm en diepgaand, vol rijke melodieën en emotionele harmonieën. Ideaal voor een late wintersessie of een koude avond.",
-    "description_en": "Progressive House mix by DJ Cylow. Warm and deep, full of rich melodies and emotional harmonies. Ideal for a late winter session or a cold evening.",
-    "top_artists": [
-      "Stan Kolev",
-      "Rafael Cerato",
-      "Animal Trainer"
     ],
     "tracklist": [
       {
@@ -883,9 +883,9 @@
   },
   {
     "id": "20241009",
-    "featured": false,
-    "ignore": false,
     "title": "Progressive House · Red Light (m) Mix · Vol. 1",
+    "description_nl": "Progressive House mix van DJ Cylow. De eerste Red Light set, vol atmosfeer, opbouwende grooves en emotionele diepte. Perfect voor een late avond of nachtrit.",
+    "description_en": "Progressive House mix by DJ Cylow. The first Red Light set, full of atmosphere, building grooves and emotional depth. Perfect for a late night or night drive.",
     "genre": "EDM",
     "subgenre": "Progressive House",
     "color": "Red",
@@ -898,9 +898,16 @@
     "dag": "09",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20241009.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20241009_Audio_v1%20(Vol.%201).mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20241009_wide-small.webp",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20241009_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20241009_square.webp",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20241009_small.webp",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20241009_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20241009.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Moritz Hofbauer",
+      "Jiggler",
+      "Rafael Cerato"
+    ],
     "tags": [
       "progressive house mix 2024",
       "progressive house",
@@ -924,13 +931,6 @@
       "atmospheric electronic mix",
       "electronic music 2024",
       "DJ mix 2024 progressive house"
-    ],
-    "description_nl": "Progressive House mix van DJ Cylow. De eerste Red Light set, vol atmosfeer, opbouwende grooves en emotionele diepte. Perfect voor een late avond of nachtrit.",
-    "description_en": "Progressive House mix by DJ Cylow. The first Red Light set, full of atmosphere, building grooves and emotional depth. Perfect for a late night or night drive.",
-    "top_artists": [
-      "Moritz Hofbauer",
-      "Jiggler",
-      "Rafael Cerato"
     ],
     "tracklist": [
       {
@@ -1053,9 +1053,9 @@
   },
   {
     "id": "20230121",
-    "featured": false,
-    "ignore": false,
     "title": "Organic House · Red Light (f) Mix · Vol. 1",
+    "description_nl": "Organic House mix van DJ Cylow. Aards en sensueel, vol oosterse klanken, organische percussie en warme melodieën. Perfect voor een mysterieuze late avond.",
+    "description_en": "Organic House mix by DJ Cylow. Earthy and sensual, full of eastern sounds, organic percussion and warm melodies. Perfect for a mysterious late evening.",
     "genre": "EDM",
     "subgenre": "Organic House",
     "color": "Red",
@@ -1068,9 +1068,16 @@
     "dag": "21",
     "permalink": "luister/mix/red-light-f-EDM-128BPM-20230121.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_f_EDM_112BPM_20230121_Audio_v2.mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20230121_wide-small.webp",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20230121_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20230121_square.webp",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20230121_small.webp",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20230121_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20230121.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Bedouin",
+      "Ferhat Sonsoz",
+      "Anatolian Sessions"
+    ],
     "tags": [
       "organic house mix 2023",
       "organic house",
@@ -1094,13 +1101,6 @@
       "world music house",
       "ethnic house mix",
       "underground organic house"
-    ],
-    "description_nl": "Organic House mix van DJ Cylow. Aards en sensueel, vol oosterse klanken, organische percussie en warme melodieën. Perfect voor een mysterieuze late avond.",
-    "description_en": "Organic House mix by DJ Cylow. Earthy and sensual, full of eastern sounds, organic percussion and warm melodies. Perfect for a mysterious late evening.",
-    "top_artists": [
-      "Bedouin",
-      "Ferhat Sonsoz",
-      "Anatolian Sessions"
     ],
     "tracklist": [
       {
@@ -1195,9 +1195,9 @@
   },
   {
     "id": "20220523",
-    "featured": false,
-    "ignore": false,
     "title": "Drum & Bass · Red Light (m) Mix · Vol. 1",
+    "description_nl": "Neurofunk mix van DJ Cylow. Donker, technisch en meedogenloos, vol harde basslines en complexe drumpatronen. Perfect voor gamen, sporten of een focussessie.",
+    "description_en": "Neurofunk mix by DJ Cylow. Dark, technical and relentless, full of hard basslines and complex drum patterns. Perfect for gaming, working out, or focusing.",
     "genre": "Drum & Bass",
     "subgenre": "Neurofunk",
     "color": "Red",
@@ -1210,9 +1210,16 @@
     "dag": "23",
     "permalink": "luister/mix/red-light-m-EDM-DNB-20220523.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_DNB_20220523_Audio_V2%20(Vol.%201).mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20220523_wide-small.webp",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20220523_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20220523_square.webp",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20220523_small.webp",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20220523_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20220523.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Noisia",
+      "Mefjus",
+      "Camo & Krooked"
+    ],
     "tags": [
       "neurofunk mix 2022",
       "neurofunk",
@@ -1236,13 +1243,6 @@
       "neurofunk DJ mix",
       "dark electronic mix",
       "dnb mix 2022"
-    ],
-    "description_nl": "Neurofunk mix van DJ Cylow. Donker, technisch en meedogenloos, vol harde basslines en complexe drumpatronen. Perfect voor gamen, sporten of een focussessie.",
-    "description_en": "Neurofunk mix by DJ Cylow. Dark, technical and relentless, full of hard basslines and complex drum patterns. Perfect for gaming, working out, or focusing.",
-    "top_artists": [
-      "Noisia",
-      "Mefjus",
-      "Camo & Krooked"
     ],
     "tracklist": [
       {
@@ -1385,9 +1385,9 @@
   },
   {
     "id": "Red_light_preview",
-    "featured": true,
-    "ignore": true,
     "title": "Preview · Red Light (f) Mix",
+    "description_nl": "",
+    "description_en": "",
     "genre": "EDM",
     "subgenre": "Preview",
     "color": "Red",
@@ -1403,8 +1403,8 @@
     "image_wide_small": "",
     "image_wide_large": "",
     "image_square": "/images/light/Red/square/image_light_red_preview_square.webp",
-    "description_nl": "",
-    "description_en": "",
+    "featured": true,
+    "ignore": true,
     "top_artists": [],
     "tracklist": []
   }

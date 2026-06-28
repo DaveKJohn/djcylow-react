@@ -63,9 +63,9 @@ Within each file, mixes are sorted **newest first** (descending by date).
 [
   {
     "id": "20260615",
-    "featured": false,
-    "ignore": false,
     "title": "Tech House · Red Light (m) Mix · Vol. 6",
+    "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
+    "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "genre": "EDM",
     "subgenre": "Tech House",
     "color": "Red",
@@ -78,12 +78,13 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "dag": "15",
     "permalink": "luister/mix/red-light-m-EDM-128BPM-20260615.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20260615_Audio_V1%20(Vol.%206).mp3",
-    "image_wide_small": "/images/light/red/wide/image_light_red_20260615_wide-small.jpg",
-    "image_wide_large": "/images/light/red/wide/image_light_red_20260615_wide-large.webp",
-    "image_square": "/images/light/red/square/image_light_red_20260615_square.jpg",
-    "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
-    "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
+    "image_wide_small": "/images/light/red/wide/image_light_red_wide_20260615_small.jpg",
+    "image_wide_large": "/images/light/red/wide/image_light_red_wide_20260615_large.webp",
+    "image_square": "/images/light/red/square/image_light_red_square_20260615.jpg",
+    "featured": false,
+    "ignore": false,
     "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"],
+    "tags": ["tech house mix 2026", "tech house", "DJ mix"],
     "tracklist": [
       { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
       { "time": "00:03:00", "track": "Roddy Lima - Shadows" }
@@ -363,9 +364,9 @@ https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_2
 
 Path to the small-width wide-format cover image (used as playlist card thumbnail).
 
-**Format:** `/images/[power-lowercase]/[color-lowercase]/wide/image_[power-lowercase]_[color-lowercase]_[YYYYMMDD]_wide-small.jpg`
+**Format:** `/images/[power-lowercase]/[color-lowercase]/wide/image_[power-lowercase]_[color-lowercase]_wide_[YYYYMMDD]_small.jpg`
 
-**Example:** `/images/light/red/wide/image_light_red_20260615_wide-small.jpg`
+**Example:** `/images/light/red/wide/image_light_red_wide_20260615_small.jpg`
 
 **Rules:**
 
@@ -379,9 +380,9 @@ Path to the small-width wide-format cover image (used as playlist card thumbnail
 
 Path to the large wide-format cover image (used on the mix detail page).
 
-**Format:** `/images/[power-lowercase]/[color-lowercase]/wide/image_[power-lowercase]_[color-lowercase]_[YYYYMMDD]_wide-large.webp`
+**Format:** `/images/[power-lowercase]/[color-lowercase]/wide/image_[power-lowercase]_[color-lowercase]_wide_[YYYYMMDD]_large.webp`
 
-**Example:** `/images/light/red/wide/image_light_red_20260615_wide-large.webp`
+**Example:** `/images/light/red/wide/image_light_red_wide_20260615_large.webp`
 
 **Rules:**
 
@@ -394,9 +395,9 @@ Path to the large wide-format cover image (used on the mix detail page).
 
 Path to the square-cropped cover image (used in mix grid cards).
 
-**Format:** `/images/[power-lowercase]/[color-lowercase]/square/image_[power-lowercase]_[color-lowercase]_[YYYYMMDD]_square.jpg`
+**Format:** `/images/[power-lowercase]/[color-lowercase]/square/image_[power-lowercase]_[color-lowercase]_square_[YYYYMMDD].jpg`
 
-**Example:** `/images/light/red/square/image_light_red_20260615_square.jpg`
+**Example:** `/images/light/red/square/image_light_red_square_20260615.jpg`
 
 **Rules:**
 
@@ -456,7 +457,7 @@ English description of the mix. Same rules as `description_nl` but in English.
 
 ### `top_artists` — array of strings, optional, **SEO-critical**
 
-The 3 most-searched artists featured in this mix. Used in the mix description fallback and as SEO signal when no `description` is set.
+The 3 most-searched artists featured in this mix. Used in the mix description fallback and as SEO signal when no `description_nl` is set.
 
 **Format:** Array of 1–3 artist name strings, exactly as they appear in the tracklist.
 
@@ -473,6 +474,37 @@ The 3 most-searched artists featured in this mix. Used in the mix description fa
 - Spelling must match the tracklist exactly (used for consistency)
 - Optional: if omitted, the page falls back to the first unique artists in tracklist order
 - Fill this in for all new mixes — leave empty `[]` only if the tracklist has no well-known names
+
+---
+
+### `tags` — array of strings, optional, **SEO-critical**
+
+Search keywords for this mix. Indexed as invisible metadata and used by search engines to match long-tail queries.
+
+**Format:** Array of strings, each a lowercase search phrase or keyword.
+
+**Example:**
+
+```json
+"tags": [
+  "tech house mix 2026",
+  "tech house",
+  "underground tech house",
+  "driving tech house",
+  "DJ mix tech house",
+  "Tiesto mix",
+  "Chris Lake mix"
+]
+```
+
+**Rules:**
+
+- Include the subgenre name exactly as people search it (e.g. `"tech house mix 2026"`)
+- Include artist name variants searchers use (e.g. `"Tiesto mix"` not just `"Tiësto"`)
+- Include mood/use-case phrases (e.g. `"late night drive mix"`, `"focus music"`)
+- Lowercase preferred, but artist names can keep their casing
+- No minimum/maximum count — aim for 10–25 meaningful tags
+- Do NOT repeat tags that are already in `title`, `subgenre`, or `genre` verbatim — add variants and long-tails
 
 ---
 
@@ -549,7 +581,8 @@ Google indexes individual mix pages at `/luister/mix/[slug]`. For each page to r
 | Field | SEO Impact | Priority |
 |---|---|---|
 | `title` | `<h1>`, `<title>` tag, OG title | **Critical** |
-| `description` | Meta description, OG description | **Critical** |
+| `description_nl` | Meta description, OG description (NL) | **Critical** |
+| `description_en` | Meta description, OG description (EN) | **Critical** |
 | `subgenre` | Appears in title, structured data, URL context | **High** |
 | `tracklist` | Indexed as text content on the page; artists are searchable | **High** |
 | `color` | Used in structured data and page schema | Medium |
@@ -612,7 +645,7 @@ Each color file may contain a special "preview" entry — a short audio clip tha
 - `"featured": true` — used for special display logic
 - `"tracklist": []` — empty array
 - `"audioSrc"` — points to a short preview file (e.g., `Red_Light_Preview.mp3`)
-- Most other fields (`date`, `volume`, `image_wide_*`, `description`) are empty strings
+- Most other fields (`date`, `volume`, `image_wide_*`, `description_nl`, `description_en`) are empty strings
 
 **Do not modify preview entries** unless you are changing the preview audio file itself.
 
@@ -694,9 +727,8 @@ Below is a model entry that follows all rules and maximizes SEO value:
   "id": "20260615", 
   "title": "Tech House · Red Light (m) Mix · Vol. 6",
   "description_nl": "Tech House mix van DJ Cylow. Een uur pumping grooves, strakke kicks en melodische elementen. Perfect voor een avondfeest of een lange drive.",
-  "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.",
-  "description_EN": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks, and melodic elements. Perfect for a party night or a long drive.",
-  "genre": "House",
+  "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.", 
+  "genre": "EDM",
   "subgenre": "Tech House",
   "color": "Red",
   "power": "Light",
@@ -708,9 +740,9 @@ Below is a model entry that follows all rules and maximizes SEO value:
   "dag": "15",
   "permalink": "luister/mix/red-light-m-EDM-128BPM-20260615.html",
   "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20260615_Audio_V1%20(Vol.%206).mp3",
-  "image_wide_small": "/images/light/red/wide/image_light_red_20260615_wide-small.jpg",
-  "image_wide_large": "/images/light/red/wide/image_light_red_20260615_wide-large.webp",
-  "image_square": "/images/light/red/square/image_light_red_20260615_square.jpg", 
+  "image_wide_small": "/images/light/red/wide/image_light_red_wide_20260615_small.jpg",
+  "image_wide_large": "/images/light/red/wide/image_light_red_wide_20260615_large.webp",
+  "image_square": "/images/light/red/square/image_light_red_square_20260615.jpg",
   "featured": false,
   "ignore": false,
   "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"],
@@ -754,8 +786,8 @@ Below is a model entry that follows all rules and maximizes SEO value:
 - [ ] `color` is capitalized and matches the filename
 - [ ] `power` is `"Full"` or `"Light"` and matches the filename
 - [ ] `date` is filled as `"YYYY-MM-DD"`
-- [ ] `description_nl` is unique, 120–160 chars, in Dutch, geen dash (`-`/`—`), geen artiestnamen
-- [ ] `description_en` is unique, 120–160 chars, in English, no dashes, no artist names
+- [ ] `description_nl` is unique, 120–160 chars, in Dutch, geen dash (`—`), geen artiestnamen
+- [ ] `description_en` is unique, 120–160 chars, in English, no dash (`—`), no artist names
 - [ ] `top_artists` contains the 3 most-searched artists from the tracklist
 - [ ] `audioSrc` uses the active R2 bucket
 - [ ] All three image paths are correct and files exist in `public/images/`

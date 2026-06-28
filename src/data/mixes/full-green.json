@@ -1,9 +1,9 @@
 [
   {
     "id": "20231127",
-    "featured": false,
-    "ignore": false,
     "title": "green Full (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Energiek en groovy, vol natuurlijke kracht en vloeiende flow. Perfect voor een actieve avond of thuisfeest.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Energetic and groovy, full of natural power and fluid flow. Perfect for an active evening or house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Green",
@@ -16,9 +16,16 @@
     "dag": "27",
     "permalink": "luister/mix/green-full-m-EDM-176BPM-20231127.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/green/Green_Full_m_EDM_DNB_20231127_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/green/wide/image_full_green_20231127_wide-small.webp",
-    "image_wide_large": "/images/full/green/wide/image_full_green_20231127_wide-large.webp",
+    "image_wide_small": "/images/full/green/wide/image_full_green_wide_20231127_small.webp",
+    "image_wide_large": "/images/full/green/wide/image_full_green_wide_20231127_large.webp",
     "image_square": "/images/full/green/square/image_full_green_20231127_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Sub Focus",
+      "Hybrid Minds"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -45,13 +52,6 @@
       "gaming mix",
       "Hospital Records style",
       "Ram Records vibe"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Energiek en groovy, vol natuurlijke kracht en vloeiende flow. Perfect voor een actieve avond of thuisfeest.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Energetic and groovy, full of natural power and fluid flow. Perfect for an active evening or house party.",
-    "top_artists": [
-      "Pendulum",
-      "Sub Focus",
-      "Hybrid Minds"
     ],
     "tracklist": [
       {
@@ -210,9 +210,9 @@
   },
   {
     "id": "20210418",
-    "featured": false,
-    "ignore": false,
     "title": "green Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodieus en opbouwend, met warme basslines en emotionele melodieën. Ideaal voor een lange rit of rustige avond.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and building, with warm basslines and emotional melodies. Ideal for a long drive or a quiet evening.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Green",
@@ -225,9 +225,16 @@
     "dag": "18",
     "permalink": "luister/mix/green-full-f-EDM-176BPM-20210418.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/green/Green_Full_f_EDM_DNB_20210418_Audio_V1%20(Vol.%201).mp3",
-    "image_wide_small": "/images/full/green/wide/image_full_green_20210418_wide-small.webp",
-    "image_wide_large": "/images/full/green/wide/image_full_green_20210418_wide-large.webp",
+    "image_wide_small": "/images/full/green/wide/image_full_green_wide_20210418_small.webp",
+    "image_wide_large": "/images/full/green/wide/image_full_green_wide_20210418_large.webp",
     "image_square": "/images/full/green/square/image_full_green_20210418_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Sub Focus",
+      "Wilkinson",
+      "Metrik"
+    ],
     "tags": [
       "drum and bass mix 2021",
       "drum and bass",
@@ -254,13 +261,6 @@
       "gaming mix",
       "Hospital Records style",
       "Ram Records vibe"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodieus en opbouwend, met warme basslines en emotionele melodieën. Ideaal voor een lange rit of rustige avond.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and building, with warm basslines and emotional melodies. Ideal for a long drive or a quiet evening.",
-    "top_artists": [
-      "Sub Focus",
-      "Wilkinson",
-      "Metrik"
     ],
     "tracklist": [
       {

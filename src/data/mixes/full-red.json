@@ -1,9 +1,9 @@
 [
   {
     "id": "20240226",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Full (m)",
+    "description_nl": "Neurofunk mix van DJ Cylow. Explosieve energie en maximale adrenaline van begin tot einde. Ideaal voor een festival, workout of een intense thuissessie.",
+    "description_en": "Neurofunk mix by DJ Cylow. Explosive energy and maximum adrenaline from start to finish. Ideal for a festival, workout, or an intense home session.",
     "genre": "Drum & Bass",
     "subgenre": "Neurofunk",
     "color": "red",
@@ -16,9 +16,16 @@
     "dag": "26",
     "permalink": "luister/mix/red-full-m-EDM-176BPM-20240226.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020240226_Audio_v1%20(Vol.%204).mp3",
-    "image_wide_small": "/images/full/red/wide/image_full_red_20240226_wide-small.webp",
-    "image_wide_large": "/images/full/red/wide/image_full_red_20240226_wide-large.webp",
+    "image_wide_small": "/images/full/red/wide/image_full_red_wide_20240226_small.webp",
+    "image_wide_large": "/images/full/red/wide/image_full_red_wide_20240226_large.webp",
     "image_square": "/images/full/red/square/image_full_red_20240226_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Netsky",
+      "Metrik",
+      "Delta Heavy"
+    ],
     "tags": [
       "drum and bass mix 2024",
       "drum and bass",
@@ -43,13 +50,6 @@
       "high energy electronic mix",
       "rave mix 2024",
       "heavy bass mix"
-    ],
-    "description_nl": "Neurofunk mix van DJ Cylow. Explosieve energie en maximale adrenaline van begin tot einde. Ideaal voor een festival, workout of een intense thuissessie.",
-    "description_en": "Neurofunk mix by DJ Cylow. Explosive energy and maximum adrenaline from start to finish. Ideal for a festival, workout, or an intense home session.",
-    "top_artists": [
-      "Netsky",
-      "Metrik",
-      "Delta Heavy"
     ],
     "tracklist": [
       {
@@ -232,9 +232,9 @@
   },
   {
     "id": "20230502",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Full (m)",
+    "description_nl": "Neurofunk mix van DJ Cylow. Ongenadige kracht en non-stop drive van harde basslines en technische programmeringen. Perfect voor een thuisfeest of workout.",
+    "description_en": "Neurofunk mix by DJ Cylow. Relentless power and non-stop drive of hard basslines and technical programming. Perfect for a house party or workout.",
     "genre": "Drum & Bass",
     "subgenre": "Neurofunk",
     "color": "red",
@@ -247,9 +247,16 @@
     "dag": "02",
     "permalink": "luister/mix/red-full-m-EDM-176BPM-20230502.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020230502_Audio_v1%20(Vol.%203).mp3",
-    "image_wide_small": "/images/full/red/wide/image_full_red_20230502_wide-small.webp",
-    "image_wide_large": "/images/full/red/wide/image_full_red_20230502_wide-large.webp",
+    "image_wide_small": "/images/full/red/wide/image_full_red_wide_20230502_small.webp",
+    "image_wide_large": "/images/full/red/wide/image_full_red_wide_20230502_large.webp",
     "image_square": "/images/full/red/square/image_full_red_20230502_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Mefjus",
+      "Delta Heavy"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -275,13 +282,6 @@
       "rave mix 2023",
       "heavy bass mix",
       "gaming mix"
-    ],
-    "description_nl": "Neurofunk mix van DJ Cylow. Ongenadige kracht en non-stop drive van harde basslines en technische programmeringen. Perfect voor een thuisfeest of workout.",
-    "description_en": "Neurofunk mix by DJ Cylow. Relentless power and non-stop drive of hard basslines and technical programming. Perfect for a house party or workout.",
-    "top_artists": [
-      "Pendulum",
-      "Mefjus",
-      "Delta Heavy"
     ],
     "tracklist": [
       {
@@ -428,9 +428,9 @@
   },
   {
     "id": "20230403",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Full (m)",
+    "description_nl": "Neurofunk mix van DJ Cylow. Donkere basslines, agressieve energie en technische drumpatronen. Rauw en compromisloos voor de fanatieke DnB-liefhebber.",
+    "description_en": "Neurofunk mix by DJ Cylow. Dark basslines, aggressive energy and technical drum patterns. Raw and uncompromising for the dedicated DnB enthusiast.",
     "genre": "Drum & Bass",
     "subgenre": "Neurofunk",
     "color": "red",
@@ -443,9 +443,16 @@
     "dag": "03",
     "permalink": "luister/mix/red-full-m-EDM-176BPM-20230403.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020230403_Audio_v1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/red/wide/image_full_red_20230403_wide-small.webp",
-    "image_wide_large": "/images/full/red/wide/image_full_red_20230403_wide-large.webp",
+    "image_wide_small": "/images/full/red/wide/image_full_red_wide_20230403_small.webp",
+    "image_wide_large": "/images/full/red/wide/image_full_red_wide_20230403_large.webp",
     "image_square": "/images/full/red/square/image_full_red_20230403_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Camo & Krooked",
+      "Andy C"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -470,13 +477,6 @@
       "high energy electronic mix",
       "rave mix 2023",
       "dark bass music mix"
-    ],
-    "description_nl": "Neurofunk mix van DJ Cylow. Donkere basslines, agressieve energie en technische drumpatronen. Rauw en compromisloos voor de fanatieke DnB-liefhebber.",
-    "description_en": "Neurofunk mix by DJ Cylow. Dark basslines, aggressive energy and technical drum patterns. Raw and uncompromising for the dedicated DnB enthusiast.",
-    "top_artists": [
-      "Pendulum",
-      "Camo & Krooked",
-      "Andy C"
     ],
     "tracklist": [
       {
@@ -623,9 +623,9 @@
   },
   {
     "id": "20220711",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Full (m)",
+    "description_nl": "Neurofunk mix van DJ Cylow. Vol spanning en pure festivalvibes, van begin tot einde op volle kracht met harde drops en meedogenloze energie.",
+    "description_en": "Neurofunk mix by DJ Cylow. Full of tension and pure festival vibes, all-out from start to finish with hard drops and relentless energy.",
     "genre": "Drum & Bass",
     "subgenre": "Neurofunk",
     "color": "red",
@@ -638,9 +638,16 @@
     "dag": "11",
     "permalink": "luister/mix/red-full-m-EDM-176BPM-20220711.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020220711_Audio_v1%20(Vol.%201).mp3",
-    "image_wide_small": "/images/full/red/wide/image_full_red_20220711_wide-small.webp",
-    "image_wide_large": "/images/full/red/wide/image_full_red_20220711_wide-large.webp",
+    "image_wide_small": "/images/full/red/wide/image_full_red_wide_20220711_small.webp",
+    "image_wide_large": "/images/full/red/wide/image_full_red_wide_20220711_large.webp",
     "image_square": "/images/full/red/square/image_full_red_20220711_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "The Prodigy",
+      "Black Sun Empire"
+    ],
     "tags": [
       "drum and bass mix 2022",
       "drum and bass",
@@ -666,13 +673,6 @@
       "rave mix 2022",
       "heavy bass mix",
       "focus music"
-    ],
-    "description_nl": "Neurofunk mix van DJ Cylow. Vol spanning en pure festivalvibes, van begin tot einde op volle kracht met harde drops en meedogenloze energie.",
-    "description_en": "Neurofunk mix by DJ Cylow. Full of tension and pure festival vibes, all-out from start to finish with hard drops and relentless energy.",
-    "top_artists": [
-      "Pendulum",
-      "The Prodigy",
-      "Black Sun Empire"
     ],
     "tracklist": [
       {

@@ -1,9 +1,9 @@
 [
   {
     "id": "20260507",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Euforisch en vol energie, met pumping basslines en melodische drops. Ideaal voor een zomers thuisfeest of festival.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Euphoric and full of energy, with pumping basslines and melodic drops. Ideal for a summer house party or festival.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -16,9 +16,16 @@
     "dag": "07",
     "permalink": "luister/mix/orange-full-m-DNB-20260507.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20260507_Audio_V1%20(Vol.%209).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20260507_wide-large.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20260507_wide-large.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20260507_large.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20260507_large.webp",
     "image_square": "/images/full/orange/square/image_full_orange_20260507_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Wilkinson",
+      "Sub Focus",
+      "Metrik"
+    ],
     "tags": [
       "drum and bass mix 2026",
       "drum and bass",
@@ -44,13 +51,6 @@
       "DJ Cylow mix",
       "electronic dance music mix",
       "ram records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Euforisch en vol energie, met pumping basslines en melodische drops. Ideaal voor een zomers thuisfeest of festival.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Euphoric and full of energy, with pumping basslines and melodic drops. Ideal for a summer house party or festival.",
-    "top_artists": [
-      "Wilkinson",
-      "Sub Focus",
-      "Metrik"
     ],
     "tracklist": [
       {
@@ -201,9 +201,9 @@
   },
   {
     "id": "20250521",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Warm en feestelijk, vol melodische energie en zonnige vibes. Perfect voor een lange zomerse rit of buitenfeest.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Warm and festive, full of melodic energy and sunny vibes. Perfect for a long summer drive or outdoor party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -216,9 +216,16 @@
     "dag": "21",
     "permalink": "luister/mix/orange-full-f-DRUM-BASS-176BPM-20250521.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20250521_Audio_V1%20(Vol.%208).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20250521_wide-small.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20250521_wide-large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20250521_square.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20250521_small.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20250521_large.webp",
+    "image_square": "/images/full/orange/square/image_full_orange_square_20250521.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Wilkinson",
+      "Sub Focus"
+    ],
     "tags": [
       "drum and bass mix 2025",
       "drum and bass",
@@ -244,13 +251,6 @@
       "electronic dance music mix",
       "hospital records style",
       "ram records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Warm en feestelijk, vol melodische energie en zonnige vibes. Perfect voor een lange zomerse rit of buitenfeest.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Warm and festive, full of melodic energy and sunny vibes. Perfect for a long summer drive or outdoor party.",
-    "top_artists": [
-      "Pendulum",
-      "Wilkinson",
-      "Sub Focus"
     ],
     "tracklist": [
       {
@@ -417,9 +417,9 @@
   },
   {
     "id": "20231218",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Opbouwende energie en feestelijke kracht vol diepe drops en melodische breaks. Ideaal voor een winternachtsessie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Building energy and festive power with deep drops and melodic breaks. Ideal for a winter night session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -432,9 +432,16 @@
     "dag": "18",
     "permalink": "luister/mix/orange-full-f-DRUM-BASS-176BPM-20231218.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20231218_Audio_V1%20(Vol.%207).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20231218_wide-small.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20231218_wide-large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20231218_square.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20231218_small.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20231218_large.webp",
+    "image_square": "/images/full/orange/square/image_full_orange_square_20231218.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Sub Focus",
+      "Wilkinson"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -460,13 +467,6 @@
       "electronic dance music mix",
       "ram records style",
       "hospital records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Opbouwende energie en feestelijke kracht vol diepe drops en melodische breaks. Ideaal voor een winternachtsessie.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Building energy and festive power with deep drops and melodic breaks. Ideal for a winter night session.",
-    "top_artists": [
-      "Pendulum",
-      "Sub Focus",
-      "Wilkinson"
     ],
     "tracklist": [
       {
@@ -649,9 +649,9 @@
   },
   {
     "id": "20230705",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Harde positieve energie en uptempo beats voor een zomers feestje vol dansbare basslines en krachtige drops.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Hard positive energy and uptempo beats for a summer party full of dancefloor basslines and powerful drops.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -664,9 +664,16 @@
     "dag": "05",
     "permalink": "luister/mix/orange-full-m-DRUM-BASS-176BPM-20230705.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20230705_Audio_V1%20(Vol.%206).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20230705_wide-small.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20230705_wide-large.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20230705_small.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20230705_large.webp",
     "image_square": "/images/full/orange/square/image_full_orange_20230705_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Wilkinson",
+      "Sub Focus"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -692,13 +699,6 @@
       "electronic dance music mix",
       "ram records style",
       "positiva records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Harde positieve energie en uptempo beats voor een zomers feestje vol dansbare basslines en krachtige drops.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Hard positive energy and uptempo beats for a summer party full of dancefloor basslines and powerful drops.",
-    "top_artists": [
-      "Pendulum",
-      "Wilkinson",
-      "Sub Focus"
     ],
     "tracklist": [
       {
@@ -873,9 +873,9 @@
   },
   {
     "id": "20230130",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vurige energie en warme basslines vol melodische flow en emotionele drops. Perfect voor een late avondsessie thuis.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Fiery energy and warm basslines full of melodic flow and emotional drops. Perfect for a late-night home session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -888,9 +888,16 @@
     "dag": "30",
     "permalink": "luister/mix/orange-full-f-DRUM-BASS-176BPM-20230130.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20230130_Audio_V3%20(Vol.%205).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20230130_wide-small.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20230130_wide-large.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20230130_small.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20230130_large.webp",
     "image_square": "/images/full/orange/square/image_full_orange_20230130_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Sub Focus",
+      "Wilkinson"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -916,13 +923,6 @@
       "electronic dance music mix",
       "hospital records style",
       "ram records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vurige energie en warme basslines vol melodische flow en emotionele drops. Perfect voor een late avondsessie thuis.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Fiery energy and warm basslines full of melodic flow and emotional drops. Perfect for a late-night home session.",
-    "top_artists": [
-      "Pendulum",
-      "Sub Focus",
-      "Wilkinson"
     ],
     "tracklist": [
       {
@@ -1077,9 +1077,9 @@
   },
   {
     "id": "20221003",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (fm)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Krachtig en euforisch, strak geprogrammeerd met harde drops en melodische progressies. Voor een knallend thuisfeest.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Powerful and euphoric, tightly programmed with hard drops and melodic progressions. For a banging house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -1092,9 +1092,16 @@
     "dag": "03",
     "permalink": "luister/mix/orange-full-m-DRUM-BASS-176BPM-20221003.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20221003_Audio_V1%20(Vol.%204).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20221003_wide-small.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20221003_wide-large.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20221003_small.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20221003_large.webp",
     "image_square": "/images/full/orange/square/image_full_orange_20221003_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Sub Focus",
+      "Andy C"
+    ],
     "tags": [
       "drum and bass mix 2022",
       "drum and bass",
@@ -1120,13 +1127,6 @@
       "electronic dance music mix",
       "ram records style",
       "hospital records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Krachtig en euforisch, strak geprogrammeerd met harde drops en melodische progressies. Voor een knallend thuisfeest.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Powerful and euphoric, tightly programmed with hard drops and melodic progressions. For a banging house party.",
-    "top_artists": [
-      "Pendulum",
-      "Sub Focus",
-      "Andy C"
     ],
     "tracklist": [
       {
@@ -1273,9 +1273,9 @@
   },
   {
     "id": "20220509",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodieus en feestelijk, met een warme flow en aanstekelijke basslines. Perfect voor een lange rit of avondsessie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and festive, with a warm flow and infectious basslines. Perfect for a long drive or evening session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -1288,9 +1288,16 @@
     "dag": "09",
     "permalink": "luister/mix/orange-full-f-DRUM-BASS-176BPM-20220509.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20220509_Audio_V1%20(Vol.%203).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20220509_wide-small.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20220509_wide-large.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20220509_small.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20220509_large.webp",
     "image_square": "/images/full/orange/square/image_full_orange_20220509_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Sub Focus",
+      "Pendulum",
+      "Metrik"
+    ],
     "tags": [
       "drum and bass mix 2022",
       "drum and bass",
@@ -1316,13 +1323,6 @@
       "electronic dance music mix",
       "hospital records style",
       "ram records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodieus en feestelijk, met een warme flow en aanstekelijke basslines. Perfect voor een lange rit of avondsessie.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and festive, with a warm flow and infectious basslines. Perfect for a long drive or evening session.",
-    "top_artists": [
-      "Sub Focus",
-      "Pendulum",
-      "Metrik"
     ],
     "tracklist": [
       {
@@ -1465,9 +1465,9 @@
   },
   {
     "id": "20211105",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Pompende energie en brede basslines vol krachtige drops en dansbare melodieën. Ideaal voor een avond vol beweging.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Pumping energy and wide basslines full of powerful drops and danceable melodies. Ideal for an evening of movement.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -1480,9 +1480,16 @@
     "dag": "05",
     "permalink": "luister/mix/orange-full-m-DRUM-BASS-176BPM-20211105.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20211105_Audio_V2%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20211105_wide-small.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20211105_wide-large.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20211105_small.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20211105_large.webp",
     "image_square": "/images/full/orange/square/image_full_orange_20211105_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Wilkinson",
+      "Sub Focus"
+    ],
     "tags": [
       "drum and bass mix 2021",
       "drum and bass",
@@ -1508,13 +1515,6 @@
       "electronic dance music mix",
       "ram records style",
       "hospital records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Pompende energie en brede basslines vol krachtige drops en dansbare melodieën. Ideaal voor een avond vol beweging.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Pumping energy and wide basslines full of powerful drops and danceable melodies. Ideal for an evening of movement.",
-    "top_artists": [
-      "Pendulum",
-      "Wilkinson",
-      "Sub Focus"
     ],
     "tracklist": [
       {
@@ -1669,9 +1669,9 @@
   },
   {
     "id": "20210621",
-    "featured": false,
-    "ignore": false,
     "title": "Orange Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. De allereerste Orange Full, vol warmte en opbouwende kracht voor een feestelijke avond. Zo begon het allemaal.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. The very first Orange Full, full of warmth and building power for a festive evening. This is where it all began.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Orange",
@@ -1684,9 +1684,16 @@
     "dag": "21",
     "permalink": "luister/mix/orange-full-f-DRUM-BASS-176BPM-20210621.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20210621_Audio_V4%20(Vol.%201).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_20210621_wide-small.webp",
-    "image_wide_large": "/images/full/orange/wide/image_full_orange_20210621_wide-large.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20210621_small.webp",
+    "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20210621_large.webp",
     "image_square": "/images/full/orange/square/image_full_orange_20210621_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Sub Focus",
+      "Andy C"
+    ],
     "tags": [
       "drum and bass mix 2021",
       "drum and bass",
@@ -1712,13 +1719,6 @@
       "electronic dance music mix",
       "hospital records style",
       "ram records style"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. De allereerste Orange Full, vol warmte en opbouwende kracht voor een feestelijke avond. Zo begon het allemaal.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. The very first Orange Full, full of warmth and building power for a festive evening. This is where it all began.",
-    "top_artists": [
-      "Pendulum",
-      "Sub Focus",
-      "Andy C"
     ],
     "tracklist": [
       {

@@ -1,9 +1,9 @@
 [
   {
     "id": "20260303",
-    "featured": false,
-    "ignore": false,
     "title": "yellow Full (m)",
+    "description_nl": "Tech House mix van DJ Cylow. Zonnige dansenergie vol dopamine, groovy kicks en melodische house vibes. Perfect voor een feestelijke dag of avondrit.",
+    "description_en": "Tech House mix by DJ Cylow. Sunny dance energy full of dopamine, groovy kicks and melodic house vibes. Perfect for a festive day or evening drive.",
     "genre": "EDM",
     "subgenre": "Tech House",
     "color": "Yellow",
@@ -16,9 +16,16 @@
     "dag": "03",
     "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20260303.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_128BPM_20260303_Audio_V1.mp3",
-    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20260303_wide-small.webp",
-    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20260303_wide-large.webp",
+    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_wide_20260303_small.webp",
+    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_wide_20260303_large.webp",
     "image_square": "/images/full/yellow/square/image_full_yellow_20260303_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Fedde Le Grand",
+      "Dombresky",
+      "Yolanda Be Cool"
+    ],
     "tags": [
       "edm mix 2026",
       "edm mix",
@@ -43,13 +50,6 @@
       "festival mix",
       "happy dance music",
       "dance floor mix"
-    ],
-    "description_nl": "Tech House mix van DJ Cylow. Zonnige dansenergie vol dopamine, groovy kicks en melodische house vibes. Perfect voor een feestelijke dag of avondrit.",
-    "description_en": "Tech House mix by DJ Cylow. Sunny dance energy full of dopamine, groovy kicks and melodic house vibes. Perfect for a festive day or evening drive.",
-    "top_artists": [
-      "Fedde Le Grand",
-      "Dombresky",
-      "Yolanda Be Cool"
     ],
     "tracklist": [
       {
@@ -188,9 +188,9 @@
   },
   {
     "id": "20231106",
-    "featured": false,
-    "ignore": false,
     "title": "yellow Full (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Explosieve energie en positieve dansvibes voor een onvergetelijk thuisfeest vol zonnige basslines en melodische drops.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Explosive energy and positive dance vibes for an unforgettable house party full of sunny basslines and melodic drops.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Yellow",
@@ -203,9 +203,16 @@
     "dag": "06",
     "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20231106.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20231106_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20231106_wide-small.webp",
-    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20231106_wide-large.webp",
+    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_wide_20231106_small.webp",
+    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_wide_20231106_large.webp",
     "image_square": "/images/full/yellow/square/image_full_yellow_20231106_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Sub Focus",
+      "Wilkinson",
+      "Metrik"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass mix",
@@ -230,13 +237,6 @@
       "rave mix",
       "high energy electronic mix",
       "home party mix"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Explosieve energie en positieve dansvibes voor een onvergetelijk thuisfeest vol zonnige basslines en melodische drops.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Explosive energy and positive dance vibes for an unforgettable house party full of sunny basslines and melodic drops.",
-    "top_artists": [
-      "Sub Focus",
-      "Wilkinson",
-      "Metrik"
     ],
     "tracklist": [
       {
@@ -407,9 +407,9 @@
   },
   {
     "id": "20230220",
-    "featured": false,
-    "ignore": false,
     "title": "yellow Full (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vrolijk en vol zonnige dansenergie, met aanstekelijke basslines en opbouwende melodieën. Ideaal voor een lange rit.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Joyful and full of sunny dance energy, with infectious basslines and building melodies. Ideal for a long drive.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Yellow",
@@ -422,9 +422,16 @@
     "dag": "20",
     "permalink": "luister/mix/yellow-full-m-EDM-176BPM-20230220.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20230220_Audio_V3%20(Vol.%201).mp3",
-    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_20230220_wide-small.webp",
-    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_20230220_wide-large.webp",
+    "image_wide_small": "/images/full/yellow/wide/image_full_yellow_wide_20230220_small.webp",
+    "image_wide_large": "/images/full/yellow/wide/image_full_yellow_wide_20230220_large.webp",
     "image_square": "/images/full/yellow/square/image_full_yellow_20230220_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Sub Focus",
+      "Danny Byrd",
+      "Calyx & TeeBee"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass mix",
@@ -449,13 +456,6 @@
       "electronic mix for driving",
       "energetic dnb",
       "rave mix 2023"
-    ],
-    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vrolijk en vol zonnige dansenergie, met aanstekelijke basslines en opbouwende melodieën. Ideaal voor een lange rit.",
-    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Joyful and full of sunny dance energy, with infectious basslines and building melodies. Ideal for a long drive.",
-    "top_artists": [
-      "Sub Focus",
-      "Danny Byrd",
-      "Calyx & TeeBee"
     ],
     "tracklist": [
       {

@@ -294,9 +294,9 @@ Each JSON file is an **array** of mix objects:
     "dag": "08",
     "permalink": "luister/mix/blue-full-f-DNB-20240408.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/...",
-    "image_wide_small": "/images/full/blue/wide/image_full_blue_20240408_wide-small.jpg",
-    "image_wide_large": "/images/full/blue/wide/image_full_blue_20240408_wide-large.webp",
-    "image_square": "/images/full/blue/square/image_full_blue_20240408_square.jpg",
+    "image_wide_small": "/images/full/blue/wide/image_full_blue_wide_20240408_small.jpg",
+    "image_wide_large": "/images/full/blue/wide/image_full_blue_wide_20240408_large.webp",
+    "image_square": "/images/full/blue/square/image_full_blue_square_20240408.jpg",
     "description": "",
     "tracklist": [
       { "time": "00:00", "track": "1991 - Power (ft. BullySongs)" },
@@ -333,10 +333,10 @@ public/images/
 ├── full/           # Full-intensity mixes
 │   ├── blue/
 │   │   ├── wide/
-│   │   │   ├── image_full_blue_YYYYMMDD_wide-small.jpg    # ~400px wide, used as preview
-│   │   │   └── image_full_blue_YYYYMMDD_wide-large.webp   # Hi-res, used on detail page
+│   │   │   ├── image_full_blue_wide_YYYYMMDD_small.jpg    # ~400px wide, used as preview
+│   │   │   └── image_full_blue_wide_YYYYMMDD_large.webp   # Hi-res, used on detail page
 │   │   └── square/
-│   │       └── image_full_blue_YYYYMMDD_square.jpg        # Square crop, used in playlist cards
+│   │       └── image_full_blue_square_YYYYMMDD.jpg        # Square crop, used in playlist cards
 │   ├── cyan/ ... green/ ... orange/ ... purple/ ... red/ ... yellow/
 │
 └── light/          # Light-intensity mixes (same structure, includes magenta)
@@ -344,9 +344,9 @@ public/images/
 ```
 
 **Image types:**
-- `wide-small.jpg` — JPG, ~400px wide, fast-loading playlist thumbnail
-- `wide-large.webp` — WebP, full resolution, used on mix detail page
-- `square.jpg` — JPG, square crop, used in mix cards in the playlist grid
+- `wide_{date}_small.jpg` — JPG, ~400px wide, fast-loading playlist thumbnail
+- `wide_{date}_large.webp` — WebP, full resolution, used on mix detail page
+- `square_{date}.jpg` — JPG, square crop, used in mix cards in the playlist grid
 
 ---
 
