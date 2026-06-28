@@ -330,7 +330,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 {/* <dl> = description list: semantisch HTML voor sleutel-waarde-paren.
                                     Zoekmachines en AI-crawlers herkennen <dt> (term) + <dd> (waarde)
                                     als gestructureerde feitenparen — beter dan een generieke <div> met tekst. */}
-                                <dl className="row spacing-xl">
+                                <dl className="row spacing-5xl">
 
                                     <div>
                                         <dt className="size-xs">Colour</dt>

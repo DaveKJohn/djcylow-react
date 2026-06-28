@@ -119,6 +119,10 @@
         color: var(--#{$fg-80});
     }
 
+    dl {
+        color: var(--#{$fg-80});
+    }
+
     a {
         color: var(--#{$fg-90});
         &:hover {
