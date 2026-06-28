@@ -22,6 +22,15 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Unieke NL/EN mix descriptions voor alle 77 mixen
+**Branch naam** content/mix-descriptions-all
+**Datum merge op main** TBD
+**Branch type** Content
+
+Nieuw schema-veld `description_nl` (hernoemd van `description`) en `description_en` toegevoegd aan alle 77 actieve mix-entries in alle 15 JSON-bestanden. Elke description is uniek, 120–160 tekens, zonder dashes of artiestnamen (artiesten staan uitsluitend in `top_artists`). README.md bijgewerkt met de nieuwe veldnamen, no-dash-regel en scheiding van artiesten. CLAUDE.md bijgewerkt. Mix-detailpagina (`page.tsx`) aangepast om `description_nl` te lezen.
+
+---
+
 ### Dode `uppercase` Tailwind classes verwijderd
 **Branch naam** fix/remove-unused-uppercase-h1
 **Datum merge op main** 2026-06-27

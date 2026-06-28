@@ -43,7 +43,8 @@
       "electronic music 2026",
       "progressive house DJ set"
     ],
-    "description": "Progressive House mix van DJ Cylow — warm en uitnodigend, ideaal voor een relaxte avond thuis. Met Moon Boots, Dosem, Nora Van Elken en Simon Doty.",
+    "description_nl": "Progressive House mix van DJ Cylow. Warm en uitnodigend, vol melodische vibes en euforische energie. Ideaal voor een relaxte avond thuis.",
+    "description_en": "Progressive House mix by DJ Cylow. Warm and inviting, full of melodic vibes and euphoric energy. Ideal for a relaxed evening at home.",
     "top_artists": [
       "Moon Boots",
       "Dosem",
@@ -216,7 +217,8 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
-    "description": "Progressive House mix van DJ Cylow — euforisch en vol energie, perfect voor een lange rit. Met Eli & Fur, Marsh, Above & Beyond en Sultan + Shepard.",
+    "description_nl": "Progressive House mix van DJ Cylow. Euforisch en vol energie, met opbouwende drops en melodische synths. Perfect voor een lange rit of thuisfeest.",
+    "description_en": "Progressive House mix by DJ Cylow. Euphoric and full of energy, with building drops and melodic synths. Perfect for a long drive or house party.",
     "top_artists": [
       "Above & Beyond",
       "Eli & Fur",
@@ -401,7 +403,8 @@
       "electronic music 2025",
       "drum and bass DJ set"
     ],
-    "description": "Drum & Bass mix van DJ Cylow — sociaal en meeslepend, geweldig voor een thuisfeest. Met Sub Focus, Wilkinson, Etherwood, Maduk en Camo & Krooked.",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Sociaal en meeslepend, vol energie en warme basslines. Geweldig voor een thuisfeest of een gezellig samenzijn.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Social and compelling, full of energy and warm basslines. Great for a house party or a lively get-together.",
     "top_artists": [
       "Sub Focus",
       "Wilkinson",
@@ -582,7 +585,8 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
-    "description": "Progressive House mix van DJ Cylow — uitnodigend en licht, perfect voor een zonnige middag. Met Sultan + Shepard, Nora Van Elken, LTN en Matt Fax.",
+    "description_nl": "Progressive House mix van DJ Cylow. Uitnodigend en licht, vol zachte melodieën en zonnige sfeer. Perfect voor een ontspannen zonnige middag buiten.",
+    "description_en": "Progressive House mix by DJ Cylow. Inviting and light, full of gentle melodies and sunny atmosphere. Perfect for a relaxed afternoon outside.",
     "top_artists": [
       "Sultan + Shepard",
       "Nora En Pure",
@@ -759,7 +763,8 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
-    "description": "Progressive House mix van DJ Cylow — dromerig en euforisch, ideaal voor een vroege ochtend. Met Nora En Pure, Lane 8, Approaching Black en Matt Fax.",
+    "description_nl": "Progressive House mix van DJ Cylow. Dromerig en euforisch, vol heldere melodieën en zachte energie. Ideaal voor een vroege ochtend of rustige middag.",
+    "description_en": "Progressive House mix by DJ Cylow. Dreamy and euphoric, full of bright melodies and gentle energy. Ideal for an early morning or a quiet afternoon.",
     "top_artists": [
       "Nora En Pure",
       "Lane 8",
@@ -932,7 +937,8 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
-    "description": "Progressive House mix van DJ Cylow — warm en melancolisch, ideaal voor een late avond. Met Sultan + Shepard, Nora Van Elken, Tinlicker en Jerro.",
+    "description_nl": "Progressive House mix van DJ Cylow. Warm en melancolisch, vol emotionele melodieën en zachte progressies. Ideaal voor een late avond of rustig moment.",
+    "description_en": "Progressive House mix by DJ Cylow. Warm and melancholic, full of emotional melodies and gentle progressions. Ideal for a late evening or quiet moment.",
     "top_artists": [
       "Sultan + Shepard",
       "Tinlicker",
@@ -1105,7 +1111,8 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
-    "description": "Progressive House mix van DJ Cylow — sfeervol en betoverend voor een herfstavond sessie. Met Marsh, LTN, Dosem, Nora En Pure en Tinlicker.",
+    "description_nl": "Progressive House mix van DJ Cylow. Sfeervol en betoverend, vol warme harmonieën en donkere melodieën. Perfect voor een herfstavond sessie thuis.",
+    "description_en": "Progressive House mix by DJ Cylow. Atmospheric and enchanting, full of warm harmonies and dark melodies. Perfect for an autumn evening session.",
     "top_artists": [
       "Marsh",
       "Dosem",
@@ -1274,7 +1281,8 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
-    "description": "Progressive House mix van DJ Cylow — opwekkend en vol leven, de perfecte start voor elk feest. Met Above & Beyond, Nora En Pure, Eric Prydz en Matt Fax.",
+    "description_nl": "Progressive House mix van DJ Cylow. Opwekkend en vol leven, met energieke melodieën en opbouwende kracht. De perfecte start voor een feest of zomerdag.",
+    "description_en": "Progressive House mix by DJ Cylow. Uplifting and full of life, with energetic melodies and building power. The perfect opener for a party or summer day.",
     "top_artists": [
       "Above & Beyond",
       "Nora En Pure",
@@ -1435,7 +1443,8 @@
     "image_wide_small": "",
     "image_wide_large": "",
     "image_square": "/images/light/orange/square/image_light_orange_preview_square.webp",
-    "description": "",
+    "description_nl": "",
+    "description_en": "",
     "top_artists": [],
     "tracklist": []
   }

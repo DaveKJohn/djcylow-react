@@ -45,7 +45,8 @@ interface Mix {
     image_wide_small: string;
     image_wide_large: string;
     image_square: string;
-    description?: string;       // ? = optioneel veld (hoeft niet ingevuld te zijn)
+    description_nl?: string;     // Nederlandse beschrijving (SEO meta, weergave op pagina)
+    description_en?: string;     // Engelse beschrijving (toekomstige EN-pagina)
     tags?: string[];            // ? = optioneel veld
     top_artists?: string[];     // ? = optioneel veld
     tracklist: { time: string; track: string }[];
@@ -128,7 +129,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 4);
 
     // Gebruik de handgeschreven description als die bestaat; anders een automatisch gegenereerde tekst
-    const descriptionText = mix.description || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
+    const descriptionText = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
 
     // Zet de .html-extensie om naar een schone slug voor de canonieke URL
     const cleanFilename = mix.permalink.split('/').pop() || '';
@@ -189,7 +190,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
     const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
-    const mixDescription = mix.description || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set van DJ Cylow met tracks van top artiesten.`;
+    const mixDescription = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set van DJ Cylow met tracks van top artiesten.`;
 
     // JSON-LD = gestructureerde data die Google leest om rich results te tonen in de zoekresultaten
     // (bijv. een muziekkaart met artiestnamen, trackaantal en een directe luisterknop).
@@ -313,8 +314,8 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                             {/* Beschrijving: toon de handgeschreven tekst uit de JSON als die bestaat,
                                 anders een automatisch gegenereerde fallback-tekst */}
                             <div className="column w-fill AML P35 seo-description">
-                                {mix.description ? (
-                                    <p className="size-base">{mix.description}</p>
+                                {mix.description_nl ? (
+                                    <p className="size-base">{mix.description_nl}</p>
                                 ) : (
                                     <p className="size-base">
                                         Ben je op zoek naar een energieke {mix.subgenre || mix.genre} mix? In <strong>{mix.color} {mix.volume}</strong> brengt

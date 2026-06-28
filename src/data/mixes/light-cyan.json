@@ -41,7 +41,8 @@
       "uplifting dance mix",
       "DJ Cylow mix"
     ],
-    "description": "Nu-Disco mix van DJ Cylow — fris en helder, perfect voor een zonnige middag thuis. Met The Magician, Cosmo's Midnight en Phats & Small.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Fris en helder, vol aanstekelijke grooves en zonnige vibes. Perfect voor een ontspannen middag thuis of een zomerse drive.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Fresh and bright, full of infectious grooves and sunny vibes. Perfect for a relaxed afternoon at home or a summer drive.",
     "top_artists": [
       "The Magician",
       "Cosmo's Midnight",
@@ -212,7 +213,8 @@
       "summer disco mix",
       "DJ Cylow mix"
     ],
-    "description": "Helder en opzwepend nu-disco van DJ Cylow — een mix vol discoklassiekers en festivalgroovers. Met Jax Jones, Phats & Small en Block & Crown.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Helder en opzwepend, vol discoklassiekers en festivalgroovers met aanstekelijke energie. Perfect voor een feestelijk moment.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Bright and uplifting, full of disco classics and festival grooves with infectious energy. Perfect for a festive moment.",
     "top_artists": [
       "Purple Disco Machine",
       "Jax Jones",
@@ -423,7 +425,8 @@
       "house music 2025",
       "DJ Cylow mix"
     ],
-    "description": "Dance mix van DJ Cylow — rustig en gefocust, met frisse club vibes voor een lange avond. Met Sophie Ellis-Bextor, Vintage & Morelli en Block & Crown.",
+    "description_nl": "Deep House mix van DJ Cylow. Rustig en gefocust, met frisse club vibes en heldere melodieën voor een lange ontspannen avond.",
+    "description_en": "Deep House mix by DJ Cylow. Calm and focused, with fresh club vibes and clear melodies. The perfect soundtrack for a long and relaxed evening.",
     "top_artists": [
       "Sophie Ellis-Bextor",
       "Purple Disco Machine",
@@ -594,7 +597,8 @@
       "late night drive mix",
       "DJ Cylow mix"
     ],
-    "description": "Nu-Disco house mix van DJ Cylow — warm en helder, ideaal voor een relaxte avond aan huis. Met Armand Van Helden, The Magician en Sonny Fodera.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Warm en helder, vol swingende grooves en huiselijke energie. Ideaal voor een relaxte avond aan huis of een zonnig terras.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Warm and bright, full of swinging grooves and homely energy. Ideal for a relaxed evening indoors or a sunny terrace.",
     "top_artists": [
       "Armand Van Helden",
       "The Magician",
@@ -765,7 +769,8 @@
       "disco house classics",
       "DJ Cylow mix"
     ],
-    "description": "House mix van DJ Cylow — helder en fris, een klassieker vol tijdloze dancefloor grooves. Met Frankie Knuckles, Purple Disco Machine en Mark Knight.",
+    "description_nl": "House mix van DJ Cylow. Helder en fris, vol tijdloze dancefloor grooves en energetische house beats. Een klassieker voor elke feestgelegenheid.",
+    "description_en": "House mix by DJ Cylow. Bright and fresh, full of timeless dancefloor grooves and energetic house beats. A classic set for any occasion.",
     "top_artists": [
       "Frankie Knuckles",
       "Purple Disco Machine",
@@ -932,7 +937,8 @@
       "late night drive mix",
       "DJ Cylow mix"
     ],
-    "description": "Drum & Bass mix van DJ Cylow — helder en energiek, van liquid vibes tot melodische rollers. Met Wilkinson, Maduk, BCee en High Contrast.",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Helder en energiek, van vloeiende liquid vibes tot krachtige melodische rollers. Vol afwisseling en energie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Bright and energetic, from flowing liquid vibes to powerful melodic rollers. Full of variety and energy.",
     "top_artists": [
       "Wilkinson",
       "High Contrast",
@@ -1105,7 +1111,8 @@
     "image_wide_small": "",
     "image_wide_large": "",
     "image_square": "/images/light/cyan/square/image_light_cyan_preview_square.webp",
-    "description": "",
+    "description_nl": "",
+    "description_en": "",
     "top_artists": [],
     "tracklist": []
   }

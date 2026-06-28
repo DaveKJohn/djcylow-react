@@ -43,7 +43,8 @@
       "electronic music 2026",
       "DJ mix tech house"
     ],
-    "description": "Tech House mix van DJ Cylow — strak en gedreven, warm van energie. Met Tiësto & Odd Mob, deadmau5 & Chris Lake, MEDUZA en SIDEPIECE.",
+    "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, van underground naar club, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
+    "description_en": "Tech House mix by DJ Cylow. Warm and driven, from underground to club, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "top_artists": [
       "Tiësto",
       "deadmau5",
@@ -232,7 +233,8 @@
       "deep hypnotic techno",
       "electronic DJ mix 2025"
     ],
-    "description": "Melodic Techno mix van DJ Cylow — hypnotisch en opbouwend, met diepe texturen en warmte. Met Matan Caspi, Animal Trainer, MEDUZA & GENESI en D-Nox.",
+    "description_nl": "Melodic Techno mix van DJ Cylow. Hypnotisch en opbouwend, vol diepe texturen, donkere synths en een warme sfeer. Perfect voor een late nacht of focussessie.",
+    "description_en": "Melodic Techno mix by DJ Cylow. Hypnotic and building, full of deep textures, dark synths and a warm atmosphere. Perfect for a late night or focus session.",
     "top_artists": [
       "MEDUZA",
       "Matan Caspi",
@@ -401,7 +403,8 @@
       "electronic music 2025",
       "DJ mix progressive house"
     ],
-    "description": "Progressive House mix van DJ Cylow — melodisch en meeslepend, met opbouwende energie voor een lange sessie. Met Moritz Hofbauer, Stan Kolev, Jiggler en Matan Caspi.",
+    "description_nl": "Progressive House mix van DJ Cylow. Melodisch en meeslepend, vol emotionele builds en opbouwende energie. Perfect voor een lange sessie of avondrit.",
+    "description_en": "Progressive House mix by DJ Cylow. Melodic and captivating, full of emotional builds and sustained energy. Perfect for a long session or evening drive.",
     "top_artists": [
       "Matan Caspi",
       "Stan Kolev",
@@ -570,7 +573,8 @@
       "Fabrication gravity",
       "khainz remix"
     ],
-    "description": "Progressive House mix van DJ Cylow — gedreven en emotioneel geladen, perfect voor een avondrit. Met Jiggler, ARUDE, Horisone en Second Sine.",
+    "description_nl": "Progressive House mix van DJ Cylow. Gedreven en emotioneel geladen, vol diepe synths en donkere melodieën. Perfect voor een avondrit of nachtelijke sessie.",
+    "description_en": "Progressive House mix by DJ Cylow. Driven and emotionally charged, full of deep synths and dark melodies. Perfect for an evening drive or night session.",
     "top_artists": [
       "Jiggler",
       "Khainz",
@@ -747,7 +751,8 @@
       "electronic music 2025",
       "winter electronic mix"
     ],
-    "description": "Progressive House mix van DJ Cylow — warm en diepgaand, met rijke melodieën voor een late wintersessie. Met Stan Kolev, Rafael Cerato, Jiggler en Woo York.",
+    "description_nl": "Progressive House mix van DJ Cylow. Warm en diepgaand, vol rijke melodieën en emotionele harmonieën. Ideaal voor een late wintersessie of een koude avond.",
+    "description_en": "Progressive House mix by DJ Cylow. Warm and deep, full of rich melodies and emotional harmonies. Ideal for a late winter session or a cold evening.",
     "top_artists": [
       "Stan Kolev",
       "Rafael Cerato",
@@ -920,7 +925,8 @@
       "electronic music 2024",
       "DJ mix 2024 progressive house"
     ],
-    "description": "Progressive House mix van DJ Cylow — de eerste Red Light (m) set, vol atmosfeer en opbouwende grooves. Met Moritz Hofbauer, Jiggler, Marius Drescher en Mia Mendi.",
+    "description_nl": "Progressive House mix van DJ Cylow. De eerste Red Light set, vol atmosfeer, opbouwende grooves en emotionele diepte. Perfect voor een late avond of nachtrit.",
+    "description_en": "Progressive House mix by DJ Cylow. The first Red Light set, full of atmosphere, building grooves and emotional depth. Perfect for a late night or night drive.",
     "top_artists": [
       "Moritz Hofbauer",
       "Jiggler",
@@ -1089,7 +1095,8 @@
       "ethnic house mix",
       "underground organic house"
     ],
-    "description": "Organic House mix van DJ Cylow — aards en sensueel, vol oosterse klanken en organische percussie. Met Bedouin, Anatolian Sessions, Ferhat Sonsoz en Billy Esteban.",
+    "description_nl": "Organic House mix van DJ Cylow. Aards en sensueel, vol oosterse klanken, organische percussie en warme melodieën. Perfect voor een mysterieuze late avond.",
+    "description_en": "Organic House mix by DJ Cylow. Earthy and sensual, full of eastern sounds, organic percussion and warm melodies. Perfect for a mysterious late evening.",
     "top_artists": [
       "Bedouin",
       "Ferhat Sonsoz",
@@ -1230,7 +1237,8 @@
       "dark electronic mix",
       "dnb mix 2022"
     ],
-    "description": "Neurofunk mix van DJ Cylow — donker, technisch en meedogenloos. Met Mefjus, Noisia, Camo & Krooked, Bou & Mefjus en IMANU.",
+    "description_nl": "Neurofunk mix van DJ Cylow. Donker, technisch en meedogenloos, vol harde basslines en complexe drumpatronen. Perfect voor gamen, sporten of een focussessie.",
+    "description_en": "Neurofunk mix by DJ Cylow. Dark, technical and relentless, full of hard basslines and complex drum patterns. Perfect for gaming, working out, or focusing.",
     "top_artists": [
       "Noisia",
       "Mefjus",
@@ -1395,7 +1403,8 @@
     "image_wide_small": "",
     "image_wide_large": "",
     "image_square": "/images/light/Red/square/image_light_red_preview_square.webp",
-    "description": "",
+    "description_nl": "",
+    "description_en": "",
     "top_artists": [],
     "tracklist": []
   }

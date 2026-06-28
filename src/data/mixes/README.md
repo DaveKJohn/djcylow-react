@@ -3,6 +3,7 @@
 This folder contains all DJ Cylow mix metadata. Each file represents one **color+intensity combination** and contains an array of mix objects, from newest to oldest.
 
 This README is the single source of truth for:
+
 - JSON schema and field rules
 - Allowed values per field
 - SEO content guidelines
@@ -80,7 +81,8 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "image_wide_small": "/images/light/red/wide/image_light_red_20260615_wide-small.jpg",
     "image_wide_large": "/images/light/red/wide/image_light_red_20260615_wide-large.webp",
     "image_square": "/images/light/red/square/image_light_red_20260615_square.jpg",
-    "description": "Stream de nieuwste Red Light EDM mix van DJ Cylow. Een dikke uurset vol met de hardste festival tracks, unieke overgangen en de nieuwste releases.",
+    "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
+    "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"],
     "tracklist": [
       { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
@@ -101,6 +103,7 @@ Unique identifier for the mix. Used to build the URL slug.
 **Format:** `YYYYMMDD` (date the mix was published/recorded)
 
 **Rules:**
+
 - Must be unique across ALL mix files combined
 - Use the actual recording/publish date, not today's date
 - For preview entries only: use a descriptive string like `"Red_light_preview"` (see Preview Entries)
@@ -116,6 +119,7 @@ Whether this mix appears prominently highlighted in the playlist grid.
 **Values:** `true` | `false`
 
 **Rules:**
+
 - At most 1–2 mixes per color file should be `featured: true`
 - Preview entries typically use `featured: true` (but `ignore: true` too)
 - Normal mixes: `false`
@@ -129,6 +133,7 @@ When `true`, this entry is completely excluded from the public playlist and deta
 **Values:** `true` | `false`
 
 **Use cases:**
+
 - Draft/work-in-progress mixes not ready for publication
 - Preview audio clips (see Preview Entries section)
 - Mixes taken offline temporarily
@@ -140,21 +145,25 @@ When `true`, this entry is completely excluded from the public playlist and deta
 The full display title of the mix. Shown on mix cards, detail page `<h1>`, and in metadata.
 
 **Target format (new standard):**
+
 ```
 [Subgenre] · [Color] [Power] ([Frequency]) Mix · Vol. [N]
 ```
 
 **Examples (new standard):**
+
 - `"Tech House · Red Light (m) Mix · Vol. 6"`
 - `"Progressive House · Red Light (m) Mix · Vol. 4"`
 - `"Melodic Techno · Red Light (m) Mix · Vol. 5"`
 - `"Neurofunk · Red Light (m) Mix · Vol. 1"`
 
 **Legacy format (old — do not use for new mixes):**
+
 - `"Blue Full (f)"` ← too short, no SEO value
 - `"Purple Light (f)"` ← too short, no SEO value
 
 **Rules:**
+
 - Always include the subgenre first (e.g., "Progressive House", "Tech House", "Neurofunk")
 - Use middle dot `·` as separator (not hyphen, not dash)
 - Capitalize color (Red, Blue, Purple, etc.)
@@ -168,10 +177,12 @@ The full display title of the mix. Shown on mix cards, detail page `<h1>`, and i
 The main genre category. Used by the Filter component on the Luister page.
 
 **Allowed values (exactly as written):**
+
 - `"EDM"` — Electronic Dance Music (House, Techno, Progressive, Organic, etc.)
 - `"Drum & Bass"` — Drum & Bass, Neurofunk, Liquid, Jump Up
 
 **Rules:**
+
 - Only these two values are valid
 - All EDM sub-styles (Tech House, Progressive House, Melodic Techno, Organic House, etc.) use `"EDM"` here — the subgenre field carries the specifics
 - Do not add new top-level genres without updating the `Filter.tsx` component
@@ -183,6 +194,7 @@ The main genre category. Used by the Filter component on the Luister page.
 The specific sub-style of the mix. Shown on the mix detail page and used in the title.
 
 **Examples for EDM:**
+
 - `"Tech House"`
 - `"Progressive House"`
 - `"Melodic Techno"`
@@ -193,6 +205,7 @@ The specific sub-style of the mix. Shown on the mix detail page and used in the 
 - `"Hard Techno"`
 
 **Examples for Drum & Bass:**
+
 - `"Liquid Drum & Bass"`
 - `"Neurofunk"`
 - `"Jump Up"`
@@ -200,6 +213,7 @@ The specific sub-style of the mix. Shown on the mix detail page and used in the 
 - `"Techstep"`
 
 **Rules:**
+
 - Must match exactly what appears in the `title` field
 - Use the same casing as in the title
 - Legacy mixes may have `""` — that's acceptable for old entries, but fill it in when updating
@@ -211,9 +225,11 @@ The specific sub-style of the mix. Shown on the mix detail page and used in the 
 The mood color of this mix in the Music Mood Colours system.
 
 **Allowed values (capitalized):**
+
 - `"Blue"` | `"Cyan"` | `"Green"` | `"Orange"` | `"Red"` | `"Purple"` | `"Yellow"` | `"Magenta"`
 
 **Rules:**
+
 - Capitalize the first letter (new standard)
 - Must match the containing file name: `light-red.json` → `"color": "Red"`
 - Legacy data may use lowercase (`"blue"`, `"red"`) — this is a known inconsistency to fix
@@ -225,10 +241,12 @@ The mood color of this mix in the Music Mood Colours system.
 The energy intensity of the mix in the Music Mood Colours system.
 
 **Allowed values:**
+
 - `"Full"` — high energy, intense, driving
 - `"Light"` — softer, melodic, emotional
 
 **Rules:**
+
 - Capitalize: `"Full"` or `"Light"` (not `"full"` or `"FULL"`)
 - Must match the containing file name: `light-red.json` → `"power": "Light"`
 
@@ -239,10 +257,12 @@ The energy intensity of the mix in the Music Mood Colours system.
 A secondary dimension within the same color+power combination. Used to distinguish mix variants with the same color and intensity.
 
 **Allowed values:**
+
 - `"(f)"` — "full" frequency variant
 - `"(m)"` — "melodic" or "mid" frequency variant
 
 **Rules:**
+
 - Always include parentheses: `"(f)"` not `"f"`
 - A single color+power file can contain mixes of both `(f)` and `(m)` frequencies
 
@@ -257,6 +277,7 @@ Volume number within the same color+power+frequency series.
 **Examples:** `"Vol. 1"`, `"Vol. 6"`, `"Vol. 10"`
 
 **Rules:**
+
 - Number sequentially within the same color+power+frequency combination
 - Preview entries use `""` (empty string)
 
@@ -271,6 +292,7 @@ The publication/recording date in ISO 8601 format.
 **Examples:** `"2026-06-15"`, `"2024-10-09"`, `"2022-05-23"`
 
 **Rules:**
+
 - Always fill this in for new mixes — used by search engines for freshness signals
 - Legacy mixes have `""` — this is a known inconsistency
 - Must match `jaar` + `maand` + `dag` fields
@@ -308,6 +330,7 @@ The legacy URL for this mix (`.html` suffix, relative path). Kept for reference 
 **Format:** `"luister/mix/[slug].html"`
 
 **Rules:**
+
 - Do not use this field for navigation in the codebase — use the slug derived from `id`, `color`, `power`, `frequency`, `genre`, and BPM
 - Fill it in for new mixes to maintain consistency, but the app ignores it
 - Old mixes: may have different slug patterns — that's okay, they're legacy
@@ -323,11 +346,13 @@ Full URL to the audio file on Cloudflare R2.
 **URL-encode spaces** in filenames as `%20`.
 
 **Examples:**
+
 ```
 https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20260615_Audio_V1%20(Vol.%206).mp3
 ```
 
 **Rules:**
+
 - Must be a direct `.mp3` link (no redirect, no playlist format)
 - The path within the bucket is `[color]/[Filename].mp3`
 - See Audio Storage section for full bucket details
@@ -343,6 +368,7 @@ Path to the small-width wide-format cover image (used as playlist card thumbnail
 **Example:** `/images/light/red/wide/image_light_red_20260615_wide-small.jpg`
 
 **Rules:**
+
 - Leading slash
 - Power and color in lowercase in the path, regardless of the `color`/`power` field capitalization
 - File type: `.jpg`
@@ -358,6 +384,7 @@ Path to the large wide-format cover image (used on the mix detail page).
 **Example:** `/images/light/red/wide/image_light_red_20260615_wide-large.webp`
 
 **Rules:**
+
 - Leading slash
 - File type: `.webp` (for performance)
 
@@ -372,37 +399,57 @@ Path to the square-cropped cover image (used in mix grid cards).
 **Example:** `/images/light/red/square/image_light_red_20260615_square.jpg`
 
 **Rules:**
+
 - Leading slash
 - File type: `.jpg`
 
 ---
 
-### `description` — string, required, **SEO-critical**
+### `description_nl` — string, required, **SEO-critical**
 
-A 1–3 sentence description of this specific mix. Used in:
+Nederlandse beschrijving van de mix. Gebruikt voor:
+
 - The `<meta name="description">` tag on the mix detail page
 - Open Graph `og:description`
 - Google search result snippets (typically 155–160 characters shown)
+- Visible text on the mix detail page
 
 **Target length:** 120–160 characters
 
 **SEO rules:**
+
 - **Must be unique per mix** — do NOT copy-paste the same description to all mixes
 - Include the subgenre, color mood name, DJ name, and at least one track characteristic
 - Write in Dutch (matches site locale)
-- Mention at least 2–3 of: subgenre name, color/mood, artist name, vibe/energy, notable tracks or artists
+- Mention at least 2–3 of: subgenre name, color/mood, vibe/energy, use case
 - Avoid generic filler like "Een dikke uurset" across all mixes
+- **NOOIT een dash (`-`) of em-dash (`—`) gebruiken** — dit ziet er AI-gegenereerd uit
+- **Vermeld geen artiestnamen** — artiesten staan in het `top_artists` veld
 
 **Good example:**
+
 ```
-"Duik in een uur Progressive House met warme synths, melodische breaks en een opbouwende energie. 
-Tracks van Stan Kolev, Jiggler en Matan Caspi — perfect voor een late avondrit of thuisfeest."
+"Progressive House mix van DJ Cylow. Warme synths, melodische breaks en een opbouwende energie. Perfect voor een late avondrit of thuisfeest."
 ```
 
-**Bad example (too generic, all identical):**
+---
+
+### `description_en` — string, required, **SEO-critical**
+
+English description of the mix. Same rules as `description_nl` but in English.
+
+**Target length:** 120–160 characters
+
+**Rules:**
+
+- Same structure as `description_nl` but in English
+- **NEVER use a dash (`-`) or em-dash (`—`)** — looks AI-generated
+- **Do not mention artist names** — artists go in `top_artists`
+
+**Good example:**
+
 ```
-"Stream de nieuwste Red Light EDM mix van DJ Cylow. Een dikke uurset vol met de hardste festival 
-tracks, unieke overgangen en de nieuwste releases."
+"Progressive House mix by DJ Cylow. Warm synths, melodic breaks and building energy. Perfect for a late-night drive or a house party."
 ```
 
 ---
@@ -414,11 +461,13 @@ The 3 most-searched artists featured in this mix. Used in the mix description fa
 **Format:** Array of 1–3 artist name strings, exactly as they appear in the tracklist.
 
 **Example:**
+
 ```json
 "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"]
 ```
 
 **Rules:**
+
 - Pick by online search volume / artist fame, not by tracklist order or frequency
 - Maximum 3 entries — use the most recognizable names
 - Spelling must match the tracklist exactly (used for consistency)
@@ -441,6 +490,7 @@ Array of track objects, ordered chronologically from start to end of the mix.
 See [Tracklist Time Format](#tracklist-time-format) below for time field rules.
 
 **`track` field format:**
+
 - `"Artist - Track Title"` for originals
 - `"Artist - Track Title (ft. Feature Artist)"` for featured artists
 - `"Artist - Track Title (Remix Artist Remix)"` for remixes
@@ -475,12 +525,14 @@ The entire mix library is organized around a proprietary system DJ Cylow develop
 ### Frequency
 
 Within the same color+power, `(f)` and `(m)` represent different sonic "frequencies" or character:
+
 - `(f)` — "full" — rounder, more harmonic, slightly warmer tone
 - `(m)` — "melodic" — more melodic focus, synth-driven
 
 ### Complementary Colors
 
 Complementary color pairs represent contrasting emotional experiences (same as the color wheel):
+
 - Red ↔ Cyan
 - Orange ↔ Blue
 - Yellow ↔ Purple
@@ -508,21 +560,22 @@ Google indexes individual mix pages at `/luister/mix/[slug]`. For each page to r
 ### Description writing guide
 
 Each description should target search queries like:
+
 - `"progressive house mix 2025"`
 - `"liquid drum and bass mix"`
 - `"[artist name] mix"`
 - `"[mood] house mix"`
 
 Include:
+
 1. The genre/subgenre name (exactly as people search it)
 2. The mood or atmosphere
-3. 2–3 artist names from the tracklist (especially well-known ones)
-4. A use-case signal ("voor het thuisfeest", "late night sessie", "rijden op de snelweg")
+3. A use-case signal ("voor het thuisfeest", "late night sessie", "rijden op de snelweg")
 
 **Template (adapt per mix):**
+
 ```
-[Subgenre] mix van DJ Cylow — [mood/sfeer omschrijving, 1 zin]. 
-Met tracks van [Artist 1], [Artist 2] en [Artist 3].
+[Subgenre] mix van DJ Cylow. [mood/sfeer omschrijving, 1–2 zinnen]. Perfect voor [use case].
 ```
 
 ---
@@ -541,6 +594,7 @@ Met tracks van [Artist 1], [Artist 2] en [Artist 3].
 | `"1:06"` | ❌ Avoid | Ambiguous |
 
 **Rules for new mixes:**
+
 - Always use `HH:MM:SS` with leading zeros
 - First track is typically `"00:00:00"` or `"00:00:59"` (some mixes start with a count-in)
 - Verify timestamps by listening to the actual audio
@@ -552,6 +606,7 @@ Met tracks van [Artist 1], [Artist 2] en [Artist 3].
 Each color file may contain a special "preview" entry — a short audio clip that plays before the full mix starts on the Luister page.
 
 **Identifying preview entries:**
+
 - `"id"` is a string like `"Red_light_preview"` or `"Purple_light_preview"` (not a date)
 - `"ignore": true` — excluded from public playlist
 - `"featured": true` — used for special display logic
@@ -604,6 +659,7 @@ The legacy bucket is used by some older mixes in `full-blue.json`. New mixes and
 **Example:** `Red_Light_m_EDM_128BPM_20260615_Audio_V1 (Vol. 6).mp3`
 
 URL-encode the space before `(Vol.` as `%20`:
+
 ```
 Red_Light_m_EDM_128BPM_20260615_Audio_V1%20(Vol.%206).mp3
 ```
@@ -620,8 +676,8 @@ These inconsistencies exist in older JSON files. They are **not bugs that break 
 | `color` | `"blue"` (lowercase) | `"Blue"` (capitalized) | `full-blue.json`, `light-purple.json`, others |
 | `date` | `""` (empty) | `"YYYY-MM-DD"` | Most files except `light-red.json` |
 | `subgenre` | `""` (empty) | e.g. `"Liquid Drum & Bass"` | Most old entries |
-| `description` | `""` (empty) | Unique 120–160 char Dutch description | Most files except `light-red.json` |
-| `description` | Same text on all mixes | Unique per mix | `light-red.json` (all 6 descriptions identical) |
+| `description_nl` | `""` (empty) | Unique 120–160 char Dutch description | Legacy entries if not yet backfilled |
+| `description_en` | `""` (empty) | Unique 120–160 char English description | Legacy entries if not yet backfilled |
 | `time` format | `"03:05"` or `"1:01:08"` | `"00:03:05"` or `"01:01:08"` | Most old tracklists |
 | `audioSrc` domain | `pub-9096148d84e34c73a3eca828877fcd5b` | `pub-4fa4c2c1f9a644c4878cba29a7926443` | `full-blue.json` |
 
@@ -635,11 +691,12 @@ Below is a model entry that follows all rules and maximizes SEO value:
 
 ```json
 {
-  "id": "20260615",
-  "featured": false,
-  "ignore": false,
+  "id": "20260615", 
   "title": "Tech House · Red Light (m) Mix · Vol. 6",
-  "genre": "EDM",
+  "description_nl": "Tech House mix van DJ Cylow. Een uur pumping grooves, strakke kicks en melodische elementen. Perfect voor een avondfeest of een lange drive.",
+  "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.",
+  "description_EN": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks, and melodic elements. Perfect for a party night or a long drive.",
+  "genre": "House",
   "subgenre": "Tech House",
   "color": "Red",
   "power": "Light",
@@ -653,9 +710,34 @@ Below is a model entry that follows all rules and maximizes SEO value:
   "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_20260615_Audio_V1%20(Vol.%206).mp3",
   "image_wide_small": "/images/light/red/wide/image_light_red_20260615_wide-small.jpg",
   "image_wide_large": "/images/light/red/wide/image_light_red_20260615_wide-large.webp",
-  "image_square": "/images/light/red/square/image_light_red_20260615_square.jpg",
-  "description": "Tech House mix van DJ Cylow — een uur pumping grooves, strakke kicks en melodische elementen. Met tracks van Tiësto, deadmau5, MEDUZA en SIDEPIECE. Perfect voor een avondfeest of een lange drive.",
+  "image_square": "/images/light/red/square/image_light_red_20260615_square.jpg", 
+  "featured": false,
+  "ignore": false,
   "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"],
+  "tags": [
+      "tech house mix 2026",
+      "tech house",
+      "underground tech house",
+      "driving tech house",
+      "peak time tech house",
+      "red music mood",
+      "late night mix",
+      "chilled electronic mix",
+      "stil vor talent style",
+      "drumcode vibe",
+      "late night drive mix",
+      "focus music",
+      "club tech house 2026",
+      "Tiesto mix",
+      "deadmau5 mix",
+      "Chris Lake",
+      "MEDUZA mix",
+      "SIDEPIECE",
+      "Deeper Purpose",
+      "Anabel Englund",
+      "electronic music 2026",
+      "DJ mix tech house"
+    ],
   "tracklist": [
     { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
     { "time": "00:03:00", "track": "Roddy Lima - Shadows" },
@@ -665,13 +747,15 @@ Below is a model entry that follows all rules and maximizes SEO value:
 ```
 
 **Checklist for every new mix entry:**
+
 - [ ] `id` is `YYYYMMDD`, unique across all files
 - [ ] `title` follows `Subgenre · Color Power (frequency) Mix · Vol. N` format
 - [ ] `subgenre` is filled in and matches the title
 - [ ] `color` is capitalized and matches the filename
 - [ ] `power` is `"Full"` or `"Light"` and matches the filename
 - [ ] `date` is filled as `"YYYY-MM-DD"`
-- [ ] `description` is unique, 120–160 chars, in Dutch, mentions genre + artists
+- [ ] `description_nl` is unique, 120–160 chars, in Dutch, geen dash (`-`/`—`), geen artiestnamen
+- [ ] `description_en` is unique, 120–160 chars, in English, no dashes, no artist names
 - [ ] `top_artists` contains the 3 most-searched artists from the tracklist
 - [ ] `audioSrc` uses the active R2 bucket
 - [ ] All three image paths are correct and files exist in `public/images/`

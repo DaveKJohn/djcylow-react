@@ -43,7 +43,8 @@
       "sunny day mix",
       "home party mix"
     ],
-    "description": "Nu-Disco mix van DJ Cylow — vrolijk en dansbaar, ideaal voor een zonnig thuisfeest. Met Yvvan Back, David Penn en Block & Crown.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Vrolijk en dansbaar, vol aanstekelijke grooves en zonnige energie. Ideaal voor een zonnig thuisfeest of terrassessie.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Joyful and danceable, full of infectious grooves and sunny energy. Ideal for a sunny house party or terrace session.",
     "top_artists": [
       "Yvvan Back",
       "David Penn",
@@ -216,7 +217,8 @@
       "happy electronic music",
       "groovy house mix"
     ],
-    "description": "Funky House mix van DJ Cylow — luchtig en vol energie, perfect voor een zomers feest. Met CASSIMM, Jack Back en Seamus Haji.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Luchtig en vol energie, met funky grooves en zomerse vibes. Perfect voor een zomers feest of een dansbare avond buiten.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Light and full of energy, with funky grooves and summery vibes. Perfect for a summer party or a danceable evening outside.",
     "top_artists": [
       "Purple Disco Machine",
       "CASSIMM",
@@ -429,7 +431,8 @@
       "happy electronic mix",
       "focus music"
     ],
-    "description": "Funky House mix van DJ Cylow — zacht en blij, met een positieve groove voor elk moment van de dag. Met Yvvan Back, Babert en TJR.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Zacht en blij, met een positieve funky groove voor elk moment van de dag. Van ochtend tot avond vol goede energie.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Soft and joyful, with a positive funky groove for any time of the day. From morning to evening full of good energy.",
     "top_artists": [
       "Purple Disco Machine",
       "Yvvan Back",
@@ -602,7 +605,8 @@
       "house music 2025",
       "disco house mix"
     ],
-    "description": "Nu-Disco mix van DJ Cylow — opgewekt en groovy, een heerlijke set voor een relaxt thuisfeest. Met Antoine Clamaran, CASSIMM en KPD.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Opgewekt en groovy, vol aanstekelijke beats en warme housenergy. Een heerlijke set voor een relaxt thuisfeest.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Upbeat and groovy, full of infectious beats and warm house energy. A great set for a relaxed house party.",
     "top_artists": [
       "CASSIMM",
       "Antoine Clamaran",
@@ -775,7 +779,8 @@
       "uplifting disco house",
       "dance music 2024"
     ],
-    "description": "Funky House mix van DJ Cylow — feestelijk en licht, een kerstse set vol discogevoel. Met Purple Disco Machine, Zsak en Qubiko.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Feestelijk en licht, een kerstse set vol discogevoel en glinsterende housenergy. Perfect voor een feestelijk eindejaarsmoment.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Festive and light, a Christmas set full of disco spirit and sparkling house energy. Perfect for a festive end-of-year moment.",
     "top_artists": [
       "Purple Disco Machine",
       "David Penn",
@@ -948,7 +953,8 @@
       "groovy dance music",
       "house music 2024"
     ],
-    "description": "Nu-Disco mix van DJ Cylow — luchtig en dansbaar, vol warme house-energy voor een avond vol beweging. Met CASSIMM, Zsak en Earth n Days.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Luchtig en dansbaar, vol warme housenergy en aanstekelijke grooves. Perfect voor een avond vol beweging en dans.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Light and danceable, full of warm house energy and infectious grooves. Perfect for an evening of movement and dance.",
     "top_artists": [
       "Purple Disco Machine",
       "CASSIMM",
@@ -1117,7 +1123,8 @@
       "house music classics",
       "groovy dance music"
     ],
-    "description": "Funky House mix van DJ Cylow — energiek en zonnig, de perfecte start voor deze serie. Met Camelphat, David Penn en Purple Disco Machine.",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Energiek en zonnig, vol funky beats en groovy basslines. De perfecte start voor deze serie vol housenergy.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Energetic and sunny, full of funky beats and groovy basslines. The perfect start for this series of house energy.",
     "top_artists": [
       "CamelPhat",
       "Purple Disco Machine",
@@ -1290,7 +1297,8 @@
     "image_wide_small": "",
     "image_wide_large": "",
     "image_square": "/images/light/Yellow/square/image_light_yellow_preview_square.webp",
-    "description": "",
+    "description_nl": "",
+    "description_en": "",
     "top_artists": [],
     "tracklist": []
   }

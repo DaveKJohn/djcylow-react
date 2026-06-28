@@ -42,7 +42,8 @@
       "introspective drum and bass",
       "liquid dnb 2024"
     ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — introspectief en diep, ideaal voor een stille avond thuis. Met Hybrid Minds, BCee, Hugh Hardie en GLXY.",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Introspectief en diep, vol warme melodieën en vloeiende basslines. Ideaal voor een stille avond thuis of nachtrit.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Introspective and deep, full of warm melodies and flowing basslines. Ideal for a quiet evening at home or night drive.",
     "top_artists": [
       "Hybrid Minds",
       "High Contrast",
@@ -226,7 +227,8 @@
       "soulful dnb mix",
       "chill drum and bass 2023"
     ],
-    "description": "Drum & Bass mix van DJ Cylow — melancolisch en sfeervol, perfect voor een late night sessie. Met Keeno, High Contrast, Logistics en Halogenix.",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melancolisch en sfeervol, met emotionele melodieën en diepe atmosfeer. Perfect voor een late night sessie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melancholic and atmospheric, with emotional melodies and deep ambience. Perfect for a late night session.",
     "top_artists": [
       "High Contrast",
       "Logistics",
@@ -450,7 +452,8 @@
       "atmospheric liquid dnb",
       "chill drum and bass 2023"
     ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — dromerig en emotioneel, voor een lange avondrit. Met Rameses B, BCee, T & Sugah en Andromedik.",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Dromerig en emotioneel, vol vloeiende melodieën en zachte basslines. Perfect voor een lange avondrit of rustig moment.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Dreamy and emotional, full of flowing melodies and gentle basslines. Perfect for a long evening drive or quiet moment.",
     "top_artists": [
       "Rameses B",
       "T & Sugah",
@@ -662,7 +665,8 @@
       "soulful liquid dnb",
       "chill drum and bass 2022"
     ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — diep en weemoedig, perfect voor een koude winteravond. Met Pola & Bryson, Logistics en Hugh Hardie.",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Diep en weemoedig, vol zachte basslines en dromerige melodieën. Perfect voor een koude winteravond thuis.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Deep and wistful, full of soft basslines and dreamy melodies. Perfect for a cold winter evening at home.",
     "top_artists": [
       "Pendulum",
       "Pola & Bryson",
@@ -854,7 +858,8 @@
       "chill drum and bass 2021",
       "atmospheric liquid dnb"
     ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — melancholisch en innerlijk, voor een rustige thuisavond. Met Hybrid Minds, Logistics, Pola & Bryson en LSB.",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melancholisch en innerlijk, met vloeiende basslines en emotionele melodieën voor een rustige thuisavond.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melancholic and introspective, with flowing basslines and emotional melodies for a peaceful evening at home.",
     "top_artists": [
       "Hybrid Minds",
       "High Contrast",
@@ -1050,7 +1055,8 @@
       "atmospheric liquid dnb",
       "midnight drive mix"
     ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — zacht en reflectief, de ultieme begeleiding voor een nachtelijk ritje. Met T & Sugah, Hybrid Minds en Maduk.",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Zacht en reflectief, vol dromerige klanken en emotionele basslines. De ultieme begeleiding voor een nachtelijk ritje.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Soft and reflective, full of dreamy sounds and emotional basslines. The ultimate companion for a midnight drive.",
     "top_artists": [
       "Hybrid Minds",
       "T & Sugah",
@@ -1223,7 +1229,8 @@
     "image_wide_small": "",
     "image_wide_large": "",
     "image_square": "/images/light/blue/square/image_light_blue_preview_square.webp",
-    "description": "",
+    "description_nl": "",
+    "description_en": "",
     "top_artists": [],
     "tracklist": []
   }
