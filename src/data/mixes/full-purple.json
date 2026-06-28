@@ -1,9 +1,9 @@
 [
   {
     "id": "20240108",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Full (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Emotioneel en donker, met diepe melodieën en sombere sfeer. Ideaal voor een late night sessie of slapeloos moment.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Emotional and dark, with deep melodies and a sombre atmosphere. Ideal for a late night session or sleepless hour.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -16,9 +16,16 @@
     "dag": "08",
     "permalink": "luister/mix/purple-full-m-EDM-176BPM-20240108.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/purple/Purple_Full_m_EDM_DNB_20240108_Audio_V1%20(Vol.%204).mp3",
-    "image_wide_small": "/images/full/purple/wide/image_full_purple_20240108_wide-small.webp",
-    "image_wide_large": "/images/full/purple/wide/image_full_purple_20240108_wide-large.webp",
+    "image_wide_small": "/images/full/purple/wide/image_full_purple_wide_20240108_small.webp",
+    "image_wide_large": "/images/full/purple/wide/image_full_purple_wide_20240108_large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20240108_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Wilkinson",
+      "T & Sugah",
+      "Metrik"
+    ],
     "tags": [
       "drum and bass mix 2024",
       "drum and bass",
@@ -43,12 +50,6 @@
       "gaming mix",
       "focus music",
       "intense dnb mix"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — emotioneel en donker, ideaal voor een late night sessie. Met Keeno, Koven, Wilkinson en T & Sugah.",
-    "top_artists": [
-      "Wilkinson",
-      "T & Sugah",
-      "Metrik"
     ],
     "tracklist": [
       {
@@ -239,9 +240,9 @@
   },
   {
     "id": "20230506",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Krachtig en melodisch, vol energy en emotie die je in beweging brengt. Perfect voor een avondrit of thuisfeest.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Powerful and melodic, full of energy and emotion that gets you moving. Perfect for a night drive or house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -254,9 +255,16 @@
     "dag": "06",
     "permalink": "luister/mix/purple-full-f-EDM-176BPM-20230506.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/purple/Purple_Full_f_EDM_DNB_20230506_Audio_V1%20(Vol.%203).mp3",
-    "image_wide_small": "/images/full/purple/wide/image_full_purple_20230506_wide-small.webp",
-    "image_wide_large": "/images/full/purple/wide/image_full_purple_20230506_wide-large.webp",
+    "image_wide_small": "/images/full/purple/wide/image_full_purple_wide_20230506_small.webp",
+    "image_wide_large": "/images/full/purple/wide/image_full_purple_wide_20230506_large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20230506_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Netsky",
+      "Sub Focus",
+      "Wilkinson"
+    ],
     "tags": [
       "drum and bass mix 2023",
       "drum and bass",
@@ -280,12 +288,6 @@
       "gaming mix",
       "high energy dnb",
       "party mix"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — krachtig en melodisch, perfect voor een avondrit of thuisfeest. Met Netsky, Sub Focus, Maduk en Dimension.",
-    "top_artists": [
-      "Netsky",
-      "Sub Focus",
-      "Wilkinson"
     ],
     "tracklist": [
       {
@@ -440,9 +442,9 @@
   },
   {
     "id": "20221031",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Full (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Spiritueel en zwaar, met een donkere sfeer die je volledig meesleept in diepe basslijnen en emotionele melodieën.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Spiritual and heavy, with a dark atmosphere that pulls you deep into heavy basslines and emotional melodies.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -455,9 +457,16 @@
     "dag": "31",
     "permalink": "luister/mix/purple-full-m-EDM-176BPM-20221031.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/purple/Purple_Full_m_EDM_DNB_20221031_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/purple/wide/image_full_purple_20221031_wide-small.webp",
-    "image_wide_large": "/images/full/purple/wide/image_full_purple_20221031_wide-large.webp",
+    "image_wide_small": "/images/full/purple/wide/image_full_purple_wide_20221031_small.webp",
+    "image_wide_large": "/images/full/purple/wide/image_full_purple_wide_20221031_large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20221031_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Camo & Krooked",
+      "Wilkinson"
+    ],
     "tags": [
       "drum and bass mix 2022",
       "drum and bass",
@@ -481,12 +490,6 @@
       "gaming mix",
       "intense dnb mix",
       "dark electronic music"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — spiritueel en zwaar, met een donkere sfeer die je meesleept. Met Hybrid Minds, Camo & Krooked, Koven en Wilkinson.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Camo & Krooked",
-      "Wilkinson"
     ],
     "tracklist": [
       {
@@ -645,9 +648,9 @@
   },
   {
     "id": "20210412",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodisch en vol energie, met aanstekelijke basslines en emotionele vlucht. Ideaal voor een lange rit of rustige avond.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and full of energy, with infectious basslines and an emotional lift. Ideal for a long drive or quiet evening.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -660,9 +663,16 @@
     "dag": "12",
     "permalink": "luister/mix/purple-full-f-EDM-176BPM-20210412.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/blue/Blue_Full_f_EDM_DNB_20240408_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/purple/wide/image_full_purple_20210412_wide-small.webp",
-    "image_wide_large": "/images/full/purple/wide/image_full_purple_20210412_wide-large.webp",
+    "image_wide_small": "/images/full/purple/wide/image_full_purple_wide_20210412_small.webp",
+    "image_wide_large": "/images/full/purple/wide/image_full_purple_wide_20210412_large.webp",
     "image_square": "/images/full/purple/square/image_full_purple_20210412_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Netsky",
+      "Wilkinson",
+      "Feint"
+    ],
     "tags": [
       "drum and bass mix 2021",
       "drum and bass",
@@ -686,12 +696,6 @@
       "focus music",
       "uplifting dnb",
       "emotional drum and bass"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — melodisch en vol energie, ideaal voor een lange rit of rustige avond. Met Wilkinson, Koven, Fred V & Grafix en Feint.",
-    "top_artists": [
-      "Netsky",
-      "Wilkinson",
-      "Feint"
     ],
     "tracklist": [
       {

@@ -1,9 +1,9 @@
 [
   {
     "id": "20251021",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Light (m)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Vrolijk en dansbaar, vol aanstekelijke grooves en zonnige energie. Ideaal voor een zonnig thuisfeest of terrassessie.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Joyful and danceable, full of infectious grooves and sunny energy. Ideal for a sunny house party or terrace session.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Yellow",
@@ -16,9 +16,16 @@
     "dag": "21",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20251021.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20251021_Audio_V1%20(Vol.%207).mp3",
-    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20251021_wide-small.webp",
-    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20251021_wide-large.webp",
-    "image_square": "/images/light/yellow/square/image_light_yellow_20251021_square.webp",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_wide_20251021_small.webp",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_wide_20251021_large.webp",
+    "image_square": "/images/light/yellow/square/image_light_yellow_square_20251021.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Yvvan Back",
+      "David Penn",
+      "CASSIMM"
+    ],
     "tags": [
       "nu-disco mix 2025",
       "nu-disco",
@@ -42,12 +49,6 @@
       "uplifting house mix",
       "sunny day mix",
       "home party mix"
-    ],
-    "description": "Nu-Disco mix van DJ Cylow — vrolijk en dansbaar, ideaal voor een zonnig thuisfeest. Met Yvvan Back, David Penn en Block & Crown.",
-    "top_artists": [
-      "Yvvan Back",
-      "David Penn",
-      "CASSIMM"
     ],
     "tracklist": [
       {
@@ -174,9 +175,9 @@
   },
   {
     "id": "20250701",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Light (m)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Luchtig en vol energie, met funky grooves en zomerse vibes. Perfect voor een zomers feest of een dansbare avond buiten.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Light and full of energy, with funky grooves and summery vibes. Perfect for a summer party or a danceable evening outside.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Yellow",
@@ -189,9 +190,16 @@
     "dag": "01",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20250701.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20250701_Audio_V1%20(Vol.%206).mp3",
-    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250701_wide-small.webp",
-    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250701_wide-large.webp",
-    "image_square": "/images/light/yellow/square/image_light_yellow_20250701_square.webp",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_wide_20250701_small.webp",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_wide_20250701_large.webp",
+    "image_square": "/images/light/yellow/square/image_light_yellow_square_20250701.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Purple Disco Machine",
+      "CASSIMM",
+      "Claptone"
+    ],
     "tags": [
       "funky house mix 2025",
       "funky house",
@@ -215,12 +223,6 @@
       "party house music",
       "happy electronic music",
       "groovy house mix"
-    ],
-    "description": "Funky House mix van DJ Cylow — luchtig en vol energie, perfect voor een zomers feest. Met CASSIMM, Jack Back en Seamus Haji.",
-    "top_artists": [
-      "Purple Disco Machine",
-      "CASSIMM",
-      "Claptone"
     ],
     "tracklist": [
       {
@@ -387,9 +389,9 @@
   },
   {
     "id": "20250419",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Light (m)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Zacht en blij, met een positieve funky groove voor elk moment van de dag. Van ochtend tot avond vol goede energie.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Soft and joyful, with a positive funky groove for any time of the day. From morning to evening full of good energy.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Yellow",
@@ -402,9 +404,16 @@
     "dag": "19",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20250419.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20250419_Audio_V1%20(Vol.%205).mp3",
-    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250419_wide-small.webp",
-    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250419_wide-large.webp",
-    "image_square": "/images/light/yellow/square/image_light_yellow_20250419_square.webp",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_wide_20250419_small.webp",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_wide_20250419_large.webp",
+    "image_square": "/images/light/yellow/square/image_light_yellow_square_20250419.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Purple Disco Machine",
+      "Yvvan Back",
+      "TJR"
+    ],
     "tags": [
       "funky house mix 2025",
       "funky house",
@@ -428,12 +437,6 @@
       "daytime house music",
       "happy electronic mix",
       "focus music"
-    ],
-    "description": "Funky House mix van DJ Cylow — zacht en blij, met een positieve groove voor elk moment van de dag. Met Yvvan Back, Babert en TJR.",
-    "top_artists": [
-      "Purple Disco Machine",
-      "Yvvan Back",
-      "TJR"
     ],
     "tracklist": [
       {
@@ -560,9 +563,9 @@
   },
   {
     "id": "20250313",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Light (m)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Opgewekt en groovy, vol aanstekelijke beats en warme housenergy. Een heerlijke set voor een relaxt thuisfeest.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Upbeat and groovy, full of infectious beats and warm house energy. A great set for a relaxed house party.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Yellow",
@@ -575,9 +578,16 @@
     "dag": "13",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20250313.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20250313_Audio_V1%20(Vol.%204).mp3",
-    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20250313_wide-small.webp",
-    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20250313_wide-large.webp",
-    "image_square": "/images/light/yellow/square/image_light_yellow_20250313_square.webp",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_wide_20250313_small.webp",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_wide_20250313_large.webp",
+    "image_square": "/images/light/yellow/square/image_light_yellow_square_20250313.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "CASSIMM",
+      "Antoine Clamaran",
+      "Yvvan Back"
+    ],
     "tags": [
       "nu-disco mix 2025",
       "nu-disco",
@@ -601,12 +611,6 @@
       "upbeat electronic mix",
       "house music 2025",
       "disco house mix"
-    ],
-    "description": "Nu-Disco mix van DJ Cylow — opgewekt en groovy, een heerlijke set voor een relaxt thuisfeest. Met Antoine Clamaran, CASSIMM en KPD.",
-    "top_artists": [
-      "CASSIMM",
-      "Antoine Clamaran",
-      "Yvvan Back"
     ],
     "tracklist": [
       {
@@ -733,9 +737,9 @@
   },
   {
     "id": "20241225",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Light (m)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Feestelijk en licht, een kerstse set vol discogevoel en glinsterende housenergy. Perfect voor een feestelijk eindejaarsmoment.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Festive and light, a Christmas set full of disco spirit and sparkling house energy. Perfect for a festive end-of-year moment.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Yellow",
@@ -748,9 +752,16 @@
     "dag": "25",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20241225.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20241225_Audio_V1%20(Vol.%203).mp3",
-    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20241225_wide-small.webp",
-    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20241225_wide-large.webp",
-    "image_square": "/images/light/yellow/square/image_light_yellow_20241225_square.webp",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_wide_20241225_small.webp",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_wide_20241225_large.webp",
+    "image_square": "/images/light/yellow/square/image_light_yellow_square_20241225.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Purple Disco Machine",
+      "David Penn",
+      "Yvvan Back"
+    ],
     "tags": [
       "funky house mix 2024",
       "funky house",
@@ -774,12 +785,6 @@
       "party house mix",
       "uplifting disco house",
       "dance music 2024"
-    ],
-    "description": "Funky House mix van DJ Cylow — feestelijk en licht, een kerstse set vol discogevoel. Met Purple Disco Machine, Zsak en Qubiko.",
-    "top_artists": [
-      "Purple Disco Machine",
-      "David Penn",
-      "Yvvan Back"
     ],
     "tracklist": [
       {
@@ -906,9 +911,9 @@
   },
   {
     "id": "20241126",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Light (m)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Luchtig en dansbaar, vol warme housenergy en aanstekelijke grooves. Perfect voor een avond vol beweging en dans.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Light and danceable, full of warm house energy and infectious grooves. Perfect for an evening of movement and dance.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Yellow",
@@ -921,9 +926,16 @@
     "dag": "26",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20241126.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20241126_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20241126_wide-small.webp",
-    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20241126_wide-large.webp",
-    "image_square": "/images/light/yellow/square/image_light_yellow_20241126_square.webp",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_wide_20241126_small.webp",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_wide_20241126_large.webp",
+    "image_square": "/images/light/yellow/square/image_light_yellow_square_20241126.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Purple Disco Machine",
+      "CASSIMM",
+      "David Penn"
+    ],
     "tags": [
       "nu-disco mix 2024",
       "nu-disco",
@@ -947,12 +959,6 @@
       "upbeat disco house",
       "groovy dance music",
       "house music 2024"
-    ],
-    "description": "Nu-Disco mix van DJ Cylow — luchtig en dansbaar, vol warme house-energy voor een avond vol beweging. Met CASSIMM, Zsak en Earth n Days.",
-    "top_artists": [
-      "Purple Disco Machine",
-      "CASSIMM",
-      "David Penn"
     ],
     "tracklist": [
       {
@@ -1075,9 +1081,9 @@
   },
   {
     "id": "20220904",
-    "featured": false,
-    "ignore": false,
     "title": "Yellow Light (m)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Energiek en zonnig, vol funky beats en groovy basslines. De perfecte start voor deze serie vol housenergy.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Energetic and sunny, full of funky beats and groovy basslines. The perfect start for this series of house energy.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Yellow",
@@ -1090,9 +1096,16 @@
     "dag": "04",
     "permalink": "luister/mix/yellow-light-m-EDM-128BPM-20220904.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/yellow/Yellow_Light_m_EDM_128BPM_20220904_Audio_V2%20(Vol.%201).mp3",
-    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_20220904_wide-small.webp",
-    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_20220904_wide-large.webp",
-    "image_square": "/images/light/yellow/square/image_light_yellow_20220904_square.webp",
+    "image_wide_small": "/images/light/yellow/wide/image_light_yellow_wide_20220904_small.webp",
+    "image_wide_large": "/images/light/yellow/wide/image_light_yellow_wide_20220904_large.webp",
+    "image_square": "/images/light/yellow/square/image_light_yellow_square_20220904.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "CamelPhat",
+      "Purple Disco Machine",
+      "David Penn"
+    ],
     "tags": [
       "funky house mix 2022",
       "funky house",
@@ -1116,12 +1129,6 @@
       "upbeat electronic mix",
       "house music classics",
       "groovy dance music"
-    ],
-    "description": "Funky House mix van DJ Cylow — energiek en zonnig, de perfecte start voor deze serie. Met Camelphat, David Penn en Purple Disco Machine.",
-    "top_artists": [
-      "CamelPhat",
-      "Purple Disco Machine",
-      "David Penn"
     ],
     "tracklist": [
       {
@@ -1272,9 +1279,9 @@
   },
   {
     "id": "Yellow_light_preview",
-    "featured": true,
-    "ignore": true,
     "title": "Yellow Light (f)",
+    "description_nl": "",
+    "description_en": "",
     "genre": "EDM",
     "subgenre": "",
     "color": "Yellow",
@@ -1290,7 +1297,8 @@
     "image_wide_small": "",
     "image_wide_large": "",
     "image_square": "/images/light/Yellow/square/image_light_yellow_preview_square.webp",
-    "description": "",
+    "featured": true,
+    "ignore": true,
     "top_artists": [],
     "tracklist": []
   }

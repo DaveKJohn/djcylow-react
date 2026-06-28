@@ -1,9 +1,9 @@
 [
   {
     "id": "20260407",
-    "featured": false,
-    "ignore": false,
     "title": "Green Light (f)",
+    "description_nl": "Progressive House mix van DJ Cylow. Vloeiend en organisch, vol warme synths en harmonische texturen. Ideaal voor een ontspannen avond of late thuissessie.",
+    "description_en": "Progressive House mix by DJ Cylow. Flowing and organic, full of warm synths and harmonic textures. Ideal for a relaxed evening or late home session.",
     "genre": "EDM",
     "subgenre": "Progressive House",
     "color": "Green",
@@ -16,9 +16,16 @@
     "dag": "07",
     "permalink": "luister/mix/green-light-f-EDM-128BPM-20260407.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_128BPM_20260407_Audio_V1%20(Vol.%203).mp3",
-    "image_wide_small": "/images/light/green/wide/image_light_green_20260407_wide-small.webp",
-    "image_wide_large": "/images/light/green/wide/image_light_green_20260407_wide-large.webp",
+    "image_wide_small": "/images/light/green/wide/image_light_green_wide_20260407_small.webp",
+    "image_wide_large": "/images/light/green/wide/image_light_green_wide_20260407_large.webp",
     "image_square": "/images/light/green/square/image_light_green_20260407_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Lane 8",
+      "Tinlicker",
+      "Dezza"
+    ],
     "tags": [
       "progressive house mix 2026",
       "progressive house",
@@ -40,12 +47,6 @@
       "DJ Cylow mix",
       "indie dance mix",
       "melodic electronic music 2026"
-    ],
-    "description": "Progressive House mix van DJ Cylow — vloeiend en organisch, ideaal voor een ontspannen avond. Met Dezza, Lane 8, Tinlicker en Kasbo.",
-    "top_artists": [
-      "Lane 8",
-      "Tinlicker",
-      "Dezza"
     ],
     "tracklist": [
       {
@@ -168,9 +169,9 @@
   },
   {
     "id": "Green_Light_Preview",
-    "featured": true,
-    "ignore": true,
     "title": "Green Light (f)",
+    "description_nl": "",
+    "description_en": "",
     "genre": "EDM",
     "subgenre": "",
     "color": "Green",
@@ -185,16 +186,17 @@
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_Preview.mp3",
     "image_wide_small": "/images/light/green/wide/image_light_green_preview_wide-small.webp",
     "image_wide_large": "/images/light/green/wide/image_light_green_preview_wide-large.webp",
-    "image_square": "/images/light/green/square/image_light_green_preview_square.webp",
-    "description": "",
+    "image_square": "/images/light/green/square/image_light_green_square_preview.webp",
+    "featured": true,
+    "ignore": true,
     "top_artists": [],
     "tracklist": []
   },
   {
     "id": "20250422",
-    "featured": false,
-    "ignore": false,
     "title": "Green Light (f)",
+    "description_nl": "Progressive House mix van DJ Cylow. Warm en meeslepend, vol emotionele builds en harmonische melodieën. Perfect voor een lange zomeravond buiten.",
+    "description_en": "Progressive House mix by DJ Cylow. Warm and captivating, full of emotional builds and harmonic melodies. Perfect for a long summer evening outside.",
     "genre": "EDM",
     "subgenre": "Progressive House",
     "color": "Green",
@@ -207,9 +209,16 @@
     "dag": "22",
     "permalink": "luister/mix/green-light-f-EDM-128BPM-20250422.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_128BPM_20250422_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/light/green/wide/image_light_green_20250422_wide-small.webp",
-    "image_wide_large": "/images/light/green/wide/image_light_green_20250422_wide-large.webp",
-    "image_square": "/images/light/green/square/image_light_green_20250422_square.webp",
+    "image_wide_small": "/images/light/green/wide/image_light_green_wide_20250422_small.webp",
+    "image_wide_large": "/images/light/green/wide/image_light_green_wide_20250422_large.webp",
+    "image_square": "/images/light/green/square/image_light_green_square_20250422.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Ben Böhmer",
+      "Lane 8",
+      "Eli & Fur"
+    ],
     "tags": [
       "progressive house mix 2025",
       "progressive house",
@@ -231,12 +240,6 @@
       "Eli & Fur",
       "DJ Cylow mix",
       "melodic electronic music 2025"
-    ],
-    "description": "Progressive House mix van DJ Cylow — warm en meeslepend, perfect voor een lange zomeravond. Met Ben Böhmer, ATTLAS, Luttrell en Le Youth.",
-    "top_artists": [
-      "Ben Böhmer",
-      "Lane 8",
-      "Eli & Fur"
     ],
     "tracklist": [
       {
@@ -363,9 +366,9 @@
   },
   {
     "id": "20241104",
-    "featured": false,
-    "ignore": false,
     "title": "Green Light (f)",
+    "description_nl": "Progressive House mix van DJ Cylow. Harmonisch en dromerig, vol zachte synths en emotionele progressies. Een rustgevende set voor een stille avond thuis.",
+    "description_en": "Progressive House mix by DJ Cylow. Harmonic and dreamy, full of soft synths and emotional progressions. A soothing set for a quiet evening at home.",
     "genre": "EDM",
     "subgenre": "Progressive House",
     "color": "Green",
@@ -378,9 +381,16 @@
     "dag": "04",
     "permalink": "luister/mix/green-light-f-EDM-128BPM-20241104.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_128BPM_20241104_Audio_V1%20(Vol.%201).mp3",
-    "image_wide_small": "/images/light/green/wide/image_light_green_20241104_wide-small.webp",
-    "image_wide_large": "/images/light/green/wide/image_light_green_20241104_wide-large.webp",
-    "image_square": "/images/light/green/square/image_light_green_20241104_square.webp",
+    "image_wide_small": "/images/light/green/wide/image_light_green_wide_20241104_small.webp",
+    "image_wide_large": "/images/light/green/wide/image_light_green_wide_20241104_large.webp",
+    "image_square": "/images/light/green/square/image_light_green_square_20241104.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Nora En Pure",
+      "Ben Böhmer",
+      "Tinlicker"
+    ],
     "tags": [
       "progressive house mix 2024",
       "progressive house",
@@ -402,12 +412,6 @@
       "YOTTO",
       "DJ Cylow mix",
       "melodic electronic music 2024"
-    ],
-    "description": "Progressive House mix van DJ Cylow — harmonisch en dromerig, een rustgevende set voor thuis. Met Nora En Pure, Tinlicker, Ben Böhmer en Dezza.",
-    "top_artists": [
-      "Nora En Pure",
-      "Ben Böhmer",
-      "Tinlicker"
     ],
     "tracklist": [
       {
@@ -550,9 +554,9 @@
   },
   {
     "id": "20240610",
-    "featured": false,
-    "ignore": false,
     "title": "Green Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vloeiend en melodisch, vol zachte basslines en emotionele harmonieën. Ideaal voor een late night rit of rustig moment.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Flowing and melodic, full of soft basslines and emotional harmonies. Ideal for a late night drive or quiet moment.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Green",
@@ -565,9 +569,16 @@
     "dag": "10",
     "permalink": "luister/mix/green-light-f-EDM-DNB-20240610.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_DNB_20240610_Audio_V1%20(Vol.%203).mp3",
-    "image_wide_small": "/images/light/green/wide/image_light_green_20240610_wide-small.webp",
-    "image_wide_large": "/images/light/green/wide/image_light_green_20240610_wide-large.webp",
-    "image_square": "/images/light/green/square/image_light_green_20240610_square.webp",
+    "image_wide_small": "/images/light/green/wide/image_light_green_wide_20240610_small.webp",
+    "image_wide_large": "/images/light/green/wide/image_light_green_wide_20240610_large.webp",
+    "image_square": "/images/light/green/square/image_light_green_square_20240610.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Etherwood",
+      "Rameses B"
+    ],
     "tags": [
       "liquid drum and bass mix 2024",
       "liquid drum and bass",
@@ -589,12 +600,6 @@
       "Hospital Records style",
       "DJ Cylow mix",
       "drum and bass mix 2024"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — vloeiend en melodisch, ideaal voor een late night rit. Met BCee, Keeno, Etherwood en Hybrid Minds.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Etherwood",
-      "Rameses B"
     ],
     "tracklist": [
       {
@@ -741,9 +746,9 @@
   },
   {
     "id": "20230620",
-    "featured": false,
-    "ignore": false,
     "title": "Green Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Emotioneel en organisch, vol vloeiende basslines en sfeervolle melodieën. Perfect voor een avond vol diepgang.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Emotional and organic, full of flowing basslines and atmospheric melodies. Perfect for an evening of depth.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Green",
@@ -756,9 +761,16 @@
     "dag": "20",
     "permalink": "luister/mix/green-light-f-EDM-DNB-20230620.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_DNB_20230620_Audio_V2%20(Vol.%202).mp3",
-    "image_wide_small": "/images/light/green/wide/image_light_green_20230620_wide-small.webp",
-    "image_wide_large": "/images/light/green/wide/image_light_green_20230620_wide-large.webp",
-    "image_square": "/images/light/green/square/image_light_green_20230620_square.webp",
+    "image_wide_small": "/images/light/green/wide/image_light_green_wide_20230620_small.webp",
+    "image_wide_large": "/images/light/green/wide/image_light_green_wide_20230620_large.webp",
+    "image_square": "/images/light/green/square/image_light_green_square_20230620.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Camo & Krooked",
+      "Hybrid Minds",
+      "Metrik"
+    ],
     "tags": [
       "liquid drum and bass mix 2023",
       "liquid drum and bass",
@@ -780,12 +792,6 @@
       "Hospital Records style",
       "DJ Cylow mix",
       "drum and bass mix 2023"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — emotioneel en organisch, perfect voor een avond vol sfeer. Met Camo & Krooked, Keeno en Pola & Bryson.",
-    "top_artists": [
-      "Camo & Krooked",
-      "Hybrid Minds",
-      "Metrik"
     ],
     "tracklist": [
       {
@@ -932,9 +938,9 @@
   },
   {
     "id": "20210426",
-    "featured": false,
-    "ignore": false,
     "title": "Green Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Ontspannen en harmonisch, vol vloeiende melodieën en zachte basslines. Heerlijk voor een rustige thuissessie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Relaxed and harmonic, full of flowing melodies and gentle basslines. Perfect for a peaceful home session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Green",
@@ -947,9 +953,16 @@
     "dag": "26",
     "permalink": "luister/mix/green-light-f-EDM-DNB-20210426.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/green/Green_Light_f_EDM_DNB_20210426_Audio_V2%20(Vol.%201).mp3",
-    "image_wide_small": "/images/light/green/wide/image_light_green_20210426_wide-small.webp",
-    "image_wide_large": "/images/light/green/wide/image_light_green_20210426_wide-large.webp",
-    "image_square": "/images/light/green/square/image_light_green_20210426_square.webp",
+    "image_wide_small": "/images/light/green/wide/image_light_green_wide_20210426_small.webp",
+    "image_wide_large": "/images/light/green/wide/image_light_green_wide_20210426_large.webp",
+    "image_square": "/images/light/green/square/image_light_green_square_20210426.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Pola & Bryson",
+      "High Contrast"
+    ],
     "tags": [
       "liquid drum and bass mix 2021",
       "liquid drum and bass",
@@ -971,12 +984,6 @@
       "Hospital Records style",
       "DJ Cylow mix",
       "drum and bass mix 2021"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — ontspannen en harmonisch, heerlijk voor een thuissessie. Met Pola & Bryson, Hybrid Minds en Etherwood.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Pola & Bryson",
-      "High Contrast"
     ],
     "tracklist": [
       {

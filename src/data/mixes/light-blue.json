@@ -1,9 +1,9 @@
 [
   {
     "id": "20241003",
-    "featured": false,
-    "ignore": false,
     "title": "Blue Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Introspectief en diep, vol warme melodieën en vloeiende basslines. Ideaal voor een stille avond thuis of nachtrit.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Introspective and deep, full of warm melodies and flowing basslines. Ideal for a quiet evening at home or night drive.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Blue",
@@ -16,9 +16,16 @@
     "dag": "03",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20241003.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20241003_Audio_V2%20(Vol.%206).mp3",
-    "image_wide_small": "/images/light/blue/wide/image_light_blue_20241003_wide-small.webp",
-    "image_wide_large": "/images/light/blue/wide/image_light_blue_20241003_wide-large.webp",
-    "image_square": "/images/light/blue/square/image_light_blue_20241003_square.webp",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_wide_20241003_small.webp",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_wide_20241003_large.webp",
+    "image_square": "/images/light/blue/square/image_light_blue_square_20241003.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "High Contrast",
+      "BCee"
+    ],
     "tags": [
       "liquid drum and bass mix 2024",
       "liquid drum and bass",
@@ -41,12 +48,6 @@
       "Hospital Records style",
       "introspective drum and bass",
       "liquid dnb 2024"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — introspectief en diep, ideaal voor een stille avond thuis. Met Hybrid Minds, BCee, Hugh Hardie en GLXY.",
-    "top_artists": [
-      "Hybrid Minds",
-      "High Contrast",
-      "BCee"
     ],
     "tracklist": [
       {
@@ -185,9 +186,9 @@
   },
   {
     "id": "20231016",
-    "featured": false,
-    "ignore": false,
     "title": "Blue Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melancolisch en sfeervol, met emotionele melodieën en diepe atmosfeer. Perfect voor een late night sessie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melancholic and atmospheric, with emotional melodies and deep ambience. Perfect for a late night session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Blue",
@@ -200,9 +201,16 @@
     "dag": "16",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20231016.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20231016_Audio_V2%20(Vol.%205).mp3",
-    "image_wide_small": "/images/light/blue/wide/image_light_blue_20231016_wide-small.webp",
-    "image_wide_large": "/images/light/blue/wide/image_light_blue_20231016_wide-large.webp",
-    "image_square": "/images/light/blue/square/image_light_blue_20231016_square.webp",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_wide_20231016_small.webp",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_wide_20231016_large.webp",
+    "image_square": "/images/light/blue/square/image_light_blue_square_20231016.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "High Contrast",
+      "Logistics",
+      "Keeno"
+    ],
     "tags": [
       "liquid drum and bass mix 2023",
       "liquid drum and bass",
@@ -225,12 +233,6 @@
       "Hospital Records style",
       "soulful dnb mix",
       "chill drum and bass 2023"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — melancolisch en sfeervol, perfect voor een late night sessie. Met Keeno, High Contrast, Logistics en Halogenix.",
-    "top_artists": [
-      "High Contrast",
-      "Logistics",
-      "Keeno"
     ],
     "tracklist": [
       {
@@ -409,9 +411,9 @@
   },
   {
     "id": "20230206",
-    "featured": false,
-    "ignore": false,
     "title": "Blue Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Dromerig en emotioneel, vol vloeiende melodieën en zachte basslines. Perfect voor een lange avondrit of rustig moment.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Dreamy and emotional, full of flowing melodies and gentle basslines. Perfect for a long evening drive or quiet moment.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Blue",
@@ -424,9 +426,16 @@
     "dag": "06",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20230206.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20230206_Audio_V2%20(Vol.%204).mp3",
-    "image_wide_small": "/images/light/blue/wide/image_light_blue_20230206_wide-small.webp",
-    "image_wide_large": "/images/light/blue/wide/image_light_blue_20230206_wide-large.webp",
-    "image_square": "/images/light/blue/square/image_light_blue_20230206_square.webp",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_wide_20230206_small.webp",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_wide_20230206_large.webp",
+    "image_square": "/images/light/blue/square/image_light_blue_square_20230206.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Rameses B",
+      "T & Sugah",
+      "BCee"
+    ],
     "tags": [
       "liquid drum and bass mix 2023",
       "liquid drum and bass",
@@ -449,12 +458,6 @@
       "soulful dnb mix",
       "atmospheric liquid dnb",
       "chill drum and bass 2023"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — dromerig en emotioneel, voor een lange avondrit. Met Rameses B, BCee, T & Sugah en Andromedik.",
-    "top_artists": [
-      "Rameses B",
-      "T & Sugah",
-      "BCee"
     ],
     "tracklist": [
       {
@@ -621,9 +624,9 @@
   },
   {
     "id": "20221212",
-    "featured": false,
-    "ignore": false,
     "title": "Blue Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Diep en weemoedig, vol zachte basslines en dromerige melodieën. Perfect voor een koude winteravond thuis.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Deep and wistful, full of soft basslines and dreamy melodies. Perfect for a cold winter evening at home.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Blue",
@@ -636,9 +639,16 @@
     "dag": "12",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20221212.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20221212_Audio_V2%20(Vol.%203).mp3",
-    "image_wide_small": "/images/light/blue/wide/image_light_blue_20221212_wide-small.webp",
-    "image_wide_large": "/images/light/blue/wide/image_light_blue_20221212_wide-large.webp",
-    "image_square": "/images/light/blue/square/image_light_blue_20221212_square.webp",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_wide_20221212_small.webp",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_wide_20221212_large.webp",
+    "image_square": "/images/light/blue/square/image_light_blue_square_20221212.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Pendulum",
+      "Pola & Bryson",
+      "Logistics"
+    ],
     "tags": [
       "liquid drum and bass mix 2022",
       "liquid drum and bass",
@@ -661,12 +671,6 @@
       "Hospital Records style",
       "soulful liquid dnb",
       "chill drum and bass 2022"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — diep en weemoedig, perfect voor een koude winteravond. Met Pola & Bryson, Logistics en Hugh Hardie.",
-    "top_artists": [
-      "Pendulum",
-      "Pola & Bryson",
-      "Logistics"
     ],
     "tracklist": [
       {
@@ -813,9 +817,9 @@
   },
   {
     "id": "20210930",
-    "featured": false,
-    "ignore": false,
     "title": "Blue Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melancholisch en innerlijk, met vloeiende basslines en emotionele melodieën voor een rustige thuisavond.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melancholic and introspective, with flowing basslines and emotional melodies for a peaceful evening at home.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Blue",
@@ -828,9 +832,16 @@
     "dag": "30",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20210930.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_f_EDM_DNB_20210930_Audio_V2%20(Vol.%202).mp3",
-    "image_wide_small": "/images/light/blue/wide/image_light_blue_20210930_wide-small.webp",
-    "image_wide_large": "/images/light/blue/wide/image_light_blue_20210930_wide-large.webp",
-    "image_square": "/images/light/blue/square/image_light_blue_20210930_square.webp",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_wide_20210930_small.webp",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_wide_20210930_large.webp",
+    "image_square": "/images/light/blue/square/image_light_blue_square_20210930.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "High Contrast",
+      "Pola & Bryson"
+    ],
     "tags": [
       "liquid drum and bass mix 2021",
       "liquid drum and bass",
@@ -853,12 +864,6 @@
       "introspective dnb mix",
       "chill drum and bass 2021",
       "atmospheric liquid dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — melancholisch en innerlijk, voor een rustige thuisavond. Met Hybrid Minds, Logistics, Pola & Bryson en LSB.",
-    "top_artists": [
-      "Hybrid Minds",
-      "High Contrast",
-      "Pola & Bryson"
     ],
     "tracklist": [
       {
@@ -1009,9 +1014,9 @@
   },
   {
     "id": "20210723",
-    "featured": false,
-    "ignore": false,
     "title": "Blue Light (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Zacht en reflectief, vol dromerige klanken en emotionele basslines. De ultieme begeleiding voor een nachtelijk ritje.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Soft and reflective, full of dreamy sounds and emotional basslines. The ultimate companion for a midnight drive.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Blue",
@@ -1024,9 +1029,16 @@
     "dag": "23",
     "permalink": "luister/mix/blue-light-f-EDM-DNB-20210723.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_m_EDM_DNB_20210723_Audio_V2%20(Vol.%201).mp3",
-    "image_wide_small": "/images/light/blue/wide/image_light_blue_20210723_wide-small.webp",
-    "image_wide_large": "/images/light/blue/wide/image_light_blue_20210723_wide-large.webp",
-    "image_square": "/images/light/blue/square/image_light_blue_20210723_square.webp",
+    "image_wide_small": "/images/light/blue/wide/image_light_blue_wide_20210723_small.webp",
+    "image_wide_large": "/images/light/blue/wide/image_light_blue_wide_20210723_large.webp",
+    "image_square": "/images/light/blue/square/image_light_blue_square_20210723.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "T & Sugah",
+      "Maduk"
+    ],
     "tags": [
       "liquid drum and bass mix 2021",
       "liquid drum and bass",
@@ -1049,12 +1061,6 @@
       "chill dnb 2021",
       "atmospheric liquid dnb",
       "midnight drive mix"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — zacht en reflectief, de ultieme begeleiding voor een nachtelijk ritje. Met T & Sugah, Hybrid Minds en Maduk.",
-    "top_artists": [
-      "Hybrid Minds",
-      "T & Sugah",
-      "Maduk"
     ],
     "tracklist": [
       {
@@ -1205,9 +1211,9 @@
   },
   {
     "id": "blue_light_preview",
-    "featured": true,
-    "ignore": true,
     "title": "Blue Light (f)",
+    "description_nl": "",
+    "description_en": "",
     "genre": "EDM",
     "subgenre": "",
     "color": "Blue",
@@ -1222,8 +1228,9 @@
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/blue/Blue_Light_Preview.mp3",
     "image_wide_small": "",
     "image_wide_large": "",
-    "image_square": "/images/light/blue/square/image_light_blue_preview_square.webp",
-    "description": "",
+    "image_square": "/images/light/blue/square/image_light_blue_square_preview.webp",
+    "featured": true,
+    "ignore": true,
     "top_artists": [],
     "tracklist": []
   }

@@ -1,9 +1,9 @@
 [
   {
     "id": "20240129",
-    "featured": false,
-    "ignore": false,
     "title": "Cyan Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Elektrisch en strak, vol opbouwende energie en melodische basslines. Perfect voor een knallend thuisfeest.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Electric and tight, packed with building energy and melodic basslines. Perfect for a killer house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Cyan",
@@ -16,9 +16,16 @@
     "dag": "29",
     "permalink": "luister/mix/cyan-full-f-EDM-176BPM-20240129.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/cyan/Cyan_Full_f_EDM_DNB_20240129_Audio_V1%20(Vol.%201).mp3",
-    "image_wide_small": "/images/full/cyan/wide/image_full_cyan_20240129_wide-small.webp",
-    "image_wide_large": "/images/full/cyan/wide/image_full_cyan_20240129_wide-large.webp",
+    "image_wide_small": "/images/full/cyan/wide/image_full_cyan_wide_20240129_small.webp",
+    "image_wide_large": "/images/full/cyan/wide/image_full_cyan_wide_20240129_large.webp",
     "image_square": "/images/full/cyan/square/image_full_cyan_20240129_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Sub Focus",
+      "Wilkinson",
+      "Maduk"
+    ],
     "tags": [
       "drum and bass mix 2024",
       "drum and bass",
@@ -43,12 +50,6 @@
       "workout mix",
       "high energy electronic music",
       "DJ Cylow mix"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — elektrisch en strak, vol energie voor een thuisfeest. Met Sub Focus, Maduk, Fox Stevenson en Wilkinson.",
-    "top_artists": [
-      "Sub Focus",
-      "Wilkinson",
-      "Maduk"
     ],
     "tracklist": [
       {

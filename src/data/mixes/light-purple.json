@@ -1,9 +1,9 @@
 [
   {
     "id": "20240803",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Nostalgisch en spiritueel, vol diepe basslines en emotionele melodieën. Ideaal voor een late avondrit of stille nacht.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Nostalgic and spiritual, full of deep basslines and emotional melodies. Ideal for a late night drive or silent night.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -16,9 +16,16 @@
     "dag": "03",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20240803.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20240803_Audio_V1%20(Vol%2010).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20240803_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20240803_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20240803_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20240803_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20240803_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20240803.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Netsky",
+      "Pola & Bryson"
+    ],
     "tags": [
       "liquid drum and bass mix 2024",
       "liquid drum and bass",
@@ -42,12 +49,6 @@
       "Pola Bryson dnb",
       "hospital records vibe",
       "soul deep dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — nostalgisch en spiritueel, ideaal voor een late avondrit. Met Keeno, Hybrid Minds, Telomic en Pola & Bryson.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Netsky",
-      "Pola & Bryson"
     ],
     "tracklist": [
       {
@@ -182,9 +183,9 @@
   },
   {
     "id": "20230515",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Progressive House mix van DJ Cylow. Emotioneel en dromerig, vol zachte melodieën en spirituele energie. Perfect voor een lange rit of stille thuisavond.",
+    "description_en": "Progressive House mix by DJ Cylow. Emotional and dreamy, full of gentle melodies and spiritual energy. Perfect for a long drive or a quiet evening at home.",
     "genre": "EDM",
     "subgenre": "Progressive House",
     "color": "Purple",
@@ -197,9 +198,16 @@
     "dag": "15",
     "permalink": "luister/mix/purple-light-f-EDM-128BPM-20230515.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_128BPM_20230515_Audio_V2%20(Vol%201).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20230515_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20230515_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20230515_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20230515_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20230515_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20230515.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Ben Böhmer",
+      "Lane 8",
+      "MEDUZA"
+    ],
     "tags": [
       "progressive house mix 2023",
       "progressive house",
@@ -223,12 +231,6 @@
       "melodic techno and progressive house",
       "emotional electronic music",
       "deep progressive house"
-    ],
-    "description": "Progressive House mix van DJ Cylow — emotioneel en dromerig, perfect voor een lange rit of thuisavond. Met Ben Böhmer, Lane 8 en Tinlicker.",
-    "top_artists": [
-      "Ben Böhmer",
-      "Lane 8",
-      "MEDUZA"
     ],
     "tracklist": [
       {
@@ -387,9 +389,9 @@
   },
   {
     "id": "20230417",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodisch en intens, vol nostalgische vibes en diepe emoties. Perfect voor een rustige avond of introspectieve sessie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and intense, full of nostalgic vibes and deep emotions. Perfect for a quiet evening or introspective session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -402,9 +404,16 @@
     "dag": "17",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20230417.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20230417_Audio_V2%20(Vol.%209).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20230417_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20230417_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20230417_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20230417_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20230417_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20230417.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Netsky",
+      "Pendulum"
+    ],
     "tags": [
       "liquid drum and bass mix 2023",
       "liquid drum and bass",
@@ -428,12 +437,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "Pola Bryson dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — melodisch en intens, vol nostalgische vibes voor een rustige avond. Met GLXY, Hybrid Minds en Etherwood.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Netsky",
-      "Pendulum"
     ],
     "tracklist": [
       {
@@ -584,9 +587,9 @@
   },
   {
     "id": "20230320",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Dromerig en melancolisch, vol zachte basslines en weemoedige melodieën. Perfect voor een late night sessie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Dreamy and melancholic, full of soft basslines and wistful melodies. Perfect for a late night session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -599,9 +602,16 @@
     "dag": "20",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20230320.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20230320_Audio_V2%20(Vol.%208).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20230320_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20230320_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20230320_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20230320_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20230320_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20230320.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Sub Focus",
+      "Wilkinson",
+      "Pola & Bryson"
+    ],
     "tags": [
       "liquid drum and bass mix 2023",
       "liquid drum and bass",
@@ -625,12 +635,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "Pola Bryson dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — dromerig en melancolisch, perfect voor een late night sessie. Met Pola & Bryson, BCee en Keeno.",
-    "top_artists": [
-      "Sub Focus",
-      "Wilkinson",
-      "Pola & Bryson"
     ],
     "tracklist": [
       {
@@ -781,9 +785,9 @@
   },
   {
     "id": "20220425",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Spiritueel en emotioneel geladen, vol diepe harmonieën en vloeiende basslines. Ideaal voor een avond alleen thuis.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Spiritual and emotionally charged, full of deep harmonies and flowing basslines. Ideal for a solo evening at home.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -796,9 +800,16 @@
     "dag": "25",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20220425.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20220425_Audio_V2%20(Vol.%207).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20220425_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20220425_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20220425_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20220425_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20220425_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20220425.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Sub Focus",
+      "Wilkinson",
+      "Pola & Bryson"
+    ],
     "tags": [
       "liquid drum and bass mix 2022",
       "liquid drum and bass",
@@ -822,12 +833,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "Pola Bryson dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — spiritueel en emotioneel geladen, ideaal voor een avond thuis. Met Wilkinson, BCee, Etherwood en Pola & Bryson.",
-    "top_artists": [
-      "Sub Focus",
-      "Wilkinson",
-      "Pola & Bryson"
     ],
     "tracklist": [
       {
@@ -978,9 +983,9 @@
   },
   {
     "id": "20211115",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vol nostalgische melodieën en diepe sfeer voor een lange nacht vol introspectie en emotie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Full of nostalgic melodies and deep atmosphere for a long night of introspection and emotion.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -993,9 +998,16 @@
     "dag": "15",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20211115.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20211115_Audio_V2%20(Vol.%206).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20211115_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20211115_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20211115_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20211115_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20211115_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20211115.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Pola & Bryson",
+      "Etherwood"
+    ],
     "tags": [
       "liquid drum and bass mix 2021",
       "liquid drum and bass",
@@ -1019,12 +1031,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "Pola Bryson dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — vol nostalgische melodieën en diepe sfeer voor een lange nacht. Met Hybrid Minds, Etherwood, LSB en Pola & Bryson.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Pola & Bryson",
-      "Etherwood"
     ],
     "tracklist": [
       {
@@ -1171,9 +1177,9 @@
   },
   {
     "id": "20210831",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Afwisselend en energiek, met melodische en donkere kanten die elkaar afwisselen. Perfect voor een thuisfeest.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Varied and energetic, with melodic and dark sides alternating throughout. Perfect for a house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -1186,9 +1192,16 @@
     "dag": "31",
     "permalink": "luister/mix/purple-light-m-EDM-DNB-20210831.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_m_EDM_DNB_20210831_Audio_V2%20(Vol.%205).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210831_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210831_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20210831_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20210831_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20210831_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20210831.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Wilkinson",
+      "Camo & Krooked",
+      "Metrik"
+    ],
     "tags": [
       "drum and bass mix 2021",
       "drum and bass",
@@ -1212,12 +1225,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "dnb playlist 2021"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — afwisselend en energiek, met melodische en donkere kanten voor een thuisfeest. Met Camo & Krooked, Wilkinson en Keeno.",
-    "top_artists": [
-      "Wilkinson",
-      "Camo & Krooked",
-      "Metrik"
     ],
     "tracklist": [
       {
@@ -1368,9 +1375,9 @@
   },
   {
     "id": "20210809",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Intens en melodisch, doordrenkt van emotie en spirituele sfeer. Voor een avond alleen of een nachtelijk moment.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Intense and melodic, drenched in emotion and spiritual atmosphere. For an evening alone or a nighttime moment.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -1383,9 +1390,16 @@
     "dag": "09",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20210809.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20210809_Audio_V2%20(Vol.%204).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210809_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210809_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20210809_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20210809_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20210809_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20210809.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Camo & Krooked",
+      "Pola & Bryson"
+    ],
     "tags": [
       "liquid drum and bass mix 2021",
       "liquid drum and bass",
@@ -1409,12 +1423,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "Pola Bryson dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — intens en melodisch, doordrenkt van emotie voor een avond alleen. Met Hybrid Minds, Telomic, BCee en Pola & Bryson.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Camo & Krooked",
-      "Pola & Bryson"
     ],
     "tracklist": [
       {
@@ -1565,9 +1573,9 @@
   },
   {
     "id": "20210614",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Nostalgisch en melodisch, een uur vol emotie en diepe sfeer voor de late avond of een stille nacht.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Nostalgic and melodic, an hour of emotion and deep atmosphere for the late evening or a silent night.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -1580,9 +1588,16 @@
     "dag": "14",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20210614.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20210614_Audio_V2%20(Vol.%203).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210614_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210614_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20210614_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20210614_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20210614_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20210614.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Netsky",
+      "Pola & Bryson"
+    ],
     "tags": [
       "liquid drum and bass mix 2021",
       "liquid drum and bass",
@@ -1606,12 +1621,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "Pola Bryson dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — nostalgisch en melodisch, een uur vol emotie voor de late avond. Met Pola & Bryson, Hybrid Minds, BCee en Keeno.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Netsky",
-      "Pola & Bryson"
     ],
     "tracklist": [
       {
@@ -1762,9 +1771,9 @@
   },
   {
     "id": "20210517",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Sfeervolle en emotionele klanken vol zachte melodieën en diepe basslines. Perfect voor een rustige avond thuis.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Atmospheric and emotional sounds full of gentle melodies and deep basslines. Perfect for a quiet evening at home.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -1777,9 +1786,16 @@
     "dag": "17",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20210517.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_DNB_20210517_Audio_V2%20(Vol.%202).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210517_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210517_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20210517_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20210517_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20210517_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20210517.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Maduk",
+      "Pendulum",
+      "BCee"
+    ],
     "tags": [
       "liquid drum and bass mix 2021",
       "liquid drum and bass",
@@ -1803,12 +1819,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "Pola Bryson dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — sfeervolle en emotionele klanken, perfect voor een rustige avond thuis. Met Maduk, Monrroe, BCee en Bert H.",
-    "top_artists": [
-      "Maduk",
-      "Pendulum",
-      "BCee"
     ],
     "tracklist": [
       {
@@ -1955,9 +1965,9 @@
   },
   {
     "id": "20210329",
-    "featured": false,
-    "ignore": false,
     "title": "Purple Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. De eerste editie, vol spirituele melodieën en nostalgische vibes voor een late slaaploze nacht.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. The first edition, full of spiritual melodies and nostalgic vibes for a late sleepless night.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Purple",
@@ -1970,9 +1980,16 @@
     "dag": "29",
     "permalink": "luister/mix/purple-light-f-EDM-DNB-20210329.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/purple/Purple_Light_f_EDM_128BPM_20230515_Audio_V2%20(Vol%201).mp3",
-    "image_wide_small": "/images/light/purple/wide/image_light_purple_20210329_wide-small.webp",
-    "image_wide_large": "/images/light/purple/wide/image_light_purple_20210329_wide-large.webp",
-    "image_square": "/images/light/purple/square/image_light_purple_20210329_square.webp",
+    "image_wide_small": "/images/light/purple/wide/image_light_purple_wide_20210329_small.webp",
+    "image_wide_large": "/images/light/purple/wide/image_light_purple_wide_20210329_large.webp",
+    "image_square": "/images/light/purple/square/image_light_purple_square_20210329.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Hybrid Minds",
+      "Calibre",
+      "Pola & Bryson"
+    ],
     "tags": [
       "liquid drum and bass mix 2021",
       "liquid drum and bass",
@@ -1996,12 +2013,6 @@
       "hospital records vibe",
       "soul deep dnb",
       "Pola Bryson dnb"
-    ],
-    "description": "Liquid Drum & Bass mix van DJ Cylow — de eerste editie, vol spirituele melodieën en nostalgische vibes. Met Calibre, Hybrid Minds, Pola & Bryson en Telomic.",
-    "top_artists": [
-      "Hybrid Minds",
-      "Calibre",
-      "Pola & Bryson"
     ],
     "tracklist": [
       {
@@ -2140,9 +2151,9 @@
   },
   {
     "id": "Purple_light_preview",
-    "featured": true,
-    "ignore": true,
     "title": "Purple Light (f)",
+    "description_nl": "",
+    "description_en": "",
     "genre": "EDM",
     "subgenre": "",
     "color": "Purple",
@@ -2158,7 +2169,8 @@
     "image_wide_small": "",
     "image_wide_large": "",
     "image_square": "/images/light/Purple/square/image_light_purple_preview_square.webp",
-    "description": "",
+    "featured": true,
+    "ignore": true,
     "top_artists": [],
     "tracklist": []
   }

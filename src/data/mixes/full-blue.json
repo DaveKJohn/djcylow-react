@@ -1,9 +1,9 @@
 [
   {
     "id": "20240408",
-    "featured": false,
-    "ignore": false,
     "title": "Blue Full (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Krachtig en episch van begin tot einde. Perfect voor een lange avondrit of een intense thuissessie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Powerful and epic from start to finish. Perfect for a long night drive or an intense home session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Blue",
@@ -16,9 +16,16 @@
     "dag": "08",
     "permalink": "luister/mix/blue-full-f-DNB-20240408.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/blue/Blue_Full_f_EDM_DNB_20240408_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/full/blue/wide/image_full_blue_20240408_wide-small.webp",
-    "image_wide_large": "/images/full/blue/wide/image_full_blue_20240408_wide-large.webp",
+    "image_wide_small": "/images/full/blue/wide/image_full_blue_wide_20240408_small.webp",
+    "image_wide_large": "/images/full/blue/wide/image_full_blue_wide_20240408_large.webp",
     "image_square": "/images/full/blue/square/image_full_blue_20240408_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Wilkinson",
+      "Netsky",
+      "Delta Heavy"
+    ],
     "tags": [
       "drum and bass mix 2024",
       "drum and bass",
@@ -43,12 +50,6 @@
       "dnb mix 2024",
       "energetic drum and bass",
       "epic dnb mix"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — krachtig en episch, perfect voor een lange avondrit. Met Delta Heavy, Wilkinson, Netsky en Feint.",
-    "top_artists": [
-      "Wilkinson",
-      "Netsky",
-      "Delta Heavy"
     ],
     "tracklist": [
       {
@@ -223,9 +224,9 @@
   },
   {
     "id": "20220406",
-    "featured": false,
-    "ignore": false,
     "title": "Blue Full (m)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vol energie en donkere diepgang met melodische rollers en zware basslines. Ideaal voor een thuisfeest.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Full of energy and dark depth with melodic rollers and heavy basslines. Ideal for a house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Blue",
@@ -238,9 +239,16 @@
     "dag": "06",
     "permalink": "luister/mix/blue-full-m-DNB-20220406.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/blue/Blue_Full_m_EDM_DNB_20220406_Audio_V2%20(Vol.%201).mp3",
-    "image_wide_small": "/images/full/blue/wide/image_full_blue_20220406_wide-small.webp",
-    "image_wide_large": "/images/full/blue/wide/image_full_blue_20220406_wide-large.webp",
+    "image_wide_small": "/images/full/blue/wide/image_full_blue_wide_20220406_small.webp",
+    "image_wide_large": "/images/full/blue/wide/image_full_blue_wide_20220406_large.webp",
     "image_square": "/images/full/blue/square/image_full_blue_20220406_square.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Wilkinson",
+      "Maduk",
+      "Keeno"
+    ],
     "tags": [
       "drum and bass mix 2021",
       "drum and bass",
@@ -265,12 +273,6 @@
       "dnb mix 2021",
       "energetic drum and bass",
       "home party mix"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — vol energie en donkere diepgang, ideaal voor een thuisfeest. Met Keeno, Wilkinson, Maduk en Hedex.",
-    "top_artists": [
-      "Wilkinson",
-      "Maduk",
-      "Keeno"
     ],
     "tracklist": [
       {

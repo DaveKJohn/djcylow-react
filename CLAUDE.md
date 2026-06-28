@@ -165,7 +165,7 @@ See `src/data/mixes/README.md` for the full schema spec.
 Quick rules:
 - `color` field: capitalized (`"Red"`, not `"red"`)
 - `date` field: ISO format `"YYYY-MM-DD"` (not empty)
-- `description`: unique per mix, 120–160 chars, English, mention subgenre + 2–4 artists
+- `description`: unique per mix, 120–160 chars, Dutch, no dashes (`-` or `—`), no artist names (artists go in `top_artists`)
 - `tracklist` time format: `"HH:MM:SS"` with leading zeros
 - New mixes go at the **top** of the array
 

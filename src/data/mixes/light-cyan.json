@@ -1,9 +1,9 @@
 [
   {
     "id": "20251108",
-    "featured": false,
-    "ignore": false,
     "title": "Cyan Light (f)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Fris en helder, vol aanstekelijke grooves en zonnige vibes. Perfect voor een ontspannen middag thuis of een zomerse drive.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Fresh and bright, full of infectious grooves and sunny vibes. Perfect for a relaxed afternoon at home or a summer drive.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Cyan",
@@ -16,9 +16,16 @@
     "dag": "08",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20251108.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20251108_Audio_V1%20(Vol.%205).mp3",
-    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20251108_wide-small.webp",
-    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20251108_wide-large.webp",
-    "image_square": "/images/light/cyan/square/image_light_cyan_20251108_square.webp",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_wide_20251108_small.webp",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_wide_20251108_large.webp",
+    "image_square": "/images/light/cyan/square/image_light_cyan_square_20251108.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "The Magician",
+      "Cosmo's Midnight",
+      "Phats & Small"
+    ],
     "tags": [
       "nu disco mix 2025",
       "nu disco",
@@ -40,12 +47,6 @@
       "summer house music",
       "uplifting dance mix",
       "DJ Cylow mix"
-    ],
-    "description": "Nu-Disco mix van DJ Cylow — fris en helder, perfect voor een zonnige middag thuis. Met The Magician, Cosmo's Midnight en Phats & Small.",
-    "top_artists": [
-      "The Magician",
-      "Cosmo's Midnight",
-      "Phats & Small"
     ],
     "tracklist": [
       {
@@ -172,9 +173,9 @@
   },
   {
     "id": "20250619",
-    "featured": false,
-    "ignore": false,
     "title": "Cyan Light (f)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Helder en opzwepend, vol discoklassiekers en festivalgroovers met aanstekelijke energie. Perfect voor een feestelijk moment.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Bright and uplifting, full of disco classics and festival grooves with infectious energy. Perfect for a festive moment.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Cyan",
@@ -187,9 +188,16 @@
     "dag": "19",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20250619.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20250619_Audio_V4%20(Vol.%204).mp3",
-    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250619_wide-small.webp",
-    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250619_wide-large.webp",
-    "image_square": "/images/light/cyan/square/image_light_cyan_20250619_square.webp",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_wide_20250619_small.webp",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_wide_20250619_large.webp",
+    "image_square": "/images/light/cyan/square/image_light_cyan_square_20250619.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Purple Disco Machine",
+      "Jax Jones",
+      "Phats & Small"
+    ],
     "tags": [
       "nu disco mix 2025",
       "nu disco",
@@ -211,12 +219,6 @@
       "feel good dance mix",
       "summer disco mix",
       "DJ Cylow mix"
-    ],
-    "description": "Helder en opzwepend nu-disco van DJ Cylow — een mix vol discoklassiekers en festivalgroovers. Met Jax Jones, Phats & Small en Block & Crown.",
-    "top_artists": [
-      "Purple Disco Machine",
-      "Jax Jones",
-      "Phats & Small"
     ],
     "tracklist": [
       {
@@ -383,9 +385,9 @@
   },
   {
     "id": "20250515",
-    "featured": false,
-    "ignore": false,
     "title": "Cyan Light (f)",
+    "description_nl": "Deep House mix van DJ Cylow. Rustig en gefocust, met frisse club vibes en heldere melodieën voor een lange ontspannen avond.",
+    "description_en": "Deep House mix by DJ Cylow. Calm and focused, with fresh club vibes and clear melodies. The perfect soundtrack for a long and relaxed evening.",
     "genre": "EDM",
     "subgenre": "Deep House",
     "color": "Cyan",
@@ -398,9 +400,16 @@
     "dag": "15",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20250515.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20250515_Audio_V1%20(Vol.%203).mp3",
-    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250515_wide-small.webp",
-    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250515_wide-large.webp",
-    "image_square": "/images/light/cyan/square/image_light_cyan_20250515_square.webp",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_wide_20250515_small.webp",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_wide_20250515_large.webp",
+    "image_square": "/images/light/cyan/square/image_light_cyan_square_20250515.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Sophie Ellis-Bextor",
+      "Purple Disco Machine",
+      "Soulsearcher"
+    ],
     "tags": [
       "edm mix 2025",
       "electronic dance music mix",
@@ -422,12 +431,6 @@
       "nu disco dj set",
       "house music 2025",
       "DJ Cylow mix"
-    ],
-    "description": "Dance mix van DJ Cylow — rustig en gefocust, met frisse club vibes voor een lange avond. Met Sophie Ellis-Bextor, Vintage & Morelli en Block & Crown.",
-    "top_artists": [
-      "Sophie Ellis-Bextor",
-      "Purple Disco Machine",
-      "Soulsearcher"
     ],
     "tracklist": [
       {
@@ -554,9 +557,9 @@
   },
   {
     "id": "20250307",
-    "featured": false,
-    "ignore": false,
     "title": "Cyan Light (f)",
+    "description_nl": "Nu-Disco mix van DJ Cylow. Warm en helder, vol swingende grooves en huiselijke energie. Ideaal voor een relaxte avond aan huis of een zonnig terras.",
+    "description_en": "Nu-Disco mix by DJ Cylow. Warm and bright, full of swinging grooves and homely energy. Ideal for a relaxed evening indoors or a sunny terrace.",
     "genre": "EDM",
     "subgenre": "Nu-Disco",
     "color": "Cyan",
@@ -569,9 +572,16 @@
     "dag": "07",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20250307.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20250307_Audio_V1%20(Vol.%202).mp3",
-    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20250307_wide-small.webp",
-    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20250307_wide-large.webp",
-    "image_square": "/images/light/cyan/square/image_light_cyan_20250307_square.webp",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_wide_20250307_small.webp",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_wide_20250307_large.webp",
+    "image_square": "/images/light/cyan/square/image_light_cyan_square_20250307.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Armand Van Helden",
+      "The Magician",
+      "Jax Jones"
+    ],
     "tags": [
       "nu disco house mix 2025",
       "nu disco",
@@ -593,12 +603,6 @@
       "feel good house mix",
       "late night drive mix",
       "DJ Cylow mix"
-    ],
-    "description": "Nu-Disco house mix van DJ Cylow — warm en helder, ideaal voor een relaxte avond aan huis. Met Armand Van Helden, The Magician en Sonny Fodera.",
-    "top_artists": [
-      "Armand Van Helden",
-      "The Magician",
-      "Jax Jones"
     ],
     "tracklist": [
       {
@@ -725,9 +729,9 @@
   },
   {
     "id": "20241213",
-    "featured": false,
-    "ignore": false,
     "title": "Cyan Light (f)",
+    "description_nl": "House mix van DJ Cylow. Helder en fris, vol tijdloze dancefloor grooves en energetische house beats. Een klassieker voor elke feestgelegenheid.",
+    "description_en": "House mix by DJ Cylow. Bright and fresh, full of timeless dancefloor grooves and energetic house beats. A classic set for any occasion.",
     "genre": "EDM",
     "subgenre": "House",
     "color": "Cyan",
@@ -740,9 +744,16 @@
     "dag": "13",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20241213.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_128BPM_20241213_Audio_V1%20(Vol.%201).mp3",
-    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20241213_wide-small.webp",
-    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20241213_wide-large.webp",
-    "image_square": "/images/light/cyan/square/image_light_cyan_20241213_square.webp",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_wide_20241213_small.webp",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_wide_20241213_large.webp",
+    "image_square": "/images/light/cyan/square/image_light_cyan_square_20241213.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Frankie Knuckles",
+      "Purple Disco Machine",
+      "Bob Sinclair"
+    ],
     "tags": [
       "house mix 2024",
       "edm mix 2024",
@@ -764,12 +775,6 @@
       "underground house 2024",
       "disco house classics",
       "DJ Cylow mix"
-    ],
-    "description": "House mix van DJ Cylow — helder en fris, een klassieker vol tijdloze dancefloor grooves. Met Frankie Knuckles, Purple Disco Machine en Mark Knight.",
-    "top_artists": [
-      "Frankie Knuckles",
-      "Purple Disco Machine",
-      "Bob Sinclair"
     ],
     "tracklist": [
       {
@@ -892,9 +897,9 @@
   },
   {
     "id": "20220606",
-    "featured": false,
-    "ignore": false,
     "title": "Cyan Light (f)",
+    "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Helder en energiek, van vloeiende liquid vibes tot krachtige melodische rollers. Vol afwisseling en energie.",
+    "description_en": "Liquid Drum & Bass mix by DJ Cylow. Bright and energetic, from flowing liquid vibes to powerful melodic rollers. Full of variety and energy.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
     "color": "Cyan",
@@ -907,9 +912,16 @@
     "dag": "06",
     "permalink": "luister/mix/cyan-light-f-EDM-128BPM-20220606.html",
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_f_EDM_DNB_20220606_Audio_V2%20(Vol.%201).mp3",
-    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_20220606_wide-small.webp",
-    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_20220606_wide-large.webp",
-    "image_square": "/images/light/cyan/square/image_light_cyan_20220606_square.webp",
+    "image_wide_small": "/images/light/cyan/wide/image_light_cyan_wide_20220606_small.webp",
+    "image_wide_large": "/images/light/cyan/wide/image_light_cyan_wide_20220606_large.webp",
+    "image_square": "/images/light/cyan/square/image_light_cyan_square_20220606.webp",
+    "featured": false,
+    "ignore": false,
+    "top_artists": [
+      "Wilkinson",
+      "High Contrast",
+      "Maduk"
+    ],
     "tags": [
       "drum and bass mix 2022",
       "drum and bass",
@@ -931,12 +943,6 @@
       "focus music",
       "late night drive mix",
       "DJ Cylow mix"
-    ],
-    "description": "Drum & Bass mix van DJ Cylow — helder en energiek, van liquid vibes tot melodische rollers. Met Wilkinson, Maduk, BCee en High Contrast.",
-    "top_artists": [
-      "Wilkinson",
-      "High Contrast",
-      "Maduk"
     ],
     "tracklist": [
       {
@@ -1087,9 +1093,9 @@
   },
   {
     "id": "Cyan_Light_Preview",
-    "featured": true,
-    "ignore": true,
     "title": "Cyan Light (f)",
+    "description_nl": "",
+    "description_en": "",
     "genre": "EDM",
     "subgenre": "",
     "color": "Cyan",
@@ -1104,8 +1110,9 @@
     "audioSrc": "https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/cyan/Cyan_Light_Preview.mp3",
     "image_wide_small": "",
     "image_wide_large": "",
-    "image_square": "/images/light/cyan/square/image_light_cyan_preview_square.webp",
-    "description": "",
+    "image_square": "/images/light/cyan/square/image_light_cyan_square_preview.webp",
+    "featured": true,
+    "ignore": true,
     "top_artists": [],
     "tracklist": []
   }
