@@ -22,6 +22,12 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+---
+
+## [v2.19.1] - 2026-06-28 — Patch ← LIVE
+
+Zie [release-notes/2.19/2.19.1.md](release-notes/2.19/2.19.1.md)
+
 ### robots.txt en sitemap.xml: static export fix
 **Branch naam** fix/robots-sitemap-static-export
 **Datum merge op main** 2026-06-28
@@ -31,7 +37,7 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ---
 
-## [v2.19.0] - 2026-06-28 — Minor ← LIVE
+## [v2.19.0] - 2026-06-28 — Minor
 
 Zie [release-notes/2.19/2.19.0.md](release-notes/2.19/2.19.0.md)
 
