@@ -16,6 +16,8 @@ import fullPurple from '@/data/mixes/full-purple.json';
 import fullRed from '@/data/mixes/full-red.json';
 import fullYellow from '@/data/mixes/full-yellow.json';
 
+export const dynamic = 'force-static';
+
 const BASE_URL = 'https://www.djcylow.com';
 
 type MixEntry = {

@@ -24,7 +24,20 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ---
 
-## [v2.19.0] - 2026-06-28 — Minor ← LIVE
+## [v2.19.1] - 2026-06-28 — Patch ← LIVE
+
+Zie [release-notes/2.19/2.19.1.md](release-notes/2.19/2.19.1.md)
+
+### robots.txt en sitemap.xml: static export fix
+**Branch naam** fix/robots-sitemap-static-export
+**Datum merge op main** 2026-06-28
+**Branch type** Fix
+
+`export const dynamic = 'force-static'` toegevoegd aan `robots.ts` en `sitemap.ts`. Verplicht voor Next.js static export (`output: 'export'`) — zonder deze export faalt de Netlify build met "export const dynamic not configured".
+
+---
+
+## [v2.19.0] - 2026-06-28 — Minor
 
 Zie [release-notes/2.19/2.19.0.md](release-notes/2.19/2.19.0.md)
 
