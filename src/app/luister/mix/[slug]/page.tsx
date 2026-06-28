@@ -123,13 +123,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     if (!mix) return { title: 'Mix Niet Gevonden | DJ Cylow' };
 
-    const titleText = `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume} | DJ Cylow`;
+    const titleText = `${mix.color} ${mix.subgenre} Mix ${mix.volume} | DJ Cylow`;
 
     // top_artists heeft prioriteit boven de tracklist-fallback
     const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 4);
 
     // Gebruik de handgeschreven description als die bestaat; anders een automatisch gegenereerde tekst
-    const descriptionText = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
+    const descriptionText = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
 
     // Zet de .html-extensie om naar een schone slug voor de canonieke URL
     const cleanFilename = mix.permalink.split('/').pop() || '';
@@ -157,7 +157,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
                 url: ogImageUrl,
                 width: 1200,
                 height: 630,
-                alt: `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume} - DJ Cylow`,
+                alt: `${mix.color} ${mix.subgenre} Mix ${mix.volume} - DJ Cylow`,
             }] : [],
         },
         twitter: {
@@ -190,7 +190,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     const cleanFilename = mix.permalink.split('/').pop() || '';
     const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
     const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
-    const mixDescription = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre || mix.genre} set van DJ Cylow met tracks van top artiesten.`;
+    const mixDescription = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre} set van DJ Cylow met tracks van top artiesten.`;
 
     // JSON-LD = gestructureerde data die Google leest om rich results te tonen in de zoekresultaten
     // (bijv. een muziekkaart met artiestnamen, trackaantal en een directe luisterknop).
@@ -198,10 +198,10 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'MusicPlaylist',
-        'name': `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume} - DJ Cylow`,
+        'name': `${mix.color} ${mix.subgenre} Mix ${mix.volume} - DJ Cylow`,
         'description': mixDescription,
         'numTracks': Array.isArray(mix.tracklist) ? mix.tracklist.length : 0,
-        'genre': mix.subgenre || mix.genre,
+        'genre': mix.subgenre,
         ...(mix.date && { 'datePublished': mix.date, 'dateModified': mix.date }),
         'image': `https://www.djcylow.com${mix.image_wide_large}`,
         'url': pageUrl,
@@ -243,7 +243,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         'itemListElement': [
             { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.djcylow.com' },
             { '@type': 'ListItem', 'position': 2, 'name': 'Listen', 'item': 'https://www.djcylow.com/luister' },
-            { '@type': 'ListItem', 'position': 3, 'name': `${mix.color} ${mix.subgenre || mix.genre} Mix ${mix.volume}`, 'item': pageUrl },
+            { '@type': 'ListItem', 'position': 3, 'name': `${mix.color} ${mix.subgenre} Mix ${mix.volume}`, 'item': pageUrl },
         ],
     };
 
@@ -262,7 +262,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
             {/* Stuurt mix-gegevens naar Google Analytics zodat je kunt zien welke mixen bekeken worden */}
             <MixAnalytics
                 id={mix.id}
-                title={`${mix.color} ${mix.genre} Mix ${mix.volume}`}
+                title={`${mix.color} ${mix.subgenre} Mix ${mix.volume}`}
                 power={mix.power}
                 color={mix.color}
                 genre={mix.genre}
@@ -279,51 +279,11 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 <BackButton />
                             </div>
 
-                            {/* Titel, energieniveau en publicatiedatum */}
+                            {/* Titel */}
                             <div className="column w-hug AML P35 header">
                                 <h1>
-                                    {mix.color} {mix.subgenre || mix.genre} Mix {mix.volume}
+                                    {mix.color} {mix.subgenre} Mix {mix.volume}
                                 </h1>
-                                <p className="size-sm">{mix.power} Energy{mix.frequency ? ` · ${mix.frequency}` : ''}</p>
-                                {mix.jaar && (
-                                    <p className="size-xs">
-                                        {/* <time> met dateTime helpt zoekmachines de datum correct te lezen */}
-                                        <time dateTime={mix.date}>{mix.dag} {mix.maand}, {mix.jaar}</time>
-                                    </p>
-                                )}
-                            </div>
-
-                            {/* Gestructureerde feitenblok — duidelijk leesbaar voor zowel bezoekers als AI-zoekmachines */}
-                            <div className="column w-fill AML P35 key-facts">
-                                <dl className="row spacing-xl">
-                                    <div>
-                                        <dt className="size-xs">Genre</dt>
-                                        <dd className="size-sm">{mix.subgenre || mix.genre}</dd>
-                                    </div>
-                                    <div>
-                                        <dt className="size-xs">Energy</dt>
-                                        <dd className="size-sm">{mix.power}</dd>
-                                    </div>
-                                    <div>
-                                        <dt className="size-xs">Tracks</dt>
-                                        <dd className="size-sm">{Array.isArray(mix.tracklist) ? mix.tracklist.length : '—'}</dd>
-                                    </div>
-                                </dl>
-                            </div>
-
-                            {/* Beschrijving: toon de handgeschreven tekst uit de JSON als die bestaat,
-                                anders een automatisch gegenereerde fallback-tekst */}
-                            <div className="column w-fill AML P35 seo-description">
-                                {mix.description_nl ? (
-                                    <p className="size-base">{mix.description_nl}</p>
-                                ) : (
-                                    <p className="size-base">
-                                        Ben je op zoek naar een energieke {mix.subgenre || mix.genre} mix? In <strong>{mix.color} {mix.volume}</strong> brengt
-                                        DJ Cylow een vloeiende, non-stop selectie van de beste tracks van dit moment.
-                                        Deze set heeft een <strong>{mix.power}</strong> feel en is perfect geschikt voor tijdens het streamen, sporten of je pre-party.
-                                        {topArtists && <span> Geniet van unieke overgangen en platen van top-producers zoals <em>{topArtists}</em> en vele anderen.</span>}
-                                    </p>
-                                )}
                             </div>
 
                             <div className="column w-fill AML P35">
@@ -336,13 +296,70 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 />
                             </div>
 
+
+
+
+
+
+                            {/* Beschrijving: toon de handgeschreven tekst uit de JSON als die bestaat,
+                                anders een automatisch gegenereerde fallback-tekst */}
+                            <div className="column w-fill AML P35 seo-description">
+
+                                {mix.jaar && (
+                                    <p className="size-base bold">
+                                        {/* <time> met dateTime helpt zoekmachines de datum correct te lezen */}
+                                        <time dateTime={mix.date}>{mix.dag} {mix.maand}, {mix.jaar}</time>
+                                    </p>
+                                )}
+                                {mix.description_nl ? (
+                                    <p className="size-base">{mix.description_nl}</p>
+                                ) : (
+                                    <p className="size-base">
+                                        Ben je op zoek naar een energieke {mix.subgenre} mix? In <strong>{mix.color} {mix.volume}</strong> brengt
+                                        DJ Cylow een vloeiende, non-stop selectie van de beste tracks van dit moment.
+                                        Deze set heeft een <strong>{mix.power}</strong> feel en is perfect geschikt voor tijdens het streamen, sporten of je pre-party.
+                                        {topArtists && <span> Geniet van unieke overgangen en platen van top-producers zoals <em>{topArtists}</em> en vele anderen.</span>}
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Gestructureerde feitenblok — duidelijk leesbaar voor zowel bezoekers als AI-zoekmachines */}
+                            <div className="column w-fill AML P35 key-facts">
+
+
+                                {/* <dl> = description list: semantisch HTML voor sleutel-waarde-paren.
+                                    Zoekmachines en AI-crawlers herkennen <dt> (term) + <dd> (waarde)
+                                    als gestructureerde feitenparen — beter dan een generieke <div> met tekst. */}
+                                <dl className="row spacing-xl">
+
+                                    <div>
+                                        <dt className="size-xs">Colour</dt>
+                                        <dd className="size-sm">{mix.color}</dd>
+                                    </div>
+                                    <div>
+                                        <dt className="size-xs">Shade</dt>
+                                        <dd className="size-sm">{mix.power} {mix.frequency}</dd>
+                                    </div>
+
+                                    <div>
+                                        <dt className="size-xs">Subgenre</dt>
+                                        <dd className="size-sm">{mix.subgenre}</dd>
+                                    </div>
+
+                                    <div>
+                                        <dt className="size-xs">Tracks</dt>
+                                        <dd className="size-sm">{Array.isArray(mix.tracklist) ? mix.tracklist.length : '—'}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+
+
+
                             {/* Tracklist als tabel: linkerkolom = artiest + titel, rechterkolom = tijdcode */}
                             <div className="column w-hug AML P35 spacing-xl tracklist">
                                 <div className="row text-wrapper">
                                     <div className="column text-wrapper h-start header">
-                                        <h2 className="size-lg bold">
-                                            Tracklist {mix.color} {mix.genre} Mix
-                                        </h2>
+                                        <h2 className="size-lg bold">Tracklist</h2>
                                     </div>
                                 </div>
 
@@ -364,7 +381,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 </table>
 
                                 <div className="seo-disclaimer">
-                                    <p><strong>Disclaimer:</strong> All music rights belong to their respective owners. Support the artists featured in this DJ Cylow {mix.genre} mix by buying their tracks.</p>
+                                    <p><strong>Disclaimer:</strong> All music rights belong to their respective owners. Support the artists featured in this DJ Cylow {mix.subgenre} mix by buying their tracks.</p>
                                 </div>
                             </div>
 

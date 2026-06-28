@@ -22,6 +22,15 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Mix-detailpagina: subgenre-fallbacks, key-facts herstructurering en Shade-label
+**Branch naam** fix/mix-detail-subgenre
+**Datum merge op main** TBD
+**Branch type** Fix
+
+Alle `mix.subgenre || mix.genre` fallbacks verwijderd — subgenre is verplicht. Energy/datum verplaatst van header naar key-facts blok. Key-facts dl herstructureerd: Colour/Shade (Power + Frequency)/Subgenre/Tracks. H2 tracklist vereenvoudigd naar "Tracklist". `<dl>`-comment toegevoegd. stray `s`-bug gecorrigeerd.
+
+---
+
 ### Unieke NL/EN mix descriptions voor alle 77 mixen
 **Branch naam** content/mix-descriptions-all
 **Datum merge op main** TBD
