@@ -22,6 +22,15 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Mix-detailpagina gebruikt `subgenre` consequent zonder fallback
+**Branch naam** fix/mix-detail-subgenre
+**Datum merge op main** TBD
+**Branch type** Fix
+
+Alle `mix.subgenre || mix.genre` fallbacks verwijderd uit `page.tsx` — `subgenre` is een verplicht veld en hoeft geen fallback te hebben. Drie extra plekken gecorrigeerd waar nog `mix.genre` als weergavetekst werd gebruikt (H2 tracklist, disclaimer, MixAnalytics title). `genre={mix.genre}` in de MixAnalytics-prop is bewust behouden (stuurt de brede categorie naar GA4, geen weergavetekst).
+
+---
+
 ### Unieke NL/EN mix descriptions voor alle 77 mixen
 **Branch naam** content/mix-descriptions-all
 **Datum merge op main** TBD
