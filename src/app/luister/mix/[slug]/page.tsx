@@ -279,51 +279,11 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 <BackButton />
                             </div>
 
-                            {/* Titel, energieniveau en publicatiedatum */}
+                            {/* Titel */}
                             <div className="column w-hug AML P35 header">
                                 <h1>
                                     {mix.color} {mix.subgenre} Mix {mix.volume}
                                 </h1>
-                                <p className="size-sm">{mix.power} Energy{mix.frequency ? ` · ${mix.frequency}` : ''}</p>
-                                {mix.jaar && (
-                                    <p className="size-xs">
-                                        {/* <time> met dateTime helpt zoekmachines de datum correct te lezen */}
-                                        <time dateTime={mix.date}>{mix.dag} {mix.maand}, {mix.jaar}</time>
-                                    </p>
-                                )}
-                            </div>
-
-                            {/* Gestructureerde feitenblok — duidelijk leesbaar voor zowel bezoekers als AI-zoekmachines */}
-                            <div className="column w-fill AML P35 key-facts">
-                                <dl className="row spacing-xl">
-                                    <div>
-                                        <dt className="size-xs">Genre</dt>
-                                        <dd className="size-sm">{mix.subgenre}</dd>
-                                    </div>
-                                    <div>
-                                        <dt className="size-xs">Energy</dt>
-                                        <dd className="size-sm">{mix.power}</dd>
-                                    </div>
-                                    <div>
-                                        <dt className="size-xs">Tracks</dt>
-                                        <dd className="size-sm">{Array.isArray(mix.tracklist) ? mix.tracklist.length : '—'}</dd>
-                                    </div>
-                                </dl>
-                            </div>
-
-                            {/* Beschrijving: toon de handgeschreven tekst uit de JSON als die bestaat,
-                                anders een automatisch gegenereerde fallback-tekst */}
-                            <div className="column w-fill AML P35 seo-description">
-                                {mix.description_nl ? (
-                                    <p className="size-base">{mix.description_nl}</p>
-                                ) : (
-                                    <p className="size-base">
-                                        Ben je op zoek naar een energieke {mix.subgenre} mix? In <strong>{mix.color} {mix.volume}</strong> brengt
-                                        DJ Cylow een vloeiende, non-stop selectie van de beste tracks van dit moment.
-                                        Deze set heeft een <strong>{mix.power}</strong> feel en is perfect geschikt voor tijdens het streamen, sporten of je pre-party.
-                                        {topArtists && <span> Geniet van unieke overgangen en platen van top-producers zoals <em>{topArtists}</em> en vele anderen.</span>}
-                                    </p>
-                                )}
                             </div>
 
                             <div className="column w-fill AML P35">
@@ -336,13 +296,70 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 />
                             </div>
 
+
+
+
+
+
+                            {/* Beschrijving: toon de handgeschreven tekst uit de JSON als die bestaat,
+                                anders een automatisch gegenereerde fallback-tekst */}
+                            <div className="column w-fill AML P35 seo-description">
+
+                                {mix.jaar && (
+                                    <p className="size-base bold">
+                                        {/* <time> met dateTime helpt zoekmachines de datum correct te lezen */}
+                                        <time dateTime={mix.date}>{mix.dag} {mix.maand}, {mix.jaar}</time>
+                                    </p>
+                                )}
+                                {mix.description_nl ? (
+                                    <p className="size-base">{mix.description_nl}</p>
+                                ) : (
+                                    <p className="size-base">
+                                        Ben je op zoek naar een energieke {mix.subgenre} mix? In <strong>{mix.color} {mix.volume}</strong> brengt
+                                        DJ Cylow een vloeiende, non-stop selectie van de beste tracks van dit moment.
+                                        Deze set heeft een <strong>{mix.power}</strong> feel en is perfect geschikt voor tijdens het streamen, sporten of je pre-party.
+                                        {topArtists && <span> Geniet van unieke overgangen en platen van top-producers zoals <em>{topArtists}</em> en vele anderen.</span>}
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Gestructureerde feitenblok — duidelijk leesbaar voor zowel bezoekers als AI-zoekmachines */}
+                            <div className="column w-fill AML P35 key-facts">
+
+
+                                {/* <dl> = description list: semantisch HTML voor sleutel-waarde-paren.
+                                    Zoekmachines en AI-crawlers herkennen <dt> (term) + <dd> (waarde)
+                                    als gestructureerde feitenparen — beter dan een generieke <div> met tekst. */}
+                                <dl className="row spacing-xl">
+
+                                    <div>
+                                        <dt className="size-xs">Colour</dt>
+                                        <dd className="size-sm">{mix.color}</dd>
+                                    </div>
+                                    <div>
+                                        <dt className="size-xs">Shade</dt>
+                                        <dd className="size-sm">{mix.power} {mix.frequency}</dd>
+                                    </div>
+
+                                    <div>
+                                        <dt className="size-xs">Subgenre</dt>
+                                        <dd className="size-sm">{mix.subgenre}</dd>
+                                    </div>
+
+                                    <div>
+                                        <dt className="size-xs">Tracks</dt>
+                                        <dd className="size-sm">{Array.isArray(mix.tracklist) ? mix.tracklist.length : '—'}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+
+
+
                             {/* Tracklist als tabel: linkerkolom = artiest + titel, rechterkolom = tijdcode */}
                             <div className="column w-hug AML P35 spacing-xl tracklist">
                                 <div className="row text-wrapper">
                                     <div className="column text-wrapper h-start header">
-                                        <h2 className="size-lg bold">
-                                            Tracklist {mix.color} {mix.subgenre} Mix
-                                        </h2>
+                                        <h2 className="size-lg bold">Tracklist</h2>
                                     </div>
                                 </div>
 
