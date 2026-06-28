@@ -22,9 +22,15 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+---
+
+## [v2.19.0] - 2026-06-28 — Minor ← LIVE
+
+Zie [release-notes/2.19/2.19.0.md](release-notes/2.19/2.19.0.md)
+
 ### Mix-detailpagina: subgenre-fallbacks, key-facts herstructurering en Shade-label
 **Branch naam** fix/mix-detail-subgenre
-**Datum merge op main** TBD
+**Datum merge op main** 2026-06-28
 **Branch type** Fix
 
 Alle `mix.subgenre || mix.genre` fallbacks verwijderd — subgenre is verplicht. Energy/datum verplaatst van header naar key-facts blok. Key-facts dl herstructureerd: Colour/Shade (Power + Frequency)/Subgenre/Tracks. H2 tracklist vereenvoudigd naar "Tracklist". `<dl>`-comment toegevoegd. stray `s`-bug gecorrigeerd.
@@ -33,7 +39,7 @@ Alle `mix.subgenre || mix.genre` fallbacks verwijderd — subgenre is verplicht.
 
 ### Unieke NL/EN mix descriptions voor alle 77 mixen
 **Branch naam** content/mix-descriptions-all
-**Datum merge op main** TBD
+**Datum merge op main** 2026-06-28
 **Branch type** Content
 
 Nieuw schema-veld `description_nl` (hernoemd van `description`) en `description_en` toegevoegd aan alle 77 actieve mix-entries in alle 15 JSON-bestanden. Elke description is uniek, 120–160 tekens, zonder dashes of artiestnamen (artiesten staan uitsluitend in `top_artists`). Veldvolgorde in alle JSON-bestanden herschikt naar de canonieke volgorde uit het README-model (title en descriptions direct na id, featured/ignore na de afbeeldingen). Alle 219 afbeeldingsbestanden hernoemd van `image_{power}_{color}_{date}_wide-{size}` naar `image_{power}_{color}_wide_{date}_{size}` (en square variant dienovereenkomstig). Alle JSON-paden bijgewerkt. README.md en CLAUDE.md bijgewerkt. Mix-detailpagina (`page.tsx`) aangepast om `description_nl` te lezen.
@@ -49,7 +55,7 @@ Zes `uppercase` className-waarden verwijderd uit de mix-detailpagina (`page.tsx`
 
 ---
 
-## [v2.18.0] - 2026-06-27 — Minor ← LIVE
+## [v2.18.0] - 2026-06-27 — Minor
 
 Zie [release-notes/2.18/2.18.0.md](release-notes/2.18/2.18.0.md)
 
