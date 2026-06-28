@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Orange Full (m) subgenre gecorrigeerd naar Dancefloor Drum & Bass
+**Branch naam** data/orange-full-subgenre-dancefloor
+**Datum merge op main** 2026-06-28
+**Branch type** Data
+
+Subgenre van mix 20260507 (Orange Full m, Vol. 9) gewijzigd van "Liquid Drum & Bass" naar "Dancefloor Drum & Bass". Description en tag bijgewerkt.
+
 ---
 
 ## [v2.19.1] - 2026-06-28 — Patch ← LIVE
