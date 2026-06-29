@@ -106,11 +106,11 @@ function LuisterPageContent() {
                                                 <div className="column w-fill AML P60 break-s spacing-2xl">
                                                     <Filter
                                                         activeColor={activeColor}
-                                                        setActiveColor={(v) => setFilter('color', v)}
+                                                        setActiveColor={(v: string) => setFilter('color', v)}
                                                         activeGenre={activeGenre}
-                                                        setActiveGenre={(v) => setFilter('genre', v)}
+                                                        setActiveGenre={(v: string) => setFilter('genre', v)}
                                                         activePower={activePower}
-                                                        setActivePower={(v) => setFilter('power', v)}
+                                                        setActivePower={(v: string) => setFilter('power', v)}
                                                     />
                                                 </div>
                                             )}
