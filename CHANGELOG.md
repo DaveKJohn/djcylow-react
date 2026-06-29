@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Luister-filters opgeslagen in de URL
+**Branch naam** feature/luister-filter-url-params
+**Datum merge op main** 2026-06-29
+**Branch type** Feature
+
+Filterstate (color, genre, power) wordt nu gesynchroniseerd met de URL als query parameters (`?color=Red&genre=...`). Bij navigeren naar een mix en terugkomen via de back-button zijn de filters automatisch hersteld. `router.replace` (geen `push`) zodat filterklikken de browserhistory niet vervuilen. `useSearchParams` afgeschermd met een `Suspense`-boundary zoals Next.js vereist voor static export.
+
 ### CHANGELOG opgeschoond: details verplaatst naar release notes
 **Branch naam** docs/changelog-cleanup
 **Datum merge op main** 2026-06-29
