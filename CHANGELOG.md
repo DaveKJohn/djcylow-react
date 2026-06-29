@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Playlist: useEffect/setState vervangen door render-phase reset
+**Branch naam** feature/luister-filter-url-params
+**Datum merge op main** 2026-06-29
+**Branch type** Fix
+
+Pre-existing lint-fout opgelost: `useEffect` + `setLimit` veroorzaakte een dubbele render en triggerde de `react-hooks/set-state-in-effect` regel. Vervangen door een `filterKey`-vergelijking tijdens de render zelf — de door React aanbevolen aanpak voor het resetten van state op prop-wijzigingen.
+
 ### Terugknop mix-detailpagina behoudt filterstate
 **Branch naam** feature/luister-filter-url-params
 **Datum merge op main** 2026-06-29
