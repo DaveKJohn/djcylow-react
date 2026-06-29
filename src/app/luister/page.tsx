@@ -1,39 +1,53 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import styles from '@/styles/modules/luister.module.scss';
 
 import Filter from '@/components/luister/Filter';
 import Playlist from '@/components/luister/Playlist';
 import MobileContent from '@/components/ui/MobileContent';
 
+const FilterIcon = (
+    <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+    >
+        <line x1="4" y1="21" x2="4" y2="14"></line>
+        <line x1="4" y1="10" x2="4" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12" y2="3"></line>
+        <line x1="20" y1="21" x2="20" y2="16"></line>
+        <line x1="20" y1="12" x2="20" y2="3"></line>
+        <line x1="1" y1="14" x2="7" y2="14"></line>
+        <line x1="9" y1="8" x2="15" y2="8"></line>
+        <line x1="17" y1="16" x2="23" y2="16"></line>
+    </svg>
+);
 
+function LuisterPageContent() {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
-export default function LuisterPage() {
-    const [activeColor, setActiveColor] = useState('all');
-    const [activeGenre, setActiveGenre] = useState('all');
-    const [activePower, setActivePower] = useState('all');
+    const activeColor = searchParams.get('color') ?? 'all';
+    const activeGenre = searchParams.get('genre') ?? 'all';
+    const activePower = searchParams.get('power') ?? 'all';
 
-    const FilterIcon = (
-        <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <line x1="4" y1="21" x2="4" y2="14"></line>
-            <line x1="4" y1="10" x2="4" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12" y2="3"></line>
-            <line x1="20" y1="21" x2="20" y2="16"></line>
-            <line x1="20" y1="12" x2="20" y2="3"></line>
-            <line x1="1" y1="14" x2="7" y2="14"></line>
-            <line x1="9" y1="8" x2="15" y2="8"></line>
-            <line x1="17" y1="16" x2="23" y2="16"></line>
-        </svg>
-    );
+    const setFilter = (key: string, value: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (value === 'all') {
+            params.delete(key);
+        } else {
+            params.set(key, value);
+        }
+        const qs = params.toString();
+        router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    };
 
     return (
         <main className={styles.pageWrapper}>
@@ -52,8 +66,6 @@ export default function LuisterPage() {
 
                 <div className="column w-fill AMC P20 spacing-2xl " id="luister_content">
                     <div className="row-c break-s w-fix ATC constrainer">
-
-
 
                         <Playlist
                             activeColor={activeColor}
@@ -80,14 +92,12 @@ export default function LuisterPage() {
                                                     className="column w-fill AMC P50 btn"
                                                     onClick={toggle}
                                                     role="button"
-                                                    tabIndex={0} // Gebruik accolades voor een number
+                                                    tabIndex={0}
                                                     aria-label="Filter openen"
                                                 >
                                                     <div className="row w-fill AMC P55 spacing-xl">
-                                                       
-                                                            {FilterIcon}
-                                                            <span>Filters</span>
-                                                        
+                                                        {FilterIcon}
+                                                        <span>Filters</span>
                                                     </div>
                                                 </div>
                                             )}
@@ -96,11 +106,11 @@ export default function LuisterPage() {
                                                 <div className="column w-fill AML P60 break-s spacing-2xl">
                                                     <Filter
                                                         activeColor={activeColor}
-                                                        setActiveColor={setActiveColor}
+                                                        setActiveColor={(v: string) => setFilter('color', v)}
                                                         activeGenre={activeGenre}
-                                                        setActiveGenre={setActiveGenre}
+                                                        setActiveGenre={(v: string) => setFilter('genre', v)}
                                                         activePower={activePower}
-                                                        setActivePower={setActivePower}
+                                                        setActivePower={(v: string) => setFilter('power', v)}
                                                     />
                                                 </div>
                                             )}
@@ -114,5 +124,13 @@ export default function LuisterPage() {
                 </div>
             </section>
         </main>
+    );
+}
+
+export default function LuisterPage() {
+    return (
+        <Suspense>
+            <LuisterPageContent />
+        </Suspense>
     );
 }
