@@ -22,18 +22,18 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### CHANGELOG opgeschoond: details verplaatst naar release notes
+**Branch naam** docs/changelog-cleanup
+**Datum merge op main** 2026-06-29
+**Branch type** Docs
+
+Branch-details verwijderd uit alle uitgebrachte versie-entries (v2.19.x, v2.18.0). De CHANGELOG is nu een index: elke versie heeft alleen een header en een link naar de bijbehorende release note. Details stonden al in de release notes en waren dus dubbel. Release workflow in CLAUDE.md bijgewerkt om dit expliciet te benoemen.
+
 ---
 
 ## [v2.19.2] - 2026-06-28 — Patch ← LIVE
 
 Zie [release-notes/2.19/2.19.2.md](release-notes/2.19/2.19.2.md)
-
-### Orange Full (m) subgenre gecorrigeerd naar Dancefloor Drum & Bass
-**Branch naam** data/orange-full-subgenre-dancefloor
-**Datum merge op main** 2026-06-28
-**Branch type** Data
-
-Subgenre van mix 20260507 (Orange Full m, Vol. 9) gewijzigd van "Liquid Drum & Bass" naar "Dancefloor Drum & Bass". Description en tag bijgewerkt.
 
 ---
 
@@ -41,77 +41,17 @@ Subgenre van mix 20260507 (Orange Full m, Vol. 9) gewijzigd van "Liquid Drum & B
 
 Zie [release-notes/2.19/2.19.1.md](release-notes/2.19/2.19.1.md)
 
-### robots.txt en sitemap.xml: static export fix
-**Branch naam** fix/robots-sitemap-static-export
-**Datum merge op main** 2026-06-28
-**Branch type** Fix
-
-`export const dynamic = 'force-static'` toegevoegd aan `robots.ts` en `sitemap.ts`. Verplicht voor Next.js static export (`output: 'export'`) — zonder deze export faalt de Netlify build met "export const dynamic not configured".
-
 ---
 
 ## [v2.19.0] - 2026-06-28 — Minor
 
 Zie [release-notes/2.19/2.19.0.md](release-notes/2.19/2.19.0.md)
 
-### Mix-detailpagina: subgenre-fallbacks, key-facts herstructurering en Shade-label
-**Branch naam** fix/mix-detail-subgenre
-**Datum merge op main** 2026-06-28
-**Branch type** Fix
-
-Alle `mix.subgenre || mix.genre` fallbacks verwijderd — subgenre is verplicht. Energy/datum verplaatst van header naar key-facts blok. Key-facts dl herstructureerd: Colour/Shade (Power + Frequency)/Subgenre/Tracks. H2 tracklist vereenvoudigd naar "Tracklist". `<dl>`-comment toegevoegd. stray `s`-bug gecorrigeerd.
-
----
-
-### Unieke NL/EN mix descriptions voor alle 77 mixen
-**Branch naam** content/mix-descriptions-all
-**Datum merge op main** 2026-06-28
-**Branch type** Content
-
-Nieuw schema-veld `description_nl` (hernoemd van `description`) en `description_en` toegevoegd aan alle 77 actieve mix-entries in alle 15 JSON-bestanden. Elke description is uniek, 120–160 tekens, zonder dashes of artiestnamen (artiesten staan uitsluitend in `top_artists`). Veldvolgorde in alle JSON-bestanden herschikt naar de canonieke volgorde uit het README-model (title en descriptions direct na id, featured/ignore na de afbeeldingen). Alle 219 afbeeldingsbestanden hernoemd van `image_{power}_{color}_{date}_wide-{size}` naar `image_{power}_{color}_wide_{date}_{size}` (en square variant dienovereenkomstig). Alle JSON-paden bijgewerkt. README.md en CLAUDE.md bijgewerkt. Mix-detailpagina (`page.tsx`) aangepast om `description_nl` te lezen.
-
----
-
-### Dode `uppercase` Tailwind classes verwijderd
-**Branch naam** fix/remove-unused-uppercase-h1
-**Datum merge op main** 2026-06-27
-**Branch type** Fix
-
-Zes `uppercase` className-waarden verwijderd uit de mix-detailpagina (`page.tsx`). De classes hadden geen effect omdat Tailwind utility classes niet geladen zijn in dit project — alleen SCSS is actief. Verwijderd van: H1, Energy-label, key-facts labels (Genre/Energy/Tracks) en de Tracklist H2.
-
 ---
 
 ## [v2.18.0] - 2026-06-27 — Minor
 
 Zie [release-notes/2.18/2.18.0.md](release-notes/2.18/2.18.0.md)
-
-### `subgenre` veld ingevuld voor alle actieve mixen
-**Branch naam** data/subgenre-fill
-**Datum merge op main** 2026-06-27
-**Branch type** Data
-
-Subgenre bepaald en ingevuld voor alle actieve mixen met een leeg `subgenre` veld — op basis van tags, tracklist en artiestenlinknamen. Gebruikte subgenres: Liquid Drum & Bass, Neurofunk, Progressive House, Tech House, Nu-Disco, Deep House en House. Preview-entries (ignore:true) zijn ongewijzigd gelaten.
-
-### `top_artists` veld toegevoegd aan mix JSON schema
-**Branch naam** data/top-artists-field
-**Datum merge op main** 2026-06-27
-**Branch type** Data
-
-Nieuw veld `top_artists` toegevoegd aan alle 77 bestaande mix-entries (als lege array `[]`). De DJ vult per mix de meest gezochte artiesten in. De mix-detailpagina laadt het veld en gebruikt het als artistvermelding in de fallback-beschrijving. Het `add-mix.js` script zet het veld bij nieuwe mixen automatisch als lege array klaar. Schema-documentatie (README.md) bijgewerkt.
-
-### SEO/GEO verbeteringen mix-detailpagina's
-**Branch naam** feature/seo-geo-mix-pages
-**Datum merge op main** 2026-06-27
-**Branch type** Feature
-
-Sitemap.xml en robots.txt toegevoegd zodat Google alle mix-URL's systematisch kan ontdekken. Mix-detailpagina verbeterd met: `keywords` meta-tag gevuld vanuit de `tags` array in JSON, Twitter/X card tags, BreadcrumbList JSON-LD voor rich snippets in de SERP, `AudioObject` in de MusicPlaylist JSON-LD zodat Google de audio-URL herkent, `isAccessibleForFree`, `dateModified`, en een gecorrigeerd `creator` type (Person i.p.v. MusicGroup). Visueel: de unieke `mix.description` is nu zichtbaar op de pagina, een key-facts blok toont genre/energy/tracks als gestructureerde data voor AI-crawlers, datum is omgezet naar een `<time>` element, H1 en title tag zijn consistent gemaakt, en subgenre wordt nu als primaire genrelabel gebruikt.
-
-### GA4 IP-filter — eigen bezoeken uitsluiten
-**Branch naam** config/ga4-ip-filter
-**Datum merge op main** 2026-06-27
-**Branch type** Config
-
-GA4 gegevensfilter "Eigen bezoeken" aangemaakt en geactiveerd. IP-adresregel ingesteld voor thuisIP `83.86.198.113` (traffic_type=internal). Eigen bezoeken worden uitgesloten van alle analytics-rapporten. Werk-IP (Limpergstraat 6, Rijswijk) volgt zodra dat IP-adres bekend is.
 
 ---
 
