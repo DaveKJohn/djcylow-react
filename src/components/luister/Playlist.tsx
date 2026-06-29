@@ -1,7 +1,6 @@
 'use client';
 
-// Zorg dat useState en useEffect hier staan:
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import AudioPlayer from '../ui/AudioPlayer';
 import Link from 'next/link';
 
@@ -48,11 +47,13 @@ const allMixesData: MixData[] = [
 
 export default function Luister({ activeColor, activeGenre, activePower }: any) {
     const [limit, setLimit] = useState(10);
+    const filterKey = `${activeColor}|${activeGenre}|${activePower}`;
+    const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
 
-    // Reset de limiet naar 15 als de filters veranderen
-    useEffect(() => {
+    if (prevFilterKey !== filterKey) {
         setLimit(10);
-    }, [activeColor, activeGenre, activePower]);
+        setPrevFilterKey(filterKey);
+    }
 
     const showMore = () => {
         setLimit((prevLimit) => prevLimit + 10);
