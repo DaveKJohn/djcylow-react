@@ -85,6 +85,12 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                             // Bereken de schone slug exact zoals in de backend
                             const filename = mix.permalink.split('/').pop() || '';
                             const cleanSlug = filename.split('.html')[0].toLowerCase().trim();
+                            const filterParams = new URLSearchParams();
+                            if (activeColor !== 'all') filterParams.set('color', activeColor);
+                            if (activeGenre !== 'all') filterParams.set('genre', activeGenre);
+                            if (activePower !== 'all') filterParams.set('power', activePower);
+                            const filterQs = filterParams.toString();
+                            const mixHref = filterQs ? `/luister/mix/${cleanSlug}?${filterQs}` : `/luister/mix/${cleanSlug}`;
 
                             return (
                                 <div key={mix.id} className="column w-hug AML P45 spacing-xl card">
@@ -97,7 +103,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                                     <div className="column w-hug AML ">
                                         <div className="column w-hug AML spacing-xs">
                                             {/* Wijs nu naar de dynamic route met de schone slug */}
-                                            <Link className="size-sm" href={`/luister/mix/${cleanSlug}`}>
+                                            <Link className="size-sm" href={mixHref}>
                                                 {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
                                             </Link>
                                             <p className="size-xs">{mix.maand} {mix.dag}, {mix.jaar}</p>

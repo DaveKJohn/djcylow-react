@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Terugknop mix-detailpagina behoudt filterstate
+**Branch naam** feature/luister-filter-url-params
+**Datum merge op main** 2026-06-29
+**Branch type** Feature
+
+`BackButton` leest nu de filterparams (`color`, `genre`, `power`) uit de huidige URL en bouwt de teruglink naar `/luister?...`. `Playlist` geeft de actieve filters mee in de mix-link zodat de detailpagina ze kan doorgeven. De terugknop landt zo altijd terug op het overzicht met dezelfde filters actief.
+
 ### Luister-filters opgeslagen in de URL
 **Branch naam** feature/luister-filter-url-params
 **Datum merge op main** 2026-06-29
