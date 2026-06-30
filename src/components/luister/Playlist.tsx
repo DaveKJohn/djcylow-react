@@ -21,6 +21,7 @@ import fullOrange from '@/data/mixes/full-orange.json';
 import fullPurple from '@/data/mixes/full-purple.json';
 import fullRed from '@/data/mixes/full-red.json';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import '@/styles/components/luister/playlist.scss';
 
@@ -29,6 +30,7 @@ interface MixData {
     ignore: boolean;
     color: string;
     genre: string;
+    subgenre: string;
     power: string;
     frequency: string;
     volume: string;
@@ -40,12 +42,18 @@ interface MixData {
     jaar: string;
 }
 
+interface PlaylistProps {
+    activeColor: string;
+    activeGenre: string;
+    activePower: string;
+}
+
 const allMixesData: MixData[] = [
     ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta,
     ...fullBlue, ...fullCyan, ...fullGreen, ...fullYellow, ...fullOrange, ...fullPurple, ...fullRed
-] as any;
+] as MixData[];
 
-export default function Luister({ activeColor, activeGenre, activePower }: any) {
+export default function Luister({ activeColor, activeGenre, activePower }: PlaylistProps) {
     const [limit, setLimit] = useState(10);
     const filterKey = `${activeColor}|${activeGenre}|${activePower}`;
     const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
@@ -105,7 +113,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: any) 
                                         <div className="column w-hug AML spacing-xs">
                                             {/* Wijs nu naar de dynamic route met de schone slug */}
                                             <Link className="size-sm" href={mixHref}>
-                                                {mix.color.charAt(0).toUpperCase() + mix.color.slice(1)} {mix.genre} Mix {mix.power} {mix.frequency} · {mix.volume}
+                                                {mix.color} {mix.subgenre} Mix · {mix.volume}
                                             </Link>
                                             <p className="size-xs">{mix.maand} {mix.dag}, {mix.jaar}</p>
                                         </div>
