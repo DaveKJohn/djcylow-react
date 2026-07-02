@@ -119,6 +119,7 @@ De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort sam
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
+| [2.20.0](2.20/2.20.0.md) | 2026-07-02 | Minor | Luister-genrefilters uitgebreid, URL-sync en changelog opgeschoond |
 | [2.19.2](2.19/2.19.2.md) | 2026-06-28 | Patch | Orange Full (m) subgenre gecorrigeerd |
 | [2.19.1](2.19/2.19.1.md) | 2026-06-28 | Patch | robots.txt en sitemap.xml static export fix |
 | [2.19.0](2.19/2.19.0.md) | 2026-06-28 | Minor | NL/EN descriptions, image rename, mix-detailpagina verbeteringen |
