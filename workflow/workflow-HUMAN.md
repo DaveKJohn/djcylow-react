@@ -11,9 +11,10 @@ Werk daarom nooit direct op `main`.
 
 ## De basisregel
 
-Elke wijziging — hoe klein ook — gaat via een branch. Nooit direct op `main` committen, met twee
-uitzonderingen die verderop aan bod komen (het "vouwen" van een changelog-entry na een merge, en
-de release-commit na een live-push).
+Elke wijziging — hoe klein ook — gaat via een branch + Pull Request. Twee uitzonderingen komen
+verderop aan bod: het "vouwen" van een changelog-entry na een merge is de enige échte directe
+commit op `main` (geen branch); de release-branch na een live-push is wél een branch, maar wordt
+bewust zonder Pull Request gemerged.
 
 ---
 
@@ -157,7 +158,8 @@ release en push live", of doorloop de stappen zelf — ze staan volledig uitgesc
 3. Bij Minor/Major: maak ook een leesbare `releases/highlights/<major.minor>/<versie>.md` aan
    (zonder jargon, zonder branch-metadata).
 4. Werk `CHANGELOG.md` en `releases/README.md` bij.
-5. Merge, tag, en push naar `origin` — pas hier gaat het écht live.
+5. Merge (direct via `git merge --no-ff`, bewust geen Pull Request voor deze ene branch), tag, en
+   push naar `origin` — pas hier gaat het écht live.
 6. Maak een GitHub Release aan met `gh release create`.
 
 Netlify deployt automatisch zodra `main` op GitHub verandert.
