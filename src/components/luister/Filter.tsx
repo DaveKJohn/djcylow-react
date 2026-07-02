@@ -79,11 +79,10 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <p className="">Genre</p>
                 </div>
                 <div className="row wrap w-fill AMC extra spacing-lg" id="filter_genre">
-                    {['all', 'House', 'EDM', 'Drum & Bass', 'Techno', 'Nu-Disco'].map((genre) => {
+                    {['all', 'House', 'Techno', 'Drum & Bass', 'Nu-Disco'].map((genre) => {
                         const displayLabel = {
                             'all': 'Alles',
                             'House': 'House',
-                            'EDM': 'EDM',
                             'Drum & Bass': 'DNB',
                             'Techno': 'Techno',
                             'Nu-Disco': 'Nu-Disco'

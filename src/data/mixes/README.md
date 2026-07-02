@@ -66,7 +66,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "title": "Tech House · Red Light (m) Mix · Vol. 6",
     "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
     "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
-    "genre": "EDM",
+    "genre": "House",
     "subgenre": "Tech House",
     "color": "Red",
     "power": "Light",
@@ -175,18 +175,22 @@ The full display title of the mix. Shown on mix cards, detail page `<h1>`, and i
 
 ### `genre` — string, required
 
-The main genre category. Used by the Filter component on the Luister page.
+The genre family. Used by the Filter component on the Luister page — this is the value the
+"Genre" filter buttons match against, so it must equal the **family** the `subgenre` belongs to,
+not a generic EDM/DnB split.
 
-**Allowed values (exactly as written):**
+**Allowed values (exactly as written) and which subgenres map to them:**
 
-- `"EDM"` — Electronic Dance Music (House, Techno, Progressive, Organic, etc.)
-- `"Drum & Bass"` — Drum & Bass, Neurofunk, Liquid, Jump Up
+- `"House"` — `"House"`, `"Tech House"`, `"Deep House"`, `"Progressive House"`, `"Organic House"`, `"Afro House"`, `"Melodic House"`
+- `"Techno"` — `"Melodic Techno"`, `"Hard Techno"`
+- `"Nu-Disco"` — `"Nu-Disco"`
+- `"Drum & Bass"` — `"Liquid Drum & Bass"`, `"Dancefloor Drum & Bass"`, `"Neurofunk"`, `"Jump Up"`, `"Vocal DnB"`, `"Techstep"`
 
 **Rules:**
 
-- Only these two values are valid
-- All EDM sub-styles (Tech House, Progressive House, Melodic Techno, Organic House, etc.) use `"EDM"` here — the subgenre field carries the specifics
-- Do not add new top-level genres without updating the `Filter.tsx` component
+- `genre` must always equal the family of the `subgenre` value (see mapping above) — e.g. `subgenre: "Progressive House"` → `genre: "House"`, `subgenre: "Melodic Techno"` → `genre: "Techno"`
+- Do not add a new top-level genre without also adding it to the `Filter.tsx` genre button list
+- Preview entries (`ignore: true`, `subgenre: ""` or `"Preview"`) are excluded from the public playlist, so their `genre` value doesn't matter — leave as-is
 
 ---
 
@@ -728,7 +732,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
   "title": "Tech House · Red Light (m) Mix · Vol. 6",
   "description_nl": "Tech House mix van DJ Cylow. Een uur pumping grooves, strakke kicks en melodische elementen. Perfect voor een avondfeest of een lange drive.",
   "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.", 
-  "genre": "EDM",
+  "genre": "House",
   "subgenre": "Tech House",
   "color": "Red",
   "power": "Light",
