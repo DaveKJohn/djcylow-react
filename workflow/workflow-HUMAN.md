@@ -100,14 +100,17 @@ alleen zichtbaar en beoordeelbaar op GitHub.
 
 ## Stap 5 — Mergen (na review/goedkeuring) en opruimen
 
-Als de PR goed is:
+Als de PR goed is, wissel eerst naar `main` — sta je nog op de branch die je gaat mergen, dan kan
+git 'm niet lokaal opruimen en blijft er een rest-branch achter:
 
 ```bash
+git checkout main
 gh pr merge feature/mix-bpm-filter --merge --delete-branch
 ```
 
-`--merge` maakt een merge-commit (geen squash) en `--delete-branch` ruimt de branch meteen op,
-zowel remote als lokaal. Synchroniseer daarna je lokale `main`:
+`--merge` maakt een merge-commit (geen squash) en `--delete-branch` ruimt de branch op, zowel
+remote als lokaal. Check zo nodig achteraf of de lokale branch echt weg is
+(`git branch -d feature/mix-bpm-filter` als 'ie er nog staat). Synchroniseer daarna je lokale `main`:
 
 ```bash
 git checkout main

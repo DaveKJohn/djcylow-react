@@ -133,15 +133,21 @@ Rapporteer wat er veranderd is en deel de PR-link. Vraag niet naar mergen, relea
 
 ### 6. Na goedkeuring: merge de Pull Request
 
-Pas na expliciete goedkeuring van de gebruiker:
+Pas na expliciete goedkeuring van de gebruiker. Wissel eerst naar `main` — `gh pr merge` kan de
+huidige branch niet lokaal verwijderen als je er nog op staat (git staat dat niet toe), dus
+`--delete-branch` ruimt dan alleen de remote op en laat een lokale rest-branch achter:
 
 ```bash
+git checkout main
 gh pr merge [branch] --merge --delete-branch
 ```
 
 `--merge` maakt een merge-commit (geen squash/rebase — behoudt de losse commits, consistent met
-de oude `--no-ff`-aanpak). `--delete-branch` ruimt de branch op, zowel remote als lokaal (als je
-op een andere branch zit wisselt `gh` je eerst weg). Synchroniseer daarna lokaal:
+de oude `--no-ff`-aanpak). `--delete-branch` ruimt de branch op, zowel remote als lokaal. Stond je
+toch nog op de branch toen je dit draaide, controleer dan of de lokale branch écht weg is en ruim
+'m zo nodig alsnog op: `git branch -d [branch]`.
+
+Synchroniseer daarna lokaal:
 
 ```bash
 git checkout main
