@@ -183,13 +183,14 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
    git checkout -b docs/release-v<versie>
    ```
 3. **Run lint**: `npm run lint` — controleer of nieuwe fouten zijn geïntroduceerd (pre-existing errors zijn acceptabel als wij geen .tsx/.ts bestanden wijzigden)
-4. **Bepaal versienummer** (zie `release-notes/README.md`):
+4. **Bepaal versienummer** (zie `releases/README.md`):
    - PATCH (`x.y.Z+1`): bugfix, hotfix, kleine correctie
    - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
    - MAJOR: ingrijpende verbouwing (zelden)
-5. **Maak release note** aan: `release-notes/<major.minor>/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief het metadata-blok (`**Branch:** ... · **Gemergd:** ...`) onder elke heading
-6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum> — Patch/Minor/Major`, vervang alle branch-details door één `Zie [release-notes/...]`-regel (de details staan al in de release note), voeg `← LIVE` toe aan de nieuwe versie, verwijder `← LIVE` bij de vorige versie, en maak een vers leeg `## [Unreleased]` bovenaan aan
-7. **Voeg versie toe** aan overzichtstabel in `release-notes/README.md` (bovenaan)
+5. **Maak de development-release note** aan (altijd, elke Patch/Minor/Major): `releases/development/<major.minor>/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief het metadata-blok (`**Branch:** ... · **Gemergd:** ...`) onder elke heading
+5b. **Maak de highlights-versie** aan (alleen bij Minor of Major): `releases/highlights/<major.minor>/<versie>.md` — dezelfde wijzigingen, herschreven in leesbaar Nederlands zonder jargon en zonder branch-metadata (geen branch-namen, merge-datums of branch-types), bedoeld voor stakeholders/collega's in plaats van developers
+6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum> — Patch/Minor/Major`, vervang alle branch-details door één `Zie [releases/development/...]`-regel (de details staan al in de release note), voeg `← LIVE` toe aan de nieuwe versie, verwijder `← LIVE` bij de vorige versie, en maak een vers leeg `## [Unreleased]` bovenaan aan
+7. **Voeg versie toe** aan overzichtstabel in `releases/README.md` (bovenaan), linkend naar de development-versie
 8. **Stage en commit** op de feature branch
 9. **Merge naar main** (na gebruikersbevestiging):
    ```bash
@@ -202,12 +203,16 @@ When the user says "commit en push live" or "maak een nieuwe release en push liv
    git push origin main
    git push origin v<versie>
    ```
-11. **GitHub Release aanmaken**:
+11. **GitHub Release aanmaken** (development-versie is altijd de release-body):
     ```bash
     gh release create v<versie> \
       --title "v<versie> - <korte titel>" \
-      --notes-file release-notes/<major.minor>/<versie>.md \
+      --notes-file releases/development/<major.minor>/<versie>.md \
       --verify-tag
+    ```
+11b. **Highlights als bijlage uploaden** (alleen bij Minor/Major):
+    ```bash
+    gh release upload v<versie> releases/highlights/<major.minor>/<versie>.md
     ```
 12. **Verwijder de feature branch** (lokaal + remote):
     ```bash

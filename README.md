@@ -151,7 +151,7 @@ djcylow-react/
 │   └── functions/              # Serverless functions (contact form email)
 │
 ├── scripts/                    # Build/utility scripts
-├── release-notes/              # Version history (v1.0.0 – present)
+├── releases/                    # Version history (development/ + highlights/, v1.0.0 – present)
 ├── next.config.ts              # output: 'export', images: unoptimized, sassOptions
 ├── tailwind.config             # Tailwind v4 configuration
 ├── tsconfig.json               # strict, ES2017, path alias @/* → ./src/*
@@ -516,4 +516,4 @@ The site is in **Dutch** (`nl`). Key Dutch terms used throughout the codebase:
 
 ## Version History
 
-Detailed release notes are stored in `/release-notes/` (v1.0.0 – present).
+Detailed release notes are stored in `/releases/` (v1.0.0 – present): `development/` holds the full technical version of every release, `highlights/` holds a plain-language version for Minor/Major releases.
