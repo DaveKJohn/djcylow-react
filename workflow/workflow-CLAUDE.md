@@ -28,14 +28,17 @@ Nooit direct op `main` committen.
 - `next.config.ts` aanpassen (static export config — breekt de Netlify build bij een fout)
 - `netlify.toml` aanpassen
 
-De enige toegestane **directe commits op `main`** zijn de twee uitzonderingen hieronder:
-1. De **fold-commit** (na een merge, zie stap "Na de merge"): scope beperkt tot `CHANGELOG.md` +
-   het verwijderde entry-bestand.
-2. De **release-commit** (na een live-push, zie Release Workflow): scope beperkt tot
-   `CHANGELOG.md`, `releases/development/<X.Y>/<X.Y.Z>.md`, `releases/highlights/<X.Y>/<X.Y.Z>.md`
-   (alleen Minor/Major) en `releases/README.md`.
+Er zijn twee vaste uitzonderingen op "alles via een branch + Pull Request":
+1. De **fold-commit** (na een merge, zie stap "Na de merge") is de enige echte **directe commit op
+   `main`** (geen branch): scope beperkt tot `CHANGELOG.md` + het verwijderde entry-bestand.
+2. De **release-branch** (zie Release Workflow) is wél een branch (`docs/release-v<versie>`) met
+   scope beperkt tot `CHANGELOG.md`, `releases/development/<X.Y>/<X.Y.Z>.md`,
+   `releases/highlights/<X.Y>/<X.Y.Z>.md` (alleen Minor/Major) en `releases/README.md` — maar wordt
+   bewust gemerged via een kale `git merge --no-ff` (Release Workflow stap 10), niet via
+   `gh pr merge`/een Pull Request. Dit blijft wel altijd wachten op expliciete goedkeuring van de
+   gebruiker, net als een gewone PR-merge.
 
-Alle overige wijzigingen gaan via een branch.
+Alle overige wijzigingen gaan via een branch + Pull Request.
 
 ---
 
@@ -231,7 +234,9 @@ Wanneer de gebruiker zegt "commit en push live" of "maak een nieuwe release en p
 8. **Voeg versie toe** aan overzichtstabel in `releases/README.md` (bovenaan), linkend naar de
    development-versie
 9. **Stage en commit** op de feature branch
-10. **Merge naar main** (na gebruikersbevestiging):
+10. **Merge naar main** (na gebruikersbevestiging) — bewust via een kale `git merge`, niet via
+    `gh pr merge`: dit is de enige branch die niet via een Pull Request gaat (zie "Nooit zonder
+    expliciete toestemming" hierboven):
     ```bash
     git checkout main
     git merge [branch] --no-ff -m "Merge branch '[branch]' — v<versie>"
@@ -268,8 +273,10 @@ branch-protection belangrijk is, een kapotte build op `main` betekent dat de liv
 |---|---|
 | Bugfix, hotfix, kleine correctie | PATCH |
 | Docs, workflow, CLAUDE.md, CHANGELOG-wijzigingen | PATCH |
+| Kleine stijl-/CSS-correctie | PATCH |
 | Nieuwe beschrijvingen, content updates | MINOR |
 | Nieuwe mix, nieuwe pagina, nieuw component | MINOR |
+| Grote stijl-/CSS-herziening (bijv. een hele sectie herontworpen) | MINOR |
 | Volledig redesign of framework-migratie | MAJOR |
 
 ---
@@ -299,7 +306,8 @@ gebeuren nog handmatig.
 ## Repo-hygiëne
 
 - Alles gaat via een `feature/` / `fix/` / `data/` / `content/` / `style/` / `docs/` / `config/`
-  branch + Pull Request, nooit direct op `main` — met de twee toegestane uitzonderingen hierboven.
+  branch + Pull Request, nooit direct op `main` — met de twee uitzonderingen hierboven (de
+  fold-commit, en de release-branch die bewust zonder PR mergt).
 - PR's mogen zelfstandig geopend worden (stap 4); de merge zelf wacht altijd op expliciete
   goedkeuring (stap 6). `.github/pull_request_template.md` wordt automatisch gebruikt door
   `gh pr create`.

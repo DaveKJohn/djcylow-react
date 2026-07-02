@@ -108,7 +108,8 @@ gh release upload v2.3.0 releases/highlights/2.3/2.3.0.md
 
 ## Nieuwe release aanmaken — stap voor stap
 
-De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort samengevat:
+De volledige werkwijze staat in [`workflow/workflow-CLAUDE.md`](../workflow/workflow-CLAUDE.md)
+onder **Release Workflow**. Kort samengevat:
 
 1. Bepaal het versienummer (zie semver-tabel hierboven).
 2. Maak de development-versie aan (altijd): `releases/development/<major.minor>/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als basis. Formaat:
@@ -131,7 +132,7 @@ De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort sam
 3. Maak bij Minor/Major ook de highlights-versie aan: `releases/highlights/<major.minor>/<versie>.md` — dezelfde inhoud herschreven in leesbaar Nederlands zonder jargon, zonder branch-namen/merge-datums/branch-types.
 4. Voeg de versie toe aan de overzichtstabel in deze README (bovenaan de tabel), linkend naar de development-versie.
 5. Update `CHANGELOG.md`: hernoem `[Unreleased]` naar `[v<versie>] - YYYY-MM-DD — Patch/Minor/Major`.
-6. Tag en push via de stappen in `CLAUDE.md`.
+6. Tag en push via de stappen in [`workflow/workflow-CLAUDE.md`](../workflow/workflow-CLAUDE.md).
 
 ## Overzicht
 
