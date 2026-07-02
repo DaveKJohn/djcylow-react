@@ -110,8 +110,12 @@ Zodra de branch klaar is (commits + het changelog entry-bestand):
 
 ```bash
 git push origin [branch] -u
-gh pr create --title "[branch-type]: korte titel" --fill
+gh pr create --title "[branch-type]: korte titel" --fill --head [branch] --base main --repo DaveKJohn/djcylow-react
 ```
+
+Deze repo heeft zowel een `origin`- als een `upstream`-remote die naar dezelfde GitHub-URL wijzen
+— dat verwart `gh pr create`'s automatische branch-detectie ("you must first push the current
+branch to a remote"). De expliciete `--head`/`--base`/`--repo` flags omzeilen dit betrouwbaar.
 
 `gh pr create --fill` gebruikt de laatste commit-titel/-body als PR-titel/-omschrijving en pakt
 automatisch `.github/pull_request_template.md` als body-template — loop de checklist daarin na

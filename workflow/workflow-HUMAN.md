@@ -83,8 +83,12 @@ bij kleine of puur documentatie-wijzigingen.
 
 ```bash
 git push origin feature/mix-bpm-filter -u
-gh pr create --title "feature: korte titel" --fill
+gh pr create --title "feature: korte titel" --fill --head feature/mix-bpm-filter --base main --repo DaveKJohn/djcylow-react
 ```
+
+Deze repo heeft zowel een `origin`- als een `upstream`-remote naar dezelfde GitHub-URL — zonder
+de expliciete `--head`/`--base`/`--repo` hierboven kan `gh pr create` daardoor foutmelden dat je
+de branch nog niet gepusht hebt, ook als dat wel zo is.
 
 `--fill` gebruikt je laatste commit als titel/omschrijving, en `gh` pakt automatisch
 `.github/pull_request_template.md` als checklist — loop 'm na voor je de PR aanmaakt (of vul 'm
