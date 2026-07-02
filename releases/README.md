@@ -137,6 +137,7 @@ De volledige werkwijze staat in `CLAUDE.md` onder **Release Workflow**. Kort sam
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
+| [2.20.1](development/2.20/2.20.1.md) | 2026-07-02 | Patch | Workflow-herstructurering: PR's, per-branch changelog, releases/development+highlights |
 | [2.20.0](development/2.20/2.20.0.md) | 2026-07-02 | Minor | Luister-genrefilters uitgebreid, URL-sync en changelog opgeschoond |
 | [2.19.2](development/2.19/2.19.2.md) | 2026-06-28 | Patch | Orange Full (m) subgenre gecorrigeerd |
 | [2.19.1](development/2.19/2.19.1.md) | 2026-06-28 | Patch | robots.txt en sitemap.xml static export fix |
