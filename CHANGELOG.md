@@ -22,26 +22,12 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
-### Playlist: useEffect/setState vervangen door render-phase reset
-**Branch naam** feature/luister-filter-url-params
-**Datum merge op main** 2026-06-29
-**Branch type** Fix
-
-Pre-existing lint-fout opgelost: `useEffect` + `setLimit` veroorzaakte een dubbele render en triggerde de `react-hooks/set-state-in-effect` regel. Vervangen door een `filterKey`-vergelijking tijdens de render zelf — de door React aanbevolen aanpak voor het resetten van state op prop-wijzigingen.
-
-### Terugknop mix-detailpagina behoudt filterstate
+### Luister-filters opgeslagen in de URL en bewaard bij terugnavigatie
 **Branch naam** feature/luister-filter-url-params
 **Datum merge op main** 2026-06-29
 **Branch type** Feature
 
-`BackButton` leest nu de filterparams (`color`, `genre`, `power`) uit de huidige URL en bouwt de teruglink naar `/luister?...`. `Playlist` geeft de actieve filters mee in de mix-link zodat de detailpagina ze kan doorgeven. De terugknop landt zo altijd terug op het overzicht met dezelfde filters actief.
-
-### Luister-filters opgeslagen in de URL
-**Branch naam** feature/luister-filter-url-params
-**Datum merge op main** 2026-06-29
-**Branch type** Feature
-
-Filterstate (color, genre, power) wordt nu gesynchroniseerd met de URL als query parameters (`?color=Red&genre=...`). Bij navigeren naar een mix en terugkomen via de back-button zijn de filters automatisch hersteld. `router.replace` (geen `push`) zodat filterklikken de browserhistory niet vervuilen. `useSearchParams` afgeschermd met een `Suspense`-boundary zoals Next.js vereist voor static export.
+Filterstate (color, genre, power) wordt gesynchroniseerd met de URL als query parameters (`?color=Red&genre=...`). `Playlist` geeft de actieve filters mee in de mix-link zodat de detailpagina ze kent. `BackButton` leest die params en stuurt terug naar `/luister?...` — filters blijven actief na terugnavigatie én na gebruik van de browser back-knop. Pre-existing lint-fout in `Playlist` meegenomen: `useEffect` + `setLimit` vervangen door een render-phase `filterKey`-vergelijking.
 
 ### CHANGELOG opgeschoond: details verplaatst naar release notes
 **Branch naam** docs/changelog-cleanup
