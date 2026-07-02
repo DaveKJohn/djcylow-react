@@ -115,7 +115,7 @@ export default function AudioPlayer({
 
 					<div className="row w-fill split P60 layer-wrapper">
 						<div className="column w-hug AMC P65 pauseFilters">
-							<div className="column w-hug AMC pause">
+							<div className="column w-hug ALC pause">
 								<button className="btn w-hug pause fill-100" onClick={handleTogglePlay} aria-label="Pauzeer audio">
 									<svg className="w-fix pause" viewBox="6 5 12 14" aria-hidden="true">
 										<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>

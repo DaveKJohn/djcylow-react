@@ -44,10 +44,9 @@
         }
 
         &.select {
-             @include mix.colour-base;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-           
+            @include mix.colour-base;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
         }
     }
 

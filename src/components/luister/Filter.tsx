@@ -38,6 +38,8 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
 
                     <div className="row wrap w-fill AMC extra spacing-lg" id="filter_mood">
                         <button
+                            key="all"
+                            data-filter-color="all"
                             className={`btn passive select ${activeColor === 'all' ? 'is-active' : ''}`}
                             onClick={() => setActiveColor('all')}
                             aria-pressed={activeColor === 'all' ? 'true' : 'false'}
@@ -79,12 +81,11 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <p className="">Genre</p>
                 </div>
                 <div className="row wrap w-fill AMC extra spacing-lg" id="filter_genre">
-                    {['all', 'House', 'EDM', 'Drum & Bass', 'Techno', 'Nu-Disco'].map((genre) => {
+                    {['all', 'House', 'Techno', 'Drum & Bass', 'Nu-Disco'].map((genre) => {
                         const displayLabel = {
                             'all': 'Alles',
                             'House': 'House',
-                            'EDM': 'EDM',
-                            'Drum & Bass': 'DNB',
+                            'Drum & Bass': 'Drum & Bass',
                             'Techno': 'Techno',
                             'Nu-Disco': 'Nu-Disco'
                         }[genre] || genre;
