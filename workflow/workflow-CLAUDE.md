@@ -12,10 +12,13 @@ Nooit direct op `main` committen.
 
 ## Nooit zonder expliciete toestemming van de gebruiker
 
-- Mergen of pushen naar `main` — altijd wachten op expliciete goedkeuring per merge.
-- Pushen naar `origin` (van welke branch dan ook), inclusief `origin/main` — dit initiatief ligt
-  altijd bij de gebruiker. **Vraag hier nooit naar, ook niet impliciet** ("zeg het maar als je
-  wil pushen") — rapporteer feitelijk de git-status en stop daar.
+- Mergen van een Pull Request naar `main` — altijd wachten op expliciete goedkeuring per merge.
+  Een PR **openen** (inclusief het pushen van de feature branch die daarvoor nodig is) mag wel
+  zelfstandig, zodra stap 3 is afgerond — dat ship niets naar productie, het maakt de wijziging
+  alleen zichtbaar en beoordeelbaar op GitHub.
+- Pushen naar `origin/main` specifiek — dit initiatief ligt altijd bij de gebruiker. **Vraag hier
+  nooit naar, ook niet impliciet** ("zeg het maar als je wil pushen") — rapporteer feitelijk de
+  git-status en stop daar.
 - Een release cutten / live pushen — start alleen op expliciet verzoek ("commit en push live",
   "maak een nieuwe release en push live" of gelijkwaardig).
 - `git push --force` (welke branch dan ook)
@@ -101,50 +104,69 @@ bestand, dus er is niets om over te conflicteren.
 
 **Nooit mergen zonder een entry-bestand.** Dit geldt ook voor kleine of puur documentatiewijzigingen.
 
-### 4. Vertel de gebruiker wat er is gedaan — stop daar
+### 4. Push de branch en open een Pull Request
 
-Rapporteer wat er veranderd is. Vraag niet naar mergen, releasen of pushen — dat initiatief ligt
-altijd bij de gebruiker (zie "Nooit zonder expliciete toestemming" hierboven).
+Zodra de branch klaar is (commits + het changelog entry-bestand):
 
-### 5. Na goedkeuring: merge naar main
+```bash
+git push origin [branch] -u
+gh pr create --title "[branch-type]: korte titel" --fill
+```
+
+`gh pr create --fill` gebruikt de laatste commit-titel/-body als PR-titel/-omschrijving en pakt
+automatisch `.github/pull_request_template.md` als body-template — loop de checklist daarin na
+en vink af wat van toepassing is voordat je de PR aanmaakt (of vul 'm aan na het aanmaken).
+Titel-prefix mirrort het branch-type: `feature:`, `fix:`, `data:`, `content:`, `style:`, `docs:`,
+`config:`.
+
+Dit mag zelfstandig, zonder aparte toestemming (zie "Nooit zonder expliciete toestemming"
+hierboven) — een PR openen ship niets naar productie.
+
+### 5. Vertel de gebruiker wat er is gedaan — stop daar
+
+Rapporteer wat er veranderd is en deel de PR-link. Vraag niet naar mergen, releasen of pushen naar
+`main` — dat initiatief ligt altijd bij de gebruiker.
+
+### 6. Na goedkeuring: merge de Pull Request
 
 Pas na expliciete goedkeuring van de gebruiker:
 
 ```bash
-git checkout main
-git merge [branch] --no-ff -m "Merge branch '[branch]'"
+gh pr merge [branch] --merge --delete-branch
 ```
 
-### 6. Na de merge: vouw de changelog entry en verwijder de branch
+`--merge` maakt een merge-commit (geen squash/rebase — behoudt de losse commits, consistent met
+de oude `--no-ff`-aanpak). `--delete-branch` ruimt de branch op, zowel remote als lokaal (als je
+op een andere branch zit wisselt `gh` je eerst weg). Synchroniseer daarna lokaal:
 
-Twee stappen, direct na de merge, als onderdeel van dezelfde goedgekeurde actie (geen aparte
-toestemming nodig — dit hoort bij het afronden van de merge, net als branch-opruiming altijd al deed):
+```bash
+git checkout main
+git pull --ff-only
+```
 
-1. **Vouw het entry-bestand in `[Unreleased]`:**
-   ```bash
-   .\scripts\release\fold-changelog-entry.ps1 -Branch [branch]
-   ```
-   Dit voegt de entry in bij `## [Unreleased]` in `CHANGELOG.md` en verwijdert het entry-bestand.
-   Laat je `-Branch` weg om in één keer alle aanwezige entry-bestanden te vouwen (handig als er
-   meerdere branches geparkeerd stonden).
+### 7. Na de merge: vouw de changelog entry
 
-   Commit het resultaat direct op `main` — dit is een van de twee toegestane directe main-commits:
-   ```bash
-   git add CHANGELOG.md [branch-naam-met-koppeltekens].md
-   git commit -m "docs: fold changelog entry [branch]"
-   ```
+```bash
+.\scripts\release\fold-changelog-entry.ps1 -Branch [branch]
+```
 
-2. **Verwijder de feature branch** (lokaal + remote, als gepusht):
-   ```bash
-   git branch -d [branch]
-   git push origin --delete [branch]   # alleen als de branch ooit gepusht is
-   ```
+Dit voegt de entry in bij `## [Unreleased]` in `CHANGELOG.md` en verwijdert het entry-bestand.
+Laat je `-Branch` weg om in één keer alle aanwezige entry-bestanden te vouwen (handig als er
+meerdere branches geparkeerd stonden). Dit gebeurt zonder aparte toestemming — het hoort bij het
+afronden van de zojuist goedgekeurde merge, net als de branch-opruiming in stap 6.
+
+Commit het resultaat direct op `main` — dit is een van de twee toegestane directe main-commits:
+
+```bash
+git add CHANGELOG.md [branch-naam-met-koppeltekens].md
+git commit -m "docs: fold changelog entry [branch]"
+```
 
 `main` houdt zo een groeiend `[Unreleased]`-blok bij van alles wat gemergd maar nog niet live is.
 Meerdere branches mogen hier dagen of weken opstapelen voor de volgende live-push.
 
-**Pushen van deze main-commits naar `origin` gebeurt niet automatisch** — dat blijft, net als elke
-push naar `origin`, initiatief van de gebruiker.
+**Pushen van deze fold-commit naar `origin` gebeurt niet automatisch** — dat blijft, net als elke
+push naar `origin/main`, initiatief van de gebruiker.
 
 ---
 
@@ -248,7 +270,7 @@ hierboven (dezelfde set, gedocumenteerd voor een mens in `workflow-HUMAN.md` →
   het branch-prefix. Draai op de branch tijdens stap 3; vul daarna de beschrijving aan.
 - `scripts/release/fold-changelog-entry.ps1 [-Branch <naam>]` — vouw het entry-bestand van een
   gemergde branch in `CHANGELOG.md`'s `[Unreleased]`-blok en verwijder het entry-bestand. Draai op
-  `main` na een merge (stap 6). Zonder `-Branch` worden alle aanwezige entry-bestanden in één
+  `main` na een PR-merge (stap 7). Zonder `-Branch` worden alle aanwezige entry-bestanden in één
   keer gevouwen.
 
 Er is (nog) geen `cut-release.ps1`-script voor de Release Workflow hierboven — die stappen
@@ -259,9 +281,12 @@ gebeuren nog handmatig.
 ## Repo-hygiëne
 
 - Alles gaat via een `feature/` / `fix/` / `data/` / `content/` / `style/` / `docs/` / `config/`
-  branch, nooit direct op `main` — met de twee toegestane uitzonderingen hierboven.
+  branch + Pull Request, nooit direct op `main` — met de twee toegestane uitzonderingen hierboven.
+- PR's mogen zelfstandig geopend worden (stap 4); de merge zelf wacht altijd op expliciete
+  goedkeuring (stap 6). `.github/pull_request_template.md` wordt automatisch gebruikt door
+  `gh pr create`.
 - **Nooit "final" in een branchnaam.** Gebruik `-v2`, `-v3` etc. voor een tweede poging.
-- Na een merge: verwijder de branch meteen, lokaal én remote (stap 6).
+- Na een merge: de branch is al opgeruimd via `gh pr merge --delete-branch` (stap 6).
 - Releases & versienummering: zie `releases/README.md` en de Release Workflow hierboven. Elke
   live-push verwerkt `CHANGELOG.md`'s `[Unreleased]`-blok, verhoogt een SemVer-versie, voegt een
   release note toe, en krijgt een annotated tag `vX.Y.Z`.

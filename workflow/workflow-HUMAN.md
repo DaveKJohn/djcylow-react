@@ -79,20 +79,38 @@ bestand botst met niemand anders.
 Vergeet dit bestandje niet — zonder entry-bestand mag een branch niet gemerged worden, ook niet
 bij kleine of puur documentatie-wijzigingen.
 
-## Stap 4 — Mergen naar main
+## Stap 4 — Push de branch en open een Pull Request
 
-Als je klaar bent en de wijziging goed is:
+```bash
+git push origin feature/mix-bpm-filter -u
+gh pr create --title "feature: korte titel" --fill
+```
+
+`--fill` gebruikt je laatste commit als titel/omschrijving, en `gh` pakt automatisch
+`.github/pull_request_template.md` als checklist — loop 'm na voor je de PR aanmaakt (of vul 'm
+aan erna). Titel-prefix volgt je branch-type: `feature:`, `fix:`, `data:`, `content:`, `style:`,
+`docs:`, `config:`.
+
+Een PR openen mag altijd zelf — dat verandert niets aan de live site, het maakt je wijziging
+alleen zichtbaar en beoordeelbaar op GitHub.
+
+## Stap 5 — Mergen (na review/goedkeuring) en opruimen
+
+Als de PR goed is:
+
+```bash
+gh pr merge feature/mix-bpm-filter --merge --delete-branch
+```
+
+`--merge` maakt een merge-commit (geen squash) en `--delete-branch` ruimt de branch meteen op,
+zowel remote als lokaal. Synchroniseer daarna je lokale `main`:
 
 ```bash
 git checkout main
-git merge feature/mix-bpm-filter --no-ff -m "Merge branch 'feature/mix-bpm-filter'"
+git pull --ff-only
 ```
 
-## Stap 5 — Na de merge: vouw de entry in en ruim op
-
-Twee dingen, meteen na de merge:
-
-**a) Vouw je entry-bestand in `CHANGELOG.md`:**
+## Stap 6 — Vouw je changelog-entry in
 
 ```powershell
 .\scripts\release\fold-changelog-entry.ps1 -Branch feature/mix-bpm-filter
@@ -108,13 +126,6 @@ git commit -m "docs: fold changelog entry feature/mix-bpm-filter"
 
 (Stonden er meerdere entry-bestanden klaar, van meerdere branches? Laat `-Branch` dan gewoon weg
 — dan vouwt het script ze allemaal in één keer.)
-
-**b) Verwijder de branch:**
-
-```bash
-git branch -d feature/mix-bpm-filter
-git push origin --delete feature/mix-bpm-filter   # alleen als je 'm ooit gepusht hebt
-```
 
 `main` verzamelt zo een `[Unreleased]`-blok van alles wat gemerged is maar nog niet live staat.
 Dat mag rustig dagen of weken opstapelen tot de volgende release.
@@ -148,7 +159,7 @@ Netlify deployt automatisch zodra `main` op GitHub verandert.
 | Commando | Wat het doet |
 |---|---|
 | `scripts/release/new-changelog-entry.ps1 -Title "..."` | Maakt het entry-bestand van je huidige branch aan (stap 3) |
-| `scripts/release/fold-changelog-entry.ps1 [-Branch naam]` | Vouwt een (of alle) entry-bestand(en) in `CHANGELOG.md` (stap 5a) |
+| `scripts/release/fold-changelog-entry.ps1 [-Branch naam]` | Vouwt een (of alle) entry-bestand(en) in `CHANGELOG.md` (stap 6) |
 
 Beide scripts zijn PowerShell — draai ze vanuit de repo-root.
 
@@ -157,8 +168,8 @@ Beide scripts zijn PowerShell — draai ze vanuit de repo-root.
 ## Veiligheidsregels — altijd eerst overleggen
 
 Nooit zonder overleg:
-- Mergen of pushen naar `main`
-- Pushen naar `origin` (elke branch, en zeker `origin/main`)
+- Een Pull Request mergen naar `main` (een PR *openen* mag wel altijd zelf, stap 4)
+- Pushen naar `origin/main` specifiek
 - Een release/live-push starten
 - `git push --force`, `git reset --hard`, `git rebase` op een gedeelde branch
 - Bestanden verwijderen uit `public/images/`
