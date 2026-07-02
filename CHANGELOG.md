@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Script om te wisselen naar werk-account (GitHub CLI + Claude)
+**Branch naam** config/work-account-switch
+**Datum merge op main** 2026-07-02
+**Branch type** Config
+
+`scripts/switch-work-account.ps1` toegevoegd: schakelt de actieve `gh` CLI account om naar `davekokbwj` (regelt ook git push/pull in VS Code via de `gh auth git-credential` helper) en start de logout/login-flow voor het Claude-account `dave@bwjecommerce.com`. VS Code's eigen "Sign in with GitHub" (Settings Sync/Copilot) heeft geen CLI-ondersteuning en blijft een handmatige stap.
+
 ---
 
 ## [v2.20.0] - 2026-07-02 — Minor ← LIVE
