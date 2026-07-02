@@ -22,6 +22,13 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ## [Unreleased]
 
+### Luister-genrefilters uitgebreid: House, Techno, Nu-Disco
+**Branch naam** feature/luister-genre-filters
+**Datum merge op main** 2026-06-30
+**Branch type** Feature
+
+Filter-component uitgebreid met House, Techno en Nu-Disco genres. Playlist toont nu `subgenre` in plaats van base-genre (bijv. "Tech House" in plaats van "House"). MixData interface bijgewerkt met subgenre-veld, PlaylistProps en FilterProps interfaces toegevoegd voor type safety.
+
 ### Luister-filters opgeslagen in de URL en bewaard bij terugnavigatie
 **Branch naam** feature/luister-filter-url-params
 **Datum merge op main** 2026-06-29

@@ -1,5 +1,6 @@
 'use client';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import '@/styles/components/luister/filter.scss';
 
@@ -13,7 +14,16 @@ const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
     blue: { colorVar: '--blue-default', text: 'neutraal · nuchter · stabiel · tevreden · serene' },
 };
 
-export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: any) {
+interface FilterProps {
+    activeColor: string;
+    setActiveColor: (color: string) => void;
+    activeGenre: string;
+    setActiveGenre: (genre: string) => void;
+    activePower: string;
+    setActivePower: (power: string) => void;
+}
+
+export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: FilterProps) {
     return (
 
 
@@ -69,16 +79,27 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <p className="">Genre</p>
                 </div>
                 <div className="row wrap w-fill AMC extra spacing-lg" id="filter_genre">
-                    {['all', 'EDM', 'Drum & Bass'].map((genre) => (
-                        <button
-                            key={genre}
-                            className={`btn passive select ${activeGenre === genre ? 'is-active' : ''}`}
-                            onClick={() => setActiveGenre(genre)}
-                            aria-pressed={activeGenre === genre ? 'true' : 'false'}
-                        >
-                            {genre === 'all' ? 'Alles' : genre === 'EDM' ? 'EDM' : 'DNB'}
-                        </button>
-                    ))}
+                    {['all', 'House', 'EDM', 'Drum & Bass', 'Techno', 'Nu-Disco'].map((genre) => {
+                        const displayLabel = {
+                            'all': 'Alles',
+                            'House': 'House',
+                            'EDM': 'EDM',
+                            'Drum & Bass': 'DNB',
+                            'Techno': 'Techno',
+                            'Nu-Disco': 'Nu-Disco'
+                        }[genre] || genre;
+
+                        return (
+                            <button
+                                key={genre}
+                                className={`btn passive select ${activeGenre === genre ? 'is-active' : ''}`}
+                                onClick={() => setActiveGenre(genre)}
+                                aria-pressed={activeGenre === genre ? 'true' : 'false'}
+                            >
+                                {displayLabel}
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
 
