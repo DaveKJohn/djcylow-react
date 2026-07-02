@@ -11,12 +11,27 @@ De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de vers
 
 ### Levenscyclus van een regel
 
-1. **Op een branch** schrijf je je belangrijkste wijzigingen onder `## [Unreleased]` (op de branch zelf, in dezelfde commit als het werk). Een branch mag gerust weken geparkeerd blijven.
-2. **Branch klaar en goedgekeurd** → merge naar `main`, branch verwijderen. Je `[Unreleased]`-regels reizen mee naar `main`.
-3. **Meer branches** die later mergen vullen `[Unreleased]` op `main` verder aan. `main` kan dus een tijd met een gevulde `[Unreleased]` rondlopen — dat is gewoon "wel gemergd, nog niet live".
-4. **`main` naar live pushen** → alles onder `## [Unreleased]` is nieuw en wordt de eerstvolgende release-note: maak `releases/development/X.Y/X.Y.Z.md` op basis van de inhoud, voeg de versie toe aan `releases/README.md`, hernoem het blok naar `## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major` (met "Zie releases/development/X.Y.Z.md"), en maak een vers leeg `## [Unreleased]` bovenaan aan.
+`CHANGELOG.md` zelf wordt **nooit direct bewerkt op een branch** — dat gaf bij lang-openstaande
+branches merge-conflicten, omdat elke branch hetzelfde `[Unreleased]`-blok aanpaste. In plaats
+daarvan schrijft elke branch zijn eigen entry-bestand; volledige uitleg staat in
+[`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md).
 
-> **Merge-conflict op `[Unreleased]`?** Dat kan, want elke branch bewerkt hetzelfde blok. Het is een verwacht, triviaal conflict: behoud simpelweg beide sets regels onder `[Unreleased]`. Geen werk gaat verloren — de volgorde maakt niet uit.
+1. **Op een branch** maak je een eigen entry-bestand `<branch-naam-met-koppeltekens>.md` in de
+   repo-root aan (via `scripts/release/new-changelog-entry.ps1`), met dezelfde inhoud die vroeger
+   direct in `[Unreleased]` ging. Een branch mag gerust weken geparkeerd blijven — er is niets om
+   over te conflicteren.
+2. **Branch klaar en goedgekeurd** → merge naar `main`, branch verwijderen. Draai daarna
+   `scripts/release/fold-changelog-entry.ps1 -Branch <branch>` op `main`: dat vouwt de entry in
+   `[Unreleased]` en verwijdert het entry-bestand. Dit commit gaat direct op `main` (toegestane
+   uitzondering op de geen-directe-main-commits-regel).
+3. **Meer branches** die later mergen en gevouwen worden vullen `[Unreleased]` op `main` verder
+   aan. `main` kan dus een tijd met een gevulde `[Unreleased]` rondlopen — dat is gewoon "wel
+   gemergd, nog niet live".
+4. **`main` naar live pushen** → alles onder `## [Unreleased]` is nieuw en wordt de eerstvolgende
+   release-note: maak `releases/development/X.Y/X.Y.Z.md` op basis van de inhoud, voeg de versie
+   toe aan `releases/README.md`, hernoem het blok naar
+   `## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major` (met "Zie releases/development/X.Y.Z.md"), en
+   maak een vers leeg `## [Unreleased]` bovenaan aan.
 
 ---
 

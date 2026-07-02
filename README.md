@@ -152,6 +152,7 @@ djcylow-react/
 │
 ├── scripts/                    # Build/utility scripts
 ├── releases/                    # Version history (development/ + highlights/, v1.0.0 – present)
+├── workflow/                    # Claude/human workflow docs (branching, changelog, release process)
 ├── next.config.ts              # output: 'export', images: unoptimized, sassOptions
 ├── tailwind.config             # Tailwind v4 configuration
 ├── tsconfig.json               # strict, ES2017, path alias @/* → ./src/*
