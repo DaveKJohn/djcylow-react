@@ -64,67 +64,65 @@
         BUTTON & MOOD STYLING (Blijft hetzelfde)
    ======================================= */
     .btn.select {
-        width: v.$colour-width;
-        aspect-ratio: v.$colour-aspect-ratio;
-        padding: map.get(map.get(v.$design-scale, "lg"), "c-space") 0;
+        padding: map.get(map.get(v.$design-scale, "lg"), "c-space") map.get(map.get(v.$design-scale, "xl"), "c-space");
         font-size: map.get(map.get(v.$design-scale, "sm"), "font-size");
         text-align: center;
         font-weight: 500;
-        flex: 1 1 114px;
-        max-width: 80px;
         cursor: pointer;
         transition: all 0.2s ease-in-out;
         background-color: var(--black-90);
-        border: 1px solid var(--black-70);
         color: var(--white-100);
 
         &:not([aria-pressed="true"]):hover {
             background-color: var(--black-100);
-            border: 1px solid var(--white-100);
+            border-color: var(--white-100);
             color: var(--white-100);
         }
 
         &.is-active,
         &[aria-pressed="true"] {
             background-color: var(--white-100);
-            border: 1px solid var(--black-100);
             color: var(--black-100);
-            font-weight: 600;
         }
     }
 
     #filter_mood {
         .btn.select[aria-pressed="true"] {
-            border: 1px solid var(--black-100);
             &[data-filter-color="orange"] {
                 background-color: var(--orange-default);
                 color: var(--black-100);
+                border: 1px solid var(--orange-default);
             }
             &[data-filter-color="green"] {
                 background-color: var(--green-default);
                 color: var(--black-100);
+                border: 1px solid var(--green-default);
             }
             &[data-filter-color="purple"] {
                 background-color: var(--purple-default);
                 color: var(--white-100);
+                border: 1px solid var(--purple-default);
             }
             &[data-filter-color="red"] {
                 background-color: var(--red-default);
                 color: var(--white-100);
+                border: 1px solid var(--red-default);
             }
             &[data-filter-color="blue"] {
                 background-color: var(--blue-default);
                 color: var(--white-100);
+                border: 1px solid var(--blue-default);
             }
             &[data-filter-color="cyan"] {
                 background-color: var(--cyan-default);
                 color: var(--black-100);
+                border: 1px solid var(--cyan-default);
             }
             &[data-filter-color="yellow"] {
                 background-color: var(--yellow-default);
                 color: var(--black-100);
+                border: 1px solid var(--yellow-default);
             }
         }
     }
-
 }

@@ -63,7 +63,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
 [
   {
     "id": "20260615",
-    "title": "Tech House · Red Light (m) Mix · Vol. 6",
+    "title": "Red Tech House Mix · Vol. 6",
     "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
     "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "genre": "House",

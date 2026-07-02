@@ -83,9 +83,9 @@ export default function Luister({ activeColor, activeGenre, activePower }: Playl
 
         <div className="column w-fill AMC P30 spacing-xl " id="luister_content_playlist">
 
-            <div className="column w-hug AMC P35 spacing-xl">
+            <div className="column w-fill AMC P35 spacing-xl">
 
-                <div className="row wrap w-hug AMC P40-xl spacing-xl fill-90">
+                <div className="row wrap w-fill AMC P40-xl spacing-xl fill-90">
 
 
 
@@ -125,13 +125,13 @@ export default function Luister({ activeColor, activeGenre, activePower }: Playl
                         <p>Geen mixen gevonden voor deze combinatie.</p>
                     )}
 
-                    <div className="column w-hug AMC P45-xl extra spacing-6xl">
-                        {filteredMixes.length > limit && (
+                    {filteredMixes.length > limit && (
+                        <div className="column w-hug AMC P45-xl extra spacing-6xl">
                             <button onClick={showMore} className="btn passive P50 load-more">
                                 Laad meer
                             </button>
-                        )}
-                    </div>
+                        </div>
+                    )}
 
                 </div>
             </div>
