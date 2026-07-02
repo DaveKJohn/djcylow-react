@@ -146,11 +146,16 @@ huidige branch niet lokaal verwijderen als je er nog op staat (git staat dat nie
 
 ```bash
 git checkout main
-gh pr merge [branch] --merge --delete-branch
+gh pr merge [branch] --merge --delete-branch --subject "merge: [branch] (#<PR-nummer>)"
 ```
 
 `--merge` maakt een merge-commit (geen squash/rebase — behoudt de losse commits, consistent met
-de oude `--no-ff`-aanpak). `--delete-branch` ruimt de branch op, zowel remote als lokaal. Stond je
+de oude `--no-ff`-aanpak). `--subject` geeft de merge-commit de `merge:` prefix, consistent met de
+`feature:`/`fix:`/`docs:`/etc.-prefixes van de rest van de geschiedenis — zonder deze override
+gebruikt GitHub het generieke "Merge pull request #N from ...". Vul `<PR-nummer>` in met het
+nummer uit de PR-link van stap 4.
+
+`--delete-branch` ruimt de branch op, zowel remote als lokaal. Stond je
 toch nog op de branch toen je dit draaide, controleer dan of de lokale branch écht weg is en ruim
 'm zo nodig alsnog op: `git branch -d [branch]`.
 
@@ -239,7 +244,7 @@ Wanneer de gebruiker zegt "commit en push live" of "maak een nieuwe release en p
     expliciete toestemming" hierboven):
     ```bash
     git checkout main
-    git merge [branch] --no-ff -m "Merge branch '[branch]' — v<versie>"
+    git merge [branch] --no-ff -m "merge: [branch] — v<versie>"
     ```
 11. **Tag en push**:
     ```bash

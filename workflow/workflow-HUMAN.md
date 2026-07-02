@@ -109,10 +109,12 @@ git 'm niet lokaal opruimen en blijft er een rest-branch achter:
 
 ```bash
 git checkout main
-gh pr merge feature/mix-bpm-filter --merge --delete-branch
+gh pr merge feature/mix-bpm-filter --merge --delete-branch --subject "merge: feature/mix-bpm-filter (#12)"
 ```
 
-`--merge` maakt een merge-commit (geen squash) en `--delete-branch` ruimt de branch op, zowel
+`--merge` maakt een merge-commit (geen squash). `--subject` geeft 'm de `merge:` prefix — zonder
+die override gebruikt GitHub zelf de generieke tekst "Merge pull request #N from ...", vul het
+PR-nummer in dat je bij het openen van de PR kreeg. `--delete-branch` ruimt de branch op, zowel
 remote als lokaal. Check zo nodig achteraf of de lokale branch echt weg is
 (`git branch -d feature/mix-bpm-filter` als 'ie er nog staat). Synchroniseer daarna je lokale `main`:
 
