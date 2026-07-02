@@ -37,6 +37,24 @@ daarvan schrijft elke branch zijn eigen entry-bestand; volledige uitleg staat in
 
 ## [Unreleased]
 
+### Workflow gesplitst: workflow/ map + per-branch changelog entries
+**Branch naam** config/workflow-changelog-restructure
+**Datum merge op main** 2026-07-02
+**Branch type** Config
+
+`CLAUDE.md` opgesplitst naar het voorbeeld van de smartwatchbanden-repo: het bestand is nu dun en laadt `workflow/workflow-CLAUDE.md` (volledige technische werkwijze) in via `@workflow/workflow-CLAUDE.md`; `workflow/workflow-HUMAN.md` beschrijft dezelfde workflow voor handmatige uitvoering. Project-specifieke referentie (Quick Reference, Mix JSON Rules) blijft in `CLAUDE.md`. De `[Unreleased]`-sectie van `CHANGELOG.md` wordt niet langer direct op een branch bewerkt — elke branch schrijft nu een eigen entry-bestand (`<branch-naam>.md` in de repo-root, gescaffold via `scripts/release/new-changelog-entry.ps1`), dat na de merge met `scripts/release/fold-changelog-entry.ps1` in `[Unreleased]` gevouwen en verwijderd wordt. Dit voorkomt merge-conflicten op `[Unreleased]` bij lang-openstaande branches. Beide scripts zijn getest op een scratch-kopie van `CHANGELOG.md`.
+
+---
+
+### BOM-bug gefixt in changelog entry-scripts
+**Branch naam** fix/changelog-scripts-bom
+**Datum merge op main** 2026-07-02
+**Branch type** Fix
+
+`scripts/release/fold-changelog-entry.ps1` en `scripts/release/new-changelog-entry.ps1` schreven bestanden weg met `Set-Content -Encoding UTF8`, wat in Windows PowerShell 5.1 altijd een UTF-8 BOM toevoegt — terwijl de rest van de repo (waaronder `CHANGELOG.md`) BOM-loos is. Bij de eerste test op main voegde het fold-script hierdoor een BOM toe aan `CHANGELOG.md`. Beide scripts schrijven nu via `[System.IO.File]::WriteAllText` met een expliciete BOM-loze UTF8-encoding.
+
+---
+
 ### Script om te wisselen tussen werk- en prive-account (GitHub CLI + Claude)
 **Branch naam** config/work-account-switch
 **Datum merge op main** 2026-07-02
