@@ -15,6 +15,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# BOM-loze UTF8 -- Set-Content -Encoding UTF8 voegt in Windows PowerShell 5.1 altijd een BOM
+# toe, en de rest van de repo heeft geen BOM.
+$Utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
 $branch = (git rev-parse --abbrev-ref HEAD).Trim()
 if ($branch -eq "main") {
     Write-Host "Je zit op main - maak eerst een branch aan." -ForegroundColor Red
@@ -58,5 +62,5 @@ $template = @"
 TODO: korte beschrijving van wat er veranderd is op deze branch.
 "@
 
-Set-Content -Path $filePath -Value $template -Encoding UTF8
+[System.IO.File]::WriteAllText($filePath, $template, $Utf8NoBom)
 Write-Host "Aangemaakt: $fileName" -ForegroundColor Green

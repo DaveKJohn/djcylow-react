@@ -17,6 +17,14 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# BOM-loze UTF8 -- Set-Content -Encoding UTF8 voegt in Windows PowerShell 5.1 altijd een BOM
+# toe, en de rest van de repo (CHANGELOG.md etc.) heeft geen BOM.
+$Utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
+function Write-Utf8NoBom([string]$Path, [string]$Content) {
+    [System.IO.File]::WriteAllText($Path, $Content, $Utf8NoBom)
+}
+
 $repoRoot = (git rev-parse --show-toplevel).Trim()
 Set-Location $repoRoot
 
@@ -68,7 +76,7 @@ foreach ($file in $entryFiles) {
     $entryBlock = "$nl$entryContent$nl$nl---$nl"
     $changelogContent = $changelogContent.Substring(0, $insertPos) + $entryBlock + $changelogContent.Substring($insertPos)
 
-    Set-Content -Path $changelogPath -Value $changelogContent -Encoding UTF8 -NoNewline
+    Write-Utf8NoBom -Path $changelogPath -Content $changelogContent
     Remove-Item -Path $filePath -Force
     Write-Host "Gevouwen en verwijderd: $file" -ForegroundColor Green
 }
