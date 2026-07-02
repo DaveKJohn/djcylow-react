@@ -1,108 +1,10 @@
 # CLAUDE.md — DJ Cylow Website
 
-Project instructions for Claude Code. Read this before every task.
+De volledige werkwijze voor Claude staat in [`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md)
+en wordt hieronder automatisch ingeladen. Een mens-vriendelijke versie van dezelfde workflow (voor
+handmatige uitvoering door Dave) staat in [`workflow/workflow-HUMAN.md`](workflow/workflow-HUMAN.md).
 
-## Git Workflow — Branch Protection
-
-`main` is the **production branch**, directly deployed to Netlify. Never commit to it directly.
-
-### At the start of every task
-
-**Before touching any file:** check the branch and create one if on `main`. Never write, create, or modify files before this step — not even a script or a config file.
-
-1. Run `git status` and `git branch` to check the current state.
-2. If on `main`: run `git checkout -b [branch-name]` first, then make changes.
-3. If already on a feature branch: continue on that branch.
-
-### Branch naming
-
-| Type of work | Branch name |
-|---|---|
-| New feature or page | `feature/[short-description]` |
-| Bug fix | `fix/[short-description]` |
-| Mix data (JSON) | `data/[color-or-description]` |
-| Text/content updates | `content/[short-description]` |
-| Styling/CSS | `style/[short-description]` |
-| Docs/README | `docs/[short-description]` |
-| Config changes | `config/[short-description]` |
-
-**Examples:** `data/light-red-descriptions`, `feature/mix-bpm-filter`, `fix/audio-player-volume`
-
-**Nooit "final" in een branchnaam.** Als een tweede poging nodig is, gebruik dan `-v2`, `-v3` etc. — dat is eerlijker dan "final" en voorkomt `final-v2`, `final-final` etc.
-
-### Creating a branch
-
-```bash
-git checkout -b [branch-name]
-```
-
-### After completing a task
-
-- Commit changes on the feature branch with a clear message.
-- **Update `[Unreleased]` in `CHANGELOG.md` op de branch — dit is verplicht, geen uitzondering.** Gebruik het formaat:
-  ```markdown
-  ### Korte sterke titel van de wijziging
-  **Branch naam** branch-naam
-  **Datum merge op main** YYYY-MM-DD
-  **Branch type** Docs/Feature/Fix/Data/Content/Style/Config
-
-  Korte beschrijving van wat er veranderd is op deze branch.
-  ```
-- **Merge nooit naar `main` zonder een [Unreleased] entry op de branch.** Dit geldt ook voor kleine of puur documentatie-wijzigingen.
-- Tell the user what changed. Stop there — do not ask about merging, releasing, or pushing.
-- **A release is always initiated by the user. Never propose it.**
-- **Never merge or push to `main` without explicit user approval.**
-- **After a merge into `main`: delete the feature branch immediately** (lokaal + remote):
-  ```bash
-  git branch -d [branch]
-  git push origin --delete [branch]
-  ```
-
-### CHANGELOG.md — altijd het volledige bestand bewaren
-
-**Nooit het volledige CHANGELOG.md vervangen op een branch.** Gebruik altijd Edit om alleen de `[Unreleased]` sectie aan te vullen. Als je het hele bestand herschrijft, overschrijft git bij de merge de volledige versiegeschiedenis op `main`.
-
-**Op een branch:** Read het bestaande CHANGELOG.md en voeg je entry toe onder `## [Unreleased]` met Edit. De rest van het bestand blijft ongewijzigd.
-
-**Op `main`** is de changelog volledig: "Hoe dit werkt"-sectie, levenscyclus-uitleg, `[Unreleased]` met alles wat gemergd is maar nog niet live, en de volledige versiegeschiedenis met `← LIVE` op de meest recente versie.
-
-Elke entry in `[Unreleased]` op `main` vermeldt de branchnaam en merge-datum op een aparte regel direct onder de heading:
-
-```markdown
-### Korte sterke titel van de wijziging
-**Branch naam** branch-naam
-**Datum merge op main** YYYY-MM-DD
-**Branch type** Docs/Feature/Fix/Data/Content/Style/Config
-
-Korte beschrijving van wat er veranderd is op deze branch.
-```
-
-De datum is de dag waarop de branch naar `main` werd gemergd.
-
----
-
-## Safety Rules
-
-### Never do without explicit user confirmation
-
-- `git push --force` (any branch)
-- `git reset --hard`
-- `git rebase` on a shared branch
-- Delete files from `public/images/` (images are referenced by path in JSON)
-- Modify `next.config.ts` (static export config — breaks the Netlify build if wrong)
-- Modify `netlify.toml`
-
-### Before writing JSON data files
-
-- Verify the result is valid JSON (parseable, no trailing commas)
-- Keep array sorted **newest first** (highest `id` date at top)
-- Never modify entries with `"ignore": true` (preview entries)
-- Never overwrite a non-empty `description` field unless asked
-
-### Before committing
-
-- Run `npm run lint` to catch TypeScript/ESLint errors
-- Check that image paths referenced in JSON actually exist in `public/images/`
+@workflow/workflow-CLAUDE.md
 
 ---
 
@@ -124,12 +26,14 @@ npm run lint     # ESLint + TypeScript check
 | `npm run images:webp` | `scripts/convert-to-webp.js` | Converteer alle `.jpg` in `public/images/` naar `.webp` en verwijder de originelen |
 | `npm run images:webp:dry` | `scripts/convert-to-webp.js --dry-run` | Preview: laat zien welke bestanden geconverteerd zouden worden |
 
+Release-workflow scripts (`scripts/release/`) staan beschreven in `workflow/workflow-CLAUDE.md` → "Scripts".
+
 **Workflow nieuwe mix toevoegen:**
 1. `npm run mix:add` — vul alle gegevens in, script genereert afgeleide velden automatisch
 2. Afbeeldingen neerzetten in `public/images/{power}/{color}/`
 3. `npm run images:webp` — als je `.jpg` afbeeldingen hebt aangeleverd
 4. Controleer het JSON bestand in de editor
-5. Commit + push via de release workflow (zie verderop)
+5. Commit + push via de release workflow (zie `workflow/workflow-CLAUDE.md`)
 
 ### Critical constraints
 
@@ -150,7 +54,7 @@ npm run lint     # ESLint + TypeScript check
 | Music Mood Colours text | `src/content/musicmoodcolours.ts` |
 | Testimonials | `src/content/referenties.ts` |
 | Breakpoints | `src/constants/design.ts` |
-| In-progress changes (unreleased) | `CHANGELOG.md` → `[Unreleased]` |
+| In-progress changes (unreleased) | `CHANGELOG.md` → `[Unreleased]` (bevuld via per-branch entry-bestanden, zie workflow) |
 
 ### Audio storage
 
@@ -168,72 +72,3 @@ Quick rules:
 - `description`: unique per mix, 120–160 chars, Dutch, no dashes (`-` or `—`), no artist names (artists go in `top_artists`)
 - `tracklist` time format: `"HH:MM:SS"` with leading zeros
 - New mixes go at the **top** of the array
-
----
-
-## Release Workflow
-
-When the user says "commit en push live" or "maak een nieuwe release en push live":
-
-### Stap voor stap
-
-1. **Check de status**: `git status && git branch`
-2. **Maak een branch** (nooit direct op `main` committen):
-   ```bash
-   git checkout -b docs/release-v<versie>
-   ```
-3. **Run lint**: `npm run lint` — controleer of nieuwe fouten zijn geïntroduceerd (pre-existing errors zijn acceptabel als wij geen .tsx/.ts bestanden wijzigden)
-4. **Bepaal versienummer** (zie `releases/README.md`):
-   - PATCH (`x.y.Z+1`): bugfix, hotfix, kleine correctie
-   - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
-   - MAJOR: ingrijpende verbouwing (zelden)
-5. **Maak de development-release note** aan (altijd, elke Patch/Minor/Major): `releases/development/<major.minor>/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als inhoud, inclusief het metadata-blok (`**Branch:** ... · **Gemergd:** ...`) onder elke heading
-5b. **Maak de highlights-versie** aan (alleen bij Minor of Major): `releases/highlights/<major.minor>/<versie>.md` — dezelfde wijzigingen, herschreven in leesbaar Nederlands zonder jargon en zonder branch-metadata (geen branch-namen, merge-datums of branch-types), bedoeld voor stakeholders/collega's in plaats van developers
-6. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar `[v<versie>] - <datum> — Patch/Minor/Major`, vervang alle branch-details door één `Zie [releases/development/...]`-regel (de details staan al in de release note), voeg `← LIVE` toe aan de nieuwe versie, verwijder `← LIVE` bij de vorige versie, en maak een vers leeg `## [Unreleased]` bovenaan aan
-7. **Voeg versie toe** aan overzichtstabel in `releases/README.md` (bovenaan), linkend naar de development-versie
-8. **Stage en commit** op de feature branch
-9. **Merge naar main** (na gebruikersbevestiging):
-   ```bash
-   git checkout main
-   git merge [branch] --no-ff -m "Merge branch '[branch]' — v<versie>"
-   ```
-10. **Tag en push**:
-   ```bash
-   git tag -a v<versie> -m "v<versie> - <korte titel>"
-   git push origin main
-   git push origin v<versie>
-   ```
-11. **GitHub Release aanmaken** (development-versie is altijd de release-body):
-    ```bash
-    gh release create v<versie> \
-      --title "v<versie> - <korte titel>" \
-      --notes-file releases/development/<major.minor>/<versie>.md \
-      --verify-tag
-    ```
-11b. **Highlights als bijlage uploaden** (alleen bij Minor/Major):
-    ```bash
-    gh release upload v<versie> releases/highlights/<major.minor>/<versie>.md
-    ```
-12. **Verwijder de feature branch** (lokaal + remote):
-    ```bash
-    git branch -d [branch]
-    git push origin --delete [branch]
-    ```
-
-Netlify deployt automatisch na de push naar `main`.
-
-### Versienummer bepalen
-
-| Type wijziging | Versie |
-|---|---|
-| Bugfix, hotfix, kleine correctie | PATCH |
-| Docs, workflow, CLAUDE.md, CHANGELOG-wijzigingen | PATCH |
-| Nieuwe beschrijvingen, content updates | MINOR |
-| Nieuwe mix, nieuwe pagina, nieuw component | MINOR |
-| Volledig redesign of framework-migratie | MAJOR |
-
----
-
-## Deployment
-
-Netlify auto-deploys on every push to `main`. There is no staging environment. This is why branch protection matters — a broken build on `main` means the live site is down.
