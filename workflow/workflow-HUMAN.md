@@ -81,19 +81,22 @@ bij kleine of puur documentatie-wijzigingen.
 
 ## Stap 4 — Push de branch en open een Pull Request
 
-```bash
-git push origin feature/mix-bpm-filter -u
-gh pr create --title "feature: korte titel" --fill --head feature/mix-bpm-filter --base main --repo DaveKJohn/djcylow-react
+Makkelijkste manier — het script doet push + PR-aanmaak in één:
+
+```powershell
+.\scripts\release\open-pr.ps1 -Title "feature: korte titel"
 ```
 
-Deze repo heeft zowel een `origin`- als een `upstream`-remote naar dezelfde GitHub-URL — zonder
-de expliciete `--head`/`--base`/`--repo` hierboven kan `gh pr create` daardoor foutmelden dat je
-de branch nog niet gepusht hebt, ook als dat wel zo is.
+Dit pusht je branch en opent de PR met `.github/pull_request_template.md` als checklist — loop 'm
+na voor je de PR aanmaakt (via `-Body`) of vul 'm aan op github.com erna. Titel-prefix volgt je
+branch-type: `feature:`, `fix:`, `data:`, `content:`, `style:`, `docs:`, `config:`.
 
-`--fill` gebruikt je laatste commit als titel/omschrijving, en `gh` pakt automatisch
-`.github/pull_request_template.md` als checklist — loop 'm na voor je de PR aanmaakt (of vul 'm
-aan erna). Titel-prefix volgt je branch-type: `feature:`, `fix:`, `data:`, `content:`, `style:`,
-`docs:`, `config:`.
+**Gebruik nooit `gh pr create --fill`** als je dit met de hand doet: dat vult de PR-body met de
+volledige commit-geschiedenis sinds `main` (tientallen irrelevante oude commits) in plaats van de
+checklist-template — dat overkwam ons bij de eerste twee PR's van deze repo. Moet je toch handmatig
+werken, geef dan `--body-file .github\pull_request_template.md` mee in plaats van `--fill`, en
+altijd `--repo DaveKJohn/djcylow-react` — deze repo heeft zowel een `origin`- als een
+`upstream`-remote naar dezelfde GitHub-URL, wat `gh`'s automatische branch-detectie in de war stuurt.
 
 Een PR openen mag altijd zelf — dat verandert niets aan de live site, het maakt je wijziging
 alleen zichtbaar en beoordeelbaar op GitHub.
@@ -166,6 +169,7 @@ Netlify deployt automatisch zodra `main` op GitHub verandert.
 | Commando | Wat het doet |
 |---|---|
 | `scripts/release/new-changelog-entry.ps1 -Title "..."` | Maakt het entry-bestand van je huidige branch aan (stap 3) |
+| `scripts/release/open-pr.ps1 -Title "..."` | Pusht de branch en opent de PR met de template als body (stap 4) |
 | `scripts/release/fold-changelog-entry.ps1 [-Branch naam]` | Vouwt een (of alle) entry-bestand(en) in `CHANGELOG.md` (stap 6) |
 
 Beide scripts zijn PowerShell — draai ze vanuit de repo-root.
