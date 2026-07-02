@@ -173,7 +173,7 @@ Commit het resultaat direct op `main` — dit is een van de twee toegestane dire
 
 ```bash
 git add CHANGELOG.md [branch-naam-met-koppeltekens].md
-git commit -m "docs: fold changelog entry [branch]"
+git commit -m "chore: fold changelog entry [branch]"
 ```
 
 `main` houdt zo een groeiend `[Unreleased]`-blok bij van alles wat gemergd maar nog niet live is.

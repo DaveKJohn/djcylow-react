@@ -131,7 +131,7 @@ het entry-bestandje zelf. Commit dat resultaat direct op `main`:
 
 ```bash
 git add CHANGELOG.md feature-mix-bpm-filter.md
-git commit -m "docs: fold changelog entry feature/mix-bpm-filter"
+git commit -m "chore: fold changelog entry feature/mix-bpm-filter"
 ```
 
 (Stonden er meerdere entry-bestanden klaar, van meerdere branches? Laat `-Branch` dan gewoon weg
