@@ -106,22 +106,26 @@ bestand, dus er is niets om over te conflicteren.
 
 ### 4. Push de branch en open een Pull Request
 
-Zodra de branch klaar is (commits + het changelog entry-bestand):
+Zodra de branch klaar is (commits + het changelog entry-bestand), gebruik het script:
 
 ```bash
-git push origin [branch] -u
-gh pr create --title "[branch-type]: korte titel" --fill --head [branch] --base main --repo DaveKJohn/djcylow-react
+.\scripts\release\open-pr.ps1 -Title "[branch-type]: korte titel"
 ```
 
-Deze repo heeft zowel een `origin`- als een `upstream`-remote die naar dezelfde GitHub-URL wijzen
-— dat verwart `gh pr create`'s automatische branch-detectie ("you must first push the current
-branch to a remote"). De expliciete `--head`/`--base`/`--repo` flags omzeilen dit betrouwbaar.
+Dit pusht de branch en opent de PR met `.github/pull_request_template.md` als body — loop de
+checklist na en vink af wat van toepassing is, ofwel voor het aanmaken (via `-Body`) ofwel erna op
+github.com. Titel-prefix mirrort het branch-type: `feature:`, `fix:`, `data:`, `content:`,
+`style:`, `docs:`, `config:`.
 
-`gh pr create --fill` gebruikt de laatste commit-titel/-body als PR-titel/-omschrijving en pakt
-automatisch `.github/pull_request_template.md` als body-template — loop de checklist daarin na
-en vink af wat van toepassing is voordat je de PR aanmaakt (of vul 'm aan na het aanmaken).
-Titel-prefix mirrort het branch-type: `feature:`, `fix:`, `data:`, `content:`, `style:`, `docs:`,
-`config:`.
+**Gebruik nooit `gh pr create --fill`** voor deze repo: `--fill` vult de body met de volledige
+commit-geschiedenis sinds `main` (elke commit-titel als bullet, ontdekt bij PR #1/#2 — dat waren
+tientallen irrelevante historische commits, niet de template). Het script hierboven gebruikt
+bewust `--body` met de template-inhoud in plaats van `--fill`.
+
+Draai je het handmatig i.p.v. via het script, geef dan altijd `--repo DaveKJohn/djcylow-react` mee
+— deze repo heeft zowel een `origin`- als een `upstream`-remote die naar dezelfde GitHub-URL
+wijzen, wat `gh pr create`'s automatische branch-detectie in de war stuurt ("you must first push
+the current branch to a remote").
 
 Dit mag zelfstandig, zonder aparte toestemming (zie "Nooit zonder expliciete toestemming"
 hierboven) — een PR openen ship niets naar productie.
@@ -282,6 +286,10 @@ hierboven (dezelfde set, gedocumenteerd voor een mens in `workflow-HUMAN.md` →
   gemergde branch in `CHANGELOG.md`'s `[Unreleased]`-blok en verwijder het entry-bestand. Draai op
   `main` na een PR-merge (stap 7). Zonder `-Branch` worden alle aanwezige entry-bestanden in één
   keer gevouwen.
+- `scripts/release/open-pr.ps1 -Title <tekst> [-Body <tekst>]` — push de huidige branch en open
+  een PR (stap 4). Body valt standaard terug op `.github/pull_request_template.md` — gebruik dit
+  script in plaats van `gh pr create --fill`, dat de body vult met de volledige commit-geschiedenis
+  sinds `main` in plaats van de template.
 
 Er is (nog) geen `cut-release.ps1`-script voor de Release Workflow hierboven — die stappen
 gebeuren nog handmatig.

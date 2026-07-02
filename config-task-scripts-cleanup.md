@@ -1,0 +1,6 @@
+### Task-scripts opgeschoond, open-pr.ps1 gefixt (geen --fill meer)
+**Branch naam** config/task-scripts-cleanup
+**Datum merge op main** 2026-07-02
+**Branch type** Config
+
+`scripts/task/sync-main.ps1`, `start-task.ps1` en `push-preview.ps1` verwijderd — pure Shopify-theme-tooling (gekopieerd vanuit smartwatchbanden), niet toepasbaar op deze Next.js/Netlify-repo. `scripts/task/open-pr.ps1` (wel generiek) verplaatst naar `scripts/release/open-pr.ps1` en herschreven: geen hardcoded `gh.exe`-pad meer, `--repo DaveKJohn/djcylow-react` toegevoegd (nodig door de dubbele origin/upstream-remote), en de PR-body valt nu standaard terug op `.github/pull_request_template.md` in plaats van `gh pr create --fill`. Bij het testen bleek `--fill` de body te vullen met de volledige commit-geschiedenis sinds `main` (tientallen irrelevante oude commits) in plaats van de template — dit gebeurde ook al bij PR #1 en #2. `workflow/workflow-CLAUDE.md` en `workflow/workflow-HUMAN.md` bijgewerkt om `--fill` af te raden en naar het nieuwe script te verwijzen.
