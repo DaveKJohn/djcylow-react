@@ -72,3 +72,10 @@ Quick rules:
 - `description`: unique per mix, 120–160 chars, Dutch, no dashes (`-` or `—`), no artist names (artists go in `top_artists`)
 - `tracklist` time format: `"HH:MM:SS"` with leading zeros
 - New mixes go at the **top** of the array
+
+De orchestrator (Chris) wordt altijd meegeladen -- zijn draagbare body uit de plugin-install en zijn
+repo-lens uit het plugin-pad; hij verwijst on-demand door naar de specialisten in `.claude/plugins/davekjohns-workshop/`.
+
+@~/.claude/plugins/marketplaces/davekjohns-workshop/claude-code-plugins/claude-specialists/specialists/personas/01-01-persona.md
+
+@.claude/plugins/davekjohns-workshop/specialists/01-01-extension.md
