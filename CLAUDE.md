@@ -40,7 +40,7 @@ De release-workflow draait via de gedeelde skills van de specialists-plugin plus
 
 - **Static export**: `output: 'export'` in `next.config.ts` — no server-side rendering, no Next.js API routes. Contact form runs via Netlify Functions.
 - **Images unoptimized**: `images: { unoptimized: true }` — required for static export. Do not remove.
-- **Bilingual (EN/NL) via next-intl**: the site is fully bilingual. All user-facing strings belong in `messages/en.json` and `messages/nl.json` — never hardcoded in components. Use `useTranslations()` (client) or `getTranslations()` (server). The domain is `djcylow.com`; default locale is `en`.
+- **Bilingual (EN/NL) is NOT live yet.** `main` has no `messages/` directory and no `[locale]` route — the site currently ships Dutch strings inline. The full next-intl implementation lives on the parked branch `feature/i18n-setup` (17 commits: routing restructure to `src/app/[locale]/`, string extraction, hreflang/og:locale, LanguageSwitcher). Do not write code that assumes `useTranslations()` or `messages/en.json` exists. Once that branch lands, this rule becomes: all user-facing strings belong in `messages/en.json` and `messages/nl.json`, never hardcoded. The domain is `djcylow.com`; the intended default locale is `en`.
 - **No inline CSS**: do not use `style={{}}` in JSX. All CSS belongs in SCSS files under `src/styles/`. Exception: truly dynamic runtime values (e.g. `backgroundImage: url(${src})`, progress bar width percentages).
 - **Tailwind v4 + SCSS**: both are used side by side. SCSS lives in `src/styles/`, Tailwind as utility classes in components.
 
@@ -48,7 +48,7 @@ De release-workflow draait via de gedeelde skills van de specialists-plugin plus
 
 | What | Where |
 |---|---|
-| UI strings (buttons, labels, errors) | `messages/en.json` + `messages/nl.json` |
+| UI strings (buttons, labels, errors) | Inline in the components — `messages/*.json` only exists on the parked `feature/i18n-setup` branch |
 | Mix metadata & tracklists | `src/data/mixes/[power]-[color].json` |
 | Home page text | `src/content/home.ts` |
 | Services text | `src/content/diensten.ts` |
@@ -108,7 +108,7 @@ specialisten worden **on-demand** gelezen op het moment dat Chris een opdracht a
 | **Cody** 💻 #13 | App-ontwikkelaar | De Next.js/React-applicatiecode in `src/`: componenten, pagina's, hooks | [`04-13-extension.md`](.claude/plugins/claude-specialists/specialists/04-13-extension.md) |
 | **Sylvester** ⚙️ #15 | Systeembeheerder | Claude Code-configuratie: `.claude/settings.json`, hooks, permissions, MCP-config, en `scripts/` | [`05-15-extension.md`](.claude/plugins/claude-specialists/specialists/05-15-extension.md) |
 | **Tessa** 📜 #16 | Technical Writer | Beheert `CLAUDE.md` en de workflow-/governance-documentatie | [`06-16-extension.md`](.claude/plugins/claude-specialists/specialists/06-16-extension.md) |
-| **Edith** 🔍 #17 | Eindredacteur | De onafhankelijke laatste blik vóór een PR: taal, spelling, consistentie, dode links. Let op de tweetaligheid van `messages/` | [`06-17-extension.md`](.claude/plugins/claude-specialists/specialists/06-17-extension.md) |
+| **Edith** 🔍 #17 | Eindredacteur | De onafhankelijke laatste blik vóór een PR: taal, spelling, consistentie, dode links | [`06-17-extension.md`](.claude/plugins/claude-specialists/specialists/06-17-extension.md) |
 | **Tycho** 🧪 #18 | Test Engineer | Geautomatiseerde tests en regressiebewaking; meldt eerlijk waar een testgat zit | [`04-18-extension.md`](.claude/plugins/claude-specialists/specialists/04-18-extension.md) |
 | **Victor** 🧐 #19 | Code Reviewer | De onafhankelijke blik op de code vóór een PR: correctheid, eenvoud, herbruik, efficiëntie | [`06-19-extension.md`](.claude/plugins/claude-specialists/specialists/06-19-extension.md) |
 | **Sebastian** 🛡️ #23 | Security Engineer | Secrets/PII in de diff, onveilige defaults, en audits van permissions/hooks. Let op de Netlify-functions en de R2-bucket | [`06-23-extension.md`](.claude/plugins/claude-specialists/specialists/06-23-extension.md) |

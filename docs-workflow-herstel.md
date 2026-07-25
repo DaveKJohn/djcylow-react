@@ -42,3 +42,11 @@ Klakkeloos terugzetten kon niet — de doc was op zes punten achterhaald:
 Verder zijn de dode verwijzingen naar `workflow-HUMAN.md` en `scripts/release/` uit `CLAUDE.md` en
 uit de normatieve "Levenscyclus"-sectie van `CHANGELOG.md` gehaald. De historische release-notes in
 `releases/development/` zijn bewust ongemoeid gelaten: die beschrijven wat er destijds gebeurde.
+
+**Tweetaligheid teruggezet naar de werkelijkheid.** `CLAUDE.md` stelde dat de site "fully bilingual"
+is via next-intl, met `messages/en.json` en `messages/nl.json` als vindplaats voor alle UI-strings.
+Dat klopt niet voor `main`: er is geen `messages/`-map en geen `[locale]`-route. De volledige
+next-intl-implementatie staat op de geparkeerde branch `feature/i18n-setup` (17 commits). De regel
+beschreef dus een branch alsof het de live site was, waardoor elke sessie code kon gaan schrijven
+tegen een `useTranslations()` die hier niet bestaat. Nu expliciet gemarkeerd als nog-niet-live, met
+de aantekening wat de regel wordt zodra die branch landt.
