@@ -3,11 +3,11 @@ id: 23
 group: 06
 ---
 
-# Sean · repo-lens (VUL-IN)
+# 06-23 · repo-lens (VUL-IN)
 
-> Repo-lens bij het draagbare vakboek van Sean in de `specialists`-plugin. Dit bestand is
+> Repo-lens bij het draagbare vakboek van deze specialist in de `specialists`-plugin. Dit bestand is
 > door `specialists-init` als leeg sjabloon neergezet; de agent-def leest het automatisch mee.
-> Vul hieronder de repo-specifieke taken en context aan die Sean in deze repo nodig heeft.
+> Vul hieronder de repo-specifieke taken en context aan die deze specialist in deze repo nodig heeft.
 
 ## Eigen aan deze repo (VUL-IN)
 

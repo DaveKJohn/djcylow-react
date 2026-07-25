@@ -1,0 +1,15 @@
+{
+  "//": "Poort-variant van tsconfig.json voor scripts/lint/lint-web.ps1. Identiek aan de gewone config, maar zonder de .next/types-includes: die worden door `next build` gegenereerd, zodat een gewone `tsc --noEmit` afhangt van hoe vers de build-output toevallig is (een build van een andere branch laat hier stale route-types achter). De PR-poort checkt daarom puur de broncode en is zo reproduceerbaar. De route-typevalidatie zelf blijft gewoon draaien bij `npm run build`.",
+  "extends": "./tsconfig.json",
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/styles/**/*.scss"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out"
+  ]
+}
