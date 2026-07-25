@@ -145,31 +145,43 @@ When `true`, this entry is completely excluded from the public playlist and deta
 
 The full display title of the mix. Shown on mix cards, detail page `<h1>`, and in metadata.
 
-**Target format (new standard):**
+**Required format:**
 
 ```
-[Subgenre] · [Color] [Power] ([Frequency]) Mix · Vol. [N]
+[Subgenre] Mix · [Color] [Power] ([Frequency]) · Vol. [N]
 ```
 
-**Examples (new standard):**
+**Examples:**
 
-- `"Tech House · Red Light (m) Mix · Vol. 6"`
-- `"Progressive House · Red Light (m) Mix · Vol. 4"`
-- `"Melodic Techno · Red Light (m) Mix · Vol. 5"`
-- `"Neurofunk · Red Light (m) Mix · Vol. 1"`
+- `"Tech House Mix · Red Light (m) · Vol. 6"`
+- `"Progressive House Mix · Red Light (m) · Vol. 4"`
+- `"Liquid Drum & Bass Mix · Blue Full (f) · Vol. 2"`
+- `"Neurofunk Mix · Red Light (m) · Vol. 1"`
 
-**Legacy format (old — do not use for new mixes):**
+**Legacy formats (no longer present — do not reintroduce):**
 
-- `"Blue Full (f)"` ← too short, no SEO value
-- `"Purple Light (f)"` ← too short, no SEO value
+- `"Blue Full (f)"` ← too short, no SEO value, and not unique
+- `"Red Melodic Techno Mix · Vol. 3"` ← intermediate form, omits power and frequency
+- `"Melodic Techno · Red Light (m) Mix · Vol. 1"` ← earlier target format, superseded by the above
 
 **Rules:**
 
-- Always include the subgenre first (e.g., "Progressive House", "Tech House", "Neurofunk")
+- The title is derived entirely from `subgenre`, `color`, `power`, `frequency` and `volume` —
+  it holds no information of its own. If one of those changes, the title changes with it.
+- Subgenre first, directly followed by `Mix`
 - Use middle dot `·` as separator (not hyphen, not dash)
 - Capitalize color (Red, Blue, Purple, etc.)
 - Frequency in parentheses: `(f)` or `(m)`
 - Volume number: `Vol. 1`, `Vol. 2`, etc.
+- The resulting title must be **unique across all mixes**. Because the subgenre is part of it,
+  two mixes sharing color + power + frequency + volume still get distinct titles — that situation
+  does occur (see the `volume` field).
+- Keep it under 60 characters, or Google truncates it in the search result. The current longest
+  is 53.
+
+Exception: the eight `ignore: true` preview entries keep their short legacy title. They have no
+`subgenre` and/or `volume`, get no page (`generateStaticParams` skips them), and never appear in
+the public playlist.
 
 ---
 
@@ -275,7 +287,7 @@ A secondary dimension within the same color+power combination. Used to distingui
 
 ### `volume` — string, required
 
-Volume number within the same color+power+frequency series.
+Volume number within the same **subgenre** + color + power + frequency series.
 
 **Format:** `"Vol. N"` where N is the sequential number
 
@@ -283,8 +295,14 @@ Volume number within the same color+power+frequency series.
 
 **Rules:**
 
-- Number sequentially within the same color+power+frequency combination
+- Number sequentially within the same subgenre + color + power + frequency combination
 - Preview entries use `""` (empty string)
+
+> **Note.** This spec previously said the series ran per color+power+frequency, without the
+> subgenre. The data has never worked that way: `Red Light (m) Vol. 1` exists four times — as Tech
+> House, Progressive House, Melodic Techno and Neurofunk — and there are eight more such pairs.
+> The subgenre is what separates them, which is also why it belongs in the title. Corrected here to
+> match reality, rather than renumbering 9 series and breaking their titles.
 
 ---
 
