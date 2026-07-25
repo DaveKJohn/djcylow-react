@@ -17,13 +17,14 @@ daarvan schrijft elke branch zijn eigen entry-bestand; volledige uitleg staat in
 [`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md).
 
 1. **Op een branch** maak je een eigen entry-bestand `<branch-naam-met-koppeltekens>.md` in de
-   repo-root aan (via `scripts/release/new-changelog-entry.ps1`), met dezelfde inhoud die vroeger
-   direct in `[Unreleased]` ging. Een branch mag gerust weken geparkeerd blijven — er is niets om
-   over te conflicteren.
-2. **Branch klaar en goedgekeurd** → merge naar `main`, branch verwijderen. Draai daarna
-   `scripts/release/fold-changelog-entry.ps1 -Branch <branch>` op `main`: dat vouwt de entry in
-   `[Unreleased]` en verwijdert het entry-bestand. Dit commit gaat direct op `main` (toegestane
-   uitzondering op de geen-directe-main-commits-regel).
+   repo-root aan (via de gedeelde `new-branch`-skill, die branch en entry in één stap neerzet), met
+   dezelfde inhoud die vroeger direct in `[Unreleased]` ging. Een branch mag gerust weken geparkeerd
+   blijven — er is niets om over te conflicteren.
+2. **Branch klaar en goedgekeurd** → merge naar `main`, branch verwijderen. Vouw daarna de entry
+   bovenaan `[Unreleased]` in en verwijder het entry-bestand. Dit commit gaat direct op `main`
+   (toegestane uitzondering op de geen-directe-main-commits-regel) met een `chore:`-prefix. De
+   gedeelde `fold-changelog`-skill kan dit nog niet automatisch — zie de aantekening bij stap 7 in
+   [`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md).
 3. **Meer branches** die later mergen en gevouwen worden vullen `[Unreleased]` op `main` verder
    aan. `main` kan dus een tijd met een gevulde `[Unreleased]` rondlopen — dat is gewoon "wel
    gemergd, nog niet live".

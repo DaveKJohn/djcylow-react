@@ -13,8 +13,10 @@
     branch-prefixes uit de merge-commits (docs/, fix/, config/) en de "**Branch type**"-regels in
     CHANGELOG.md plus releases/development/ (Docs, Fix, Config, Feature, Data, Content).
 
-    De labels volgen de standaard GitHub-labels: enhancement / bug / documentation.
-    Wijzigt de taxonomie? Dan hier - en nergens anders: alle scripts lezen deze ene tabel.
+    De canonieke bron van de taxonomie is de tabel in workflow/workflow-CLAUDE.md, stap 2; deze
+    tabel spiegelt die. De labels volgen de standaard GitHub-labels: enhancement / bug /
+    documentation. Wijzigt de taxonomie? Dan op beide plekken - en nergens anders: alle scripts
+    lezen deze ene tabel.
 
     Geen Set-StrictMode hier: dot-sourcen zou de strict-mode van het aanroepende script veranderen
     en daar losse code kunnen breken (zelfde reden als repo-config.ps1).
@@ -25,7 +27,7 @@
 
 # De canonieke branch-typen in release-notes-volgorde: eerst wat de bezoeker van djcylow.com merkt
 # (nieuwe functionaliteit, fixes, nieuwe mixen/teksten), daarna het interne werk.
-$script:BranchTypeOrder = @('Feature', 'Fix', 'Data', 'Content', 'Config', 'Docs', 'Chore')
+$script:BranchTypeOrder = @('Feature', 'Fix', 'Data', 'Content', 'Style', 'Config', 'Docs', 'Chore')
 
 # prefix -> GitHub-label (PR) + branch-type (changelog-entry).
 # Let op: een release loopt NIET via een branch/PR, dus er is bewust geen 'release'-prefix.
@@ -35,6 +37,7 @@ $script:BranchPrefixTable = @{
     fix     = @{ Label = 'bug';           Type = 'Fix' }
     data    = @{ Label = 'enhancement';   Type = 'Data' }
     content = @{ Label = 'enhancement';   Type = 'Content' }
+    style   = @{ Label = 'enhancement';   Type = 'Style' }
     config  = @{ Label = 'documentation'; Type = 'Config' }
     docs    = @{ Label = 'documentation'; Type = 'Docs' }
     chore   = @{ Label = 'documentation'; Type = 'Chore' }

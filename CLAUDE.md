@@ -1,8 +1,8 @@
 # CLAUDE.md — DJ Cylow Website
 
 De volledige werkwijze voor Claude staat in [`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md)
-en wordt hieronder automatisch ingeladen. Een mens-vriendelijke versie van dezelfde workflow (voor
-handmatige uitvoering door Dave) staat in [`workflow/workflow-HUMAN.md`](workflow/workflow-HUMAN.md).
+en wordt hieronder automatisch ingeladen. De mens-vriendelijke variant (`workflow-HUMAN.md`) is
+bewust vervallen — er is nog maar één workflow-document, zodat de twee niet uit elkaar kunnen lopen.
 
 @workflow/workflow-CLAUDE.md
 
@@ -26,7 +26,8 @@ npm run lint     # ESLint + TypeScript check
 | `npm run images:webp` | `scripts/convert-to-webp.js` | Converteer alle `.jpg` in `public/images/` naar `.webp` en verwijder de originelen |
 | `npm run images:webp:dry` | `scripts/convert-to-webp.js --dry-run` | Preview: laat zien welke bestanden geconverteerd zouden worden |
 
-Release-workflow scripts (`scripts/release/`) staan beschreven in `workflow/workflow-CLAUDE.md` → "Scripts".
+De release-workflow draait via de gedeelde skills van de specialists-plugin plus de lint-poort
+`scripts/lint/lint-web.ps1`; alles staat beschreven in `workflow/workflow-CLAUDE.md` → "Scripts".
 
 **Workflow nieuwe mix toevoegen:**
 1. `npm run mix:add` — vul alle gegevens in, script genereert afgeleide velden automatisch
