@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Boek DJ Cylow voor je bedrijfsfeest!",
     description: "De DJ die iedereen op de dansvloer krijgt.",
-    images: [{ url: "/images/diensten.jpg" }],
   },
 };
 

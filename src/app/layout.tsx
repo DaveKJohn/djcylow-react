@@ -15,6 +15,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+    // Basis waartegen Next.js relatieve URL's in metadata oplost (og:image, twitter:image).
+    // Zonder deze regel valt Next terug op http://localhost:3000 en belanden die URL's zo in de
+    // gebouwde HTML, waardoor linkpreviews op social media een onbereikbaar adres krijgen.
+    metadataBase: new URL("https://www.djcylow.com"),
     title: "DJ Cylow",
     description: "DJ Cylow - Professional DJ for your events",
 };

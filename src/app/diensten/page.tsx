@@ -8,11 +8,11 @@ export const metadata: Metadata = {
     title: dienstenContent.title,
     description: dienstenContent.description,
     alternates: {
-        canonical: "https://www.djcylow.com/",
+        canonical: "https://www.djcylow.com/diensten",
     },
     openGraph: {
         type: "website",
-        url: "https://www.djcylow.com/",
+        url: "https://www.djcylow.com/diensten",
         title: dienstenContent.title,
         description: dienstenContent.description,
     },
