@@ -1,15 +1,19 @@
 [
   {
     "id": "20231127",
+    "id_spotify": "mmc_edm_176bpm_full_m_green_20231127",
     "title": "Liquid Drum & Bass Mix · Green Full (m) · Vol. 2",
+    "title_spotify": "EDM 176BPM 🟢 Green Full (m) 🟢 Vol. 1 🟢 20231127",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Energiek en groovy, vol natuurlijke kracht en vloeiende flow. Perfect voor een actieve avond of thuisfeest.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Energetic and groovy, full of natural power and fluid flow. Perfect for an active evening or house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Green",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 2",
+    "volume_spotify": 1,
     "date": "",
     "jaar": "2023",
     "maand": "Nov",
@@ -53,6 +57,7 @@
       "Hospital Records style",
       "Ram Records vibe"
     ],
+    "tracks": 38,
     "tracklist": [
       {
         "time": "00:00",
@@ -210,15 +215,19 @@
   },
   {
     "id": "20210418",
+    "id_spotify": "mmc_edm_176bpm_full_f_green_20210418",
     "title": "Liquid Drum & Bass Mix · Green Full (f) · Vol. 1",
+    "title_spotify": "EDM 176BPM 🟢 Green Full (f) 🟢 Vol. 1 🟢 20210418",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodieus en opbouwend, met warme basslines en emotionele melodieën. Ideaal voor een lange rit of rustige avond.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and building, with warm basslines and emotional melodies. Ideal for a long drive or a quiet evening.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Green",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 1",
+    "volume_spotify": 1,
     "date": "",
     "jaar": "2021",
     "maand": "Apr",
@@ -262,6 +271,7 @@
       "Hospital Records style",
       "Ram Records vibe"
     ],
+    "tracks": 33,
     "tracklist": [
       {
         "time": "00:00",

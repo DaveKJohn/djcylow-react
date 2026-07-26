@@ -1,15 +1,19 @@
 [
   {
     "id": "magenta_light_preview",
+    "id_spotify": "",
     "title": "Magenta Light (f)",
+    "title_spotify": "",
     "description_nl": "",
     "description_en": "",
     "genre": "EDM",
     "subgenre": "",
+    "bpm": 0,
     "color": "Magenta",
     "power": "Light",
     "frequency": "(f)",
     "volume": "",
+    "volume_spotify": 0,
     "date": "",
     "jaar": "",
     "maand": "",
@@ -22,6 +26,7 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   }
 ]
