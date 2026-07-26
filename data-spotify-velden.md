@@ -1,9 +1,9 @@
-### Vier afgeleide velden voor alle mixen: `id_spotify`, `bpm`, `title_spotify` en `tracks`
+### Vijf afgeleide velden voor alle mixen: `id_spotify`, `bpm`, `title_spotify`, `tracks` en `volume_spotify`
 **Branch naam** data/spotify-velden
 **Datum merge op main** 2026-07-26
 **Branch type** Data
 
-Alle 85 entries in `src/data/mixes/*.json` hebben vier nieuwe velden gekregen, zodat de JSON de
+Alle 85 entries in `src/data/mixes/*.json` hebben vijf nieuwe velden gekregen, zodat de JSON de
 enige administratie van een mix blijft, ook voor de Spotify-kant. De site gebruikt de velden
 (nog) niet: er is geen component of route die ze leest, dus de publieke pagina's veranderen niet.
 
@@ -27,10 +27,19 @@ leesbaarheid, het `id` garandeert de uniciteit — alle 77 titels zijn nu uniek.
 meer opnieuw geteld hoeft te worden. Loopt van 22 tot 46 met een mediaan van 35; samen 2667 tracks
 over de 77 mixen.
 
-De acht preview-entries (`ignore: true`) krijgen lege waarden (`""`, `bpm: 0` en `tracks: 0`), in
+**`volume_spotify`** — een doorlopend nummer per kleur + power + frequentie + BPM, chronologisch met
+de oudste mix als `1`. Bewust zonder het subgenre, zodat een nummer binnen één reeks nooit twee keer
+voorkomt: het bestaande `volume` kan dat niet, omdat die reeks juist per subgenre loopt. Drum & Bass
+vormt een eigen reeks, dus `Red Light (m)` heeft zes 128 BPM-mixen als `1` t/m `6` plus één
+176 BPM Neurofunk-mix die zijn eigen `1` is. Levert 27 reeksen over de 77 mixen, met
+`Purple Light (f)` 176 BPM als langste (`1` t/m `9`). Bewust nog niet gebruikt in `title_spotify`:
+die draagt nog het `volume` van de site, en of de Spotify-titel moet overstappen is een open
+beslissing.
+
+De acht preview-entries (`ignore: true`) krijgen lege waarden (`""` en `0` voor de getalvelden), in
 lijn met hoe hun `date`, `volume` en `description`-velden al leeg staan.
 
-Meegenomen zodat de data niet meteen weer uit de pas loopt: `scripts/add-mix.js` genereert de vier
+Meegenomen zodat de data niet meteen weer uit de pas loopt: `scripts/add-mix.js` genereert de vijf
 velden nu voor elke nieuwe mix (met `176` als voorstel bij Drum & Bass), de `Mix`-interface in
 `src/app/luister/mix/[slug]/page.tsx` kent ze, en `src/data/mixes/README.md` beschrijft ze als
 onderdeel van het schema.
