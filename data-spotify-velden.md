@@ -15,12 +15,13 @@ tegen. Vastgestelde regel: Drum & Bass is altijd `176`, voor de overige genres g
 **`id_spotify`** — `mmc_edm_{bpm}bpm_{power}_{freq}_{color}_{id}`, bijvoorbeeld
 `mmc_edm_128bpm_light_m_yellow_20251021`. Uniek over alle mixen doordat het `id` erin zit.
 
-**`title_spotify`** — `EDM {bpm}BPM {emoji} {Color} {Power} ({freq}) {emoji} {id}`, bijvoorbeeld
-`EDM 128BPM 🟡 Yellow Light (m) 🟡 20251021`. Cyan krijgt 💠 omdat Unicode geen cyaan cirkel kent.
-De titel sluit af met het `id` en niet met het volume: de volume-reeks loopt per subgenre, dus
-dezelfde `Vol. N` komt binnen één kleur + power + frequentie meerdere keren voor (`Red Light (m)
-Vol. 1` bestaat als Tech House, Progressive House én Melodic Techno). Omdat dit formaat het subgenre
-weglaat, kan alleen het `id` de titel uniek maken — en dat doet het onvoorwaardelijk.
+**`title_spotify`** — `EDM {bpm}BPM {emoji} {Color} {Power} ({freq}) {emoji} {Vol. N} {emoji} {id}`,
+bijvoorbeeld `EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 7 🟡 20251021`. De kleur-emoji scheidt de drie
+delen; Cyan krijgt 💠 omdat Unicode geen cyaan cirkel kent. Het `id` staat er naast het volume
+omdat het volume alleen de titel niet uniek maakt: die reeks loopt per subgenre, dus dezelfde
+`Vol. N` komt binnen één kleur + power + frequentie meerdere keren voor (`Red Light (m) Vol. 1`
+bestaat als Tech House, Progressive House én Melodic Techno). Het volume staat er voor de
+leesbaarheid, het `id` garandeert de uniciteit — alle 77 titels zijn nu uniek.
 
 **`tracks`** — het aantal items in de `tracklist`, één keer geteld en vastgelegd zodat het nooit
 meer opnieuw geteld hoeft te worden. Loopt van 22 tot 46 met een mediaan van 35; samen 2667 tracks
