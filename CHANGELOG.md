@@ -4,14 +4,20 @@ De geschiedenis van de DJ Cylow-website: onder **Pull Requests** elke gemergde b
 onder **Releases** de vastgelegde versies. Het mechanisme (entry-bestanden, folden, een release
 knippen) staat in [`CLAUDE.md`](CLAUDE.md).
 
-`main` is de integratie-branch, niet de live site. Wat onder **Pull Requests** staat is dus gemergd
-maar nog niet uitgebracht, en een uitgebrachte versie is nog niet per se live: de versie met
-**← LIVE** onder **Releases** is degene die op dit moment op de site draait.
+**`origin/main` is de live site.** Netlify bouwt en publiceert bij elke push naar `main`, en een
+PR-merge schrijft daar rechtstreeks in. Alles hieronder staat dus al op `djcylow.com`; wat onder
+**Pull Requests** staat is live maar heeft nog geen versienummer, en een release is een label op wat
+al draait.
+
+> Tot 2026-07-26 stond hier het omgekeerde, met een `← LIVE`-markering die zou aanwijzen welke versie
+> draaide. Dat model was onjuist en de markering stond maandenlang fout — op v2.20.1, terwijl
+> v2.20.2, v2.21.0 en vijf PR's al live waren. De markering is vervallen: de bovenste uitgebrachte
+> versie draait per definitie al.
 
 ## Pull Requests
 
-Alles wat sinds de laatste release naar `main` is gemergd — nieuwste bovenaan, één blok per pull
-request.
+Alles wat sinds de laatste release naar `main` is gemergd en daarmee live staat — nieuwste bovenaan,
+één blok per pull request.
 
 ### #22 · Onjuiste SEO- en GA4-claims uit de v2.21.0-documentatie gehaald · Docs · 2026-07-26
 
@@ -392,21 +398,15 @@ De vastgelegde versies — nieuwste bovenaan; elke regel linkt naar de volledige
 
 Zie [releases/development/2.21/2.21.0.md](releases/development/2.21/2.21.0.md)
 
-> Gecut, **nog niet live**. De `← LIVE`-markering verschuift hierheen zodra v2.20.2 en v2.21.0
-> samen zijn uitgerold en de deploy geslaagd is.
-
 ---
 
 ### [v2.20.2] - 2026-07-25 — Patch
 
 Zie [releases/development/2.20/2.20.2.md](releases/development/2.20/2.20.2.md)
 
-> Gecut, **nog niet live**. Gaat samen met v2.21.0 uit bij de eerstvolgende live-push; de
-> `← LIVE`-markering springt dan naar v2.21.0, de bovenste van de twee.
-
 ---
 
-### [v2.20.1] - 2026-07-02 — Patch ← LIVE
+### [v2.20.1] - 2026-07-02 — Patch
 
 Zie [releases/development/2.20/2.20.1.md](releases/development/2.20/2.20.1.md)
 

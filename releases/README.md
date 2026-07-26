@@ -5,9 +5,17 @@ Dit is de officiële release-historie van de live website op **djcylow.com**, ge
 
 ## Wat is een release?
 
-**Één release = één deployment naar de live Netlify-omgeving.** Dev-werk, feature-branches en
-experimenten die nooit live zijn gegaan, staan hier niet in — die horen in de git history.
-Deze map bevat alleen wat bezoekers daadwerkelijk te zien hebben gekregen.
+**Een release is een versienummer op wat al live staat — geen publicatiemoment.** Netlify bouwt en
+publiceert bij elke push naar `main`, en een PR-merge schrijft daar rechtstreeks in; een wijziging
+staat dus al op de site zodra de PR gemerged is. Het cutten van een release bundelt die wijzigingen
+onder één SemVer-nummer, legt ze vast in een release-note en zet er een git-tag op.
+
+> Dit stond hier tot 2026-07-26 als "één release = één deployment". Dat suggereerde dat een release
+> de code naar buiten brengt, terwijl dat bij de merge al gebeurd was. Het model in regel 3 hierboven
+> ("gedeployed via Netlify vanuit de `main`-branch") was wel altijd correct.
+
+Dev-werk, feature-branches en experimenten die nooit gemerged zijn, staan hier niet in — die horen in
+de git history. Deze map bevat alleen wat bezoekers daadwerkelijk te zien hebben gekregen.
 
 ## Twee versies per release
 

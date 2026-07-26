@@ -55,12 +55,14 @@ djcylow-specifieke invulling (concrete paden, scripts en de lint-poort) staat in
   is, en wacht. Zegt Dave "open de PR", dan geldt dat als goedkeuring voor de hele beweging:
   openen → mergen → de changelog-entry folden. **Vraag er ook niet naar** ("zal ik de PR openen?") —
   rapporteer de stand en stop daar.
-- **Mergen** van een Pull Request naar `main` — valt onder diezelfde goedkeuring; los daarvan nooit.
-- **Pushen naar `origin/main`** specifiek — dit initiatief ligt altijd bij Dave. **Vraag hier nooit
-  naar, ook niet impliciet** ("zeg het maar als je wil pushen") — rapporteer feitelijk de git-status
-  en stop daar.
-- Een **release cutten / live pushen** — start alleen op expliciet verzoek ("commit en push live",
-  "maak een nieuwe release en push live" of gelijkwaardig).
+- **Mergen** van een Pull Request — valt onder diezelfde goedkeuring; los daarvan nooit. **Let op: een
+  merge is een deploy** (zie hieronder), dus dit is de handeling die de site verandert.
+- **Pushen naar `origin/main`** — dit initiatief ligt altijd bij Dave. **Vraag hier nooit naar, ook
+  niet impliciet** ("zeg het maar als je wil pushen") — rapporteer feitelijk de git-status en stop
+  daar. In de praktijk gaat het alleen nog om de fold-commit; al het overige bereikt `origin/main`
+  via de PR-merge.
+- Een **release cutten** — start alleen op expliciet verzoek ("commit en push live", "maak een nieuwe
+  release en push live" of gelijkwaardig).
 - `git push --force` (welke branch dan ook), `git reset --hard`, `git rebase` op een gedeelde branch.
 - **Bestanden verwijderen uit `public/images/`** — afbeeldingen worden via pad gerefereerd in de
   mix-JSON, dus een verwijdering breekt stil een pagina.
@@ -69,10 +71,21 @@ djcylow-specifieke invulling (concrete paden, scripts en de lint-poort) staat in
 
 ### Nooit direct op `main` — via branch + PR
 
-Alle wijzigingen gaan via een branch + Pull Request. `main` is de **integratie-branch, niet de live
-site**: een merge naar `main` zet niets live. Het `## Pull Requests`-blok in `CHANGELOG.md`
-verzamelt wat wél gemergd maar nog niet uitgebracht is, en pas de expliciete **live-push** brengt
-dat naar de site.
+Alle wijzigingen gaan via een branch + Pull Request.
+
+> **Een PR mergen is een deploy.** `gh pr merge` schrijft server-side rechtstreeks in `origin/main`,
+> en Netlify bouwt en publiceert bij elke push naar `main`. Er is **geen staging**. Op het moment dat
+> een PR gemerged wordt staat de wijziging dus binnen enkele minuten op `djcylow.com` — er komt geen
+> aparte publicatiestap meer aan te pas.
+>
+> Zégt Dave "open de PR", dan is dat daarmee ook het akkoord om het live te zetten. Behandel het zo:
+> draai de poort (`scripts/lint/lint-web.ps1`, inclusief de build) en wees zeker van je zaak vóór de
+> merge, niet erna.
+>
+> Dit stond hier tot 2026-07-26 andersom beschreven — "een merge naar `main` zet niets live", met de
+> live-push als aparte stap in de Release Workflow. Dat was onjuist en gaf een vals gevoel van
+> veiligheid op precies het verkeerde moment. Het `## Pull Requests`-blok in `CHANGELOG.md` verzamelt
+> daarom wat **live is maar nog geen versienummer heeft**; een release is een label op wat al draait.
 
 Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 
@@ -253,7 +266,7 @@ tweetalig: `description_nl` en `description_en`.
 | **Chris** 🧭 #01 | Chief of Staff | Orchestrator: intake, routing, toelichting, workflow-bewaking. Elke opdracht start en eindigt bij hem | [`01-01-extension.md`](.claude/plugins/claude-specialists/specialists/01-01-extension.md) |
 | **Bianca** 🎙️ #02 | Biograaf | Intake-gesprek: doorvragen naar het waarom achter een wijziging voordat er code of content in beweging komt | [`03-02-extension.md`](.claude/plugins/claude-specialists/specialists/03-02-extension.md) |
 | **Derek** 🐙 #05 | DevOps Engineer | GitHub: branches, pull requests, merges, labels, `gh`-CLI. Opent nooit een PR zonder expliciete opdracht van Dave | [`05-05-extension.md`](.claude/plugins/claude-specialists/specialists/05-05-extension.md) |
-| **Rendall** 🎬 #06 | Release Manager | `CHANGELOG.md`, entry-bestanden folden, `releases/development/`, versioning en de live-push | [`05-06-extension.md`](.claude/plugins/claude-specialists/specialists/05-06-extension.md) |
+| **Rendall** 🎬 #06 | Release Manager | `CHANGELOG.md`, entry-bestanden folden, `releases/development/`, versioning en het releasen | [`05-06-extension.md`](.claude/plugins/claude-specialists/specialists/05-06-extension.md) |
 | **Rebecca** 🔬 #07 | Research Specialist | Deep-dive onderzoek en codebase-verkenning als voorwerk voor een wijziging | [`03-07-extension.md`](.claude/plugins/claude-specialists/specialists/03-07-extension.md) |
 | **Paula** 📅 #09 | Projectplanner | Deadlines, mijlpalen en volgorde van lopend werk; vertaalt "wat moet wanneer af" naar concrete stappen | [`02-09-extension.md`](.claude/plugins/claude-specialists/specialists/02-09-extension.md) |
 | **Vera** 📊 #11 | Data-analist | De mix-data in `src/data/mixes/`: metingen, consistentie tussen velden en titels, leesbare overzichten | [`04-11-extension.md`](.claude/plugins/claude-specialists/specialists/04-11-extension.md) |
@@ -334,7 +347,7 @@ npm run lint     # ESLint + TypeScript check
 | Music Mood Colours tekst | `src/content/musicmoodcolours.ts` |
 | Referenties | `src/content/referenties.ts` |
 | Breakpoints | `src/constants/design.ts` |
-| Gemergd maar nog niet live | `CHANGELOG.md` → `## Pull Requests` |
+| Live, maar nog zonder versienummer | `CHANGELOG.md` → `## Pull Requests` |
 
 #### Audio storage
 
@@ -370,11 +383,11 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
 1. **Check de status**: `git status && git branch`
 2. **Maak een branch**: `git checkout -b docs/release-v<versie>`
 3. **Run de poort én de build**:
-   - `powershell -NoProfile -File scripts\lint\lint-web.ps1` — de TypeScript-poort, moet groen zijn
+   - `powershell -NoProfile -File scripts\lint\lint-web.ps1` — de poort (typecheck + build), moet
+     groen zijn. De build zit er sinds 2026-07-26 in, dus dit dekt de bouwbaarheid al
    - `npm run lint` — ESLint meldt op dit moment 37 **pre-existing** errors; die zijn acceptabel
      zolang je geen `.ts`/`.tsx` hebt aangeraakt. Wat niet acceptabel is: een fout erbij. Vergelijk
      dus het aantal, niet alleen de exitcode
-   - `npm run build` — **niet overslaan.** Dit is de enige controle vóór de live-push
 4. **Bepaal het versienummer** (tabel hieronder, en `releases/README.md`)
 5. **Maak de development-release note**: `releases/development/<major.minor>/<versie>.md` — gebruik
    de entries uit `## Pull Requests` in `CHANGELOG.md`, met hun koppen
@@ -387,12 +400,14 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
    note) zodat die sectie leeg achterblijft met alleen zijn intro-alinea, en zet bovenaan
    `## Releases` een nieuw blok:
    ```markdown
-   ### [v<versie>] - <datum> — Patch/Minor/Major ← LIVE
+   ### [v<versie>] - <datum> — Patch/Minor/Major
 
    Zie [releases/development/<major.minor>/<versie>.md](releases/development/<major.minor>/<versie>.md)
    ```
-   Verwijder daarbij `← LIVE` bij de vorige versie. Cut je zonder direct te deployen, laat `← LIVE`
-   dan staan waar hij staat en zet er een blockquote onder dat deze versie gecut maar nog niet live is
+   **Geen `← LIVE`-markering.** Die is op 2026-07-26 vervallen: alles wat op `origin/main` staat is
+   live, dus de bovenste uitgebrachte versie draait per definitie al en de markering onderscheidde
+   niets. Ze stond bovendien maandenlang fout — op v2.20.1, terwijl v2.20.2, v2.21.0 en vijf PR's al
+   op de site stonden
 8. **Voeg de versie toe** aan de overzichtstabel in `releases/README.md` (bovenaan)
 9. **Stage en commit** op de release-branch
 10. **Merge naar `main`** (na bevestiging) — bewust een kale merge, geen PR:
@@ -406,6 +421,10 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
     git push origin main
     git push origin v<versie>
     ```
+    Deze push zet **niets nieuws live** — de code stond er al via de PR-merges. Hij brengt de
+    release-documentatie en de tag naar `origin`, en triggert daarmee wel een nieuwe Netlify-build
+    van dezelfde code. Was er sinds de laatste merge niets aan de app gewijzigd, dan is het resultaat
+    identiek aan wat er al draaide
 12. **GitHub Release aanmaken** (de development-versie is altijd de body):
     ```bash
     gh release create v<versie> --title "v<versie> - <korte titel>" \
@@ -416,8 +435,10 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
 14. **Verwijder de release-branch**: `git branch -d [branch]` en
     `git push origin --delete [branch]`
 
-De push naar `origin/main` in stap 11 is het moment waarop de wijzigingen daadwerkelijk live gaan.
-Verschuif de `← LIVE`-markering pas als de deploy geslaagd is.
+Let op de volgorde van oorzaak en gevolg: de wijzigingen stonden al live vóór dit hele proces begon,
+namelijk vanaf hun PR-merge. Een release cutten voegt een versienummer, een release-note en een tag
+toe aan wat al draait. Precies daarom is een release-cut ook laagrisico: er gaat geen ongeteste code
+mee naar buiten.
 
 #### Versienummer bepalen
 
@@ -458,12 +479,16 @@ Er is (nog) geen `cut-release.ps1` voor de Release Workflow hierboven — die st
 
 De grondwet hierboven, hier concreet ingevuld:
 
-- **De hoofdbranch is `main`, en die is de integratie-branch — niet de live site.** De live-push is
-  een aparte, expliciete handeling (stap 11 van de Release Workflow). Er is **geen staging**: een
-  kapotte build legt de site plat, dus `npm run build` in stap 3 wordt nooit overgeslagen.
-- **De lint-poort is de veiligheidswacht vóór elke PR.** `open-pr` draait
-  `scripts/lint/lint-web.ps1` (via `Get-LintScript`) — `tsc --noEmit` moet groen zijn. ESLint zit
-  bewust buiten de poort omdat er 37 pre-existing errors staan; die vergelijk je op aantal.
+- **`origin/main` ís de live site.** Netlify bouwt en publiceert bij elke push naar `main`, en
+  `gh pr merge` schrijft daar server-side rechtstreeks in. Een PR mergen is dus deployen; er is
+  **geen staging** en geen aparte publicatiestap. Een release cutten voegt daar een versienummer en
+  een tag aan toe, maar zet niets nieuws live — dat was al gebeurd bij de merges.
+- **De poort vóór elke PR is de laatste wacht vóór een live deploy.** `open-pr` draait
+  `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit` én `npm run build`, beide moeten
+  groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte build niet
+  vangt en er niets tussen de merge en de site zit. ESLint blijft bewust buiten de poort omdat er 37
+  pre-existing errors staan; die vergelijk je op aantal. `-SkipBuild` bestaat om lokaal te itereren
+  en hoort niet in de poort zelf.
 - **`public/images/` is beschermd.** Afbeeldingen worden via pad gerefereerd in de mix-JSON;
   verwijderen breekt stil een pagina en gebeurt nooit zonder Dave's woord.
 - **`next.config.ts` en `netlify.toml` zijn beschermd.** Een fout daar breekt de Netlify-build en
@@ -481,8 +506,8 @@ De grondwet hierboven, hier concreet ingevuld:
 
 Kortom: het **hóé** (er is een team specialisten onder een Chief of Staff, alles via branch + PR,
 geleerde lessen in de docs, de grondwet boven elk gemak) is draagbaar en staat bovenin. Het **wát**
-(dit roster, de Next.js-structuur, de mix-data-conventies, de Release Workflow met zijn live-push,
-de scripts en de lint-poort) is van deze repo en staat in dit slot.
+(dit roster, de Next.js-structuur, de mix-data-conventies, de Release Workflow, het feit dat een
+merge hier direct deployt, de scripts en de poort) is van deze repo en staat in dit slot.
 
 De orchestrator (Chris) wordt altijd meegeladen; hij verwijst on-demand door naar de specialisten in
 [`.claude/plugins/claude-specialists/`](.claude/plugins/claude-specialists/).
