@@ -65,7 +65,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "id": "20260615",
     "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
     "title": "Red Tech House Mix · Vol. 6",
-    "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 20260615",
+    "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6 🔴 20260615",
     "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
     "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "genre": "House",
@@ -145,16 +145,16 @@ mmc_edm_[bpm]bpm_[power-lowercase]_[frequency-letter]_[color-lowercase]_[YYYYMMD
 ### `title_spotify` — string, required
 
 The title as used for the Spotify upload. Deliberately different from `title`: no subgenre, but with
-the BPM in front, the mood colour as an emoji on both sides of the colour name, and the `id` at the
-end instead of the volume.
+the BPM in front, the volume and the `id` at the end, and the mood colour as an emoji separating the
+three parts.
 
 **Format:**
 
 ```
-EDM [bpm]BPM [emoji] [Color] [Power] ([frequency]) [emoji] [YYYYMMDD]
+EDM [bpm]BPM [emoji] [Color] [Power] ([frequency]) [emoji] Vol. [N] [emoji] [YYYYMMDD]
 ```
 
-**Example:** `"EDM 128BPM 🟡 Yellow Light (m) 🟡 20251021"`
+**Example:** `"EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 7 🟡 20251021"`
 
 **Emoji per colour:**
 
@@ -171,15 +171,17 @@ Magenta mix (only the preview entry), so pick one together with the first Magent
 **Rules:**
 
 - `EDM` is fixed, also for Drum & Bass
-- The same emoji appears twice: before the colour name and after the frequency
-- `frequency` keeps its parentheses
+- The same emoji appears **three times**: before the colour name, after the frequency, and after the
+  volume
+- `frequency` keeps its parentheses, `volume` is copied verbatim (`"Vol. 7"`)
 - Ends with the `id` (`YYYYMMDD`), which makes the value **unique across all mixes**
 - Preview entries (`ignore: true`) use `""`
 
-**Why the `id` and not the volume.** The volume series runs *per subgenre*, so the same `Vol. N` recurs
-within one colour + power + frequency combination: `Red Light (m) Vol. 1` exists as Tech House,
-Progressive House and Melodic Techno. Since this title omits the subgenre, the volume cannot make it
-unique — the `id` can, and does so unconditionally.
+**Why the `id` is there as well as the volume.** The volume series runs *per subgenre*, so the same
+`Vol. N` recurs within one colour + power + frequency combination: `Red Light (m) Vol. 1` exists as
+Tech House, Progressive House and Melodic Techno. Since this title omits the subgenre, the volume
+alone cannot make it unique. The volume stays for readability; the `id` is what guarantees
+uniqueness. Do not drop the `id` from the format.
 
 ---
 
@@ -857,7 +859,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
   "id": "20260615", 
   "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
   "title": "Tech House · Red Light (m) Mix · Vol. 6",
-  "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 20260615",
+  "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6 🔴 20260615",
   "description_nl": "Tech House mix van DJ Cylow. Een uur pumping grooves, strakke kicks en melodische elementen. Perfect voor een avondfeest of een lange drive.",
   "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.", 
   "genre": "House",
@@ -917,7 +919,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
 - [ ] `id` is `YYYYMMDD`, unique across all files
 - [ ] `id_spotify` follows `mmc_edm_[bpm]bpm_[power]_[freq]_[color]_[id]` and is unique
 - [ ] `title` follows `Subgenre · Color Power (frequency) Mix · Vol. N` format
-- [ ] `title_spotify` follows `EDM [bpm]BPM [emoji] Color Power (freq) [emoji] YYYYMMDD` and is unique
+- [ ] `title_spotify` follows `EDM [bpm]BPM [emoji] Color Power (freq) [emoji] Vol. N [emoji] YYYYMMDD` and is unique
 - [ ] `bpm` is a number without quotes (`176` for Drum & Bass)
 - [ ] `subgenre` is filled in and matches the title
 - [ ] `color` is capitalized and matches the filename
