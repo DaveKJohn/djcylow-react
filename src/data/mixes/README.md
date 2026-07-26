@@ -75,6 +75,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 6",
+    "volume_spotify": 6,
     "date": "2026-06-15",
     "jaar": "2026",
     "maand": "Jun",
@@ -395,6 +396,33 @@ Volume number within the same **subgenre** + color + power + frequency series.
 > House, Progressive House, Melodic Techno and Neurofunk — and there are eight more such pairs.
 > The subgenre is what separates them, which is also why it belongs in the title. Corrected here to
 > match reality, rather than renumbering 9 series and breaking their titles.
+
+---
+
+### `volume_spotify` — number, required
+
+Sequential number for the Spotify side, counted within the same **color + power + frequency + bpm**
+series — deliberately *without* the subgenre, so a number never recurs inside one series. Exists
+because the site's `volume` cannot be counted straight through: that series runs per subgenre.
+
+**Format:** a plain number, no quotes and no `Vol.` prefix: `1`, `6`, `9`
+
+**Rules:**
+
+- Counted **chronologically, oldest mix is `1`** — the same direction as `volume`
+- The series runs across files only in theory: color and power already fix the file, so in practice
+  it is per frequency + bpm within one file
+- Drum & Bass counts as its own series: `Red Light (m)` has six 128 BPM mixes numbered `1`–`6` plus
+  one 176 BPM Neurofunk mix that is its own `1`
+- Preview entries (`ignore: true`) use `0`
+- Adding a mix in between (an older date than an existing one) shifts the numbers of the mixes after
+  it — renumber the series in that case
+
+**Current state:** 27 series across the 77 mixes, the longest being `Purple Light (f)` 176 BPM with
+`1`–`9`.
+
+**Not used in `title_spotify`.** That title still carries the site's `volume`. Whether the Spotify
+title should switch to this field is an open decision.
 
 ---
 
@@ -777,7 +805,7 @@ Each color file may contain a special "preview" entry — a short audio clip tha
 - `"tracklist": []` — empty array
 - `"audioSrc"` — points to a short preview file (e.g., `Red_Light_Preview.mp3`)
 - Most other fields (`date`, `volume`, `image_wide_*`, `description_nl`, `description_en`,
-  `id_spotify`, `title_spotify`) are empty strings; `bpm` is `0`
+  `id_spotify`, `title_spotify`) are empty strings; `bpm`, `tracks` and `volume_spotify` are `0`
 
 **Do not modify preview entries** unless you are changing the preview audio file itself.
 
@@ -869,6 +897,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
   "power": "Light",
   "frequency": "(m)",
   "volume": "Vol. 6",
+  "volume_spotify": 6,
   "date": "2026-06-15",
   "jaar": "2026",
   "maand": "Jun",
@@ -932,4 +961,5 @@ Below is a model entry that follows all rules and maximizes SEO value:
 - [ ] All three image paths are correct and files exist in `public/images/`
 - [ ] Tracklist times use `"HH:MM:SS"` format
 - [ ] `tracks` equals the number of items in `tracklist`
+- [ ] `volume_spotify` continues the color+power+frequency+bpm series (no `Vol.` prefix)
 - [ ] Mix is placed at the **top** of the array (newest first)

@@ -41,6 +41,7 @@
  *   - audioSrc       R2-URL naar het mp3 bestand op Cloudflare
  *   - image paden    /images/power/color/wide|square/... (altijd .webp)
  *   - tracks         aantal items in de tracklist
+ *   - volume_spotify volgnummer binnen kleur+power+frequentie+bpm (los van subgenre)
  *
  * NA HET SCRIPT
  * -------------
@@ -115,6 +116,15 @@ function nextVolume(mixes, frequency) {
     .filter(m => m.frequency === frequency && !m.ignore)
     .map(m => parseInt((m.volume || '').replace('Vol. ', '')) || 0)
     .filter(n => n > 0);
+  return nums.length ? Math.max(...nums) + 1 : 1;
+}
+
+// volume_spotify loopt per kleur+power+frequentie+bpm en niet per subgenre. Kleur en
+// power staan al vast door het bestand, dus binnen dit bestand volstaat frequentie+bpm.
+function nextSpotifyVolume(mixes, frequency, bpm) {
+  const nums = mixes
+    .filter(m => m.frequency === frequency && m.bpm === bpm && !m.ignore)
+    .map(m => m.volume_spotify || 0);
   return nums.length ? Math.max(...nums) + 1 : 1;
 }
 
@@ -366,6 +376,7 @@ async function main() {
     power,
     frequency: freq,
     volume,
+    volume_spotify: nextSpotifyVolume(mixes, freq, bpm),
     date: dateStr,
     jaar: year,
     maand: month,

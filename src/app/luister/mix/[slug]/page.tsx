@@ -39,6 +39,7 @@ interface Mix {
     power: string;
     frequency: string;
     volume: string;
+    volume_spotify: number;  // Doorlopende nummering per kleur+power+frequentie+bpm, los van het subgenre
     date: string;
     jaar: string;
     maand: string;
