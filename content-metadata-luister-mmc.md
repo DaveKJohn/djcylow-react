@@ -1,8 +1,4 @@
-### Eigen metadata voor /luister en /musicmoodcolours
-
-**Branch naam** content/metadata-luister-mmc
-**Datum merge op main**
-**Branch type** Content
+### Eigen metadata voor /luister en /musicmoodcolours · Content · 2026-07-26
 
 De twee inhoudelijk belangrijkste pagina's na de homepage hadden helemaal geen eigen metadata. Ze
 vielen terug op de titel `DJ Cylow` en de beschrijving `DJ Cylow - Professional DJ for your events`
