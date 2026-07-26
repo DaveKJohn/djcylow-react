@@ -63,11 +63,14 @@ Within each file, mixes are sorted **newest first** (descending by date).
 [
   {
     "id": "20260615",
+    "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
     "title": "Red Tech House Mix · Vol. 6",
+    "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6",
     "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
     "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "genre": "House",
     "subgenre": "Tech House",
+    "bpm": 128,
     "color": "Red",
     "power": "Light",
     "frequency": "(m)",
@@ -110,6 +113,69 @@ Unique identifier for the mix. Used to build the URL slug.
 - For preview entries only: use a descriptive string like `"Red_light_preview"` (see Preview Entries)
 
 **Examples:** `"20260615"`, `"20241009"`, `"20220523"`
+
+---
+
+### `id_spotify` — string, required
+
+Identifier used when the mix is published on Spotify. Not used anywhere in the site code — it exists
+so the JSON stays the single administration of a mix across both channels.
+
+**Format:**
+
+```
+mmc_edm_[bpm]bpm_[power-lowercase]_[frequency-letter]_[color-lowercase]_[YYYYMMDD]
+```
+
+**Example:** `"mmc_edm_128bpm_light_m_yellow_20251021"`
+
+**Rules:**
+
+- `mmc` (Music Mood Colours) and `edm` are fixed segments — `edm` does **not** change for Drum & Bass
+  mixes; the BPM already distinguishes them (176 vs 128)
+- Everything lowercase, segments separated by underscores
+- `bpm` is the `bpm` field with the literal suffix `bpm`
+- The frequency loses its parentheses: `"(m)"` → `m`
+- Ends with the `id`, which makes the value **unique across all mixes**
+- Preview entries (`ignore: true`) use `""`
+
+---
+
+### `title_spotify` — string, required
+
+The title as used for the Spotify upload. Deliberately different from `title`: no subgenre, but with
+the BPM in front and the mood colour as an emoji on both sides of the colour name.
+
+**Format:**
+
+```
+EDM [bpm]BPM [emoji] [Color] [Power] ([frequency]) [emoji] Vol. [N]
+```
+
+**Example:** `"EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 7"`
+
+**Emoji per colour:**
+
+| Colour | Emoji | Colour | Emoji |
+|---|---|---|---|
+| Red | 🔴 | Cyan | 💠 |
+| Orange | 🟠 | Blue | 🔵 |
+| Yellow | 🟡 | Purple | 🟣 |
+| Green | 🟢 | Magenta | not yet determined |
+
+Cyan uses a diamond because Unicode has no cyan circle. Magenta has no marker yet — there is no
+Magenta mix (only the preview entry), so pick one together with the first Magenta release.
+
+**Rules:**
+
+- `EDM` is fixed, also for Drum & Bass
+- The same emoji appears twice: before the colour name and after the frequency
+- `frequency` keeps its parentheses, `volume` is copied verbatim (`"Vol. 7"`)
+- Preview entries (`ignore: true`) use `""`
+- **This value is not unique.** Because the subgenre is omitted while the volume series runs *per
+  subgenre*, mixes can collide: `"EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 1"` currently applies to three
+  mixes in `light-red.json` (Tech House, Progressive House and Melodic Techno). Use `id_spotify` when
+  you need to identify a mix unambiguously.
 
 ---
 
@@ -234,6 +300,26 @@ The specific sub-style of the mix. Shown on the mix detail page and used in the 
 - Must match exactly what appears in the `title` field
 - Use the same casing as in the title
 - Legacy mixes may have `""` — that's acceptable for old entries, but fill it in when updating
+
+---
+
+### `bpm` — number, required
+
+Tempo of the mix in beats per minute. Feeds `id_spotify` and `title_spotify`, and is the field to read
+instead of parsing the BPM out of the `audioSrc` filename or the `permalink`.
+
+**Format:** a plain number, no quotes and no unit: `128`, `176`, `112`
+
+**Rules:**
+
+- Drum & Bass is **always** `176`
+- For the other genres: the actual tempo of the set, typically `128`
+- Preview entries (`ignore: true`) use `0`
+- Do not derive it from the `permalink` — that value is wrong in places (`full-yellow.json`
+  `20260303` is a House set whose permalink says `176BPM` while the audio is 128)
+
+**Current distribution:** `176` for 46 mixes, `128` for 30, `112` for 1 (`light-red.json`
+`20230121`).
 
 ---
 
@@ -667,7 +753,8 @@ Each color file may contain a special "preview" entry — a short audio clip tha
 - `"featured": true` — used for special display logic
 - `"tracklist": []` — empty array
 - `"audioSrc"` — points to a short preview file (e.g., `Red_Light_Preview.mp3`)
-- Most other fields (`date`, `volume`, `image_wide_*`, `description_nl`, `description_en`) are empty strings
+- Most other fields (`date`, `volume`, `image_wide_*`, `description_nl`, `description_en`,
+  `id_spotify`, `title_spotify`) are empty strings; `bpm` is `0`
 
 **Do not modify preview entries** unless you are changing the preview audio file itself.
 
@@ -747,11 +834,14 @@ Below is a model entry that follows all rules and maximizes SEO value:
 ```json
 {
   "id": "20260615", 
+  "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
   "title": "Tech House · Red Light (m) Mix · Vol. 6",
+  "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6",
   "description_nl": "Tech House mix van DJ Cylow. Een uur pumping grooves, strakke kicks en melodische elementen. Perfect voor een avondfeest of een lange drive.",
   "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.", 
   "genre": "House",
   "subgenre": "Tech House",
+  "bpm": 128,
   "color": "Red",
   "power": "Light",
   "frequency": "(m)",
@@ -803,7 +893,10 @@ Below is a model entry that follows all rules and maximizes SEO value:
 **Checklist for every new mix entry:**
 
 - [ ] `id` is `YYYYMMDD`, unique across all files
+- [ ] `id_spotify` follows `mmc_edm_[bpm]bpm_[power]_[freq]_[color]_[id]` and is unique
 - [ ] `title` follows `Subgenre · Color Power (frequency) Mix · Vol. N` format
+- [ ] `title_spotify` follows `EDM [bpm]BPM [emoji] Color Power (freq) [emoji] Vol. N`
+- [ ] `bpm` is a number without quotes (`176` for Drum & Bass)
 - [ ] `subgenre` is filled in and matches the title
 - [ ] `color` is capitalized and matches the filename
 - [ ] `power` is `"Full"` or `"Light"` and matches the filename

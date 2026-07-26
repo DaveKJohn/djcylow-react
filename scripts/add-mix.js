@@ -33,7 +33,9 @@
  * WAT AUTOMATISCH WORDT GEGENEREERD
  * ----------------------------------
  *   - id             YYYYMMDD uit datum
+ *   - id_spotify     mmc_edm_128bpm_light_m_yellow_YYYYMMDD
  *   - title          "Subgenre · Color Power (f) Mix · Vol. N"
+ *   - title_spotify  "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. N"
  *   - jaar/maand/dag uit datum
  *   - permalink      luister/mix/color-power-f-Genre-BPMbpm-YYYYMMDD.html
  *   - audioSrc       R2-URL naar het mp3 bestand op Cloudflare
@@ -83,6 +85,19 @@ const POWERS = ['Full', 'Light'];
 const FREQS = ['(f)', '(m)'];
 const GENRES = ['EDM', 'Drum & Bass'];
 
+// Marker per kleur in title_spotify. Cyan gebruikt een ruit omdat Unicode geen
+// cyaan cirkel kent; voor Magenta is nog geen teken vastgesteld (er is nog geen
+// Magenta-mix) — het script waarschuwt in dat geval in plaats van te gokken.
+const COLOR_EMOJI = {
+  Red: '🔴',
+  Orange: '🟠',
+  Yellow: '🟡',
+  Green: '🟢',
+  Cyan: '💠',
+  Blue: '🔵',
+  Purple: '🟣',
+};
+
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 const ask = (q) => new Promise(resolve => rl.question(q, resolve));
 
@@ -109,6 +124,20 @@ function parseDate(dateStr) {
 
 function buildTitle(subgenre, color, power, freq, vol) {
   return `${subgenre} · ${color} ${power} ${freq} Mix · Vol. ${vol}`;
+}
+
+function buildSpotifyId(color, power, freq, bpm, dateCompact) {
+  const freqClean = freq.replace(/[()]/g, '').toLowerCase();
+  return `mmc_edm_${bpm}bpm_${power.toLowerCase()}_${freqClean}_${color.toLowerCase()}_${dateCompact}`;
+}
+
+function buildSpotifyTitle(color, power, freq, bpm, vol) {
+  const emoji = COLOR_EMOJI[color];
+  if (!emoji) {
+    console.warn(`\n! Geen emoji vastgesteld voor kleur ${color}. Vul title_spotify handmatig aan.`);
+    return '';
+  }
+  return `EDM ${bpm}BPM ${emoji} ${color} ${power} ${freq} ${emoji} Vol. ${vol}`;
 }
 
 function buildImagePaths(power, color, dateCompact) {
@@ -272,8 +301,15 @@ async function main() {
   // Subgenre
   const subgenre = (await ask('\nSubgenre (bijv. Tech House, Progressive House, Neurofunk): ')).trim();
 
-  // BPM
-  const bpm = (await ask('BPM (bijv. 128): ')).trim();
+  // BPM — Drum & Bass is altijd 176, dus die stellen we voor
+  const suggestedBpm = genre === 'Drum & Bass' ? 176 : 128;
+  let bpm;
+  while (true) {
+    const bpmInput = (await ask(`BPM (Enter = ${suggestedBpm}): `)).trim();
+    bpm = bpmInput ? parseInt(bpmInput, 10) : suggestedBpm;
+    if (Number.isInteger(bpm) && bpm > 0) break;
+    console.log('Vul een getal in, bijvoorbeeld 128.');
+  }
 
   // Volume — auto-suggest
   const suggestedVol = nextVolume(mixes, freq);
@@ -309,14 +345,19 @@ async function main() {
   const imgs = buildImagePaths(power, color, dateCompact);
   const audioSrc = buildAudioSrc(color, power, freq, genre, bpm, dateCompact, volNum);
   const permalink = buildPermalink(color, power, freq, genre, bpm, dateCompact);
+  const idSpotify = buildSpotifyId(color, power, freq, bpm, dateCompact);
+  const titleSpotify = buildSpotifyTitle(color, power, freq, bpm, volNum);
 
   const entry = {
     id: dateCompact,
+    id_spotify: idSpotify,
     featured: false,
     ignore: false,
     title,
+    title_spotify: titleSpotify,
     genre,
     subgenre,
+    bpm,
     color,
     power,
     frequency: freq,

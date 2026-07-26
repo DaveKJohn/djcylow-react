@@ -27,11 +27,14 @@ import fullYellow from '@/data/mixes/full-yellow.json';
 // TypeScript gebruikt dit om fouten te vangen als je een veld verkeerd gebruikt.
 interface Mix {
     id: string;
+    id_spotify: string;      // Spotify-identifier, bijv. mmc_edm_128bpm_light_m_yellow_20251021
     featured: boolean;
     ignore: boolean;
     title: string;
+    title_spotify: string;   // Titel zoals gebruikt bij de Spotify-upload (met kleur-emoji)
     genre: string;
     subgenre: string;
+    bpm: number;             // Tempo van de mix; Drum & Bass is altijd 176
     color: string;
     power: string;
     frequency: string;
