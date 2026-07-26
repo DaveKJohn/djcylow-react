@@ -63,15 +63,19 @@ Within each file, mixes are sorted **newest first** (descending by date).
 [
   {
     "id": "20260615",
+    "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
     "title": "Red Tech House Mix · Vol. 6",
+    "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6 🔴 20260615",
     "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
     "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "genre": "House",
     "subgenre": "Tech House",
+    "bpm": 128,
     "color": "Red",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 6",
+    "volume_spotify": 6,
     "date": "2026-06-15",
     "jaar": "2026",
     "maand": "Jun",
@@ -85,6 +89,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "ignore": false,
     "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"],
     "tags": ["tech house mix 2026", "tech house", "DJ mix"],
+    "tracks": 2,
     "tracklist": [
       { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
       { "time": "00:03:00", "track": "Roddy Lima - Shadows" }
@@ -110,6 +115,77 @@ Unique identifier for the mix. Used to build the URL slug.
 - For preview entries only: use a descriptive string like `"Red_light_preview"` (see Preview Entries)
 
 **Examples:** `"20260615"`, `"20241009"`, `"20220523"`
+
+---
+
+### `id_spotify` — string, required
+
+Identifier used when the mix is published on Spotify. Not used anywhere in the site code — it exists
+so the JSON stays the single administration of a mix across both channels.
+
+**Format:**
+
+```
+mmc_edm_[bpm]bpm_[power-lowercase]_[frequency-letter]_[color-lowercase]_[YYYYMMDD]
+```
+
+**Example:** `"mmc_edm_128bpm_light_m_yellow_20251021"`
+
+**Rules:**
+
+- `mmc` (Music Mood Colours) and `edm` are fixed segments — `edm` does **not** change for Drum & Bass
+  mixes; the BPM already distinguishes them (176 vs 128)
+- Everything lowercase, segments separated by underscores
+- `bpm` is the `bpm` field with the literal suffix `bpm`
+- The frequency loses its parentheses: `"(m)"` → `m`
+- Ends with the `id`, which makes the value **unique across all mixes**
+- Preview entries (`ignore: true`) use `""`
+
+---
+
+### `title_spotify` — string, required
+
+The title as used for the Spotify upload. Deliberately different from `title`: no subgenre, but with
+the BPM in front, the volume and the `id` at the end, and the mood colour as an emoji separating the
+three parts.
+
+**Format:**
+
+```
+EDM [bpm]BPM [emoji] [Color] [Power] ([frequency]) [emoji] Vol. [N] [emoji] [YYYYMMDD]
+```
+
+**Example:** `"EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 7 🟡 20251021"`
+
+**Emoji per colour:**
+
+| Colour | Emoji | Colour | Emoji |
+|---|---|---|---|
+| Red | 🔴 | Cyan | 💠 |
+| Orange | 🟠 | Blue | 🔵 |
+| Yellow | 🟡 | Purple | 🟣 |
+| Green | 🟢 | Magenta | not yet determined |
+
+Cyan uses a diamond because Unicode has no cyan circle. Magenta has no marker yet — there is no
+Magenta mix (only the preview entry), so pick one together with the first Magenta release.
+
+**Rules:**
+
+- `EDM` is fixed, also for Drum & Bass
+- The same emoji appears **three times**: before the colour name, after the frequency, and after the
+  volume
+- `frequency` keeps its parentheses
+- The volume number comes from **`volume_spotify`**, not from `volume` — see below
+- Ends with the `id` (`YYYYMMDD`), which makes the value **unique across all mixes**
+- Preview entries (`ignore: true`) use `""`
+
+**Which volume, and why the `id` on top of it.** The site's `volume` runs *per subgenre*, so the same
+`Vol. N` recurs within one colour + power + frequency combination: `Red Light (m) Vol. 1` exists as
+Tech House, Progressive House and Melodic Techno. This title omits the subgenre, so it uses
+`volume_spotify` instead — that series counts straight through per colour + power + frequency + bpm.
+The mix whose site title reads `Vol. 1` can therefore read `Vol. 6` here; that is intended, not a
+mismatch. Even so, a per-series number is not unique across the whole collection, which is why the
+`id` closes the title. **Do not drop the `id` from the format.**
 
 ---
 
@@ -237,6 +313,26 @@ The specific sub-style of the mix. Shown on the mix detail page and used in the 
 
 ---
 
+### `bpm` — number, required
+
+Tempo of the mix in beats per minute. Feeds `id_spotify` and `title_spotify`, and is the field to read
+instead of parsing the BPM out of the `audioSrc` filename or the `permalink`.
+
+**Format:** a plain number, no quotes and no unit: `128`, `176`, `112`
+
+**Rules:**
+
+- Drum & Bass is **always** `176`
+- For the other genres: the actual tempo of the set, typically `128`
+- Preview entries (`ignore: true`) use `0`
+- Do not derive it from the `permalink` — that value is wrong in places (`full-yellow.json`
+  `20260303` is a House set whose permalink says `176BPM` while the audio is 128)
+
+**Current distribution:** `176` for 46 mixes, `128` for 30, `112` for 1 (`light-red.json`
+`20230121`).
+
+---
+
 ### `color` — string, required
 
 The mood color of this mix in the Music Mood Colours system.
@@ -303,6 +399,34 @@ Volume number within the same **subgenre** + color + power + frequency series.
 > House, Progressive House, Melodic Techno and Neurofunk — and there are eight more such pairs.
 > The subgenre is what separates them, which is also why it belongs in the title. Corrected here to
 > match reality, rather than renumbering 9 series and breaking their titles.
+
+---
+
+### `volume_spotify` — number, required
+
+Sequential number for the Spotify side, counted within the same **color + power + frequency + bpm**
+series — deliberately *without* the subgenre, so a number never recurs inside one series. Exists
+because the site's `volume` cannot be counted straight through: that series runs per subgenre.
+
+**Format:** a plain number, no quotes and no `Vol.` prefix: `1`, `6`, `9`
+
+**Rules:**
+
+- Counted **chronologically, oldest mix is `1`** — the same direction as `volume`
+- The series runs across files only in theory: color and power already fix the file, so in practice
+  it is per frequency + bpm within one file
+- Drum & Bass counts as its own series: `Red Light (m)` has six 128 BPM mixes numbered `1`–`6` plus
+  one 176 BPM Neurofunk mix that is its own `1`
+- Preview entries (`ignore: true`) use `0`
+- Adding a mix in between (an older date than an existing one) shifts the numbers of the mixes after
+  it — renumber the series in that case
+
+**Current state:** 27 series across the 77 mixes, the longest being `Purple Light (f)` 176 BPM with
+`1`–`9`.
+
+**This is the number `title_spotify` uses.** So changing a `volume_spotify` means the matching
+`title_spotify` has to be rebuilt too. For 30 of the 77 mixes this number differs from the site's
+`volume` — that is by design.
 
 ---
 
@@ -530,6 +654,23 @@ Search keywords for this mix. Indexed as invisible metadata and used by search e
 
 ---
 
+### `tracks` — number, required
+
+The number of tracks in `tracklist`. Counted once and stored, so the total never has to be recounted
+when it is needed.
+
+**Format:** a plain number, no quotes: `33`
+
+**Rules:**
+
+- Must always equal `tracklist.length` — when you add or remove a track, update this field too
+- Preview entries (`ignore: true`) have an empty tracklist and therefore `0`
+- `scripts/add-mix.js` fills it automatically for new mixes
+
+**Current range:** 22 to 46 tracks, median 35, 2667 tracks across all 77 mixes.
+
+---
+
 ### `tracklist` — array, required
 
 Array of track objects, ordered chronologically from start to end of the mix.
@@ -667,7 +808,8 @@ Each color file may contain a special "preview" entry — a short audio clip tha
 - `"featured": true` — used for special display logic
 - `"tracklist": []` — empty array
 - `"audioSrc"` — points to a short preview file (e.g., `Red_Light_Preview.mp3`)
-- Most other fields (`date`, `volume`, `image_wide_*`, `description_nl`, `description_en`) are empty strings
+- Most other fields (`date`, `volume`, `image_wide_*`, `description_nl`, `description_en`,
+  `id_spotify`, `title_spotify`) are empty strings; `bpm`, `tracks` and `volume_spotify` are `0`
 
 **Do not modify preview entries** unless you are changing the preview audio file itself.
 
@@ -747,15 +889,19 @@ Below is a model entry that follows all rules and maximizes SEO value:
 ```json
 {
   "id": "20260615", 
+  "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
   "title": "Tech House · Red Light (m) Mix · Vol. 6",
+  "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6 🔴 20260615",
   "description_nl": "Tech House mix van DJ Cylow. Een uur pumping grooves, strakke kicks en melodische elementen. Perfect voor een avondfeest of een lange drive.",
   "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.", 
   "genre": "House",
   "subgenre": "Tech House",
+  "bpm": 128,
   "color": "Red",
   "power": "Light",
   "frequency": "(m)",
   "volume": "Vol. 6",
+  "volume_spotify": 6,
   "date": "2026-06-15",
   "jaar": "2026",
   "maand": "Jun",
@@ -792,6 +938,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
       "electronic music 2026",
       "DJ mix tech house"
     ],
+  "tracks": 3,
   "tracklist": [
     { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
     { "time": "00:03:00", "track": "Roddy Lima - Shadows" },
@@ -803,7 +950,10 @@ Below is a model entry that follows all rules and maximizes SEO value:
 **Checklist for every new mix entry:**
 
 - [ ] `id` is `YYYYMMDD`, unique across all files
+- [ ] `id_spotify` follows `mmc_edm_[bpm]bpm_[power]_[freq]_[color]_[id]` and is unique
 - [ ] `title` follows `Subgenre · Color Power (frequency) Mix · Vol. N` format
+- [ ] `title_spotify` follows `EDM [bpm]BPM [emoji] Color Power (freq) [emoji] Vol. N [emoji] YYYYMMDD` and is unique
+- [ ] `bpm` is a number without quotes (`176` for Drum & Bass)
 - [ ] `subgenre` is filled in and matches the title
 - [ ] `color` is capitalized and matches the filename
 - [ ] `power` is `"Full"` or `"Light"` and matches the filename
@@ -814,4 +964,6 @@ Below is a model entry that follows all rules and maximizes SEO value:
 - [ ] `audioSrc` uses the active R2 bucket
 - [ ] All three image paths are correct and files exist in `public/images/`
 - [ ] Tracklist times use `"HH:MM:SS"` format
+- [ ] `tracks` equals the number of items in `tracklist`
+- [ ] `volume_spotify` continues the color+power+frequency+bpm series (no `Vol.` prefix)
 - [ ] Mix is placed at the **top** of the array (newest first)
