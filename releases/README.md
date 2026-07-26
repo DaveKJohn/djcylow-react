@@ -145,6 +145,7 @@ onder **Release Workflow**. Kort samengevat:
 
 | Versie | Datum | Type | Titel |
 |--------|-------|------|-------|
+| [2.22.0](development/2.22/2.22.0.md) | 2026-07-26 | Minor | Spotify-velden, datums hersteld, en de documentatie gelijk aan de praktijk |
 | [2.21.0](development/2.21/2.21.0.md) | 2026-07-25 | Minor | Alle mixtitels naar één uniek formaat, plus workflow- en toolingherstel |
 | [2.20.2](development/2.20/2.20.2.md) | 2026-07-25 | Patch | Mix-titels met hoofdletter, genrefilter-fix en workflow-aanscherpingen |
 | [2.20.1](development/2.20/2.20.1.md) | 2026-07-02 | Patch | Workflow-herstructurering: PR's, per-branch changelog, releases/development+highlights |
