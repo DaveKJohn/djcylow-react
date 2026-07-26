@@ -17,11 +17,11 @@ tegen. Vastgestelde regel: Drum & Bass is altijd `176`, voor de overige genres g
 
 **`title_spotify`** — `EDM {bpm}BPM {emoji} {Color} {Power} ({freq}) {emoji} {Vol. N} {emoji} {id}`,
 bijvoorbeeld `EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 7 🟡 20251021`. De kleur-emoji scheidt de drie
-delen; Cyan krijgt 💠 omdat Unicode geen cyaan cirkel kent. Het `id` staat er naast het volume
-omdat het volume alleen de titel niet uniek maakt: die reeks loopt per subgenre, dus dezelfde
-`Vol. N` komt binnen één kleur + power + frequentie meerdere keren voor (`Red Light (m) Vol. 1`
-bestaat als Tech House, Progressive House én Melodic Techno). Het volume staat er voor de
-leesbaarheid, het `id` garandeert de uniciteit — alle 77 titels zijn nu uniek.
+delen; Cyan krijgt 💠 omdat Unicode geen cyaan cirkel kent. Het nummer komt uit `volume_spotify` en
+niet uit het site-`volume`: dat laatste loopt per subgenre, dus dezelfde `Vol. N` komt binnen één
+kleur + power + frequentie meerdere keren voor (`Red Light (m) Vol. 1` bestaat als Tech House,
+Progressive House én Melodic Techno). Ook een doortellend nummer is over de hele collectie niet
+uniek, daarom sluit het `id` de titel af — alle 77 titels zijn daarmee uniek.
 
 **`tracks`** — het aantal items in de `tracklist`, één keer geteld en vastgelegd zodat het nooit
 meer opnieuw geteld hoeft te worden. Loopt van 22 tot 46 met een mediaan van 35; samen 2667 tracks
@@ -32,9 +32,9 @@ de oudste mix als `1`. Bewust zonder het subgenre, zodat een nummer binnen één
 voorkomt: het bestaande `volume` kan dat niet, omdat die reeks juist per subgenre loopt. Drum & Bass
 vormt een eigen reeks, dus `Red Light (m)` heeft zes 128 BPM-mixen als `1` t/m `6` plus één
 176 BPM Neurofunk-mix die zijn eigen `1` is. Levert 27 reeksen over de 77 mixen, met
-`Purple Light (f)` 176 BPM als langste (`1` t/m `9`). Bewust nog niet gebruikt in `title_spotify`:
-die draagt nog het `volume` van de site, en of de Spotify-titel moet overstappen is een open
-beslissing.
+`Purple Light (f)` 176 BPM als langste (`1` t/m `9`). Dit is ook het nummer dat `title_spotify`
+draagt: bij 30 van de 77 mixen wijkt het daarmee af van het site-`volume`. Die mix die op de site
+`Vol. 1` heet, staat op Spotify dus als `Vol. 6` — bedoeld, geen afwijking.
 
 De acht preview-entries (`ignore: true`) krijgen lege waarden (`""` en `0` voor de getalvelden), in
 lijn met hoe hun `date`, `volume` en `description`-velden al leeg staan.
