@@ -217,9 +217,22 @@ When `true`, this entry is completely excluded from the public playlist and deta
 
 ---
 
-### `title` — string, required, **SEO-critical**
+### `title` — string, required
 
-The full display title of the mix. Shown on mix cards, detail page `<h1>`, and in metadata.
+The canonical name of the mix **inside this JSON**. It identifies a mix for whoever reads or
+maintains the data.
+
+> **Not rendered anywhere, and not an SEO field.** This spec previously called `title`
+> **SEO-critical** and claimed it appears on mix cards, in the detail page `<h1>` and in the
+> metadata. That is wrong, and it caused a release note to credit a data migration as an SEO
+> improvement (corrected in v2.21.0's note). Every visible place builds its own text from `color`,
+> `subgenre` and `volume` — see the table under [SEO Strategy per Field](#seo-strategy-per-field).
+> The value does ship to the browser, because the whole mix JSON is bundled client-side, but it is
+> never displayed. Verify with `grep -rl "Mix · Blue Full" out/ --include=*.html` after a build: no
+> hits.
+>
+> Keep the format below anyway. A unique, descriptive name is what makes the data workable, and the
+> `<60` character guideline keeps it readable in an editor.
 
 **Required format:**
 
@@ -743,15 +756,17 @@ Google indexes individual mix pages at `/luister/mix/[slug]`. For each page to r
 
 | Field | SEO Impact | Priority |
 |---|---|---|
-| `title` | `<h1>`, `<title>` tag, OG title | **Critical** |
+| `color` + `subgenre` + `volume` | Together they build the `<h1>`, the `<title>` tag, OG/Twitter title, the mix card and GA4's `mix_title` | **Critical** |
 | `description_nl` | Meta description, OG description (NL) | **Critical** |
-| `description_en` | Meta description, OG description (EN) | **Critical** |
+| `description_en` | Meta description, OG description (EN) — **not live yet**, waiting on the parked `feature/i18n-setup`; currently absent from the built HTML | **Critical** |
 | `subgenre` | Appears in title, structured data, URL context | **High** |
 | `tracklist` | Indexed as text content on the page; artists are searchable | **High** |
 | `color` | Used in structured data and page schema | Medium |
 | `date` | Freshness signal for Google indexing | Medium |
 | `genre` | Structured data, filter categories | Medium |
 | `image_*` | Open Graph image (rich snippet in social shares) | Medium |
+| `title` | **None** — never rendered; see the field reference above | — |
+| `id_spotify`, `title_spotify`, `volume_spotify`, `bpm`, `tracks` | **None** — not read by the site at all | — |
 
 ### Description writing guide
 
