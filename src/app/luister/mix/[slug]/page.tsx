@@ -52,6 +52,7 @@ interface Mix {
     description_en?: string;     // Engelse beschrijving (toekomstige EN-pagina)
     tags?: string[];            // ? = optioneel veld
     top_artists?: string[];     // ? = optioneel veld
+    tracks: number;             // Aantal items in tracklist; vooraf geteld zodat het niet elke keer opnieuw hoeft
     tracklist: { time: string; track: string }[];
 }
 

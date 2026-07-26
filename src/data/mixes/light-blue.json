@@ -52,6 +52,7 @@
       "introspective drum and bass",
       "liquid dnb 2024"
     ],
+    "tracks": 33,
     "tracklist": [
       {
         "time": "00:00",
@@ -240,6 +241,7 @@
       "soulful dnb mix",
       "chill drum and bass 2023"
     ],
+    "tracks": 43,
     "tracklist": [
       {
         "time": "00:00",
@@ -468,6 +470,7 @@
       "atmospheric liquid dnb",
       "chill drum and bass 2023"
     ],
+    "tracks": 40,
     "tracklist": [
       {
         "time": "00:00",
@@ -684,6 +687,7 @@
       "soulful liquid dnb",
       "chill drum and bass 2022"
     ],
+    "tracks": 35,
     "tracklist": [
       {
         "time": "00:00",
@@ -880,6 +884,7 @@
       "chill drum and bass 2021",
       "atmospheric liquid dnb"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",
@@ -1080,6 +1085,7 @@
       "atmospheric liquid dnb",
       "midnight drive mix"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",
@@ -1253,6 +1259,7 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   }
 ]

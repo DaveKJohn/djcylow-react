@@ -40,6 +40,7 @@
  *   - permalink      luister/mix/color-power-f-Genre-BPMbpm-YYYYMMDD.html
  *   - audioSrc       R2-URL naar het mp3 bestand op Cloudflare
  *   - image paden    /images/power/color/wide|square/... (altijd .webp)
+ *   - tracks         aantal items in de tracklist
  *
  * NA HET SCRIPT
  * -------------
@@ -373,6 +374,7 @@ async function main() {
     image_square:     imgs.square,
     description,
     top_artists: [],
+    tracks: tracklist.length,
     tracklist,
   };
 

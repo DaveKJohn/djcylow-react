@@ -53,6 +53,7 @@
       "sunny day mix",
       "home party mix"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:01:00",
@@ -230,6 +231,7 @@
       "happy electronic music",
       "groovy house mix"
     ],
+    "tracks": 40,
     "tracklist": [
       {
         "time": "00:00",
@@ -447,6 +449,7 @@
       "happy electronic mix",
       "focus music"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -624,6 +627,7 @@
       "house music 2025",
       "disco house mix"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -801,6 +805,7 @@
       "uplifting disco house",
       "dance music 2024"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -978,6 +983,7 @@
       "groovy dance music",
       "house music 2024"
     ],
+    "tracks": 29,
     "tracklist": [
       {
         "time": "00:00",
@@ -1151,6 +1157,7 @@
       "house music classics",
       "groovy dance music"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",
@@ -1324,6 +1331,7 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   }
 ]

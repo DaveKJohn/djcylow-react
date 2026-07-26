@@ -51,6 +51,7 @@
       "uplifting dance mix",
       "DJ Cylow mix"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00:00",
@@ -226,6 +227,7 @@
       "summer disco mix",
       "DJ Cylow mix"
     ],
+    "tracks": 40,
     "tracklist": [
       {
         "time": "00:00",
@@ -441,6 +443,7 @@
       "house music 2025",
       "DJ Cylow mix"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -616,6 +619,7 @@
       "late night drive mix",
       "DJ Cylow mix"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -791,6 +795,7 @@
       "disco house classics",
       "DJ Cylow mix"
     ],
+    "tracks": 29,
     "tracklist": [
       {
         "time": "00:00",
@@ -962,6 +967,7 @@
       "late night drive mix",
       "DJ Cylow mix"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",
@@ -1135,6 +1141,7 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   }
 ]

@@ -88,6 +88,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "ignore": false,
     "top_artists": ["Tiësto", "MEDUZA", "Chris Lake"],
     "tags": ["tech house mix 2026", "tech house", "DJ mix"],
+    "tracks": 2,
     "tracklist": [
       { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
       { "time": "00:03:00", "track": "Roddy Lima - Shadows" }
@@ -616,6 +617,23 @@ Search keywords for this mix. Indexed as invisible metadata and used by search e
 
 ---
 
+### `tracks` — number, required
+
+The number of tracks in `tracklist`. Counted once and stored, so the total never has to be recounted
+when it is needed.
+
+**Format:** a plain number, no quotes: `33`
+
+**Rules:**
+
+- Must always equal `tracklist.length` — when you add or remove a track, update this field too
+- Preview entries (`ignore: true`) have an empty tracklist and therefore `0`
+- `scripts/add-mix.js` fills it automatically for new mixes
+
+**Current range:** 22 to 46 tracks, median 35, 2667 tracks across all 77 mixes.
+
+---
+
 ### `tracklist` — array, required
 
 Array of track objects, ordered chronologically from start to end of the mix.
@@ -882,6 +900,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
       "electronic music 2026",
       "DJ mix tech house"
     ],
+  "tracks": 3,
   "tracklist": [
     { "time": "00:00:59", "track": "Anabel Englund & Kamino - Belong to Me" },
     { "time": "00:03:00", "track": "Roddy Lima - Shadows" },
@@ -907,4 +926,5 @@ Below is a model entry that follows all rules and maximizes SEO value:
 - [ ] `audioSrc` uses the active R2 bucket
 - [ ] All three image paths are correct and files exist in `public/images/`
 - [ ] Tracklist times use `"HH:MM:SS"` format
+- [ ] `tracks` equals the number of items in `tracklist`
 - [ ] Mix is placed at the **top** of the array (newest first)

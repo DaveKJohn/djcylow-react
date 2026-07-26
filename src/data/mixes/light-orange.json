@@ -53,6 +53,7 @@
       "electronic music 2026",
       "progressive house DJ set"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -230,6 +231,7 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
+    "tracks": 33,
     "tracklist": [
       {
         "time": "00:00:00",
@@ -419,6 +421,7 @@
       "electronic music 2025",
       "drum and bass DJ set"
     ],
+    "tracks": 32,
     "tracklist": [
       {
         "time": "00:00",
@@ -604,6 +607,7 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
+    "tracks": 31,
     "tracklist": [
       {
         "time": "00:00",
@@ -785,6 +789,7 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -962,6 +967,7 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -1139,6 +1145,7 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
+    "tracks": 29,
     "tracklist": [
       {
         "time": "00:00",
@@ -1312,6 +1319,7 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
+    "tracks": 33,
     "tracklist": [
       {
         "time": "00:00",
@@ -1473,6 +1481,7 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   }
 ]
