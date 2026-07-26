@@ -174,15 +174,18 @@ Magenta mix (only the preview entry), so pick one together with the first Magent
 - `EDM` is fixed, also for Drum & Bass
 - The same emoji appears **three times**: before the colour name, after the frequency, and after the
   volume
-- `frequency` keeps its parentheses, `volume` is copied verbatim (`"Vol. 7"`)
+- `frequency` keeps its parentheses
+- The volume number comes from **`volume_spotify`**, not from `volume` — see below
 - Ends with the `id` (`YYYYMMDD`), which makes the value **unique across all mixes**
 - Preview entries (`ignore: true`) use `""`
 
-**Why the `id` is there as well as the volume.** The volume series runs *per subgenre*, so the same
+**Which volume, and why the `id` on top of it.** The site's `volume` runs *per subgenre*, so the same
 `Vol. N` recurs within one colour + power + frequency combination: `Red Light (m) Vol. 1` exists as
-Tech House, Progressive House and Melodic Techno. Since this title omits the subgenre, the volume
-alone cannot make it unique. The volume stays for readability; the `id` is what guarantees
-uniqueness. Do not drop the `id` from the format.
+Tech House, Progressive House and Melodic Techno. This title omits the subgenre, so it uses
+`volume_spotify` instead — that series counts straight through per colour + power + frequency + bpm.
+The mix whose site title reads `Vol. 1` can therefore read `Vol. 6` here; that is intended, not a
+mismatch. Even so, a per-series number is not unique across the whole collection, which is why the
+`id` closes the title. **Do not drop the `id` from the format.**
 
 ---
 
@@ -421,8 +424,9 @@ because the site's `volume` cannot be counted straight through: that series runs
 **Current state:** 27 series across the 77 mixes, the longest being `Purple Light (f)` 176 BPM with
 `1`–`9`.
 
-**Not used in `title_spotify`.** That title still carries the site's `volume`. Whether the Spotify
-title should switch to this field is an open decision.
+**This is the number `title_spotify` uses.** So changing a `volume_spotify` means the matching
+`title_spotify` has to be rebuilt too. For 30 of the 77 mixes this number differs from the site's
+`volume` — that is by design.
 
 ---
 

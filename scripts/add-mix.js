@@ -142,9 +142,9 @@ function buildSpotifyId(color, power, freq, bpm, dateCompact) {
   return `mmc_edm_${bpm}bpm_${power.toLowerCase()}_${freqClean}_${color.toLowerCase()}_${dateCompact}`;
 }
 
-// Sluit af met het id: het volume alleen maakt de titel niet uniek, want die reeks
-// loopt per subgenre en dit formaat laat het subgenre weg. Het id is uniek over alle
-// mix-bestanden en garandeert dat dus wel.
+// `vol` is de volume_spotify, niet het site-volume: dat laatste loopt per subgenre en
+// telt binnen één kleur+power+frequentie dus niet netjes door. Sluit af met het id,
+// want ook een doortellend volume is over de hele collectie niet uniek.
 function buildSpotifyTitle(color, power, freq, bpm, vol, dateCompact) {
   const emoji = COLOR_EMOJI[color];
   if (!emoji) {
@@ -360,7 +360,8 @@ async function main() {
   const audioSrc = buildAudioSrc(color, power, freq, genre, bpm, dateCompact, volNum);
   const permalink = buildPermalink(color, power, freq, genre, bpm, dateCompact);
   const idSpotify = buildSpotifyId(color, power, freq, bpm, dateCompact);
-  const titleSpotify = buildSpotifyTitle(color, power, freq, bpm, volNum, dateCompact);
+  const volSpotify = nextSpotifyVolume(mixes, freq, bpm);
+  const titleSpotify = buildSpotifyTitle(color, power, freq, bpm, volSpotify, dateCompact);
 
   const entry = {
     id: dateCompact,
@@ -376,7 +377,7 @@ async function main() {
     power,
     frequency: freq,
     volume,
-    volume_spotify: nextSpotifyVolume(mixes, freq, bpm),
+    volume_spotify: volSpotify,
     date: dateStr,
     jaar: year,
     maand: month,
