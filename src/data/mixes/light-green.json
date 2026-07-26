@@ -1,15 +1,19 @@
 [
   {
     "id": "20260407",
+    "id_spotify": "mmc_edm_128bpm_light_f_green_20260407",
     "title": "Progressive House Mix · Green Light (f) · Vol. 3",
+    "title_spotify": "EDM 128BPM 🟢 Green Light (f) 🟢 Vol. 3 🟢 20260407",
     "description_nl": "Progressive House mix van DJ Cylow. Vloeiend en organisch, vol warme synths en harmonische texturen. Ideaal voor een ontspannen avond of late thuissessie.",
     "description_en": "Progressive House mix by DJ Cylow. Flowing and organic, full of warm synths and harmonic textures. Ideal for a relaxed evening or late home session.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Green",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 3",
+    "volume_spotify": 3,
     "date": "",
     "jaar": "2026",
     "maand": "Apr",
@@ -48,6 +52,7 @@
       "indie dance mix",
       "melodic electronic music 2026"
     ],
+    "tracks": 29,
     "tracklist": [
       {
         "time": "01:00",
@@ -169,15 +174,19 @@
   },
   {
     "id": "Green_Light_Preview",
+    "id_spotify": "",
     "title": "Green Light (f)",
+    "title_spotify": "",
     "description_nl": "",
     "description_en": "",
     "genre": "EDM",
     "subgenre": "",
+    "bpm": 0,
     "color": "Green",
     "power": "Light",
     "frequency": "(f)",
     "volume": "",
+    "volume_spotify": 0,
     "date": "",
     "jaar": "",
     "maand": "",
@@ -190,19 +199,24 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   },
   {
     "id": "20250422",
+    "id_spotify": "mmc_edm_128bpm_light_f_green_20250422",
     "title": "Progressive House Mix · Green Light (f) · Vol. 2",
+    "title_spotify": "EDM 128BPM 🟢 Green Light (f) 🟢 Vol. 2 🟢 20250422",
     "description_nl": "Progressive House mix van DJ Cylow. Warm en meeslepend, vol emotionele builds en harmonische melodieën. Perfect voor een lange zomeravond buiten.",
     "description_en": "Progressive House mix by DJ Cylow. Warm and captivating, full of emotional builds and harmonic melodies. Perfect for a long summer evening outside.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Green",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 2",
+    "volume_spotify": 2,
     "date": "",
     "jaar": "2025",
     "maand": "Apr",
@@ -241,6 +255,7 @@
       "DJ Cylow mix",
       "melodic electronic music 2025"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -366,15 +381,19 @@
   },
   {
     "id": "20241104",
+    "id_spotify": "mmc_edm_128bpm_light_f_green_20241104",
     "title": "Progressive House Mix · Green Light (f) · Vol. 1",
+    "title_spotify": "EDM 128BPM 🟢 Green Light (f) 🟢 Vol. 1 🟢 20241104",
     "description_nl": "Progressive House mix van DJ Cylow. Harmonisch en dromerig, vol zachte synths en emotionele progressies. Een rustgevende set voor een stille avond thuis.",
     "description_en": "Progressive House mix by DJ Cylow. Harmonic and dreamy, full of soft synths and emotional progressions. A soothing set for a quiet evening at home.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Green",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 1",
+    "volume_spotify": 1,
     "date": "",
     "jaar": "2024",
     "maand": "Nov",
@@ -413,6 +432,7 @@
       "DJ Cylow mix",
       "melodic electronic music 2024"
     ],
+    "tracks": 34,
     "tracklist": [
       {
         "time": "00:00",
@@ -554,15 +574,19 @@
   },
   {
     "id": "20240610",
+    "id_spotify": "mmc_edm_176bpm_light_f_green_20240610",
     "title": "Liquid Drum & Bass Mix · Green Light (f) · Vol. 3",
+    "title_spotify": "EDM 176BPM 🟢 Green Light (f) 🟢 Vol. 3 🟢 20240610",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vloeiend en melodisch, vol zachte basslines en emotionele harmonieën. Ideaal voor een late night rit of rustig moment.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Flowing and melodic, full of soft basslines and emotional harmonies. Ideal for a late night drive or quiet moment.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Green",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 3",
+    "volume_spotify": 3,
     "date": "",
     "jaar": "2024",
     "maand": "Jun",
@@ -601,6 +625,7 @@
       "DJ Cylow mix",
       "drum and bass mix 2024"
     ],
+    "tracks": 35,
     "tracklist": [
       {
         "time": "00:00",
@@ -746,15 +771,19 @@
   },
   {
     "id": "20230620",
+    "id_spotify": "mmc_edm_176bpm_light_f_green_20230620",
     "title": "Liquid Drum & Bass Mix · Green Light (f) · Vol. 2",
+    "title_spotify": "EDM 176BPM 🟢 Green Light (f) 🟢 Vol. 2 🟢 20230620",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Emotioneel en organisch, vol vloeiende basslines en sfeervolle melodieën. Perfect voor een avond vol diepgang.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Emotional and organic, full of flowing basslines and atmospheric melodies. Perfect for an evening of depth.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Green",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 2",
+    "volume_spotify": 2,
     "date": "",
     "jaar": "2023",
     "maand": "Jun",
@@ -793,6 +822,7 @@
       "DJ Cylow mix",
       "drum and bass mix 2023"
     ],
+    "tracks": 35,
     "tracklist": [
       {
         "time": "00:00",
@@ -938,15 +968,19 @@
   },
   {
     "id": "20210426",
+    "id_spotify": "mmc_edm_176bpm_light_f_green_20210426",
     "title": "Liquid Drum & Bass Mix · Green Light (f) · Vol. 1",
+    "title_spotify": "EDM 176BPM 🟢 Green Light (f) 🟢 Vol. 1 🟢 20210426",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Ontspannen en harmonisch, vol vloeiende melodieën en zachte basslines. Heerlijk voor een rustige thuissessie.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Relaxed and harmonic, full of flowing melodies and gentle basslines. Perfect for a peaceful home session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Green",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 1",
+    "volume_spotify": 1,
     "date": "",
     "jaar": "2021",
     "maand": "Apr",
@@ -985,6 +1019,7 @@
       "DJ Cylow mix",
       "drum and bass mix 2021"
     ],
+    "tracks": 34,
     "tracklist": [
       {
         "time": "00:00",

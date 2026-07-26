@@ -1,15 +1,19 @@
 [
   {
     "id": "20251021",
+    "id_spotify": "mmc_edm_128bpm_light_m_yellow_20251021",
     "title": "Nu-Disco Mix · Yellow Light (m) · Vol. 7",
+    "title_spotify": "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 7 🟡 20251021",
     "description_nl": "Nu-Disco mix van DJ Cylow. Vrolijk en dansbaar, vol aanstekelijke grooves en zonnige energie. Ideaal voor een zonnig thuisfeest of terrassessie.",
     "description_en": "Nu-Disco mix by DJ Cylow. Joyful and danceable, full of infectious grooves and sunny energy. Ideal for a sunny house party or terrace session.",
     "genre": "Nu-Disco",
     "subgenre": "Nu-Disco",
+    "bpm": 128,
     "color": "Yellow",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 7",
+    "volume_spotify": 7,
     "date": "",
     "jaar": "2025",
     "maand": "Oct",
@@ -50,6 +54,7 @@
       "sunny day mix",
       "home party mix"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:01:00",
@@ -175,15 +180,19 @@
   },
   {
     "id": "20250701",
+    "id_spotify": "mmc_edm_128bpm_light_m_yellow_20250701",
     "title": "Nu-Disco Mix · Yellow Light (m) · Vol. 6",
+    "title_spotify": "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 6 🟡 20250701",
     "description_nl": "Nu-Disco mix van DJ Cylow. Luchtig en vol energie, met funky grooves en zomerse vibes. Perfect voor een zomers feest of een dansbare avond buiten.",
     "description_en": "Nu-Disco mix by DJ Cylow. Light and full of energy, with funky grooves and summery vibes. Perfect for a summer party or a danceable evening outside.",
     "genre": "Nu-Disco",
     "subgenre": "Nu-Disco",
+    "bpm": 128,
     "color": "Yellow",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 6",
+    "volume_spotify": 6,
     "date": "",
     "jaar": "2025",
     "maand": "Jul",
@@ -224,6 +233,7 @@
       "happy electronic music",
       "groovy house mix"
     ],
+    "tracks": 40,
     "tracklist": [
       {
         "time": "00:00",
@@ -389,15 +399,19 @@
   },
   {
     "id": "20250419",
+    "id_spotify": "mmc_edm_128bpm_light_m_yellow_20250419",
     "title": "Nu-Disco Mix · Yellow Light (m) · Vol. 5",
+    "title_spotify": "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 5 🟡 20250419",
     "description_nl": "Nu-Disco mix van DJ Cylow. Zacht en blij, met een positieve funky groove voor elk moment van de dag. Van ochtend tot avond vol goede energie.",
     "description_en": "Nu-Disco mix by DJ Cylow. Soft and joyful, with a positive funky groove for any time of the day. From morning to evening full of good energy.",
     "genre": "Nu-Disco",
     "subgenre": "Nu-Disco",
+    "bpm": 128,
     "color": "Yellow",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 5",
+    "volume_spotify": 5,
     "date": "",
     "jaar": "2025",
     "maand": "Apr",
@@ -438,6 +452,7 @@
       "happy electronic mix",
       "focus music"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -563,15 +578,19 @@
   },
   {
     "id": "20250313",
+    "id_spotify": "mmc_edm_128bpm_light_m_yellow_20250313",
     "title": "Nu-Disco Mix · Yellow Light (m) · Vol. 4",
+    "title_spotify": "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 4 🟡 20250313",
     "description_nl": "Nu-Disco mix van DJ Cylow. Opgewekt en groovy, vol aanstekelijke beats en warme housenergy. Een heerlijke set voor een relaxt thuisfeest.",
     "description_en": "Nu-Disco mix by DJ Cylow. Upbeat and groovy, full of infectious beats and warm house energy. A great set for a relaxed house party.",
     "genre": "Nu-Disco",
     "subgenre": "Nu-Disco",
+    "bpm": 128,
     "color": "Yellow",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 4",
+    "volume_spotify": 4,
     "date": "",
     "jaar": "2025",
     "maand": "Mar",
@@ -612,6 +631,7 @@
       "house music 2025",
       "disco house mix"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -737,15 +757,19 @@
   },
   {
     "id": "20241225",
+    "id_spotify": "mmc_edm_128bpm_light_m_yellow_20241225",
     "title": "Nu-Disco Mix · Yellow Light (m) · Vol. 3",
+    "title_spotify": "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 3 🟡 20241225",
     "description_nl": "Nu-Disco mix van DJ Cylow. Feestelijk en licht, een kerstse set vol discogevoel en glinsterende housenergy. Perfect voor een feestelijk eindejaarsmoment.",
     "description_en": "Nu-Disco mix by DJ Cylow. Festive and light, a Christmas set full of disco spirit and sparkling house energy. Perfect for a festive end-of-year moment.",
     "genre": "Nu-Disco",
     "subgenre": "Nu-Disco",
+    "bpm": 128,
     "color": "Yellow",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 3",
+    "volume_spotify": 3,
     "date": "",
     "jaar": "2024",
     "maand": "Dec",
@@ -786,6 +810,7 @@
       "uplifting disco house",
       "dance music 2024"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -911,15 +936,19 @@
   },
   {
     "id": "20241126",
+    "id_spotify": "mmc_edm_128bpm_light_m_yellow_20241126",
     "title": "Nu-Disco Mix · Yellow Light (m) · Vol. 2",
+    "title_spotify": "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 2 🟡 20241126",
     "description_nl": "Nu-Disco mix van DJ Cylow. Luchtig en dansbaar, vol warme housenergy en aanstekelijke grooves. Perfect voor een avond vol beweging en dans.",
     "description_en": "Nu-Disco mix by DJ Cylow. Light and danceable, full of warm house energy and infectious grooves. Perfect for an evening of movement and dance.",
     "genre": "Nu-Disco",
     "subgenre": "Nu-Disco",
+    "bpm": 128,
     "color": "Yellow",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 2",
+    "volume_spotify": 2,
     "date": "",
     "jaar": "2024",
     "maand": "Nov",
@@ -960,6 +989,7 @@
       "groovy dance music",
       "house music 2024"
     ],
+    "tracks": 29,
     "tracklist": [
       {
         "time": "00:00",
@@ -1081,15 +1111,19 @@
   },
   {
     "id": "20220904",
+    "id_spotify": "mmc_edm_128bpm_light_m_yellow_20220904",
     "title": "Nu-Disco Mix · Yellow Light (m) · Vol. 1",
+    "title_spotify": "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 1 🟡 20220904",
     "description_nl": "Nu-Disco mix van DJ Cylow. Energiek en zonnig, vol funky beats en groovy basslines. De perfecte start voor deze serie vol housenergy.",
     "description_en": "Nu-Disco mix by DJ Cylow. Energetic and sunny, full of funky beats and groovy basslines. The perfect start for this series of house energy.",
     "genre": "Nu-Disco",
     "subgenre": "Nu-Disco",
+    "bpm": 128,
     "color": "Yellow",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 1",
+    "volume_spotify": 1,
     "date": "",
     "jaar": "2022",
     "maand": "Sep",
@@ -1130,6 +1164,7 @@
       "house music classics",
       "groovy dance music"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",
@@ -1279,15 +1314,19 @@
   },
   {
     "id": "Yellow_light_preview",
+    "id_spotify": "",
     "title": "Yellow Light (f)",
+    "title_spotify": "",
     "description_nl": "",
     "description_en": "",
     "genre": "EDM",
     "subgenre": "",
+    "bpm": 0,
     "color": "Yellow",
     "power": "Light",
     "frequency": "(f)",
     "volume": "",
+    "volume_spotify": 0,
     "date": "",
     "jaar": "",
     "maand": "",
@@ -1300,6 +1339,7 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   }
 ]
