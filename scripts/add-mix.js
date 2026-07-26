@@ -35,7 +35,7 @@
  *   - id             YYYYMMDD uit datum
  *   - id_spotify     mmc_edm_128bpm_light_m_yellow_YYYYMMDD
  *   - title          "Subgenre · Color Power (f) Mix · Vol. N"
- *   - title_spotify  "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. N"
+ *   - title_spotify  "EDM 128BPM 🟡 Yellow Light (m) 🟡 YYYYMMDD"
  *   - jaar/maand/dag uit datum
  *   - permalink      luister/mix/color-power-f-Genre-BPMbpm-YYYYMMDD.html
  *   - audioSrc       R2-URL naar het mp3 bestand op Cloudflare
@@ -132,13 +132,15 @@ function buildSpotifyId(color, power, freq, bpm, dateCompact) {
   return `mmc_edm_${bpm}bpm_${power.toLowerCase()}_${freqClean}_${color.toLowerCase()}_${dateCompact}`;
 }
 
-function buildSpotifyTitle(color, power, freq, bpm, vol) {
+// Sluit af met het id, niet met het volume: het id is uniek over alle mix-bestanden,
+// terwijl hetzelfde volume bij meerdere subgenres voorkomt (de reeks loopt per subgenre).
+function buildSpotifyTitle(color, power, freq, bpm, dateCompact) {
   const emoji = COLOR_EMOJI[color];
   if (!emoji) {
     console.warn(`\n! Geen emoji vastgesteld voor kleur ${color}. Vul title_spotify handmatig aan.`);
     return '';
   }
-  return `EDM ${bpm}BPM ${emoji} ${color} ${power} ${freq} ${emoji} Vol. ${vol}`;
+  return `EDM ${bpm}BPM ${emoji} ${color} ${power} ${freq} ${emoji} ${dateCompact}`;
 }
 
 function buildImagePaths(power, color, dateCompact) {
@@ -347,7 +349,7 @@ async function main() {
   const audioSrc = buildAudioSrc(color, power, freq, genre, bpm, dateCompact, volNum);
   const permalink = buildPermalink(color, power, freq, genre, bpm, dateCompact);
   const idSpotify = buildSpotifyId(color, power, freq, bpm, dateCompact);
-  const titleSpotify = buildSpotifyTitle(color, power, freq, bpm, volNum);
+  const titleSpotify = buildSpotifyTitle(color, power, freq, bpm, dateCompact);
 
   const entry = {
     id: dateCompact,
