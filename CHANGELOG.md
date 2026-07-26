@@ -2,7 +2,7 @@
 
 De geschiedenis van de DJ Cylow-website: onder **Pull Requests** elke gemergde branch met zijn PR,
 onder **Releases** de vastgelegde versies. Het mechanisme (entry-bestanden, folden, een release
-knippen) staat in [`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md).
+knippen) staat in [`CLAUDE.md`](CLAUDE.md).
 
 `main` is de integratie-branch, niet de live site. Wat onder **Pull Requests** staat is dus gemergd
 maar nog niet uitgebracht, en een uitgebrachte versie is nog niet per se live: de versie met
