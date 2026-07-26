@@ -55,7 +55,7 @@ De release-workflow draait via de gedeelde skills van de specialists-plugin plus
 | Music Mood Colours text | `src/content/musicmoodcolours.ts` |
 | Testimonials | `src/content/referenties.ts` |
 | Breakpoints | `src/constants/design.ts` |
-| In-progress changes (unreleased) | `CHANGELOG.md` → `[Unreleased]` (bevuld via per-branch entry-bestanden, zie workflow) |
+| In-progress changes (unreleased) | `CHANGELOG.md` → `## Pull Requests` (bevuld via per-branch entry-bestanden, zie workflow) |
 
 ### Audio storage
 

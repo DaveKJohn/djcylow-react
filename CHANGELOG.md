@@ -1,47 +1,19 @@
 # Changelog
 
-De belangrijkste wijzigingen aan deze repo kort bijgehouden. Één regel per noemenswaardige wijziging.
+De geschiedenis van de DJ Cylow-website: onder **Pull Requests** elke gemergde branch met zijn PR,
+onder **Releases** de vastgelegde versies. Het mechanisme (entry-bestanden, folden, een release
+knippen) staat in [`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md).
 
-## Hoe dit werkt
+`main` is de integratie-branch, niet de live site. Wat onder **Pull Requests** staat is dus gemergd
+maar nog niet uitgebracht, en een uitgebrachte versie is nog niet per se live: de versie met
+**← LIVE** onder **Releases** is degene die op dit moment op de site draait.
 
-- **`## [Unreleased]`** — wijzigingen die al in `main` zitten maar nog niet live zijn. Dit blok vult zich met elke branch die naar `main` wordt gemergd, en blijft staan tot de eerstvolgende live-push.
-- **`## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major`** — op die datum live gegaan via een push naar het live thema. De volledige uitwerking staat in `releases/development/X.Y/X.Y.Z.md`.
+## Pull Requests
 
-De bovenste uitgebrachte versie draagt de markering **← LIVE**: dat is de versie die op dit moment op het live thema staat. Bij elke live-push verschuift die markering naar de nieuwe versie.
+Alles wat sinds de laatste release naar `main` is gemergd — nieuwste bovenaan, één blok per pull
+request.
 
-### Levenscyclus van een regel
-
-`CHANGELOG.md` zelf wordt **nooit direct bewerkt op een branch** — dat gaf bij lang-openstaande
-branches merge-conflicten, omdat elke branch hetzelfde `[Unreleased]`-blok aanpaste. In plaats
-daarvan schrijft elke branch zijn eigen entry-bestand; volledige uitleg staat in
-[`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md).
-
-1. **Op een branch** maak je een eigen entry-bestand `<branch-naam-met-koppeltekens>.md` in de
-   repo-root aan (via de gedeelde `new-branch`-skill, die branch en entry in één stap neerzet), met
-   dezelfde inhoud die vroeger direct in `[Unreleased]` ging. Een branch mag gerust weken geparkeerd
-   blijven — er is niets om over te conflicteren.
-2. **Branch klaar en goedgekeurd** → merge naar `main`, branch verwijderen. Vouw daarna de entry
-   bovenaan `[Unreleased]` in en verwijder het entry-bestand. Dit commit gaat direct op `main`
-   (toegestane uitzondering op de geen-directe-main-commits-regel) met een `chore:`-prefix. De
-   gedeelde `fold-changelog`-skill kan dit nog niet automatisch — zie de aantekening bij stap 7 in
-   [`workflow/workflow-CLAUDE.md`](workflow/workflow-CLAUDE.md).
-3. **Meer branches** die later mergen en gevouwen worden vullen `[Unreleased]` op `main` verder
-   aan. `main` kan dus een tijd met een gevulde `[Unreleased]` rondlopen — dat is gewoon "wel
-   gemergd, nog niet live".
-4. **`main` naar live pushen** → alles onder `## [Unreleased]` is nieuw en wordt de eerstvolgende
-   release-note: maak `releases/development/X.Y/X.Y.Z.md` op basis van de inhoud, voeg de versie
-   toe aan `releases/README.md`, hernoem het blok naar
-   `## [vX.Y.Z] - YYYY-MM-DD — Patch/Minor/Major` (met "Zie releases/development/X.Y.Z.md"), en
-   maak een vers leeg `## [Unreleased]` bovenaan aan.
-
----
-
-## [Unreleased]
-
-### Vijf afgeleide velden voor alle mixen: `id_spotify`, `bpm`, `title_spotify`, `tracks` en `volume_spotify`
-**Branch naam** data/spotify-velden
-**Datum merge op main** 2026-07-26
-**Branch type** Data
+### #17 · Vijf afgeleide velden voor alle mixen: `id_spotify`, `bpm`, `title_spotify`, `tracks` en `volume_spotify` · Data · 2026-07-26
 
 Alle 85 entries in `src/data/mixes/*.json` hebben vijf nieuwe velden gekregen, zodat de JSON de
 enige administratie van een mix blijft, ook voor de Spotify-kant. De site gebruikt de velden
@@ -84,10 +56,11 @@ velden nu voor elke nieuwe mix (met `176` als voorstel bij Drum & Bass), de `Mix
 `src/app/luister/mix/[slug]/page.tsx` kent ze, en `src/data/mixes/README.md` beschrijft ze als
 onderdeel van het schema.
 
-### GTM Laag 3 — content_group op mix_id, en de GA4-dimensie Mix ID
-**Branch naam** config/ga4-content-group-v2
-**Datum merge op main** 2026-07-25
-**Branch type** Config
+[PR #17](https://github.com/DaveKJohn/djcylow-react/pull/17)
+
+---
+
+### #16 · GTM Laag 3 — content_group op mix_id, en de GA4-dimensie Mix ID · Config · 2026-07-25
 
 Vastlegging van twee analytics-wijzigingen die al sinds **27 juni 2026** live staan in Google Tag
 Manager en GA4, maar tot nu toe nergens in deze repo waren gedocumenteerd. Er verandert dus niets
@@ -108,12 +81,11 @@ vóór de omslag naar per-branch entry-bestanden — waardoor hij inmiddels zou 
 is daarom overgezet naar het huidige entry-formaat en de oude branch is opgeruimd. Zonder deze stap
 zou er een live analytics-configuratie bestaan waarvan in de repo geen spoor te vinden is.
 
+[PR #16](https://github.com/DaveKJohn/djcylow-react/pull/16)
+
 ---
 
-### Social previews en de canonical van /diensten gerepareerd
-**Branch naam** fix/metadatabase-og-images
-**Datum merge op main** 2026-07-25
-**Branch type** Fix
+### #15 · Social previews en de canonical van /diensten gerepareerd · Fix · 2026-07-25
 
 Drie SEO-defecten die alle drie in de gebouwde HTML terechtkwamen.
 
@@ -158,11 +130,15 @@ Gecontroleerd: `npm run build` slaagt met 89 pagina's en meldt de `metadataBase`
 meer, de gebouwde output bevat geen enkele `localhost`-URL, beide canonicals kloppen in de HTML, en
 ESLint meldt onverkort 37 pre-existing errors.
 
----
+[PR #15](https://github.com/DaveKJohn/djcylow-react/pull/15)
 
 ---
 
-## [v2.21.0] - 2026-07-25 — Minor
+## Releases
+
+De vastgelegde versies — nieuwste bovenaan; elke regel linkt naar de volledige release-notes.
+
+### [v2.21.0] - 2026-07-25 — Minor
 
 Zie [releases/development/2.21/2.21.0.md](releases/development/2.21/2.21.0.md)
 
@@ -171,7 +147,7 @@ Zie [releases/development/2.21/2.21.0.md](releases/development/2.21/2.21.0.md)
 
 ---
 
-## [v2.20.2] - 2026-07-25 — Patch
+### [v2.20.2] - 2026-07-25 — Patch
 
 Zie [releases/development/2.20/2.20.2.md](releases/development/2.20/2.20.2.md)
 
@@ -180,162 +156,162 @@ Zie [releases/development/2.20/2.20.2.md](releases/development/2.20/2.20.2.md)
 
 ---
 
-## [v2.20.1] - 2026-07-02 — Patch ← LIVE
+### [v2.20.1] - 2026-07-02 — Patch ← LIVE
 
 Zie [releases/development/2.20/2.20.1.md](releases/development/2.20/2.20.1.md)
 
 ---
 
-## [v2.20.0] - 2026-07-02 — Minor
+### [v2.20.0] - 2026-07-02 — Minor
 
 Zie [releases/development/2.20/2.20.0.md](releases/development/2.20/2.20.0.md)
 
 ---
 
-## [v2.19.2] - 2026-06-28 — Patch
+### [v2.19.2] - 2026-06-28 — Patch
 
 Zie [releases/development/2.19/2.19.2.md](releases/development/2.19/2.19.2.md)
 
 ---
 
-## [v2.19.1] - 2026-06-28 — Patch
+### [v2.19.1] - 2026-06-28 — Patch
 
 Zie [releases/development/2.19/2.19.1.md](releases/development/2.19/2.19.1.md)
 
 ---
 
-## [v2.19.0] - 2026-06-28 — Minor
+### [v2.19.0] - 2026-06-28 — Minor
 
 Zie [releases/development/2.19/2.19.0.md](releases/development/2.19/2.19.0.md)
 
 ---
 
-## [v2.18.0] - 2026-06-27 — Minor
+### [v2.18.0] - 2026-06-27 — Minor
 
 Zie [releases/development/2.18/2.18.0.md](releases/development/2.18/2.18.0.md)
 
 ---
 
-## [v2.17.0] - 2026-06-27 — Minor
+### [v2.17.0] - 2026-06-27 — Minor
 
 Zie [releases/development/2.17/2.17.0.md](releases/development/2.17/2.17.0.md)
 
 ---
 
-## [v2.16.4] - 2026-06-27 — Patch
+### [v2.16.4] - 2026-06-27 — Patch
 
 Zie [releases/development/2.16/2.16.4.md](releases/development/2.16/2.16.4.md)
 
 ---
 
-## [v2.16.3] - 2026-06-27 — Patch
+### [v2.16.3] - 2026-06-27 — Patch
 
 Zie [releases/development/2.16/2.16.3.md](releases/development/2.16/2.16.3.md)
 
 ---
 
-## [v2.16.2] - 2026-06-27 — Patch
+### [v2.16.2] - 2026-06-27 — Patch
 
 Zie [releases/development/2.16/2.16.2.md](releases/development/2.16/2.16.2.md)
 
 ---
 
-## [v2.16.1] - 2026-06-27 — Patch
+### [v2.16.1] - 2026-06-27 — Patch
 
 Zie [releases/development/2.16/2.16.1.md](releases/development/2.16/2.16.1.md)
 
 ---
 
-## [v2.16.0] - 2026-06-25 — Minor
+### [v2.16.0] - 2026-06-25 — Minor
 
 Zie [releases/development/2.16/2.16.0.md](releases/development/2.16/2.16.0.md)
 
 ---
 
-## [v2.15.0] - 2026-06-25 — Minor
+### [v2.15.0] - 2026-06-25 — Minor
 
 Zie [releases/development/2.15/2.15.0.md](releases/development/2.15/2.15.0.md)
 
-## [v2.14.4] - 2026-06-25 — Patch
+### [v2.14.4] - 2026-06-25 — Patch
 
 Zie [releases/development/2.14/2.14.4.md](releases/development/2.14/2.14.4.md)
 
-## [v2.14.3] - 2026-06-25 — Patch
+### [v2.14.3] - 2026-06-25 — Patch
 
 Zie [releases/development/2.14/2.14.3.md](releases/development/2.14/2.14.3.md)
 
-## [v2.14.2] - 2026-06-25 — Patch
+### [v2.14.2] - 2026-06-25 — Patch
 
 Zie [releases/development/2.14/2.14.2.md](releases/development/2.14/2.14.2.md)
 
-## [v2.14.1] - 2026-06-25 — Patch
+### [v2.14.1] - 2026-06-25 — Patch
 
 Zie [releases/development/2.14/2.14.1.md](releases/development/2.14/2.14.1.md)
 
-## [v2.14.0] - 2026-06-25 — Minor
+### [v2.14.0] - 2026-06-25 — Minor
 
 Zie [releases/development/2.14/2.14.0.md](releases/development/2.14/2.14.0.md)
 
-## [v2.13.0] - 2026-06-18 — Minor
+### [v2.13.0] - 2026-06-18 — Minor
 
 Zie [releases/development/2.13/2.13.0.md](releases/development/2.13/2.13.0.md)
 
-## [v2.12.0] - 2026-06-16 — Minor
+### [v2.12.0] - 2026-06-16 — Minor
 
 Zie [releases/development/2.12/2.12.0.md](releases/development/2.12/2.12.0.md)
 
-## [v2.11.1] - 2026-05-10 — Patch
+### [v2.11.1] - 2026-05-10 — Patch
 
 Zie [releases/development/2.11/2.11.1.md](releases/development/2.11/2.11.1.md)
 
-## [v2.11.0] - 2026-05-08 — Minor
+### [v2.11.0] - 2026-05-08 — Minor
 
 Zie [releases/development/2.11/2.11.0.md](releases/development/2.11/2.11.0.md)
 
-## [v2.10.0] - 2026-05-05 — Minor
+### [v2.10.0] - 2026-05-05 — Minor
 
 Zie [releases/development/2.10/2.10.0.md](releases/development/2.10/2.10.0.md)
 
-## [v2.9.0] - 2026-05-01 — Minor
+### [v2.9.0] - 2026-05-01 — Minor
 
 Zie [releases/development/2.9/2.9.0.md](releases/development/2.9/2.9.0.md)
 
-## [v2.8.0] - 2026-04-20 — Minor
+### [v2.8.0] - 2026-04-20 — Minor
 
 Zie [releases/development/2.8/2.8.0.md](releases/development/2.8/2.8.0.md)
 
-## [v2.7.0] - 2026-04-13 — Minor
+### [v2.7.0] - 2026-04-13 — Minor
 
 Zie [releases/development/2.7/2.7.0.md](releases/development/2.7/2.7.0.md)
 
-## [v2.6.0] - 2026-04-11 — Minor
+### [v2.6.0] - 2026-04-11 — Minor
 
 Zie [releases/development/2.6/2.6.0.md](releases/development/2.6/2.6.0.md)
 
-## [v2.5.0] - 2026-04-10 — Minor
+### [v2.5.0] - 2026-04-10 — Minor
 
 Zie [releases/development/2.5/2.5.0.md](releases/development/2.5/2.5.0.md)
 
-## [v2.4.0] - 2026-03-20 — Minor
+### [v2.4.0] - 2026-03-20 — Minor
 
 Zie [releases/development/2.4/2.4.0.md](releases/development/2.4/2.4.0.md)
 
-## [v2.3.0] - 2026-03-19 — Minor
+### [v2.3.0] - 2026-03-19 — Minor
 
 Zie [releases/development/2.3/2.3.0.md](releases/development/2.3/2.3.0.md)
 
-## [v2.2.0] - 2026-03-13 — Minor
+### [v2.2.0] - 2026-03-13 — Minor
 
 Zie [releases/development/2.2/2.2.0.md](releases/development/2.2/2.2.0.md)
 
-## [v2.1.0] - 2026-03-11 — Minor
+### [v2.1.0] - 2026-03-11 — Minor
 
 Zie [releases/development/2.1/2.1.0.md](releases/development/2.1/2.1.0.md)
 
-## [v2.0.1] - 2026-03-08 — Patch
+### [v2.0.1] - 2026-03-08 — Patch
 
 Zie [releases/development/2.0/2.0.1.md](releases/development/2.0/2.0.1.md)
 
-## [v2.0.0] - 2026-03-07 — Major
+### [v2.0.0] - 2026-03-07 — Major
 
 Zie [releases/development/2.0/2.0.0.md](releases/development/2.0/2.0.0.md)

@@ -1,7 +1,7 @@
 # DJ Cylow website — werkwijze voor Claude
 
 `main` is de **integratie-branch**, niet de live site. Een merge naar `main` zet niets live: het
-`[Unreleased]`-blok in `CHANGELOG.md` verzamelt wat wél gemergd maar nog niet uitgebracht is, en
+`## Pull Requests`-blok in `CHANGELOG.md` verzamelt wat wél gemergd maar nog niet uitgebracht is, en
 pas de expliciete **live-push** (zie Release Workflow) brengt dat naar de site. De `← LIVE`-markering
 in `CHANGELOG.md` wijst altijd de versie aan die op dit moment daadwerkelijk draait.
 
@@ -86,20 +86,25 @@ specialists-plugin, die de branch én zijn entry-bestand in één stap neerzet (
 entry-loos). Doe je het met de hand, dan volstaat een bestand in het formaat hieronder.
 
 Dit maakt `<branch-naam-met-koppeltekens>.md` aan in de repo-root (bijv. branch
-`feature/mix-bpm-filter` → `feature-mix-bpm-filter.md`), met branch-naam, datum en branch-type
-al ingevuld — vul zelf de titel (als je die nog niet meegaf) en de beschrijving aan. Formaat:
+`feature/mix-bpm-filter` → `feature-mix-bpm-filter.md`), met titel, branch-type en datum al in de
+kop — vul zelf de beschrijving aan. Formaat:
 
 ```markdown
-### Korte sterke titel van de wijziging
-**Branch naam** branch-naam
-**Datum merge op main** YYYY-MM-DD
-**Branch type** Docs/Feature/Fix/Data/Content/Style/Config
+### Korte sterke titel van de wijziging · Docs · YYYY-MM-DD
 
 Korte beschrijving van wat er veranderd is op deze branch.
 ```
 
+Het type is `Docs`/`Feature`/`Fix`/`Data`/`Content`/`Style`/`Config`, met een middelpunt (`·`) als
+scheidingsteken. De datum is de dag waarop de branch op `main` gemergd wordt. **Het PR-nummer hoort
+niet in het bestand**: dat bestaat nog niet als de branch begint, en de fold-stap zet het er later
+zelf voor (`### #17 · Titel · Data · 2026-07-26`) plus een `[PR #17](...)`-regel onderaan.
+
+Dit is hetzelfde formaat als in `life-hub` en `davekjohns-workshop`, en precies wat de gedeelde
+`new-branch`-skill neerzet — herschrijf de scaffold dus niet.
+
 **`CHANGELOG.md` blijft met rust op de branch — nooit direct bewerken.** Elke branch bewerkte
-vroeger hetzelfde `[Unreleased]`-blok in `CHANGELOG.md`, wat bij lang-openstaande branches tot
+vroeger hetzelfde blok in `CHANGELOG.md`, wat bij lang-openstaande branches tot
 merge-conflicten leidde. Het per-branch entry-bestand lost dat op: elke branch heeft zijn eigen
 bestand, dus er is niets om over te conflicteren.
 
@@ -161,16 +166,13 @@ git pull --ff-only
 
 ### 7. Na de merge: vouw de changelog entry
 
-Verplaats de inhoud van het entry-bestand naar bovenaan het `## [Unreleased]`-blok in
-`CHANGELOG.md` (nieuwste entry eerst) en verwijder daarna het entry-bestand. Dit gebeurt zonder
-aparte toestemming — het hoort bij het afronden van de zojuist goedgekeurde merge, net als de
-branch-opruiming in stap 6.
+Vouw het entry-bestand bovenaan het `## Pull Requests`-blok in `CHANGELOG.md` (nieuwste entry eerst)
+en verwijder daarna het entry-bestand. Dit gebeurt zonder aparte toestemming — het hoort bij het
+afronden van de zojuist goedgekeurde merge, net als de branch-opruiming in stap 6.
 
-> **Let op — de gedeelde `fold-changelog`-skill werkt hier nog niet.** Dat script zoekt een
-> `## Pull Requests`-kop; deze repo gebruikt het Keep-a-Changelog-formaat met `## [Unreleased]`,
-> en de kop staat in het script hardcoded (er is geen `Get-ChangelogHeading` in het contract van
-> `scripts/repo-config.ps1`). Tot dat in de bron-repo is opgelost gaat het vouwen hier met de hand.
-> Dit hoort als `inbound`-issue naar de workshop-repo, niet als lokale workaround.
+Gebruik hiervoor de gedeelde `fold-changelog`-skill uit de specialists-plugin. Die zet het
+PR-nummer voor de titel, hangt de `[PR #NN](...)`-regel onderaan en plaatst de entry na de
+intro-alinea maar boven de bestaande entries. Het entry-bestand wordt door de skill zelf verwijderd.
 
 Commit het resultaat direct op `main` — dit is een van de twee toegestane directe main-commits:
 
@@ -179,7 +181,7 @@ git add CHANGELOG.md [branch-naam-met-koppeltekens].md
 git commit -m "chore: fold changelog entry [branch]"
 ```
 
-`main` houdt zo een groeiend `[Unreleased]`-blok bij van alles wat gemergd maar nog niet live is.
+`main` houdt zo een groeiend `## Pull Requests`-blok bij van alles wat gemergd maar nog niet live is.
 Meerdere branches mogen hier dagen of weken opstapelen voor de volgende live-push.
 
 **Pushen van deze fold-commit naar `origin` gebeurt niet automatisch** — dat blijft, net als elke
@@ -224,18 +226,24 @@ Wanneer de gebruiker zegt "commit en push live" of "maak een nieuwe release en p
    - MINOR (`x.Y+1.0`): nieuwe content, feature, backwards-compatible
    - MAJOR: ingrijpende verbouwing (zelden)
 5. **Maak de development-release note** aan (altijd, elke Patch/Minor/Major):
-   `releases/development/<major.minor>/<versie>.md` — gebruik de `[Unreleased]`-sectie uit
-   `CHANGELOG.md` als inhoud, inclusief het metadata-blok (`**Branch naam**`,
-   `**Datum merge op main**`, `**Branch type**`) onder elke heading
+   `releases/development/<major.minor>/<versie>.md` — gebruik de entries uit de
+   `## Pull Requests`-sectie van `CHANGELOG.md` als inhoud, met hun koppen
+   (`### #NN · Titel · Type · datum`) en `[PR #NN](...)`-regels intact
 6. **Maak de highlights-versie** aan (alleen bij Minor of Major):
    `releases/highlights/<major.minor>/<versie>.md` — dezelfde wijzigingen, herschreven in
-   leesbaar Nederlands zonder jargon en zonder branch-metadata (geen branch-namen, merge-datums
+   leesbaar Nederlands zonder jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums
    of branch-types), bedoeld voor stakeholders/collega's in plaats van developers
-7. **Update `CHANGELOG.md`**: hernoem `[Unreleased]` naar
-   `[v<versie>] - <datum> — Patch/Minor/Major`, vervang alle branch-details door één
-   `Zie [releases/development/...]`-regel (de details staan al in de release note), voeg
-   `← LIVE` toe aan de nieuwe versie, verwijder `← LIVE` bij de vorige versie, en maak een vers
-   leeg `## [Unreleased]` bovenaan aan
+7. **Update `CHANGELOG.md`**: haal de entries uit `## Pull Requests` weg (ze staan nu in de release
+   note) zodat die sectie leeg achterblijft met alleen zijn intro-alinea, en zet bovenaan
+   `## Releases` een nieuw blok:
+   ```markdown
+   ### [v<versie>] - <datum> — Patch/Minor/Major ← LIVE
+
+   Zie [releases/development/<major.minor>/<versie>.md](releases/development/<major.minor>/<versie>.md)
+   ```
+   Verwijder daarbij `← LIVE` bij de vorige versie. Ga je de release cutten zonder direct te
+   deployen, laat `← LIVE` dan staan waar hij staat en zet er een blockquote onder dat deze versie
+   gecut maar nog niet live is
 8. **Voeg versie toe** aan overzichtstabel in `releases/README.md` (bovenaan), linkend naar de
    development-versie
 9. **Stage en commit** op de feature branch
@@ -296,8 +304,8 @@ in `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1`.
 
 - **`new-branch`** — maakt de branch én zijn changelog-entry-bestand in één stap (stap 1–3).
 - **`open-pr`** — draait de lint-poort en opent de PR (stap 4). Alleen op verzoek van Dave.
-- **`fold-changelog`** — vouwt het entry-bestand in `CHANGELOG.md` (stap 7). **Werkt hier nog
-  niet**, zie de waarschuwing bij stap 7.
+- **`fold-changelog`** — vouwt het entry-bestand in de `## Pull Requests`-sectie van
+  `CHANGELOG.md`, verrijkt met PR-nummer en PR-link (stap 7).
 - **`sync-roster`** — zet ontbrekende repo-lenzen neer als het roster achterloopt op de plugin.
 
 Repo-eigen scripts:
@@ -323,5 +331,5 @@ gebeuren nog handmatig.
 - **Nooit "final" in een branchnaam.** Gebruik `-v2`, `-v3` etc. voor een tweede poging.
 - Na een merge: de branch is al opgeruimd via `gh pr merge --delete-branch` (stap 6).
 - Releases & versienummering: zie `releases/README.md` en de Release Workflow hierboven. Elke
-  live-push verwerkt `CHANGELOG.md`'s `[Unreleased]`-blok, verhoogt een SemVer-versie, voegt een
+  live-push verwerkt `CHANGELOG.md`'s `## Pull Requests`-blok, verhoogt een SemVer-versie, voegt een
   release note toe, en krijgt een annotated tag `vX.Y.Z`.
