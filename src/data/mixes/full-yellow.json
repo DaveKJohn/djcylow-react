@@ -1,16 +1,20 @@
 [
   {
     "id": "20260303",
+    "id_spotify": "mmc_edm_128bpm_full_m_yellow_20260303",
     "title": "Tech House Mix · Yellow Full (m) · Vol. 1",
+    "title_spotify": "EDM 128BPM 🟡 Yellow Full (m) 🟡 Vol. 1 🟡 20260303",
     "description_nl": "Tech House mix van DJ Cylow. Zonnige dansenergie vol dopamine, groovy kicks en melodische house vibes. Perfect voor een feestelijke dag of avondrit.",
     "description_en": "Tech House mix by DJ Cylow. Sunny dance energy full of dopamine, groovy kicks and melodic house vibes. Perfect for a festive day or evening drive.",
     "genre": "House",
     "subgenre": "Tech House",
+    "bpm": 128,
     "color": "Yellow",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 1",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2026-03-03",
     "jaar": "2026",
     "maand": "Mar",
     "dag": "03",
@@ -51,6 +55,7 @@
       "happy dance music",
       "dance floor mix"
     ],
+    "tracks": 33,
     "tracklist": [
       {
         "time": "01:00",
@@ -188,16 +193,20 @@
   },
   {
     "id": "20231106",
+    "id_spotify": "mmc_edm_176bpm_full_m_yellow_20231106",
     "title": "Liquid Drum & Bass Mix · Yellow Full (m) · Vol. 2",
+    "title_spotify": "EDM 176BPM 🟡 Yellow Full (m) 🟡 Vol. 2 🟡 20231106",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Explosieve energie en positieve dansvibes voor een onvergetelijk thuisfeest vol zonnige basslines en melodische drops.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Explosive energy and positive dance vibes for an unforgettable house party full of sunny basslines and melodic drops.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Yellow",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 2",
-    "date": "",
+    "volume_spotify": 2,
+    "date": "2023-11-06",
     "jaar": "2023",
     "maand": "Nov",
     "dag": "06",
@@ -238,6 +247,7 @@
       "high energy electronic mix",
       "home party mix"
     ],
+    "tracks": 41,
     "tracklist": [
       {
         "time": "00:00",
@@ -407,16 +417,20 @@
   },
   {
     "id": "20230220",
+    "id_spotify": "mmc_edm_176bpm_full_m_yellow_20230220",
     "title": "Liquid Drum & Bass Mix · Yellow Full (m) · Vol. 1",
+    "title_spotify": "EDM 176BPM 🟡 Yellow Full (m) 🟡 Vol. 1 🟡 20230220",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vrolijk en vol zonnige dansenergie, met aanstekelijke basslines en opbouwende melodieën. Ideaal voor een lange rit.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Joyful and full of sunny dance energy, with infectious basslines and building melodies. Ideal for a long drive.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Yellow",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 1",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2023-02-20",
     "jaar": "2023",
     "maand": "Feb",
     "dag": "20",
@@ -457,6 +471,7 @@
       "energetic dnb",
       "rave mix 2023"
     ],
+    "tracks": 34,
     "tracklist": [
       {
         "time": "00:00",

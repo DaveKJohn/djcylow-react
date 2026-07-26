@@ -1,16 +1,20 @@
 [
   {
     "id": "20260507",
+    "id_spotify": "mmc_edm_176bpm_full_m_orange_20260507",
     "title": "Dancefloor Drum & Bass Mix · Orange Full (m) · Vol. 9",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (m) 🟠 Vol. 4 🟠 20260507",
     "description_nl": "Dancefloor Drum & Bass mix van DJ Cylow. Euforisch en vol energie, met pumping basslines en melodische drops. Ideaal voor een zomers thuisfeest of festival.",
     "description_en": "Dancefloor Drum & Bass mix by DJ Cylow. Euphoric and full of energy, with pumping basslines and melodic drops. Ideal for a summer house party or festival.",
     "genre": "Drum & Bass",
     "subgenre": "Dancefloor Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 9",
-    "date": "",
+    "volume_spotify": 4,
+    "date": "2026-05-07",
     "jaar": "2026",
     "maand": "May",
     "dag": "07",
@@ -51,6 +55,7 @@
       "electronic dance music mix",
       "ram records style"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",
@@ -200,16 +205,20 @@
   },
   {
     "id": "20250521",
+    "id_spotify": "mmc_edm_176bpm_full_f_orange_20250521",
     "title": "Liquid Drum & Bass Mix · Orange Full (f) · Vol. 8",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (f) 🟠 Vol. 5 🟠 20250521",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Warm en feestelijk, vol melodische energie en zonnige vibes. Perfect voor een lange zomerse rit of buitenfeest.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Warm and festive, full of melodic energy and sunny vibes. Perfect for a long summer drive or outdoor party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 8",
-    "date": "",
+    "volume_spotify": 5,
+    "date": "2025-05-21",
     "jaar": "2025",
     "maand": "May",
     "dag": "21",
@@ -251,6 +260,7 @@
       "hospital records style",
       "ram records style"
     ],
+    "tracks": 40,
     "tracklist": [
       {
         "time": "00:00",
@@ -416,16 +426,20 @@
   },
   {
     "id": "20231218",
+    "id_spotify": "mmc_edm_176bpm_full_f_orange_20231218",
     "title": "Liquid Drum & Bass Mix · Orange Full (f) · Vol. 7",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (f) 🟠 Vol. 4 🟠 20231218",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Opbouwende energie en feestelijke kracht vol diepe drops en melodische breaks. Ideaal voor een winternachtsessie.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Building energy and festive power with deep drops and melodic breaks. Ideal for a winter night session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 7",
-    "date": "",
+    "volume_spotify": 4,
+    "date": "2023-12-18",
     "jaar": "2023",
     "maand": "Dec",
     "dag": "18",
@@ -467,6 +481,7 @@
       "ram records style",
       "hospital records style"
     ],
+    "tracks": 44,
     "tracklist": [
       {
         "time": "00:00",
@@ -648,16 +663,20 @@
   },
   {
     "id": "20230705",
+    "id_spotify": "mmc_edm_176bpm_full_m_orange_20230705",
     "title": "Liquid Drum & Bass Mix · Orange Full (m) · Vol. 6",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (m) 🟠 Vol. 3 🟠 20230705",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Harde positieve energie en uptempo beats voor een zomers feestje vol dansbare basslines en krachtige drops.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Hard positive energy and uptempo beats for a summer party full of dancefloor basslines and powerful drops.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 6",
-    "date": "",
+    "volume_spotify": 3,
+    "date": "2023-07-05",
     "jaar": "2023",
     "maand": "Jul",
     "dag": "05",
@@ -699,6 +718,7 @@
       "ram records style",
       "positiva records style"
     ],
+    "tracks": 42,
     "tracklist": [
       {
         "time": "00:00",
@@ -872,16 +892,20 @@
   },
   {
     "id": "20230130",
+    "id_spotify": "mmc_edm_176bpm_full_f_orange_20230130",
     "title": "Liquid Drum & Bass Mix · Orange Full (f) · Vol. 5",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (f) 🟠 Vol. 3 🟠 20230130",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Vurige energie en warme basslines vol melodische flow en emotionele drops. Perfect voor een late avondsessie thuis.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Fiery energy and warm basslines full of melodic flow and emotional drops. Perfect for a late-night home session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 5",
-    "date": "",
+    "volume_spotify": 3,
+    "date": "2023-01-30",
     "jaar": "2023",
     "maand": "Jan",
     "dag": "30",
@@ -923,6 +947,7 @@
       "hospital records style",
       "ram records style"
     ],
+    "tracks": 37,
     "tracklist": [
       {
         "time": "00:00",
@@ -1076,16 +1101,20 @@
   },
   {
     "id": "20221003",
+    "id_spotify": "mmc_edm_176bpm_full_m_orange_20221003",
     "title": "Liquid Drum & Bass Mix · Orange Full (m) · Vol. 4",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (m) 🟠 Vol. 2 🟠 20221003",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Krachtig en euforisch, strak geprogrammeerd met harde drops en melodische progressies. Voor een knallend thuisfeest.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Powerful and euphoric, tightly programmed with hard drops and melodic progressions. For a banging house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 4",
-    "date": "",
+    "volume_spotify": 2,
+    "date": "2022-10-03",
     "jaar": "2022",
     "maand": "Oct",
     "dag": "03",
@@ -1127,6 +1156,7 @@
       "ram records style",
       "hospital records style"
     ],
+    "tracks": 35,
     "tracklist": [
       {
         "time": "00:00",
@@ -1272,16 +1302,20 @@
   },
   {
     "id": "20220509",
+    "id_spotify": "mmc_edm_176bpm_full_f_orange_20220509",
     "title": "Liquid Drum & Bass Mix · Orange Full (f) · Vol. 3",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (f) 🟠 Vol. 2 🟠 20220509",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodieus en feestelijk, met een warme flow en aanstekelijke basslines. Perfect voor een lange rit of avondsessie.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and festive, with a warm flow and infectious basslines. Perfect for a long drive or evening session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 3",
-    "date": "",
+    "volume_spotify": 2,
+    "date": "2022-05-09",
     "jaar": "2022",
     "maand": "May",
     "dag": "09",
@@ -1323,6 +1357,7 @@
       "hospital records style",
       "ram records style"
     ],
+    "tracks": 34,
     "tracklist": [
       {
         "time": "00:00",
@@ -1464,16 +1499,20 @@
   },
   {
     "id": "20211105",
+    "id_spotify": "mmc_edm_176bpm_full_m_orange_20211105",
     "title": "Liquid Drum & Bass Mix · Orange Full (m) · Vol. 2",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (m) 🟠 Vol. 1 🟠 20211105",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Pompende energie en brede basslines vol krachtige drops en dansbare melodieën. Ideaal voor een avond vol beweging.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Pumping energy and wide basslines full of powerful drops and danceable melodies. Ideal for an evening of movement.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 2",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2021-11-05",
     "jaar": "2021",
     "maand": "Nov",
     "dag": "05",
@@ -1515,6 +1554,7 @@
       "ram records style",
       "hospital records style"
     ],
+    "tracks": 37,
     "tracklist": [
       {
         "time": "00:00",
@@ -1668,16 +1708,20 @@
   },
   {
     "id": "20210621",
+    "id_spotify": "mmc_edm_176bpm_full_f_orange_20210621",
     "title": "Liquid Drum & Bass Mix · Orange Full (f) · Vol. 1",
+    "title_spotify": "EDM 176BPM 🟠 Orange Full (f) 🟠 Vol. 1 🟠 20210621",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. De allereerste Orange Full, vol warmte en opbouwende kracht voor een feestelijke avond. Zo begon het allemaal.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. The very first Orange Full, full of warmth and building power for a festive evening. This is where it all began.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 1",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2021-06-21",
     "jaar": "2021",
     "maand": "Jun",
     "dag": "21",
@@ -1719,6 +1763,7 @@
       "hospital records style",
       "ram records style"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",

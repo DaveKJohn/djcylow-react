@@ -27,15 +27,19 @@ import fullYellow from '@/data/mixes/full-yellow.json';
 // TypeScript gebruikt dit om fouten te vangen als je een veld verkeerd gebruikt.
 interface Mix {
     id: string;
+    id_spotify: string;      // Spotify-identifier, bijv. mmc_edm_128bpm_light_m_yellow_20251021
     featured: boolean;
     ignore: boolean;
     title: string;
+    title_spotify: string;   // Titel zoals gebruikt bij de Spotify-upload (met kleur-emoji)
     genre: string;
     subgenre: string;
+    bpm: number;             // Tempo van de mix; Drum & Bass is altijd 176
     color: string;
     power: string;
     frequency: string;
     volume: string;
+    volume_spotify: number;  // Doorlopende nummering per kleur+power+frequentie+bpm, los van het subgenre
     date: string;
     jaar: string;
     maand: string;
@@ -49,6 +53,7 @@ interface Mix {
     description_en?: string;     // Engelse beschrijving (toekomstige EN-pagina)
     tags?: string[];            // ? = optioneel veld
     top_artists?: string[];     // ? = optioneel veld
+    tracks: number;             // Aantal items in tracklist; vooraf geteld zodat het niet elke keer opnieuw hoeft
     tracklist: { time: string; track: string }[];
 }
 

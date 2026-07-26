@@ -1,16 +1,20 @@
 [
   {
     "id": "20260101",
+    "id_spotify": "mmc_edm_128bpm_light_f_orange_20260101",
     "title": "Progressive House Mix · Orange Light (f) · Vol. 7",
+    "title_spotify": "EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 7 🟠 20260101",
     "description_nl": "Progressive House mix van DJ Cylow. Warm en uitnodigend, vol melodische vibes en euforische energie. Ideaal voor een relaxte avond thuis.",
     "description_en": "Progressive House mix by DJ Cylow. Warm and inviting, full of melodic vibes and euphoric energy. Ideal for a relaxed evening at home.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 7",
-    "date": "",
+    "volume_spotify": 7,
+    "date": "2026-01-01",
     "jaar": "2026",
     "maand": "Jan",
     "dag": "01",
@@ -50,6 +54,7 @@
       "electronic music 2026",
       "progressive house DJ set"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -175,16 +180,20 @@
   },
   {
     "id": "20251011",
+    "id_spotify": "mmc_edm_128bpm_light_f_orange_20251011",
     "title": "Progressive House Mix · Orange Light (f) · Vol. 6",
+    "title_spotify": "EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 6 🟠 20251011",
     "description_nl": "Progressive House mix van DJ Cylow. Euforisch en vol energie, met opbouwende drops en melodische synths. Perfect voor een lange rit of thuisfeest.",
     "description_en": "Progressive House mix by DJ Cylow. Euphoric and full of energy, with building drops and melodic synths. Perfect for a long drive or house party.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 6",
-    "date": "",
+    "volume_spotify": 6,
+    "date": "2025-10-11",
     "jaar": "2025",
     "maand": "Oct",
     "dag": "11",
@@ -224,6 +233,7 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
+    "tracks": 33,
     "tracklist": [
       {
         "time": "00:00:00",
@@ -361,16 +371,20 @@
   },
   {
     "id": "20250904",
+    "id_spotify": "mmc_edm_176bpm_light_f_orange_20250904",
     "title": "Liquid Drum & Bass Mix · Orange Light (f) · Vol. 2",
+    "title_spotify": "EDM 176BPM 🟠 Orange Light (f) 🟠 Vol. 1 🟠 20250904",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Sociaal en meeslepend, vol energie en warme basslines. Geweldig voor een thuisfeest of een gezellig samenzijn.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Social and compelling, full of energy and warm basslines. Great for a house party or a lively get-together.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 2",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2025-09-04",
     "jaar": "2025",
     "maand": "Sep",
     "dag": "04",
@@ -410,6 +424,7 @@
       "electronic music 2025",
       "drum and bass DJ set"
     ],
+    "tracks": 32,
     "tracklist": [
       {
         "time": "00:00",
@@ -543,16 +558,20 @@
   },
   {
     "id": "20250813",
+    "id_spotify": "mmc_edm_128bpm_light_f_orange_20250813",
     "title": "Progressive House Mix · Orange Light (f) · Vol. 5",
+    "title_spotify": "EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 5 🟠 20250813",
     "description_nl": "Progressive House mix van DJ Cylow. Uitnodigend en licht, vol zachte melodieën en zonnige sfeer. Perfect voor een ontspannen zonnige middag buiten.",
     "description_en": "Progressive House mix by DJ Cylow. Inviting and light, full of gentle melodies and sunny atmosphere. Perfect for a relaxed afternoon outside.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 5",
-    "date": "",
+    "volume_spotify": 5,
+    "date": "2025-08-13",
     "jaar": "2025",
     "maand": "Aug",
     "dag": "13",
@@ -592,6 +611,7 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
+    "tracks": 31,
     "tracklist": [
       {
         "time": "00:00",
@@ -721,16 +741,20 @@
   },
   {
     "id": "20250224",
+    "id_spotify": "mmc_edm_128bpm_light_f_orange_20250224",
     "title": "Progressive House Mix · Orange Light (f) · Vol. 4",
+    "title_spotify": "EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 4 🟠 20250224",
     "description_nl": "Progressive House mix van DJ Cylow. Dromerig en euforisch, vol heldere melodieën en zachte energie. Ideaal voor een vroege ochtend of rustige middag.",
     "description_en": "Progressive House mix by DJ Cylow. Dreamy and euphoric, full of bright melodies and gentle energy. Ideal for an early morning or a quiet afternoon.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 4",
-    "date": "",
+    "volume_spotify": 4,
+    "date": "2025-02-24",
     "jaar": "2025",
     "maand": "Feb",
     "dag": "24",
@@ -770,6 +794,7 @@
       "electronic music 2025",
       "progressive house DJ set"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -895,16 +920,20 @@
   },
   {
     "id": "20241230",
+    "id_spotify": "mmc_edm_128bpm_light_f_orange_20241230",
     "title": "Progressive House Mix · Orange Light (f) · Vol. 3",
+    "title_spotify": "EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 3 🟠 20241230",
     "description_nl": "Progressive House mix van DJ Cylow. Warm en melancolisch, vol emotionele melodieën en zachte progressies. Ideaal voor een late avond of rustig moment.",
     "description_en": "Progressive House mix by DJ Cylow. Warm and melancholic, full of emotional melodies and gentle progressions. Ideal for a late evening or quiet moment.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 3",
-    "date": "",
+    "volume_spotify": 3,
+    "date": "2024-12-30",
     "jaar": "2024",
     "maand": "Dec",
     "dag": "30",
@@ -944,6 +973,7 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
+    "tracks": 30,
     "tracklist": [
       {
         "time": "00:00",
@@ -1069,16 +1099,20 @@
   },
   {
     "id": "20241114",
+    "id_spotify": "mmc_edm_128bpm_light_f_orange_20241114",
     "title": "Progressive House Mix · Orange Light (f) · Vol. 2",
+    "title_spotify": "EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 2 🟠 20241114",
     "description_nl": "Progressive House mix van DJ Cylow. Sfeervol en betoverend, vol warme harmonieën en donkere melodieën. Perfect voor een herfstavond sessie thuis.",
     "description_en": "Progressive House mix by DJ Cylow. Atmospheric and enchanting, full of warm harmonies and dark melodies. Perfect for an autumn evening session.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 2",
-    "date": "",
+    "volume_spotify": 2,
+    "date": "2024-11-14",
     "jaar": "2024",
     "maand": "Nov",
     "dag": "14",
@@ -1118,6 +1152,7 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
+    "tracks": 29,
     "tracklist": [
       {
         "time": "00:00",
@@ -1239,16 +1274,20 @@
   },
   {
     "id": "20240705",
+    "id_spotify": "mmc_edm_128bpm_light_f_orange_20240705",
     "title": "Progressive House Mix · Orange Light (f) · Vol. 1",
+    "title_spotify": "EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 1 🟠 20240705",
     "description_nl": "Progressive House mix van DJ Cylow. Opwekkend en vol leven, met energieke melodieën en opbouwende kracht. De perfecte start voor een feest of zomerdag.",
     "description_en": "Progressive House mix by DJ Cylow. Uplifting and full of life, with energetic melodies and building power. The perfect opener for a party or summer day.",
     "genre": "House",
     "subgenre": "Progressive House",
+    "bpm": 128,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 1",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2024-07-05",
     "jaar": "2024",
     "maand": "Jul",
     "dag": "05",
@@ -1288,6 +1327,7 @@
       "electronic music 2024",
       "progressive house DJ set"
     ],
+    "tracks": 33,
     "tracklist": [
       {
         "time": "00:00",
@@ -1425,15 +1465,19 @@
   },
   {
     "id": "orange_light_preview",
+    "id_spotify": "",
     "title": "Orange Light (f)",
+    "title_spotify": "",
     "description_nl": "",
     "description_en": "",
     "genre": "EDM",
     "subgenre": "",
+    "bpm": 0,
     "color": "Orange",
     "power": "Light",
     "frequency": "(f)",
     "volume": "",
+    "volume_spotify": 0,
     "date": "",
     "jaar": "",
     "maand": "",
@@ -1446,6 +1490,7 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   }
 ]

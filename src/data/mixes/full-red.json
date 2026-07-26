@@ -1,16 +1,20 @@
 [
   {
     "id": "20240226",
+    "id_spotify": "mmc_edm_176bpm_full_m_red_20240226",
     "title": "Dancefloor Drum & Bass Mix · Red Full (m) · Vol. 4",
+    "title_spotify": "EDM 176BPM 🔴 Red Full (m) 🔴 Vol. 4 🔴 20240226",
     "description_nl": "Dancefloor Drum & Bass mix van DJ Cylow. Explosieve energie en maximale adrenaline van begin tot einde. Ideaal voor een festival, workout of een intense thuissessie.",
     "description_en": "Dancefloor Drum & Bass mix by DJ Cylow. Explosive energy and maximum adrenaline from start to finish. Ideal for a festival, workout, or an intense home session.",
     "genre": "Drum & Bass",
     "subgenre": "Dancefloor Drum & Bass",
+    "bpm": 176,
     "color": "Red",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 4",
-    "date": "",
+    "volume_spotify": 4,
+    "date": "2024-02-26",
     "jaar": "2024",
     "maand": "Feb",
     "dag": "26",
@@ -51,6 +55,7 @@
       "rave mix 2024",
       "heavy bass mix"
     ],
+    "tracks": 44,
     "tracklist": [
       {
         "time": "00:00",
@@ -232,16 +237,20 @@
   },
   {
     "id": "20230502",
+    "id_spotify": "mmc_edm_176bpm_full_m_red_20230502",
     "title": "Dancefloor Drum & Bass Mix · Red Full (m) · Vol. 3",
+    "title_spotify": "EDM 176BPM 🔴 Red Full (m) 🔴 Vol. 3 🔴 20230502",
     "description_nl": "Dancefloor Drum & Bass mix van DJ Cylow. Ongenadige kracht en non-stop drive van harde basslines en technische programmeringen. Perfect voor een thuisfeest of workout.",
     "description_en": "Dancefloor Drum & Bass mix by DJ Cylow. Relentless power and non-stop drive of hard basslines and technical programming. Perfect for a house party or workout.",
     "genre": "Drum & Bass",
     "subgenre": "Dancefloor Drum & Bass",
+    "bpm": 176,
     "color": "Red",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 3",
-    "date": "",
+    "volume_spotify": 3,
+    "date": "2023-05-02",
     "jaar": "2023",
     "maand": "May",
     "dag": "02",
@@ -283,6 +292,7 @@
       "heavy bass mix",
       "gaming mix"
     ],
+    "tracks": 35,
     "tracklist": [
       {
         "time": "00:00",
@@ -428,16 +438,20 @@
   },
   {
     "id": "20230403",
+    "id_spotify": "mmc_edm_176bpm_full_m_red_20230403",
     "title": "Dancefloor Drum & Bass Mix · Red Full (m) · Vol. 2",
+    "title_spotify": "EDM 176BPM 🔴 Red Full (m) 🔴 Vol. 2 🔴 20230403",
     "description_nl": "Dancefloor Drum & Bass mix van DJ Cylow. Donkere basslines, agressieve energie en technische drumpatronen. Rauw en compromisloos voor de fanatieke DnB-liefhebber.",
     "description_en": "Dancefloor Drum & Bass mix by DJ Cylow. Dark basslines, aggressive energy and technical drum patterns. Raw and uncompromising for the dedicated DnB enthusiast.",
     "genre": "Drum & Bass",
     "subgenre": "Dancefloor Drum & Bass",
+    "bpm": 176,
     "color": "Red",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 2",
-    "date": "",
+    "volume_spotify": 2,
+    "date": "2023-04-03",
     "jaar": "2023",
     "maand": "Apr",
     "dag": "03",
@@ -478,6 +492,7 @@
       "rave mix 2023",
       "dark bass music mix"
     ],
+    "tracks": 35,
     "tracklist": [
       {
         "time": "00:00",
@@ -623,16 +638,20 @@
   },
   {
     "id": "20220711",
+    "id_spotify": "mmc_edm_176bpm_full_m_red_20220711",
     "title": "Dancefloor Drum & Bass Mix · Red Full (m) · Vol. 1",
+    "title_spotify": "EDM 176BPM 🔴 Red Full (m) 🔴 Vol. 1 🔴 20220711",
     "description_nl": "Dancefloor Drum & Bass mix van DJ Cylow. Vol spanning en pure festivalvibes, van begin tot einde op volle kracht met harde drops en meedogenloze energie.",
     "description_en": "Dancefloor Drum & Bass mix by DJ Cylow. Full of tension and pure festival vibes, all-out from start to finish with hard drops and relentless energy.",
     "genre": "Drum & Bass",
     "subgenre": "Dancefloor Drum & Bass",
+    "bpm": 176,
     "color": "Red",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 1",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2022-07-11",
     "jaar": "2022",
     "maand": "Jul",
     "dag": "11",
@@ -674,6 +693,7 @@
       "heavy bass mix",
       "focus music"
     ],
+    "tracks": 39,
     "tracklist": [
       {
         "time": "00:00",

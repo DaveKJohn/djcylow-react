@@ -1,16 +1,20 @@
 [
   {
     "id": "20240108",
+    "id_spotify": "mmc_edm_176bpm_full_m_purple_20240108",
     "title": "Liquid Drum & Bass Mix · Purple Full (m) · Vol. 4",
+    "title_spotify": "EDM 176BPM 🟣 Purple Full (m) 🟣 Vol. 2 🟣 20240108",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Emotioneel en donker, met diepe melodieën en sombere sfeer. Ideaal voor een late night sessie of slapeloos moment.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Emotional and dark, with deep melodies and a sombre atmosphere. Ideal for a late night session or sleepless hour.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Purple",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 4",
-    "date": "",
+    "volume_spotify": 2,
+    "date": "2024-01-08",
     "jaar": "2024",
     "maand": "Jan",
     "dag": "08",
@@ -51,6 +55,7 @@
       "focus music",
       "intense dnb mix"
     ],
+    "tracks": 46,
     "tracklist": [
       {
         "time": "00:00",
@@ -240,16 +245,20 @@
   },
   {
     "id": "20230506",
+    "id_spotify": "mmc_edm_176bpm_full_f_purple_20230506",
     "title": "Liquid Drum & Bass Mix · Purple Full (f) · Vol. 3",
+    "title_spotify": "EDM 176BPM 🟣 Purple Full (f) 🟣 Vol. 2 🟣 20230506",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Krachtig en melodisch, vol energy en emotie die je in beweging brengt. Perfect voor een avondrit of thuisfeest.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Powerful and melodic, full of energy and emotion that gets you moving. Perfect for a night drive or house party.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Purple",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 3",
-    "date": "",
+    "volume_spotify": 2,
+    "date": "2023-05-06",
     "jaar": "2023",
     "maand": "May",
     "dag": "06",
@@ -289,6 +298,7 @@
       "high energy dnb",
       "party mix"
     ],
+    "tracks": 37,
     "tracklist": [
       {
         "time": "00:00",
@@ -442,16 +452,20 @@
   },
   {
     "id": "20221031",
+    "id_spotify": "mmc_edm_176bpm_full_m_purple_20221031",
     "title": "Liquid Drum & Bass Mix · Purple Full (m) · Vol. 2",
+    "title_spotify": "EDM 176BPM 🟣 Purple Full (m) 🟣 Vol. 1 🟣 20221031",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Spiritueel en zwaar, met een donkere sfeer die je volledig meesleept in diepe basslijnen en emotionele melodieën.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Spiritual and heavy, with a dark atmosphere that pulls you deep into heavy basslines and emotional melodies.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Purple",
     "power": "Full",
     "frequency": "(m)",
     "volume": "Vol. 2",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2022-10-31",
     "jaar": "2022",
     "maand": "Oct",
     "dag": "31",
@@ -491,6 +505,7 @@
       "intense dnb mix",
       "dark electronic music"
     ],
+    "tracks": 38,
     "tracklist": [
       {
         "time": "00:00",
@@ -648,16 +663,20 @@
   },
   {
     "id": "20210412",
+    "id_spotify": "mmc_edm_176bpm_full_f_purple_20210412",
     "title": "Liquid Drum & Bass Mix · Purple Full (f) · Vol. 1",
+    "title_spotify": "EDM 176BPM 🟣 Purple Full (f) 🟣 Vol. 1 🟣 20210412",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melodisch en vol energie, met aanstekelijke basslines en emotionele vlucht. Ideaal voor een lange rit of rustige avond.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melodic and full of energy, with infectious basslines and an emotional lift. Ideal for a long drive or quiet evening.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Purple",
     "power": "Full",
     "frequency": "(f)",
     "volume": "Vol. 1",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2021-04-12",
     "jaar": "2021",
     "maand": "Apr",
     "dag": "12",
@@ -697,6 +716,7 @@
       "uplifting dnb",
       "emotional drum and bass"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",

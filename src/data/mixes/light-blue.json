@@ -1,16 +1,20 @@
 [
   {
     "id": "20241003",
+    "id_spotify": "mmc_edm_176bpm_light_f_blue_20241003",
     "title": "Liquid Drum & Bass Mix · Blue Light (f) · Vol. 6",
+    "title_spotify": "EDM 176BPM 🔵 Blue Light (f) 🔵 Vol. 5 🔵 20241003",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Introspectief en diep, vol warme melodieën en vloeiende basslines. Ideaal voor een stille avond thuis of nachtrit.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Introspective and deep, full of warm melodies and flowing basslines. Ideal for a quiet evening at home or night drive.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Blue",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 6",
-    "date": "",
+    "volume_spotify": 5,
+    "date": "2024-10-03",
     "jaar": "2024",
     "maand": "Oct",
     "dag": "03",
@@ -49,6 +53,7 @@
       "introspective drum and bass",
       "liquid dnb 2024"
     ],
+    "tracks": 33,
     "tracklist": [
       {
         "time": "00:00",
@@ -186,16 +191,20 @@
   },
   {
     "id": "20231016",
+    "id_spotify": "mmc_edm_176bpm_light_f_blue_20231016",
     "title": "Liquid Drum & Bass Mix · Blue Light (f) · Vol. 5",
+    "title_spotify": "EDM 176BPM 🔵 Blue Light (f) 🔵 Vol. 4 🔵 20231016",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melancolisch en sfeervol, met emotionele melodieën en diepe atmosfeer. Perfect voor een late night sessie.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melancholic and atmospheric, with emotional melodies and deep ambience. Perfect for a late night session.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Blue",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 5",
-    "date": "",
+    "volume_spotify": 4,
+    "date": "2023-10-16",
     "jaar": "2023",
     "maand": "Oct",
     "dag": "16",
@@ -234,6 +243,7 @@
       "soulful dnb mix",
       "chill drum and bass 2023"
     ],
+    "tracks": 43,
     "tracklist": [
       {
         "time": "00:00",
@@ -411,16 +421,20 @@
   },
   {
     "id": "20230206",
+    "id_spotify": "mmc_edm_176bpm_light_f_blue_20230206",
     "title": "Liquid Drum & Bass Mix · Blue Light (f) · Vol. 4",
+    "title_spotify": "EDM 176BPM 🔵 Blue Light (f) 🔵 Vol. 3 🔵 20230206",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Dromerig en emotioneel, vol vloeiende melodieën en zachte basslines. Perfect voor een lange avondrit of rustig moment.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Dreamy and emotional, full of flowing melodies and gentle basslines. Perfect for a long evening drive or quiet moment.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Blue",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 4",
-    "date": "",
+    "volume_spotify": 3,
+    "date": "2023-02-06",
     "jaar": "2023",
     "maand": "Feb",
     "dag": "06",
@@ -459,6 +473,7 @@
       "atmospheric liquid dnb",
       "chill drum and bass 2023"
     ],
+    "tracks": 40,
     "tracklist": [
       {
         "time": "00:00",
@@ -624,16 +639,20 @@
   },
   {
     "id": "20221212",
+    "id_spotify": "mmc_edm_176bpm_light_f_blue_20221212",
     "title": "Liquid Drum & Bass Mix · Blue Light (f) · Vol. 3",
+    "title_spotify": "EDM 176BPM 🔵 Blue Light (f) 🔵 Vol. 2 🔵 20221212",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Diep en weemoedig, vol zachte basslines en dromerige melodieën. Perfect voor een koude winteravond thuis.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Deep and wistful, full of soft basslines and dreamy melodies. Perfect for a cold winter evening at home.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Blue",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 3",
-    "date": "",
+    "volume_spotify": 2,
+    "date": "2022-12-12",
     "jaar": "2022",
     "maand": "Dec",
     "dag": "12",
@@ -672,6 +691,7 @@
       "soulful liquid dnb",
       "chill drum and bass 2022"
     ],
+    "tracks": 35,
     "tracklist": [
       {
         "time": "00:00",
@@ -817,16 +837,20 @@
   },
   {
     "id": "20210930",
+    "id_spotify": "mmc_edm_176bpm_light_f_blue_20210930",
     "title": "Liquid Drum & Bass Mix · Blue Light (f) · Vol. 2",
+    "title_spotify": "EDM 176BPM 🔵 Blue Light (f) 🔵 Vol. 1 🔵 20210930",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Melancholisch en innerlijk, met vloeiende basslines en emotionele melodieën voor een rustige thuisavond.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Melancholic and introspective, with flowing basslines and emotional melodies for a peaceful evening at home.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Blue",
     "power": "Light",
     "frequency": "(f)",
     "volume": "Vol. 2",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2021-09-30",
     "jaar": "2021",
     "maand": "Sep",
     "dag": "30",
@@ -865,6 +889,7 @@
       "chill drum and bass 2021",
       "atmospheric liquid dnb"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",
@@ -1014,16 +1039,20 @@
   },
   {
     "id": "20210723",
+    "id_spotify": "mmc_edm_176bpm_light_m_blue_20210723",
     "title": "Liquid Drum & Bass Mix · Blue Light (m) · Vol. 1",
+    "title_spotify": "EDM 176BPM 🔵 Blue Light (m) 🔵 Vol. 1 🔵 20210723",
     "description_nl": "Liquid Drum & Bass mix van DJ Cylow. Zacht en reflectief, vol dromerige klanken en emotionele basslines. De ultieme begeleiding voor een nachtelijk ritje.",
     "description_en": "Liquid Drum & Bass mix by DJ Cylow. Soft and reflective, full of dreamy sounds and emotional basslines. The ultimate companion for a midnight drive.",
     "genre": "Drum & Bass",
     "subgenre": "Liquid Drum & Bass",
+    "bpm": 176,
     "color": "Blue",
     "power": "Light",
     "frequency": "(m)",
     "volume": "Vol. 1",
-    "date": "",
+    "volume_spotify": 1,
+    "date": "2021-07-23",
     "jaar": "2021",
     "maand": "Jul",
     "dag": "23",
@@ -1062,6 +1091,7 @@
       "atmospheric liquid dnb",
       "midnight drive mix"
     ],
+    "tracks": 36,
     "tracklist": [
       {
         "time": "00:00",
@@ -1211,15 +1241,19 @@
   },
   {
     "id": "blue_light_preview",
+    "id_spotify": "",
     "title": "Blue Light (f)",
+    "title_spotify": "",
     "description_nl": "",
     "description_en": "",
     "genre": "EDM",
     "subgenre": "",
+    "bpm": 0,
     "color": "Blue",
     "power": "Light",
     "frequency": "(f)",
     "volume": "",
+    "volume_spotify": 0,
     "date": "",
     "jaar": "",
     "maand": "",
@@ -1232,6 +1266,7 @@
     "featured": true,
     "ignore": true,
     "top_artists": [],
+    "tracks": 0,
     "tracklist": []
   }
 ]
