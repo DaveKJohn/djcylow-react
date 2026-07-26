@@ -9,12 +9,11 @@
 
     Levert Get-BranchTypes, Get-BranchPrefix, Get-BranchInfo en Test-BranchName. De prefix-tabel
     bepaalt zowel het GitHub-label van de PR als het branch-type van de changelog-entry, en is PER
-    REPO anders. De tabel hieronder is afgeleid uit de werkelijke geschiedenis van deze repo: de
-    branch-prefixes uit de merge-commits (docs/, fix/, config/) en de "**Branch type**"-regels in
-    CHANGELOG.md plus releases/development/ (Docs, Fix, Config, Feature, Data, Content).
+    REPO anders.
 
-    De canonieke bron van de taxonomie is de tabel in workflow/workflow-CLAUDE.md, stap 2; deze
-    tabel spiegelt die. De labels volgen de standaard GitHub-labels: enhancement / bug /
+    De canonieke bron van de taxonomie is de tabel in CLAUDE.md, onder "Ontwikkelworkflow" stap 2;
+    deze tabel spiegelt die. Leid hem niet af uit de git-historie - die mist prefixen die wel
+    bestaan (zo ontbrak style/ erin). De labels volgen de standaard GitHub-labels: enhancement / bug /
     documentation. Wijzigt de taxonomie? Dan op beide plekken - en nergens anders: alle scripts
     lezen deze ene tabel.
 

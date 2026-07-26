@@ -112,7 +112,7 @@ De volledige werkwijze staat in [`workflow/workflow-CLAUDE.md`](../workflow/work
 onder **Release Workflow**. Kort samengevat:
 
 1. Bepaal het versienummer (zie semver-tabel hierboven).
-2. Maak de development-versie aan (altijd): `releases/development/<major.minor>/<versie>.md` — gebruik de `[Unreleased]` sectie uit `CHANGELOG.md` als basis. Formaat:
+2. Maak de development-versie aan (altijd): `releases/development/<major.minor>/<versie>.md` — gebruik de entries uit de `## Pull Requests` sectie van `CHANGELOG.md` als basis. Formaat:
    ```markdown
    # v<versie> — <korte titel>
    **Datum:** YYYY-MM-DD
@@ -122,16 +122,15 @@ onder **Release Workflow**. Kort samengevat:
 
    <korte samenvatting van alle wijzigingen>
 
-   ### Korte sterke titel van de wijziging
-   **Branch naam** branch-naam
-   **Datum merge op main** YYYY-MM-DD
-   **Branch type** Docs/Feature/Fix/Data/Content/Style/Config
+   ### #NN · Korte sterke titel van de wijziging · Docs · YYYY-MM-DD
 
    <beschrijving>
+
+   [PR #NN](https://github.com/DaveKJohn/djcylow-react/pull/NN)
    ```
-3. Maak bij Minor/Major ook de highlights-versie aan: `releases/highlights/<major.minor>/<versie>.md` — dezelfde inhoud herschreven in leesbaar Nederlands zonder jargon, zonder branch-namen/merge-datums/branch-types.
+3. Maak bij Minor/Major ook de highlights-versie aan: `releases/highlights/<major.minor>/<versie>.md` — dezelfde inhoud herschreven in leesbaar Nederlands zonder jargon, zonder PR-nummers/merge-datums/branch-types.
 4. Voeg de versie toe aan de overzichtstabel in deze README (bovenaan de tabel), linkend naar de development-versie.
-5. Update `CHANGELOG.md`: hernoem `[Unreleased]` naar `[v<versie>] - YYYY-MM-DD — Patch/Minor/Major`.
+5. Update `CHANGELOG.md`: haal de entries uit `## Pull Requests` weg en zet bovenaan `## Releases` een blok `### [v<versie>] - YYYY-MM-DD — Patch/Minor/Major` met een `Zie [releases/development/...]`-regel.
 6. Tag en push via de stappen in [`workflow/workflow-CLAUDE.md`](../workflow/workflow-CLAUDE.md).
 
 ## Overzicht
