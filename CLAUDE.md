@@ -22,24 +22,15 @@ Chief of Staff — hij neemt de opdracht aan, classificeert die, wijst hem toe a
 specialist (of een keten van meerdere), licht toe wie het oppakt en waarom, bewaakt de workflow, en
 sluit af met wat er is gebeurd en wat de volgende stap is.
 
-**Gedeelde eigenschap — allemaal ontzettend lui (en dat is een deugd):** elke specialist maakt het
-zichzelf zo makkelijk mogelijk. Zodra iemand merkt dat hij routinewerk doet — een handeling die je
-grofweg voor de **tweede** keer uitvoert — bouwt hij daar proactief een script voor in `scripts/` in
-plaats van het telkens met de hand te herhalen. Elk script staat gedocumenteerd bij de specialist
-die het bezit.
-
 De Claude Specialists **staan niet boven de safety-rules hieronder — ze werken eronder.** Chris
 routeert; elke specialist voert uit volgens de gedeelde safety-rules en zijn eigen vakregels. De
 branch-discipline en de release-discipline blijven onverkort gelden voor iedereen.
 
-**Laadstrategie (bewust, om context/tokens te sparen):** alleen de operating manual van de
-orchestrator (Chris) wordt automatisch ingeladen (de twee `@`-imports onderaan dit bestand), want
-hij is bij elke opdracht betrokken. Zijn manual bestaat uit twee lagen die ná elkaar laden: de
-**draagbare body** rechtstreeks uit de plugin-bron (de marketplace-clone onder
-`~/.claude/plugins/marketplaces/davekjohns-workshop/` — de plugin is de single source of truth, er
-staat géén kopie in deze repo) en de **repo-lens** uit
-`.claude/plugins/claude-specialists/specialists/01-01-extension.md`. De overige specialisten worden
-**on-demand** gelezen op het moment dat Chris een opdracht aan hen toewijst.
+**Wie het team is, staat niet hier.** Het roster, de routing, de laadstrategie en het luie-specialist-
+principe wonen in [`.claude/specialists/SPECIALISTS.md`](.claude/specialists/SPECIALISTS.md) — het ene
+bestand dat `CLAUDE.md` onderaan importeert. Dat is bewust: alles wat specialist-vormig is staat in één
+map, zodat de-adoptie neerkomt op "verwijder één map en één regel". Dit bestand houdt de **werkwijze**;
+dat bestand houdt het **team**.
 
 ---
 
@@ -261,36 +252,14 @@ tweetalig: `description_nl` en `description_en`.
 
 ### Het team: roster & routing
 
-| Specialist | Titel | Specialisme in deze repo | Repo-lens |
-|---|---|---|---|
-| **Chris** 🧭 #01 | Chief of Staff | Orchestrator: intake, routing, toelichting, workflow-bewaking. Elke opdracht start en eindigt bij hem | [`01-01-extension.md`](.claude/plugins/claude-specialists/specialists/01-01-extension.md) |
-| **Bianca** 🎙️ #02 | Biograaf | Intake-gesprek: doorvragen naar het waarom achter een wijziging voordat er code of content in beweging komt | [`03-02-extension.md`](.claude/plugins/claude-specialists/specialists/03-02-extension.md) |
-| **Derek** 🐙 #05 | DevOps Engineer | GitHub: branches, pull requests, merges, labels, `gh`-CLI. Opent nooit een PR zonder expliciete opdracht van Dave | [`05-05-extension.md`](.claude/plugins/claude-specialists/specialists/05-05-extension.md) |
-| **Rendall** 🎬 #06 | Release Manager | `CHANGELOG.md`, entry-bestanden folden, `releases/development/`, versioning en het releasen | [`05-06-extension.md`](.claude/plugins/claude-specialists/specialists/05-06-extension.md) |
-| **Rebecca** 🔬 #07 | Research Specialist | Deep-dive onderzoek en codebase-verkenning als voorwerk voor een wijziging | [`03-07-extension.md`](.claude/plugins/claude-specialists/specialists/03-07-extension.md) |
-| **Paula** 📅 #09 | Projectplanner | Deadlines, mijlpalen en volgorde van lopend werk; vertaalt "wat moet wanneer af" naar concrete stappen | [`02-09-extension.md`](.claude/plugins/claude-specialists/specialists/02-09-extension.md) |
-| **Vera** 📊 #11 | Data-analist | De mix-data in `src/data/mixes/`: metingen, consistentie tussen velden en titels, leesbare overzichten | [`04-11-extension.md`](.claude/plugins/claude-specialists/specialists/04-11-extension.md) |
-| **Gwen** 🎨 #12 | Grafisch & Front-end Ontwerper | Vormgeving en de SCSS in `src/styles/` — let op de no-inline-CSS-regel hieronder | [`04-12-extension.md`](.claude/plugins/claude-specialists/specialists/04-12-extension.md) |
-| **Cody** 💻 #13 | App-ontwikkelaar | De Next.js/React-applicatiecode in `src/`: componenten, pagina's, hooks | [`04-13-extension.md`](.claude/plugins/claude-specialists/specialists/04-13-extension.md) |
-| **Sylvester** ⚙️ #15 | Systeembeheerder | Claude Code-configuratie: `.claude/settings.json`, hooks, permissions, MCP-config, en `scripts/` | [`05-15-extension.md`](.claude/plugins/claude-specialists/specialists/05-15-extension.md) |
-| **Tessa** 📜 #16 | Technical Writer | Beheert `CLAUDE.md` en de governance-documentatie | [`06-16-extension.md`](.claude/plugins/claude-specialists/specialists/06-16-extension.md) |
-| **Edith** 🔍 #17 | Eindredacteur | De onafhankelijke laatste blik vóór een PR: taal, spelling, consistentie, dode links | [`06-17-extension.md`](.claude/plugins/claude-specialists/specialists/06-17-extension.md) |
-| **Tycho** 🧪 #18 | Test Engineer | Geautomatiseerde tests en regressiebewaking; meldt eerlijk waar een testgat zit | [`04-18-extension.md`](.claude/plugins/claude-specialists/specialists/04-18-extension.md) |
-| **Victor** 🧐 #19 | Code Reviewer | De onafhankelijke blik op de code vóór een PR: correctheid, eenvoud, herbruik, efficiëntie | [`06-19-extension.md`](.claude/plugins/claude-specialists/specialists/06-19-extension.md) |
-| **Sebastian** 🛡️ #23 | Security Engineer | Secrets/PII in de diff, onveilige defaults, en audits van permissions/hooks. Let op de Netlify-functions en de R2-bucket | [`06-23-extension.md`](.claude/plugins/claude-specialists/specialists/06-23-extension.md) |
-| **Ravi** ♻️ #24 | Refactoring-specialist | De DRY-bewaker: spoort duplicatie van gedragsregels op en promoveert die tot één gedeelde bron | [`06-24-extension.md`](.claude/plugins/claude-specialists/specialists/06-24-extension.md) |
-| **Nolan** ⚡ #25 | Performance Engineer | Meet en verkleint het token/context-budget: laadstrategie en de omvang van manuals/persona's | [`06-25-extension.md`](.claude/plugins/claude-specialists/specialists/06-25-extension.md) |
-| **Marlowe** 🕵️ #29 | Onderzoeksjournalist | De advocaat van de duivel op inhoud en conclusies: probeert een advies onderuit te halen vóór Dave ernaar handelt | [`06-29-extension.md`](.claude/plugins/claude-specialists/specialists/06-29-extension.md) |
-| **Auden** ✍️ #30 | Academisch & lang-vorm schrijver | Het lange, onderbouwde stuk: uitgebreide documentatie en betogen op basis van onderzocht materiaal | [`06-30-extension.md`](.claude/plugins/claude-specialists/specialists/06-30-extension.md) |
+**Het roster staat in [`.claude/specialists/SPECIALISTS.md`](.claude/specialists/SPECIALISTS.md)** —
+wie de negentien specialisten zijn, wat elk van hen in déze repo doet, en naar welke lens onder
+`.claude/specialists/lenses/` Chris hen doorverwijst. Dat is de plek die de plugin verwacht en het
+enige bestand dat `CLAUDE.md` importeert.
 
-De repo-lenzen zijn grotendeels nog lege scaffolds (`VUL-IN`): het draagbare vak van elke specialist
-woont in de plugin-manual, en alleen wat écht repo-eigen is hoort in de lens. Ze worden gevuld op het
-moment dat een specialist hier voor het eerst echt werk doet.
-
-Loopt dit roster uit de pas met de plugin, dan meldt de `roster-sessioncheck`-hook dat bij het
-starten van een sessie; `scripts/sync/check-script-contract.ps1` bewaakt daarnaast dat
-`scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1` het contract van de gedeelde scripts
-blijven leveren.
+Loopt dat roster uit de pas met de plugin, dan zet de gedeelde `sync-roster`-skill de ontbrekende
+lenzen neer. `check-script-contract.ps1` bewaakt daarnaast dat `scripts/repo-config.ps1` en
+`scripts/lib/branch-info.ps1` het contract van de gedeelde scripts blijven leveren.
 
 ### Structuur en conventies
 
@@ -454,15 +423,22 @@ mee naar buiten.
 
 ### Scripts
 
-De workflow-stappen draaien via de **gedeelde skills van de specialists-plugin**, die één bron
-hebben in de workshop-repo. Wat per repo verschilt woont in `scripts/repo-config.ps1` en
-`scripts/lib/branch-info.ps1`.
+De workflow-stappen draaien via de **gedeelde skills van de specialists-plugin**, die één bron hebben
+in [`DaveKJohn/claude-code-specialists`](https://github.com/DaveKJohn/claude-code-specialists). Wat per
+repo verschilt woont in `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1`.
 
 - **`new-branch`** — maakt de branch én zijn changelog-entry-bestand in één stap (stap 1–3).
 - **`open-pr`** — draait de lint-poort en opent de PR (stap 4). Alleen op verzoek van Dave.
 - **`fold-changelog`** — vouwt het entry-bestand in `## Pull Requests`, verrijkt met PR-nummer en
   PR-link (stap 7).
+- **`cut-release`** — loopt de sluitende stappen van een release na: de tag, de push, de GitHub
+  Release en het opruimen van de branch. Het print commandoblokken in vaste volgorde; het draait niets
+  zelf. Alleen op expliciet verzoek van Dave, zoals de hele Release Workflow.
+- **`park`** — commit het openstaande werk op de huidige branch en pusht die met `git push -u` naar
+  `origin`, zodat je hem elders precies zo oppakt. Opent géén PR en zet niets live.
 - **`sync-roster`** — zet ontbrekende repo-lenzen neer als het roster achterloopt op de plugin.
+- **`specialists-init`** / **`specialists-teardown`** — adoptie en de-adoptie van het systeem in deze
+  repo. Zie `QUICKSTART.md` en `UNINSTALL.md` in de bron-repo.
 
 Repo-eigen scripts:
 
@@ -473,7 +449,9 @@ Repo-eigen scripts:
   repo, en draait bij het starten van een sessie via de `script-contract-sessioncheck`-hook.
 - `scripts/add-mix.js` (`npm run mix:add`) en `scripts/convert-to-webp.js` (`npm run images:webp`).
 
-Er is (nog) geen `cut-release.ps1` voor de Release Workflow hierboven — die stappen gaan handmatig.
+De Release Workflow hierboven kent geen repo-eigen script; de sluitende stappen lopen sinds de
+herinstallatie op 2026-08-03 via de gedeelde **`cut-release`**-skill. Het bepalen van het versienummer,
+de release-notes en de changelog-verhuizing blijven handwerk van Rendall 🎬.
 
 ### Safety-invulling van djcylow-react
 
@@ -499,8 +477,9 @@ De grondwet hierboven, hier concreet ingevuld:
   hierboven beschreven. Dit zijn de enige twee.
 - **Kernverbeteringen gaan via de inbound-route.** Ontdek je een verbetering aan de *gedeelde* kern
   van het specialisten-systeem (agent-defs, manuals, persona's, skills uit de plugin), dan wordt die
-  niet hier gebouwd: die gaat als issue met label `inbound` naar de workshop-bron-repo. Check daarbij
-  eerst welke kant achterloopt — soms zit de fout niet in de bron maar in deze repo.
+  niet hier gebouwd: die gaat als issue met label `inbound` naar
+  [`DaveKJohn/claude-code-specialists`](https://github.com/DaveKJohn/claude-code-specialists). Check
+  daarbij eerst welke kant achterloopt — soms zit de fout niet in de bron maar in deze repo.
 
 ### Het hóé (draagbaar) vs. het wát (repo-eigen)
 
@@ -510,8 +489,7 @@ geleerde lessen in de docs, de grondwet boven elk gemak) is draagbaar en staat b
 merge hier direct deployt, de scripts en de poort) is van deze repo en staat in dit slot.
 
 De orchestrator (Chris) wordt altijd meegeladen; hij verwijst on-demand door naar de specialisten in
-[`.claude/plugins/claude-specialists/`](.claude/plugins/claude-specialists/).
+[`.claude/specialists/lenses/`](.claude/specialists/lenses/). Die ene import hieronder laadt het
+roster, Chris' draagbare body uit de plugin en zijn repo-lens.
 
-@~/.claude/plugins/marketplaces/davekjohns-workshop/claude-code-plugins/claude-specialists/specialists/personas/01-01-persona.md
-
-@.claude/plugins/claude-specialists/specialists/01-01-extension.md
+@.claude/specialists/SPECIALISTS.md
