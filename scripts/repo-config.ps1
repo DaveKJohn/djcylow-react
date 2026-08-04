@@ -9,8 +9,8 @@
         . (Join-Path $PSScriptRoot 'repo-config.ps1')       # vanuit scripts/ zelf
 
     Dit is het kleine, lokale blokje repo-data dat de gedeelde, repo-agnostische workflow-scripts
-    inlezen. Die scripts wonen als single source of truth in de workshop-repo en reizen via de
-    specialists-plugin naar deze consument; alles wat per repo verschilt woont hier.
+    inlezen. Die scripts wonen als single source of truth in DaveKJohn/claude-code-specialists en
+    reizen via de specialists-plugin naar deze consument; alles wat per repo verschilt woont hier.
 
     Levert Get-RepoName, Get-RepoBlobUrl, Get-LintScript, Get-RosterPath en Get-RosterIgnoredIds --
     samen het volledige contract dat scripts/sync/check-script-contract.ps1 afdwingt.
@@ -48,11 +48,17 @@ function Get-LintScript {
 }
 
 # Het bestand dat het roster draagt (de specialisten-tabel/lijst). check-roster-sync.ps1 leest dit om
-# te bepalen welke agent-ids "in het roster staan". Repo-root-relatief; in deze repo hoort dat in
-# CLAUDE.md, net als in de andere consumenten. Er is bewust GEEN Get-RosterFormat: de check is
-# format-agnostisch (hij zoekt per '<groep>-<id>'-token in de tekst) en werkt dus of het roster nu
-# een tabel of een lijst is.
-$script:RosterPath = 'CLAUDE.md'
+# te bepalen welke agent-ids "in het roster staan". Repo-root-relatief.
+#
+# Dit was 'CLAUDE.md' tot de herinstallatie op 2026-08-03. Sinds die generatie schrijft
+# specialists-init het roster naar .claude/specialists/SPECIALISTS.md -- het enige bestand dat
+# CLAUDE.md nog importeert -- en dat is ook waar het roster nu staat. Bleef deze waarde op CLAUDE.md
+# staan, dan las de check een bestand met alleen de @-import erin en meldde hij 19 specialisten als
+# rosterloos: een ROSTER-PENDING bij elke sessiestart, over werk dat wel gedaan was.
+#
+# Er is bewust GEEN Get-RosterFormat: de check is format-agnostisch (hij zoekt per
+# '<groep>-<id>'-token in de tekst) en werkt dus of het roster nu een tabel of een lijst is.
+$script:RosterPath = '.claude\specialists\SPECIALISTS.md'
 
 function Get-RosterPath {
     <# Repo-root-relatief pad naar het bestand met het roster (specialisten-tabel/lijst). #>

@@ -13,6 +13,14 @@
     ]
   },
   "enabledPlugins": {
-    "specialists@davekjohns-workshop": true
+    "specialists@claude-code-specialists": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-code-specialists": {
+      "source": {
+        "source": "github",
+        "repo": "DaveKJohn/claude-code-specialists"
+      }
+    }
   }
 }
