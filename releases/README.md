@@ -116,11 +116,11 @@ gh release upload v2.3.0 releases/highlights/2.3/2.3.0.md
 
 ## Nieuwe release aanmaken — stap voor stap
 
-De volledige werkwijze staat in [`workflow/workflow-CLAUDE.md`](../workflow/workflow-CLAUDE.md)
-onder **Release Workflow**. Kort samengevat:
+De volledige werkwijze staat in [`CLAUDE.md`](../CLAUDE.md) onder **Release Workflow**. Kort
+samengevat:
 
 1. Bepaal het versienummer (zie semver-tabel hierboven).
-2. Maak de development-versie aan (altijd): `releases/development/<major.minor>/<versie>.md` — gebruik de entries uit de `## Pull Requests` sectie van `CHANGELOG.md` als basis. Formaat:
+2. Maak de development-versie aan (altijd): `releases/development/<major.minor>/<versie>.md` — gebruik de entries uit `CHANGELOG.md` als basis (elke `##`-kop daar is één wijziging). Formaat:
    ```markdown
    # v<versie> — <korte titel>
    **Datum:** YYYY-MM-DD
@@ -130,16 +130,21 @@ onder **Release Workflow**. Kort samengevat:
 
    <korte samenvatting van alle wijzigingen>
 
-   ### #NN · Korte sterke titel van de wijziging · Docs · YYYY-MM-DD
+   ### Korte sterke titel van de wijziging · Docs
 
    <beschrijving>
 
-   [PR #NN](https://github.com/DaveKJohn/djcylow-react/pull/NN)
+   [PR #NN](https://github.com/DaveKJohn/djcylow-react/pull/NN) · merged YYYY-MM-DD
    ```
+   **De kop bouw je zelf**, uit `### Branch title` en `### Branch type` van de entry. Neem de kop uit
+   `CHANGELOG.md` niet letterlijk over: die noemt de branch (``## `docs/mijn-branch` changelog``), niet
+   de wijziging. Het PR-nummer en de merge-datum staan op de slotregel van de entry en gaan ongewijzigd
+   mee. Entries van vóór 2026-08-11 dragen hun titel, type en datum nog wél in de kop
+   (`### #NN · Titel · Docs · YYYY-MM-DD`) — die neem je over zoals ze zijn.
 3. Maak bij Minor/Major ook de highlights-versie aan: `releases/highlights/<major.minor>/<versie>.md` — dezelfde inhoud herschreven in leesbaar Nederlands zonder jargon, zonder PR-nummers/merge-datums/branch-types.
-4. Voeg de versie toe aan de overzichtstabel in deze README (bovenaan de tabel), linkend naar de development-versie.
-5. Update `CHANGELOG.md`: haal de entries uit `## Pull Requests` weg en zet bovenaan `## Releases` een blok `### [v<versie>] - YYYY-MM-DD — Patch/Minor/Major` met een `Zie [releases/development/...]`-regel.
-6. Tag en push via de stappen in [`workflow/workflow-CLAUDE.md`](../workflow/workflow-CLAUDE.md).
+4. Voeg de versie toe aan de overzichtstabel in deze README (bovenaan de tabel), linkend naar de development-versie. **Dit is de enige plek waar de uitgebrachte versies worden bijgehouden.**
+5. Update `CHANGELOG.md`: haal de gefolde entries eruit — ze staan nu in de release-note — zodat alleen de intro overblijft. Er komt géén versieblok voor terug; `CHANGELOG.md` houdt alleen wat nog geen versienummer heeft.
+6. Tag en push via de stappen in [`CLAUDE.md`](../CLAUDE.md).
 
 ## Overzicht
 

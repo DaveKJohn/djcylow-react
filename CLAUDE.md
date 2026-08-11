@@ -75,13 +75,14 @@ Alle wijzigingen gaan via een branch + Pull Request.
 >
 > Dit stond hier tot 2026-07-26 andersom beschreven — "een merge naar `main` zet niets live", met de
 > live-push als aparte stap in de Release Workflow. Dat was onjuist en gaf een vals gevoel van
-> veiligheid op precies het verkeerde moment. Het `## Pull Requests`-blok in `CHANGELOG.md` verzamelt
-> daarom wat **live is maar nog geen versienummer heeft**; een release is een label op wat al draait.
+> veiligheid op precies het verkeerde moment. `CHANGELOG.md` verzamelt daarom wat **live is maar nog
+> geen versienummer heeft**; sinds 2026-08-11 zonder sectiekop — elke `##`-kop erin is één wijziging.
+> Een release is een label op wat al draait.
 
 Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 
 1. De **fold-commit** (na een merge, stap 7) is de enige echte **directe commit op `main`** (geen
-   branch): scope beperkt tot `CHANGELOG.md` + het verwijderde entry-bestand.
+   branch): scope beperkt tot `CHANGELOG.md` + de twee vaste bestanden in `branch/`.
 2. De **release-branch** (`docs/release-v<versie>`) is wél een branch, met scope beperkt tot
    `CHANGELOG.md`, `releases/development/<X.Y>/<X.Y.Z>.md`, `releases/highlights/<X.Y>/<X.Y.Z>.md`
    (alleen Minor/Major) en `releases/README.md` — maar wordt bewust gemerged via een kale
@@ -139,45 +140,119 @@ stap.
 De canonieke bron van deze taxonomie is de tabel hierboven — `scripts/lib/branch-info.ps1` spiegelt
 hem. Leid hem **niet** af uit de git-historie; die mist prefixen die wel bestaan.
 
-#### 3. Ontwikkel op de branch, houd een changelog entry-bestand bij
+#### 3. Ontwikkel op de branch, houd de twee branch-bestanden bij
 
-Maak wijzigingen op de branch en commit met een duidelijke boodschap. Scaffold in dezelfde sessie
-een changelog entry-bestand via de gedeelde **`new-branch`**-skill, die de branch én zijn
-entry-bestand in één stap neerzet — een branch is nooit entry-loos.
+Maak wijzigingen op de branch en commit met een duidelijke boodschap. De gedeelde
+**`new-branch`**-skill zet de branch én zijn twee bestanden in `branch/` in één stap neer — een
+branch is nooit entry-loos:
 
-Dat maakt `<branch-naam-met-koppeltekens>.md` aan in de repo-root (branch `feature/mix-bpm-filter` →
-`feature-mix-bpm-filter.md`), met titel, type en datum al in de kop. Vul zelf de beschrijving aan:
+- `branch/branch-changelog.md` — wát de wijziging doet; niets eromheen, zodat het in één keer in
+  `CHANGELOG.md` past
+- `branch/branch-progress.md` — de stappenlijst en waar je gebleven bent
 
-```markdown
-### Korte sterke titel van de wijziging · Docs · YYYY-MM-DD
+**Vaste namen, niet één per branch** — git houdt ze al per branch uit elkaar, en de repo-root loopt
+niet meer vol. Op `main` staan ze in een lege reset-staat. Ernaast staan referentiekopieën met de
+veldtoelichting in `branch/templates/`; die zijn gegenereerd — bewerk je er één, dan zet de volgende
+run hem terug.
 
-Korte beschrijving van wat er veranderd is op deze branch.
+`branch/branch-changelog.md` heeft **zes vaste secties**:
+
+```text
+## `<branch>` changelog
+
+### Branch title      <- de titel; óók de PR-titel
+### Branch ID         <- tijdstempel, gezet bij aanmaken
+### Branch type       <- de branch-prefix (kleine letter, bv. `docs`)
+### What does the change on this branch bring to main?
+### Significance
+### Pull Request      <- vult de fold in, na de merge
 ```
 
-Het type is `Docs`/`Feature`/`Fix`/`Data`/`Content`/`Style`/`Config`, met een middelpunt (`·`) als
-scheidingsteken. De datum is de dag waarop de branch op `main` gemergd wordt. **Het PR-nummer hoort
-niet in het bestand** — dat bestaat nog niet als de branch begint; de fold-stap zet het er later
-zelf voor (`### #17 · Titel · Data · 2026-07-26`) plus een `[PR #17](...)`-regel onderaan.
+Drie ervan staan er al bij het aanmaken. `Branch title` schrijf je **zonder** `feat:`/`docs:`-prefix
+— die zet `open-pr` er zelf voor (stap 4).
 
-Dit is hetzelfde formaat als in `life-hub` en `davekjohns-workshop` en precies wat de skill
-neerzet — **herschrijf de scaffold dus niet.**
+**De datum staat niet meer in de kop.** Tot 2026-08-11 stond de datum in de entry-titel en was dat de
+geboortedatum van de branch in plaats van de landingsdatum. De fold schrijft hem nu uit de
+merge-timestamp van de PR, als slotregel `[PR #NN](url) · merged YYYY-MM-DD` onderaan de entry —
+en dus onder `### Pull Request`, de laatste sectie.
+
+**De kop van de entry noemt de branch, niet de wijziging.** De fold laat hem staan zoals hij is
+geschreven; in `CHANGELOG.md` staat er straks dus ``## `docs/mijn-branch` changelog``. De leesbare
+naam van de wijziging woont in `### Branch title`, en dát is de zin die je overneemt als je er ergens
+anders naar verwijst — een release-note bijvoorbeeld (Release Workflow, stap 5).
 
 **`CHANGELOG.md` blijft met rust op de branch — nooit direct bewerken.** Elke branch bewerkte
-vroeger hetzelfde blok, wat bij lang-openstaande branches tot merge-conflicten leidde. Het
-per-branch entry-bestand lost dat op: er is niets om over te conflicteren.
+vroeger hetzelfde blok, wat bij lang-openstaande branches tot merge-conflicten leidde. De vaste
+branch-bestanden lossen dat op: er is niets om over te conflicteren.
 
-**Nooit mergen zonder een entry-bestand.** Dit geldt ook voor kleine of puur documentatiewijzigingen.
+**Nooit mergen zonder een gevuld `branch/branch-changelog.md`.** Dit geldt ook voor kleine of puur
+documentatiewijzigingen.
+
+##### Significance — het verplichte tier-model
+
+Onder `### Significance` staan drie sub-secties, `#### Tier 0`, `#### Tier 1` en `#### Tier 2`, elk
+met een `**Score:**`-regel. **Alle drie worden beantwoord:**
+
+- **Tier 0** — alleen de eigen ontwikkelaars van deze repo merken het
+- **Tier 1** — een collega die aan dit project werkt heeft er iets aan
+- **Tier 2** — een bezoeker van djcylow.com merkt het
+
+De score is 1 t/m 5 tegen deze schaal, of `N/A` met één regel waarom het die groep niet bereikt:
+
+| Score | Betekenis |
+|---|---|
+| `5` | de lezer moet iets dóén — breaking change, verplichte migratie, of een lang bestaande blokkade die weg is |
+| `4` | verandert wezenlijk hoe ze werken; ze merken het binnen een dag zonder dat iemand het zegt |
+| `3` | een duidelijke verbetering, merkbaar zodra ze dat deel aanraken |
+| `2` | klein; merkbaar als iemand erop wijst |
+| `1` | cosmetisch, of het voorkomt een storing die nog niet is opgetreden — noem dan die storing, want dat is het enige waar een latere lezer iets aan heeft |
+
+Harde regels:
+
+- **Tier 0 mag nooit `N/A`** — elke wijziging raakt de mensen die deze repo onderhouden.
+- **De reden staat bóven de `**Score:**`-regel.** Alles eronder wordt weggegooid door de parser.
+- **De ladder is cumulatief**: `N/A` op tier 1 onder een gescoorde tier 2 wordt bij naam geweigerd.
+- **De score wordt bewust leeg gescaffold** — een gegokt cijfer is erger dan geen cijfer.
+- **Leid het tier niet af uit de branch-prefix.** Een `docs/`-branch kan tier 2 zijn en een
+  `feature/`-branch tier 0.
+
+De tier bepaalt in welk release-document de entry belandt en, samen met de score, wáár in
+`CHANGELOG.md` hij landt — de fold plaatst gerangschikt, niet simpelweg bovenaan.
+
+##### De stappenlijst is een poort, geen versiering
+
+`branch/branch-progress.md` moet leeg zijn van openstaande punten voordat er een PR mag komen. Elk
+punt wordt `- [x]` gedaan óf `- [~]` laten vervallen, met de reden op de regel. Dat derde teken
+bestaat zodat niemand een vakje hoeft af te vinken voor werk dat niet is gedaan. **Er is geen
+`-Force`** op deze poort.
 
 #### 4. Push de branch — de PR pas op verzoek
 
-Zodra de branch klaar is (commits + het entry-bestand): push hem en meld dat hij klaar staat.
-**Open de PR niet uit jezelf.**
+Zodra de branch klaar is (commits + een gevuld `branch/branch-changelog.md` en een leeg
+`branch/branch-progress.md`): push hem en meld dat hij klaar staat. **Open de PR niet uit jezelf.**
 
-Zegt Dave "open de PR", gebruik dan de gedeelde **`open-pr`**-skill. Die draait eerst de lint-poort
-uit `Get-LintScript` (`scripts/lint/lint-web.ps1`) en opent daarna de PR met
-`.github/pull_request_template.md` als body — loop de checklist na en vink af wat van toepassing is.
-Titel-prefix mirrort het branch-type: `feature:`, `fix:`, `data:`, `content:`, `style:`, `docs:`,
-`config:`.
+Zegt Dave "open de PR", gebruik dan de gedeelde **`open-pr`**-skill. Die draait vier poorten vóór er
+iets gepusht wordt:
+
+1. **resolves-gate** — noemt de branch een openstaand issue, dan moet `-Resolves` of `-NoResolves`
+   mee, zodat een gerepareerd issue niet open blijft na de merge
+2. **scaffold-gate** — de entry mag geen scaffold-tekst meer dragen, en geen lege secties. Deze heeft
+   wél een `-Force`
+3. **impact-gate** — draait op dezelfde lezing: een onmogelijk tier of een onmogelijke score wordt
+   geweigerd, een **ontbrekende** score wordt alleen gemeld (die weigering valt bij de release-cut)
+4. **step-list-gate** — geen enkel `- [ ]` mag nog openstaan in `branch/branch-progress.md`. Geen
+   `-Force`
+
+Daarna pas de repo's eigen lint-poort uit `Get-LintScript` (`scripts/lint/lint-web.ps1`) en alle
+testsuites. Faalt er iets, dan wordt er niets gepusht en komt er geen PR.
+
+Is alles groen, dan opent de skill de PR met `.github/pull_request_template.md` als body — loop de
+checklist na en vink af wat van toepassing is. **De titel komt uit de entry**: geef `open-pr` géén
+titel mee — hij stelt hem zelf samen als `<branch-type>: <Branch title uit
+branch/branch-changelog.md>` (`feature:`, `fix:`, `data:`, `content:`, `style:`, `docs:`, `config:`).
+Zo staat de zin één keer geschreven en kunnen de PR, `CHANGELOG.md` en de release-documenten niet uit
+elkaar lopen. Een meegegeven `-Title` wordt nog geaccepteerd maar genegeerd, met een waarschuwing die
+de titel noemt die de entry wél geeft.
 
 **Gebruik nooit `gh pr create --fill`** in deze repo: `--fill` vult de body met de volledige
 commit-geschiedenis sinds `main` (ontdekt bij PR #1/#2 — tientallen irrelevante historische commits
@@ -211,22 +286,29 @@ gebruikt GitHub het generieke "Merge pull request #N from ...". Controleer daarn
 
 #### 7. Na de merge: vouw de changelog entry
 
-Vouw het entry-bestand bovenaan het `## Pull Requests`-blok in `CHANGELOG.md` via de gedeelde
-**`fold-changelog`**-skill. Die zet het PR-nummer voor de titel, hangt de `[PR #NN](...)`-regel
-onderaan, plaatst de entry na de intro-alinea maar boven de bestaande entries, en verwijdert het
-entry-bestand zelf. Dit gebeurt zonder aparte toestemming — het hoort bij het afronden van de
-zojuist goedgekeurde merge, net als de branch-opruiming in stap 6.
+Vouw `branch/branch-changelog.md` in `CHANGELOG.md` via de gedeelde **`fold-changelog`**-skill. Die
+plaatst de entry gerangschikt op tier en score — niet simpelweg bovenaan — sluit hem af met de regel
+`[PR #NN](url) · merged YYYY-MM-DD`, en laat de kop verder ongemoeid. Dit gebeurt zonder aparte
+toestemming — het hoort bij het afronden van de zojuist goedgekeurde merge, net als de
+branch-opruiming in stap 6.
 
-Commit het resultaat direct op `main` — een van de twee toegestane directe main-commits:
+`branch/branch-changelog.md` en `branch/branch-progress.md` worden daarbij niet verwijderd maar
+**gereset** naar hun lege staat — het zijn vaste paden die de volgende branch nodig heeft. Een oud
+entry-bestand in de repo-root (uit het model van vóór 2026-08-11) wordt, als het wordt aangetroffen,
+wel nog verwijderd.
 
-```bash
-git add CHANGELOG.md [branch-naam-met-koppeltekens].md
-git commit -m "chore: fold changelog entry [branch]"
-```
+Draai de skill met `-Commit`: die commit dan zelf, met bericht `fold: [branch] changelog (#NN)`, en
+de scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de twee `branch/`-bestanden.
 
-Changelog-bookkeeping is altijd `chore:`, ook op een `docs/`-branch. **Pushen van deze fold-commit
-naar `origin` gebeurt niet automatisch** — dat blijft, net als elke push naar `origin/main`,
-initiatief van Dave.
+> Tot 2026-08-11 stond hier `chore: fold changelog entry [branch]` als handmatig `git add`/`git
+> commit`-blok. **`fold:` is sindsdien de erkende prefix voor deze ene commit** — de reden: `merge:`
+> en `fold:` zijn één beweging in twee commits en horen als paar te lezen; `chore:` zei alleen
+> "huishouding". Changelog-bookkeeping blijft daarnaast wél `chore:` voor ander boekhoudwerk — dit is
+> een met naam genoemde uitzondering, geen algemene regel-wijziging.
+
+**Pushen van deze fold-commit naar `origin` gebeurt niet automatisch** — dat blijft, net als elke
+push naar `origin/main`, initiatief van Dave. De skill kent een `-Push`-vlag; die gebruiken we hier
+niet.
 
 ---
 
@@ -249,6 +331,13 @@ specialist.**
 De website is **Engels** (`lang="en"`, domein `djcylow.com`). De repo-documentatie, commit-berichten
 en de communicatie met Dave zijn **Nederlands**. De `description`-velden in de mix-data zijn
 tweetalig: `description_nl` en `description_en`.
+
+**Uitzondering: de zes sectiekopjes van een changelog-entry** (`Branch title`, `Branch ID`,
+`Branch type`, `What does the change on this branch bring to main?`, `Significance`,
+`Pull Request`) **en de `Tier`/`Score`-sleutels blijven Engels.** Het zijn machine-gelezen sleutels
+waar `new-branch`, `open-pr`, `fold-changelog` en de release-cut het over eens moeten zijn — vertaal
+je ze, dan kan de eigen fold de eigen entry niet meer lezen. `scripts/repo-config.ps1` definieert
+bewust géén `Get-EntrySectionHeadingOverrides`, en dát is de beslissing die dit vastlegt.
 
 ### Het team: roster & routing
 
@@ -316,7 +405,7 @@ npm run lint     # ESLint + TypeScript check
 | Music Mood Colours tekst | `src/content/musicmoodcolours.ts` |
 | Referenties | `src/content/referenties.ts` |
 | Breakpoints | `src/constants/design.ts` |
-| Live, maar nog zonder versienummer | `CHANGELOG.md` → `## Pull Requests` |
+| Live, maar nog zonder versienummer | `CHANGELOG.md` (elke `##`-kop is één wijziging) |
 
 #### Audio storage
 
@@ -359,25 +448,23 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
      dus het aantal, niet alleen de exitcode
 4. **Bepaal het versienummer** (tabel hieronder, en `releases/README.md`)
 5. **Maak de development-release note**: `releases/development/<major.minor>/<versie>.md` — gebruik
-   de entries uit `## Pull Requests` in `CHANGELOG.md`, met hun koppen
-   (`### #NN · Titel · Type · datum`) en `[PR #NN](...)`-regels intact
+   de gefolde wijzigingen in `CHANGELOG.md`; elke `##`-kop is er één. **Neem die kop niet letterlijk
+   over**: hij noemt de branch (``## `docs/mijn-branch` changelog``), niet de wijziging. De titel van
+   de release-note-entry bouw je uit `### Branch title` en `### Branch type`; de slotregel
+   `[PR #NN](...) · merged YYYY-MM-DD` neem je wél ongewijzigd mee
 6. **Maak de highlights-versie** (alleen Minor/Major):
    `releases/highlights/<major.minor>/<versie>.md` — dezelfde wijzigingen in leesbaar Nederlands
    zonder jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types),
    bedoeld voor stakeholders in plaats van developers
-7. **Update `CHANGELOG.md`**: haal de entries uit `## Pull Requests` weg (ze staan nu in de release
-   note) zodat die sectie leeg achterblijft met alleen zijn intro-alinea, en zet bovenaan
-   `## Releases` een nieuw blok:
-   ```markdown
-   ### [v<versie>] - <datum> — Patch/Minor/Major
-
-   Zie [releases/development/<major.minor>/<versie>.md](releases/development/<major.minor>/<versie>.md)
-   ```
-   **Geen `← LIVE`-markering.** Die is op 2026-07-26 vervallen: alles wat op `origin/main` staat is
-   live, dus de bovenste uitgebrachte versie draait per definitie al en de markering onderscheidde
-   niets. Ze stond bovendien maandenlang fout — op v2.20.1, terwijl v2.20.2, v2.21.0 en vijf PR's al
-   op de site stonden
-8. **Voeg de versie toe** aan de overzichtstabel in `releases/README.md` (bovenaan)
+7. **Update `CHANGELOG.md`**: haal de gefolde entries eruit (ze staan nu in de release-note), zodat
+   alleen de intro-alinea overblijft. **Er komt géén versieblok voor terug.**
+   > Tot 2026-08-11 zette deze stap hier ook een `## Releases`-blok in `CHANGELOG.md` — dezelfde
+   > informatie als `releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al
+   > was afgeschaft en die bovendien maandenlang fout stond (op v2.20.1, terwijl v2.20.2, v2.21.0 en
+   > vijf PR's al live waren). Dat verviel: `releases/README.md` (stap 8) is sindsdien de enige plek
+   > waar uitgebrachte versies worden bijgehouden — geen dubbele boekhouding meer
+8. **Voeg de versie toe** aan de overzichtstabel in `releases/README.md` (bovenaan) — de enige
+   boekhouding van uitgebrachte versies
 9. **Stage en commit** op de release-branch
 10. **Merge naar `main`** (na bevestiging) — bewust een kale merge, geen PR:
     ```bash
@@ -427,15 +514,24 @@ De workflow-stappen draaien via de **gedeelde skills van de specialists-plugin**
 in [`DaveKJohn/claude-code-specialists`](https://github.com/DaveKJohn/claude-code-specialists). Wat per
 repo verschilt woont in `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1`.
 
-- **`new-branch`** — maakt de branch én zijn changelog-entry-bestand in één stap (stap 1–3).
-- **`open-pr`** — draait de lint-poort en opent de PR (stap 4). Alleen op verzoek van Dave.
-- **`fold-changelog`** — vouwt het entry-bestand in `## Pull Requests`, verrijkt met PR-nummer en
-  PR-link (stap 7).
+- **`new-branch`** — maakt de branch én **twee** bestanden in `branch/` (`branch-changelog.md`,
+  `branch-progress.md`) plus de referentiekopieën in `branch/templates/`, in één stap (stap 1–3). Het
+  achterliggende werk zit in `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` —
+  er bestaat geen los `scripts/release/new-changelog-entry.ps1` (meer).
+- **`open-pr`** — draait de vier entry-poorten (resolves/scaffold/impact/step-list), de lint-poort en
+  de testsuites, en opent daarna de PR (stap 4). Alleen op verzoek van Dave.
+- **`fold-changelog`** — vouwt `branch/branch-changelog.md` gerangschikt op tier/score in
+  `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en reset de twee `branch/`-bestanden
+  (stap 7).
 - **`cut-release`** — loopt de sluitende stappen van een release na: de tag, de push, de GitHub
   Release en het opruimen van de branch. Het print commandoblokken in vaste volgorde; het draait niets
   zelf. Alleen op expliciet verzoek van Dave, zoals de hele Release Workflow.
 - **`park`** — commit het openstaande werk op de huidige branch en pusht die met `git push -u` naar
   `origin`, zodat je hem elders precies zo oppakt. Opent géén PR en zet niets live.
+- **`ship-pr`** — opent de PR, wacht op CI, mergt en vouwt de changelog in één run. **Gebruiken we in
+  deze repo bewust niet**: hij zou in één beweging mergen, en een merge is hier een deploy die apart
+  op Dave's woord wacht (zie de safety-rules hierboven). Deze regel staat hier zodat een latere
+  sessie die de skill in de plugin ziet staan kan lezen waarom er hier niet aan begonnen wordt.
 - **`sync-roster`** — zet ontbrekende repo-lenzen neer als het roster achterloopt op de plugin.
 - **`specialists-init`** / **`specialists-teardown`** — adoptie en de-adoptie van het systeem in deze
   repo. Zie `QUICKSTART.md` en `UNINSTALL.md` in de bron-repo.
