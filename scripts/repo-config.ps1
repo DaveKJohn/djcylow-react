@@ -392,8 +392,9 @@ function Get-LiveStage {
 #   naar releases/notes/<map>/ en dat pad staat HARDCODED in cut-release.ps1 regel 736, terwijl deze
 #   repo releases/highlights/<map>/ gebruikt (CLAUDE.md, Release Workflow stap 6 en 13). Er is geen
 #   seam voor dat pad, dus aanzetten laat de cut naar een map wijzen die hier niet bestaat. De
-#   highlights blijven daarom handwerk. Het ontbreken van die seam is een kern-bevinding en hoort via
-#   de inbound-route naar DaveKJohn/claude-code-specialists, niet hier gerepareerd.
+#   highlights blijven daarom handwerk. Het ontbreken van die seam is een kern-bevinding en is gemeld
+#   via de inbound-route: DaveKJohn/claude-code-specialists#616. Landt daar een seam voor die map, dan
+#   kan deze knop hier alsnog op @('minor','major'), want dat is wat CLAUDE.md al voorschrijft.
 #
 # Get-ReleaseMajorMinMinors -- de bump-poort die dit leest staat uit zolang er geen consumer-laag is
 #   verklaard, dus er is geen lezer. Het model erachter past hier ook niet: in de bron is een major

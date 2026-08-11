@@ -21,7 +21,7 @@
 - [ ] `git merge main` zodra `docs/entry-model-migratie` is geland, en daarna deze twee `branch/`-bestanden op deze entry houden — zonder die stap conflicteert de PR op de vaste entry-paden
 - [~] De fold-weigering end-to-end reproduceren — vervallen: dat vraagt een gemergde PR, dus het is niet te testen zonder een deploy. De claim rust op de `[INFO]` van de contract-check en de blueprint-tekst, niet op een eigen run; dat staat zo ook in de entry
 - [~] De taxonomie-noot in `CLAUDE.md` (`feat` als alias, `Chore` als fallback-type) — vervallen op deze branch: Dave's keuze is genomen, maar het raakt `CLAUDE.md` en dat bestand wordt op `docs/entry-model-migratie` over 218 regels herschreven. Krijgt een eigen branch ná die merge
-- [~] De twee kern-bevindingen repareren — vervallen: ze horen niet hier maar via de inbound-route naar `DaveKJohn/claude-code-specialists`. Ze staan in de afronding aan Dave genoemd
+- [x] De twee kern-bevindingen gemeld via de inbound-route, niet hier gerepareerd: `DaveKJohn/claude-code-specialists#615` (new-branch slaat de branch-bestanden over op een stacked branch en noemt daarbij de verkeerde branch) en `DaveKJohn/claude-code-specialists#616` (`releases/notes/` hardcoded, plus een letterlijk pad in de warning op regel 814 waar de seam wél elders wordt gebruikt). Beide geverifieerd tegen bron-`main` `569e656` (v4.5.0), dus tegen de bron en niet tegen een verouderde mirror
 
 ### Where I left off
 
