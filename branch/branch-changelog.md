@@ -1,79 +1,91 @@
-## `docs/entry-model-migratie` changelog
+## `config/seam-adoptie` changelog
 
 ### Branch title
 
-Changelog en werkwijze op het platte entry-model
+De workflow-seams uit de blueprint geadopteerd en twee stille fouten in de release-keten weg
 
 ### Branch ID
 
-20260811-214145
+20260811-224646
 
 ### Branch type
 
-docs
+config
 
 ### What does the change on this branch bring to main?
 
-`CHANGELOG.md` staat op het platte model dat de gedeelde workflow-scripts sinds
-`workflow-davekjohn@4.x` lezen, en `CLAUDE.md` beschrijft weer de werkwijze die er feitelijk draait.
+`scripts/repo-config.ps1` beantwoordt de vragen die de gedeelde workflow-scripts stellen. Van de 24
+seam-functies in de blueprint van `workflow-davekjohn@4.4.0` waren er hier zeven beantwoord; nu
+achttien, en van de zes die leeg blijven staat per stuk in het bestand waarom dat het betere antwoord
+is.
 
-**De eerstvolgende fold zou geweigerd hebben.** Het nieuwe model leest elke `##`-kop onder de intro
-als één wijziging; `Get-PreFlatChangelogRefusal` noemt `## Pull Requests` en `## Releases` letterlijk
-als het patroon dat fout gaat, en die weigering is hard aangesloten (`exit 1` in
-`fold-changelog-entry.ps1`, `throw` in `release-lib.ps1`). Beide koppen stonden hier. De secties zijn
-weg, de ene bestaande entry is naar `##` gepromoveerd — hij blijft leesbaar omdat `Resolve-EntryType`
-terugvalt op het type in de kop — en de weigering geeft nu een lege string terug.
+Acht ervan zijn door de `adopt-config`-skill geplaatst: waarden die de gedeelde werkwijze uitspreken en
+niets over deze repo beweren, in de tekst van de bron met de reden erbij. Drie zijn met de hand
+beantwoord omdat alleen deze repo ze kan geven, en twee daarvan repareren een fout die nergens een
+melding gaf.
 
-De 37 versie-pointers onder `## Releases` zijn vervallen omdat ze een armere kopie waren:
-`releases/README.md` heeft dezelfde 37 versies, met dezelfde link, plus datum, type en een
-samenvattende regel per versie. Daarmee verdwijnt ook de dubbele boekhouding uit de Release Workflow
-— een cut leegt `CHANGELOG.md` terug tot zijn intro, en `releases/README.md` is de enige plek waar
-uitgebrachte versies worden bijgehouden.
+**De release-notes stonden op de verkeerde indeling.** `Get-ReleaseNotesGrouping` was ongedeclareerd en
+valt dan terug op `major`, terwijl `releases/development/` 23 mappen heeft van `2.0` tot en met `2.22` —
+per minor. `cut-release.ps1` bouwt het pad uit die waarde (regel 676-681), dus de eerstvolgende
+release-cut had naar `releases/development/2.x/` geschreven: een tweede boom naast de 23 mappen die er
+al staan, met de nieuwe rij in `releases/README.md` wijzend naar een pad waar geen enkele bestaande
+note woont. Niets had geklaagd, want `major` is een geldig antwoord — alleen niet dat van deze repo. De
+waarde is van de boom afgelezen, niet gekozen.
 
-In `CLAUDE.md` is bijgewerkt wat sinds de plugin-migratie niet meer klopte: het changelog-entry is
-geen los bestand meer in de repo-root maar het paar `branch/branch-changelog.md` en
-`branch/branch-progress.md` met zes vaste secties; `Significance` is een verplicht drieledig
-tier-model met een schaal van 1 tot 5; `open-pr` draait vier poorten vóór de lint-poort en stelt de
-PR-titel samen uit de entry in plaats van hem mee te krijgen; de fold reset de twee bestanden in
-plaats van er één te verwijderen en commit zelf.
+**De fold viel terug op vier branch-typen terwijl deze repo er acht produceert.** `Get-BranchTypes`
+stond hier al goed in `scripts/lib/branch-info.ps1`, maar `fold-changelog-entry.ps1` en
+`new-internal-note.ps1` dot-sourcen dat bestand nooit en vielen dus terug op de canonieke vier van de
+bron: `Feat`, `Fix`, `Docs`, `Chore`. Vijf van de acht typen hier — `Feature`, `Data`, `Content`,
+`Style`, `Config` — staan daar niet in, en een type dat de fold niet kent leest hij als typeloos,
+waarna hij bij naam weigert. `check-script-contract.ps1` meldde dit als `[INFO]` en wees de reparatie
+zelf aan: `repo-config.ps1` wordt door beide scripts wél geladen, dus één dot-source daar maakt het
+antwoord alsnog bereikbaar. De twee `NOT IN SCOPE`-meldingen zijn daarmee weg.
 
-Twee beslissingen zijn hierbij vastgelegd in plaats van impliciet gelaten. **`fold:` is de erkende
-commit-prefix** voor de fold-commit, als met naam genoemde uitzondering op de regel dat
-changelog-bookkeeping `chore:` is: het gedeelde script schrijft die prefix zelf, en `merge:` en
-`fold:` zijn één beweging in twee commits. En **de zes sectiekopjes blijven Engels** in een verder
-Nederlands document, omdat vier scripts het over die sleutels eens moeten zijn — vertaal je ze, dan
-kan de eigen fold de eigen entry niet meer lezen.
+Verder bereikt de mojibake-poort nu de bestanden waar hij voor bedoeld is: met
+`Get-MojibakePaths` onderzoekt hij 68 bestanden in plaats van de drie `*.md` in de repo-root, inclusief
+`branch/` — waar de entry staat die letterlijk in `CHANGELOG.md` wordt geplakt en van daar in een
+release-note. `Get-ReservedRootMd` noemt de drie root-documenten die deze repo werkelijk heeft in plaats
+van de negen van de bron, zodat een `*.md` die hier ooit onbedoeld in de root opduikt de release wél
+tegenhoudt. En `Get-LiveStage` blijft leeg met de reden erbij, want dat betekent hier het omgekeerde van
+wat het lijkt: `origin/main` ís de live site, en juist daarom is er geen aparte go-live-stap ná de cut.
 
-De skill `ship-pr` staat expliciet als niet-gebruikt genoteerd. Hij mergt in één run, en een merge is
-in deze repo een deploy die apart op Dave's woord wacht.
+Zes seams blijven bewust onbeantwoord, elk met de reden in het bestand: `Get-ReleasePluginTier` (de
+enige met een berekende fallback, en die meet hier het juiste), `Get-PrMergeMethod` (alleen gelezen door
+`ship-pr`, die deze repo niet gebruikt), `Get-ReleaseConsumerBumps` (zou de cut naar `releases/notes/`
+laten wijzen, hardcoded in `cut-release.ps1` regel 736, terwijl deze repo `releases/highlights/`
+gebruikt), `Get-ReleaseMajorMinMinors` (geen lezer zonder consumer-laag, en het model erachter botst met
+de definitie van een major in `CLAUDE.md`) en de twee `Get-EntrySignificance*`-knoppen (de fallback is
+hier al het antwoord: ranking aan, met de vijf ingebouwde banden).
 
 ### Significance
 
 #### Tier 0
 
-De blokkade zat op de weg: elke volgende fold in deze repo zou geweigerd hebben zonder iets te
-wijzigen, en de foutmelding wijst naar een migratie die iemand met de hand moet uitvoeren. Die is nu
-gedaan. Daarbovenop verandert de manier van werken wezenlijk — twee vaste bestanden in plaats van
-één in de repo-root, een verplicht tier-model, en vier poorten die een PR tegenhouden. Wie hier de
-volgende branch begint moet dat weten, en kan het nu lezen in plaats van het bij de eerste weigering
-te ontdekken.
+Twee fouten in de release-keten die geen melding gaven zijn weg, en beide zouden bij de eerstvolgende
+handeling zijn toegeslagen in plaats van ooit: de release-cut had een tweede notes-boom begonnen, en de
+fold had kunnen weigeren op een branch-type dat deze repo zelf produceert — waaronder het `Config` van
+deze branch. Daarnaast is het bestand nu leesbaar als beslisdocument: van elke seam staat er of hij
+beantwoord is en waarom, inclusief de zes die leeg blijven, zodat een volgende sessie ze niet opnieuw
+hoeft uit te zoeken. Merkbaar zodra iemand een fold, een release of de contract-check aanraakt; het
+verandert niet hoe er dagelijks gewerkt wordt.
 
-**Score:** 5
+**Score:** 3
 
 #### Tier 1
 
-Een collega die aan dit project meewerkt volgt dezelfde werkwijze, en die stond tot nu toe fout
-beschreven: `CLAUDE.md` beschreef een entry-bestand en een fold-commit die geen van beide nog
-bestonden. De documentatie loopt weer gelijk met de scripts, inclusief wat de poorten weigeren en
-waarom. Geen actie vereist, wel merkbaar zodra iemand een branch begint.
+Een collega die aan dit project meewerkt raakt de release-keten zelden, maar loopt bij een cut of een
+fold tegen dezelfde scripts aan. Die geven nu de antwoorden van deze repo in plaats van die van de
+bron-repo, en de contract-check is teruggelopen van acht naar zes informatieve signalen — de zes die
+overblijven zijn de bewuste keuzes, niet de onbeantwoorde vragen. Klein, en vooral merkbaar als iemand
+erop wijst.
 
-**Score:** 4
+**Score:** 2
 
 #### Tier 2
 
-Een bezoeker van djcylow.com merkt hier niets van. Er is geen regel applicatiecode, styling, content
-of mix-data aangeraakt; de wijziging zit volledig in de documentatie en de changelog-boekhouding van
-de repo.
+Een bezoeker van djcylow.com merkt hier niets van. Er is geen applicatiecode, styling, content of
+mix-data aangeraakt; de wijziging zit volledig in de PowerShell-configuratie die de workflow-scripts
+inlezen.
 
 **Score:** N/A
 
