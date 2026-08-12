@@ -319,9 +319,13 @@ function Get-InternalNoteWording {
 # --- Antwoorden die alleen deze repo kan geven (2026-08-11) ----------------------------------------
 #
 # De blueprint van de bron markeert deze als 'decide': hun waarde zegt iets over DEZE repo, dus
-# adopt-config plaatst ze niet zelf maar zet ze in een voorstel. Hieronder de drie waar deze repo
-# werkelijk afwijkt of waar de reden vastgelegd hoort; de vier andere blijven bewust ongedeclareerd
+# adopt-config plaatst ze niet zelf maar zet ze in een voorstel. Hieronder de vijf waar deze repo
+# werkelijk afwijkt of waar de reden vastgelegd hoort; de drie andere blijven bewust ongedeclareerd
 # en dat staat onderaan verantwoord.
+#
+# Het waren er drie tegen vier tot 2026-08-12: Get-ReleaseNoteRoot en Get-ReleaseConsumerBumps zijn
+# samen overgestoken toen v4.5.0 de eerste van die twee toevoegde. Ze horen als paar gelezen te worden
+# -- de knop was hier onaanzetbaar zolang het pad eronder niet te richten was.
 
 # Hoe de release-notes zijn ingedeeld: 'minor' -> releases/development/<X.Y>/<X.Y.Z>.md.
 #
@@ -336,6 +340,50 @@ $script:ReleaseNotesGrouping = 'minor'
 function Get-ReleaseNotesGrouping {
     <# Hoe de gegenereerde release-notes zijn ingedeeld: 'major' of 'minor'. Hier 'minor'. #>
     return $script:ReleaseNotesGrouping
+}
+
+# Waar het handgeschreven release-document woont: releases/highlights/<X.Y>/<X.Y.Z>.md. De submap komt
+# van Get-ReleaseNotesGrouping hierboven, dus dit is uitsluitend de root, zonder afsluitende slash.
+#
+# AFGELEZEN VAN DE BOOM, net als de grouping. releases/highlights/ heeft 23 mappen naast de 23 van
+# releases/development/ -- dezelfde 2.0 tot en met 2.22, en de nieuwste release heeft in beide een
+# 2.22.0.md. De blueprint-default is releases/notes en de bron zelf gebruikt releases/audience: drie
+# namen voor hetzelfde document, waarvan alleen de eerste hier tot een verkeerde map leidt.
+#
+# DEZE SEAM BESTAAT SINDS v4.5.0, EN DAT IS DE HELE REDEN DAT DE KNOP HIERONDER AAN KAN. Tot en met
+# 4.4.0 stond releases/notes/ hardcoded in cut-release.ps1, waardoor de consumer-laag hier
+# onaanzetbaar was: aanzetten liet de cut schrijven naar een map die deze repo niet heeft, en de map
+# die hier bestaat buiten de release vallen. Dat is als kern-bevinding gemeld via de inbound-route
+# (DaveKJohn/claude-code-specialists#616) en in de bron gerepareerd. Dit is de eerste seam in dit
+# bestand die er staat omdat deze repo er zelf om heeft gevraagd.
+#
+# releases/development/ heeft bewust GEEN tegenhanger-knop: niemand kon een repo aanwijzen die juist
+# op dat pad afwijkt. Deze repo wijkt er ook niet af, dus er is niets te declareren.
+$script:ReleaseNoteRoot = 'releases/highlights'
+
+function Get-ReleaseNoteRoot {
+    <# Root-relatieve map van het handgeschreven release-document. Hier releases/highlights. #>
+    return $script:ReleaseNoteRoot
+}
+
+# Welke bumps dat handgeschreven document krijgen. @() zou de hele laag uitzetten.
+#
+# AFGELEZEN VAN DE BOOM, niet overgenomen uit CLAUDE.md -- die zegt hetzelfde (Release Workflow stap 6
+# en 13: highlights alleen bij Minor/Major), maar de boom levert het bewijs: releases/highlights/ heeft 23
+# bestanden en alle 23 eindigen op .0, terwijl releases/development/ er 37 heeft waarvan 14 een patch.
+# Elke minor kreeg dus een document en geen enkele patch, 23 releases achter elkaar zonder uitzondering.
+#
+# LET OP -- WAT DE CUT HIER STRAKS SCHRIJFT IS NIET HET DOCUMENT DAT CLAUDE.md BESCHRIJFT. Sinds
+# 2026-08-10 kent de bron nog maar een enkel handgeschreven document, met een sectie per lezer (de consument,
+# wat het waard is, wat er nog open stond), na de meting dat de twee losse documenten bij alle twaalf
+# voorgaande releases over dezelfde wijzigingen gingen -- 38% overlap in twee registers. CLAUDE.md stap
+# 6 beschrijft nog de oude highlights-versie. Die herziening is eigen werk en staat nog open; deze knop
+# zet alleen de laag aan, op de plek waar de 23 bestaande documenten al staan.
+$script:ReleaseConsumerBumps = @('minor', 'major')
+
+function Get-ReleaseConsumerBumps {
+    <# Bump-typen die het handgeschreven release-document krijgen. Hier minor en major. #>
+    return $script:ReleaseConsumerBumps
 }
 
 # De vaste root-*.md van deze repo. cut-release behandelt ELKE andere root-*.md als een entry die
@@ -374,10 +422,10 @@ function Get-LiveStage {
     return $script:LiveStage
 }
 
-# --- De vier blueprint-vragen die bewust ONBEANTWOORD blijven --------------------------------------
+# --- De drie blueprint-vragen die bewust ONBEANTWOORD blijven --------------------------------------
 #
 # Een stub is hier erger dan een lege plek: zonder functie gebruikt het gedeelde script zijn
-# gedocumenteerde fallback, en die is in alle vier de gevallen het goede antwoord. Genoteerd zodat de
+# gedocumenteerde fallback, en die is in alle drie de gevallen het goede antwoord. Genoteerd zodat de
 # volgende sessie dit niet opnieuw hoeft uit te zoeken en niemand ze "voor de volledigheid" bijzet.
 #
 # Get-ReleasePluginTier -- de enige met een BEREKENDE fallback: het script kijkt zelf of
@@ -388,15 +436,22 @@ function Get-LiveStage {
 #   hij zou in een beweging mergen, en een merge is hier een deploy die apart op Dave's woord wacht.
 #   Geen lezer, dus geen waarde. De merge-vorm zelf staat in CLAUDE.md, ontwikkelworkflow stap 6.
 #
-# Get-ReleaseConsumerBumps -- zou de stakeholder-laag van cut-release aanzetten, maar die schrijft
-#   naar releases/notes/<map>/ en dat pad staat HARDCODED in cut-release.ps1 regel 736, terwijl deze
-#   repo releases/highlights/<map>/ gebruikt (CLAUDE.md, Release Workflow stap 6 en 13). Er is geen
-#   seam voor dat pad, dus aanzetten laat de cut naar een map wijzen die hier niet bestaat. De
-#   highlights blijven daarom handwerk. Het ontbreken van die seam is een kern-bevinding en is gemeld
-#   via de inbound-route: DaveKJohn/claude-code-specialists#616. Landt daar een seam voor die map, dan
-#   kan deze knop hier alsnog op @('minor','major'), want dat is wat CLAUDE.md al voorschrijft.
+# Get-ReleaseMajorMinMinors -- hoeveel minors een major-lijn moet hebben gehad voordat er een major
+#   gecut mag worden. De default is 10 en die volstaat hier: de poort leest de minor-component van de
+#   huidige versie, en die is 22 (v2.22.0), dus een major komt er ruim langs zonder eigen waarde.
 #
-# Get-ReleaseMajorMinMinors -- de bump-poort die dit leest staat uit zolang er geen consumer-laag is
-#   verklaard, dus er is geen lezer. Het model erachter past hier ook niet: in de bron is een major
-#   een RECAP van tien minors, terwijl een major in deze repo een volledig redesign of een
-#   framework-migratie is (CLAUDE.md, "Versienummer bepalen").
+#   DE REDEN DIE HIER TOT 2026-08-12 STOND WAS ONJUIST, en dat is het opschrijven waard omdat hij
+#   plausibel klonk: "de bump-poort die dit leest staat uit zolang er geen consumer-laag is verklaard,
+#   dus er is geen lezer". Die poort hangt niet aan de consumer-laag maar aan de impact-verklaring van
+#   de wachtende entries -- cut-release.ps1 regel 459-467: hij schakelt zichzelf uit waar geen enkele
+#   entry zijn impact heeft verklaard, want dan heeft de repo het model niet geadopteerd. Deze repo
+#   heeft dat model al (Get-EntrySignificanceEnabled valt terug op 'on' en de entries dragen sinds de
+#   entry-model-migratie een tier-tabel), dus er is wel degelijk een lezer, en dat was al zo voordat de
+#   knop hierboven aanging. Twee onafhankelijke mechanismen die op elkaar leken.
+#
+#   WAT ER OP TE LETTEN VALT, voor wie hier ooit toch een waarde zet: de teller kijkt naar de minors
+#   binnen de HUIDIGE major. Vlak na een v3.0.0 staat die op nul, en dan houdt de default een v4.0.0
+#   tien minors lang tegen. Dat botst met het model van deze repo, waar een major een volledig redesign
+#   of een framework-migratie is (CLAUDE.md, "Versienummer bepalen") en niet een recap van tien minors
+#   zoals in de bron. Het is nu geen probleem en het is bij de eerstvolgende major geen probleem; het
+#   wordt er een bij de major die daarop volgt.
