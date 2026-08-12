@@ -1,4 +1,4 @@
-### Van `specialists` naar `team-alpha` + `workflow-davekjohn` · Config · 2026-08-11
+### Van `specialists` naar `team-alpha` + `workflow-davekjohn` · Config · 2026-08-12
 
 De specialists-plugin heette in de bron niet meer zoals deze repo hem aanriep. `claude plugin list`
 meldde `specialists@claude-code-specialists` als **failed to load — Plugin specialists not found in
@@ -8,10 +8,11 @@ v3.2.0, geïnstalleerd op 2026-08-03; de marketplace-clone liep zestien commits 
 
 Wat er is gebeurd:
 
-- **De marketplace bijgewerkt** naar `54a9233`, gelijk met `origin/main` van de bron.
+- **De marketplace bijgewerkt** naar `afed1b1`, gelijk met `origin/main` van de bron — **v4.5.0**
+  plus 42 commits.
 - **`.claude/settings.json`** — `specialists@claude-code-specialists` eruit,
   `team-alpha@claude-code-specialists` (de kernploeg) en `workflow-davekjohn@claude-code-specialists`
-  (het branch-, changelog- en release-model) erin, beide op v4.4.0 met `--scope project`.
+  (het branch-, changelog- en release-model) erin, beide op v4.5.0 met `--scope project`.
   `workflow-davekjohn` is geen nieuwe keuze maar dezelfde: `CLAUDE.md` beschrijft dat model al woord
   voor woord, inclusief de vijf skills die het meebrengt.
 - **De `@`-import van Chris' body herstelt** in `.claude/specialists/SPECIALISTS.md`. Die wees naar
@@ -27,9 +28,6 @@ Wat hierna nog moet, en waarom het hier niet kon:
 
 - **Een sessie-herstart**, gevolgd door `specialists-init` (additief; overschrijft niets). Een
   herstart kan een specialist niet zelf uitvoeren.
-- **`claude plugin uninstall specialists@claude-code-specialists --scope project`** ruimt de dode
-  regel in het install-record op. Het commando werd geweigerd door de permissie-classifier van deze
-  sessie; de plugin is inmiddels wel uitgezet via `settings.json`, dus hij laadt niets meer.
 - **`CLAUDE.md` volgt in een eigen beweging.** `workflow-davekjohn@4.x` verplaatst het changelog
   entry-bestand van de repo-root (`<branch-naam>.md`) naar `branch/branch-changelog.md` plus
   `branch/branch-progress.md`, en `scripts/release/new-changelog-entry.ps1` is vervangen door
@@ -38,6 +36,10 @@ Wat hierna nog moet, en waarom het hier niet kon:
   Deze branch houdt zich daarom nog aan het root-model.
 
 Als [inbound #612](https://github.com/DaveKJohn/claude-code-specialists/issues/612) naar de bron
-gestuurd: de migratiehandleiding daar noemt één oud pad voor de `@`-import, en dat is niet het pad dat
+gestuurd: de migratiehandleiding daar noemde één oud pad voor de `@`-import, en dat is niet het pad dat
 `specialists@3.2.0` shipte. Wie zijn eigen regel in die tabel niet terugvindt, concludeert redelijkerwijs
-dat de reparatie niet voor hem geldt — precies bij de stap die stil faalt.
+dat de reparatie niet voor hem geldt — precies bij de stap die stil faalt. **Dat issue is op 2026-08-12
+gesloten en de reparatie zit in v4.5.0**: `INSTALL.md` noemt nu beide oude padvormen, geeft een vormtest
+voor wie geen van beide terugvindt, en zegt met zoveel woorden dat een niet-gevonden regel geen bewijs is
+dat de reparatie niet van jou is. Dit is dus de eerste keer dat de inbound-route rond is — de
+verbetering is in de bron gebouwd en komt via de plugin-update hier terug.
