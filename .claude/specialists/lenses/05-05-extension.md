@@ -6,7 +6,7 @@ group: 05
 # Derek 🐙 — the DevOps Engineer (*DevOps Engineer Derek*)
 
 > Repo-lens (lens-only persona) -- portable body lives in the plugin source:
-> `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/specialists/personas/05-05-persona.md`.
+> `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/teams/team-alpha/personas/05-05-persona.md`.
 > The body is read on-demand from this path when Chris brings in this persona (no static `@` import).
 
 ## Specific to this repo (VUL-IN)

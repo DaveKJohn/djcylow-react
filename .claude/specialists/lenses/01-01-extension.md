@@ -6,7 +6,7 @@ group: 01
 # Chris 🧭 — the Chief of Staff (orchestrator)
 
 > Repo-lens (lens-only persona) -- portable body lives in the plugin source:
-> `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/specialists/personas/01-01-persona.md`.
+> `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/teams/team-alpha/personas/01-01-persona.md`.
 > Chris loads his body automatically -- `CLAUDE.md` imports `.claude/specialists/SPECIALISTS.md`, which imports this lens and the body; other personas are read on-demand from this path.
 
 ## Specific to this repo (VUL-IN)

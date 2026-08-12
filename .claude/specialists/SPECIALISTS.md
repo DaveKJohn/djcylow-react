@@ -6,7 +6,7 @@
 
 The orchestrator (Chris) is always loaded -- portable body from plugin install and repo lens from `lenses/`.
 
-@~/.claude/plugins/marketplaces/claude-code-specialists/plugins/specialists/personas/01-01-persona.md
+@~/.claude/plugins/marketplaces/claude-code-specialists/plugins/teams/team-alpha/personas/01-01-persona.md
 
 @lenses/01-01-extension.md
 
