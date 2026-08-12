@@ -20,10 +20,12 @@
          adopt-config-skill -- acht functies die de GEDEELDE werkwijze uitspreken en niets over deze
          repo beweren. Ze staan er in de tekst van de bron, comments incluis, en zijn nu van dit
          bestand: adopt-config overschrijft nooit iets dat er al staat.
-      3. Drie antwoorden die alleen deze repo kan geven (Get-ReleaseNotesGrouping,
-         Get-ReservedRootMd, Get-LiveStage), en daaronder een blok dat verantwoordt welke vier
-         blueprint-vragen bewust ONBEANTWOORD blijven omdat de fallback van het gedeelde script daar
-         beter is dan een stub.
+      3. De antwoorden die alleen deze repo kan geven -- op 2026-08-12 zes: Get-ReleaseNotesGrouping,
+         Get-ReleaseNoteRoot, Get-ReleaseConsumerBumps, Get-ReservedRootMd, Get-LiveStage en
+         Get-ReleaseAudienceTier. Daaronder een blok dat verantwoordt welke blueprint-vragen bewust
+         ONBEANTWOORD blijven omdat de fallback van het gedeelde script daar beter is dan een stub.
+         Tel die niet uit dat blok en niet uit deze opsomming: check-script-contract.ps1 meldt de
+         onbeantwoorde als [INFO] en dat is de enige stand die met de blueprint meebeweegt.
 
     Samen het contract dat scripts/sync/check-script-contract.ps1 afdwingt.
 
@@ -422,11 +424,70 @@ function Get-LiveStage {
     return $script:LiveStage
 }
 
-# --- De drie blueprint-vragen die bewust ONBEANTWOORD blijven --------------------------------------
+# WIE deze repo met een release-document toespreekt. Dave's keuze, 2026-08-12, in antwoord op de enige
+# blueprint-vraag die geen meting maar een beslissing verlangde.
+#
+# De bron kent twee SOORTEN publiek in plaats van twee sporten van een ladder: 1 is het management en
+# de opdrachtgever, 2 is de abonnee van een dienst. Een repo heeft er precies een. Deze repo antwoordt
+# 1, en de reden staat in Dave's eigen woorden: bezoekers lezen geen release notes. Wie djcylow.com
+# bezoekt luistert een mix of boekt een boeking; die persoon opent nooit een versie-document. De site
+# IS het product, en de mensen die er iets aan hebben dat versie 2.22.0 uitkwam zijn Dave en wie met
+# hem aan dit project werkt.
+#
+# NIET DE 2 VAN DE BRON OVERGENOMEN, en dat is het hele punt van deze knop. De bron-repo is zelf de
+# dienst waarop iemand zich abonneert, dus daar is 2 juist. Hier zou 2 beweren dat de bezoekers van een
+# DJ-website release notes lezen -- onwaar, en door geen enkel script te weerleggen: beide waarden zijn
+# geldig en geen van beide geeft ooit een fout. Een gekopieerde waarde is bovendien niet te
+# onderscheiden van een afgewogen waarde zodra hij er staat, en verbergt dus of de vraag ooit is
+# gesteld.
+#
+# WAT DIT WEL DOET: new-branch scaffoldt vanaf nu '#### Tier 0' en '#### Tier 1' in een nieuwe entry,
+# en open-pr en cut-release vragen exact die twee compleet te zijn. Tier 0 staat buiten deze vraag --
+# elke repo vraagt daar onvoorwaardelijk naar.
+#
+# WAT DIT NIET DOET: Get-EntryTierMax blijft 2, en die zegt welke tier-NUMMERS geldig zijn om te LEZEN.
+# Die scheiding is de hele veiligheid van de knop. De entries op de openstaande branches dragen een
+# '#### Tier 2'-sectie met N/A, en die moeten leesbaar blijven -- ze zijn onder het cumulatieve model
+# geschreven. Een tier-1-repo die zijn eigen historie niet meer kan lezen is de stille variant van een
+# leeggelopen release.
+#
+# LET OP bij het weghalen van deze functie: afwezig betekent hier NIET 'geen publiek' maar 'vraag naar
+# elke tier die het model heeft' -- de stand van voor de knop. Wie hem verwijdert om de zaak te
+# vereenvoudigen zet de vraag dus niet uit maar ruimer, en het gedeelde script meldt dat niet.
+#
+# DE TEKST IN CLAUDE.md LOOPT HIER NOG OP ACHTER, en dat is bewust niet hier gerepareerd. Het
+# tier-blok daar noemt drie te beantwoorden tiers met 'Tier 2 -- een bezoeker van djcylow.com merkt
+# het' en beschrijft de ladder als cumulatief; beide zijn met dit antwoord achterhaald. Dat bestand
+# wordt op docs/entry-model-migratie over ruim tweehonderd regels herschreven, dus de correctie hoort
+# in een eigen branch na die merge -- zelfde afweging als de taxonomie-noot in branch-progress.
+$script:ReleaseAudienceTier = 1
+
+function Get-ReleaseAudienceTier {
+    <# De ene publieks-tier waar een entry in deze repo naar gevraagd wordt, naast tier 0. Hier 1. #>
+    return $script:ReleaseAudienceTier
+}
+
+# --- De vijf blueprint-vragen die bewust ONBEANTWOORD blijven --------------------------------------
 #
 # Een stub is hier erger dan een lege plek: zonder functie gebruikt het gedeelde script zijn
-# gedocumenteerde fallback, en die is in alle drie de gevallen het goede antwoord. Genoteerd zodat de
+# gedocumenteerde fallback, en die is in alle vijf de gevallen het goede antwoord. Genoteerd zodat de
 # volgende sessie dit niet opnieuw hoeft uit te zoeken en niemand ze "voor de volledigheid" bijzet.
+#
+# HET GETAL IS GEMETEN, NIET GETELD UIT DIT BLOK: check-script-contract.ps1 meldt elke niet-gedeclareerde
+# optionele functie als [INFO], en dat aantal is de enige betrouwbare stand. Tot 2026-08-12 stond hier
+# "drie" terwijl de header van dit bestand "vier" zei en de check er zes meldde -- twee handgeschreven
+# tellingen die geen van beide klopten, want twee van de zes stonden nergens verantwoord. Loopt dit weer
+# uit de pas, geloof de check.
+#
+# Get-EntrySignificanceEnabled -- of entries hun impact verklaren. De fallback is 'on' en dat is hier
+#   juist: deze repo heeft het model geadopteerd en zijn entries dragen een tier-tabel. Een stub met
+#   $true zou letterlijk hetzelfde zeggen als de fallback.
+#
+# Get-EntrySignificanceRubricLevels -- de tekst achter de scores 1 tot 5. De ingebouwde vijf banden
+#   volstaan, en CLAUDE.md heeft ze in eigen woorden in de tabel bij stap 3 staan, inhoudelijk gelijk.
+#   OPNIEUW TE WEGEN nu het publiek op 1 staat: de contract-tekst noemt als reden voor een eigen
+#   verwoording juist een repo wiens lezers geen ontwikkelaars zijn, en tier 1 is hier het management en
+#   de opdrachtgever. Dat is een keuze en geen meting, dus hij wordt gesteld en niet stil gemaakt.
 #
 # Get-ReleasePluginTier -- de enige met een BEREKENDE fallback: het script kijkt zelf of
 #   .claude-plugin/marketplace.json bestaat. Die map is hier niet, dus 'geen plugin-laag' rolt er al

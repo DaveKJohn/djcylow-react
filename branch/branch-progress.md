@@ -28,6 +28,11 @@
 - [~] De fold-weigering end-to-end reproduceren — vervallen: dat vraagt een gemergde PR, dus het is niet te testen zonder een deploy. De claim rust op de `[INFO]` van de contract-check en de blueprint-tekst, niet op een eigen run; dat staat zo ook in de entry
 - [~] De taxonomie-noot in `CLAUDE.md` (`feat` als alias, `Chore` als fallback-type) — vervallen op deze branch: Dave's keuze is genomen, maar het raakt `CLAUDE.md` en dat bestand wordt op `docs/entry-model-migratie` over 218 regels herschreven. Krijgt een eigen branch ná die merge
 - [x] De twee kern-bevindingen gemeld via de inbound-route, niet hier gerepareerd: `DaveKJohn/claude-code-specialists#615` (new-branch slaat de branch-bestanden over op een stacked branch en noemt daarbij de verkeerde branch) en `DaveKJohn/claude-code-specialists#616` (`releases/notes/` hardcoded, plus een letterlijk pad in de warning op regel 814 waar de seam wél elders wordt gebruikt). Beide geverifieerd tegen bron-`main` `569e656` (v4.5.0), dus tegen de bron en niet tegen een verouderde mirror
+- [x] `Get-ReleaseAudienceTier` = `1` — Dave's beslissing op 2026-08-12, in zijn eigen woorden: bezoekers lezen geen release notes. De laatste seam die een keuze vroeg in plaats van een meting; de bron-2 is bewust níét overgenomen, want die zou beweren dat bezoekers van een DJ-website versie-documenten lezen
+- [x] De gates nagemeten met het publiek op 1: `Get-EntryAskedTiers` geeft `0, 1`, `Get-EntryTierMax` blijft `2`, en `Get-EntryImpactFindings` meldt niets over deze entry ondanks haar `#### Tier 2`-sectie — de bestaande entries onder het cumulatieve model blijven dus leesbaar
+- [x] Twee onjuiste tellingen in `repo-config.ps1` rechtgezet: de header zei "vier" bewust onbeantwoorde vragen, de blok-kop "drie", de contract-check meldde zes. Beide verwijzen nu naar de check in plaats van een getal te herhalen, en de twee seams die nergens verantwoord stonden (`Get-EntrySignificanceEnabled`, `Get-EntrySignificanceRubricLevels`) hebben hun reden gekregen
+- [x] Contract-check en ASCII-conventie opnieuw: 0 fouten, 6 → 5 info, en 0 non-ASCII bytes in 33.635
+- [~] `Get-EntrySignificanceRubricLevels` in eigen woorden zetten — bewust niet nu: met het publiek op tier 1 (management en opdrachtgever in plaats van ontwikkelaars) noemt de contract-tekst dit precies het geval voor een eigen verwoording, maar dat is een nieuwe keuze van Dave en geen gevolg van deze. De vraag staat als kanttekening in het bestand, zodat hij niet stil wordt beantwoord
 
 ### Where I left off
 
@@ -43,5 +48,17 @@ dus git vraagt welke kant het wordt — dat is deze kant. Daarna is de branch PR
 Op 2026-08-12 is er een tweede ronde bijgekomen, ná de plugin-update naar v4.5.0: de twee release-map-
 seams. Die stonden hier bewust leeg met een reden die door die update verviel, dus ze horen op déze
 branch en niet op een nieuwe — het is dezelfde beslissing, nu met het antwoord dat er eerst niet was.
+
+Later diezelfde dag een derde ronde, om dezelfde reden: `Get-ReleaseAudienceTier` stond hier leeg met
+als reden "wacht op een beslissing van Dave", en die beslissing is er nu — **tier 1**. Ook dit is
+dezelfde beslissing als de andere zes handmatige, nu met het antwoord dat er eerst niet was, dus geen
+eigen branch. Daarmee is elke seam die deze repo kan beantwoorden beantwoord: de vijf die overblijven
+zijn keuzes vóór de fallback, niet openstaande vragen.
+
+Twee dingen die hier bewust niet zijn gebeurd en die na de merges hun eigen branch krijgen: het
+tier-blok in `CLAUDE.md` (dat vraagt nog drie tiers en noemt tier 2 "een bezoeker van djcylow.com",
+allebei achterhaald door de keuze hierboven) en de vraag of de rubriek-banden eigen woorden nodig hebben
+nu het publiek management is. Beide raken `CLAUDE.md`, dat op `docs/entry-model-migratie` over 218
+regels wordt herschreven — daar wachten ze op, samen met de taxonomie-noot.
 
 Er is géén PR geopend. De branch is wél gepusht.
