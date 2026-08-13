@@ -1,73 +1,71 @@
-## `docs/release-route-naar-script` changelog
+## `config/testsuite-mixdata-en-node-pin` changelog
 
 ### Branch title
 
-Release Workflow gelijk aan wat cut-release werkelijk doet
+Testsuite op de mix-data, Node gepind en de CI-poort onontkoombaar
 
 ### Branch ID
 
-20260813-224225
+20260813-225720
 
 ### Branch type
 
-docs
+config
 
 ### What does the change on this branch bring to main?
 
-`CLAUDE.md` beschreef de release-route zoals die ooit bedoeld was, niet zoals de gedeelde
-`cut-release`-skill hem werkelijk uitvoert. Vijf plekken zijn rechtgezet, allemaal in dat ene bestand.
+Deze repo had **nul testsuites** en pinde zijn Node-versie nergens vast. Dat waren twee van de drie
+pijlers waar de gedeelde PR-default op leunt. Beide staan er nu.
 
-**De gevaarlijkste eerst: `cut-release` draait wél iets.** Er stond *"Het print commandoblokken in
-vaste volgorde; het draait niets zelf."* Het script doet `git add -A`, `git commit`, `git tag -a` en
-**twee pushes, waaronder `git push origin main`**. Alleen `gh release create` wordt geprint. Wie de
-oude regel las, dacht dat proberen gratis was, terwijl het script precies de handeling doet die de
-safety-rules aan Dave voorbehouden. Het blok heet in de bron `# --- Commit + tag directly on main ---`.
+**36 tests over de mix-data, en ze zijn gemeten in plaats van overgeschreven.** `src/data/mixes/README.md`
+beschrijft tientallen veldregels, maar niets hield ze tegen: een fout erin haalt de build (JSON is
+geldig, TypeScript tevreden) en wordt daarna op `djcylow.com` zichtbaar. De spec heeft echter een sectie
+*"Known Inconsistencies in Legacy Data"*, dus die regels hard afdwingen levert een suite die op dag één
+rood staat — en een suite die altijd rood staat bewaakt niets. Daarom is de data eerst gemeten:
 
-**Daaruit volgen twee botsingen met de grondwet, en die staan nu bij de safety-rules zelf.** Het script
-doet geen `git checkout main` maar commit op de branch waar je op staat, terwijl stap 2 van de Release
-Workflow je opdraagt eerst een release-branch te maken. En `git add -A` kent geen scope, terwijl beide
-toegestane directe commits op `main` juist *"scope beperkt tot"* een lijstje bestanden zijn. Er staat nu
-expliciet dat dit een derde weg zou zijn die niet is toegestaan zolang Dave hem niet heeft gewogen —
-ook niet "even met `-NoPush`", want dat houdt alleen de push tegen en niet de ongescopete commit.
+- **23 regels haalt de data nu al volledig** en staan als harde assertie: `tracks` gelijk aan
+  `tracklist.length`, unieke `id`/`title`/`id_spotify`/`title_spotify`/`description_nl`, `color` met
+  hoofdletter en passend bij de bestandsnaam, ISO-`date` die met `jaar`/`maand`/`dag` en `id`
+  overeenkomt, `genre` als familie van `subgenre`, 176 bpm voor Drum & Bass, titels onder 60 tekens,
+  oplopende tracklist-tijden, en het bestaan van elk `image_wide_*`-bestand.
+- **7 regels haalt de data niet** en staan als **ratchet**: het gemeten aantal is het plafond. Een
+  nieuwe overtreding faalt, en een opgelóste overtreding faalt óók — met de melding dat het plafond
+  omlaag moet. Zo blijft de achterstand zichtbaar in plaats van stil weer op te lopen. Die werking is
+  in beide richtingen bewezen voordat de suite werd vastgelegd.
 
-**De vijftien stappen zeggen nu wie wat doet.** Een tabel bij de kop wijst per stap aan wat het script
-overneemt (3, 4, 5, 8, 9, 10, 12 en een concept voor 6) en wat handwerk blijft (7, 13, 14, 15). Dat is
-gemeten aan het script, niet geschat: v2.23.0 is met de hand gelopen en dat blijft voorlopig zo.
+**En dat meten legde meteen een zichtbaar defect op de live site bloot.** 25 live mixen verwijzen naar
+een `image_square` die niet bestaat, en dat veld wordt gerenderd door `BasiskleurenCarousel`,
+`Erlenmeyers` en `VsKleurenCarousel` — dus de Music Mood Colours-pagina laadt daar 404's. Het is geen
+extensie-mismatch: de `square/`-mappen bestaan grotendeels niet (`public/images/full/blue/` heeft alleen
+`wide/`). Repareren vraagt echte afbeeldingen en is Dave's beslissing, dus de suite legt het exact vast
+in plaats van het op te lossen. Tweede vondst van dezelfde soort: 25 live mixen staan op de legacy
+R2-bucket, terwijl de veldspec beweert dat dat alleen `full-blue.json` betreft.
 
-**De taaltegenspraak is beslecht op Engels** (Dave, 2026-08-13). Stap 6 droeg op het audience-document
-in het Nederlands te schrijven; de taalsectie zei dat `Get-ReleaseNoteWording` bewust leeg staat omdat
-leeg Engels betekent. Beide stonden in hetzelfde bestand. Het meetbare gevolg: `session-status.ps1`
-leest de "nog open"-sectie via `SectionOpen`, valt terug op het Engelse
-`What was still open at this release`, en meldde bij `/continue` dat de note van v2.23.0 die sectie
-niet had — terwijl hij er gevuld en wel in stond. Stap 6 is meebewogen en noemt nu de Engelse koppen
-letterlijk; de seam blijft leeg. `v2.23.0` is de laatste Nederlandse note en wordt niet herschreven.
+**De Node-versie staat vast in `.nvmrc`.** CI had `'22'` hardgecodeerd terwijl Netlify zijn eigen default
+draaide, en niets meldde het als die twee uit elkaar liepen. Netlify **leest** `.nvmrc`, dus dit is nu de
+enige plek waar de versie wordt verklaard; `ci.yml` haalt hem daar op via `node-version-file`.
 
-**En de versienummertabel spreekt de bump-poort tegen.** De tabel kijkt naar de soort wijziging en zet
-docs- en workflow-werk op patch; de poort kijkt naar de tier van de wachtende entries en maakt tier 1
-een minor. v2.23.0 is als minor gecut met precies zulk werk erin. Dat is nu opgeschreven met de
-constatering dat in de praktijk de poort wint — die weigert, de tabel is proza. Welke van de twee
-leidend wordt, is als beslissing bij Dave neergelegd en er is niets geschrapt.
-
-Meegenomen: de vier skills die de plugin levert maar `CLAUDE.md` niet noemde — `adopt-config`,
-`fix-mojibake`, `lock` en `continue` — staan nu in de skill-lijst.
+**De poorten draaien de suite ook echt.** `Get-TestCommands` in `scripts/repo-config.ps1` geeft
+`npx vitest run` terug — de seam die plugin 4.8.0 hiervoor toevoegde. Zonder die waarde meldde `open-pr`
+eerlijk *"scripts\tests not found — test gate skipped"* en draaide er niets, terwijl de poort zegt "all
+test suites green". In CI staat de suite als gewone `npm test`-stap: de gedeelde gate woont in
+`native-capture-lib.ps1` van de bron, en dat bestand heeft een consumer niet in zijn repo.
 
 ### Significance
 
 #### Tier 0
 
-Een specialist die de oude regel las, kon `cut-release` draaien in de overtuiging dat het niets deed,
-en daarmee ongevraagd naar `origin/main` pushen met een ongescopete commit. Dat gat is dicht, en de
-route zegt nu per stap wie hem loopt in plaats van een handmatige volgorde te suggereren die het script
-al grotendeels overlapt.
+De derde pijler onder de PR-default bestaat nu. Waar de poort alleen bewees dat de code **bouwt**,
+bewaakt de suite of het **gedrag** gelijk bleef — op precies de data waar de regels tot nu toe alleen in
+proza stonden. En de eerste run leverde al twee defecten op die niemand kon zien.
 
 **Score:** 4
 
 #### Tier 1
 
-Drie beslissingen die alleen Dave kan nemen staan nu expliciet opgeschreven in plaats van verstopt te
-zitten in een tegenspraak: de twee botsingen van `cut-release` met de grondwet, en welke van de
-versienummertabel of de bump-poort leidend is. De taalkeuze die hij vanavond maakte is meteen
-doorgevoerd, waardoor `/continue` voortaan kan rapporteren wat een release openliet.
+De Node-versie van de live build kan niet meer stil divergeren van CI, en er ligt nu een exacte lijst van
+25 mixen met een gebroken afbeelding op de Music Mood Colours-pagina — een zichtbaar defect dat
+maandenlang onopgemerkt bleef omdat geen enkele poort ernaar keek.
 
 **Score:** 3
 

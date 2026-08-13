@@ -1,41 +1,46 @@
-## `docs/release-route-naar-script` progress
+## `config/testsuite-mixdata-en-node-pin` progress
 
 ### Steps
 
-- [x] Gemeten wat `cut-release.ps1` werkelijk doet, in plaats van de bewering in `CLAUDE.md` te geloven:
-      `git add -A`, `git commit`, `git tag -a`, `git push origin main` en `git push origin <tag>`
-- [x] De skill-beschrijving van `cut-release` rechtgezet, met de twee botsingen met de grondwet erbij
-- [x] Bij de safety-rules opgeschreven dat `cut-release` een niet-toegestane derde weg zou zijn, en dat
-      `-NoPush` dat niet oplost
-- [x] Tabel bij de Release Workflow: per stap wie hem doet
-- [x] Stap 6 naar het Engels, met de letterlijke defaults uit `release-lib.ps1` als kopnamen (Dave,
-      2026-08-13)
-- [x] De taalsectie laten kloppen met stap 6, inclusief waarom het historie-argument de conclusie over
-      de seam niet droeg
-- [~] `Get-ReleaseNoteWording['SectionOpen']` vullen — laten vallen. De lock stelde dit voor, maar Dave
-      koos Engels, en dan is de lege seam juist het goede antwoord en stap 6 het bestand dat moest
-      bewegen. `scripts/repo-config.ps1` is niet aangeraakt
-- [x] De versienummertabel tegenover de bump-poort gezet, met de beslissing bij Dave gelaten
-- [x] De vier ontbrekende skills toegevoegd aan de skill-lijst
-- [x] Ankers `#scripts` en `#release-workflow` nagelopen: beide wijzen naar een bestaande kop
-- [x] Lint-poort gedraaid
+- [x] Eerst gemeten wat de mix-data nu al haalt, in plaats van de veldspec te geloven: 23 regels op 100%,
+      7 met echte overtredingen
+- [x] Vitest toegevoegd als devDependency, met `npm test` en `npm run test:watch`
+- [x] `tests/mix-data.test.ts`: 36 tests, harde asserties voor de 23 en een ratchet voor de 7
+- [x] De ratchet in beide richtingen bewezen (te hoog plafond faalt, te laag plafond faalt) voordat de
+      baseline werd vastgelegd
+- [x] `Get-TestCommands` in `scripts/repo-config.ps1`, met de ASCII-conventie van dat bestand
+      gerespecteerd — nagemeten: 0 non-ASCII bytes
+- [x] `.nvmrc` op 22, en `ci.yml` haalt de versie daar op via `node-version-file`
+- [x] Testsuite als aparte stap in `ci.yml`, met opgeschreven waarom dat hier geen `Invoke-TestSuiteGate`
+      is zoals in de bron
+- [x] Contract-check: `Get-TestCommands` staat op `[OK]`, en het aantal `[INFO]`-seams blijft 5 — het
+      verantwoordingsblok in `repo-config.ps1` hoeft dus niet bij
+- [x] Lint-poort gedraaid met de tests erin: 0 fouten, 89 pagina's. `tsconfig.lint.json` includeert
+      `**/*.ts`, dus de suite wordt meegetypecheckt
+- [~] `image_square` van 25 mixen repareren — laten vallen, en bewust. Dat vraagt echte afbeeldingen en
+      werk in `public/`, wat onder de site-uitzondering valt. De suite legt het aantal vast zodat het
+      niet kan groeien
+- [~] Componenttests — laten vallen voor deze ronde (Dave, 2026-08-13): de mix-data had de hoogste
+      waarde per uur, en juist de UI beoordeel jij toch met het oog
 
 ### Where I left off
 
-Deze PR raakt alleen `CLAUDE.md` en de twee `branch/`-bestanden — geen zichtbaar resultaat, dus hij
-**loopt door** tot en met de fold.
+Deze PR raakt `tests/`, `scripts/`, `.github/`, `package.json` en `.nvmrc` — niets in `src/`, `public/`
+of `src/data/mixes/`, dus geen zichtbaar resultaat en hij **loopt door**.
 
-**Drie beslissingen liggen nu expliciet bij Dave**, en geen ervan is in deze branch vooruitgelopen:
+**Eén ding wil ik vóór de merge gezien hebben, en daar is de deploy preview voor.** `.nvmrc` verandert de
+**live** build, want Netlify leest dat bestand. Bouwt de preview van deze PR groen op Node 22, dan is
+mergen bewijsbaar veilig; dat is precies waar een preview-omgeving voor is en het is de eerste keer dat
+deze repo hem zo gebruikt.
 
-1. **Mag `cut-release` hier draaien, en zo ja hoe?** Het commit op de branch waar je op staat (aanname:
-   `main`) terwijl stap 2 een release-branch voorschrijft, en het stageert met `git add -A` zonder
-   scope. Zolang dit openstaat blijft de route handwerk.
-2. **Versienummertabel of bump-poort?** Ze meten iets anders — soort wijziging tegen wie het merkt — en
-   v2.23.0 liet zien dat ze verschillende antwoorden geven op hetzelfde werk.
-3. **Branch protection, een testsuite en `.nvmrc`** staan onveranderd open; die drie bepalen samen of de
-   ruime PR-uitzondering nog nodig is.
+**Wat hierna nog van punt 3 openstaat:** de ruleset. De bron heeft `main-ci-gate` (actief, target
+`~DEFAULT_BRANCH`, regels `deletion` + `non_fast_forward` + required check, met bypass voor Admin en
+Maintain). Deze repo heeft er nul. Die komt na deze PR, want pas dan staat de definitieve set checks vast
+die required moet worden — de job heet `poort` en heeft er sinds deze branch een teststap in.
 
-**Eén ding dat deze branch bewust niet heeft aangeraakt:** `CONTRIBUTING.md`. De release-route staat
-daar niet in — die pagina draagt de contributie-cyclus van branch tot fold — maar het loont te
-controleren of de bewering "een merge is hier een deploy" daar nog dezelfde onderbouwing draagt nu
-blijkt dat elke PR een Netlify deploy preview krijgt.
+**Twee defecten voor Dave, gemeten en niet gerepareerd:**
+
+1. **25 live mixen met een gebroken `image_square`**, zichtbaar op de Music Mood Colours-pagina. De
+   exacte lijst rolt uit `npx vitest run` zodra je het plafond in de suite op 0 zet.
+2. **25 live mixen op de legacy R2-bucket**, terwijl `src/data/mixes/README.md` beweert dat dit alleen
+   `full-blue.json` betreft. Die bewering in de veldspec is dus ook fout.

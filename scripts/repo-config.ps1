@@ -80,6 +80,29 @@ function Get-LintScript {
     return $script:LintScript
 }
 
+# De eigen testcommando's van deze repo, die de gedeelde test-poort NAAST de PowerShell-suites draait.
+#
+# WAAROM DEZE SEAM HIER NODIG IS. De gedeelde poort (Invoke-TestSuiteGate) globt
+# scripts\tests\*.tests.ps1 en niets anders. Dat klopt in de bron, waar alle suites PowerShell zijn,
+# maar deze repo is een Next.js-app: zijn suite is Vitest en staat in tests\. Zonder deze waarde
+# meldde open-pr eerlijk "scripts\tests not found - test gate skipped" en draaide er dus NIETS --
+# terwijl beide poorten zeggen "all test suites green". De seam bestaat sinds plugin 4.8.0
+# (inbound #644) precies voor dit geval.
+#
+# HET GETAL DAT DIT BEWAAKT: 36 tests over de mix-data in tests\mix-data.test.ts. De veldspec in
+# src\data\mixes\README.md beschreef die regels al, maar niets hield ze tegen; een fout erin haalt de
+# build (JSON is geldig, TypeScript is tevreden) en wordt daarna op djcylow.com zichtbaar.
+#
+# 'vitest run' EN NIET 'npm test', bewust: npm zet er zijn eigen laag omheen die op een non-zero
+# exit een tweede foutblok print, en de poort leest de exit code. Het npm-script bestaat wel
+# (`npm test`) voor handmatig gebruik; de poort neemt de kortste weg.
+$script:TestCommands = @('npx vitest run')
+
+function Get-TestCommands {
+    <# Extra commandoregels die de gedeelde test-poort naast scripts\tests\*.tests.ps1 draait. #>
+    return $script:TestCommands
+}
+
 # Het bestand dat het roster draagt (de specialisten-tabel/lijst). check-roster-sync.ps1 leest dit om
 # te bepalen welke agent-ids "in het roster staan". Repo-root-relatief.
 #

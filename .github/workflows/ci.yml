@@ -37,20 +37,42 @@ jobs:
       # deze workflow, run 31732352110.
       - uses: actions/checkout@v5
 
-      # LET OP: deze repo pint zijn Node-versie nergens vast -- geen .nvmrc, geen .node-version, geen
-      # engines-veld en geen NODE_VERSION in netlify.toml. Netlify draait dus zijn eigen default en CI
-      # de versie hieronder; die twee kunnen uit elkaar lopen zonder dat iets dat meldt. 22 is gekozen
-      # omdat het de versie is waarop hier lokaal wordt gewerkt. Wil je de twee hard gelijkschakelen,
-      # dan is een .nvmrc de plek -- Netlify leest dat bestand, dus dat verandert de live build en is
-      # daarmee een beslissing van Dave, niet van deze workflow.
+      # De Node-versie komt sinds 2026-08-13 uit .nvmrc en staat hier niet meer los genoemd. Dat
+      # bestand is de enige plek waar deze repo zijn Node-versie verklaart, en dat is precies waarom
+      # het er is: Netlify LEEST .nvmrc, dus CI en de live build kunnen niet meer uit elkaar lopen
+      # zonder dat iemand dat bestand aanraakt. Daarvoor stond hier '22' hardgecodeerd terwijl Netlify
+      # zijn eigen default draaide, en niets meldde het als die twee divergeerden.
+      #
+      # .nvmrc HOUDT DE VOLLEDIGE VERSIE (22.15.1) EN NIET ALLEEN DE MAJOR. Met '22' pakt setup-node
+      # de laatste 22.x, en dan bepaalt de kalender welke Node en welke npm de live build en de poort
+      # gebruiken. Een exacte pin maakt lokaal, CI en Netlify aantoonbaar hetzelfde.
+      #
+      # LET OP VOOR WIE HIER EEN OORZAAK ZOEKT: deze pin heeft het lockfile-probleem hieronder NIET
+      # opgelost, en dat is het opschrijven waard omdat de verkeerde verklaring plausibel klonk. Er
+      # stond hier eerst dat CI een nieuwere npm dan lokaal kreeg. Gemeten in run 31744335312: CI
+      # draaide Node v22.15.1, exact gelijk aan lokaal, en `npm ci` faalde nog steeds. De oorzaak zat
+      # in de lockfile, niet in de versie -- zie de npm ci-stap.
       - uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       # `npm ci` en niet `npm install`: die respecteert package-lock.json exact, zodat de poort meet
       # wat er in de repo staat en niet wat er vandaag toevallig nieuwer is. lint-web.ps1 stopt met een
       # eigen melding als node_modules ontbreekt, dus deze stap gaat eraan vooraf.
+      #
+      # WAAROM `yaml` IN devDependencies STAAT TERWIJL DEZE REPO HET NERGENS IMPORTEERT. Toen Vitest
+      # erbij kwam brak deze stap op `npm ci`: "Missing: yaml@2.9.0 from lock file". `yaml ^2.4.2` is
+      # een OPTIONELE peerDependency van vite 8.2.1, en de resolver behandelt die per platform
+      # verschillend: de lockfile is op Windows gegenereerd en liet hem weg, waarna npm op Linux hem
+      # wel nodig had. Lokaal slaagde `npm ci` dus terwijl CI faalde, en Netlify kwam er langs omdat
+      # die `npm install` gebruikt in plaats van `npm ci` -- drie plekken, drie uitkomsten, uit een
+      # lockfile die op precies een daarvan is gemaakt.
+      #
+      # De peer expliciet declareren maakt de boom deterministisch op alle drie. Het alternatief was
+      # de lockfile weggooien en opnieuw opbouwen, wat dezelfde asymmetrie kan reproduceren zolang hij
+      # op Windows wordt gegenereerd. Verwijder deze dependency dus niet omdat de code hem niet
+      # importeert -- dat is precies waarom hij er staat.
       - run: npm ci
 
       # DEZELFDE POORT die open-pr.ps1 lokaal draait -- geen tweede kopie van tsc + build hier. Een
@@ -59,3 +81,16 @@ jobs:
       - name: Poort (scripts/lint/lint-web.ps1 -- tsc --noEmit + npm run build)
         shell: pwsh
         run: ./scripts/lint/lint-web.ps1
+
+      # DE TESTSUITE, en die draait hier als een gewone npm-stap in plaats van via de gedeelde
+      # Invoke-TestSuiteGate zoals de bron doet. Dat is geen afwijking uit gemak: die gate woont in
+      # scripts/lib/native-capture-lib.ps1 van de BRON, en een consumer heeft dat bestand niet in zijn
+      # repo -- het komt uit de plugin onder ~/.claude, die op een CI-runner niet bestaat. De gate
+      # dot-sourcen zou hier dus falen op een ontbrekend bestand.
+      #
+      # Lokaal loopt het wel via die gate: `Get-TestCommands` in scripts/repo-config.ps1 geeft
+      # 'npx vitest run' terug, en open-pr en cut-release draaien dat naast de PowerShell-suites.
+      # Beide wegen komen daarmee bij dezelfde suite uit, en dat is wat telt -- maar het is bewust
+      # geen tweede kopie van de LOGICA, alleen van de aanroep.
+      - name: Testsuite (tests/*.test.ts -- Vitest)
+        run: npm test
