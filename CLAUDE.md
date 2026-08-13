@@ -107,14 +107,29 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > net als in de bron een beslissing van Dave.
 >
 > **De invulling is hier ruimer dan de letter van de bron, en dat is bewust** (Dave, 2026-08-13). De
-> bron-default leunt op *"the lint gate, the test gate, and CI"*; daarvan ontbraken er hier twee. **Sinds
-> 2026-08-13 draait er CI** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)), dus dat gat is
-> gedicht — maar de twee andere staan nog open: er zijn **nul testsuites**, en er is **geen branch
-> protection**, waardoor een rode CI een merge wel zichtbaar maakt maar niet tegenhoudt. De poort bewijst
-> dat het **bouwt**, niet dat het gedrag gelijk bleef en niet dat een pagina goed oogt. Daarom wacht
-> álles in `src/` en `public/` onverkort, ook een refactor die visueel niets verandert. **De herweging
-> die hier stond aangekondigd voor "als er ooit CI komt" is daarmee opengevallen — en die weging is
-> Dave's beslissing, niet die van een specialist.**
+> bron-default leunt op *"the lint gate, the test gate, and CI"*. Alle drie staan er nu — en dat is nieuw
+> sinds die avond, dus lees dit als een stand en niet als een conclusie:
+>
+> | pijler | stand |
+> |---|---|
+> | lint-poort | `scripts/lint/lint-web.ps1`, lokaal én in CI |
+> | CI | [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main` |
+> | testsuite | `tests/mix-data.test.ts`, 36 tests over de mix-data |
+> | branch protection | ruleset `main-ci-gate`, met `poort` als required check |
+>
+> **Toch wacht álles in `src/`, `public/` en `src/data/mixes/` onverkort**, ook een refactor die visueel
+> niets verandert, en daar zijn twee redenen voor die géén van de vier hierboven wegneemt. De eerste:
+> geen enkele poort kan bewijzen dat een pagina er **góéd uitziet** — de testsuite dekt de mix-**data**,
+> niet de vormgeving. De tweede: de ruleset heeft `bypass_actors` voor Admin en Maintain, en dat **moet**
+> zo, want anders blokkeert hij `cut-release`'s eigen push naar `main`. Voor wie als admin werkt is de
+> required check dus nog steeds adviserend; wat hij hard tegenhoudt is force-push, het verwijderen van
+> `main`, en merges door niet-admins.
+>
+> **De herweging van deze grens is daarmee scherper geworden maar nog niet gemaakt, en die is Dave's
+> beslissing.** Wat er sinds 2026-08-13 bij is gekomen dat helpt: elke PR krijgt een **Netlify deploy
+> preview** (`deploy-preview-<nummer>--djcylow-react.netlify.app`), dus site-werk is nu wél vóór de merge
+> te bekíjken. Dat neemt de uitzondering niet weg — er moet nog steeds iemand kijken — maar het maakt het
+> kijken goedkoper dan een merge terugdraaien.
 
 > **Een PR mergen is een deploy.** `gh pr merge` schrijft server-side rechtstreeks in `origin/main`,
 > en Netlify bouwt en publiceert bij elke push naar `main`. Er is **geen staging**. Op het moment dat
@@ -134,23 +149,30 @@ Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 1. De **fold-commit** (na een merge, [stap 7](CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
    de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` + de twee
    vaste bestanden in `branch/`.
-2. De **release-branch** (`docs/release-v<versie>`) is wél een branch, met scope beperkt tot
-   `CHANGELOG.md`, `releases/development/<X>.x/<X.Y.Z>.md`, `releases/github/<X>.x/<X.Y.Z>.md`,
-   `releases/audience/<X>.x/<X.Y.Z>.md` (alleen Minor/Major) en `releases/README.md` — maar wordt
-   bewust gemerged via een kale
-   `git merge --no-ff`, niet via een Pull Request. Dit wacht wél altijd op expliciete goedkeuring
-   van Dave.
+2. De **release-commit** (alleen op expliciet verzoek): `cut-release.ps1` genereert de release-notes,
+   leegt `CHANGELOG.md` tot de intro, vult de rij in `releases/README.md`, en **commit dat plus de tag
+   `vX.Y.Z` rechtstreeks op `main`** — waarna het zelf `git push origin main` en `git push origin
+   vX.Y.Z` doet. Bewust geen branch en geen Pull Request, net als de fold.
+
+   > **Dit is de regel van de bron, hier overgenomen op 2026-08-13 (avond) op Dave's woord.** Tot die
+   > avond stond hier een **release-branch** (`docs/release-v<versie>`) met een scope-lijstje, gemerged
+   > via een kale `git merge --no-ff`. Die constructie botste met het script dat de route hoort te
+   > lopen: `cut-release.ps1` doet géén `git checkout main` maar commit op de branch waar je op staat,
+   > dus vanaf een release-branch zou het daar committen en vervolgens `main` pushen — twee
+   > verschillende dingen. De bron heeft die branch niet en noemt dat expliciet
+   > *"deliberately no branch/PR — just like the fold"*.
+   >
+   > **Waarom geen PR, in Dave's woorden bij de bron:** *"aan het product zelf verandert verder niks."*
+   > Een release herpubliceert wat al gemerged is. Er is geen diff om te beoordelen, dus een PR zou een
+   > checkpoint zijn over een wijziging die niemand hoeft te wegen. In deze repo weegt dat extra zwaar
+   > omdat een release-branch de scaffold-poort en de step-list-poort niet kan halen: zijn entry is
+   > leeg by design.
+   >
+   > **En de scope is hier ruimer dan bij de fold, want `git add -A`.** Het script stageert de héle
+   > tree. Er staat dus geen bestandslijstje bij deze uitzondering zoals bij de fold, en dat is geen
+   > omissie maar een eigenschap van het script: zorg dat de tree schoon is vóór je een release cut.
 
 Dit zijn de **enige** twee. Ook een "onschuldige" opruim- of chore-commit gaat via een branch + PR.
-
-> **Let op: de gedeelde `cut-release`-skill zou hier een derde weg zijn, en die is niet toegestaan
-> zolang Dave hem niet heeft gewogen** (vastgesteld 2026-08-13). Dat script commit direct op de branch
-> waar je op staat — in zijn eigen woorden `# --- Commit + tag directly on main ---` — stageert met
-> `git add -A` in plaats van een scope, en **pusht daarna zelf naar `origin/main`**. Alle drie botsen
-> met de regels hierboven: de twee uitzonderingen zijn scope-beperkt, en pushen naar `origin/main` is
-> Dave's initiatief. Draai het dus niet ongevraagd, ook niet "even met `-NoPush`" — dat houdt alleen
-> de push tegen, niet de ongescopete commit. De uitwerking staat bij
-> [`cut-release` in de skill-lijst](#scripts).
 
 ---
 
@@ -353,39 +375,38 @@ bestaan in `public/images/`.
 
 Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en push live").
 
-**Deze vijftien stappen beschrijven de route met de hand, en zo is v2.23.0 ook gelopen.** Dat is
-bewust, want de gedeelde `cut-release`-skill overlapt er grotendeels mee en gaat van een ándere
-beginsituatie uit dan stap 2. Wat het script overneemt als je het draait:
+**De route draait via `cut-release`, en die commit rechtstreeks op `main`** (Dave, 2026-08-13, avond).
+Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules hierboven. Je staat op
+`main`, met een schone tree, en het script doet het grootste deel.
 
-| stap | wie doet het |
+| wat | wie |
 |---|---|
-| 3 (poort), 4 (versienummer) | het script, met eigen poorten en een bump-gate op de tier van de entries |
-| 5 (development-note), 8 (`CHANGELOG.md` legen), 9 (rij in `releases/README.md`) | het script |
-| 6 (audience-document) | het script zet een **concept** neer; het herschrijven blijft handwerk |
-| 10 (commit), 12 (tag + push) | het script, met `git add -A` en twee pushes |
-| 7 (aankondiging), 13 (GitHub Release), 14 (bijlagen), 15 (branch opruimen) | handwerk; 13 wordt alleen als commando geprint |
+| poorten (lint + de testsuite via `Get-TestCommands`) | het script |
+| versienummer, met de bump-gate op de tier van de wachtende entries | het script |
+| development-note, `CHANGELOG.md` legen, rij in `releases/README.md` | het script |
+| audience-document | het script zet een **concept** neer met `DRAFT`-aanwijzingen; herschrijven is handwerk |
+| commit `release: vX.Y.Z`, tag, en `git push origin main` + de tag | het script |
+| aankondiging in `github/`, de GitHub Release, de bijlagen | handwerk; het `gh release create`-commando wordt geprint |
 
-**En dit is waarom het hier nog niet gedraaid wordt:** het script commit direct op de branch waar je
-op staat — het gaat ervan uit dat dat `main` is — terwijl stap 2 hieronder je opdraagt eerst een
-release-branch te maken. Bovendien stageert het met `git add -A`, wat geen scope kent, terwijl de twee
-toegestane directe commits op `main` allebei *"scope beperkt tot"* een lijstje bestanden zijn. Beide
-punten staan uitgewerkt bij [`cut-release` in de skill-lijst](#scripts) en wachten op Dave.
+> **Tot 2026-08-13 (avond) stond hier een handmatige route van vijftien stappen** die met een
+> `docs/release-v<versie>`-branch begon, en zo is v2.23.0 ook gecut. Die branch is weg omdat hij met het
+> script botste: `cut-release.ps1` doet géén `git checkout main` maar commit waar je staat, dus vanaf een
+> release-branch landde de commit daar terwijl de push naar `main` ging. De stappen hieronder zijn wat
+> er ná het script nog te doen is, plus wat je moet weten om het te kunnen draaien.
 
-1. **Check de status**: `git status && git branch`
-2. **Maak een branch**: `git checkout -b docs/release-v<versie>`
-3. **Run de poort én de build**:
-   - `powershell -NoProfile -File scripts\lint\lint-web.ps1` — de poort (typecheck + build), moet
-     groen zijn. De build zit er sinds 2026-07-26 in, dus dit dekt de bouwbaarheid al
-   - `npm run lint` — ESLint meldt op dit moment 37 **pre-existing** errors; die zijn acceptabel
-     zolang je geen `.ts`/`.tsx` hebt aangeraakt. Wat niet acceptabel is: een fout erbij. Vergelijk
-     dus het aantal, niet alleen de exitcode
-4. **Bepaal het versienummer** (tabel hieronder, en `releases/README.md`)
-5. **Maak de development-release note**: `releases/development/<major>.x/<versie>.md` — gebruik
-   de gefolde wijzigingen in `CHANGELOG.md`; elke `##`-kop is er één. **Neem die kop niet letterlijk
-   over**: hij noemt de branch (``## `docs/mijn-branch` changelog``), niet de wijziging. De titel van
-   de release-note-entry bouw je uit `### Branch title` en `### Branch type`; de slotregel
-   `[PR #NN](...) · merged YYYY-MM-DD` neem je wél ongewijzigd mee
-6. **Maak het handgeschreven release-document** (alleen Minor/Major):
+1. **Sta op `main` met een schone tree**: `git status && git branch`. Dat is geen formaliteit maar een
+   voorwaarde — het script stageert met `git add -A`, dus alles wat rondslingert gaat mee in de
+   release-commit
+2. **Zorg dat er niets ongefold wacht.** Het script weigert te draaien als
+   `branch/branch-changelog.md` nog een entry draagt: een cut leegt `CHANGELOG.md`, dus een entry die
+   daar nog niet in staat zou de release missen en daarna verweesd achterblijven
+3. **Draai `cut-release`** met de bump die de wachtende entries verdienen (zie *Versienummer bepalen*
+   hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
+   je hoeft die er niet apart voor te zetten
+   - `npm run lint` blijft handwerk en staat bewust buiten de poort: ESLint meldt 37 **pre-existing**
+     errors. Die zijn acceptabel zolang je geen `.ts`/`.tsx` hebt aangeraakt; wat niet acceptabel is,
+     is een fout erbij. Vergelijk dus het **aantal**, niet de exitcode
+4. **Herschrijf het audience-concept** (alleen Minor/Major):
    `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
    jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
    de opdrachtgever in plaats van developers. Twee secties, want deze repo staat op tier 1:
@@ -413,19 +434,26 @@ punten staan uitgewerkt bij [`cut-release` in de skill-lijst](#scripts) en wacht
    > verzoek volledig gelijk werd getrokken met de bron: `Get-ReleaseNotesGrouping` staat sindsdien op
    > `'major'` en alle 60 documenten (37 development, 23 audience) wonen in `2.x/`. Ook die verhuizing
    > is `git mv` zonder een letter aan hun tekst te veranderen
-7. **Schrijf de aankondiging**: `releases/github/<major>.x/<versie>.md` — een paar alinea's die
+5. **Schrijf de aankondiging**: `releases/github/<major>.x/<versie>.md` — een paar alinea's die
    de body van de GitHub Release worden: wat er nieuw is, voor wie, en een regel die naar de twee
    bijlagen wijst. Niet de per-PR details; die staan in `development/`
-8. **Update `CHANGELOG.md`**: haal de gefolde entries eruit (ze staan nu in de release-note), zodat
-   alleen de intro-alinea overblijft. **Er komt géén versieblok voor terug.**
-   > Tot 2026-08-11 zette deze stap hier ook een `## Releases`-blok in `CHANGELOG.md` — dezelfde
-   > informatie als `releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al
-   > was afgeschaft en die bovendien maandenlang fout stond (op v2.20.1, terwijl v2.20.2, v2.21.0 en
-   > vijf PR's al live waren). Dat verviel: `releases/README.md` (stap 9) is sindsdien de enige plek
-   > waar uitgebrachte versies worden bijgehouden — geen dubbele boekhouding meer
-9. **Voeg de versie toe** aan de overzichtstabel in `releases/README.md` (bovenaan) — de enige
-   boekhouding van uitgebrachte versies. De Versie-cel wijst naar het leesbaarste document dat de
-   release heeft: `audience/` bij een Minor/Major, `development/` bij een Patch
+
+Wat het script hierboven al voor je deed, met de valkuilen die daarbij horen:
+
+- **De development-note** in `releases/development/<major>.x/<versie>.md`, opgebouwd uit de gefolde
+  wijzigingen in `CHANGELOG.md`. **Let op de koppen:** het script houdt daar de **branchnaam** aan
+  (``### `docs/mijn-branch` changelog``) in plaats van de titel van de wijziging. Alleen het
+  audience-document herschrijft naar `### Branch title`. Wil je die koppen anders, dan is dat handwerk
+  na de cut
+- **`CHANGELOG.md` geleegd** tot de intro-alinea. **Er komt géén versieblok voor terug.**
+  > Tot 2026-08-11 zette deze stap ook een `## Releases`-blok in `CHANGELOG.md` — dezelfde informatie
+  > als `releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al was
+  > afgeschaft en die bovendien maandenlang fout stond (op v2.20.1, terwijl v2.20.2, v2.21.0 en vijf
+  > PR's al live waren). Dat verviel: `releases/README.md` is sindsdien de enige plek waar
+  > uitgebrachte versies worden bijgehouden — geen dubbele boekhouding meer
+- **De rij in `releases/README.md`**, bovenaan de overzichtstabel — de enige boekhouding van
+  uitgebrachte versies. De Versie-cel wijst naar het leesbaarste document dat de release heeft:
+  `audience/` bij een Minor/Major, `development/` bij een Patch
    > **De kolomkoppen van die tabel zijn een machine-gelezen sleutel, geen proza.** De gedeelde
    > `release-lib.ps1` matcht die regel letterlijk om te weten waar een rij heen gaat, en er is bewust
    > geen seam voor. Zelfde categorie als de zes sectiekopjes van een entry — en de reden dat ze ook
@@ -433,30 +461,22 @@ punten staan uitgewerkt bij [`cut-release` in de skill-lijst](#scripts) en wacht
    > ze, dan vindt de inserter zijn invoegpunt niet meer. Om dezelfde
    > reden staat er een `#### 2.x`-kop bóven de tabel — de guardrail die controleert of een rij in de
    > juiste major belandt, leest de laatste `<n>.x`-kop erboven en staat stil uit zodra die ontbreekt
-10. **Stage en commit** op de release-branch
-11. **Merge naar `main`** (na bevestiging) — bewust een kale merge, geen PR:
-    ```bash
-    git checkout main
-    git merge [branch] --no-ff -m "merge: [branch] — v<versie>"
-    ```
-12. **Tag en push**:
-    ```bash
-    git tag -a v<versie> -m "v<versie> - <korte titel>"
-    git push origin main
-    git push origin v<versie>
-    ```
-    Deze push zet **niets nieuws live** — de code stond er al via de PR-merges. Hij brengt de
-    release-documentatie en de tag naar `origin`, en triggert daarmee wel een nieuwe Netlify-build
-    van dezelfde code. Was er sinds de laatste merge niets aan de app gewijzigd, dan is het resultaat
-    identiek aan wat er al draaide
-13. **GitHub Release aanmaken** — de aankondiging uit `github/` is de body:
+- **De commit `release: v<versie>`, de tag, en twee pushes** (`git push origin main` en
+  `git push origin v<versie>`). Die pushes zetten **niets nieuws live** — de code stond er al via de
+  PR-merges. Ze brengen de release-documentatie en de tag naar `origin`, en triggeren wel een nieuwe
+  Netlify-build van dezelfde code. Was er sinds de laatste merge niets aan de app gewijzigd, dan is het
+  resultaat identiek aan wat er al draaide. `-NoPush` laat commit en tag lokaal staan
+
+Daarna, met de hand:
+
+6. **GitHub Release aanmaken** — de aankondiging uit `github/` is de body:
     ```bash
     gh release create v<versie> --title "v<versie> - <korte titel>" \
       --notes-file releases/github/<major>.x/<versie>.md --verify-tag
     ```
     > De body was tot 2026-08-13 de `development/`-note. Die is nu bijlage: `gh` kapt een
     > `--notes-file` af op 125.000 tekens, en een volledig per-PR record kan daar langs
-14. **Bijlagen uploaden** — `development/` altijd, `audience/` bij Minor/Major. **Onder unieke
+7. **Bijlagen uploaden** — `development/` altijd, `audience/` bij Minor/Major. **Onder unieke
     bestandsnamen**, want alle drie de documenten heten `<versie>.md` en de tweede upload botst
     anders met `HTTP 404` (`file#label` van `gh` lost dat niet op — dat zet het label, niet de naam):
     ```bash
@@ -465,8 +485,8 @@ punten staan uitgewerkt bij [`cut-release` in de skill-lijst](#scripts) en wacht
     gh release upload v<versie> v<versie>-development-notes.md v<versie>-release-note.md
     rm v<versie>-development-notes.md v<versie>-release-note.md
     ```
-15. **Verwijder de release-branch**: `git branch -d [branch]` en
-    `git push origin --delete [branch]`
+
+Er is **geen branch om op te ruimen**: de cut liep op `main`. Dat was tot 2026-08-13 stap 15.
 
 Let op de volgorde van oorzaak en gevolg: de wijzigingen stonden al live vóór dit hele proces begon,
 namelijk vanaf hun PR-merge. Een release cutten voegt een versienummer, een release-note en een tag
@@ -475,29 +495,34 @@ mee naar buiten.
 
 #### Versienummer bepalen
 
-| Type wijziging | Versie |
-|---|---|
-| Bugfix, hotfix, kleine correctie | PATCH |
-| Docs, workflow, `CLAUDE.md`, changelog-wijzigingen | PATCH |
-| Kleine stijl-/CSS-correctie | PATCH |
-| Nieuwe beschrijvingen, content-updates | MINOR |
-| Nieuwe mix, nieuwe pagina, nieuw component | MINOR |
-| Grote stijl-/CSS-herziening (een hele sectie herontworpen) | MINOR |
-| Volledig redesign of framework-migratie | MAJOR |
+**De bump volgt de hoogste tier die er wacht** — niet de soort wijziging. `cut-release.ps1` weigert een
+release die de wachtende entries niet verdienen, vóór het iets schrijft:
 
-> **Deze tabel en de bump-poort van `cut-release` spreken elkaar tegen, en dat is sinds v2.23.0
-> gemeten in plaats van vermoed.** De poort leidt de bump af uit de **tier** van de wachtende entries:
-> alleen tier 0 is een patch, tier 1 of hoger verdient een minor. Die release is als **minor** gecut
-> omdat drie van haar entries tier 1 dragen — terwijl deze tabel docs-, workflow- en
-> `CLAUDE.md`-werk op **patch** zet, en dat was precies wat erin zat.
+| wachtende entries | bump |
+|---|---|
+| alleen tier 0 | **PATCH** |
+| tier 1 of hoger | **MINOR** |
+| tien minors in de huidige major-lijn, bovenop het bovenstaande | **MAJOR** mag |
+
+Deze repo staat op **audience-tier 1** (`Get-ReleaseAudienceTier`), dus een entry beantwoordt tier 0 en
+tier 1. Een minor waarvan de hoogste entry tier 1 is, schrijft de note **zonder** een
+*For consumers*-sectie: er is niemand buiten de organisatie die het merkt, en dan hoort daar geen sectie
+over te staan. `cut-release.ps1` hangt die sectie aan het bestaan van een tier-2-entry, niet aan het
+bumptype.
+
+Een major is een **recap** van de minors ervoor, niet één grote wijziging. Wat hem verdient is de
+accumulatie, en `Get-ReleaseMajorMinMinors` bezit dat getal (default 10).
+
+> **Dit verving op 2026-08-13 (avond) een tabel die de bump aan de sóórt wijziging ophing** — bugfix en
+> docs op patch, nieuwe mix of pagina op minor, redesign op major. Die tabel sprak de poort aantoonbaar
+> tegen: v2.23.0 is als **minor** gecut omdat drie entries tier 1 droegen, terwijl de tabel het
+> docs- en datawerk erin op **patch** zette. Twee regels die op hetzelfde werk verschillende antwoorden
+> geven, waarvan er één weigert en één alleen proza is.
 >
-> Ze meten ook echt iets anders: de tabel kijkt naar de **soort** wijziging, de poort naar **wie het
-> merkt**. Een docs-wijziging die de opdrachtgever iets oplevert is tier 1 en dus een minor, hoe
-> "docs" hij ook oogt. Zolang beide blijven staan wint in de praktijk de poort, want die weigert
-> — de tabel is proza dat niets tegenhoudt.
->
-> **Welke van de twee leidend wordt is Dave's beslissing**, want het bepaalt hoe snel de
-> versienummers van deze repo oplopen. Er wordt hier niets van geschrapt tot die keuze er is.
+> Dave heeft gekozen voor de regel van de bron (*"precies zoals de bron het doet, alleen wel met een
+> Tier 1 audience"*). Dat is niet alleen consistentie: de tier meet **wie het merkt** en dat is precies
+> wat een versienummer aan een lezer hoort te vertellen, terwijl de soort wijziging daar niets over
+> zegt — een docs-branch kan tier 1 raken en een `feature/`-branch tier 0 blijven.
 
 ### Scripts
 
@@ -532,16 +557,17 @@ De stapnummers hieronder verwijzen naar
   > voorbehouden: pushen naar `origin/main`. Weerlegd door `cut-release.ps1` zelf te lezen; het blok
   > heet daar `# --- Commit + tag directly on main ---`.
   >
-  > **Twee dingen die daaruit volgen en die Dave moet wegen, want ze raken de grondwet:**
-  > 1. Het script doet géén `git checkout main` — het commit op de branch waar je op staat en gaat
-  >    ervan uit dat dat `main` ís. Stap 2 van de Release Workflow hieronder draagt je op eerst een
-  >    `docs/release-v<versie>`-branch te maken. Die twee aannames sluiten elkaar uit.
-  > 2. `git add -A` stageert de héle tree. De twee toegestane uitzonderingen op "nooit direct op
-  >    `main`" zijn allebei geformuleerd als *"scope beperkt tot"* een lijstje bestanden; `-A`
-  >    respecteert geen scope.
+  > **Diezelfde avond zijn de twee botsingen die daaruit volgden beslecht** (Dave): dit script **moet**
+  > hier draaien, en de repo is eromheen gebogen in plaats van andersom.
+  > 1. Het script doet géén `git checkout main` en commit op de branch waar je op staat. Daarom is de
+  >    **release-branch afgeschaft** — je cut vanaf `main`, en uitzondering 2 in de safety-rules is nu
+  >    de release-commit zelf, precies zoals in de bron.
+  > 2. `git add -A` stageert de héle tree, dus die uitzondering kán geen bestandslijstje dragen zoals de
+  >    fold. In plaats daarvan is de voorwaarde hard: **schone tree vóór de cut**.
   >
-  > Zolang die twee niet beslecht zijn blijft de Release Workflow hieronder met de hand gelopen worden,
-  > zoals bij v2.23.0. Alleen op expliciet verzoek van Dave, zoals de hele Release Workflow.
+  > Alleen op expliciet verzoek van Dave, zoals de hele Release Workflow. Wat je daarbij moet weten:
+  > `-SkipTierGate` overrulet de bump-poort en is bewust iets anders dan `-SkipLint` — die slaat een
+  > tool over, de eerste een oordeel over inhoud.
 - **`park`** — commit het openstaande werk op de huidige branch en pusht die met `git push -u` naar
   `origin`, zodat je hem elders precies zo oppakt. Opent géén PR en zet niets live.
 - **`ship-pr`** — opent de PR, wacht op CI, mergt en vouwt de changelog in één run. **Gebruiken we hier
@@ -573,11 +599,24 @@ Repo-eigen scripts:
   `tsconfig.lint.json` **én** `npm run build`. ESLint zit er bewust nog niet in; de reden staat in de
   header van het script. Het draait sinds 2026-08-13 op twee plekken — lokaal onder Windows PowerShell
   5.1 en in CI onder `pwsh` op Linux — en houdt daar in zijn preferences rekening mee.
-- **`.github/workflows/ci.yml`** — diezelfde poort, server-side, op elke PR en elke push naar `main`. Hij
-  roept `lint-web.ps1` aan in plaats van tsc en de build over te schrijven, zodat er één poort te
-  onderhouden blijft. Draait op **ubuntu** en niet op windows zoals de bron, omdat Netlify op Linux bouwt
-  en letterkast-fouten in imports alleen daar aan het licht komen. **Zonder branch protection is dit een
-  signaal en geen slot**: een PR met een rode run kan nog steeds gemerged worden.
+- **`.github/workflows/ci.yml`** — diezelfde poort, server-side, op elke PR en elke push naar `main`, plus
+  de testsuite. Hij roept `lint-web.ps1` aan in plaats van tsc en de build over te schrijven, zodat er één
+  poort te onderhouden blijft. Draait op **ubuntu** en niet op windows zoals de bron, omdat Netlify op
+  Linux bouwt en letterkast-fouten in imports alleen daar aan het licht komen. De job heet **`poort`**, en
+  dat is de naam die de ruleset als required check gebruikt — hernoem hem niet zonder de ruleset mee te
+  nemen. De Node-versie komt uit `.nvmrc`, met de **volledige** versie erin en niet alleen de major.
+- **`tests/mix-data.test.ts`** — de testsuite, 36 tests, gedraaid met Vitest via `npm test`. Hij dwingt de
+  veldregels uit [`src/data/mixes/README.md`](src/data/mixes/README.md) af, en is **gemeten in plaats van
+  overgeschreven**: 23 regels die de data al haalt staan als harde assertie, 7 met bekende achterstand
+  staan als **ratchet** op het gemeten aantal. Die ratchet faalt óók als er iets is opgelost, met de vraag
+  het plafond te verlagen — zo blijft de achterstand zichtbaar. `Get-TestCommands` in
+  `scripts/repo-config.ps1` zorgt dat `open-pr` en `cut-release` de suite meedraaien; zonder die seam
+  meldden ze eerlijk "test gate skipped".
+- **De ruleset `main-ci-gate`** — geen bestand in de repo maar een repo-setting, van vorm gelijk aan die
+  van de bron: target `~DEFAULT_BRANCH`, regels `deletion` + `non_fast_forward` + de required check
+  `poort`, met **bypass voor Admin en Maintain**. Die bypass is geen slordigheid: zonder hem blokkeert de
+  ruleset `cut-release`'s eigen push naar `main`. Gevolg: voor een admin is de check adviserend en houdt de
+  ruleset vooral force-push, het verwijderen van `main` en merges door niet-admins tegen.
 - **`check-script-contract.ps1`** — bewaakt dat `repo-config.ps1` en `branch-info.ps1` de functies
   leveren die de gedeelde scripts verwachten. Woont in de plugin (`scripts/sync/` daar), niet in deze
   repo, en draait bij het starten van een sessie via de `script-contract-sessioncheck`-hook.
@@ -608,22 +647,32 @@ De grondwet hierboven, hier concreet ingevuld:
   workflow draait bewust op **ubuntu**, anders dan de bron die windows kiest: Netlify bouwt op Linux, en
   een import met de verkeerde letterkast bouwt wél op Windows en breekt daar. Die klasse fout kon de
   lokale poort structureel niet zien.
-- **Wat die poort níet bewijst, en waarom de PR-regel ruim ingevuld blijft.** Er zijn nog steeds **nul
-  testsuites** en er is **geen branch protection** op `main`; de repo is publiek. Zonder die protection
-  is CI een **signaal, geen slot**: `gh pr merge` mergt een PR met een rode run gewoon. En de poort
-  bewijst dat de code **bouwt** — niet dat het gedrag gelijk bleef en niet dat de pagina goed oogt. De
-  gedeelde default in de bron leunt op *"the lint gate, the test gate, and CI"*; daarvan staan er hier nu
-  twee. Dat is de reden dat álles in `src/`, `public/` en `src/data/mixes/` op Dave's woord blijft
-  wachten, ook een refactor die visueel niets verandert. **De twee stappen die de grens verder zouden
-  kunnen verschuiven — branch protection aanzetten (repo-settings) en een testsuite bouwen — liggen bij
-  Dave.**
+- **En sinds 2026-08-13 (avond) draait de testsuite mee**, in CI als eigen stap en lokaal via
+  `Get-TestCommands`. Er is ook **branch protection**: de ruleset `main-ci-gate`, met `poort` als required
+  check. De drie pijlers waar de bron-default op leunt staan daarmee alle drie.
+- **Wat die poorten níet bewijzen, en waarom de PR-regel ruim ingevuld blijft.** Twee dingen, en geen van
+  beide verdwijnt door meer poorten. **Eén:** de suite dekt de mix-**data**, en geen enkele poort kan
+  bewijzen dat een pagina er góéd uitziet — dat is de kern van de uitzondering en die is niet
+  automatiseerbaar. **Twee:** de ruleset heeft `bypass_actors` voor Admin en Maintain, en dat moet zo,
+  anders blokkeert hij `cut-release`'s eigen push naar `main`. Voor wie als admin werkt is de required
+  check dus adviserend; wat hij hard tegenhoudt is force-push, het verwijderen van `main`, en merges door
+  niet-admins. Daarom blijft álles in `src/`, `public/` en `src/data/mixes/` op Dave's woord wachten, ook
+  een refactor die visueel niets verandert.
+  > **Wat er wél is bijgekomen om het kijken goedkoper te maken:** elke PR krijgt een **Netlify deploy
+  > preview** op `deploy-preview-<nummer>--djcylow-react.netlify.app`. Het staat niet in `netlify.toml`
+  > (die heeft geen context-config) — het is Netlify's projectdefault, en het is op 2026-08-13 gemeten
+  > bij PR #31 tot en met #33. Dat nuanceert het "geen staging" hierboven: juist blijft dat er niets
+  > tussen de merge en live zit, maar **onjuist** was dat site-werk niet vóór de merge te bekijken valt.
+  > Bij PR #33 is die preview voor het eerst bewust als bewijs gebruikt: die PR wijzigde `.nvmrc`, wat de
+  > live build raakt, en de groene preview maakte de merge aantoonbaar veilig. **Of de PR-grens hierdoor
+  > verschuift is Dave's beslissing en staat open.**
 - **`public/images/` is beschermd.** Afbeeldingen worden via pad gerefereerd in de mix-JSON;
   verwijderen breekt stil een pagina en gebeurt nooit zonder Dave's woord.
 - **`next.config.ts` en `netlify.toml` zijn beschermd.** Een fout daar breekt de Netlify-build en
   dus de live site.
 - **Alles wat de publieke site of de SEO raakt is Dave's beslissing** — titels,
   `description`-velden, metadata en routes. Een specialist stelt voor, Dave beslist.
-- **Twee uitzonderingen op "nooit direct op `main`"**: de fold-commit en de release-branch, zoals
+- **Twee uitzonderingen op "nooit direct op `main`"**: de fold-commit en de release-commit, zoals
   hierboven beschreven. Dit zijn de enige twee.
 - **Kernverbeteringen gaan via de inbound-route.** Ontdek je een verbetering aan de *gedeelde* kern
   van het specialisten-systeem (agent-defs, manuals, persona's, skills uit de plugin), dan wordt die
