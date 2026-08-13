@@ -674,6 +674,7 @@ list sits at the **end** of the page:
 
 | Version | Date | Type | Title |
 |---|---|---|---|
+| [2.23.0](audience/2.x/2.23.0.md) | 2026-08-13 | Minor | De werkwijze gelijk aan de bron, een poort die altijd draait, en schone Spotify-titels |
 | [2.22.0](audience/2.x/2.22.0.md) | 2026-07-26 | Minor | Spotify-velden, datums hersteld, en de documentatie gelijk aan de praktijk |
 | [2.21.0](audience/2.x/2.21.0.md) | 2026-07-25 | Minor | Alle mixtitels naar één uniek formaat, plus workflow- en toolingherstel |
 | [2.20.2](development/2.x/2.20.2.md) | 2026-07-25 | Patch | Mix-titels met hoofdletter, genrefilter-fix en workflow-aanscherpingen |
