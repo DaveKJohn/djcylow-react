@@ -2,7 +2,7 @@
 
 ### Branch title
 
-De twee gedeelde documenten stoppen met parafraseren: releases/README.md spiegelt de bron verbatim, CONTRIBUTING.md verwijst ernaar
+Deze repo trekt zich gelijk met de bron: de PR-regel, releases/README.md verbatim, CONTRIBUTING.md verwijzend, en Chris' lens gevuld
 
 ### Branch ID
 
@@ -14,8 +14,54 @@ docs
 
 ### What does the change on this branch bring to main?
 
-**Twee documenten in deze repo beschrijven een model dat niet van deze repo is, en beide deden dat in eigen
-woorden.** Deze branch beëindigt dat — maar met een verschillende ingreep per document, en dat verschil is
+**Deze repo liep op drie plekken achter op de bron, en op geen ervan was dat een besluit.** Eén rode draad:
+waar de gedeelde werkwijze iets zegt, hoort deze repo dat niet in eigen woorden te herhalen en er niet
+stilzwijgend van af te wijken.
+
+---
+
+#### De PR-regel — de omkering die niemand had gewogen
+
+**De grondwet zei het omgekeerde van de bron, en van Chris' eigen body.** De bron zette de default op
+**27 juli 2026** om naar *"doorlopen tenzij"* (letterlijk: *"Decision by Dave, July 27, 2026"*), met twee
+uitzonderingen: **zichtbaar resultaat** en **onomkeerbaar/naar buiten gericht**. De toets is één vraag:
+*voegt Dave's eigen blik iets toe dat de poorten niet kunnen?* Deze repo droeg tot vandaag de tekst van
+daarvóór — elke PR wachtte, en ernaar vragen mocht niet.
+
+Gezocht naar een besluit dat die afwijking dekte: **er is er geen**, niet in `CLAUDE.md`, niet in
+`CHANGELOG.md`, niet in `CONTRIBUTING.md`, niet in de handover. Het was achterstand. En het was een
+tegenspraak die bij élke sessie meelaadde, want Chris' draagbare body zegt *"the PR step: it runs on its own
+unless the work falls under one of the narrow exceptions — see the gatekeepers in the repo lens"* — en die
+lens was een leeg `VUL-IN`-scaffold. Body zei doorlopen, lens zei niets, `CLAUDE.md` zei nooit.
+
+De bron-regel is nu overgenomen, **ruimer ingevuld dan de letter** (Dave, 2026-08-13) en met de meting die
+dat rechtvaardigt erbij: de bron-default leunt op *"the lint gate, the test gate, and CI"*, en hier bestaan
+twee van die drie niet — **nul testsuites, nul GitHub Actions, geen branch protection**, en de repo is
+publiek. Onze poort bewijst dat de code **bouwt**, niet dat het gedrag gelijk bleef. Daarom:
+
+- **Loopt door** (openen → mergen → folden, zonder tussenvraag): `scripts/`, de governance-documentatie,
+  `CHANGELOG.md`, `releases/`, de specialisten-laag onder `.claude/`, onderzoek. Zulk werk raakt
+  `djcylow.com` niet — de build levert dezelfde pagina's, dus de deploy erna is een no-op.
+- **Wacht op Dave**: alles in `src/`, `public/` en `src/data/mixes/`, ook een refactor die visueel niets
+  verandert. Plus een release, een tag, en de al beschermde bestanden. Draagt een branch beide soorten werk,
+  dan is het site-werk en wacht hij.
+
+Dit raakt vijf plekken die de oude regel als feit aannamen, alle vijf nagelopen: de safety-rules, de
+approval-bullet (die de PR-regel als "de uitzondering op zeldzame vragen" noemde — nu zegt hij hetzelfde),
+de skill-beschrijvingen van `open-pr` en `ship-pr`, `CONTRIBUTING.md` stap 4/5/6, en de
+`Get-PrMergeMethod`-verantwoording in `repo-config.ps1`. **`ship-pr` blijft ongebruikt, maar de reden is
+vervangen**: de oude ("een merge wacht hier altijd") is onwaar geworden; wat blijft is dat er geen CI is om
+op te wachten en dat de site-of-niet-beoordeling niet in een skill past die in één run mergt.
+
+**Chris' lens is gevuld** — de enige lens die automatisch meelaadt, en de plek waar zijn body naar verwijst.
+Hij **verwijst** naar de safety-rules in plaats van ze te herformuleren; een tweede formulering van een
+grondwetregel is precies wat er niet moet staan.
+
+---
+
+#### De twee documenten die het model in eigen woorden navertelden
+
+Deze branch beëindigt dat — maar met een verschillende ingreep per document, en dat verschil is
 het punt: `releases/README.md` **moet** lokaal bestaan, want de release-lijst woont erin en
 `release-lib.ps1` schrijft er rijen in, dus daar is een verbatim spiegel het beste dat kan. De cyclus in
 `CONTRIBUTING-portable.md` reist al mee met de plugin, dus daar is verwijzen beter dan kopiëren. Eén
@@ -116,13 +162,18 @@ waar, en staat op de pagina.
 
 #### Tier 0
 
-Raakt de onderhouder op de plek waar het misgaat: dit is het document dat de release-route beschrijft, en
-het beloofde tot nu toe een skill die niets uitvoert terwijl het script zes stappen doet. Daar komt de
-structurele winst bovenop — een correctie in het gedeelde model hoeft hier niet meer overgeschreven te
-worden maar reist mee via de inbound-route en een plugin-release. Dat is precies de handmatige port die de
+**Een lang bestaande blokkade is weg, en er zat een tegenspraak onder.** De PR-regel hield elke branch tegen
+bij de merge-knop — ook een pure docs-branch die de site byte-identiek laat — terwijl de gedeelde werkwijze
+die knop op 27 juli al had teruggebracht tot een checkpoint waar hij iets oplevert. Erger was dat Chris' eigen
+body het omgekeerde zei van `CLAUDE.md` en verwees naar een lens die leeg was: bij elke sessie laadde een
+tegenspraak mee, en de strengste van de drie won zonder dat iemand dat had besloten.
+
+Daar komt de documentwinst bovenop: het release-model en de contributie-cyclus stonden hier in eigen woorden,
+waardoor drie beweringen stil verouderd waren — waaronder één die een droogloop al had weerlegd. Een correctie
+in het gedeelde model hoeft nu niet meer overgeschreven te worden. Dat is precies de handmatige port die de
 eigen `cut-release.ps1`-kopie ooit fataal werd.
 
-**Score:** 4
+**Score:** 5
 
 #### Tier 1
 

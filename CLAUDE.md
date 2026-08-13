@@ -52,12 +52,11 @@ djcylow-specifieke invulling (concrete paden, scripts en de lint-poort) staat in
 
 ### Nooit zonder expliciete toestemming van Dave
 
-- Een Pull Request **openen** — nooit uit jezelf. Werk de branch af, push hem, meld dat hij klaar
-  is, en wacht. Zegt Dave "open de PR", dan geldt dat als goedkeuring voor de hele beweging:
-  openen → mergen → de changelog-entry folden. **Vraag er ook niet naar** ("zal ik de PR openen?") —
-  rapporteer de stand en stop daar.
-- **Mergen** van een Pull Request — valt onder diezelfde goedkeuring; los daarvan nooit. **Let op: een
-  merge is een deploy** (zie hieronder), dus dit is de handeling die de site verandert.
+- **Werk met een zichtbaar resultaat mergen** — levert de wijziging iets op dat Dave met het oog moet
+  beoordelen, dan stopt de branch en meldt in plaats van vanzelf door te mergen. **In deze repo is dat
+  alles in `src/`, `public/` en `src/data/mixes/`**, want een merge is hier een deploy naar
+  `djcylow.com`. Geen poort kan bewijzen dat iets er góéd uitziet. De volledige uitwerking staat
+  hieronder onder [Nooit direct op `main`](#nooit-direct-op-main--via-branch--pr).
 - **Pushen naar `origin/main`** — dit initiatief ligt altijd bij Dave. **Vraag hier nooit naar, ook
   niet impliciet** ("zeg het maar als je wil pushen") — rapporteer feitelijk de git-status en stop
   daar. In de praktijk gaat het alleen nog om de fold-commit; al het overige bereikt `origin/main`
@@ -72,16 +71,53 @@ djcylow-specifieke invulling (concrete paden, scripts en de lint-poort) staat in
 
 ### Nooit direct op `main` — via branch + PR
 
-Alle wijzigingen gaan via een branch + Pull Request.
+Alle wijzigingen gaan via een branch + Pull Request. **Of die PR op Dave's woord wacht, hangt af van wát
+erin zit** — dat bepaalt de aard van het werk, niet een vaste regel per branch. De toets is één vraag:
+*voegt Dave's eigen blik iets toe dat de poorten niet kunnen?*
+
+- **De default — niet wachten.** Is het werk op een branch af, gecommit en staat de poort groen, dan loopt
+  de hele beweging in één keer door: openen → mergen → de changelog-entry folden, zonder tussenvraag. Dat
+  dekt `scripts/`, de governance-documentatie (`CLAUDE.md`, `CONTRIBUTING.md`, de README's), `CHANGELOG.md`,
+  `releases/`, de specialisten-laag onder `.claude/` en onderzoek. Zulk werk raakt `djcylow.com` niet: de
+  build levert dezelfde pagina's, dus de deploy die op de merge volgt is een no-op. Een stempel van Dave
+  voegt daar niets aan toe, en wat tóch misgaat is één revert-PR verder.
+- **De uitzondering — stoppen en op Dave's woord wachten.** Twee soorten werk mergen niet vanzelf:
+  1. **Zichtbaar resultaat** — de wijziging levert iets op dat met het oog beoordeeld moet worden. **In deze
+     repo is dat alles in `src/`, `public/` en `src/data/mixes/`**: componenten, styling, teksten, mix-data,
+     afbeeldingen, metadata en routes. Geen poort kan bewijzen dat iets er góéd uitziet, en deze repo *is*
+     een frontend — dit is hier dus geen randgeval maar het gros van het werk.
+  2. **Onomkeerbaar of naar buiten gericht** — een release, een tag, repo-settings, en de met naam genoemde
+     beschermde bestanden hierboven (`next.config.ts`, `netlify.toml`, verwijderingen uit `public/images/`).
+- **Dave houdt het stuur in beide richtingen.** Hij kan een specifieke klus alsnog onder de uitzondering
+  trekken bij het uitdelen ("deze wil ik eerst zien") — dan wacht de keten. En geeft hij een expliciet
+  PR-commando ("open de PR", "zet de PR op", "doe het live"), dan telt dat als goedkeuring voor de hele
+  beweging. Let op: "open de branch" (checkout), "check dit" (review) of "klaar?" (een vraag) zijn **géén**
+  PR-commando.
+
+De redenering achter de default: Dave's inhoudelijke goedkeuring valt in het gesprek vóórdat het werk
+gebouwd wordt, niet bij de merge-knop erna. Waar die knop een tweede checkpoint was, was hij in de praktijk
+een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets oplevert.
+
+> **Dit is de regel van de bron, hier overgenomen op 2026-08-13.** De bron zette de default om op
+> **27 juli 2026** (*"Decision by Dave, July 27, 2026"*) en deze repo droeg tot vandaag de tekst van
+> daarvóór: *elke* PR wachtte, en ernaar vragen mocht niet. Er was geen besluit dat die afwijking dekte —
+> niet hier, niet in `CHANGELOG.md`, niet in de handover. Het was achterstand, geen keuze, en het sprak
+> bovendien Chris' eigen gedeelde body tegen, die bij elke sessie meelaadt met *"the PR step: it runs on
+> its own unless the work falls under one of the narrow exceptions"*. Wil je dit terugdraaien, dan is dat
+> net als in de bron een beslissing van Dave.
+>
+> **De invulling is hier ruimer dan de letter van de bron, en dat is bewust** (Dave, 2026-08-13). De
+> bron-default leunt op *"the lint gate, the test gate, and CI"*; hier bestaan twee van die drie niet — nul
+> testsuites, nul GitHub Actions, geen branch protection, en de repo is publiek. Onze poort bewijst dat het
+> **bouwt**, niet dat het gedrag gelijk bleef. Daarom wacht álles in `src/` en `public/`, ook een refactor
+> die visueel niets verandert.
 
 > **Een PR mergen is een deploy.** `gh pr merge` schrijft server-side rechtstreeks in `origin/main`,
 > en Netlify bouwt en publiceert bij elke push naar `main`. Er is **geen staging**. Op het moment dat
 > een PR gemerged wordt staat de wijziging dus binnen enkele minuten op `djcylow.com` — er komt geen
-> aparte publicatiestap meer aan te pas.
->
-> Zégt Dave "open de PR", dan is dat daarmee ook het akkoord om het live te zetten. Behandel het zo:
-> draai de poort (`scripts/lint/lint-web.ps1`, inclusief de build) en wees zeker van je zaak vóór de
-> merge, niet erna.
+> aparte publicatiestap meer aan te pas. Dat is precies waarom de uitzondering hierboven zo ruim is:
+> voor site-werk is de merge het punt van geen terugkeer. Draai de poort
+> (`scripts/lint/lint-web.ps1`, inclusief de build) en wees zeker van je zaak vóór de merge, niet erna.
 >
 > Dit stond hier tot 2026-07-26 andersom beschreven — "een merge naar `main` zet niets live", met de
 > live-push als aparte stap in de Release Workflow. Dat was onjuist en gaf een vals gevoel van
@@ -119,8 +155,10 @@ Dit zijn de **enige** twee. Ook een "onschuldige" opruim- of chore-commit gaat v
   acties: onomkeerbaar, naar buiten gericht, of met reëel risico. Al het routinewerk — git, bash,
   config, branches, commits, tooling/scripts, en het doorzetten van een oplevering naar de volgende
   schakel in een al vastgelegde keten — wordt gewoon uitgevoerd en gemeld, niet eerst gevraagd. Bij
-  twijfel kiest een specialist een verstandige default, voert die uit, en meldt het pas. De
-  PR-regel hierboven is de bewuste, met naam genoemde uitzondering hierop.
+  twijfel kiest een specialist een verstandige default, voert die uit, en meldt het pas. **Dit staat sinds
+  2026-08-13 niet meer los van de PR-regel maar zegt hetzelfde**: die regel is nu óók "doorlopen tenzij", en
+  wat er tenzij is — zichtbaar resultaat, onomkeerbaar, naar buiten gericht — is precies de opsomming aan
+  het begin van deze bullet.
 
 ### Ontwikkelworkflow — de route staat in `CONTRIBUTING.md`
 
@@ -132,10 +170,10 @@ mechanisme: het tier-model, de rubric, de vier poorten van `open-pr`, de fold. S
 waar de route beschreven staat — en sinds 2026-08-13 staat elk stuk ervan maar in één van de twee.
 
 Drie regels uit die route zijn óók grondwet, en die vind je daarom hierboven in
-[de safety-rules](#safety-rules): een PR wordt nooit uit jezelf geopend, **mergen is hier deployen**, en
-pushen naar `origin/main` is Dave's initiatief. Alles daartussen — hoe je een branch noemt, wat er in de
-entry hoort, welke poort wat weigert — lees je in `CONTRIBUTING.md` of de portable helft waarnaar dat
-document verwijst.
+[de safety-rules](#safety-rules): **mergen is hier deployen**, werk met een **zichtbaar resultaat** wacht
+daarom op Dave (al het overige loopt door), en pushen naar `origin/main` is Dave's initiatief. Alles
+daartussen — hoe je een branch noemt, wat er in de entry hoort, welke poort wat weigert — lees je in
+`CONTRIBUTING.md` of de portable helft waarnaar dat document verwijst.
 
 **Twee dingen gaan aan élke wijziging vooraf**, dus die staan hier ook:
 
@@ -407,7 +445,9 @@ De stapnummers hieronder verwijzen naar
   achterliggende werk zit in `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` —
   er bestaat geen los `scripts/release/new-changelog-entry.ps1` (meer).
 - **`open-pr`** — draait de vier entry-poorten (resolves/scaffold/impact/step-list), de lint-poort en
-  de testsuites, en opent daarna de PR (stap 4). Alleen op verzoek van Dave.
+  de testsuites, en opent daarna de PR (stap 4). **Sinds 2026-08-13 niet meer "alleen op verzoek van
+  Dave"**: of hij vanzelf loopt hangt af van wat er in de branch zit, zoals de safety-rules hierboven
+  beschrijven. Site-werk wacht, de rest loopt door.
 - **`fold-changelog`** — vouwt `branch/branch-changelog.md` gerangschikt op tier/score in
   `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en reset de twee `branch/`-bestanden
   (stap 7).
@@ -416,10 +456,14 @@ De stapnummers hieronder verwijzen naar
   zelf. Alleen op expliciet verzoek van Dave, zoals de hele Release Workflow.
 - **`park`** — commit het openstaande werk op de huidige branch en pusht die met `git push -u` naar
   `origin`, zodat je hem elders precies zo oppakt. Opent géén PR en zet niets live.
-- **`ship-pr`** — opent de PR, wacht op CI, mergt en vouwt de changelog in één run. **Gebruiken we in
-  deze repo bewust niet**: hij zou in één beweging mergen, en een merge is hier een deploy die apart
-  op Dave's woord wacht (zie de safety-rules hierboven). Deze regel staat hier zodat een latere
-  sessie die de skill in de plugin ziet staan kan lezen waarom er hier niet aan begonnen wordt.
+- **`ship-pr`** — opent de PR, wacht op CI, mergt en vouwt de changelog in één run. **Gebruiken we in deze
+  repo nog steeds niet, maar om een andere reden dan tot 2026-08-13.** De oude reden — "een merge wacht hier
+  altijd op Dave" — geldt niet meer. De twee die overblijven wel: (1) er is **geen CI** om op te wachten,
+  geen GitHub Actions en geen branch protection, dus de poort die de skill veronderstelt bestaat hier alleen
+  lokaal; en (2) de nieuwe regel is *"hangt af van wát erin zit"*, en dat onderscheid — raakt dit de site of
+  niet — is een menselijke beoordeling die een skill die in één beweging mergt niet kan maken. Draait er ooit
+  CI, dan is punt 1 weg en blijft punt 2 staan. Deze regel staat hier zodat een latere sessie die de skill in
+  de plugin ziet kan lezen waarom er hier niet aan begonnen wordt.
 - **`sync-roster`** — zet ontbrekende repo-lenzen neer als het roster achterloopt op de plugin.
 - **`specialists-init`** / **`specialists-teardown`** — adoptie en de-adoptie van het systeem in deze
   repo. Zie `QUICKSTART.md` en `UNINSTALL.md` in de bron-repo.
@@ -451,6 +495,13 @@ De grondwet hierboven, hier concreet ingevuld:
   vangt en er niets tussen de merge en de site zit. ESLint blijft bewust buiten de poort omdat er 37
   pre-existing errors staan; die vergelijk je op aantal. `-SkipBuild` bestaat om lokaal te itereren
   en hoort niet in de poort zelf.
+- **Wat die poort níet bewijst, en waarom de PR-regel daarom ruim is ingevuld.** Er zijn **nul
+  testsuites**, **nul GitHub Actions** en **geen branch protection** op `main`; de repo is publiek. De
+  poort draait dus alleen lokaal en alleen als iemand `open-pr` gebruikt, en hij bewijst dat de code
+  **bouwt** — niet dat het gedrag gelijk bleef en niet dat de pagina goed oogt. De gedeelde default in
+  de bron leunt op *"the lint gate, the test gate, and CI"*; twee van die drie bestaan hier niet. Dat is
+  de reden dat álles in `src/`, `public/` en `src/data/mixes/` op Dave's woord wacht, ook een refactor
+  die visueel niets verandert. **Komt er ooit CI, dan is dit het punt om de grens opnieuw te wegen.**
 - **`public/images/` is beschermd.** Afbeeldingen worden via pad gerefereerd in de mix-JSON;
   verwijderen breekt stil een pagina en gebeurt nooit zonder Dave's woord.
 - **`next.config.ts` en `netlify.toml` zijn beschermd.** Een fout daar breekt de Netlify-build en

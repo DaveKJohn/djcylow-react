@@ -45,7 +45,7 @@ de twee uitzonderingen op "nooit direct op `main`", de release-toestemming — s
 **Eén van die grenzen hoort hier wel genoemd, omdat ze de hele route kleurt: een PR mergen is in deze
 repo een deploy.** `origin/main` ís de live site — Netlify bouwt en publiceert bij elke push naar
 `main`, en `gh pr merge` schrijft daar server-side rechtstreeks in. Er is **geen staging**. De poorten
-in [stap 4](#4-push-de-branch--de-pr-pas-op-verzoek) zijn dus de laatste wacht vóór `djcylow.com`, en
+in [stap 4](#4-push-de-branch-en-open-de-pr--behalve-bij-site-werk) zijn dus de laatste wacht vóór `djcylow.com`, en
 niet een formaliteit onderweg.
 
 ---
@@ -191,13 +191,22 @@ onderdeel van het release-model; hier staat alleen dát het antwoord 1 is. Eén 
 terug te vallen: repo-machinerie bereikt Dave als **onderhouder** en blijft tier 0, de site zelf bereikt hem
 als **opdrachtgever** en is tier 1.
 
-### 4. Push de branch — de PR pas op verzoek
+### 4. Push de branch en open de PR — behalve bij site-werk
 
 Zodra de branch klaar is (commits + een gevuld `branch/branch-changelog.md` en een leeg
-`branch/branch-progress.md`): push hem en meld dat hij klaar staat. **Open de PR niet uit jezelf** — zie
-de safety-rules in [`CLAUDE.md`](CLAUDE.md#nooit-zonder-expliciete-toestemming-van-dave).
+`branch/branch-progress.md`): push hem. **Of de PR daarna vanzelf opengaat, hangt af van wat er in de branch
+zit** — de toets en de twee uitzonderingen staan in de safety-rules van
+[`CLAUDE.md`](CLAUDE.md#nooit-direct-op-main--via-branch--pr), en die gaan boven deze pagina:
 
-Zegt Dave "open de PR", gebruik dan de gedeelde **`open-pr`**-skill. Welke poorten die vóór het pushen
+| wat er in de branch zit | wat er gebeurt |
+|---|---|
+| `scripts/`, governance-docs, `CHANGELOG.md`, `releases/`, `.claude/`, onderzoek | **loopt door**: openen → mergen → folden, zonder tussenvraag |
+| iets in `src/`, `public/` of `src/data/mixes/` | **stop na de push** en meld dat de branch klaar staat — een merge is hier een deploy naar `djcylow.com` |
+| een release, een tag, of een beschermd bestand | **stop** — expliciet verzoek van Dave vereist |
+
+Bij twijfel geldt de zwaarste kolom. Draagt een branch beide soorten werk, dan is het site-werk en wacht hij.
+
+Gebruik in beide gevallen de gedeelde **`open-pr`**-skill. Welke poorten die vóór het pushen
 draait — resolves, scaffold, impact, step-list — en welke van de vier een `-Force` kent, staat in de
 **portable helft, stap 3**. Wat hier van ons is:
 
@@ -226,12 +235,14 @@ de entry. Twee dingen die hier gemeten zijn en niet in de portable helft staan:
 > `scripts/repo-config.ps1` vullen met onze eigen regel; die seam bestaat sinds plugin 4.7.0 en waarschuwt
 > er nu wél hard over. Staat gepland op `docs/release-route-naar-script`.
 
-### 5. Vertel Dave wat er is gedaan — stop daar
+### 5. Vertel Dave wat er is gedaan
 
-Rapporteer wat er veranderd is en deel de PR-link. Vraag niet naar mergen, releasen of pushen naar
-`main`.
+Rapporteer wat er veranderd is en deel de PR-link. **Wanneer die rapportage valt, hangt af van stap 4:** bij
+site-werk is dit het stoppunt en wacht de keten hier op Dave's woord; bij werk dat doorloopt is het de
+afsluiting ná de fold. In beide gevallen geldt: **vraag niet naar releasen of pushen naar `main`** — dat blijft
+Dave's initiatief, en er niet naar vragen is een aparte grondwetregel.
 
-### 6. Na goedkeuring: merge de Pull Request
+### 6. Merge de Pull Request
 
 Wissel eerst naar `main` — `gh pr merge` kan de huidige branch niet lokaal verwijderen als je er nog op
 staat, dus `--delete-branch` ruimt dan alleen de remote op en laat een lokale rest achter:
@@ -247,10 +258,13 @@ merge-commit de `merge:`-prefix, consistent met de rest van de geschiedenis; zon
 gebruikt GitHub het generieke "Merge pull request #N from ...". Controleer daarna of de lokale branch
 écht weg is en ruim 'm zo nodig alsnog op: `git branch -d [branch]`.
 
-Deze merge is de handeling die de site verandert. `Get-PrMergeMethod` blijft daarom onbeantwoord in
-`repo-config.ps1`: die knop wordt alleen gelezen door de `ship-pr`-skill, en die gebruikt deze repo
-bewust niet — hij zou openen, mergen en folden in één beweging doen, terwijl de merge hier apart op
-Dave's woord wacht.
+Deze merge is de handeling die de site verandert — bij site-werk althans; bij de rest is de deploy die erop
+volgt een no-op die dezelfde pagina's oplevert.
+
+`Get-PrMergeMethod` blijft onbeantwoord in `repo-config.ps1`, maar sinds 2026-08-13 om een andere reden dan
+"de merge wacht altijd op Dave". Die knop wordt alleen gelezen door **`ship-pr`**, en die gebruiken we hier
+nog steeds niet: er is **geen CI** om op te wachten, en de nieuwe regel vraagt een beoordeling — raakt dit de
+site of niet — die een skill die in één beweging mergt niet kan maken.
 
 ### 7. Na de merge: vouw de changelog entry
 

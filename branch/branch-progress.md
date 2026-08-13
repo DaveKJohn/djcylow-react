@@ -46,10 +46,44 @@
       `releases/README.md#what-tier-1-means-here` — anders ruimt deze branch duplicatie op één plek op en
       maakt hij die op een andere
 - [x] Alle 10 cross-file anchors tussen `CLAUDE.md`, `CONTRIBUTING.md` en `releases/README.md` nagelopen
+- [x] **De PR-regel:** eerst de maatstaf rechtgezet. Ik gebruikte `life-hub` als vergelijking; Dave: *"als er
+      iets leidend is dan is het de bron"*. Vastgelegd in memory als werkregel
+- [x] De bron-regel gemeten: default omgezet op 27 juli 2026, twee uitzonderingen, toets is *voegt Dave's
+      blik iets toe dat de poorten niet kunnen?* Deze repo droeg de tekst van daarvóór
+- [x] Gezocht naar een besluit dat de afwijking dekte — `CLAUDE.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, de
+      handover: **er is er geen.** Het was achterstand, geen keuze
+- [x] De tegenspraak vastgesteld: Chris' body zegt "runs on its own, see the repo lens", de lens was een leeg
+      `VUL-IN`-scaffold, `CLAUDE.md` zei "nooit". Drie stemmen, strengste won ongewogen
+- [x] Gemeten wat de poort hier wél en niet bewijst: **0 testsuites, 0 GitHub Actions, geen branch
+      protection, repo publiek.** Dat is de onderbouwing voor de ruimere grens die Dave koos
+- [x] De regel overgenomen in de safety-rules, plus de vijf plekken die de oude aannamen: de
+      approval-bullet, `open-pr` en `ship-pr` in de skill-lijst, `CONTRIBUTING.md` stap 4/5/6, en de
+      `Get-PrMergeMethod`-verantwoording in `repo-config.ps1`
+- [x] Chris' lens gevuld — verwijzend naar de safety-rules, niet herformulerend
+- [x] `repo-config.ps1` na de edit gecontroleerd: laadt, seams geven de juiste waarden, en
+      `check-script-contract.ps1` meldt **0 errors / 5 info** — exact de vijf die het bestand verantwoordt
+- [~] `ship-pr` niet in gebruik genomen. De oude reden is onwaar geworden, maar er is geen CI om op te
+      wachten en de site-of-niet-beoordeling past niet in een skill die in één run mergt
 
 ### Where I left off
 
-Branch is af en de poort staat open. Wat hierna nog aan de orde komt, en niet in deze branch hoort:
+Branch is af en de poort staat open. **Deze branch valt onder de nieuwe default** — hij raakt `src/`,
+`public/` en `src/data/mixes/` niet, dus de site wordt byte-identiek herbouwd (89 pagina's, ongewijzigd).
+Onder de regel die hij zelf invoert loopt hij dus door zonder tussenvraag. Hij is alleen gebouwd tóen die
+regel nog niet gold, dus hij is gestopt en gemeld — en dat is ook het nettere: de regel zelf hoort niet door
+zijn eigen versoepeling naar binnen te glippen.
+
+Wat hierna nog aan de orde komt, en niet in deze branch hoort:
+
+- **Overweeg CI.** Dat is het ontbrekende net waar de gedeelde default op leunt en dat hier niet bestaat: een
+  GitHub Actions-workflow die `tsc --noEmit` + `npm run build` server-side draait, zodat de poort niet meer
+  afhangt van of iemand `open-pr` gebruikt. Landt dat, dan is het moment om de grens van "zichtbaar resultaat"
+  opnieuw te wegen — nu wacht álles in `src/`, ook een refactor die visueel niets doet, en die ruimte is
+  precies met het ontbreken van tests en CI verantwoord.
+- **Eén pre-existing conventie-schending gerepareerd, en dat hoort gemeld:** `repo-config.ps1` schrijft
+  bovenaan dat het bewust puur ASCII is (PowerShell 5.1 leest een BOM-loos script als ANSI), maar regel 401
+  droeg `één` met accenten — al op `main`, niet uit deze branch. Eén woord in een comment; rechtgezet naar
+  "een enkel register" omdat het bestand toch open was. Mijn eigen toevoegingen zijn ASCII gecontroleerd.
 
 - **De melding over de tegenstrijdige `cut-release`-frontmatter uit `.claude/handover.md` ligt er nog**, en
   is nog steeds niet verstuurd. Die stond al vóór deze branch klaar. Advies blijft: sturen — onze eigen
