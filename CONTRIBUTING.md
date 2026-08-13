@@ -49,7 +49,7 @@ niet een formaliteit onderweg.
 | de ene publieks-tier van deze repo | **1** — het management en de opdrachtgever | `Get-ReleaseAudienceTier` |
 | permanente root-docs | `CHANGELOG.md` · `CLAUDE.md` · `README.md` · `CONTRIBUTING.md` | `Get-ReservedRootMd` |
 | de release-historie | de tabel in [`releases/README.md`](releases/README.md) | `Get-ReleaseHistoryPath` |
-| indeling van de release-notes | per **minor** (`2.22/`) | `Get-ReleaseNotesGrouping` |
+| indeling van de release-notes | per **major** (`2.x/`) — gelijk aan de bron sinds 2026-08-13 | `Get-ReleaseNotesGrouping` |
 | het handgeschreven release-document | [`releases/audience/`](releases/audience/), bij een minor en een major | `Get-ReleaseNoteRoot` · `Get-ReleaseConsumerBumps` |
 | de aankondiging die de Release-body wordt | [`releases/github/`](releases/github/), bij elke release | *(hardcoded in de bron, geen seam)* |
 | een aparte go-live-stap ná de cut | geen — de code stond al live vanaf zijn eigen PR-merge | `Get-LiveStage` (leeg) |

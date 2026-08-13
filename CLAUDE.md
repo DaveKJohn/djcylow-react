@@ -93,8 +93,8 @@ Er zijn twee bewuste uitzonderingen op "nooit direct committen":
    de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` + de twee
    vaste bestanden in `branch/`.
 2. De **release-branch** (`docs/release-v<versie>`) is wél een branch, met scope beperkt tot
-   `CHANGELOG.md`, `releases/development/<X.Y>/<X.Y.Z>.md`, `releases/github/<X.Y>/<X.Y.Z>.md`,
-   `releases/audience/<X.Y>/<X.Y.Z>.md` (alleen Minor/Major) en `releases/README.md` — maar wordt
+   `CHANGELOG.md`, `releases/development/<X>.x/<X.Y.Z>.md`, `releases/github/<X>.x/<X.Y.Z>.md`,
+   `releases/audience/<X>.x/<X.Y.Z>.md` (alleen Minor/Major) en `releases/README.md` — maar wordt
    bewust gemerged via een kale
    `git merge --no-ff`, niet via een Pull Request. Dit wacht wél altijd op expliciete goedkeuring
    van Dave.
@@ -280,13 +280,13 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
      zolang je geen `.ts`/`.tsx` hebt aangeraakt. Wat niet acceptabel is: een fout erbij. Vergelijk
      dus het aantal, niet alleen de exitcode
 4. **Bepaal het versienummer** (tabel hieronder, en `releases/README.md`)
-5. **Maak de development-release note**: `releases/development/<major.minor>/<versie>.md` — gebruik
+5. **Maak de development-release note**: `releases/development/<major>.x/<versie>.md` — gebruik
    de gefolde wijzigingen in `CHANGELOG.md`; elke `##`-kop is er één. **Neem die kop niet letterlijk
    over**: hij noemt de branch (``## `docs/mijn-branch` changelog``), niet de wijziging. De titel van
    de release-note-entry bouw je uit `### Branch title` en `### Branch type`; de slotregel
    `[PR #NN](...) · merged YYYY-MM-DD` neem je wél ongewijzigd mee
 6. **Maak het handgeschreven release-document** (alleen Minor/Major):
-   `releases/audience/<major.minor>/<versie>.md` — dezelfde wijzigingen in leesbaar Nederlands
+   `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar Nederlands
    zonder jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types),
    bedoeld voor de opdrachtgever in plaats van developers. Twee secties, want deze repo staat op
    tier 1: **wat het waard is** en **wat er bij deze release nog open stond** — die tweede in de
@@ -296,7 +296,11 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
    > `scripts/repo-config.ps1` wijst sindsdien naar `releases/audience`. De 23 bestaande documenten
    > zijn verplaatst, niet herschreven. Zie [`releases/README.md`](releases/README.md) voor de drie
    > roots en wat er per root in hoort
-7. **Schrijf de aankondiging**: `releases/github/<major.minor>/<versie>.md` — een paar alinea's die
+   > **En de submap ging later diezelfde dag van `<X.Y>` naar `<X>.x`**, toen `releases/` op Dave's
+   > verzoek volledig gelijk werd getrokken met de bron: `Get-ReleaseNotesGrouping` staat sindsdien op
+   > `'major'` en alle 60 documenten (37 development, 23 audience) wonen in `2.x/`. Ook die verhuizing
+   > is `git mv` zonder een letter aan hun tekst te veranderen
+7. **Schrijf de aankondiging**: `releases/github/<major>.x/<versie>.md` — een paar alinea's die
    de body van de GitHub Release worden: wat er nieuw is, voor wie, en een regel die naar de twee
    bijlagen wijst. Niet de per-PR details; die staan in `development/`
 8. **Update `CHANGELOG.md`**: haal de gefolde entries eruit (ze staan nu in de release-note), zodat
@@ -307,7 +311,14 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
    > vijf PR's al live waren). Dat verviel: `releases/README.md` (stap 9) is sindsdien de enige plek
    > waar uitgebrachte versies worden bijgehouden — geen dubbele boekhouding meer
 9. **Voeg de versie toe** aan de overzichtstabel in `releases/README.md` (bovenaan) — de enige
-   boekhouding van uitgebrachte versies
+   boekhouding van uitgebrachte versies. De Versie-cel wijst naar het leesbaarste document dat de
+   release heeft: `audience/` bij een Minor/Major, `development/` bij een Patch
+   > **De kolomkoppen van die tabel zijn Engels, en dat is geen slordigheid.** De gedeelde
+   > `release-lib.ps1` matcht die regel letterlijk om te weten waar een rij heen gaat, en er is bewust
+   > geen seam voor. Zelfde categorie als de zes sectiekopjes van een entry: een machine-gelezen
+   > sleutel, geen proza. Vertaal je ze, dan vindt de inserter zijn invoegpunt niet meer. Om dezelfde
+   > reden staat er een `#### 2.x`-kop bóven de tabel — de guardrail die controleert of een rij in de
+   > juiste major belandt, leest de laatste `<n>.x`-kop erboven en staat stil uit zodra die ontbreekt
 10. **Stage en commit** op de release-branch
 11. **Merge naar `main`** (na bevestiging) — bewust een kale merge, geen PR:
     ```bash
@@ -327,7 +338,7 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
 13. **GitHub Release aanmaken** — de aankondiging uit `github/` is de body:
     ```bash
     gh release create v<versie> --title "v<versie> - <korte titel>" \
-      --notes-file releases/github/<major.minor>/<versie>.md --verify-tag
+      --notes-file releases/github/<major>.x/<versie>.md --verify-tag
     ```
     > De body was tot 2026-08-13 de `development/`-note. Die is nu bijlage: `gh` kapt een
     > `--notes-file` af op 125.000 tekens, en een volledig per-PR record kan daar langs
@@ -335,8 +346,8 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
     bestandsnamen**, want alle drie de documenten heten `<versie>.md` en de tweede upload botst
     anders met `HTTP 404` (`file#label` van `gh` lost dat niet op — dat zet het label, niet de naam):
     ```bash
-    cp releases/development/<major.minor>/<versie>.md v<versie>-development-notes.md
-    cp releases/audience/<major.minor>/<versie>.md    v<versie>-release-note.md
+    cp releases/development/<major>.x/<versie>.md v<versie>-development-notes.md
+    cp releases/audience/<major>.x/<versie>.md    v<versie>-release-note.md
     gh release upload v<versie> v<versie>-development-notes.md v<versie>-release-note.md
     rm v<versie>-development-notes.md v<versie>-release-note.md
     ```

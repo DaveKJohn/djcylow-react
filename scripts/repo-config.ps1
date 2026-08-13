@@ -329,34 +329,43 @@ function Get-InternalNoteWording {
 # samen overgestoken toen v4.5.0 de eerste van die twee toevoegde. Ze horen als paar gelezen te worden
 # -- de knop was hier onaanzetbaar zolang het pad eronder niet te richten was.
 
-# Hoe de release-notes zijn ingedeeld: 'minor' -> releases/development/<X.Y>/<X.Y.Z>.md.
+# Hoe de release-notes zijn ingedeeld: 'major' -> releases/development/<X>.x/<X.Y.Z>.md.
 #
-# AFGELEZEN VAN DE BOOM, niet gekozen. releases/development/ heeft 23 mappen, 2.0 tot en met 2.22:
-# per MINOR. De blueprint-default is 'major', en cut-release.ps1 regel 676-681 bouwt het notes-pad uit
-# deze waarde -- dus zonder deze regel had de eerstvolgende cut naar releases/development/2.x/
-# geschreven, een tweede boom naast de 23 mappen die er al staan, met de rij in releases/README.md
-# wijzend naar een pad waar geen enkele bestaande note woont. Niets had geklaagd: 'major' is een
-# geldig antwoord, alleen niet dat van deze repo.
-$script:ReleaseNotesGrouping = 'minor'
+# GELIJKGETROKKEN MET DE BRON OP 2026-08-13 (Dave), en dit is de enige seam in dit bestand die van een
+# afgelezen waarde naar een GEKOZEN waarde is gegaan. Tot die dag stond hier 'minor', afgelezen van de
+# boom: releases/development/ had 23 mappen, 2.0 tot en met 2.22. Dat was een geldig antwoord -- de
+# bron-README noemt <X>.x en <X.Y> naast elkaar en laat <dir> voor "whichever this repo uses" staan --
+# maar Dave heeft gevraagd releases/ precies gelijk te maken aan de bron, en dan is per MAJOR wat er
+# staat. De 60 bestaande documenten (37 development, 23 audience) zijn met git mv verplaatst naar
+# 2.x/ en NIET herschreven; alle 37 rijen in releases/README.md wijzen naar het nieuwe pad.
+#
+# WAT DEZE WAARDE AANDRIJFT, zodat een latere lezer weet wat er meebeweegt als hij hem terugdraait:
+# cut-release.ps1 bouwt het notes-pad, het pad van het handgeschreven document en het github/-pad alle
+# drie uit deze ene waarde. Een terugdraai zonder de boom mee te verhuizen levert een tweede boom naast
+# de eerste, met de rij in releases/README.md wijzend naar een pad waar geen enkele note woont -- en
+# niets zou klagen, want beide waarden zijn geldig. Verhuis de boom of laat de waarde staan.
+$script:ReleaseNotesGrouping = 'major'
 
 function Get-ReleaseNotesGrouping {
-    <# Hoe de gegenereerde release-notes zijn ingedeeld: 'major' of 'minor'. Hier 'minor'. #>
+    <# Hoe de gegenereerde release-notes zijn ingedeeld: 'major' of 'minor'. Hier 'major'. #>
     return $script:ReleaseNotesGrouping
 }
 
-# Waar het handgeschreven release-document woont: releases/audience/<X.Y>/<X.Y.Z>.md. De submap komt
+# Waar het handgeschreven release-document woont: releases/audience/<X>.x/<X.Y.Z>.md. De submap komt
 # van Get-ReleaseNotesGrouping hierboven, dus dit is uitsluitend de root, zonder afsluitende slash.
 #
-# AFGELEZEN VAN DE BOOM, net als de grouping. releases/audience/ heeft 23 mappen naast de 23 van
-# releases/development/ -- dezelfde 2.0 tot en met 2.22, en de nieuwste release heeft in beide een
-# 2.22.0.md. De blueprint-default is releases/notes: die naam leidt hier tot een verkeerde map.
+# AFGELEZEN VAN DE BOOM -- en dat geldt nog voor de ROOT, niet meer voor de submap: releases/audience/
+# staat naast releases/development/ met in beide een 2.x/ en daarin dezelfde nieuwste 2.22.0.md. De
+# blueprint-default is releases/notes: die naam leidt hier tot een verkeerde map.
 #
 # DE MAP HEETTE releases/highlights/ TOT 2026-08-13, en de rename is de reden dat deze regel nu de
 # naam van de bron draagt. Elke root onder releases/ hoort zijn LEZER te noemen, niet de vorm van het
 # document -- "highlights" zegt hoe het geschreven is, "audience" zegt voor wie. De bron maakte
 # dezelfde fout met releases/notes/ en repareerde die op 2026-08-12; deze repo liep er nog een dag
 # achter. De 23 bestaande documenten zijn met git mv verplaatst en NIET herschreven: waar hun tekst
-# nog releases/highlights/ noemt, is dat wat er stond op de dag dat ze uitgingen.
+# nog releases/highlights/ noemt, is dat wat er stond op de dag dat ze uitgingen. Diezelfde 23 zijn
+# later op die dag NOG EEN keer verplaatst, van 2.0 .. 2.22 naar 2.x, toen de grouping hierboven naar
+# de waarde van de bron ging -- opnieuw met git mv en opnieuw zonder een letter aan hun tekst.
 #
 # DEZE SEAM BESTAAT SINDS v4.5.0, EN DAT IS DE HELE REDEN DAT DE KNOP HIERONDER AAN KAN. Tot en met
 # 4.4.0 stond releases/notes/ hardcoded in cut-release.ps1, waardoor de consumer-laag hier
@@ -394,8 +403,9 @@ function Get-ReleaseNoteRoot {
 # WAT DAT HIER CONCREET BETEKENT, want Get-ReleaseAudienceTier staat op 1: de cut draft geen sectie
 # "voor consumenten" -- die hoort bij tier 2, en bezoekers van djcylow.com lezen geen release notes. Wat
 # de cut hier draft zijn de twee organisatie-secties: wat het waard is, en wat er bij deze release nog
-# open stond. De mapstructuur is met deze branch gelijkgetrokken met de bron; het DOCUMENTMODEL van de
-# 23 bestaande bestanden is dat niet, en die herziening staat nog open als eigen werk.
+# open stond. De mapstructuur is met deze branch volledig gelijkgetrokken met de bron -- de drie roots
+# eerst en daarna de submap per major; het DOCUMENTMODEL van de 23 bestaande bestanden is dat niet, en
+# die herziening staat nog open als eigen werk (Dave, 2026-08-13: bewust buiten deze branch gehouden).
 $script:ReleaseConsumerBumps = @('minor', 'major')
 
 function Get-ReleaseConsumerBumps {
