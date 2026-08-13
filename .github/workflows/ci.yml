@@ -43,13 +43,15 @@ jobs:
       # zonder dat iemand dat bestand aanraakt. Daarvoor stond hier '22' hardgecodeerd terwijl Netlify
       # zijn eigen default draaide, en niets meldde het als die twee divergeerden.
       #
-      # .nvmrc HOUDT DE VOLLEDIGE VERSIE (22.15.1) EN NIET ALLEEN DE MAJOR, en dat is gemeten en geen
-      # voorkeur. Met '22' pakt setup-node de laatste 22.x en daarmee een NIEUWERE npm dan lokaal. Die
-      # npm installeert de optionele peerDependency `yaml ^2.4.2` van vite 8.2.1 wel, terwijl de
-      # lokale npm hem overslaat -- waardoor `npm ci` afbrak op "Missing: yaml@2.9.0 from lock file"
-      # terwijl `npm ci` lokaal gewoon slaagde. Netlify kwam er langs omdat die `npm install` gebruikt
-      # in plaats van `npm ci`. Een major-pin pint dus de taal maar niet de pakketmanager, en juist die
-      # laatste bepaalt of de lockfile geldig is. Bump deze versie bewust, niet met een major-alias.
+      # .nvmrc HOUDT DE VOLLEDIGE VERSIE (22.15.1) EN NIET ALLEEN DE MAJOR. Met '22' pakt setup-node
+      # de laatste 22.x, en dan bepaalt de kalender welke Node en welke npm de live build en de poort
+      # gebruiken. Een exacte pin maakt lokaal, CI en Netlify aantoonbaar hetzelfde.
+      #
+      # LET OP VOOR WIE HIER EEN OORZAAK ZOEKT: deze pin heeft het lockfile-probleem hieronder NIET
+      # opgelost, en dat is het opschrijven waard omdat de verkeerde verklaring plausibel klonk. Er
+      # stond hier eerst dat CI een nieuwere npm dan lokaal kreeg. Gemeten in run 31744335312: CI
+      # draaide Node v22.15.1, exact gelijk aan lokaal, en `npm ci` faalde nog steeds. De oorzaak zat
+      # in de lockfile, niet in de versie -- zie de npm ci-stap.
       - uses: actions/setup-node@v5
         with:
           node-version-file: '.nvmrc'
@@ -58,6 +60,19 @@ jobs:
       # `npm ci` en niet `npm install`: die respecteert package-lock.json exact, zodat de poort meet
       # wat er in de repo staat en niet wat er vandaag toevallig nieuwer is. lint-web.ps1 stopt met een
       # eigen melding als node_modules ontbreekt, dus deze stap gaat eraan vooraf.
+      #
+      # WAAROM `yaml` IN devDependencies STAAT TERWIJL DEZE REPO HET NERGENS IMPORTEERT. Toen Vitest
+      # erbij kwam brak deze stap op `npm ci`: "Missing: yaml@2.9.0 from lock file". `yaml ^2.4.2` is
+      # een OPTIONELE peerDependency van vite 8.2.1, en de resolver behandelt die per platform
+      # verschillend: de lockfile is op Windows gegenereerd en liet hem weg, waarna npm op Linux hem
+      # wel nodig had. Lokaal slaagde `npm ci` dus terwijl CI faalde, en Netlify kwam er langs omdat
+      # die `npm install` gebruikt in plaats van `npm ci` -- drie plekken, drie uitkomsten, uit een
+      # lockfile die op precies een daarvan is gemaakt.
+      #
+      # De peer expliciet declareren maakt de boom deterministisch op alle drie. Het alternatief was
+      # de lockfile weggooien en opnieuw opbouwen, wat dezelfde asymmetrie kan reproduceren zolang hij
+      # op Windows wordt gegenereerd. Verwijder deze dependency dus niet omdat de code hem niet
+      # importeert -- dat is precies waarom hij er staat.
       - run: npm ci
 
       # DEZELFDE POORT die open-pr.ps1 lokaal draait -- geen tweede kopie van tsc + build hier. Een
