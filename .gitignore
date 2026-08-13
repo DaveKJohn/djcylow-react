@@ -42,3 +42,8 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Gelockt onderwerp van de /lock-skill: werk-intentie van een enkele sessie, binnen
+# uren verouderd, en /lock -> /clear -> /continue lopen op een machine binnen minuten.
+# Meecommitten zou een pull request per sessie-afsluiting betekenen.
+.claude/handover.md
