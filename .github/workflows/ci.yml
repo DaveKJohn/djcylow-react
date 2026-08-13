@@ -42,6 +42,14 @@ jobs:
       # het er is: Netlify LEEST .nvmrc, dus CI en de live build kunnen niet meer uit elkaar lopen
       # zonder dat iemand dat bestand aanraakt. Daarvoor stond hier '22' hardgecodeerd terwijl Netlify
       # zijn eigen default draaide, en niets meldde het als die twee divergeerden.
+      #
+      # .nvmrc HOUDT DE VOLLEDIGE VERSIE (22.15.1) EN NIET ALLEEN DE MAJOR, en dat is gemeten en geen
+      # voorkeur. Met '22' pakt setup-node de laatste 22.x en daarmee een NIEUWERE npm dan lokaal. Die
+      # npm installeert de optionele peerDependency `yaml ^2.4.2` van vite 8.2.1 wel, terwijl de
+      # lokale npm hem overslaat -- waardoor `npm ci` afbrak op "Missing: yaml@2.9.0 from lock file"
+      # terwijl `npm ci` lokaal gewoon slaagde. Netlify kwam er langs omdat die `npm install` gebruikt
+      # in plaats van `npm ci`. Een major-pin pint dus de taal maar niet de pakketmanager, en juist die
+      # laatste bepaalt of de lockfile geldig is. Bump deze versie bewust, niet met een major-alias.
       - uses: actions/setup-node@v5
         with:
           node-version-file: '.nvmrc'
