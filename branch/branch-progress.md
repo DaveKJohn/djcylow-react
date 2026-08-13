@@ -29,6 +29,12 @@
       `check-script-contract.ps1` gedraaid: **0 errors / 5 info** — exact de vijf die het bestand
       verantwoordt
 - [x] De i18n-verwijzingen in `CLAUDE.md` rechtgezet nadat de branch vandaag is gesloten en getagd
+- [x] Eerste run gemeten (run 31732352110): **groen in 43 seconden**, en de poort meldde server-side
+      exact hetzelfde als lokaal — 89 statische pagina's, 0 fouten. De PS7-guard was dus nodig noch
+      schadelijk; het script draait ongewijzigd onder `pwsh` op Linux
+- [x] De enige annotatie uit die run opgelost: `actions/checkout@v4` en `setup-node@v4` draaien op het
+      afgeschafte Node 20. Beide naar `@v5`, met de meting als reden in de workflow. De bron staat nog op
+      v4 en krijgt dus dezelfde annotatie — melden als `inbound`
 - [~] Branch protection niet aangezet. Dat is een repo-setting en dus Dave's woord; zonder die stap
       blokkeert een rode CI geen merge. Als openstaande beslissing gemeld in plaats van stil uitgevoerd
 - [~] ESLint niet aan de poort toegevoegd. De 37 pre-existing errors staan er nog en zouden elke PR

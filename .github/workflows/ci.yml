@@ -32,7 +32,10 @@ jobs:
   poort:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # v5 en niet v4 (dat is wat de bron gebruikt): v4 draait op Node 20, dat op de runners is
+      # afgeschaft, en levert bij elke run een deprecation-annotatie op. Gemeten bij de eerste run van
+      # deze workflow, run 31732352110.
+      - uses: actions/checkout@v5
 
       # LET OP: deze repo pint zijn Node-versie nergens vast -- geen .nvmrc, geen .node-version, geen
       # engines-veld en geen NODE_VERSION in netlify.toml. Netlify draait dus zijn eigen default en CI
@@ -40,7 +43,7 @@ jobs:
       # omdat het de versie is waarop hier lokaal wordt gewerkt. Wil je de twee hard gelijkschakelen,
       # dan is een .nvmrc de plek -- Netlify leest dat bestand, dus dat verandert de live build en is
       # daarmee een beslissing van Dave, niet van deze workflow.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'npm'
