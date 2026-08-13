@@ -569,7 +569,7 @@ function Get-ReleaseAudienceTier {
 #
 # Get-ReleaseMajorMinMinors -- hoeveel minors een major-lijn moet hebben gehad voordat er een major
 #   gecut mag worden. De default is 10 en die volstaat hier: de poort leest de minor-component van de
-#   huidige versie, en die is 22 (v2.22.0), dus een major komt er ruim langs zonder eigen waarde.
+#   huidige versie, en die is 23 (v2.23.0), dus een major komt er ruim langs zonder eigen waarde.
 #
 #   DE REDEN DIE HIER TOT 2026-08-12 STOND WAS ONJUIST, en dat is het opschrijven waard omdat hij
 #   plausibel klonk: "de bump-poort die dit leest staat uit zolang er geen consumer-laag is verklaard,

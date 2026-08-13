@@ -505,27 +505,44 @@ consumers* section, and what remains are the two organisational sections.
 
 ### Local decisions
 
-**The three documents are written by hand here.** Rendall 🎬 writes them; the steps are in
-[`CLAUDE.md`](../CLAUDE.md) under **Release Workflow**.
+**The shared `cut-release` script writes these documents; the audience one is then rewritten by hand.**
+Rendall 🎬 owns that rewrite. The steps are in [`CLAUDE.md`](../CLAUDE.md) under **Release Workflow**.
 
-> **The claim that the shared script "runs nothing itself" is refuted, and it stood on this page.** Until
-> today this section said the `cut-release` skill is *"expressly a checklist that executes nothing"*. A dry
-> run on August 13, 2026 measured otherwise: the shared `cut-release.ps1` performs six of the fifteen
-> `CLAUDE.md` steps (5, 7, 8, 9, 10 and 12) and commits on `main` itself. The script is byte-identical to
-> the source's and gates the marketplace dependency behind `Get-ReleasePluginTier`, so it is in principle
-> runnable here. What is **not** measured is whether it runs clean — no release has been cut with it yet.
-> Pulling the documented route onto the script is queued as its own branch, `docs/release-route-naar-script`,
-> together with the release-branch exception it makes redundant. Note that [`CLAUDE.md`](../CLAUDE.md) still
-> carries the old claim; correcting it is that branch's work, not this page's, because it comes with the
-> fifteen steps it belongs to.
+> **Settled on August 13, 2026 (evening), and this page carried the wrong claim twice over.** It first said
+> the `cut-release` skill is *"expressly a checklist that executes nothing"*; a dry run refuted that, and the
+> corrected note then said the route would be pulled onto the script in a branch called
+> `docs/release-route-naar-script`, "together with the release-branch exception it makes redundant".
+>
+> **That has happened, and it went further than the note predicted.** Reading the script rather than
+> dry-running it showed it also runs `git push origin main` and `git push origin vX.Y.Z` — the dry run hid
+> that behind `-NoPush` — and that it stages with `git add -A`. On Dave's word the repo moved to the script
+> instead of the other way round: the **release-branch is abolished**, exception 2 in the safety rules is now
+> the release commit itself (as in the source), and the fifteen manual steps are reduced to what the script
+> does not do. `v2.23.0` was the last release cut by hand.
+
+**This repo answers audience tier 1, not 2 — and the mirrored half above says otherwise.** Under *The tier
+model* the text reads *"**this repo answers 2**, being a service rather than a product"*. That sentence is
+copied verbatim from the source, where "this repo" **is** the source: a marketplace whose subscribers decide
+whether to upgrade. Here `Get-ReleaseAudienceTier` returns **1**, because djcylow.com is a delivered product
+whose listeners never read a release note — the commissioner is the reader. Verify it in
+[`scripts/repo-config.ps1`](../scripts/repo-config.ps1), not on this page.
+
+> **This is the cost of a verbatim mirror, written down rather than patched.** The rule for everything above
+> the horizontal rule is that it stays the source's own text, so a correction goes to the source as an
+> `inbound` issue instead of being fixed here — that rule is what keeps the two diffable. But a mirrored
+> sentence containing the words *"this repo"* stops being true the moment it is mirrored, and no diff can
+> catch that: both copies are byte-identical and one of them is wrong. Established August 13, 2026 (evening),
+> when Dave settled the release route as *"exactly as the source does it, only with a Tier 1 audience"*.
+> A candidate `inbound`: have the source phrase its own answer as *"the source repo answers 2"*, so the
+> sentence survives being copied.
 
 **`3.0.0` is reserved for a full redesign.** The React version of the site started at `2.0.0` — a framework
 migration from the previous stack — and `MAJOR` stays at `2` for now. That is Dave's decision, not an
-outcome of the ten-minor rule, and it is why this line has reached `2.22` without a major.
+outcome of the ten-minor rule, and it is why this line has reached `2.23` without a major.
 
 > **The ten-minor default has a trap waiting one major further on**, worth writing down while it is
 > harmless. `Get-ReleaseMajorMinMinors` is undeclared and therefore `10`, and the gate counts minors *within
-> the current major*. At `2.22` that clears easily. Right after a `v3.0.0` the counter is zero, and the
+> the current major*. At `2.23` that clears easily. Right after a `v3.0.0` the counter is zero, and the
 > default would then hold a `v4.0.0` back for ten minors — which contradicts this repo's own model, where a
 > major is a redesign or a framework migration rather than a recap of ten minors. Not a problem now, and not
 > a problem at the next major; a problem at the one after that.
