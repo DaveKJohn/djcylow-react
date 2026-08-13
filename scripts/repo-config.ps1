@@ -398,7 +398,7 @@ function Get-ReleaseNoteRoot {
 # Sinds 2026-08-10 kent de bron nog maar een enkel handgeschreven document, met een sectie per lezer, na
 # de meting dat de twee losse documenten bij alle twaalf voorgaande releases over dezelfde wijzigingen
 # gingen -- 38% overlap in twee registers. De 23 bestanden hier zijn nog van het oude model: leesbaar
-# Nederlands zonder jargon, één register, geen secties per lezer.
+# Nederlands zonder jargon, een enkel register, geen secties per lezer.
 #
 # WAT DAT HIER CONCREET BETEKENT, want Get-ReleaseAudienceTier staat op 1: de cut draft geen sectie
 # "voor consumenten" -- die hoort bij tier 2, en bezoekers van djcylow.com lezen geen release notes. Wat
@@ -525,9 +525,20 @@ function Get-ReleaseAudienceTier {
 #   .claude-plugin/marketplace.json bestaat. Die map is hier niet, dus 'geen plugin-laag' rolt er al
 #   uit. Een stub zou een correcte meting overschrijven met een waarde die niets nakijkt.
 #
-# Get-PrMergeMethod -- alleen gelezen door ship-pr.ps1, en die skill gebruikt deze repo bewust niet:
-#   hij zou in een beweging mergen, en een merge is hier een deploy die apart op Dave's woord wacht.
+# Get-PrMergeMethod -- alleen gelezen door ship-pr.ps1, en die skill gebruikt deze repo bewust niet.
 #   Geen lezer, dus geen waarde. De merge-vorm zelf staat in CONTRIBUTING.md, cyclus stap 6.
+#
+#   DE REDEN IS OP 2026-08-13 VERVANGEN, en dat is het opschrijven waard omdat de oude reden nu
+#   ONJUIST is. Hier stond: "hij zou in een beweging mergen, en een merge is hier een deploy die apart
+#   op Dave's woord wacht". Die tweede helft geldt niet meer -- de PR-regel is die dag gelijkgetrokken
+#   met de bron en luidt nu "doorlopen tenzij", waarbij alleen werk in src/, public/ en
+#   src/data/mixes/ nog wacht. Wie deze regel als bewijs voor de oude regel leest, leest een
+#   achterstand.
+#
+#   De twee redenen die WEL blijven staan: (1) er is geen CI in deze repo -- geen GitHub Actions, geen
+#   branch protection -- dus de status-check waar ship-pr op wacht bestaat hier niet; en (2) de nieuwe
+#   regel vraagt een beoordeling per branch (raakt dit de site of niet) die een skill die openen,
+#   mergen en folden in een run doet niet kan maken. Komt er CI, dan valt reden 1 weg en blijft 2.
 #
 # Get-ReleaseMajorMinMinors -- hoeveel minors een major-lijn moet hebben gehad voordat er een major
 #   gecut mag worden. De default is 10 en die volstaat hier: de poort leest de minor-component van de

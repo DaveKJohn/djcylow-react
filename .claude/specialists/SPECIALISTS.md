@@ -70,6 +70,13 @@ De repo-lenzen zijn grotendeels nog lege scaffolds (`VUL-IN`): het draagbare vak
 woont in de plugin-manual, en alleen wat écht repo-eigen is hoort in de lens. Ze worden gevuld op het
 moment dat een specialist hier voor het eerst echt werk doet.
 
+**Eén is gevuld, en die kon niet leeg blijven:
+[`lenses/01-01-extension.md`](lenses/01-01-extension.md)** (2026-08-13). Chris' lens is de enige die
+*automatisch* meelaadt, en zijn draagbare body verwijst er expliciet naar voor de vraag welke uitzonderingen
+de PR-stap laten wachten. Zolang die lens leeg was, verwees de body naar een lege plek terwijl `CLAUDE.md`
+het omgekeerde beweerde. De lens **verwijst** naar de safety-rules en herformuleert ze niet — een tweede
+formulering van een grondwetregel is precies wat er niet moet staan.
+
 Loopt dit roster uit de pas met de plugin, dan zet de gedeelde **`sync-roster`**-skill de ontbrekende
 lenzen neer.
 
