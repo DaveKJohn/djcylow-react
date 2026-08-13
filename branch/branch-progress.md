@@ -1,108 +1,64 @@
-## `docs/gedeelde-docs-spiegelen-de-bron` progress
+## `config/ci-poort-in-github-actions` progress
 
 ### Steps
 
-- [x] De spec gelezen: `life-hub` PR [#239](https://github.com/DaveKJohn/life-hub/pull/239), en de
-      portable helft van die repo gediffd tegen de bron om het patroon te meten (7 link-instanties, de
-      rest verbatim)
-- [x] De taalvraag aan Dave gesteld — deze repo had, anders dan `life-hub`, géén besluit dat `releases/`
-      Engels is. Antwoord: Engels verbatim
-- [x] Portable helft neergezet en bewezen verbatim: 4154 woorden aan beide kanten, nul verschil na
-      normalisatie van de vijf absolute link-substituties
-- [x] Repo-eigen helft geschreven met `Get-ReleaseAudienceTier = 1` als uitgangspunt — dat is het
-      inhoudelijke verschil met `life-hub`, dat op tier 2 staat
-- [x] De seam-waarden nagemeten in `scripts/repo-config.ps1` in plaats van ze van de oude pagina over te
-      nemen; drie verouderde beweringen daarbij gecorrigeerd
-- [x] De twee repo-eigen extra secties (*Git tags & rollback*, *What gets which version number*) mee naar
-      het Engels, want ze staan op dezelfde pagina
-- [x] Alle 42 relatieve links en alle 6 anchors nagelopen — geen dode
-- [x] De inserter-regex en de major-guardrail uit `release-lib.ps1` getest tegen het resultaat: precies
-      één tabelkop, één `#### 2.x` erboven, in de juiste orde
-- [x] Het taalbesluit vastgelegd in `CLAUDE.md` (taalsectie), plus de aanleiding van de kolomkop-blockquote
-      bij stap 9 bijgesteld zodat die niet meer suggereert dat de rest van de pagina Nederlands is
-- [x] Poort groen: `lint-web.ps1` — 0 TypeScript-fouten, build geslaagd, 89 statische pagina's
-- [x] Inbound [#646](https://github.com/DaveKJohn/claude-code-specialists/issues/646) geopend op Dave's
-      verzoek: een `RELEASES-portable.md` in de plugin, zodat de gedeelde helft meereist in plaats van in
-      elke consumer met de hand gekopieerd te worden. Het vierde bevinding-punt (de `CHANGELOG.md`-bewering
-      over een consumer-bestand) is daar als bewijs in meegegaan
-- [~] Geen duplicaat naar [#643](https://github.com/DaveKJohn/claude-code-specialists/issues/643), dat twee
-      van de drie bridge-paragrafen al dekt — een tweede melding zou met de reparatie concurreren
-- [~] `CLAUDE.md`'s Release Workflow niet herschreven. De weerlegde "cut-release draait niets zelf" staat
-      daar ook nog, maar hoort bij `docs/release-route-naar-script` — daar komt hij met de vijftien stappen
-      waar hij bij staat. Op deze pagina is hij wél rechtgezet, met de verwijzing erbij
-- [~] De 23 bestaande `audience/`-documenten niet herschreven, en de 60 documenten niet vertaald. Beide
-      bewust buiten scope (Dave, 2026-08-13); gepubliceerde documenten en release-titels zijn historie
-- [x] **`CONTRIBUTING.md`:** de vorm-vraag aan Dave gesteld (verbatim spiegelen zoals `releases/README.md`,
-      of de duplicatie eruit en verwijzen). Antwoord: eruit en verwijzen — de portable tekst reist daar al
-      met de plugin mee, dus een kopie zou een tweede bron maken
-- [x] De gedeelde mechaniek uit de zeven stappen gehaald: het tier-model met zijn score-tabel, de zes
-      entry-secties, de vier `open-pr`-poorten, de fold-mechaniek. **126 regels weg, 100 erbij, 333 → 307**
-- [x] De zeven koppen intact gehouden — `CLAUDE.md` linkt naar twee ervan, de pagina naar drie van zichzelf
-- [x] Vier repo-eigen dingen vastgelegd die nergens stonden: de twee plugin-paden met de versie-les, de
-      PR-template-placeholder die `open-pr` niet vindt (PR #26), de kopniveau-valkuil van de fold (PR #27),
-      en de ESLint-nuance van de poort
-- [x] Zelf-audit op nieuwe duplicatie: de tier-1-uitleg die ik eerst in `CONTRIBUTING.md` schreef stond
-      daarmee in **beide** documenten. Vervangen door een verwijzing naar
-      `releases/README.md#what-tier-1-means-here` — anders ruimt deze branch duplicatie op één plek op en
-      maakt hij die op een andere
-- [x] Alle 10 cross-file anchors tussen `CLAUDE.md`, `CONTRIBUTING.md` en `releases/README.md` nagelopen
-- [x] **De PR-regel:** eerst de maatstaf rechtgezet. Ik gebruikte `life-hub` als vergelijking; Dave: *"als er
-      iets leidend is dan is het de bron"*. Vastgelegd in memory als werkregel
-- [x] De bron-regel gemeten: default omgezet op 27 juli 2026, twee uitzonderingen, toets is *voegt Dave's
-      blik iets toe dat de poorten niet kunnen?* Deze repo droeg de tekst van daarvóór
-- [x] Gezocht naar een besluit dat de afwijking dekte — `CLAUDE.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, de
-      handover: **er is er geen.** Het was achterstand, geen keuze
-- [x] De tegenspraak vastgesteld: Chris' body zegt "runs on its own, see the repo lens", de lens was een leeg
-      `VUL-IN`-scaffold, `CLAUDE.md` zei "nooit". Drie stemmen, strengste won ongewogen
-- [x] Gemeten wat de poort hier wél en niet bewijst: **0 testsuites, 0 GitHub Actions, geen branch
-      protection, repo publiek.** Dat is de onderbouwing voor de ruimere grens die Dave koos
-- [x] De regel overgenomen in de safety-rules, plus de vijf plekken die de oude aannamen: de
-      approval-bullet, `open-pr` en `ship-pr` in de skill-lijst, `CONTRIBUTING.md` stap 4/5/6, en de
-      `Get-PrMergeMethod`-verantwoording in `repo-config.ps1`
-- [x] Chris' lens gevuld — verwijzend naar de safety-rules, niet herformulerend
-- [x] `repo-config.ps1` na de edit gecontroleerd: laadt, seams geven de juiste waarden, en
-      `check-script-contract.ps1` meldt **0 errors / 5 info** — exact de vijf die het bestand verantwoordt
-- [~] `ship-pr` niet in gebruik genomen. De oude reden is onwaar geworden, maar er is geen CI om op te
-      wachten en de site-of-niet-beoordeling past niet in een skill die in één run mergt
+- [x] Gemeten dat er werkelijk niets stond: `.github/` bevatte alleen `pull_request_template.md`, nul
+      workflows — de bewering "nul GitHub Actions" in `CLAUDE.md` klopte
+- [x] Het CI-patroon van de bron gelezen (`.github/workflows/ci.yml` daar) in plaats van er zelf een te
+      verzinnen: `name: CI`, `permissions: contents: read`, `pull_request` + `push: [main]`, en de
+      expliciete les dat de workflow het gedeelde poort-script aanroept in plaats van het over te schrijven
+- [x] De runner-keuze afgewogen en bewust van de bron afgeweken: ubuntu in plaats van windows, omdat
+      Netlify op Linux bouwt en letterkast-fouten in imports alleen daar zichtbaar worden. Reden staat in
+      de workflow zelf, want een afwijking van het bron-patroon hoort uit te leggen waarom
+- [x] `lint-web.ps1` doorgenomen op PS 5.1-aannames vóór hij onder `pwsh` zou draaien; één gevonden en
+      afgedekt: `PSNativeCommandUseErrorActionPreference` kan een falende `tsc`/build tot terminating
+      error maken, waardoor de eigen samenvatting van het script wegvalt. Guard is versie-veilig
+- [x] Het aangepaste script lokaal onder Windows PowerShell 5.1 gedraaid — nog steeds groen, dus de
+      cross-versie-guard breekt de bestaande route niet
+- [x] Vastgesteld dat `npm ci` vóór het script moet: het weigert te starten zonder `node_modules`, en
+      `package-lock.json` is aanwezig
+- [x] Gemeten dat de Node-versie **nergens** gepind is (geen `.nvmrc`, `.node-version`, `engines` of
+      `NODE_VERSION`). Niet zelf opgelost: Netlify leest `.nvmrc`, dus dat toevoegen verandert de live
+      build. Als comment in de workflow vastgelegd en aan Dave gemeld
+- [x] De vijf plekken bijgewerkt die "er is geen CI" als vaststaand feit aanvoerden: `CLAUDE.md`
+      (blockquote bij de PR-regel, de safety-invulling, de `ship-pr`-skillregel, de scripts-lijst),
+      Chris' lens, `CONTRIBUTING.md` stap 6 en de `Get-PrMergeMethod`-verantwoording in `repo-config.ps1`
+- [x] De PR-grens **niet** verschoven, en dat expliciet als besluit opgeschreven in plaats van als
+      omissie: er zijn nog nul testsuites, en zonder branch protection is de run een signaal en geen slot
+- [x] `repo-config.ps1` na de edit gecontroleerd op de ASCII-conventie (0 non-ASCII bytes) en
+      `check-script-contract.ps1` gedraaid: **0 errors / 5 info** — exact de vijf die het bestand
+      verantwoordt
+- [x] De i18n-verwijzingen in `CLAUDE.md` rechtgezet nadat de branch vandaag is gesloten en getagd
+- [x] Eerste run gemeten (run 31732352110): **groen in 43 seconden**, en de poort meldde server-side
+      exact hetzelfde als lokaal — 89 statische pagina's, 0 fouten. De PS7-guard was dus nodig noch
+      schadelijk; het script draait ongewijzigd onder `pwsh` op Linux
+- [x] De enige annotatie uit die run opgelost: `actions/checkout@v4` en `setup-node@v4` draaien op het
+      afgeschafte Node 20. Beide naar `@v5`, met de meting als reden in de workflow. De bron staat nog op
+      v4 en krijgt dus dezelfde annotatie — melden als `inbound`
+- [~] Branch protection niet aangezet. Dat is een repo-setting en dus Dave's woord; zonder die stap
+      blokkeert een rode CI geen merge. Als openstaande beslissing gemeld in plaats van stil uitgevoerd
+- [~] ESLint niet aan de poort toegevoegd. De 37 pre-existing errors staan er nog en zouden elke PR
+      blokkeren op werk dat er niets mee te maken heeft; het TODO-blok in `lint-web.ps1` blijft de plek
+      waar dat hoort. Sinds vandaag zet één wijziging daar hem wel meteen op beide plekken aan
 
 ### Where I left off
 
-Branch is af en de poort staat open. **Deze branch valt onder de nieuwe default** — hij raakt `src/`,
-`public/` en `src/data/mixes/` niet, dus de site wordt byte-identiek herbouwd (89 pagina's, ongewijzigd).
-Onder de regel die hij zelf invoert loopt hij dus door zonder tussenvraag. Hij is alleen gebouwd tóen die
-regel nog niet gold, dus hij is gestopt en gemeld — en dat is ook het nettere: de regel zelf hoort niet door
-zijn eigen versoepeling naar binnen te glippen.
+De workflow kan pas op GitHub zelf bewijzen dat hij draait — `pwsh` op Linux is lokaal niet te testen
+(er staat geen PowerShell 7 op deze machine). De eerste run is dus de PR van deze branch zelf, en dat is
+meteen de nette test: faalt hij op een PS-versieverschil in plaats van op de code, dan is dat een
+reparatie aan het script en niet aan de site.
 
-Wat hierna nog aan de orde komt, en niet in deze branch hoort:
+Wat hierna nog aan de orde komt en niet in deze branch hoort:
 
-- **Overweeg CI.** Dat is het ontbrekende net waar de gedeelde default op leunt en dat hier niet bestaat: een
-  GitHub Actions-workflow die `tsc --noEmit` + `npm run build` server-side draait, zodat de poort niet meer
-  afhangt van of iemand `open-pr` gebruikt. Landt dat, dan is het moment om de grens van "zichtbaar resultaat"
-  opnieuw te wegen — nu wacht álles in `src/`, ook een refactor die visueel niets doet, en die ruimte is
-  precies met het ontbreken van tests en CI verantwoord.
-- **Eén pre-existing conventie-schending gerepareerd, en dat hoort gemeld:** `repo-config.ps1` schrijft
-  bovenaan dat het bewust puur ASCII is (PowerShell 5.1 leest een BOM-loos script als ANSI), maar regel 401
-  droeg `één` met accenten — al op `main`, niet uit deze branch. Eén woord in een comment; rechtgezet naar
-  "een enkel register" omdat het bestand toch open was. Mijn eigen toevoegingen zijn ASCII gecontroleerd.
-
-- **De melding over de tegenstrijdige `cut-release`-frontmatter uit `.claude/handover.md` ligt er nog**, en
-  is nog steeds niet verstuurd. Die stond al vóór deze branch klaar. Advies blijft: sturen — onze eigen
-  onjuiste bewering kwam er rechtstreeks uit en de bron kan hem in één regel repareren.
-
-- **`config/release-notes-in-het-nederlands` is door dit besluit achterhaald.** Die branch stond gepland om
-  `Get-ReleaseNoteWording` en `Get-InternalNoteWording` in het Nederlands te vullen. Nu de map Engels is,
-  betekenen lege seams het juiste antwoord en zou die branch de pagina van de bron af bewegen. Wat van het
-  punt overblijft is smaller en staat op de pagina: `SectionOpen` is niet cosmetisch, want
-  `session-status.ps1` zoekt de open-werk-sectie erop en met Engelse koppen werkt die lookup nu vanzelf.
-  Dit is een schrapping van gepland werk, dus het wacht op Dave's woord.
-- **`docs/release-route-naar-script`** — de vijf werkpunten uit `.claude/handover.md`, waaronder de
-  weerlegde cut-release-bewering in `CLAUDE.md` en het vullen van `Get-PrDescriptionPlaceholder`. **Punt 4
-  van die vijf is door deze branch afgehandeld:** het tier-model stond drie keer voluit (portable helft,
-  `CONTRIBUTING.md`, `releases/README.md`) en staat nu één keer. `releases/README.md` draagt de gedeelde
-  tekst zelf, `CONTRIBUTING.md` verwijst ernaar en noemt alleen het antwoord `= 1`. Wat van punt 4 overblijft
-  is de spanning tussen de versienummertabel in `CLAUDE.md` (docs → PATCH) en de gedeelde bump-gate
-  (tier 1+ → minor); dat is in `CONTRIBUTING.md` én in `releases/README.md` benoemd maar niet opgelost, want
-  het is een keuze over `CLAUDE.md`'s tabel.
-- **`.claude/handover.md` is op twee punten achterhaald door deze branch** en hoort bijgewerkt bij de
-  volgende stempeling: punt 4 (hierboven) en de opmerking dat de gegenereerde notes Engels zijn "terwijl de
-  37 bestaande Nederlands zijn" — dat is nu het gewenste gedrag in plaats van een defect.
+- **Branch protection op `main`** — de stap die van deze CI een echt slot maakt. Repo-setting, dus Dave.
+- **Een testsuite.** Dat is de derde pijler die nog ontbreekt, en de enige die kan bewijzen dat het
+  *gedrag* gelijk bleef. Zolang die er niet is, blijft de ruime uitzondering voor `src/` verdedigd.
+- **`.nvmrc`** — als CI en Netlify aan dezelfde Node-versie moeten hangen. Raakt de live build.
+- **De PR-template staat scheef.** `.github/pull_request_template.md` vraagt om een checkbox *"Merge
+  goedgekeurd door: @DaveKJohn"*, wat de PR-regel van vanochtend tegenspreekt voor alles wat doorloopt,
+  en verwijst naar `<branch-naam>.md in de repo-root` (het entry-model woont sinds 2026-08-11 in
+  `branch/`) en naar `messages/en.json` (bestaat niet). Bewust buiten scope gelaten: het is een eigen
+  onderwerp met een eigen entry, en deze branch raakt de template niet.
+- **`Get-PrDescriptionPlaceholder`** is nog steeds niet gevuld, dus elke PR komt hier zonder beschrijving
+  uit `open-pr` en moet met de hand worden bijgewerkt — gebeurde vandaag bij PR #29 opnieuw. Stond al
+  gepland op `docs/release-route-naar-script`.

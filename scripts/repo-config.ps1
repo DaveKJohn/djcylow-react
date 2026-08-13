@@ -535,10 +535,14 @@ function Get-ReleaseAudienceTier {
 #   src/data/mixes/ nog wacht. Wie deze regel als bewijs voor de oude regel leest, leest een
 #   achterstand.
 #
-#   De twee redenen die WEL blijven staan: (1) er is geen CI in deze repo -- geen GitHub Actions, geen
-#   branch protection -- dus de status-check waar ship-pr op wacht bestaat hier niet; en (2) de nieuwe
-#   regel vraagt een beoordeling per branch (raakt dit de site of niet) die een skill die openen,
-#   mergen en folden in een run doet niet kan maken. Komt er CI, dan valt reden 1 weg en blijft 2.
+#   De twee redenen die toen overbleven waren: (1) er is geen CI in deze repo, dus de status-check waar
+#   ship-pr op wacht bestaat hier niet; en (2) de nieuwe regel vraagt een beoordeling per branch (raakt
+#   dit de site of niet) die een skill die openen, mergen en folden in een run doet niet kan maken.
+#
+#   REDEN 1 IS DIEZELFDE DAG OOK VERVALLEN, precies zoals de regel hierboven voorspelde: sinds
+#   2026-08-13 draait .github/workflows/ci.yml op elke PR. Er is dus wel een status-check. Wat overblijft
+#   is reden 2, en die verdwijnt niet vanzelf -- het is een menselijke beoordeling, geen poort. Let op:
+#   zonder branch protection is die check bovendien adviserend, want een merge gaat er gewoon langs.
 #
 # Get-ReleaseMajorMinMinors -- hoeveel minors een major-lijn moet hebben gehad voordat er een major
 #   gecut mag worden. De default is 10 en die volstaat hier: de poort leest de minor-component van de

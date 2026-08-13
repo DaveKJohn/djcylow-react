@@ -263,8 +263,10 @@ volgt een no-op die dezelfde pagina's oplevert.
 
 `Get-PrMergeMethod` blijft onbeantwoord in `repo-config.ps1`, maar sinds 2026-08-13 om een andere reden dan
 "de merge wacht altijd op Dave". Die knop wordt alleen gelezen door **`ship-pr`**, en die gebruiken we hier
-nog steeds niet: er is **geen CI** om op te wachten, en de nieuwe regel vraagt een beoordeling — raakt dit de
-site of niet — die een skill die in één beweging mergt niet kan maken.
+nog steeds niet — nu nog om één reden: de PR-regel vraagt een beoordeling per branch, raakt dit de site of
+niet, en die kan een skill die openen, mergen en folden in één beweging doet niet maken. De tweede reden
+("er is geen CI om op te wachten") verviel diezelfde dag, toen
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) landde.
 
 ### 7. Na de merge: vouw de changelog entry
 

@@ -44,6 +44,17 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# Dit script draait op twee plekken: lokaal onder Windows PowerShell 5.1, en sinds 2026-08-13 in
+# .github/workflows/ci.yml onder pwsh 7 op Linux. PowerShell 7 kan een native commando met een
+# exitcode <> 0 als terminating error gooien zodra PSNativeCommandUseErrorActionPreference aanstaat,
+# en dat botst met de opzet hier: tsc en de build worden bewust op $LASTEXITCODE beoordeeld, zodat dit
+# script zijn eigen samenvatting kan printen in plaats van een ruwe exception te laten ontsnappen. De
+# poort blokkeert in beide gevallen, maar alleen zo staat er ook bruikbaar waarom. PS 5.1 kent de
+# variabele niet; daar is de Test-Path simpelweg $false.
+if (Test-Path variable:PSNativeCommandUseErrorActionPreference) {
+    $PSNativeCommandUseErrorActionPreference = $false
+}
+
 $repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 Push-Location $repoRoot
 try {
