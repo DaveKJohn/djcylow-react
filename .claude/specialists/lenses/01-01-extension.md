@@ -37,17 +37,19 @@ site-werk en wacht hij.
 
 ### Waarom die grens hier ruimer ligt dan in de bron
 
-De gedeelde default leunt op *"the lint gate, the test gate, and CI"*. Hier bestaan twee van die drie niet:
-nul testsuites, nul GitHub Actions, geen branch protection, en de repo is publiek. De poort bewijst dat de
-code **bouwt** — niet dat het gedrag gelijk bleef. Vandaar dat ook een refactor die visueel niets verandert
-onder de uitzondering valt. Komt er ooit CI, dan is dat het moment om die grens opnieuw te wegen, en dat is
-een beslissing van Dave.
+De gedeelde default leunt op *"the lint gate, the test gate, and CI"*. Daarvan ontbraken er hier twee.
+**Sinds 2026-08-13 is de CI er wel** (`.github/workflows/ci.yml`), maar de grens is niet meebewogen, en dat
+is geen verzuim: er zijn nog altijd nul testsuites, en zonder branch protection houdt een rode run een merge
+niet tegen — hij maakt hem zichtbaar. De poort bewijst nog steeds dat de code **bouwt**, niet dat het gedrag
+gelijk bleef. Vandaar dat ook een refactor die visueel niets verandert onder de uitzondering blijft vallen.
+Het herwegen van die grens is een beslissing van Dave, en die staat nu open.
 
 ### Routing die specifiek voor deze repo geldt
 
 - **Alles wat de publieke site of de SEO raakt is Dave's beslissing**, niet die van een specialist: titels,
   `description`-velden, metadata, routes. Een specialist stelt voor, Dave beslist. Dat staat los van de
   PR-regel en gaat eraan vooraf.
-- **`ship-pr` wordt hier niet gebruikt**, en de reden staat in `CLAUDE.md` bij de skill-lijst. Kort: geen CI
-  om op te wachten, en de site-of-niet-beoordeling kan een skill die in één run mergt niet maken.
+- **`ship-pr` wordt hier niet gebruikt**, en de reden staat in `CLAUDE.md` bij de skill-lijst. Kort: er is
+  sinds 2026-08-13 wél CI om op te wachten, maar de site-of-niet-beoordeling kan een skill die in één run
+  mergt nog steeds niet maken.
 - **De release-route start alleen op expliciet verzoek** en loopt via Rendall 🎬.

@@ -107,10 +107,14 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > net als in de bron een beslissing van Dave.
 >
 > **De invulling is hier ruimer dan de letter van de bron, en dat is bewust** (Dave, 2026-08-13). De
-> bron-default leunt op *"the lint gate, the test gate, and CI"*; hier bestaan twee van die drie niet — nul
-> testsuites, nul GitHub Actions, geen branch protection, en de repo is publiek. Onze poort bewijst dat het
-> **bouwt**, niet dat het gedrag gelijk bleef. Daarom wacht álles in `src/` en `public/`, ook een refactor
-> die visueel niets verandert.
+> bron-default leunt op *"the lint gate, the test gate, and CI"*; daarvan ontbraken er hier twee. **Sinds
+> 2026-08-13 draait er CI** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)), dus dat gat is
+> gedicht — maar de twee andere staan nog open: er zijn **nul testsuites**, en er is **geen branch
+> protection**, waardoor een rode CI een merge wel zichtbaar maakt maar niet tegenhoudt. De poort bewijst
+> dat het **bouwt**, niet dat het gedrag gelijk bleef en niet dat een pagina goed oogt. Daarom wacht
+> álles in `src/` en `public/` onverkort, ook een refactor die visueel niets verandert. **De herweging
+> die hier stond aangekondigd voor "als er ooit CI komt" is daarmee opengevallen — en die weging is
+> Dave's beslissing, niet die van een specialist.**
 
 > **Een PR mergen is een deploy.** `gh pr merge` schrijft server-side rechtstreeks in `origin/main`,
 > en Netlify bouwt en publiceert bij elke push naar `main`. Er is **geen staging**. Op het moment dat
@@ -274,12 +278,16 @@ npm run lint     # ESLint + TypeScript check
   Next.js API-routes. Het contactformulier loopt via Netlify Functions.
 - **Images unoptimized**: `images: { unoptimized: true }` — vereist voor static export. Niet
   verwijderen.
-- **Tweetaligheid (EN/NL) staat nog niet live.** `main` heeft geen `messages/`-map en geen
-  `[locale]`-route; de site levert de strings nu inline. De volledige next-intl-implementatie staat
-  op de geparkeerde branch `feature/i18n-setup` (17 commits: routing naar `src/app/[locale]/`,
-  string-extractie, hreflang/og:locale, LanguageSwitcher). Schrijf geen code die aanneemt dat
-  `useTranslations()` of `messages/en.json` bestaat. Zodra die branch landt, wordt dit: alle
-  user-facing strings horen in `messages/en.json` en `messages/nl.json`, nooit hardcoded.
+- **Tweetaligheid (EN/NL) staat niet live, en het werk eraan is gestopt.** `main` heeft geen
+  `messages/`-map en geen `[locale]`-route; de site levert de strings inline. Schrijf dus geen code die
+  aanneemt dat `useTranslations()` of `messages/en.json` bestaat.
+  > De next-intl-implementatie stond op `feature/i18n-setup` (17 commits: routing naar
+  > `src/app/[locale]/`, string-extractie, hreflang/og:locale, LanguageSwitcher). **Die branch is op
+  > 2026-08-13 gesloten** — hij liep 272 commits achter op `main` en Dave gaat er niets meer mee doen. Het
+  > werk is niet weg: het hangt aan de tag **`archive/feature-i18n-setup`** op `origin`, dezelfde
+  > conventie als `archive/feature-cookie-banner`. Wie tweetaligheid alsnog wil, begint opnieuw en gebruikt
+  > die tag hooguit als naslag; rebasen over 272 commits Next-upgrades heen is geen kleiner werk dan
+  > opnieuw beginnen.
 - **Geen inline CSS**: gebruik geen `style={{}}` in JSX. Alle CSS hoort in SCSS onder `src/styles/`.
   Uitzondering: echt dynamische runtime-waarden (`backgroundImage: url(${src})`,
   progressbar-percentages).
@@ -290,7 +298,7 @@ npm run lint     # ESLint + TypeScript check
 
 | Wat | Waar |
 |---|---|
-| UI-strings (buttons, labels, errors) | Inline in de componenten — `messages/*.json` bestaat alleen op de geparkeerde `feature/i18n-setup` |
+| UI-strings (buttons, labels, errors) | Inline in de componenten — `messages/*.json` bestaat niet; zie de i18n-noot bij *Critical constraints* |
 | Mix-metadata & tracklists | `src/data/mixes/[power]-[color].json` |
 | Home-pagina tekst | `src/content/home.ts` |
 | Diensten-tekst | `src/content/diensten.ts` |
@@ -456,22 +464,29 @@ De stapnummers hieronder verwijzen naar
   zelf. Alleen op expliciet verzoek van Dave, zoals de hele Release Workflow.
 - **`park`** — commit het openstaande werk op de huidige branch en pusht die met `git push -u` naar
   `origin`, zodat je hem elders precies zo oppakt. Opent géén PR en zet niets live.
-- **`ship-pr`** — opent de PR, wacht op CI, mergt en vouwt de changelog in één run. **Gebruiken we in deze
-  repo nog steeds niet, maar om een andere reden dan tot 2026-08-13.** De oude reden — "een merge wacht hier
-  altijd op Dave" — geldt niet meer. De twee die overblijven wel: (1) er is **geen CI** om op te wachten,
-  geen GitHub Actions en geen branch protection, dus de poort die de skill veronderstelt bestaat hier alleen
-  lokaal; en (2) de nieuwe regel is *"hangt af van wát erin zit"*, en dat onderscheid — raakt dit de site of
-  niet — is een menselijke beoordeling die een skill die in één beweging mergt niet kan maken. Draait er ooit
-  CI, dan is punt 1 weg en blijft punt 2 staan. Deze regel staat hier zodat een latere sessie die de skill in
-  de plugin ziet kan lezen waarom er hier niet aan begonnen wordt.
+- **`ship-pr`** — opent de PR, wacht op CI, mergt en vouwt de changelog in één run. **Gebruiken we hier
+  niet, en er is nog precies één reden over.** De eerste reden verviel op 2026-08-13 ("een merge wacht hier
+  altijd op Dave"); de tweede diezelfde dag later, want er ís nu CI om op te wachten
+  ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) — deze regel voorspelde dat zelf. Wat blijft:
+  de PR-regel luidt *"hangt af van wát erin zit"*, en dat onderscheid — raakt dit de site of niet — is een
+  menselijke beoordeling die een skill die openen, mergen en folden in één beweging doet niet kan maken.
+  Die reden verdwijnt niet vanzelf. Deze regel staat hier zodat een latere sessie die de skill in de plugin
+  ziet kan lezen waarom er hier niet aan begonnen wordt.
 - **`sync-roster`** — zet ontbrekende repo-lenzen neer als het roster achterloopt op de plugin.
 - **`specialists-init`** / **`specialists-teardown`** — adoptie en de-adoptie van het systeem in deze
   repo. Zie `QUICKSTART.md` en `UNINSTALL.md` in de bron-repo.
 
 Repo-eigen scripts:
 
-- **`scripts/lint/lint-web.ps1`** — de lint-poort die `open-pr` draait: `tsc --noEmit` over
-  `tsconfig.lint.json`. ESLint zit er bewust nog niet in; de reden staat in de header van het script.
+- **`scripts/lint/lint-web.ps1`** — de poort die `open-pr` draait: `tsc --noEmit` over
+  `tsconfig.lint.json` **én** `npm run build`. ESLint zit er bewust nog niet in; de reden staat in de
+  header van het script. Het draait sinds 2026-08-13 op twee plekken — lokaal onder Windows PowerShell
+  5.1 en in CI onder `pwsh` op Linux — en houdt daar in zijn preferences rekening mee.
+- **`.github/workflows/ci.yml`** — diezelfde poort, server-side, op elke PR en elke push naar `main`. Hij
+  roept `lint-web.ps1` aan in plaats van tsc en de build over te schrijven, zodat er één poort te
+  onderhouden blijft. Draait op **ubuntu** en niet op windows zoals de bron, omdat Netlify op Linux bouwt
+  en letterkast-fouten in imports alleen daar aan het licht komen. **Zonder branch protection is dit een
+  signaal en geen slot**: een PR met een rode run kan nog steeds gemerged worden.
 - **`check-script-contract.ps1`** — bewaakt dat `repo-config.ps1` en `branch-info.ps1` de functies
   leveren die de gedeelde scripts verwachten. Woont in de plugin (`scripts/sync/` daar), niet in deze
   repo, en draait bij het starten van een sessie via de `script-contract-sessioncheck`-hook.
@@ -495,13 +510,22 @@ De grondwet hierboven, hier concreet ingevuld:
   vangt en er niets tussen de merge en de site zit. ESLint blijft bewust buiten de poort omdat er 37
   pre-existing errors staan; die vergelijk je op aantal. `-SkipBuild` bestaat om lokaal te itereren
   en hoort niet in de poort zelf.
-- **Wat die poort níet bewijst, en waarom de PR-regel daarom ruim is ingevuld.** Er zijn **nul
-  testsuites**, **nul GitHub Actions** en **geen branch protection** op `main`; de repo is publiek. De
-  poort draait dus alleen lokaal en alleen als iemand `open-pr` gebruikt, en hij bewijst dat de code
-  **bouwt** — niet dat het gedrag gelijk bleef en niet dat de pagina goed oogt. De gedeelde default in
-  de bron leunt op *"the lint gate, the test gate, and CI"*; twee van die drie bestaan hier niet. Dat is
-  de reden dat álles in `src/`, `public/` en `src/data/mixes/` op Dave's woord wacht, ook een refactor
-  die visueel niets verandert. **Komt er ooit CI, dan is dit het punt om de grens opnieuw te wegen.**
+- **Diezelfde poort draait sinds 2026-08-13 ook server-side**, via
+  [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main`. Dat is
+  **geen tweede kopie** van tsc + build maar hetzelfde `lint-web.ps1`, aangeroepen onder `pwsh` — een
+  kopie in een workflow die niemand openslaat is precies wat als eerste uit de pas gaat lopen. De
+  workflow draait bewust op **ubuntu**, anders dan de bron die windows kiest: Netlify bouwt op Linux, en
+  een import met de verkeerde letterkast bouwt wél op Windows en breekt daar. Die klasse fout kon de
+  lokale poort structureel niet zien.
+- **Wat die poort níet bewijst, en waarom de PR-regel ruim ingevuld blijft.** Er zijn nog steeds **nul
+  testsuites** en er is **geen branch protection** op `main`; de repo is publiek. Zonder die protection
+  is CI een **signaal, geen slot**: `gh pr merge` mergt een PR met een rode run gewoon. En de poort
+  bewijst dat de code **bouwt** — niet dat het gedrag gelijk bleef en niet dat de pagina goed oogt. De
+  gedeelde default in de bron leunt op *"the lint gate, the test gate, and CI"*; daarvan staan er hier nu
+  twee. Dat is de reden dat álles in `src/`, `public/` en `src/data/mixes/` op Dave's woord blijft
+  wachten, ook een refactor die visueel niets verandert. **De twee stappen die de grens verder zouden
+  kunnen verschuiven — branch protection aanzetten (repo-settings) en een testsuite bouwen — liggen bij
+  Dave.**
 - **`public/images/` is beschermd.** Afbeeldingen worden via pad gerefereerd in de mix-JSON;
   verwijderen breekt stil een pagina en gebeurt nooit zonder Dave's woord.
 - **`next.config.ts` en `netlify.toml` zijn beschermd.** Een fout daar breekt de Netlify-build en
