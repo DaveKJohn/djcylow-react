@@ -30,7 +30,7 @@
 **Score:**
 
 <!--
-     Is this change also relevant to colleagues and employers? Then continue to Tier 1.
+     Is this change also relevant to management and the employer/commissioner? Then continue to Tier 1.
      If not, say so there in one line and put N/A in its Score.
 -->
 
