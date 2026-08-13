@@ -143,6 +143,15 @@ Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 
 Dit zijn de **enige** twee. Ook een "onschuldige" opruim- of chore-commit gaat via een branch + PR.
 
+> **Let op: de gedeelde `cut-release`-skill zou hier een derde weg zijn, en die is niet toegestaan
+> zolang Dave hem niet heeft gewogen** (vastgesteld 2026-08-13). Dat script commit direct op de branch
+> waar je op staat — in zijn eigen woorden `# --- Commit + tag directly on main ---` — stageert met
+> `git add -A` in plaats van een scope, en **pusht daarna zelf naar `origin/main`**. Alle drie botsen
+> met de regels hierboven: de twee uitzonderingen zijn scope-beperkt, en pushen naar `origin/main` is
+> Dave's initiatief. Draai het dus niet ongevraagd, ook niet "even met `-NoPush`" — dat houdt alleen
+> de push tegen, niet de ongescopete commit. De uitwerking staat bij
+> [`cut-release` in de skill-lijst](#scripts).
+
 ---
 
 ## Algemene werkwijze
@@ -228,9 +237,15 @@ deel, ook Engels, zodat de hele pagina één register heeft.
 Wat **niet** meeverhuist naar het Engels: de 60 bestaande documenten in `releases/development/` en
 `releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
 uitgingen, en een record is geen vertaling. De taalgrens loopt daarmee dwars door het
-development-document: Engelse tier-koppen boven Nederlandse entries. `Get-ReleaseNoteWording` en
-`Get-InternalNoteWording` in `scripts/repo-config.ps1` staan daarom bewust **leeg** — leeg betekent
-Engels, en dat is hier nu het gewenste antwoord in plaats van een omissie.
+development-document: Engelse tier-koppen boven Nederlandse entries.
+
+**Nieuwe release-documenten zijn wél Engels** (Dave, 2026-08-13, avond). Dat is een andere vraag dan
+de vorige alinea — die gaat over niet-hervertalen, en daaruit volgt niets over wat je hierna schrijft.
+`Get-ReleaseNoteWording` en `Get-InternalNoteWording` in `scripts/repo-config.ps1` blijven daarom
+**leeg**, want leeg betekent Engels, en [stap 6 van de Release Workflow](#release-workflow) is
+meebewogen zodat de twee elkaar niet meer tegenspreken. Tot die avond deden ze dat wel: de seam stond
+op Engels en stap 6 droeg Nederlands op, met als meetbaar gevolg dat `/continue` de "nog open"-sectie
+van een note niet kon vinden. `v2.23.0` is de laatste Nederlandse note.
 
 **Ook `CONTRIBUTING.md` is Nederlands**, net als dit bestand. De portable helft ernaast is Engels en
 valt buiten deze regel: die is niet van deze repo maar van de plugin, en wordt daar onderhouden.
@@ -338,6 +353,24 @@ bestaan in `public/images/`.
 
 Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en push live").
 
+**Deze vijftien stappen beschrijven de route met de hand, en zo is v2.23.0 ook gelopen.** Dat is
+bewust, want de gedeelde `cut-release`-skill overlapt er grotendeels mee en gaat van een ándere
+beginsituatie uit dan stap 2. Wat het script overneemt als je het draait:
+
+| stap | wie doet het |
+|---|---|
+| 3 (poort), 4 (versienummer) | het script, met eigen poorten en een bump-gate op de tier van de entries |
+| 5 (development-note), 8 (`CHANGELOG.md` legen), 9 (rij in `releases/README.md`) | het script |
+| 6 (audience-document) | het script zet een **concept** neer; het herschrijven blijft handwerk |
+| 10 (commit), 12 (tag + push) | het script, met `git add -A` en twee pushes |
+| 7 (aankondiging), 13 (GitHub Release), 14 (bijlagen), 15 (branch opruimen) | handwerk; 13 wordt alleen als commando geprint |
+
+**En dit is waarom het hier nog niet gedraaid wordt:** het script commit direct op de branch waar je
+op staat — het gaat ervan uit dat dat `main` is — terwijl stap 2 hieronder je opdraagt eerst een
+release-branch te maken. Bovendien stageert het met `git add -A`, wat geen scope kent, terwijl de twee
+toegestane directe commits op `main` allebei *"scope beperkt tot"* een lijstje bestanden zijn. Beide
+punten staan uitgewerkt bij [`cut-release` in de skill-lijst](#scripts) en wachten op Dave.
+
 1. **Check de status**: `git status && git branch`
 2. **Maak een branch**: `git checkout -b docs/release-v<versie>`
 3. **Run de poort én de build**:
@@ -353,11 +386,24 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
    de release-note-entry bouw je uit `### Branch title` en `### Branch type`; de slotregel
    `[PR #NN](...) · merged YYYY-MM-DD` neem je wél ongewijzigd mee
 6. **Maak het handgeschreven release-document** (alleen Minor/Major):
-   `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar Nederlands
-   zonder jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types),
-   bedoeld voor de opdrachtgever in plaats van developers. Twee secties, want deze repo staat op
-   tier 1: **wat het waard is** en **wat er bij deze release nog open stond** — die tweede in de
-   verleden tijd, want het document wordt gepubliceerd en beweegt daarna niet meer mee
+   `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
+   jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
+   de opdrachtgever in plaats van developers. Twee secties, want deze repo staat op tier 1:
+   **`What it is worth`** en **`What was still open at this release`** — die tweede in de verleden
+   tijd, want het document wordt gepubliceerd en beweegt daarna niet meer mee. `cut-release` zet er
+   een **concept** voor neer met `DRAFT`-aanwijzingen in het document zelf; die herschrijf je en haal
+   je weg
+   > **Deze stap stond tot 2026-08-13 (avond) op Nederlands, en dat sprak de taalsectie hierboven
+   > tegen** — die zegt dat `Get-ReleaseNoteWording` bewust leeg staat omdat leeg Engels betekent en
+   > dat hier het gewenste antwoord is. Twee plekken, twee antwoorden, en de note van v2.23.0 volgde
+   > deze stap: hij draagt `## Wat deze release waard is` en `## Wat er bij deze release nog open
+   > stond`. Dat is niet cosmetisch gebleven — `session-status.ps1` leest de "nog open"-sectie via
+   > `Get-ReleaseNoteWording['SectionOpen']`, valt terug op het Engelse
+   > `What was still open at this release`, en meldde daarom bij `/continue` dat de note *"has no
+   > section matching 'still open'"* terwijl die sectie er gevuld en wel stond. **Dave heeft de knoop
+   > doorgehakt op Engels** (2026-08-13): de seam blijft leeg, deze stap beweegt mee, en de koppen
+   > hierboven zijn nu letterlijk de defaults uit `release-lib.ps1`. `v2.23.0` is daarmee de laatste
+   > Nederlandse note; hij wordt niet herschreven, want gepubliceerde documenten zijn historie
    > **Deze map heette `releases/highlights/` tot 2026-08-13.** Elke root onder `releases/` hoort
    > zijn lezer te noemen en niet de vorm van het document; `Get-ReleaseNoteRoot` in
    > `scripts/repo-config.ps1` wijst sindsdien naar `releases/audience`. De 23 bestaande documenten
@@ -439,6 +485,20 @@ mee naar buiten.
 | Grote stijl-/CSS-herziening (een hele sectie herontworpen) | MINOR |
 | Volledig redesign of framework-migratie | MAJOR |
 
+> **Deze tabel en de bump-poort van `cut-release` spreken elkaar tegen, en dat is sinds v2.23.0
+> gemeten in plaats van vermoed.** De poort leidt de bump af uit de **tier** van de wachtende entries:
+> alleen tier 0 is een patch, tier 1 of hoger verdient een minor. Die release is als **minor** gecut
+> omdat drie van haar entries tier 1 dragen — terwijl deze tabel docs-, workflow- en
+> `CLAUDE.md`-werk op **patch** zet, en dat was precies wat erin zat.
+>
+> Ze meten ook echt iets anders: de tabel kijkt naar de **soort** wijziging, de poort naar **wie het
+> merkt**. Een docs-wijziging die de opdrachtgever iets oplevert is tier 1 en dus een minor, hoe
+> "docs" hij ook oogt. Zolang beide blijven staan wint in de praktijk de poort, want die weigert
+> — de tabel is proza dat niets tegenhoudt.
+>
+> **Welke van de twee leidend wordt is Dave's beslissing**, want het bepaalt hoe snel de
+> versienummers van deze repo oplopen. Er wordt hier niets van geschrapt tot die keuze er is.
+
 ### Scripts
 
 De workflow-stappen draaien via de **gedeelde skills van de specialists-plugin**, die één bron hebben
@@ -459,9 +519,29 @@ De stapnummers hieronder verwijzen naar
 - **`fold-changelog`** — vouwt `branch/branch-changelog.md` gerangschikt op tier/score in
   `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en reset de twee `branch/`-bestanden
   (stap 7).
-- **`cut-release`** — loopt de sluitende stappen van een release na: de tag, de push, de GitHub
-  Release en het opruimen van de branch. Het print commandoblokken in vaste volgorde; het draait niets
-  zelf. Alleen op expliciet verzoek van Dave, zoals de hele Release Workflow.
+- **`cut-release`** — **draait het grootste deel van de Release Workflow zélf**, en dat is het
+  belangrijkste dat je over deze skill moet weten. Het genereert de development-note, schrijft een
+  concept van het audience-document, leegt `CHANGELOG.md` tot de intro, voegt de rij toe aan
+  `releases/README.md`, en doet daarna `git add -A`, `git commit -m "release: v<versie>"`,
+  `git tag -a` en **twee pushes: `git push origin main` en `git push origin v<versie>`**. Alleen de
+  `gh release create`-stap wordt geprint in plaats van uitgevoerd. `-NoPush` houdt de twee pushes
+  tegen en laat commit en tag lokaal staan.
+  > **Tot 2026-08-13 stond hier het omgekeerde:** *"Het print commandoblokken in vaste volgorde; het
+  > draait niets zelf."* Dat was onjuist en op de gevaarlijkste manier — wie het las, dacht dat
+  > proberen gratis was, terwijl het script precies de handeling doet die de safety-rules aan Dave
+  > voorbehouden: pushen naar `origin/main`. Weerlegd door `cut-release.ps1` zelf te lezen; het blok
+  > heet daar `# --- Commit + tag directly on main ---`.
+  >
+  > **Twee dingen die daaruit volgen en die Dave moet wegen, want ze raken de grondwet:**
+  > 1. Het script doet géén `git checkout main` — het commit op de branch waar je op staat en gaat
+  >    ervan uit dat dat `main` ís. Stap 2 van de Release Workflow hieronder draagt je op eerst een
+  >    `docs/release-v<versie>`-branch te maken. Die twee aannames sluiten elkaar uit.
+  > 2. `git add -A` stageert de héle tree. De twee toegestane uitzonderingen op "nooit direct op
+  >    `main`" zijn allebei geformuleerd als *"scope beperkt tot"* een lijstje bestanden; `-A`
+  >    respecteert geen scope.
+  >
+  > Zolang die twee niet beslecht zijn blijft de Release Workflow hieronder met de hand gelopen worden,
+  > zoals bij v2.23.0. Alleen op expliciet verzoek van Dave, zoals de hele Release Workflow.
 - **`park`** — commit het openstaande werk op de huidige branch en pusht die met `git push -u` naar
   `origin`, zodat je hem elders precies zo oppakt. Opent géén PR en zet niets live.
 - **`ship-pr`** — opent de PR, wacht op CI, mergt en vouwt de changelog in één run. **Gebruiken we hier
@@ -472,6 +552,17 @@ De stapnummers hieronder verwijzen naar
   menselijke beoordeling die een skill die openen, mergen en folden in één beweging doet niet kan maken.
   Die reden verdwijnt niet vanzelf. Deze regel staat hier zodat een latere sessie die de skill in de plugin
   ziet kan lezen waarom er hier niet aan begonnen wordt.
+- **`adopt-config`** — plaatst de gedeelde waarden uit de blueprint van de bron in
+  `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1`, en levert een voorstel voor de waarden
+  die alleen deze repo kan beantwoorden. Gebruikt bij de adoptie; daarna alleen nog als de
+  contract-check een seam meldt die hier nooit is ingevuld.
+- **`fix-mojibake`** — spoort dubbel-gecodeerde tekens op in de paden die `Get-MojibakePaths` aanwijst.
+  Deze repo is er eerder door gebeten bij handmatig geschreven entries.
+- **`lock`** — schrijft het volgende onderwerp weg in `.claude/handover.md`, zodat een `/clear` de
+  bedoeling niet meeneemt. Legt een **besluit** vast, geen feiten.
+- **`continue`** — de andere helft: leest die lock, zet er de eigen stand van de repo naast (branch,
+  commits, geparkeerde branches, wachtende entries, laatste tag) en verifieert de twee tegen elkaar.
+  **Waar ze verschillen wint de repo**, en dat verschil hoort hardop gemeld te worden.
 - **`sync-roster`** — zet ontbrekende repo-lenzen neer als het roster achterloopt op de plugin.
 - **`specialists-init`** / **`specialists-teardown`** — adoptie en de-adoptie van het systeem in deze
   repo. Zie `QUICKSTART.md` en `UNINSTALL.md` in de bron-repo.
