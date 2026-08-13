@@ -1,44 +1,45 @@
-## `docs/contributing-en-branch-readme` progress
+## `docs/releases-drie-roots` progress
 
 ### Steps
 
-- [x] `CONTRIBUTING.md` geschreven: de lokale helft, met de seam-tabel, de prefix-tabel plus Dave's
-      taxonomie-noot, de zeven stappen, het tier-model en de poorten
-- [x] `branch/README.md` geschreven als Nederlandse lens (het enige bestand dat `branch/` hier nog
-      miste ten opzichte van de bron)
-- [x] De cyclus uit `CLAUDE.md` gehaald (ruim 180 regels) en vervangen door een verwijzing; de
-      inleiding legt uit waarom dit geen tweede werkwijze-document is zoals de oude `workflow/`-map
-- [x] `Get-ReservedRootMd` uitgebreid met `CONTRIBUTING.md`, met de toelichting bijgewerkt
-- [x] Het tier-blok gerepareerd tijdens de verhuizing (tier 0 + tier 1, ladder vervallen) en de noot
-      in `scripts/repo-config.ps1` bijgewerkt die deze correctie nog als openstaand werk aankondigde
-- [x] Kruisverwijzingen nagelopen: `scripts/lib/branch-info.ps1`, `scripts/repo-config.ps1`,
-      `.claude/specialists/SPECIALISTS.md` en de mappenboom in `README.md`
-- [x] Alle gelinkte paden op bestaan geverifieerd
-- [ ] **Wacht op de twee branches onder deze.** Zodra `docs/entry-model-migratie` en
-      `config/seam-adoptie` gemerged en gevouwen zijn: `main` in deze branch mergen, en bij het
-      conflict op de twee `branch/`-bestanden de versie van *deze* branch houden. Pas daarna mag de
-      PR. Deze branch is bewust nog niet PR-klaar, om dezelfde reden als `config/seam-adoptie`.
+- [x] De bron uitgelezen: drie reader-genoemde roots (`development/`, `audience/`, `github/`) plus een
+      `releases/README.md` met een draagbare helft boven de streep en een repo-eigen helft eronder
+- [x] Nagegaan of `releases/github/` een seam heeft — die is er niet: het pad staat hardcoded in
+      `cut-release.ps1` regel 792, bewust, omdat een nieuwe root geen bestaande plaatsing hoeft te
+      accommoderen
+- [x] `releases/highlights/` → `releases/audience/` via `git mv` (23 mappen, 23 bestanden; alle 23
+      door git als rename herkend, dus de historie per document blijft intact)
+- [x] `releases/github/` aangemaakt met een `.gitkeep`, want git trackt geen lege map
+- [x] `Get-ReleaseNoteRoot` in `scripts/repo-config.ps1` op `releases/audience`, met de rename
+      verantwoord en de reden waarom `github/` daar géén knop krijgt
+- [x] `releases/README.md`: "Twee versies per release" vervangen door de drie roots, de
+      `gh`-commando's herschreven, en de stappenlijst uitgebreid met de aankondiging
+- [x] `CLAUDE.md`: de release-branch-scope in de safety-rules, stap 6 (audience), een nieuwe stap 7
+      (aankondiging) en hernummering van 7–14 naar 8–15
+- [x] `CONTRIBUTING.md`: de seam-tabel wijst naar `releases/audience/`, met een rij erbij voor
+      `releases/github/`
+- [x] `README.md` (root): de mappenboom en de Version-History-alinea
+- [x] Gecontroleerd op achtergebleven verwijzingen en dode links — de twee resterende treffers zijn
+      bewust historisch (de titel van v2.20.1 en twee oude development-notes)
+- [x] De poort gedraaid: `scripts/lint/lint-web.ps1` groen, 0 fouten, 89 statische pagina's
+- [~] Het documentmodel van de 23 bestaande `audience/`-documenten omzetten naar het
+      één-document-met-secties-per-lezer van de bron — **bewust niet in deze branch.** Dit is een
+      herziening van gepubliceerde inhoud, niet van de mapstructuur, en de opdracht ging over de
+      structuur. Staat verantwoord in `releases/README.md` en in `repo-config.ps1`
+- [~] `releases/github/` met terugwerkende kracht vullen voor de 37 bestaande releases — **niet
+      gedaan, en niet te doen**: een aankondiging voor een moment dat al voorbij is zou verzonnen
+      zijn. De eerste komt bij de eerstvolgende release
 
 ### Where I left off
 
-Het schrijfwerk is af; de branch staat lokaal en is nog niet gepusht.
+Klaar. De branch is af, de poort is groen en er staat niets meer open dat bij deze opdracht hoort.
 
-**Deze branch is gestapeld op `config/seam-adoptie`**, dus op `main` staat de map `branch/` nog niet.
-Aftakken van `main` zou de twee vaste entry-paden opnieuw aanmaken en bij de tweede merge een
-add/add-conflict geven; dat is de reden dat de stapel bestaat. De keerzijde is de openstaande stap
-hierboven.
+Twee dingen om te weten voor wie hierna verder gaat:
 
-**Wat er bij de merge te verwachten valt.** `CLAUDE.md` wordt op deze stapel drie keer aangeraakt —
-`main` (PR #25), `docs/entry-model-migratie` (herschrijving) en deze branch (de verhuizing) — dus reken
-op een conflict daar. De twee `branch/`-bestanden conflicteren zeker: `main` heeft ze na de fold in de
-reset-staat, deze branch draagt de entry hierboven. Houd in beide gevallen de versie van deze branch en
-laat de fold daarna zijn werk doen.
-
-**Twee dingen die op de vervolglijst blijven staan** en hier bewust niet zijn meegenomen:
-
-- Of `Get-EntrySignificanceRubricLevels` eigen woorden nodig heeft nu het publiek het management is in
-  plaats van ontwikkelaars. Dat is een keuze, geen meting, en hij hoort gesteld te worden in plaats van
-  stil gemaakt. De vijf banden staan nu in eigen woorden in `CONTRIBUTING.md`, inhoudelijk gelijk aan
-  de gedeelde default.
-- De kern-bevindingen voor de inbound-route uit `config/seam-adoptie`. Niets nieuws op deze branch:
-  inbound #615 is in v4.5.0 gerepareerd en dat is in `branch/README.md` vastgelegd zoals het nu werkt.
+1. **Deze branch is gestapeld op `docs/contributing-en-branch-readme`**, die zelf nog niet gemerged
+   is. Dat moest, want `Get-ReleaseNoteRoot` bestaat pas sinds commit `aa54f66` op die branch — een
+   branch vanaf `main` had de seam niet gehad en zou bij de merge botsen op de waarde die daar net is
+   gezet. De onderliggende branch gaat dus eerst.
+2. **Het documentmodel is de openstaande helft.** De mapstructuur loopt nu gelijk met de bron; de 23
+   `audience/`-documenten volgen nog het oude model van één register zonder secties per lezer. Dat is
+   eigen werk voor een eigen branch.

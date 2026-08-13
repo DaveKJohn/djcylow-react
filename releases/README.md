@@ -17,17 +17,56 @@ onder één SemVer-nummer, legt ze vast in een release-note en zet er een git-ta
 Dev-werk, feature-branches en experimenten die nooit gemerged zijn, staan hier niet in — die horen in
 de git history. Deze map bevat alleen wat bezoekers daadwerkelijk te zien hebben gekregen.
 
-## Twee versies per release
+## Drie roots — elke root noemt zijn lezer
 
-Elke release heeft een **development-versie** (altijd aangemaakt) en optioneel een **highlights-versie** (alleen bij Minor en Major).
+Onder `releases/` staan drie mappen, en de indeling is er één van **lezer**, niet van vorm. De submap
+daarbinnen (`2.22/`) komt van `Get-ReleaseNotesGrouping` in
+[`scripts/repo-config.ps1`](../scripts/repo-config.ps1) en is hier **per minor** — de bron zelf groepeert
+per major (`2.x/`), dus dat is een eigen antwoord van deze repo en geen afwijking die gerepareerd hoort.
 
-| | `development/<X.Y>/<X.Y.Z>.md` | `highlights/<X.Y>/<X.Y.Z>.md` |
-|---|---|---|
-| **Voor wie** | Developers, intern | Stakeholders, collega's, communicatie |
-| **Inhoud** | Alle technische details: branch-namen, merge-datums, branch-types | Metadata gestript; leesbaar Nederlands zonder jargon |
-| **Wanneer** | Altijd — elke Patch, Minor en Major | Alleen bij Minor en Major |
-| **GitHub Release body** | ✓ Wordt gebruikt als GitHub Release-tekst | — |
-| **GitHub Release bijlage** | — | ✓ Geüpload als asset bij Minor/Major |
+| | `development/<X.Y>/<X.Y.Z>.md` | `audience/<X.Y>/<X.Y.Z>.md` | `github/<X.Y>/<X.Y.Z>.md` |
+|---|---|---|---|
+| **Voor wie** | de developers van deze repo | de opdrachtgever — wie beslist wat het werk waard is | wie de GitHub Releases-pagina opent |
+| **Inhoud** | het volledige per-PR record: elke entry ongewijzigd, met branch-namen, merge-datums en branch-types | wat de release waard is, en wat er op dat moment nog open stond | een korte aankondiging met een verwijzing naar de bijlagen |
+| **Wanneer** | elke release — Patch, Minor en Major | alleen Minor en Major | elke release |
+| **Lengte** | zo lang als de release was | een pagina | een paar alinea's |
+| **Rol bij de GitHub Release** | bijlage | bijlage (bij Minor/Major) | **de body** |
+
+**Alle drie zijn hier handwerk.** In de bron genereert `cut-release.ps1` `development/` en `github/` en
+draft het `audience/`; dat script is **niet bruikbaar in deze repo** — het leest
+`.claude-plugin/marketplace.json` als bron van waarheid en bumpt elke `plugin.json` in lockstep, en geen
+van beide bestaat hier. De gedeelde `cut-release`-**skill** is dan ook uitdrukkelijk een checklist die
+niets uitvoert. Wat deze repo van de bron overneemt is dus de **indeling**, niet de generator: Rendall 🎬
+schrijft de drie documenten, en de mappen zeggen voor wie elk ervan is.
+
+**Waarom `development/` niet de body is:** de `--notes-file` van `gh` kent een harde grens van 125.000
+tekens, en een volledig record kan daar langs. Daarom is dat een bijlage en heeft de aankondiging zijn
+eigen root — een korte tekst die je in de Release zelf leest, met de twee bijlagen voor wie doorklikt.
+
+> **`audience/` heette `highlights/` tot 2026-08-13.** Die naam zei hoe het document geschreven was, niet voor wie
+> — precies de fout die de bron een dag eerder bij zijn eigen `notes/` repareerde. De 23 bestaande
+> documenten zijn met `git mv` verplaatst en **niet herschreven**: noemt de tekst van een oudere note nog
+> `releases/highlights/`, dan is dat wat er stond op de dag dat hij uitging. Een gepubliceerd record
+> beweegt niet mee.
+
+> **`github/` is nog leeg, en dat is juist.** De map is nieuw sinds 2026-08-13 en de eerste aankondiging
+> hoort bij de eerstvolgende release; oude releases krijgen er met terugwerkende kracht géén, want een
+> aankondiging voor een moment dat al voorbij is verzinnen we niet. Tot die tijd blijft de body van een
+> bestaande Release wat hij was.
+>
+> Dit pad staat **hardcoded** in de `cut-release.ps1` van de bron (regel 792) en niet in een seam — een
+> nieuwe root hoeft geen bestaande plaatsing te accommoderen. Er is hier dus niets te declareren, en de
+> naam staat vast op het moment dat deze repo ooit wél een generator krijgt.
+
+**Wat het handgeschreven document hier wél en niet heeft.** `Get-ReleaseAudienceTier` staat op **1**, dus
+er komt géén sectie *voor consumenten* in: dat is tier 2, en bezoekers van djcylow.com lezen geen release
+notes. Wat overblijft zijn de twee organisatie-secties — *wat het waard is* en *wat er bij deze release nog
+open stond*. Schrijf die tweede in de verleden tijd: het document wordt als bijlage gepubliceerd en een
+zin in de tegenwoordige tijd is binnen een dag achterhaald.
+
+> **De 23 bestaande `audience/`-documenten volgen nog het oude model:** één register, leesbaar Nederlands
+> zonder jargon, zonder secties per lezer. De mapstructuur loopt sinds 2026-08-13 gelijk met de bron; het
+> documentmodel nog niet. Die herziening staat open als eigen werk.
 
 ## Versienummers (Semantic Versioning)
 
@@ -96,23 +135,34 @@ git push origin --tags     # alle nog niet-gepushte tags
 
 ## GitHub Releases
 
-Een tag is de technische basis; een **GitHub Release** is een laagje erbovenop. Het koppelt
-een tag aan een nette pagina met de release-omschrijving (de bijbehorende `development/`
-note als body, en bij Minor/Major de `highlights/`-note als bijlage) en eventueel andere
-bijlagen. De tag is verplicht, de Release is optionele verfraaiing.
+Een tag is de technische basis; een **GitHub Release** is een laagje erbovenop. Het koppelt een tag aan
+een nette pagina met een omschrijving en bijlagen. De tag is verplicht, de Release is optionele
+verfraaiing.
+
+De drie roots verdelen zich zo over die pagina: **`github/` is de body**, en `development/` en — bij
+Minor/Major — `audience/` gaan als **bijlage** mee. De body was tot 2026-08-13 de `development/`-note;
+die is nu bijlage, om de tekenlimiet hierboven.
 
 Alle releases staan op <https://github.com/DaveKJohn/djcylow-react/releases>. Vanuit
 een Release kun je via *Compare* precies zien wat er tussen twee versies veranderde. Een
 Release maak je vanuit een bestaande tag zo:
 
 ```sh
-# Development-versie als body (altijd):
+# De gegenereerde aankondiging als body (altijd):
 gh release create v2.3.0 --title "v2.3.0 - UX MODUS (donker/licht mode)" \
-  --notes-file releases/development/2.3/2.3.0.md --verify-tag
+  --notes-file releases/github/2.3/2.3.0.md --verify-tag
 
-# Highlights-versie als bijlage (alleen Minor/Major):
-gh release upload v2.3.0 releases/highlights/2.3/2.3.0.md
+# De bijlagen — onder unieke namen, zie hieronder:
+cp releases/development/2.3/2.3.0.md v2.3.0-development-notes.md
+cp releases/audience/2.3/2.3.0.md    v2.3.0-release-note.md
+gh release upload v2.3.0 v2.3.0-development-notes.md v2.3.0-release-note.md
+rm v2.3.0-development-notes.md v2.3.0-release-note.md
 ```
+
+> **Upload de bijlagen onder unieke bestandsnamen.** Alle drie de documenten van een release heten
+> `<X.Y.Z>.md`, dus twee ervan rechtstreeks uit `releases/` uploaden botst: de tweede upload komt terug
+> met `HTTP 404`. De `file#label`-syntax van `gh` lost dit niet op — die zet het label, niet de naam.
+> Kopieer ze dus eerst, zoals hierboven.
 
 ## Nieuwe release aanmaken — stap voor stap
 
@@ -141,10 +191,11 @@ samengevat:
    de wijziging. Het PR-nummer en de merge-datum staan op de slotregel van de entry en gaan ongewijzigd
    mee. Entries van vóór 2026-08-11 dragen hun titel, type en datum nog wél in de kop
    (`### #NN · Titel · Docs · YYYY-MM-DD`) — die neem je over zoals ze zijn.
-3. Maak bij Minor/Major ook de highlights-versie aan: `releases/highlights/<major.minor>/<versie>.md` — dezelfde inhoud herschreven in leesbaar Nederlands zonder jargon, zonder PR-nummers/merge-datums/branch-types.
-4. Voeg de versie toe aan de overzichtstabel in deze README (bovenaan de tabel), linkend naar de development-versie. **Dit is de enige plek waar de uitgebrachte versies worden bijgehouden.**
-5. Update `CHANGELOG.md`: haal de gefolde entries eruit — ze staan nu in de release-note — zodat alleen de intro overblijft. Er komt géén versieblok voor terug; `CHANGELOG.md` houdt alleen wat nog geen versienummer heeft.
-6. Tag en push via de stappen in [`CLAUDE.md`](../CLAUDE.md).
+3. Maak bij Minor/Major het handgeschreven document aan: `releases/audience/<major.minor>/<versie>.md` — leesbaar Nederlands zonder jargon, zonder PR-nummers, merge-datums of branch-types. Twee secties, want deze repo staat op tier 1: **wat het waard is** en **wat er bij deze release nog open stond** (verleden tijd — zie hierboven).
+4. Schrijf de aankondiging: `releases/github/<major.minor>/<versie>.md` — een paar alinea's die de body van de GitHub Release worden. Wat er nieuw is en voor wie, en een regel die naar de twee bijlagen wijst. Dit is niet de plek voor de per-PR details; die staan in `development/`.
+5. Voeg de versie toe aan de overzichtstabel in deze README (bovenaan de tabel), linkend naar de development-versie. **Dit is de enige plek waar de uitgebrachte versies worden bijgehouden.**
+6. Update `CHANGELOG.md`: haal de gefolde entries eruit — ze staan nu in de release-note — zodat alleen de intro overblijft. Er komt géén versieblok voor terug; `CHANGELOG.md` houdt alleen wat nog geen versienummer heeft.
+7. Tag en push via de stappen in [`CLAUDE.md`](../CLAUDE.md).
 
 ## Overzicht
 

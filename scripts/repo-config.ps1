@@ -344,13 +344,19 @@ function Get-ReleaseNotesGrouping {
     return $script:ReleaseNotesGrouping
 }
 
-# Waar het handgeschreven release-document woont: releases/highlights/<X.Y>/<X.Y.Z>.md. De submap komt
+# Waar het handgeschreven release-document woont: releases/audience/<X.Y>/<X.Y.Z>.md. De submap komt
 # van Get-ReleaseNotesGrouping hierboven, dus dit is uitsluitend de root, zonder afsluitende slash.
 #
-# AFGELEZEN VAN DE BOOM, net als de grouping. releases/highlights/ heeft 23 mappen naast de 23 van
+# AFGELEZEN VAN DE BOOM, net als de grouping. releases/audience/ heeft 23 mappen naast de 23 van
 # releases/development/ -- dezelfde 2.0 tot en met 2.22, en de nieuwste release heeft in beide een
-# 2.22.0.md. De blueprint-default is releases/notes en de bron zelf gebruikt releases/audience: drie
-# namen voor hetzelfde document, waarvan alleen de eerste hier tot een verkeerde map leidt.
+# 2.22.0.md. De blueprint-default is releases/notes: die naam leidt hier tot een verkeerde map.
+#
+# DE MAP HEETTE releases/highlights/ TOT 2026-08-13, en de rename is de reden dat deze regel nu de
+# naam van de bron draagt. Elke root onder releases/ hoort zijn LEZER te noemen, niet de vorm van het
+# document -- "highlights" zegt hoe het geschreven is, "audience" zegt voor wie. De bron maakte
+# dezelfde fout met releases/notes/ en repareerde die op 2026-08-12; deze repo liep er nog een dag
+# achter. De 23 bestaande documenten zijn met git mv verplaatst en NIET herschreven: waar hun tekst
+# nog releases/highlights/ noemt, is dat wat er stond op de dag dat ze uitgingen.
 #
 # DEZE SEAM BESTAAT SINDS v4.5.0, EN DAT IS DE HELE REDEN DAT DE KNOP HIERONDER AAN KAN. Tot en met
 # 4.4.0 stond releases/notes/ hardcoded in cut-release.ps1, waardoor de consumer-laag hier
@@ -360,27 +366,36 @@ function Get-ReleaseNotesGrouping {
 # bestand die er staat omdat deze repo er zelf om heeft gevraagd.
 #
 # releases/development/ heeft bewust GEEN tegenhanger-knop: niemand kon een repo aanwijzen die juist
-# op dat pad afwijkt. Deze repo wijkt er ook niet af, dus er is niets te declareren.
-$script:ReleaseNoteRoot = 'releases/highlights'
+# op dat pad afwijkt. Deze repo wijkt er ook niet af, dus er is niets te declareren. releases/github/
+# heeft er ook geen, en dat is een ANDERE reden: die root staat hardcoded in cut-release.ps1 (regel
+# 792) omdat een nieuwe root geen bestaande plaatsing hoeft te accommoderen. Deze repo hoeft daar dus
+# niets te declareren, maar de map moet wel bestaan -- de eerstvolgende cut schrijft erin.
+$script:ReleaseNoteRoot = 'releases/audience'
 
 function Get-ReleaseNoteRoot {
-    <# Root-relatieve map van het handgeschreven release-document. Hier releases/highlights. #>
+    <# Root-relatieve map van het handgeschreven release-document. Hier releases/audience. #>
     return $script:ReleaseNoteRoot
 }
 
 # Welke bumps dat handgeschreven document krijgen. @() zou de hele laag uitzetten.
 #
 # AFGELEZEN VAN DE BOOM, niet overgenomen uit CLAUDE.md -- die zegt hetzelfde (Release Workflow stap 6
-# en 13: highlights alleen bij Minor/Major), maar de boom levert het bewijs: releases/highlights/ heeft 23
-# bestanden en alle 23 eindigen op .0, terwijl releases/development/ er 37 heeft waarvan 14 een patch.
-# Elke minor kreeg dus een document en geen enkele patch, 23 releases achter elkaar zonder uitzondering.
+# en 14: het handgeschreven document alleen bij Minor/Major), maar de boom levert het bewijs:
+# releases/audience/ heeft 23 bestanden en alle 23 eindigen op .0, terwijl releases/development/ er 37
+# heeft waarvan 14 een patch. Elke minor kreeg dus een document en geen enkele patch, 23 releases
+# achter elkaar zonder uitzondering.
 #
-# LET OP -- WAT DE CUT HIER STRAKS SCHRIJFT IS NIET HET DOCUMENT DAT CLAUDE.md BESCHRIJFT. Sinds
-# 2026-08-10 kent de bron nog maar een enkel handgeschreven document, met een sectie per lezer (de consument,
-# wat het waard is, wat er nog open stond), na de meting dat de twee losse documenten bij alle twaalf
-# voorgaande releases over dezelfde wijzigingen gingen -- 38% overlap in twee registers. CLAUDE.md stap
-# 6 beschrijft nog de oude highlights-versie. Die herziening is eigen werk en staat nog open; deze knop
-# zet alleen de laag aan, op de plek waar de 23 bestaande documenten al staan.
+# LET OP -- WAT DE CUT HIER STRAKS SCHRIJFT IS NIET HET DOCUMENT DAT DE 23 BESTAANDE BESTANDEN ZIJN.
+# Sinds 2026-08-10 kent de bron nog maar een enkel handgeschreven document, met een sectie per lezer, na
+# de meting dat de twee losse documenten bij alle twaalf voorgaande releases over dezelfde wijzigingen
+# gingen -- 38% overlap in twee registers. De 23 bestanden hier zijn nog van het oude model: leesbaar
+# Nederlands zonder jargon, één register, geen secties per lezer.
+#
+# WAT DAT HIER CONCREET BETEKENT, want Get-ReleaseAudienceTier staat op 1: de cut draft geen sectie
+# "voor consumenten" -- die hoort bij tier 2, en bezoekers van djcylow.com lezen geen release notes. Wat
+# de cut hier draft zijn de twee organisatie-secties: wat het waard is, en wat er bij deze release nog
+# open stond. De mapstructuur is met deze branch gelijkgetrokken met de bron; het DOCUMENTMODEL van de
+# 23 bestaande bestanden is dat niet, en die herziening staat nog open als eigen werk.
 $script:ReleaseConsumerBumps = @('minor', 'major')
 
 function Get-ReleaseConsumerBumps {

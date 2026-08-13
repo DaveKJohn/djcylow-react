@@ -50,7 +50,8 @@ niet een formaliteit onderweg.
 | permanente root-docs | `CHANGELOG.md` · `CLAUDE.md` · `README.md` · `CONTRIBUTING.md` | `Get-ReservedRootMd` |
 | de release-historie | de tabel in [`releases/README.md`](releases/README.md) | `Get-ReleaseHistoryPath` |
 | indeling van de release-notes | per **minor** (`2.22/`) | `Get-ReleaseNotesGrouping` |
-| het handgeschreven release-document | [`releases/highlights/`](releases/highlights/), bij een minor en een major | `Get-ReleaseNoteRoot` · `Get-ReleaseConsumerBumps` |
+| het handgeschreven release-document | [`releases/audience/`](releases/audience/), bij een minor en een major | `Get-ReleaseNoteRoot` · `Get-ReleaseConsumerBumps` |
+| de aankondiging die de Release-body wordt | [`releases/github/`](releases/github/), bij elke release | *(hardcoded in de bron, geen seam)* |
 | een aparte go-live-stap ná de cut | geen — de code stond al live vanaf zijn eigen PR-merge | `Get-LiveStage` (leeg) |
 
 Op één na wonen ze allemaal in [`scripts/repo-config.ps1`](scripts/repo-config.ps1); de prefix-tabel is

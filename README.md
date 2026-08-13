@@ -151,7 +151,7 @@ djcylow-react/
 │   └── functions/              # Serverless functions (contact form email)
 │
 ├── scripts/                    # Build/utility scripts
-├── releases/                    # Version history (development/ + highlights/, v1.0.0 – present)
+├── releases/                   # Version history (development/ + audience/ + github/, v1.0.0 – present)
 ├── branch/                     # The two files an in-flight branch works in (entry + step list)
 ├── CONTRIBUTING.md             # The contribution cycle: branches, changelog entries, PR gates
 ├── CLAUDE.md                   # Operating guide: safety rules, the specialists, repo conventions
@@ -519,4 +519,4 @@ The site is in **Dutch** (`nl`). Key Dutch terms used throughout the codebase:
 
 ## Version History
 
-Detailed release notes are stored in `/releases/` (v1.0.0 – present): `development/` holds the full technical version of every release, `highlights/` holds a plain-language version for Minor/Major releases.
+Detailed release notes are stored in `/releases/` (v1.0.0 – present), in three directories named after their reader: `development/` holds the full per-PR record of every release, `audience/` holds a plain-language note for Minor/Major releases, and `github/` holds the short announcement used as the GitHub Release body. See [`releases/README.md`](releases/README.md).

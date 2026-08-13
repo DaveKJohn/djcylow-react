@@ -93,8 +93,9 @@ Er zijn twee bewuste uitzonderingen op "nooit direct committen":
    de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` + de twee
    vaste bestanden in `branch/`.
 2. De **release-branch** (`docs/release-v<versie>`) is wél een branch, met scope beperkt tot
-   `CHANGELOG.md`, `releases/development/<X.Y>/<X.Y.Z>.md`, `releases/highlights/<X.Y>/<X.Y.Z>.md`
-   (alleen Minor/Major) en `releases/README.md` — maar wordt bewust gemerged via een kale
+   `CHANGELOG.md`, `releases/development/<X.Y>/<X.Y.Z>.md`, `releases/github/<X.Y>/<X.Y.Z>.md`,
+   `releases/audience/<X.Y>/<X.Y.Z>.md` (alleen Minor/Major) en `releases/README.md` — maar wordt
+   bewust gemerged via een kale
    `git merge --no-ff`, niet via een Pull Request. Dit wacht wél altijd op expliciete goedkeuring
    van Dave.
 
@@ -284,26 +285,36 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
    over**: hij noemt de branch (``## `docs/mijn-branch` changelog``), niet de wijziging. De titel van
    de release-note-entry bouw je uit `### Branch title` en `### Branch type`; de slotregel
    `[PR #NN](...) · merged YYYY-MM-DD` neem je wél ongewijzigd mee
-6. **Maak de highlights-versie** (alleen Minor/Major):
-   `releases/highlights/<major.minor>/<versie>.md` — dezelfde wijzigingen in leesbaar Nederlands
+6. **Maak het handgeschreven release-document** (alleen Minor/Major):
+   `releases/audience/<major.minor>/<versie>.md` — dezelfde wijzigingen in leesbaar Nederlands
    zonder jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types),
-   bedoeld voor stakeholders in plaats van developers
-7. **Update `CHANGELOG.md`**: haal de gefolde entries eruit (ze staan nu in de release-note), zodat
+   bedoeld voor de opdrachtgever in plaats van developers. Twee secties, want deze repo staat op
+   tier 1: **wat het waard is** en **wat er bij deze release nog open stond** — die tweede in de
+   verleden tijd, want het document wordt gepubliceerd en beweegt daarna niet meer mee
+   > **Deze map heette `releases/highlights/` tot 2026-08-13.** Elke root onder `releases/` hoort
+   > zijn lezer te noemen en niet de vorm van het document; `Get-ReleaseNoteRoot` in
+   > `scripts/repo-config.ps1` wijst sindsdien naar `releases/audience`. De 23 bestaande documenten
+   > zijn verplaatst, niet herschreven. Zie [`releases/README.md`](releases/README.md) voor de drie
+   > roots en wat er per root in hoort
+7. **Schrijf de aankondiging**: `releases/github/<major.minor>/<versie>.md` — een paar alinea's die
+   de body van de GitHub Release worden: wat er nieuw is, voor wie, en een regel die naar de twee
+   bijlagen wijst. Niet de per-PR details; die staan in `development/`
+8. **Update `CHANGELOG.md`**: haal de gefolde entries eruit (ze staan nu in de release-note), zodat
    alleen de intro-alinea overblijft. **Er komt géén versieblok voor terug.**
    > Tot 2026-08-11 zette deze stap hier ook een `## Releases`-blok in `CHANGELOG.md` — dezelfde
    > informatie als `releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al
    > was afgeschaft en die bovendien maandenlang fout stond (op v2.20.1, terwijl v2.20.2, v2.21.0 en
-   > vijf PR's al live waren). Dat verviel: `releases/README.md` (stap 8) is sindsdien de enige plek
+   > vijf PR's al live waren). Dat verviel: `releases/README.md` (stap 9) is sindsdien de enige plek
    > waar uitgebrachte versies worden bijgehouden — geen dubbele boekhouding meer
-8. **Voeg de versie toe** aan de overzichtstabel in `releases/README.md` (bovenaan) — de enige
+9. **Voeg de versie toe** aan de overzichtstabel in `releases/README.md` (bovenaan) — de enige
    boekhouding van uitgebrachte versies
-9. **Stage en commit** op de release-branch
-10. **Merge naar `main`** (na bevestiging) — bewust een kale merge, geen PR:
+10. **Stage en commit** op de release-branch
+11. **Merge naar `main`** (na bevestiging) — bewust een kale merge, geen PR:
     ```bash
     git checkout main
     git merge [branch] --no-ff -m "merge: [branch] — v<versie>"
     ```
-11. **Tag en push**:
+12. **Tag en push**:
     ```bash
     git tag -a v<versie> -m "v<versie> - <korte titel>"
     git push origin main
@@ -313,14 +324,23 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
     release-documentatie en de tag naar `origin`, en triggert daarmee wel een nieuwe Netlify-build
     van dezelfde code. Was er sinds de laatste merge niets aan de app gewijzigd, dan is het resultaat
     identiek aan wat er al draaide
-12. **GitHub Release aanmaken** (de development-versie is altijd de body):
+13. **GitHub Release aanmaken** — de aankondiging uit `github/` is de body:
     ```bash
     gh release create v<versie> --title "v<versie> - <korte titel>" \
-      --notes-file releases/development/<major.minor>/<versie>.md --verify-tag
+      --notes-file releases/github/<major.minor>/<versie>.md --verify-tag
     ```
-13. **Highlights als bijlage uploaden** (alleen Minor/Major):
-    `gh release upload v<versie> releases/highlights/<major.minor>/<versie>.md`
-14. **Verwijder de release-branch**: `git branch -d [branch]` en
+    > De body was tot 2026-08-13 de `development/`-note. Die is nu bijlage: `gh` kapt een
+    > `--notes-file` af op 125.000 tekens, en een volledig per-PR record kan daar langs
+14. **Bijlagen uploaden** — `development/` altijd, `audience/` bij Minor/Major. **Onder unieke
+    bestandsnamen**, want alle drie de documenten heten `<versie>.md` en de tweede upload botst
+    anders met `HTTP 404` (`file#label` van `gh` lost dat niet op — dat zet het label, niet de naam):
+    ```bash
+    cp releases/development/<major.minor>/<versie>.md v<versie>-development-notes.md
+    cp releases/audience/<major.minor>/<versie>.md    v<versie>-release-note.md
+    gh release upload v<versie> v<versie>-development-notes.md v<versie>-release-note.md
+    rm v<versie>-development-notes.md v<versie>-release-note.md
+    ```
+15. **Verwijder de release-branch**: `git branch -d [branch]` en
     `git push origin --delete [branch]`
 
 Let op de volgorde van oorzaak en gevolg: de wijzigingen stonden al live vóór dit hele proces begon,
