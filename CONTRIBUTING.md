@@ -5,12 +5,31 @@ komt, en daarmee naar de live site. De **portable helft** reist met de plugin me
 deze repo:
 
 ```text
+# de geïnstalleerde release -- dit is de cyclus zoals de scripts hem NU draaien
+~/.claude/plugins/cache/claude-code-specialists/workflow-davekjohn/<versie>/CONTRIBUTING-portable.md
+
+# de bron -- kan vóórlopen op de release hierboven
 ~/.claude/plugins/marketplaces/claude-code-specialists/plugins/workflows/workflow-davekjohn/CONTRIBUTING-portable.md
 ```
 
 Die pagina beschrijft de cyclus zoals de gedeelde `workflow-davekjohn`-scripts hem draaien, en noemt
 overal de **seam** waar een repo zelf het antwoord geeft. Deze pagina geeft die antwoorden. Lees de
 portable pagina voor het mechanisme, deze voor de waarden.
+
+> **Beide paden staan er met opzet, en het verschil is een keer duur geweest.** De scripts draaien uit de
+> **cache**, dus dat is de tekst die beschrijft wat er feitelijk gebeurt. De marketplace-clone is de bron en
+> kan verder zijn. Deze repo stond een tijd op 4.5.0 terwijl `life-hub` al op 4.6.0 liep, en de
+> release-scripts verschilden precies in het stuk dat toen geauditeerd werd. Lees bij twijfel
+> `installed_plugins.json` op `projectPath` en niet de sessie-context.
+
+**Hier staat de cyclus niet nóg een keer.** Wat hieronder volgt zijn de **antwoorden** van deze repo, per
+stap, met een verwijzing naar de portable stap waar het mechanisme staat. Tot 2026-08-13 beschreef deze
+pagina de zeven stappen wél voluit — inclusief het tier-model met zijn score-tabel, de zes entry-secties, de
+vier poorten van `open-pr` en de fold-mechaniek. Dat was een tweede beschrijving van tekst die al met de
+plugin meereist, en een tweede beschrijving loopt uit de pas: `releases/README.md` deed hetzelfde en daar
+waren op de dag van het opruimen drie beweringen stil verouderd. De portable helft schrijft deze splitsing
+zelf voor — *"read this page for the cycle; read your own page for the values"* — dus dit is de bedoelde
+vorm en geen bezuiniging.
 
 > **Deze pagina is Nederlands, de portable helft is Engels.** Dat volgt de taalregel van
 > [`CLAUDE.md`](CLAUDE.md#taal): de repo-documentatie is Nederlands. De portable helft is niet van
@@ -105,6 +124,12 @@ Classificeer op **wat er feitelijk verandert**, niet op welke bestanden meekomen
 
 ## De cyclus, stap voor stap
 
+**Zeven stappen hier, vijf in de portable helft**, en dat verschil is de kern van deze repo: stap 5 bestaat
+alleen omdat een PR hier op Dave's woord wacht, en stap 6 is de handeling die de site verandert. Elke stap
+hieronder geeft **het antwoord van deze repo** en wijst naar de portable stap waar het mechanisme staat. Staat
+er onder een stap niets bijzonders, dan is er hier ook niets bijzonders — dan geldt de portable stap zoals
+hij is.
+
 ### 1. Check de branch — voor je ook maar één bestand aanraakt
 
 **Voor je code schrijft, een bestand aanmaakt of iets wijzigt:** run `git status` en `git branch`. Dit
@@ -113,6 +138,10 @@ is niet-onderhandelbaar — zelfs een script of configbestand wordt niet geschre
 - **Op `main`** → maak eerst de juiste branch aan, dan pas wijzigingen.
 - **Op een feature branch** → ga door op die branch.
 
+Dit staat ook in [`CLAUDE.md`](CLAUDE.md#ontwikkelworkflow--de-route-staat-in-contributingmd) als één van de
+twee dingen die aan élke wijziging voorafgaan, en dat is met opzet: het is een grondwetregel die het niet mag
+uitmaken welk van de twee documenten je open hebt.
+
 ### 2. Classificeer de wijziging en noem de branch
 
 Volgens de [prefix-tabel](#de-prefixen-zeven-die-je-kiest-negen-die-de-lib-kent) hierboven.
@@ -120,47 +149,18 @@ Volgens de [prefix-tabel](#de-prefixen-zeven-die-je-kiest-negen-die-de-lib-kent)
 ### 3. Ontwikkel op de branch en houd de twee branch-bestanden bij
 
 Maak wijzigingen op de branch en commit met een duidelijke boodschap. De gedeelde
-**`new-branch`**-skill zet de branch én zijn twee bestanden in [`branch/`](branch/) in één stap neer —
-een branch is nooit entry-loos:
+**`new-branch`**-skill zet de branch én zijn twee bestanden in [`branch/`](branch/) in één stap neer — een
+branch is nooit entry-loos. Wat die twee bestanden zijn, welke zes secties de entry heeft, waarom de namen
+vast zijn en wat de drie stappentekens betekenen: **portable helft, stap 1 en 2**, en
+[`branch/README.md`](branch/README.md) voor het tweetal zelf.
 
-- `branch/branch-changelog.md` — wát de wijziging doet; niets eromheen, zodat het in één keer in
-  `CHANGELOG.md` past
-- `branch/branch-progress.md` — de stappenlijst en waar je gebleven bent
+Wat déze repo daaraan toevoegt:
 
-**Vaste namen, niet één per branch** — git houdt ze al per branch uit elkaar, en de repo-root loopt
-niet meer vol. Op `main` staan ze in een lege reset-staat. Ernaast staan referentiekopieën met de
-veldtoelichting in `branch/templates/`; die zijn gegenereerd — bewerk je er één, dan zet de volgende
-run hem terug. De volledige uitleg van het tweetal staat in [`branch/README.md`](branch/README.md).
-
-`branch/branch-changelog.md` heeft **zes vaste secties**:
-
-```text
-## `<branch>` changelog
-
-### Branch title      <- de titel; óók de PR-titel
-### Branch ID         <- tijdstempel, gezet bij aanmaken
-### Branch type       <- de branch-prefix (kleine letter, bv. `docs`)
-### What does the change on this branch bring to main?
-### Significance
-### Pull Request      <- vult de fold in, na de merge
-```
-
-Drie ervan staan er al bij het aanmaken. `Branch title` schrijf je **zonder** `feat:`/`docs:`-prefix —
-die zet `open-pr` er zelf voor (stap 4).
-
-**Die zes koppen en de `Tier`/`Score`-sleutels blijven Engels**, als bewuste uitzondering op de
+**De zes sectiekoppen en de `Tier`/`Score`-sleutels blijven Engels**, als bewuste uitzondering op de
 Nederlandse repo-documentatie: het zijn de sleutels waar `new-branch`, `open-pr`, `fold-changelog` en de
-release-cut het over eens moeten zijn. Vertaal je ze, dan kan de eigen fold de eigen entry niet meer
-lezen. `scripts/repo-config.ps1` definieert daarom bewust géén `Get-EntrySectionHeadingOverrides`.
-
-**De datum staat niet in de kop.** Tot 2026-08-11 stond hij in de entry-titel en was dat de
-geboortedatum van de branch in plaats van de landingsdatum. De fold schrijft hem nu uit de
-merge-timestamp van de PR, als slotregel `[PR #NN](url) · merged YYYY-MM-DD` onder `### Pull Request`.
-
-**De kop van de entry noemt de branch, niet de wijziging.** De fold laat hem staan zoals hij is
-geschreven; in `CHANGELOG.md` staat er straks dus ``## `docs/mijn-branch` changelog``. De leesbare naam
-van de wijziging woont in `### Branch title`, en dát is de zin die je overneemt als je er ergens anders
-naar verwijst — een release-note bijvoorbeeld.
+release-cut het over eens moeten zijn. Vertaal je ze, dan kan de eigen fold de eigen entry niet meer lezen.
+`scripts/repo-config.ps1` definieert daarom bewust géén `Get-EntrySectionHeadingOverrides` — dát is de
+beslissing die dit vastlegt, niet deze alinea.
 
 **`CHANGELOG.md` blijft met rust op de branch — nooit direct bewerken.** Elke branch bewerkte vroeger
 hetzelfde blok, wat bij lang-openstaande branches tot merge-conflicten leidde. De vaste branch-bestanden
@@ -169,55 +169,27 @@ lossen dat op: er is niets om over te conflicteren.
 **Nooit mergen zonder een gevuld `branch/branch-changelog.md`.** Dit geldt ook voor kleine of puur
 documentaire wijzigingen.
 
-#### Significance — het verplichte tier-model
+**Een entry met het verkeerde kopniveau wordt stil overgeslagen.** `Get-EntryHeadingLevel` is hier 2, dus de
+fold accepteert `##` of `###`. Schrijf je de kop als `#`, dan meldt de fold *"No entry files found to fold"*,
+eindigt met **exit 0** en committeert niets — de entry lijkt verdwenen terwijl hij er staat. Via
+`new-branch` kan dit niet gebeuren; bij handwerk wel (overkomen op 2026-08-13, PR #27). Controleer na élke
+fold `git log -1`, niet alleen de exitcode.
 
-Onder `### Significance` staan **twee** sub-secties, `#### Tier 0` en `#### Tier 1`, elk met een
-`**Score:**`-regel. Beide worden beantwoord:
+#### Significance — het antwoord van deze repo is tier 1
 
-- **Tier 0** — alleen de mensen die deze repo onderhouden merken het
-- **Tier 1** — het management en de opdrachtgever: Dave, en wie met hem aan dit project werkt
+Het mechanisme — twee vragen in één sectie, de rubric, waarom `N/A` zijn reden nodig heeft, waarom tier 0
+nooit `N/A` is, waarom je het tier niet uit de prefix afleidt — staat in de **portable helft,
+`## Significance`**, en `new-branch` print de rubric bovendien zelf bij het aanmaken.
 
-**Twee tiers, en tier 1 is geen tussenstap naar een derde.** `Get-ReleaseAudienceTier` staat hier op
-**1** — Dave's keuze van 2026-08-12, in zijn eigen woorden: *bezoekers lezen geen release notes.* Tier 1
-en tier 2 zijn twee **soorten** lezer en niet twee sporten van een ladder, en een repo heeft er precies
-één. Wie `djcylow.com` bezoekt luistert een mix of boekt een boeking; die persoon opent nooit een
-versie-document. `new-branch` scaffoldt daarom tier 0 en tier 1, en `open-pr` en de release-cut vragen
-exact die twee compleet te zijn.
+**Het antwoord van deze repo is `Get-ReleaseAudienceTier = 1`**: het management en de opdrachtgever. Dave's
+keuze van 2026-08-12, in zijn eigen woorden — *bezoekers lezen geen release notes.* `new-branch` scaffoldt
+daarom `#### Tier 0` en `#### Tier 1`, en vragen `open-pr` en de release-cut exact die twee compleet te zijn.
 
-**De cumulatieve ladder is vervallen.** Tot 2026-08-12 werden alle drie de tiers gevraagd en moest een
-gescoorde tier 2 een gescoorde tier 1 boven zich hebben. Dat kostte de bron-repo 81 van haar 89
-tier-1-secties aan hetzelfde argument in een tweede register. Tier 2 blijft wél **gelezen** waar een
-oudere entry hem draagt (`Get-EntryTierMax` is nog 2), dus entries van vóór die datum blijven folden.
-
-De score is 1 t/m 5 tegen deze schaal, of `N/A` met één regel waarom het die groep niet bereikt:
-
-| Score | Betekenis |
-|---|---|
-| `5` | de lezer moet iets dóén — breaking change, verplichte migratie, of een lang bestaande blokkade die weg is |
-| `4` | verandert wezenlijk hoe ze werken; ze merken het binnen een dag zonder dat iemand het zegt |
-| `3` | een duidelijke verbetering, merkbaar zodra ze dat deel aanraken |
-| `2` | klein; merkbaar als iemand erop wijst |
-| `1` | cosmetisch, of het voorkomt een storing die nog niet is opgetreden — noem dan die storing, want dat is het enige waar een latere lezer iets aan heeft |
-
-Harde regels:
-
-- **Tier 0 mag nooit `N/A`** — elke wijziging raakt de mensen die deze repo onderhouden.
-- **`N/A` heeft zijn reden nodig.** "Geen bezoeker kan dit zien" is informatie; een leeg veld betekent
-  óók "hier is niemand aan toegekomen", en de poort moet die twee kunnen onderscheiden.
-- **De reden staat bóven de `**Score:**`-regel.** Alles eronder wordt door de parser weggegooid.
-- **De score wordt bewust leeg gescaffold** — een gegokt cijfer is erger dan geen cijfer.
-- **Leid het tier niet af uit de branch-prefix.** Een `docs/`-branch kan tier 1 zijn en een
-  `feature/`-branch tier 0.
-
-Het bereik is de **hoogste tier met een cijfer**. Dat bepaalt in welk release-document de entry belandt
-en, samen met de score, wáár in `CHANGELOG.md` hij landt — de fold plaatst gerangschikt, niet simpelweg
-bovenaan.
-
-#### De stappenlijst is een poort, geen versiering
-
-`branch/branch-progress.md` moet leeg zijn van openstaande punten voordat er een PR mag komen. Elk punt
-wordt `- [x]` gedaan óf `- [~]` laten vervallen, met de reden op de regel. Dat derde teken bestaat zodat
-niemand een vakje hoeft af te vinken voor werk dat niet is gedaan. **Er is geen `-Force`** op deze poort.
+Wie tier 1 hier precies is, welke wijzigingen hem bereiken en waarom dat de release-cadans bepaalt, staat op
+één plek: **[`releases/README.md`](releases/README.md#what-tier-1-means-here)**. Daar hoort het, want het is
+onderdeel van het release-model; hier staat alleen dát het antwoord 1 is. Eén regel om bij het invullen op
+terug te vallen: repo-machinerie bereikt Dave als **onderhouder** en blijft tier 0, de site zelf bereikt hem
+als **opdrachtgever** en is tier 1.
 
 ### 4. Push de branch — de PR pas op verzoek
 
@@ -225,38 +197,34 @@ Zodra de branch klaar is (commits + een gevuld `branch/branch-changelog.md` en e
 `branch/branch-progress.md`): push hem en meld dat hij klaar staat. **Open de PR niet uit jezelf** — zie
 de safety-rules in [`CLAUDE.md`](CLAUDE.md#nooit-zonder-expliciete-toestemming-van-dave).
 
-Zegt Dave "open de PR", gebruik dan de gedeelde **`open-pr`**-skill. Die draait vier poorten vóór er
-iets gepusht wordt:
+Zegt Dave "open de PR", gebruik dan de gedeelde **`open-pr`**-skill. Welke poorten die vóór het pushen
+draait — resolves, scaffold, impact, step-list — en welke van de vier een `-Force` kent, staat in de
+**portable helft, stap 3**. Wat hier van ons is:
 
-1. **resolves-gate** — noemt de branch een openstaand issue, dan moet `-Resolves` of `-NoResolves` mee,
-   zodat een gerepareerd issue niet open blijft na de merge
-2. **scaffold-gate** — de entry mag geen scaffold-tekst meer dragen, en geen lege secties. Deze heeft
-   wél een `-Force`
-3. **impact-gate** — draait op dezelfde lezing: een onmogelijk tier of een onmogelijke score wordt
-   geweigerd, een **ontbrekende** score wordt alleen gemeld (die weigering valt bij de release-cut)
-4. **step-list-gate** — geen enkel `- [ ]` mag nog openstaan in `branch/branch-progress.md`. Geen
-   `-Force`
+**De lint-poort uit `Get-LintScript` is de laatste wacht vóór de live site**, want een merge is hier een
+deploy. [`scripts/lint/lint-web.ps1`](scripts/lint/lint-web.ps1) draait `tsc --noEmit` **én** `npm run build`
+en beide moeten groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte
+build niet vangt en er niets tussen de merge en de site zit. `-SkipBuild` bestaat om lokaal te itereren en
+hoort niet in de poort zelf. ESLint blijft er bewust buiten: er staan 37 pre-existing errors, dus die
+vergelijk je op **aantal** en niet op exitcode.
 
-Daarna pas de repo's eigen lint-poort uit `Get-LintScript` (`scripts/lint/lint-web.ps1`) en alle
-testsuites. Faalt er iets, dan wordt er niets gepusht en komt er geen PR. **Deze poort is de laatste
-wacht vóór de live site**, want een merge is hier een deploy: `tsc --noEmit` én `npm run build` moeten
-groen zijn, en `-SkipBuild` bestaat om lokaal te itereren en hoort niet in de poort zelf.
+De PR-body komt uit [`.github/pull_request_template.md`](.github/pull_request_template.md) — loop de
+checklist na en vink af wat van toepassing is. De titel geef je **niet** mee; die stelt `open-pr` samen uit
+de entry. Twee dingen die hier gemeten zijn en niet in de portable helft staan:
 
-Is alles groen, dan opent de skill de PR met
-[`.github/pull_request_template.md`](.github/pull_request_template.md) als body — loop de checklist na en
-vink af wat van toepassing is. **De titel komt uit de entry**: geef `open-pr` géén titel mee — hij stelt
-hem zelf samen als `<branch-type>: <Branch title uit branch/branch-changelog.md>` (`feature:`, `fix:`,
-`data:`, `content:`, `style:`, `docs:`, `config:`). Zo staat de zin één keer geschreven en kunnen de PR,
-`CHANGELOG.md` en de release-documenten niet uit elkaar lopen. Een meegegeven `-Title` wordt nog
-geaccepteerd maar genegeerd, met een waarschuwing die de titel noemt die de entry wél geeft.
+- **Gebruik nooit `gh pr create --fill`.** `--fill` vult de body met de volledige commit-geschiedenis sinds
+  `main` — ontdekt bij PR #1/#2, tientallen irrelevante historische commits in plaats van de template.
+  Gebruik `--body`/`--body-file`.
+- **Draai je het handmatig, geef dan `--repo DaveKJohn/djcylow-react` mee.** Deze repo heeft een `origin`-
+  én een `upstream`-remote die naar dezelfde GitHub-URL wijzen, wat de branch-detectie van `gh` in de war
+  stuurt met *"you must first push the current branch to a remote"*.
 
-**Gebruik nooit `gh pr create --fill`** in deze repo: `--fill` vult de body met de volledige
-commit-geschiedenis sinds `main` (ontdekt bij PR #1/#2 — tientallen irrelevante historische commits in
-plaats van de template). Gebruik `--body`/`--body-file` met de template-inhoud.
-
-Draai je het handmatig, geef dan altijd **`--repo DaveKJohn/djcylow-react`** mee: deze repo heeft zowel
-een `origin`- als een `upstream`-remote die naar dezelfde GitHub-URL wijzen, wat de automatische
-branch-detectie van `gh` in de war stuurt ("you must first push the current branch to a remote").
+> **Nog niet gerepareerd, en het bijt bij elke PR:** de placeholder in onze PR-template is
+> `<!-- Korte beschrijving van de wijziging en waarom -->`, terwijl `open-pr` letterlijk naar een andere
+> zoekt. Zonder match krijgt de PR een body **zonder beschrijving en zonder foutmelding** — gemeten bij PR
+> #26. De reparatie is niet de template naar de bron toeschrijven maar `Get-PrDescriptionPlaceholder` in
+> `scripts/repo-config.ps1` vullen met onze eigen regel; die seam bestaat sinds plugin 4.7.0 en waarschuwt
+> er nu wél hard over. Staat gepland op `docs/release-route-naar-script`.
 
 ### 5. Vertel Dave wat er is gedaan — stop daar
 
@@ -286,19 +254,15 @@ Dave's woord wacht.
 
 ### 7. Na de merge: vouw de changelog entry
 
-Vouw `branch/branch-changelog.md` in `CHANGELOG.md` via de gedeelde **`fold-changelog`**-skill. Die
-plaatst de entry gerangschikt op tier en score — niet simpelweg bovenaan — sluit hem af met de regel
-`[PR #NN](url) · merged YYYY-MM-DD`, en laat de kop verder ongemoeid. Dit gebeurt zonder aparte
-toestemming: het hoort bij het afronden van de zojuist goedgekeurde merge, net als de branch-opruiming
-in stap 6.
-
-`branch/branch-changelog.md` en `branch/branch-progress.md` worden daarbij niet verwijderd maar
-**gereset** naar hun lege staat — het zijn vaste paden die de volgende branch nodig heeft. Een oud
-entry-bestand in de repo-root (uit het model van vóór 2026-08-11) wordt, als het wordt aangetroffen, wel
-nog verwijderd.
+Vouw `branch/branch-changelog.md` in `CHANGELOG.md` via de gedeelde **`fold-changelog`**-skill. Hoe die de
+entry rangschikt, wat hij met de kop doet en dat de twee `branch/`-bestanden **gereset** worden in plaats van
+verwijderd: **portable helft, stap 5**. Dit gebeurt zonder aparte toestemming — het hoort bij het afronden
+van de zojuist goedgekeurde merge, net als de branch-opruiming in stap 6.
 
 Draai de skill met `-Commit`: die commit dan zelf, met bericht `fold: [branch] changelog (#NN)`, en de
-scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de twee `branch/`-bestanden.
+scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de twee `branch/`-bestanden. Dit is de
+**enige echte directe commit op `main`** in deze repo — één van de twee met naam genoemde uitzonderingen in
+[`CLAUDE.md`](CLAUDE.md#nooit-direct-op-main--via-branch--pr).
 
 > Tot 2026-08-11 stond hier `chore: fold changelog entry [branch]` als handmatig `git add`/`git
 > commit`-blok. **`fold:` is sindsdien de erkende prefix voor deze ene commit** — de reden: `merge:` en
@@ -326,8 +290,18 @@ een release-cut laagrisico — er gaat geen ongeteste code mee naar buiten — e
 
 ## Waar de rest woont
 
+- **Het mechanisme van de cyclus zelf** — de vijf portable stappen, het tier-model, de rubric, de poorten:
+  `CONTRIBUTING-portable.md` in de plugin, via een van de twee paden bovenaan deze pagina. Dat is de helft
+  die met elke plugin-release meebeweegt; een correctie daarin gaat als
+  [`inbound`-issue](https://github.com/DaveKJohn/claude-code-specialists/issues) naar de bron en niet hier.
 - De twee bestanden waarin een branch werkt, en de drie stappentekens: [`branch/README.md`](branch/README.md).
 - Wat live is maar nog geen versienummer heeft: [`CHANGELOG.md`](CHANGELOG.md).
 - De grondwet, het roster en alles wat repo-eigen is: [`CLAUDE.md`](CLAUDE.md).
+- Het release-model en de lijst uitgebrachte versies: [`releases/README.md`](releases/README.md). Let op dat
+  die pagina de **andere** constructie draagt: daar staat de portable helft verbatim in het bestand zelf,
+  boven een streep, omdat de release-lijst er lokaal in moet wonen en `release-lib.ps1` er rijen in schrijft.
+  Dat er twee vormen naast elkaar bestaan is geen inconsistentie maar een gevolg van dat verschil — en het is
+  bij de bron aangekaart als [inbound #646](https://github.com/DaveKJohn/claude-code-specialists/issues/646),
+  dat om een `RELEASES-portable.md` vraagt zodat ook die helft gaat meereizen.
 - Welke specialist welk soort wijziging oppakt:
   [`.claude/specialists/SPECIALISTS.md`](.claude/specialists/SPECIALISTS.md).

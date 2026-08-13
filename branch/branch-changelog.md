@@ -1,8 +1,8 @@
-## `docs/releases-readme-spiegelt-de-bron` changelog
+## `docs/gedeelde-docs-spiegelen-de-bron` changelog
 
 ### Branch title
 
-releases/README.md spiegelt de bron: de portable helft verbatim, de repo-eigen helft eronder
+De twee gedeelde documenten stoppen met parafraseren: releases/README.md spiegelt de bron verbatim, CONTRIBUTING.md verwijst ernaar
 
 ### Branch ID
 
@@ -13,6 +13,45 @@ releases/README.md spiegelt de bron: de portable helft verbatim, de repo-eigen h
 docs
 
 ### What does the change on this branch bring to main?
+
+**Twee documenten in deze repo beschrijven een model dat niet van deze repo is, en beide deden dat in eigen
+woorden.** Deze branch beëindigt dat — maar met een verschillende ingreep per document, en dat verschil is
+het punt: `releases/README.md` **moet** lokaal bestaan, want de release-lijst woont erin en
+`release-lib.ps1` schrijft er rijen in, dus daar is een verbatim spiegel het beste dat kan. De cyclus in
+`CONTRIBUTING-portable.md` reist al mee met de plugin, dus daar is verwijzen beter dan kopiëren. Eén
+principe, twee vormen, elk met de reden erbij vastgelegd.
+
+---
+
+#### `CONTRIBUTING.md` — de duplicatie eruit, de antwoorden erin
+
+De pagina beschreef de zeven stappen voluit, inclusief het tier-model met zijn score-tabel, de zes
+entry-secties, de vier poorten van `open-pr` en de fold-mechaniek. Dat is een tweede beschrijving van
+`CONTRIBUTING-portable.md`, dat die splitsing zélf voorschrijft: *"read this page for the cycle; read your
+own page for the values."* Gemeten: **126 regels weg, 100 erbij, 333 → 307**. Het saldo is klein omdat de
+vrijgekomen ruimte is gevuld met wat écht van deze repo is en nergens stond:
+
+- **Twee plugin-paden in plaats van één.** De scripts draaien uit de **cache**, dus dat is de tekst die
+  beschrijft wat er feitelijk gebeurt; de marketplace-clone is de bron en kan vóórlopen. Deze repo stond
+  een tijd op 4.5.0 terwijl `life-hub` al op 4.6.0 liep, en de release-scripts verschilden precies in wat er
+  toen geauditeerd werd.
+- **De PR-template-placeholder die `open-pr` niet vindt.** Onze regel is `<!-- Korte beschrijving van de
+  wijziging en waarom -->`, en zonder match krijgt een PR een body **zonder beschrijving en zonder
+  foutmelding** — gemeten bij PR #26. De reparatie is `Get-PrDescriptionPlaceholder` vullen, niet de template
+  naar de bron toeschrijven; die seam bestaat sinds plugin 4.7.0.
+- **De kopniveau-valkuil van de fold.** `#` in plaats van `##`/`###` levert *"No entry files found to fold"*,
+  **exit 0** en geen commit — de entry lijkt verdwenen terwijl hij er staat (overkomen bij PR #27).
+- **De ESLint-nuance van de poort:** 37 pre-existing errors, dus vergelijk op aantal en niet op exitcode.
+
+De zeven koppen zijn intact gehouden: `CLAUDE.md` linkt naar twee ervan en de pagina naar drie van zichzelf.
+De tier-1-uitleg is bewust **niet** hier uitgeschreven maar doorverwezen naar
+`releases/README.md#what-tier-1-means-here` — anders had deze branch de duplicatie op één plek opgeruimd en
+op een andere opnieuw gemaakt. Alle 10 cross-file anchors tussen `CLAUDE.md`, `CONTRIBUTING.md` en
+`releases/README.md` zijn nagelopen.
+
+---
+
+#### `releases/README.md` — de portable helft verbatim
 
 `releases/README.md` was een **Nederlandse vertaling** van het gedeelde release-model geworden. Dat is een
 stap verder van de bron dan een parafrase: een vertaling valt niet te diffen, dus niets kon een bewuste
@@ -51,16 +90,24 @@ in de release-lijst. Dat is historie, en een record is geen vertaling.
   is juist wel een live site, maar de deploy is bij de PR-merge al gebeurd, dus er is geen go-live-stap ná
   de cut — precies wat de seam vraagt.
 
-**Eén nieuwe bevinding voor de bron, en die is niet verstuurd.** Het niet-portable zijn van de portable
-helft staat al open als [#643](https://github.com/DaveKJohn/claude-code-specialists/issues/643) en dekt twee
-van de drie bridge-paragrafen; daar gaat dus geen duplicaat heen. Maar de intro van de gedeelde tekst
-beweert dat *"the release block in `CHANGELOG.md` points here for everything but the current version"*, en
-dat is een bewering over een bestand dat de **consumer** bezit, achter een relatieve link die oplost. Hier
-is dat release-blok op 2026-08-11 afgeschaft, dus de zin leest alsof hij over ons gaat terwijl hij alleen in
-de bron waar is. Dat is scherper dan de andere drie punten en staat niet in #643. Vastgelegd op de pagina;
-het **melden** is naar buiten gericht en wacht op Dave's woord.
+**Eén inbound-issue geopend, op Dave's verzoek:
+[#646](https://github.com/DaveKJohn/claude-code-specialists/issues/646).** Het vraagt de bron om een
+**`RELEASES-portable.md`** in de plugin, naast `CONTRIBUTING-portable.md` en `TICKETWORK-portable.md`, zodat
+de gedeelde helft meereist in plaats van in elke consumer met de hand gekopieerd te worden — zoals
+`CONTRIBUTING.md` hier al werkt. Dat maakt de verbatim-spiegel die deze branch neerzet expliciet het beste
+antwoord van *vandaag* en niet de eindvorm: hij is nu correct en voor altijd handwerk. Twee consumers
+onderhouden er inmiddels één van 4154 woorden. Precedent is
+[#566](https://github.com/DaveKJohn/claude-code-specialists/issues/566), dat deze zelfde redenering voor
+`CONTRIBUTING.md` maakte en `CONTRIBUTING-portable.md` opleverde. Wat een splitsing níet oplost, en dus in
+het issue staat: de release-lijst woont hier en `release-lib.ps1` schrijft er rijen in, dus een
+`releases/README.md` van een consumer is nooit alleen maar een link.
 
-Twee dingen zijn bewust **niet** gedaan. De geplande branch
+Geen duplicaat naar #643, dat twee van de drie bridge-paragrafen al dekt. Het vierde punt — de
+`CHANGELOG.md`-bewering, die over een **consumer**-bestand gaat en dus als "over jou" leest terwijl hij
+alleen in de bron waar is — is als bewijs *binnen* #646 meegegaan in plaats van als eigen issue, want het
+onderbouwt precies dat issue: zo'n zin blijft onzichtbaar zolang de tekst met de hand wordt gekopieerd.
+
+Eén ding is bewust **niet** gedaan. De geplande branch
 `config/release-notes-in-het-nederlands` wordt door dit besluit **tegengesproken**: lege wording-seams
 betekenen Engels, en dat is nu het juiste antwoord. Wat van dat punt overblijft is smaller en nog steeds
 waar, en staat op de pagina.

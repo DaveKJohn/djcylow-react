@@ -1,4 +1,4 @@
-## `docs/releases-readme-spiegelt-de-bron` progress
+## `docs/gedeelde-docs-spiegelen-de-bron` progress
 
 ### Steps
 
@@ -21,28 +21,39 @@
 - [x] Het taalbesluit vastgelegd in `CLAUDE.md` (taalsectie), plus de aanleiding van de kolomkop-blockquote
       bij stap 9 bijgesteld zodat die niet meer suggereert dat de rest van de pagina Nederlands is
 - [x] Poort groen: `lint-web.ps1` — 0 TypeScript-fouten, build geslaagd, 89 statische pagina's
-- [~] Geen duplicaat-inbound naar de bron. Het niet-portable zijn van de portable helft staat al open als
-      [#643](https://github.com/DaveKJohn/claude-code-specialists/issues/643) (uit `life-hub`) en dekt twee
-      van de drie bridge-paragrafen. Het **vierde** punt — de `CHANGELOG.md`-bewering, die over een
-      consumer-bestand gaat en dus als "over jou" leest — is nieuw en staat níet in #643. Vastgelegd op de
-      pagina; het versturen wacht op Dave (zie hieronder)
+- [x] Inbound [#646](https://github.com/DaveKJohn/claude-code-specialists/issues/646) geopend op Dave's
+      verzoek: een `RELEASES-portable.md` in de plugin, zodat de gedeelde helft meereist in plaats van in
+      elke consumer met de hand gekopieerd te worden. Het vierde bevinding-punt (de `CHANGELOG.md`-bewering
+      over een consumer-bestand) is daar als bewijs in meegegaan
+- [~] Geen duplicaat naar [#643](https://github.com/DaveKJohn/claude-code-specialists/issues/643), dat twee
+      van de drie bridge-paragrafen al dekt — een tweede melding zou met de reparatie concurreren
 - [~] `CLAUDE.md`'s Release Workflow niet herschreven. De weerlegde "cut-release draait niets zelf" staat
       daar ook nog, maar hoort bij `docs/release-route-naar-script` — daar komt hij met de vijftien stappen
       waar hij bij staat. Op deze pagina is hij wél rechtgezet, met de verwijzing erbij
 - [~] De 23 bestaande `audience/`-documenten niet herschreven, en de 60 documenten niet vertaald. Beide
       bewust buiten scope (Dave, 2026-08-13); gepubliceerde documenten en release-titels zijn historie
+- [x] **`CONTRIBUTING.md`:** de vorm-vraag aan Dave gesteld (verbatim spiegelen zoals `releases/README.md`,
+      of de duplicatie eruit en verwijzen). Antwoord: eruit en verwijzen — de portable tekst reist daar al
+      met de plugin mee, dus een kopie zou een tweede bron maken
+- [x] De gedeelde mechaniek uit de zeven stappen gehaald: het tier-model met zijn score-tabel, de zes
+      entry-secties, de vier `open-pr`-poorten, de fold-mechaniek. **126 regels weg, 100 erbij, 333 → 307**
+- [x] De zeven koppen intact gehouden — `CLAUDE.md` linkt naar twee ervan, de pagina naar drie van zichzelf
+- [x] Vier repo-eigen dingen vastgelegd die nergens stonden: de twee plugin-paden met de versie-les, de
+      PR-template-placeholder die `open-pr` niet vindt (PR #26), de kopniveau-valkuil van de fold (PR #27),
+      en de ESLint-nuance van de poort
+- [x] Zelf-audit op nieuwe duplicatie: de tier-1-uitleg die ik eerst in `CONTRIBUTING.md` schreef stond
+      daarmee in **beide** documenten. Vervangen door een verwijzing naar
+      `releases/README.md#what-tier-1-means-here` — anders ruimt deze branch duplicatie op één plek op en
+      maakt hij die op een andere
+- [x] Alle 10 cross-file anchors tussen `CLAUDE.md`, `CONTRIBUTING.md` en `releases/README.md` nagelopen
 
 ### Where I left off
 
 Branch is af en de poort staat open. Wat hierna nog aan de orde komt, en niet in deze branch hoort:
 
-- **Eén inbound-punt is voorbereid maar niet verstuurd**, want een issue is naar buiten gericht — zelfde
-  afweging als de al liggende melding over de tegenstrijdige `cut-release`-frontmatter in
-  `.claude/handover.md`. Het punt: de intro van de portable helft beweert dat het release-blok in
-  `CHANGELOG.md` hierheen wijst "voor alles behalve de huidige versie", terwijl dat blok hier is afgeschaft.
-  Anders dan de drie punten in #643 gaat dit over een bestand dat de **consumer** bezit, achter een
-  relatieve link die oplost — dus het leest als een uitspraak over ons. Advies: sturen, en als comment op
-  #643 in plaats van als nieuw issue, want het is hetzelfde onderwerp met een scherper voorbeeld.
+- **De melding over de tegenstrijdige `cut-release`-frontmatter uit `.claude/handover.md` ligt er nog**, en
+  is nog steeds niet verstuurd. Die stond al vóór deze branch klaar. Advies blijft: sturen — onze eigen
+  onjuiste bewering kwam er rechtstreeks uit en de bron kan hem in één regel repareren.
 
 - **`config/release-notes-in-het-nederlands` is door dit besluit achterhaald.** Die branch stond gepland om
   `Get-ReleaseNoteWording` en `Get-InternalNoteWording` in het Nederlands te vullen. Nu de map Engels is,
@@ -51,6 +62,13 @@ Branch is af en de poort staat open. Wat hierna nog aan de orde komt, en niet in
   `session-status.ps1` zoekt de open-werk-sectie erop en met Engelse koppen werkt die lookup nu vanzelf.
   Dit is een schrapping van gepland werk, dus het wacht op Dave's woord.
 - **`docs/release-route-naar-script`** — de vijf werkpunten uit `.claude/handover.md`, waaronder de
-  weerlegde cut-release-bewering in `CLAUDE.md`. Deze branch heeft één van die vijf punten (het tier-model
-  dat drie keer voluit stond) gedeeltelijk opgelost: `releases/README.md` schrijft het model niet meer
-  zelf, het draagt nu de gedeelde tekst. `CONTRIBUTING.md` beschrijft het nog wel.
+  weerlegde cut-release-bewering in `CLAUDE.md` en het vullen van `Get-PrDescriptionPlaceholder`. **Punt 4
+  van die vijf is door deze branch afgehandeld:** het tier-model stond drie keer voluit (portable helft,
+  `CONTRIBUTING.md`, `releases/README.md`) en staat nu één keer. `releases/README.md` draagt de gedeelde
+  tekst zelf, `CONTRIBUTING.md` verwijst ernaar en noemt alleen het antwoord `= 1`. Wat van punt 4 overblijft
+  is de spanning tussen de versienummertabel in `CLAUDE.md` (docs → PATCH) en de gedeelde bump-gate
+  (tier 1+ → minor); dat is in `CONTRIBUTING.md` én in `releases/README.md` benoemd maar niet opgelost, want
+  het is een keuze over `CLAUDE.md`'s tabel.
+- **`.claude/handover.md` is op twee punten achterhaald door deze branch** en hoort bijgewerkt bij de
+  volgende stempeling: punt 4 (hierboven) en de opmerking dat de gegenereerde notes Engels zijn "terwijl de
+  37 bestaande Nederlands zijn" — dat is nu het gewenste gedrag in plaats van een defect.

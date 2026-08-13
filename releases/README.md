@@ -400,9 +400,19 @@ here — see the seam values below for what happens instead.
 >
 > **The `CHANGELOG.md` sentence is a fourth point that #643 does not cover**, and it is the sharpest of the
 > four: the others describe the source's own repo, but that one makes a claim about a file the *consumer*
-> owns, behind a relative link that resolves. So it reads as being about you while being true only there.
-> Reporting it is a separate act and one that goes outward, so it waits on Dave's word rather than happening
-> as a side effect of this branch. When all four land, these paragraphs shrink to a pointer.
+> owns, behind a relative link that resolves. So it reads as being about you while being true only there. It
+> is filed as evidence inside
+> [inbound #646](https://github.com/DaveKJohn/claude-code-specialists/issues/646) rather than as its own
+> issue, because it argues that issue's point: a sentence like that stays invisible while the text is copied
+> by hand and becomes obvious the moment the text has to stand on its own.
+>
+> **#646 is the one that would remove this whole section**, and it is the deeper of the two. It asks the
+> source for a **`RELEASES-portable.md`** in the plugin, next to `CONTRIBUTING-portable.md` and
+> `TICKETWORK-portable.md`, so the shared half travels with the plugin instead of being hand-copied into
+> every consumer — the way `CONTRIBUTING.md` already works here. The verbatim mirror above is the best
+> available answer *today*, not the intended end state: it is correct now and manual forever. Note what a
+> split cannot do, though, and why this page keeps existing either way: the release list lives here and
+> `release-lib.ps1` writes rows into it, so a consumer's `releases/README.md` is never merely a link.
 
 ### Seam values in force here
 

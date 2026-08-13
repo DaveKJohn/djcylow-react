@@ -7,11 +7,13 @@ elke repo die met de Claude Specialists werkt), en **alles wat specifiek is voor
 onderaan** onder [`## Eigen aan deze repo (djcylow-react)`](#eigen-aan-deze-repo-djcylow-react) — het
 concrete team, de projectstructuur, de taal en de manier waarop de grondwet hier is ingevuld.
 
-**Dit bestand houdt de grénzen; de route staat in [`CONTRIBUTING.md`](CONTRIBUTING.md).** Daar staat
-sinds 2026-08-13 de contributie-cyclus: de branch-prefixen, de zeven stappen van branch tot fold, het
-tier-model en de poorten vóór een PR. Die splitsing is er één van **onderwerp**, niet van dezelfde
-werkwijze in twee documenten: wat op Dave's woord wacht staat hier, hoe het werk loopt staat daar, en
-geen van beide beschrijft het onderwerp van de ander.
+**Dit bestand houdt de grénzen; de route staat in [`CONTRIBUTING.md`](CONTRIBUTING.md).** Daar staan sinds
+2026-08-13 de **antwoorden** van deze repo op de contributie-cyclus: de branch-prefixen, de zeven stappen van
+branch tot fold, en per stap wat hier anders is. Het **mechanisme** van die cyclus — het tier-model, de
+rubric, de poorten die `open-pr` draait — staat er sinds 2026-08-13 níet meer in, maar in
+`CONTRIBUTING-portable.md` in de plugin, dat met elke plugin-release meebeweegt. Die splitsing is er één van
+**onderwerp**, niet van dezelfde werkwijze in twee documenten: wat op Dave's woord wacht staat hier, hoe het
+werk loopt staat daar, en geen van beide beschrijft het onderwerp van de ander.
 
 Dat is precies het verschil met de oude `workflow/`-map, die niet meer bestaat: dat was een **tweede
 werkwijze-document** naast dit bestand, en twee beschrijvingen van hetzelfde liepen onvermijdelijk uit
@@ -122,15 +124,18 @@ Dit zijn de **enige** twee. Ook een "onschuldige" opruim- of chore-commit gaat v
 
 ### Ontwikkelworkflow — de route staat in `CONTRIBUTING.md`
 
-De volledige cyclus staat in [`CONTRIBUTING.md`](CONTRIBUTING.md): de branch-prefixen met hun label en
-changelog-type, de zeven stappen van branch tot fold, het tier-model van een changelog-entry en de
-poorten die `open-pr` draait. Die pagina is de **lokale helft** van een gedeeld document — de andere
-helft reist met de plugin mee — en samen zijn ze de enige plek waar de route beschreven staat.
+De route staat in [`CONTRIBUTING.md`](CONTRIBUTING.md): de branch-prefixen met hun label en changelog-type,
+de zeven stappen van branch tot fold, en per stap het antwoord van déze repo — welke lint-poort de laatste
+wacht is, waarom stap 5 bestaat, welke `gh`-vlaggen hier stukgaan. Die pagina is de **lokale helft** van een
+gedeeld document; de **portable helft** (`CONTRIBUTING-portable.md`) reist met de plugin mee en draagt het
+mechanisme: het tier-model, de rubric, de vier poorten van `open-pr`, de fold. Samen zijn ze de enige plek
+waar de route beschreven staat — en sinds 2026-08-13 staat elk stuk ervan maar in één van de twee.
 
 Drie regels uit die route zijn óók grondwet, en die vind je daarom hierboven in
 [de safety-rules](#safety-rules): een PR wordt nooit uit jezelf geopend, **mergen is hier deployen**, en
 pushen naar `origin/main` is Dave's initiatief. Alles daartussen — hoe je een branch noemt, wat er in de
-entry hoort, welke poort wat weigert — lees je in `CONTRIBUTING.md`.
+entry hoort, welke poort wat weigert — lees je in `CONTRIBUTING.md` of de portable helft waarnaar dat
+document verwijst.
 
 **Twee dingen gaan aan élke wijziging vooraf**, dus die staan hier ook:
 
