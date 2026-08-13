@@ -1,362 +1,664 @@
 # Releases
 
-**Hoe een release werkt.** Een release is **geen publicatiemoment maar een vastgelegd moment**: een
-git-tag op een staat die al draait. Netlify bouwt en publiceert bij elke push naar `main`, en een
-PR-merge schrijft daar rechtstreeks in — een wijziging staat dus al op de site zodra de PR gemerged is.
-Het cutten van een release bundelt die wijzigingen onder één SemVer-nummer, legt ze vast in de
-release-documenten en zet er een tag op.
+**How a release works.** A release is not a deploy but a **recorded moment**: a git tag that marks the
+state of the marketplace, with all plugin versions in lockstep. This page carries both halves: the
+**process** — the tier model, what a release must earn, the release documents, and how one is cut — and,
+under the repo heading at the end, the **full list of releases** actually cut. The release block in
+[`CHANGELOG.md`](../CHANGELOG.md) points here for everything but the current version.
 
-Deze pagina draagt beide helften: het **proces** — het tier-model, wat een release moet verdienen, de
-release-documenten en hoe er één gecut wordt — en, onder de repo-kop aan het eind, de **volledige lijst
-releases** die daadwerkelijk gecut zijn. `CHANGELOG.md` houdt alleen wat live is maar nog geen
-versienummer heeft, en wijst voor de rest hierheen.
+[`scripts/release/cut-release.ps1`](https://github.com/DaveKJohn/claude-code-specialists/blob/main/scripts/release/cut-release.ps1)
+itself publishes nothing to GitHub Releases — that is a separate, manual closing step. Releases are cut
+**only on the repo owner's explicit request**; see [Cutting a release](#cutting-a-release) below for the
+full mechanics. Each release bumps every plugin's `version` in lockstep, and that number in
+`.claude-plugin/plugin.json` is what tells a consumer which release they are on.
 
-> Dit stond hier tot 2026-07-26 als "één release = één deployment". Dat suggereerde dat een release de
-> code naar buiten brengt, terwijl dat bij de merge al gebeurd was. Dev-werk, feature-branches en
-> experimenten die nooit gemerged zijn staan hier dus niet in — die horen in de git history. Deze map
-> bevat alleen wat bezoekers daadwerkelijk te zien hebben gekregen.
+## The tier model
 
-## Het tier-model
+**One scale, used twice.** A change declares how far it reaches, and that number decides two things: which
+document — and, where the document has more than one reader, which section of it — the change appears in,
+and, together with its significance score, where within that section it sits.
 
-**Eén schaal, tweemaal gebruikt.** Een wijziging verklaart hoe ver hij reikt, en dat getal beslist twee
-dingen: in welk document — en, waar dat document meer dan één lezer heeft, in welke sectie ervan — de
-wijziging terechtkomt, en, samen met zijn significantie-score, waar binnen die sectie hij staat.
-
-| tier | wie het merkt | waar het geschreven staat | wanneer |
+| tier | who notices | where it is written | when |
 |---|---|---|---|
-| **2** | abonnees van een dienst | de sectie *voor consumenten* van `audience/<dir>/<X.Y.Z>.md` | minor/major |
-| **1** | het management en de opdrachtgever | de twee organisatie-secties van datzelfde bestand | minor/major |
-| **0** | alleen de eigen developers van deze repo | `development/<dir>/<X.Y.Z>.md` | elke release |
+| **2** | subscribers of the service | the *For consumers* section of `audience/<dir>/<X.Y.Z>.md` | minor/major |
+| **1** | management and the employer/commissioner | the organisation's two sections of that same file | minor/major |
+| **0** | only this repo's own developers | `development/<dir>/<X.Y.Z>.md` | every release |
 
-**Tier 1 en 2 zijn twee SOORTEN publiek, en een repo heeft er precies één van.** Het zijn geen twee
-sporten van een ladder. Tier 1 is het management en wie het werk opdraagt of betaalt — het publiek van
-een repo die iets *oplevert*. Tier 2 is de abonnee van een **dienst**, die beslist of hij meegaat met een
-upgrade. Een repo antwoordt er één, één keer, in `Get-ReleaseAudienceTier`, vóór er een entry geschreven
-is. `new-branch` scaffoldt dan tier 0 plus die ene tier, en `open-pr` vraagt naar die tier in plaats van
-naar elke sport vanaf 1.
+**Tiers 1 and 2 are two KINDS of audience, and this repo has exactly one of them** (Dave, August 12, 2026;
+inbound [#620](https://github.com/DaveKJohn/claude-code-specialists/issues/620)). They are not two rungs of a
+ladder. Tier 1 is management and whoever commissions or pays for the work — the audience of a repo that
+*delivers* something, or that sells a **product** whose buyers never read a release note. Tier 2 is the
+subscriber of a **service**, who decides whether to upgrade. A repo answers one of them, once, in
+`Get-ReleaseAudienceTier`, before any entry is written; **this repo answers 2**, being a service rather than
+a product. `new-branch.ps1` then scaffolds tier 0 plus that tier alone, and `open-pr.ps1` and
+`cut-release.ps1` ask for that tier rather than every rung from 1 up.
 
-**De cumulatieve ladder is er niet meer.** Tot 2026-08-12 was een tier-2-entry een tier-1-sectie
-*verschuldigd*, op de redenering dat wat een consument merkt ook iets is waar een collega over hoort. Dat
-klopt voor een repo met twee echte publieken en levert niets dan duplicatie op voor de veel gewonere repo
-met één. Het development-document draagt nog steeds alles, tier 0 incluis, omdat het het record is en
-niet een samenvatting daarvan.
+**A repo that has stated nothing is asked about all three**, exactly as before the knob existed — an
+unstated seam means unchanged, never "switch the audience tier off". The loud channel is the script
+contract, where this is a `decide` record that `adopt-config` puts to the repo rather than answering for it.
 
-**Waar het getal vandaan komt: de auteur van de entry, op de branch.** `new-branch` schrijft de
-`#### Tier N`-subsecties waar deze repo naar vraagt met hun scores leeg; wie de branch afmaakt vult ze in,
-met een score of met `N/A` plus de reden dat hij daar niemand raakt. **De reikwijdte is de hoogste tier
-die een getal draagt.** `open-pr` weigert een entry waarvan de beschrijving, de body of de reden van een
-tier nog leeg is, en `fold-changelog` vouwt de entry **letterlijk** — de verklaring woont dus op precies
-één plek, de entry zelf.
+**The tier a repo no longer asks about is still read.** `Get-EntryTierMax` stays 2 and every validator keeps
+using it: the maximum says which tier numbers are valid to *parse* — 97 entries in this repo's record were
+written under the cumulative ladder — while the audience says which are *asked*. An extra answered tier is
+accepted, never refused, so no finished dossier became unopenable on the day the knob landed.
 
-**Bewust niet afgeleid van de branch-prefix.** Die voorspelt de impact niet: de bron heeft gemeten dat de
-meest ingrijpende wijziging voor een consument — het hernoemen van de marketplace, wat elke bestaande
-install breekt — op een `chore/`-branch arriveerde.
+**`CHANGELOG.md` has no sections to file into** (Dave, August 5, 2026). It is an intro followed by one `##`
+per change, ranked furthest-reach-first and, within a tier, highest-significance-first — so what the three
+`## Tier N - Pull Requests` sections used to say visually is now the ordering, and each entry states its own
+reach in the `### Significance` section it carries, one `#### Tier N` sub-section per reach it claims. The
+**fold** is the only moment that order can be decided, because the cut empties the list: whatever order it
+leaves is what the release documents inherit, with nothing re-estimated days later.
 
-### Wat een release moet verdienen
+**The cumulative ladder is gone, and the measurement is why.** Until August 12, 2026 a tier-2 entry *owed* a
+tier-1 section, on the reasoning that something a consumer notices is something a colleague should hear
+about too. That reasoning holds for a repo with two genuine audiences and produces nothing but duplication
+for the far more common repo with one. Measured over the 97 scored entries in this repo's record: **81 top
+out at tier 2 and only 8 at tier 1**, so 81 of the 89 tier-1 sections existed only because a scored tier-2
+section sat above them — the same reach argued twice, in a second register, for a reader who here is the
+same person. The reporting consumer measured the mirror image on its own side: 37 open entries, 15 at tier
+1, zero ever at tier 2. The development note still carries everything, tier 0 included, because it is the
+record rather than a summary of one.
 
-Drie regels, alle drie te controleren vóór er iets geschreven wordt:
+**Counting per entry, not in aggregate, is what produced that answer.** In aggregate tier 1 looks like a
+working axis here — 89 of 95 scored entries carry one — and that number argues *against* this change. It is
+an artefact of the ladder that required them.
 
-| bump | vereist |
+**Where the number comes from: the author of the entry, on the branch.** `new-branch.ps1` writes the
+`#### Tier N` sub-sections this repo asks about with their scores left empty; whoever finishes the branch
+answers each one, with a score or with `N/A` and the reason it reaches nobody there. **The reach is the highest tier carrying a
+number**, so an `N/A` costs a sentence and keeps the reasoning behind a negative claim in the record.
+`open-pr.ps1` refuses an entry whose description, body or any tier's reason is still blank, and
+`fold-changelog-entry.ps1` folds the entry **verbatim** — so the declaration lives in exactly one place, the
+entry itself, and no second definition of the format sits inside the fold.
+
+**The older `Tier: N` line is still read and is deliberately not stripped.** Every entry written before
+August 6, 2026 — here and in every consumer's tree — carries it instead of the sub-sections, and a parser
+that only knew the new shape would read all of them as tier 0: silent, correct-looking, and wrong in the
+direction that empties a release. Recognise both, write one.
+
+**Deliberately not derived from the branch prefix**, which this repo has measured does not predict impact:
+held against the 19 entries pending at v3.2.0, the single most consequential change for a consumer —
+renaming the marketplace, which breaks every existing install — arrived on a `chore/` branch.
+
+### What a release must earn
+
+`cut-release.ps1` refuses a bump the pending entries have not earned. Three rules, all checked before
+anything is written:
+
+| bump | requires |
 |---|---|
-| **patch** | niets — een release die volledig uit tier-0-werk bestaat is waar een patch voor is |
-| **minor** | minstens één entry van **tier 1 of hoger** |
-| **major** | minstens **10 minors** in de huidige major-lijn, bovenop het algemene minimum |
+| **patch** | nothing — a release made entirely of tier-0 work is what a patch is for |
+| **minor** | at least one entry of **tier 1 or higher** |
+| **major** | at least **10 minors** cut in the current major line, on top of the general minimum |
 
-**Waarom een tier-0-only release een patch is en geen weigering.** Zo'n release "heeft niemand om het aan
-aan te kondigen" — en dat is precies waar een patch voor is. Het versienummer beweegt, de tag markeert het
-moment, en het ene document dat geschreven wordt is het record.
+**Why a tier-0-only release is a patch rather than a refusal** (Dave, August 7, 2026). It used to be refused
+outright, on the grounds that such a release "has nobody to announce it to" — and the answer is that
+announcing nothing is exactly what a patch is for. The version number still moves, the tag still marks the
+moment, and the one document that gets written is the record.
 
-**Waarom een minor tier 1 vereist en niet tier 2.** De regel staat bewust als *tier 1 of hoger* en niet als
-"de publieks-tier": zo leest hij correct in een tier-1-repo én een tier-2-repo, zonder dat een van beide
-hem hoeft te vertalen. Wat de ruimere regel eerlijk houdt is dat **de secties de tier volgen en niet de
-bump** — een minor waarvan de hoogste entry tier 1 is, schrijft het document zonder zijn sectie *voor
-consumenten*, dus niemand buiten krijgt een sectie over werk dat hij niet kan zien.
+**Why a minor needs tier 1 rather than tier 2.** It demanded a tier-2 entry until August 7, 2026, so work a
+colleague on this project got something out of earned only a patch — while the version here speaks to all
+stakeholders, not to consumers alone. The rule is written as **tier 1 or higher** rather than as "the
+audience tier" on purpose: it then reads correctly in a tier-1 repo and a tier-2 repo alike, without either
+having to translate it. What keeps the looser rule honest is that **the sections follow the tier and not the
+bump**: a minor whose highest pending entry is tier 1 writes the note without its *For consumers* section,
+so nobody outside is handed a section about work they cannot see.
 
-**Waarom een major minors telt en geen openstaand werk:** een major is een **recap** van de minors ervóór.
-Een openstaande tier-2-entry is dus met opzet *niet* vereist; de accumulatie wel.
+**Why a major counts minors rather than pending work:** a major is a **recap** of the minors before it,
+which is what both of this repo's majors actually were (`v2.0.0` consolidated v1.0–v1.18, `v3.0.0`
+consolidated v2.2.0–v2.16.0). So a pending tier-2 entry is deliberately *not* required; the accumulation is.
+The count is read off the current version's minor component — within major 3 the minors are 3.1 … 3.10, so
+the component *is* the count.
 
-## De release-documenten
+`-SkipTierGate` overrules all three. It is deliberately separate from `-SkipLint`, because it overrules a
+judgement about **content** rather than skipping a tool — folding them into one flag would let someone
+skipping a slow lint run also, silently, cut a minor with nothing in it for a consumer.
 
-Welke mapindeling ze groepeert — `<X>.x` per major of `<X.Y>` per minor — wordt één keer beantwoord door
-`Get-ReleaseNotesGrouping` in [`scripts/repo-config.ps1`](../scripts/repo-config.ps1), dus `<dir>`
-hieronder staat voor welke van de twee deze repo gebruikt.
+**The gate switches itself off where no pending entry declared its impact at all**, and that is what makes it
+safe to share: a repo that never adopted the model is untouched rather than refused at every cut.
 
-| document | voor wie | wanneer |
+**The signal is a count of declarations, not a count of sections**, and the difference is not academic. The
+test used to be "does this repo declare more than one changelog section", which had a real basis while the
+tier headings existed and became a landmine the moment they went: a flat changelog gives an unadopted repo
+and an adopting one exactly one group each, so the old line would have read **every** repo as not adopting
+and switched the gate off in silence — in the same change that made the tier the model's primary fact.
+Nothing would have errored. Counting declarations keeps "declared tier 0" distinct from "declared nothing",
+which is the whole difference between a release with nobody to announce itself to and a repo that never
+chose the model.
+
+## The release documents
+
+Which directory scheme groups them — `<X>.x` per major or `<X.Y>` per minor — is answered once by
+`Get-ReleaseNotesGrouping` in [`scripts/repo-config.ps1`](../scripts/repo-config.ps1), so `<dir>` below
+stands for whichever this repo uses.
+
+| document | for whom | when | generated by |
+|---|---|---|---|
+| `development/<dir>/<X.Y.Z>.md` | developers — the full per-PR record, auto-complete | every release | `cut-release.ps1` |
+| `audience/<dir>/<X.Y.Z>.md` | whoever this repo publishes to — one hand-written note with a named section per reader | minor/major, where a pending entry earns one | drafted by `cut-release.ps1`, written by hand |
+| `github/<dir>/<X.Y.Z>.md` | whoever opens the GitHub Releases page | every release | `cut-release.ps1` |
+
+**Every root under `releases/` names its READER, and `audience/` was the last one that did not** (Dave,
+August 12, 2026). It was `notes/`, which names the form rather than the reader — the same mistake
+`highlights/` made, and one this repo had already fixed in that sibling two days earlier without noticing it
+in this one. `development/` names the developers, `github/` names the page, `audience/` names whoever the
+repo publishes to, whichever of the two audience tiers that is. The root is stated in `Get-ReleaseNoteRoot`;
+**the shared default is deliberately still `releases/notes`**, so a consumer who never answered the knob is
+not silently pointed at a directory they do not have.
+
+**`consumer/` and `internal/` are gone, and the twelve pairs in them are now twelve documents in
+`audience/`** (Dave, August 12, 2026). They had been written up as *frozen archives* of the two-document
+era — a freeze nobody had actually decided, recorded in three places and attributed to no one, while the
+`notes/` → `audience/` rename standing beside it in the same entry was Dave's. Asked directly, he chose the
+merge: `releases/` holds three reader-named roots and nothing else.
+
+**The identical filenames are why this was a merge rather than a rename.** `3.x/3.2.0.md` existed in both
+trees, so 24 documents became 12 and no `git mv` could do it. Each pair kept both registers intact — the
+consumer body under *For consumers*, the organisational prose under *What it is worth* and *What was still
+open at this release* — and dropped exactly one thing: the internal note's `## What is different now`, which
+the 62/38 measurement above identifies as the duplicated half. The prose of a published record was otherwise
+left as written, so a merged document may still name `releases/highlights/` or describe itself as one of
+three tiers; that is what it said on the day it went out.
+
+**A patch writes no hand-written note at all**, and is announced by the generated GitHub Release body alone
+(see [Cutting a release](#cutting-a-release)). The **sections** inside the note follow the tier; **whether
+the note exists at all** follows the bump.
+
+### Tier 0 - development
+
+**Raw and complete, and the only document nobody writes.** Every changelog entry as it was written, nothing
+rewritten — literally the whole changelog, generated in full by `cut-release.ps1` at every release. It is
+the per-PR record a developer goes back to, which is why it is never edited down: a summary of it is what
+the hand-written note is for.
+
+**It is the one document that still groups by tier**, and that is a difference from `CHANGELOG.md` rather
+than a copy of it: `## Tier <n> - <audience>` first, then that tier's entries as a flat ranked list in the
+order the fold left them. The changelog dropped its tier headings in the same change that made the entry
+declare its own reach; this document keeps them because it carries all three tiers at once and is the only
+place a reader needs them separated.
+
+Each entry arrives whole, exactly as it was folded — its `###` heading naming the **branch**, and beneath it
+the same six `####` sections the scaffolder writes: `Branch title`, `Branch ID`, `Branch type`, `What does
+the change on this branch bring to main?`, `Significance` and `Pull Request`, one heading level deeper than
+in `CHANGELOG.md`. Nothing is rewritten and nothing is cut, which is what "the record" means. There are no
+branch-type categories in between — the grouping came from the branch prefix, which this repo measured does
+not predict impact. Tier 0 is in it, unlike in the hand-written note below.
+
+Its size is also why it is never the body of a GitHub Release but always an attachment: `gh`'s
+release-notes body has a hard **125,000-character** limit, which a full notes file can exceed.
+
+### The audience tier - the hand-written note
+
+**One document since August 10, 2026, with a named section per reader** (Dave). It replaced two separate
+documents — an internal note for the organisation and a consumer document — and at all twelve releases
+since the internal tier existed, **both were written, about the same changes**. Measured before merging
+them: one release's internal note (962 words) held against test 2 of the writing norm in the
+[cut-release skill](https://github.com/DaveKJohn/claude-code-specialists/blob/main/plugins/workflows/workflow-davekjohn/skills/cut-release/SKILL.md)
+(*does this describe our effort or their outcome*) gave:
+
+| | words | |
 |---|---|---|
-| `development/<dir>/<X.Y.Z>.md` | de developers — het volledige per-PR record | elke release |
-| `audience/<dir>/<X.Y.Z>.md` | wie deze repo aan publiceert — één handgeschreven document met een genoemde sectie per lezer | minor/major |
-| `github/<dir>/<X.Y.Z>.md` | wie de GitHub Releases-pagina opent | elke release |
+| could appear in a consumer-facing section | ~365 (38%) | and **did**, rewritten in a second register in the other document — that is the duplication |
+| could not | ~597 (62%) | including *what it is worth* (316 words), which is not an outlier but the entire reason the organisational sections exist |
 
-**Elke root onder `releases/` noemt zijn LEZER**, en de indeling is er dus één van lezer en niet van vorm.
-`development/` noemt de developers, `github/` noemt de pagina, `audience/` noemt wie de repo aan
-publiceert — welke van de twee publieks-tiers dat ook is. De root staat in `Get-ReleaseNoteRoot`; de
-gedeelde default is bewust nog `releases/notes`, zodat een repo die de knop nooit beantwoordde niet stil
-naar een map wordt gestuurd die hij niet heeft.
+So a **blended** document was refused, since it would have had to drop the 62% or break the writing norm; a
+**sectioned** one keeps each register intact and writes the shared 38% once. The heading *"what is different
+now"* is gone rather than moved — it **was** the duplicated half, and the *For consumers* section is what
+replaced it.
 
-**Een patch schrijft helemaal geen handgeschreven document** en wordt aangekondigd door de
-Release-body alleen. De **secties** binnen het document volgen de tier; **of het document er is** volgt de
-bump.
+`cut-release.ps1` drafts a note under `Get-ReleaseNoteRoot` — `releases/audience/<dir>/<X.Y.Z>.md` here —
+for every bump `Get-ReleaseConsumerBumps` names. Three sections, in this order:
 
-### Tier 0 — development
-
-**Ruw en compleet.** Elke changelog-entry zoals hij geschreven was, niets herschreven — letterlijk de hele
-changelog, bij elke release. Het is het per-PR record waar een developer op teruggaat, en precies daarom
-wordt het nooit ingekort: een samenvatting ervan is waar het handgeschreven document voor is.
-
-**Het is het enige document dat nog per tier groepeert**, en dat is een verschil met `CHANGELOG.md` in
-plaats van een kopie ervan: `## Tier <n> — <publiek>` eerst, dan de entries van die tier als één platte
-gerangschikte lijst in de orde die de fold liet staan. De changelog liet zijn tier-koppen vallen in
-dezelfde wijziging die de entry zijn eigen reikwijdte liet verklaren; dit document houdt ze omdat het alle
-drie de tiers tegelijk draagt.
-
-Elke entry arriveert heel, met zijn `###`-kop die de **branch** noemt en daaronder dezelfde zes
-`####`-secties die de scaffolder schrijft — één kopniveau dieper dan in `CHANGELOG.md`. Er zitten geen
-branch-type-categorieën tussen: die groepering kwam van de branch-prefix, en die voorspelt de impact niet.
-
-Zijn omvang is ook waarom het nooit de body van een GitHub Release is maar altijd een bijlage: de
-`--notes-file` van `gh` kent een harde grens van **125.000 tekens**, en een volledig record kan daar langs.
-
-### De publieks-tier — het handgeschreven document
-
-**Eén document, met een genoemde sectie per lezer.** Het verving twee losse documenten — een interne noot
-voor de organisatie en een consumenten-document — na de meting dat bij alle twaalf releases sinds de
-interne tier bestond **beide werden geschreven, over dezelfde wijzigingen**: ~38% van de woorden kon in
-een consumenten-sectie staan en *deed dat ook*, herschreven in een tweede register. Een **gemengd**
-document is daarom geweigerd — dat had de andere 62% moeten laten vallen of de schrijfnorm moeten breken;
-een **gesectioneerd** document houdt elk register heel en schrijft de gedeelde 38% één keer.
-
-Drie secties, in deze orde:
-
-| sectie | voor wie | hoe hij arriveert |
+| section | for whom | how it arrives |
 |---|---|---|
-| *voor consumenten* | wie beslist of hij meegaat | **voorgevuld** — de tier-2-entries, nog in de woorden die hun auteurs voor een diff-reviewer schreven. Afwezig waar geen entry tier 2 haalde. |
-| *wat het waard is* | de organisatie | **leeg** — dit is niet te genereren. Denk in tijd, risico en verminderde afhankelijkheid van een developer. |
-| *wat er bij deze release nog open stond* | de organisatie | **leeg**, en met opzet in de verleden tijd: een gepubliceerd document beweegt niet mee met de werkelijkheid, dus een zin in de tegenwoordige tijd is binnen uren achterhaald in plaats van maanden. |
+| *For consumers* | whoever decides whether to update | **pre-filled** — the tier-2 entries, still in the words their authors wrote for a diff reviewer. Absent where no entry reached tier 2. |
+| *What it is worth* | the organisation | **empty** — it cannot be generated. Think in time, risk and reduced dependence on a developer. |
+| *What was still open at this release* | the organisation | **empty**, and past tense on purpose: a published document does not move with reality, so a present-tense line goes stale in hours rather than months. |
 
-**Een minor zonder tier-2-entry krijgt het document zonder zijn sectie *voor consumenten*** — wat elke
-minor is in een repo waarvan het publiek tier 1 is. De twee organisatie-secties horen bij elke bump die de
-seam noemt: het versienummer beweegt voor iedereen, dus de vraag van de organisatie is altijd beantwoord.
+**A minor with no tier-2 entry gets the note with no *For consumers* section** — which is every minor in a
+repo whose audience is tier 1, and an occasional one here. The organisational two sections belong to every
+bump the seam names — the version moves for everyone, so the organisation's question is always answered —
+while a section about work no consumer can see would be worse than none, because it looks written.
 
-**Het blijft een concept dat bewerkt moet worden.** Entry-bodies zijn geschreven voor wie de diff
-reviewt, ook als de wijziging een consument bereikt — dus de *selectie* van de sectie is goed en de
-*proza* moet nog herschreven worden van de kant van de lezer. Wat weg is, is het schrappen; niet het
-schrijven.
+**Still a draft to be edited, and the reason never depended on the selection.** Entry bodies are written for
+whoever reviews the diff, even when the change reaches a consumer — so the *For consumers* section's
+*selection* is right and its *prose* still needs rewriting from the reader's end. What is gone is the
+deleting, not the writing.
 
-**Het is gepubliceerde output, geen intern bestand.** Waar de bump er één schreef, gaat het document als
-bijlage mee naar de GitHub Release. Dat heeft een gevolg dat het benoemen waard is: alles wat de sectie
-*wat er nog open stond* als een **levende** bewering formuleert, verschaalt binnen uren na publicatie ter
-plekke. Schrijf het als "open op het moment van deze release", niet als een uitspraak over nu.
+**It is published output, not an internal file.** Where the bump wrote one, the note is uploaded as an
+attachment to the GitHub Release (the release body itself is generated separately — see
+[Cutting a release](#cutting-a-release)), which has a consequence worth stating: anything the *What was
+still open* section phrases as a *live* claim goes stale in place within hours of publishing. Write it as
+"open at the time of this release", not as a statement about now.
 
-### Waar het handgeschreven document landt
+> **The "remove before publishing" marker was retired on August 5, 2026**, together with its two seam knobs
+> (`Get-ReleaseHighlightsStakeholderTypes`, `Get-ReleaseHighlightsWording`). It existed because the generator
+> had to guess from branch prefixes which entries a consumer cares about, so it wrote out both halves and
+> left the release manager to cut one — explicitly a *proposal*, since the prefix
+> [measurably does not predict impact here](#measured-instances-behind-the-portable-rules). The tier asks the
+> entry's author instead, at the moment they know. Do not reintroduce a category-based split beside it: that
+> is the guess this replaced.
 
-**Het gaat de normale route.** De release-documentatie is niet één van de met naam genoemde uitzonderingen
-op "alles via een branch": ze reist via de release-branch, waarvan de scope in
-[`CLAUDE.md`](../CLAUDE.md) staat. Het alternatief — de release-uitzondering oprekken tot ook het
-geschreven document — is een uitzondering groter maken dan waarvoor hij verleend is, en dat is precies wat
-een uitzondering onveilig maakt.
+**`new-internal-note.ps1` is still shipped and still works**, for a repo running the two-document flow — a
+separate organisational note alongside a separate consumer document. Nothing in this repo's chain calls it
+any more; it is documented here rather than dropped, because a consumer receives a plugin update rather than
+choosing one, and deleting a working entry point is a breaking change.
 
-## Een release cutten
+### Where the hand-written note lands
 
-Een release is een **vastgelegd moment**: de staat wordt getagd als `vX.Y.Z`. Er wordt **alleen op
-expliciet verzoek van de eigenaar** gecut.
+**It goes through a branch + PR.** `cut-release.ps1` commits and tags in one motion, so by the time you edit
+the note draft, the release commit is already tagged. It is not one of the two named direct-on-`main`
+exceptions, so it travels the normal reviewed route. The alternative — widening the release exception to
+cover the written note as well — was offered and declined: an exception is only safe while it stays the size
+it was granted at.
 
-Let op de volgorde van oorzaak en gevolg: de wijzigingen stonden al live vóór het proces begon, namelijk
-vanaf hun eigen PR-merge. Een release cutten voegt een versienummer, drie documenten en een tag toe aan wat
-al draait. Precies daarom is een cut ook laagrisico: er gaat geen ongeteste code mee naar buiten.
+## Cutting a release
 
-De drie documenten verdelen zich zo over de Release-pagina: **`github/` is de body**, en `development/`
-en — bij een minor of major — `audience/` gaan als **bijlage** mee.
+A release is a **captured moment**: all plugins get the same version number (**lockstep, repo-wide**) and
+the state is tagged as `vX.Y.Z`. `cut-release.ps1` produces only a git tag, the full notes here in
+`development/`, and a reference to them in [`CHANGELOG.md`](../CHANGELOG.md). A release is cut **only on the
+owner's explicit request** and deliberately does **not** go through a branch + PR: like the fold commit, the
+release commit is a permitted direct-on-`main` action (the second exception to "everything via branch + PR"
+— see [`CONTRIBUTING.md`](../CONTRIBUTING.md)).
 
-**Upload de bijlagen onder unieke bestandsnamen.** Elk document dat een release oplevert heet
-`<X.Y.Z>.md`, dus twee ervan rechtstreeks uit `releases/` uploaden botst: de tweede upload komt terug met
-`HTTP 404`. De `file#label`-syntax van `gh` lost dat niet op — die zet het label, niet de naam. Kopieer ze
-eerst naar `vX.Y.Z-development-notes.md` en `vX.Y.Z-release-note.md` en upload de kopieën.
+In one motion, on a clean `main`:
+[`scripts/release/cut-release.ps1`](https://github.com/DaveKJohn/claude-code-specialists/blob/main/scripts/release/cut-release.ps1)`(-Version <X.Y.Z> | -Bump <major|minor|patch>) [-Title "…"]`
 
-Guardrails vóór er één bestand geschreven wordt: een schone `main`, geen ongefolde entry-bestanden, de
-bump verdiend door de openstaande tiers, de lint-poort groen, en een tag die nog niet bestaat. Alle vijf
-vóóraf, met opzet: falen nadat het notes-bestand bestaat laat een release half gecut achter.
+1. bumps all `plugin.json` versions in lockstep to `X.Y.Z`;
+2. generates the full release notes in `development/<dir>/<X.Y.Z>.md` (from the folded entries, grouped by
+   tier and, within a tier, a flat list in the ranked order the fold left), adds a row to the release list at
+   the end of this page, and **empties `CHANGELOG.md` down to its intro** — that intro passes through
+   verbatim, so whatever the repo says about itself up there survives every cut. A cut writes no release
+   block: the section that used to hold one had grown to 434 of the changelog's 1,062 lines across 72 blocks
+   each saying no more than "see the notes", while this page already listed all 72 with a date, a type and a
+   title. What replaced it is the intro's own one-line pointer to this page;
+3. **(retired, August 8, 2026)** step 3 used to append, per plugin, the entries that touched it to a
+   **per-plugin `CHANGELOG.md`** and regenerate that plugin's **`RELEASE.md`** card. Both were built to
+   give a consumer a history inside the plugin cache — and measured against how a consumer actually
+   receives this repo, they were a second copy of something already in reach: the marketplace source is
+   a git clone of the WHOLE repository, so `CHANGELOG.md` and this entire `releases/` tree sit at
+   `~/.claude/plugins/marketplaces/<marketplace>/`. Ten files, 11,684 lines, free to disagree with the
+   original — which is exactly what lint checks 9 and 17 existed to police. One repository, one product,
+   one changelog. The `Plugins:` line survives: the release notes still read it;
+4. commits that directly on `main` (`release: vX.Y.Z`) and sets an annotated tag `vX.Y.Z`;
+5. pushes `main` + the tag (unless `-NoPush` for inspection first).
+
+**Closing step, after the script and after the hand-written note has merged, where the bump wrote one:
+publish a GitHub Release.** Not run by `cut-release.ps1` and not automated; the release manager walks
+through the
+[`cut-release` skill](https://github.com/DaveKJohn/claude-code-specialists/blob/main/plugins/workflows/workflow-davekjohn/skills/cut-release/SKILL.md)'s
+checklist: `gh release create` with the **generated body** (`--notes-file` pointing at the
+`releases/github/<dir>/<X.Y.Z>.md` the cut already wrote — nothing to edit), then `gh release upload` with
+the full development notes **and the hand-written note, where the bump generated one**. Never inline the
+development notes — see [Tier 0 - development](#tier-0---development) for the character limit that makes
+that fail.
+
+**Upload the attachments under unique filenames.** Every document a release produces shares the basename
+`<X.Y.Z>.md`, so uploading two of them straight from `releases/` collides — the second upload returns
+`HTTP 404`. `gh`'s `file#label` syntax does not solve it (it sets the label, not the name). Copy them to
+`vX.Y.Z-development-notes.md` and `vX.Y.Z-notes-for-users.md` and upload the copies.
+
+**It comes last on the checklist, and the reason has outlived one rewrite already.** The body used to be a
+hand-written document merged via its own branch + PR, so publishing straight after the tag would have had no
+body to publish. The body is generated by the cut itself now, so that particular impossibility is gone — but
+publishing early would still publish a page whose attachments are missing the hand-written note and whose
+pointer line names a document nobody can download yet.
+
+**And it needs no separate approval** (Dave, August 5, 2026). Cutting the release is the act that is asked
+for; publishing its Release is the last step of that same procedure, so stopping to ask there is a rubber
+stamp. Once a cut has been requested, the whole run goes through in one motion — generate, ship the
+hand-written note, publish. **The boundary that remains is the live stage**, where a repo has one: that is
+Block 2 of the checklist, a different act with a different audience, and this approval covers Block 1. A
+repo wanting a different boundary states that in its own lens rather than softening this paragraph.
+
+Guardrails: a clean `main`, no unfolded entry files, **[the bump earned by the pending
+tiers](#what-a-release-must-earn)** (`-SkipTierGate` overrules), lint gate green, tag doesn't exist yet. All
+of them run **before the first file is written**, deliberately: failing after the notes file exists would
+leave a release half-cut on `main`.
+
+**The lint gate is *your* repo's, read from `Get-LintScript` — the same seam `open-pr` uses.** This route
+needs its own gate precisely because it does not travel via a PR, so nothing else on it ever meets that
+copy. Until August 5, 2026 the cut resolved the gate by a fixed path to the script the *source* repo
+happens to carry, which meant every consumer release ran with no gate at all and said so in a warning
+(inbound [#464](https://github.com/DaveKJohn/claude-code-specialists/issues/464)). **A gate the seam names
+but the tree does not have is a hard stop**, not a warning: skipping it is `-SkipLint`, and that choice
+belongs in the command rather than in output that scrolls past.
+
+The pure logic (version bump, CHANGELOG transformation, notes construction, and the bump rules in
+`Test-ReleaseBumpEarned`) lives in
+[`scripts/lib/release-lib.ps1`](https://github.com/DaveKJohn/claude-code-specialists/blob/main/scripts/lib/release-lib.ps1)
+and is covered by
+[`scripts/tests/release-lib.tests.ps1`](https://github.com/DaveKJohn/claude-code-specialists/blob/main/scripts/tests/release-lib.tests.ps1).
+The tier line's own format — writing it, validating it, and the section map it selects — lives in
+[`scripts/lib/entry-scaffold-lib.ps1`](https://github.com/DaveKJohn/claude-code-specialists/blob/main/scripts/lib/entry-scaffold-lib.ps1),
+shared with the three scripts that must not disagree about it.
 
 ---
 
-**Alles boven deze streep reist mee naar elke repo die deze release-workflow draait. Alles eronder niet.**
-Wat volgt is het eigen antwoord van deze repo op de keuzes die de pagina openlaat — de seam-waarden, de
-besluiten erachter, en de release-lijst zelf.
+**Everything above this line travels to any repo that runs this release workflow. Everything below it does
+not.** What follows is this repo's own answer to the choices the page leaves open — the seam values, the
+decisions behind them, the measured instances, and the release list itself.
 
-## djcylow-react (VERVANG BIJ HET MIRRORREN)
+## djcylow-react
 
-### Hoe je deze pagina mirrort
+### How this page mirrors the source
 
-> **Aan een agent die deze workflow naar een andere repo mirrort:** alles boven de horizontale streep is
-> portable en kan overgenomen worden. Deze sectie niet — hier wonen de lokale besluiten van één repo en
-> zijn eigen release-record, en niets daarvan is waar voor jouw repo. Houd dus de **vorm** en vervang de
-> **inhoud**: noem de kop naar je eigen repo, verklaar je eigen seam-waarden, en begin de release-lijst
-> leeg in plaats van deze versies, datums en PR-verwijzingen mee te nemen. Twee dingen die je niet doet:
-> vouw hier niets van omhoog in de portable helft, en verwijder de sectie niet — een gemirrorde pagina
-> zonder deze sectie heeft nergens om zijn eigen historie te laten landen, en de volgende release schrijft
-> een rij in een document dat nooit verklaarde waar rijen heen gaan.
+> **Everything above the horizontal rule is copied verbatim from
+> [the source's `releases/README.md`](https://github.com/DaveKJohn/claude-code-specialists/blob/main/releases/README.md)**,
+> and is kept that way on purpose (Dave, August 13, 2026). The two pages describe one shared model, and the
+> only way they stay comparable at a glance is if the shared half is the *same words*. This page carried a
+> full **Dutch translation** of that material — a step further from the source than a paraphrase, because a
+> translation cannot even be diffed against it. The translation is gone.
 
-### De seam-waarden die hier gelden
+**This directory is in English; the rest of the repo is Dutch** (Dave, August 13, 2026). That is a deliberate
+exception to the language rule in [`CLAUDE.md`](../CLAUDE.md#taal), and it is the price of the mirror: the
+portable half is only portable while it is the source's own text. Everything else stays Dutch — the
+governance docs, `CONTRIBUTING.md`, the changelog entries and the commit messages. So do the release
+documents already written; see [the release list](#the-release-list) for why those are history rather than
+backlog.
 
-**Elk release-document groepeert per major (`2.x`).** Dat is sinds 2026-08-13 zo, op Dave's verzoek om
-`releases/` precies gelijk te maken aan de bron. Tot die dag stond het per **minor** (`2.22/`), afgelezen
-van een boom met 23 mappen — een geldig antwoord, want de portable helft hierboven laat `<dir>` juist voor
-beide staan. De 60 bestaande documenten (37 in `development/`, 23 in `audience/`) zijn met `git mv`
-verplaatst en **niet herschreven**.
+**Do not edit above the rule.** A correction there goes to the source as an
+[`inbound` issue](https://github.com/DaveKJohn/claude-code-specialists/issues) and comes back with a plugin
+release, which is what keeps every consumer's copy in step. Fixing it here instead re-creates exactly the
+drift this mirror was made to end — and this repo has already paid for that lesson once, in a local
+`cut-release.ps1` copy that had to be deleted because every upstream improvement needed porting by hand.
 
-**`Get-ReleaseAudienceTier` staat op 1** — het management en de opdrachtgever. Er komt hier dus géén sectie
-*voor consumenten* in het handgeschreven document: dat is tier 2, en bezoekers van djcylow.com lezen geen
-release notes. Wat overblijft zijn de twee organisatie-secties.
+**One mechanical edit was made on the way, and only one.** Links to files that live in the **source repo or
+the plugin install** — `cut-release.ps1`, `release-lib.ps1`, `release-lib.tests.ps1`,
+`entry-scaffold-lib.ps1`, the `cut-release` skill — were made absolute GitHub URLs, because relative paths
+to them are dead in this tree. The visible link text is unchanged. Note the reason this repo has for it,
+which is **not** the one a repo with a docs linter has: the gate here is
+[`scripts/lint/lint-web.ps1`](../scripts/lint/lint-web.ps1) — `tsc --noEmit` plus `npm run build` — and it
+reads no markdown at all. A dead link in this file therefore fails nothing and would simply have stayed
+wrong. The relative links that *do* survive — `../CHANGELOG.md`, `../CONTRIBUTING.md`,
+`../scripts/repo-config.ps1` — point at this repo's own files, all four of which exist here, which is what
+the shared text means by them.
 
-**`Get-ReleaseHistoryPath` staat op zijn default, `releases/README.md`** — deze pagina, want de lijst woont
-hier. Dat maakt de lijst onderaan de **enige** boekhouding van uitgebrachte versies. Tot 2026-08-11 zette
-een cut hier ook een `## Releases`-blok in `CHANGELOG.md`: dezelfde informatie maar armer, met een
-`← LIVE`-markering die op 2026-07-26 al was afgeschaft en die maandenlang fout stond — op v2.20.1, terwijl
-v2.20.2, v2.21.0 en vijf PR's al live waren. Dat verviel; geen dubbele boekhouding meer.
+**One sentence above the rule is wrong about a file of ours, and it is worth naming precisely because the
+link is live.** The intro says *"the release block in `CHANGELOG.md` points here for everything but the
+current version"*. There is no release block here: a cut used to write a `## Releases` section into that
+file and it was abolished on August 11, 2026, so this page is the **only** set of books — including for the
+current version, which is the top row of [the release list](#the-release-list). What is true is the
+direction: `CHANGELOG.md` does point here, in one line of its intro. Everything else the shared text says
+about that file holds exactly — no sections to file into, one `##` per change, emptied down to its intro by
+the cut.
 
-**`Get-ReleaseNoteRoot` is `releases/audience`.** De map heette `releases/highlights/` tot 2026-08-13. Die
-naam zei hoe het document geschreven was, niet voor wie — precies de fout die de bron een dag eerder bij
-zijn eigen `notes/` repareerde. De 23 documenten zijn verplaatst en niet herschreven: noemt de tekst van
-een oudere note nog `releases/highlights/`, dan is dat wat er stond op de dag dat hij uitging.
+**Read "this repo" above the rule as the source repo.** The portable half carries the source's own
+measurements as the evidence for its rules — 97 scored entries, `v3.2.0`'s pending entries, a 962-word
+internal note, the `chore/` branch that broke every install — and those were counted there, not here. The
+same goes for everything it says about **plugins**: the lockstep version bump, `.claude-plugin/plugin.json`,
+the retired per-plugin changelogs. This repo is a website and publishes no plugins, so none of that runs
+here — see the seam values below for what happens instead.
 
-**`Get-ReleaseConsumerBumps` is minor en major**, en dat is nagemeten in plaats van overgenomen:
-`audience/` heeft 23 bestanden die alle 23 op `.0` eindigen, terwijl `development/` er 37 heeft waarvan 14
-een patch. 23 releases achter elkaar zonder uitzondering.
+> **The three paragraphs above are a bridge, and they are meant to be dismantled.** They exist only because
+> the portable half is not yet as portable as it claims at its own dividing line. That is already reported
+> upstream as [inbound #643](https://github.com/DaveKJohn/claude-code-specialists/issues/643), filed from
+> `life-hub`, which asks for the plugin lockstep to be stated conditionally against `Get-ReleasePluginTier`,
+> for the links to be absolutised at the source, and for "this repo" above the rule to be defined once. Two
+> of the three paragraphs are covered by exactly that, and they need no second report from here — a duplicate
+> would compete with the fix rather than add to it.
+>
+> **The `CHANGELOG.md` sentence is a fourth point that #643 does not cover**, and it is the sharpest of the
+> four: the others describe the source's own repo, but that one makes a claim about a file the *consumer*
+> owns, behind a relative link that resolves. So it reads as being about you while being true only there.
+> Reporting it is a separate act and one that goes outward, so it waits on Dave's word rather than happening
+> as a side effect of this branch. When all four land, these paragraphs shrink to a pointer.
 
-**`Get-ReleasePluginTier` is niet gedeclareerd**, en dat is een antwoord: de default is "bestaat
-`.claude-plugin/marketplace.json`", hier `false`. Deze repo publiceert geen plugins, dus er is geen
-lockstep-bump en de cut leidt de huidige versie af van de nieuwste `vX.Y.Z`-tag.
+### Seam values in force here
 
-**`Get-ReleaseMajorMinMinors` is niet gedeclareerd** en staat dus op 10. Deze lijn loopt tot `2.22`, dus
-die grens is hier ruim gehaald — wat een `3.0.0` tegenhoudt is geen regel maar een besluit, hieronder.
+All of them in [`../scripts/repo-config.ps1`](../scripts/repo-config.ps1):
 
-### Lokale besluiten
+| seam | value here | what it means |
+|---|---|---|
+| `Get-ReleaseAudienceTier` | `1` | Dave is the commissioner, not a subscriber — see [What tier 1 means here](#what-tier-1-means-here) |
+| `Get-ReleaseNoteRoot` | `releases/audience` | the shared default is `releases/notes`, so this repo has to answer it, and did |
+| `Get-ReleaseConsumerBumps` | `('minor','major')` | which bumps get a hand-written document at all |
+| `Get-ReleaseNotesGrouping` | `major` | one directory per major line: `<X>.x` |
+| `Get-ReleaseHistoryPath` | `releases/README.md` | this page — which is why the release list lives at the end of it |
+| `Get-LintScript` | `scripts\lint\lint-web.ps1` | `tsc --noEmit` + `npm run build`, the gate the release route runs here |
+| `Get-LiveStage` | *(empty)* | **not because there is no live site** — see below |
+| `Get-ReleaseNoteWording` | `@{}` | empty means English, which is now the deliberate answer rather than an oversight |
+| `Get-InternalNoteWording` | `@{}` | same, and a dead knob besides — see below |
 
-**De drie documenten zijn hier handwerk.** Rendall 🎬 schrijft ze; de stappen staan in
-[`CLAUDE.md`](../CLAUDE.md) onder **Release Workflow**, en de gedeelde `cut-release`-skill is
-uitdrukkelijk een checklist die niets uitvoert. Wat deze repo van de bron overneemt is de **indeling**,
-niet de generator.
+**Five blueprint questions are deliberately left unanswered**, each because the shared script's documented
+fallback is the better answer: `Get-EntrySignificanceEnabled`, `Get-EntrySignificanceRubricLevels`,
+`Get-ReleasePluginTier`, `Get-PrMergeMethod` and `Get-ReleaseMajorMinMinors`. The reasoning per seam is
+written out in `repo-config.ps1` itself and is not repeated here. **Do not count that list by hand:**
+`check-script-contract.ps1` reports every undeclared optional function as `[INFO]`, and that number is the
+only reliable one — a hand-written tally has been wrong here before, twice in the same file.
 
-> **Eén nuance daarbij, gemeten op 2026-08-13.** Hier stond dat `cut-release.ps1` "niet bruikbaar is in
-> deze repo" omdat het `marketplace.json` leest en elke `plugin.json` in lockstep bumpt. Dat is te sterk:
-> het script in de plugin is byte-identiek aan dat van de bron, maar gate't precies die
-> marketplace-afhankelijkheid achter `Get-ReleasePluginTier` en valt terug op de nieuwste tag. In principe
-> is het dus wél draaibaar hier. Of het schoon doorloopt is **niet gemeten** — er is nog geen release mee
-> gecut. Wat onveranderd waar blijft: de skill voert niets uit, en de Release Workflow is handwerk.
+**`Get-ReleasePluginTier` is undeclared, and that is an answer rather than a gap.** It is the one seam with
+a *computed* fallback: the script checks whether `.claude-plugin/marketplace.json` exists, and it does not,
+so "no plugin layer" already falls out of a real measurement. A stub would overwrite that measurement with a
+value that checks nothing. The consequence for the route: **step 1 of [Cutting a release](#cutting-a-release)
+— the lockstep `plugin.json` bump — does not run here**, and the current version is read from the newest
+`vX.Y.Z` tag instead. Nothing in this repo states a version except its tags.
 
-**`3.0.0` is gereserveerd voor een volledig redesign.** De React-versie van de site startte op `2.0.0`
-(framework-migratie van de vorige stack) en `MAJOR` blijft voorlopig op `2` — een besluit van Dave, niet
-een uitkomst van de 10-minor-regel.
+**`Get-LiveStage` is empty, and the reason is the opposite of the obvious one.** This repo has a very real
+live target: Netlify builds and publishes on every push to `main`, and `gh pr merge` writes there
+server-side, so **a merge is a deploy**. The seam is empty because the deploy has already happened long
+before a release is cut — by the time the tag goes on, every change in it has been on `djcylow.com` since
+its own PR merged. There is no go-live step *after* the cut, which is exactly what the seam asks about. A
+cut here adds a version number, three documents and a tag to what is already running.
 
-**Alles wat de publieke site of de SEO raakt is Dave's beslissing**, en dat werkt door in wat een release
-mag bevatten: titels, `description`-velden, metadata en routes. Een specialist stelt voor, Dave beslist.
+**`Get-InternalNoteWording` is a dead knob**, recorded by name because a dead knob is reported by no check.
+It is read only by `new-internal-note.ps1` — the **retired two-document flow**, where an internal note and a
+consumer document were written separately. This repo runs the one-document model the portable half
+describes, so nothing invokes it. `cut-release.ps1` reads `Get-ReleaseNoteWording` first and only falls back
+to this map, and both are `@{}` here, so it currently makes no difference either way.
 
-**Het documentmodel van de 23 bestaande `audience/`-documenten is nog het oude:** één register, leesbaar
-Nederlands zonder jargon, geen secties per lezer. De mapstructuur loopt sinds 2026-08-13 volledig gelijk
-met de bron; het documentmodel niet, en die herziening staat bewust open als eigen werk (Dave,
-2026-08-13). Gepubliceerde documenten worden daarbij niet herschreven — het raakt alleen het volgende.
+**Both wording seams being empty means the generated documents are English** — `# Release notes`,
+`**Date:**`, `## Tier 0 - developers` — while the 37 existing development documents are Dutch. Until today
+that was a defect, and a branch was queued to fix it by filling the seams in Dutch. **The language decision
+above inverts that plan:** this directory is English, so empty seams are now the correct answer and that
+branch would move the page away from the source. What survives of the point is narrower and still real: the
+`SectionOpen` key is not cosmetic, because `session-status.ps1` looks up the open-work section through it
+and a Dutch heading would be invisible to `/continue`. With English headings that lookup works by default.
 
-**`github/` is nog leeg, en dat is juist.** De map is nieuw sinds 2026-08-13 en de eerste aankondiging hoort
-bij de eerstvolgende release; oude releases krijgen er met terugwerkende kracht géén, want een aankondiging
-voor een moment dat al voorbij is verzinnen we niet. Tot die tijd blijft de body van een bestaande Release
-wat hij was. Deze root heeft bewust geen seam: hij staat hardcoded in `cut-release.ps1`, omdat een nieuwe
-root geen bestaande plaatsing hoeft te accommoderen.
+### What tier 1 means here
 
-### Wat deze pagina extra houdt
+**Dave is the commissioner, and there is no subscriber** (Dave, August 13, 2026). This repo *delivers* a
+website; it does not run a service anybody subscribes to. Visitors to `djcylow.com` are not an audience in
+the tier-2 sense — they never decide whether to come along with an upgrade, they simply get the new site on
+their next visit, and they do not read release notes. The tier question is about the **kind** of
+relationship, not the number of readers.
 
-Twee stukken hieronder staan niet in de bron en zijn een bewuste toevoeging van deze repo. Ze staan hier
-onder de streep en niet erboven, want ze reizen niet met de workflow mee.
+Two tiers are asked about, not three:
+
+| tier | who it is | how often it is `N/A` |
+|---|---|---|
+| `0` | whoever maintains this repo | **never** — every change reaches them at least a little |
+| `1` | Dave as the **commissioner** of the site | only where the change genuinely does not touch what he is owed |
+
+**Tier 2 is not asked** — there is no upgrade decision for anyone to make.
+
+*Which changes reach tier 1.* Anything Dave gets **as the owner of the site**: a new mix, a new page, the
+styling, the copy, the mix metadata, anything touching SEO or the public routes. Repo machinery — scripts,
+gates, the governance docs, the release route itself — reaches him **as a maintainer** and stays at tier 0.
+That distinction is the whole content of the question, so it is worth making deliberately rather than by
+habit.
+
+*Why it matters beyond one document.* **The bump follows the highest tier pending.** A release carrying a
+tier-1 entry earns a **minor**; a release of nothing but repo machinery is a **patch**. The audience tier is
+therefore not a labelling exercise — it sets the release cadence. It also decides the shape of the
+hand-written document: with the audience at tier 1 **every** minor here is written without its *for
+consumers* section, and what remains are the two organisational sections.
+
+> **The definition is moving at the source, so this section points rather than restates.**
+> [Inbound #640](https://github.com/DaveKJohn/claude-code-specialists/issues/640) records that the
+> pre-August-12 tier definition still stands in every string the shared scripts actually show a human — the
+> `new-branch` tier table, the entry templates, `open-pr`'s refusal message — while the current definition
+> lives only in source comments. That table calls tier 1 *"a colleague working on this project gets
+> something out of it"*, which is not what it means any more. **This repo's own answer holds under both
+> readings** — the commissioner is tier 1 either way, so nothing written here has to be revised. Worth
+> knowing while reading a scaffolded entry, not a reason to re-derive the model locally.
+
+### Local decisions
+
+**The three documents are written by hand here.** Rendall 🎬 writes them; the steps are in
+[`CLAUDE.md`](../CLAUDE.md) under **Release Workflow**.
+
+> **The claim that the shared script "runs nothing itself" is refuted, and it stood on this page.** Until
+> today this section said the `cut-release` skill is *"expressly a checklist that executes nothing"*. A dry
+> run on August 13, 2026 measured otherwise: the shared `cut-release.ps1` performs six of the fifteen
+> `CLAUDE.md` steps (5, 7, 8, 9, 10 and 12) and commits on `main` itself. The script is byte-identical to
+> the source's and gates the marketplace dependency behind `Get-ReleasePluginTier`, so it is in principle
+> runnable here. What is **not** measured is whether it runs clean — no release has been cut with it yet.
+> Pulling the documented route onto the script is queued as its own branch, `docs/release-route-naar-script`,
+> together with the release-branch exception it makes redundant. Note that [`CLAUDE.md`](../CLAUDE.md) still
+> carries the old claim; correcting it is that branch's work, not this page's, because it comes with the
+> fifteen steps it belongs to.
+
+**`3.0.0` is reserved for a full redesign.** The React version of the site started at `2.0.0` — a framework
+migration from the previous stack — and `MAJOR` stays at `2` for now. That is Dave's decision, not an
+outcome of the ten-minor rule, and it is why this line has reached `2.22` without a major.
+
+> **The ten-minor default has a trap waiting one major further on**, worth writing down while it is
+> harmless. `Get-ReleaseMajorMinMinors` is undeclared and therefore `10`, and the gate counts minors *within
+> the current major*. At `2.22` that clears easily. Right after a `v3.0.0` the counter is zero, and the
+> default would then hold a `v4.0.0` back for ten minors — which contradicts this repo's own model, where a
+> major is a redesign or a framework migration rather than a recap of ten minors. Not a problem now, and not
+> a problem at the next major; a problem at the one after that.
+
+**Anything touching the public site or SEO is Dave's decision**, and that carries into what a release may
+contain: titles, `description` fields, metadata and routes. A specialist proposes, Dave decides.
+
+**The document model of the 23 existing `audience/` documents is still the old one:** one register, readable
+Dutch without jargon, no sections per reader. Measured on August 13, 2026, all 23 use type-based headings
+(`Features` / `Fixes` / `Docs aanpassingen`), the two youngest use reader-facing ones, and **none** has an
+open-work section — the form `CLAUDE.md` step 6 prescribes. The directory structure has matched the source
+since August 13, 2026; the document model has not, and that revision is deliberately left open as this
+repo's own work (Dave, August 13, 2026). Published documents are not rewritten, so it only affects the next
+one.
+
+**`github/` is still empty, and that is correct.** The directory is new as of August 13, 2026 and the first
+announcement belongs to the next release; older releases get none retroactively, because an announcement for
+a moment that has already passed is not something to invent. Until then an existing Release keeps the body
+it had. This root deliberately has no seam — it is hardcoded in `cut-release.ps1`, because a new root has no
+existing placement to accommodate.
+
+> **The directories were named `<X.Y>/` until August 13, 2026** — `development/2.22/2.22.0.md` rather than
+> `development/2.x/2.22.0.md` — read off a tree with 23 of them, which was a valid answer since the portable
+> half deliberately leaves `<dir>` open to both. All 60 documents (37 in `development/`, 23 in `audience/`)
+> moved with `git mv` when Dave asked for `releases/` to be made exactly like the source, and **not one
+> letter of their text was changed**. The same day, `releases/highlights/` became `releases/audience/`: the
+> old name said how the document was written rather than who it was for, which is the very mistake the
+> source had repaired in its own `notes/` a day earlier. Where an older note's own text still says
+> `releases/highlights/`, that is what it said on the day it went out.
+
+### What this page keeps in addition
+
+The two sections below are not in the source and are a deliberate addition of this repo. They sit under the
+rule rather than above it, because they do not travel with the workflow.
 
 #### Git tags & rollback
 
-Een git-tag is een **vaste, vernoemde verwijzing naar één specifieke commit**. Het verschil met een branch
-is wat het bruikbaar maakt als release-anker:
+A git tag is a **fixed, named reference to one specific commit**. The difference from a branch is what makes
+it usable as a release anchor:
 
-- Een **branch** (zoals `main`) **beweegt mee**: elke nieuwe commit schuift `main` vooruit.
-- Een **tag** (zoals `v2.3.0`) **staat stil**: hij wijst voor altijd naar dezelfde commit, wat er daarna ook
-  gebeurt. `v2.3.0` blijft dus exact de staat die destijds live ging, ook al is `main` intussen tientallen
-  commits verder.
+- A **branch** (like `main`) **moves along**: every new commit pushes `main` forward.
+- A **tag** (like `v2.3.0`) **stands still**: it points at the same commit forever, whatever happens after.
+  So `v2.3.0` remains exactly the state that went live back then, even though `main` is dozens of commits
+  further on.
 
 ```
-commits:   A --- B --- C --- D --- E   ← main (beweegt mee naar rechts)
+commits:   A --- B --- C --- D --- E   ← main (moves along, to the right)
                  ↑           ↑
-              v2.1.0      v2.3.0        (blijven staan waar ze staan)
+              v2.1.0      v2.3.0        (stay where they are)
 ```
 
-Voor releases gebruiken we altijd **annotated** tags (een object met auteur, datum en bericht) en geen
-*lightweight* (alleen een naam) — je wilt weten wanneer en waarom een versie is gezet:
+For releases we always use **annotated** tags (an object with author, date and message) rather than
+*lightweight* ones (a name only) — you want to know when and why a version was set:
 
 ```sh
 git tag -a v2.3.0 <commit> -m "v2.3.0 - UX MODUS (donker/licht mode)"
 ```
 
-> Bij het pushen zie je een annotated tag tweemaal in de remote-lijst, bv. `v2.3.0` en `v2.3.0^{}`. Dat is
-> geen dubbeling: de eerste is het tag-object (met het bericht), de tweede (`^{}`) is de commit waar die
-> tag uiteindelijk naar verwijst.
+> When pushing, an annotated tag shows up twice in the remote list, e.g. `v2.3.0` and `v2.3.0^{}`. That is
+> not a duplicate: the first is the tag object (carrying the message), the second (`^{}`) is the commit that
+> tag ultimately points at.
 
 ```sh
-git tag -n1                # lijst alle tags mét hun bericht
-git show v2.3.0            # bekijk de tag + de wijzigingen van die commit
-git checkout v2.3.0        # zet de werkmap exact op die release (rollback / inspectie)
-git checkout main          # weer terug naar het heden
+git tag -n1                # list all tags with their message
+git show v2.3.0            # inspect the tag + that commit's changes
+git checkout v2.3.0        # put the working tree exactly on that release (rollback / inspection)
+git checkout main          # back to the present
 ```
 
-`git checkout v2.3.0` zet je in "detached HEAD" — je kijkt naar het verleden zonder op een branch te
-zitten. Prima om te inspecteren of een hotfix-branch vanaf dat punt te starten; ga daarna terug met
-`git checkout main`.
+`git checkout v2.3.0` leaves you in "detached HEAD" — looking at the past without sitting on a branch. Fine
+for inspecting, or for starting a hotfix branch from that point; go back afterwards with `git checkout main`.
 
-**Let op:** een gewone `git push` neemt tags **niet** mee. Push een release-tag apart met
-`git push origin v2.3.0` (één tag) of `git push origin --tags` (alle nog niet-gepushte).
+**Note:** an ordinary `git push` does **not** carry tags. Push a release tag separately with
+`git push origin v2.3.0` (one tag) or `git push origin --tags` (all not yet pushed).
 
-#### Wat welk versienummer krijgt
+#### What gets which version number
 
-We volgen [Semantic Versioning](https://semver.org/lang/nl/): `MAJOR.MINOR.PATCH`. De portable regels
-hierboven zeggen wat een bump moet *verdienen*; deze tabel zegt welk soort werk in deze repo welke bump
-*is*.
+We follow [Semantic Versioning](https://semver.org/): `MAJOR.MINOR.PATCH`. The portable rules above say what
+a bump must *earn*; this table says which kind of work in this repo *is* which bump.
 
-| Onderdeel | Voorbeeld | Wanneer ophogen |
-|-----------|-----------|-----------------|
-| **MAJOR** | `2.x` → `3.0.0` | Ingrijpende verbouwing of redesign (volledig nieuwe layout of framework-migratie) |
-| **MINOR** | `2.0` → `2.1.0` | Nieuwe feature, backwards-compatible (nieuwe pagina, nieuw component, nieuwe mix, content-updates) |
-| **PATCH** | `2.1.0` → `2.1.1` | Bugfix, docs, workflow, hotfix of kleine stijlcorrectie |
+| part | example | when to raise it |
+|---|---|---|
+| **MAJOR** | `2.x` → `3.0.0` | Sweeping rebuild or redesign (an entirely new layout, or a framework migration) |
+| **MINOR** | `2.0` → `2.1.0` | New feature, backwards-compatible (a new page, a new component, a new mix, content updates) |
+| **PATCH** | `2.1.0` → `2.1.1` | Bugfix, docs, workflow, hotfix or a small styling correction |
 
-### Gemeten instanties achter de portable regels
+**This table and the portable bump gate can disagree, and the gate wins.** The table calls docs work a
+patch, which is right about the *kind* of work; the gate asks a different question — whether any pending
+entry reaches tier 1 — and a docs branch that reaches the commissioner earns a minor by that measure.
+Reconciling the two wordings is queued with the release-route branch above.
 
-- **De botsing van bijlage-bestandsnamen is hier voorspeld en in de bron gemeten** — daar bij `v3.3.0`, waar
-  de tweede upload `HTTP 404` teruggaf op `…&name=3.3.0.md`. Deze repo heeft nog geen release met twee
-  bijlagen gecut, dus de regel staat hier op andermans meting.
-- **De `← LIVE`-markering stond hier maandenlang fout** — op v2.20.1, terwijl v2.20.2, v2.21.0 en vijf PR's
-  al live waren. Dat is de instantie achter "één boekhouding, en dat is deze pagina".
-- **`Get-ReleaseNoteRoot` bestaat omdat deze repo erom vroeg.** Tot en met v4.4.0 van de bron stond
-  `releases/notes/` hardcoded in `cut-release.ps1`, waardoor de publieks-laag hier onaanzetbaar was. Gemeld
-  via de inbound-route ([#616](https://github.com/DaveKJohn/claude-code-specialists/issues/616)) en in de
-  bron gerepareerd.
+### Measured instances behind the portable rules
 
-### De release-lijst
+- **The `← LIVE` marker was wrong here for months** — it sat on v2.20.1 while v2.20.2, v2.21.0 and five
+  merged PRs were already live. That is the instance behind "one set of books, and it is this page": a cut
+  used to write a `## Releases` block into `CHANGELOG.md` as well, carrying the same information but poorer,
+  and the duplicate is what let it rot unnoticed.
+- **`Get-ReleaseNoteRoot` exists because this repo asked for it.** Up to and including the source's `v4.4.0`,
+  `releases/notes/` was hardcoded in `cut-release.ps1`, which made the audience layer here unreachable.
+  Reported through the inbound route
+  ([#616](https://github.com/DaveKJohn/claude-code-specialists/issues/616)) and repaired at the source.
+- **A hardcoded path can go wrong silently, measured here at plugin 4.5.0.** The row in this page and the
+  audience note's directory came out of a hardcoded `notes/`, while `Get-ReleaseNoteRoot` says
+  `releases/audience`. Had a minor been cut on that version, it would have written a **dead row** into this
+  page plus a stray `releases/notes/2.x/`, and nothing would have failed. Both are repaired in 4.7.0 — which
+  is the instance behind writing the route against the *active* version rather than the one an audit once ran
+  on.
+- **The attachment-filename collision is predicted here and measured at the source** — there at `v3.3.0`,
+  where the second upload returned `HTTP 422` on `…&name=3.3.0.md`. This repo has not yet cut a release with
+  two attachments, so that rule stands on somebody else's measurement.
+- **A translated mirror cannot be checked, and this page is the instance.** The portable half was Dutch
+  until today, so no diff could tell a deliberate local change from an upstream correction that had never
+  arrived — and three of its claims had gone stale unnoticed, including one that a dry run had already
+  refuted. That is the argument for verbatim, and it was paid for here rather than borrowed.
 
-**Elke release die ooit gecut is, nieuwste eerst, gegroepeerd per major.** Dit is het volledige record:
-`CHANGELOG.md` houdt alleen wat nog geen versienummer heeft en wijst voor de rest hierheen.
+### The release list
 
-Nieuwe releases gaan in de tabel van de huidige major, de bovenste. Daarom is **het openen van een nieuwe
-major-sectie een bewuste handeling, vóór de release gecut wordt**: de inserter zet de rij achter de eerste
-release-tabel die hij vindt, dus zonder sectie voor de nieuwe major zou een `v3.0.0`-rij onder `2.x`
-belanden zonder dat er iets faalt.
+**Every release ever cut, newest first, grouped by major version.** This is the **full record**:
+[`CHANGELOG.md`](../CHANGELOG.md) keeps only what is live but has no version number yet, and points here
+for the rest. **Which version the site currently runs is the top row below.**
 
-Drie dingen aan de structuur hieronder zijn dragend en geen stijl, en alle drie zijn de reden dat deze lijst
-aan het **eind** van de pagina staat:
+**The version cell points at the most readable document that release has** — the hand-written document where
+the bump wrote one, the development record on a patch.
 
-- **De inserter neemt de eerste release-tabel in het hele document**, dus elke tabel die hierboven wordt
-  ingevoegd zou stil de rijen gaan ontvangen. Dat is het ene ding om te controleren bij het toevoegen van
-  een sectie waar dan ook op deze pagina.
-- **De guardrail leest de laatste `<n>.x`-kop boven die tabel**, dus die koppen moeten herkenbaar blijven.
-  Het kop**niveau** mag veranderen — `###` en `####` worden beide geaccepteerd, want hoe diep de lijst
-  genest is, is een layout-keuze van de repo — maar de tekst `<n>.x` is geen decoratie.
-- **De tabelkop wordt in proza beschreven en nergens op deze pagina geciteerd**, want de inserter matcht die
-  regel letterlijk en een document dat een patroon uitlegt hoort niet één edit verwijderd te zijn van het
-  triggeren ervan. Hij is Engels, net als de zes sectiekopjes van een entry, en om dezelfde reden: het is een
-  machine-gelezen sleutel, geen proza.
+New releases are added to the current major's table, the top one. That is why **opening a new major's
+section is a deliberate act, taken before the release is cut**: the inserter puts the row after the first
+release table it finds, so without a section for the new major a `v3.0.0` row would be filed under `2.x`
+without anything failing.
 
-De Versie-cel wijst naar het leesbaarste document dat een release heeft — het handgeschreven document waar
-de bump er één schreef, het development-record op een patch.
+Three things about the structure below are load-bearing rather than stylistic, and all three are why this
+list sits at the **end** of the page:
+
+- **The inserter takes the first release table in the whole document**, so any table introduced above these
+  would silently start receiving the rows. That is the one thing to check when adding a section anywhere on
+  this page — the ones already above are safe because none of them carries the release table's column
+  header.
+- **The guardrail reads the last `<n>.x` heading above that table**, so those headings must stay
+  recognisable. The heading **level** may change — `###` and `####` are both accepted, because how deeply
+  the list is nested is a layout choice the repo owns — but the `<n>.x` text is not decoration.
+- **The table header is described in prose and quoted nowhere else on this page**, because the inserter
+  matches that exact line and a document explaining the pattern should not be one edit away from triggering
+  it. It is English for the same reason the six section headings of an entry are: a machine-read key, not
+  prose.
 
 #### 2.x
 
@@ -399,3 +701,6 @@ de bump er één schreef, het development-record op een patch.
 | [2.1.0](audience/2.x/2.1.0.md) | 2026-03-11 | Minor | AudioPlayer + Light Yellow mixes |
 | [2.0.1](development/2.x/2.0.1.md) | 2026-03-08 | Patch | Succes message contactformulier |
 | [2.0.0](audience/2.x/2.0.0.md) | 2026-03-07 | Major | Eerste livegang op Netlify |
+
+> **The titles are Dutch, and stay that way.** They are the titles those releases were cut under; this list
+> is a record, not a translation. Only the frame around them is English, like the rest of this directory.

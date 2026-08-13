@@ -169,6 +169,22 @@ waar `new-branch`, `open-pr`, `fold-changelog` en de release-cut het over eens m
 je ze, dan kan de eigen fold de eigen entry niet meer lezen. `scripts/repo-config.ps1` definieert
 bewust géén `Get-EntrySectionHeadingOverrides`, en dát is de beslissing die dit vastlegt.
 
+**Uitzondering: `releases/README.md` is volledig Engels** (Dave, 2026-08-13). Die pagina is een
+**spiegel** van [dezelfde pagina in de bron](https://github.com/DaveKJohn/claude-code-specialists/blob/main/releases/README.md):
+alles boven de horizontale streep is er woord voor woord uit gekopieerd, en dat is alleen te handhaven
+zolang het de tekst van de bron zélf is. Een vertaling maakte de pagina precies zo onvergelijkbaar als een
+parafrase — erger zelfs, want een vertaling valt niet te diffen, en daardoor stonden er drie verouderde
+beweringen in die niemand zag. Een correctie boven de streep gaat dus naar de bron als `inbound`-issue en
+komt terug via een plugin-release; hier repareren herstart de drift. Onder de streep staat het repo-eigen
+deel, ook Engels, zodat de hele pagina één register heeft.
+
+Wat **niet** meeverhuist naar het Engels: de 60 bestaande documenten in `releases/development/` en
+`releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
+uitgingen, en een record is geen vertaling. De taalgrens loopt daarmee dwars door het
+development-document: Engelse tier-koppen boven Nederlandse entries. `Get-ReleaseNoteWording` en
+`Get-InternalNoteWording` in `scripts/repo-config.ps1` staan daarom bewust **leeg** — leeg betekent
+Engels, en dat is hier nu het gewenste antwoord in plaats van een omissie.
+
 **Ook `CONTRIBUTING.md` is Nederlands**, net als dit bestand. De portable helft ernaast is Engels en
 valt buiten deze regel: die is niet van deze repo maar van de plugin, en wordt daar onderhouden.
 
@@ -313,10 +329,11 @@ Alleen op expliciet verzoek ("commit en push live", "maak een nieuwe release en 
 9. **Voeg de versie toe** aan de overzichtstabel in `releases/README.md` (bovenaan) — de enige
    boekhouding van uitgebrachte versies. De Versie-cel wijst naar het leesbaarste document dat de
    release heeft: `audience/` bij een Minor/Major, `development/` bij een Patch
-   > **De kolomkoppen van die tabel zijn Engels, en dat is geen slordigheid.** De gedeelde
+   > **De kolomkoppen van die tabel zijn een machine-gelezen sleutel, geen proza.** De gedeelde
    > `release-lib.ps1` matcht die regel letterlijk om te weten waar een rij heen gaat, en er is bewust
-   > geen seam voor. Zelfde categorie als de zes sectiekopjes van een entry: een machine-gelezen
-   > sleutel, geen proza. Vertaal je ze, dan vindt de inserter zijn invoegpunt niet meer. Om dezelfde
+   > geen seam voor. Zelfde categorie als de zes sectiekopjes van een entry — en de reden dat ze ook
+   > blijven staan als iemand ooit besluit deze pagina terug naar het Nederlands te halen: vertaal je
+   > ze, dan vindt de inserter zijn invoegpunt niet meer. Om dezelfde
    > reden staat er een `#### 2.x`-kop bóven de tabel — de guardrail die controleert of een rij in de
    > juiste major belandt, leest de laatste `<n>.x`-kop erboven en staat stil uit zodra die ontbreekt
 10. **Stage en commit** op de release-branch
