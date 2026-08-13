@@ -35,7 +35,7 @@
  *   - id             YYYYMMDD uit datum
  *   - id_spotify     mmc_edm_128bpm_light_m_yellow_YYYYMMDD
  *   - title          "Subgenre · Color Power (f) Mix · Vol. N"
- *   - title_spotify  "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. N 🟡 YYYYMMDD"
+ *   - title_spotify  "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. N"
  *   - jaar/maand/dag uit datum
  *   - permalink      luister/mix/color-power-f-Genre-BPMbpm-YYYYMMDD.html
  *   - audioSrc       R2-URL naar het mp3 bestand op Cloudflare
@@ -143,15 +143,15 @@ function buildSpotifyId(color, power, freq, bpm, dateCompact) {
 }
 
 // `vol` is de volume_spotify, niet het site-volume: dat laatste loopt per subgenre en
-// telt binnen één kleur+power+frequentie dus niet netjes door. Sluit af met het id,
-// want ook een doortellend volume is over de hele collectie niet uniek.
-function buildSpotifyTitle(color, power, freq, bpm, vol, dateCompact) {
+// telt binnen één kleur+power+frequentie dus niet netjes door. De titel sluit af met dat
+// volgnummer; het id stond er tot 2026-08-11 achter, maar hoort niet in een publieke titel.
+function buildSpotifyTitle(color, power, freq, bpm, vol) {
   const emoji = COLOR_EMOJI[color];
   if (!emoji) {
     console.warn(`\n! Geen emoji vastgesteld voor kleur ${color}. Vul title_spotify handmatig aan.`);
     return '';
   }
-  return `EDM ${bpm}BPM ${emoji} ${color} ${power} ${freq} ${emoji} Vol. ${vol} ${emoji} ${dateCompact}`;
+  return `EDM ${bpm}BPM ${emoji} ${color} ${power} ${freq} ${emoji} Vol. ${vol}`;
 }
 
 function buildImagePaths(power, color, dateCompact) {
@@ -361,7 +361,7 @@ async function main() {
   const permalink = buildPermalink(color, power, freq, genre, bpm, dateCompact);
   const idSpotify = buildSpotifyId(color, power, freq, bpm, dateCompact);
   const volSpotify = nextSpotifyVolume(mixes, freq, bpm);
-  const titleSpotify = buildSpotifyTitle(color, power, freq, bpm, volSpotify, dateCompact);
+  const titleSpotify = buildSpotifyTitle(color, power, freq, bpm, volSpotify);
 
   const entry = {
     id: dateCompact,

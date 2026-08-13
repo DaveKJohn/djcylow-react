@@ -1,12 +1,12 @@
-# `data/cyan-emoji-is-ijsblokje` changelog
+## `data/title-spotify-zonder-datum` changelog
 
 ### Branch title
 
-Cyan draagt in `title_spotify` het ijsblokje, niet de ruit
+Het datumstaartje uit alle `title_spotify`-waardes
 
 ### Branch ID
 
-20260811-214033
+20260811-204514
 
 ### Branch type
 
@@ -14,53 +14,51 @@ data
 
 ### What does the change on this branch bring to main?
 
-Alle zeven Cyan-mixen schreven hun `title_spotify` met **💠** (U+1F4A0, *diamond with a dot*) als
-kleur-emoji, terwijl Dave's eigen Spotify-playlists en de MMC-kleurcodering **🧊** (U+1F9CA, *ice*)
-gebruiken. De zes andere kleuren in de bron komen wél overeen met hun playlists — Cyan was de enige
-afwijking, en hij stond in élke Cyan-entry.
+Alle 77 gevulde `title_spotify`-waardes eindigden op het id van de mix, voorafgegaan door nog een
+kleur-emoji: `EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 7 🟠 20260101`. Die datum hoort in `id` en
+`id_spotify`, niet in een titel die luisteraars op Spotify lezen. De emoji en het datumdeel zijn eraf
+gehaald, zodat het formaat afsluit op het volumenummer: `EDM 128BPM 🟠 Orange Light (f) 🟠 Vol. 7`.
 
-Dat veld bestaat om letterlijk overgenomen te worden: `title_spotify` is de exacte playlistnaam die bij
-een mix hoort. Een afwijkende emoji is daar geen cosmetisch detail maar een verkeerde naam, en hij zou
-zich hebben voortgeplant naar Spotify zodra die overname wordt uitgevoerd.
+Het datumstaartje stond er omdat een doortellend volume over de hele collectie niet uniek hoefde te
+zijn. Dat blijkt in de praktijk niet nodig: `volume_spotify` telt door per kleur + power + frequentie
++ bpm, en die hele reeks staat in de titel. Alle 77 waardes zijn ook zonder datum uniek — nagerekend
+na de wijziging, en opnieuw nagerekend na de merge met `main`: 77 gevuld, 77 uniek, nul waardes die
+nog op een datum eindigen.
 
-- **`full-cyan.json`** — 1 entry (`20240129`), 3 emoji's.
-- **`light-cyan.json`** — 6 entries (`20251108`, `20250619`, `20250515`, `20250307`, `20241213`,
-  `20220606`), 18 emoji's.
+Meegenomen in dezelfde beweging, zodat het staartje niet terugkomt bij de volgende mix:
 
-Samen 21 vervangingen over 7 waarden; elke titel draagt de emoji drie keer (na de kleur, na de
-frequentie, en vóór het mix-ID). De diff raakt **uitsluitend** `title_spotify`-regels: `title`,
-`description_nl`/`description_en` en de overige velden dragen deze emoji niet en zijn niet aangeraakt.
-De preview-stub in `light-cyan.json` heeft een leeg `title_spotify` en blijft dus zoals hij was.
+- **`scripts/add-mix.js`** — `buildSpotifyTitle()` genereert de titel zonder datum; de `dateCompact`-
+  parameter is vervallen en de toelichting in de header klopt weer.
+- **`src/data/mixes/README.md`** — de veldspec, de twee voorbeeld-JSON's en de checklist volgen het
+  nieuwe formaat. De regel "**Do not drop the `id` from the format**" is vervangen door de uitleg
+  waarom het volumenummer de uniciteit nu alleen draagt, met de waarschuwing dat een dubbele
+  `volume_spotify` binnen één reeks nu wél een dubbele titel oplevert.
 
-**Hoe dit aan het licht kwam.** In `life-hub` is de leeslaag gebouwd die deze namen naar Spotify
-overneemt (branch `app/playlistnamen-uit-de-bron`). Die hub kent de canonieke kleur-emoji's en
-**weigert** een naam te schrijven waarvan de kleur-emoji niet bij de kleur van de mix hoort, in plaats
-van hem stil te corrigeren — anders zou een fout in de bron onzichtbaar blijven en zouden de twee
-bronnen permanent uiteenlopen. Dave heeft vastgesteld dat de bron hier fout zat en dat de correctie
-daarom hier hoort, niet in de hub. Zolang deze branch niet gemergd is, blokkeert de hub die zes
-Cyan-playlists met de reden erbij; na de merge lopen ze mee zonder dat er in `life-hub` iets verandert.
+De site leest `title_spotify` niet — het veld staat in de mix-JSON als administratie van de
+Spotify-upload. Deze wijziging is dus niet zichtbaar op `djcylow.com`.
 
-**Geen zichtbaar gevolg voor de website.** De site gebruikt `title` voor wat bezoekers zien; dit veld is
-uitsluitend voor de Spotify-kant en wordt door de pagina's niet gerenderd.
+**Samenloop met de Cyan-correctie.** Deze branch stond geparkeerd naast
+`data/cyan-emoji-is-ijsblokje`, die in dezelfde `title_spotify`-regels van `full-cyan.json` en
+`light-cyan.json` de kleur-emoji 💠 verving door 🧊. Die branch is als eerste gemerged; de zeven
+Cyan-waardes dragen hier dus beide wijzigingen — het ijsblokje én geen datum.
 
 ### Significance
 
 #### Tier 0
 
-Wie de mix-data leest heeft vanaf nu één regel die klopt in plaats van zes uitzonderingen: de
-kleur-emoji in `title_spotify` hoort bij de kleur van de mix, voor alle veertien bestanden. Dat is
-precies de aanname waarop de leeslaag in `life-hub` is gebouwd, en die aanname was tot nu toe onwaar
-voor Cyan. Het was bovendien een **stille** fout — niets faalde, de waarde was alleen verkeerd, en hij
-werd pas zichtbaar doordat een tweede systeem hem weigerde in plaats van hem te repareren.
+De regel die `title_spotify` beschrijft staat vanaf nu op één plek en klopt: het formaat sluit af op
+het volumenummer, `scripts/add-mix.js` genereert het zo, en `src/data/mixes/README.md` schrijft het zo
+voor. Tot nu toe genereerde het script een vorm die de spec verbood mee te veranderen ("do not drop
+the `id`"), zodat elke nieuwe mix het staartje opnieuw meekreeg. De uniciteit die het datumdeel zou
+garanderen is nagerekend in plaats van aangenomen: 77 waardes, 77 uniek.
 
-**Score:** 2
+**Score:** 3
 
 #### Tier 1
 
-Zes Cyan-playlists staan in `life-hub` geblokkeerd zolang de bron de verkeerde emoji draagt. Na deze
-merge lopen ze mee zonder dat er aan die kant iets hoeft te gebeuren. Aan de website verandert niets:
-`title_spotify` wordt door geen enkele pagina gerenderd, dus dit is een correctie aan de Spotify-kant
-van de data en niet aan wat een bezoeker ziet.
+De 77 playlistnamen die naar Spotify gaan lezen als titels in plaats van als administratie — geen
+datumcode meer achter het volumenummer bij wat een luisteraar ziet. Aan `djcylow.com` verandert niets:
+het veld wordt door geen enkele pagina gerenderd.
 
 **Score:** 2
 

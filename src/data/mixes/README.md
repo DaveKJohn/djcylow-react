@@ -65,7 +65,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
     "id": "20260615",
     "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
     "title": "Red Tech House Mix · Vol. 6",
-    "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6 🔴 20260615",
+    "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6",
     "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
     "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
     "genre": "House",
@@ -146,16 +146,15 @@ mmc_edm_[bpm]bpm_[power-lowercase]_[frequency-letter]_[color-lowercase]_[YYYYMMD
 ### `title_spotify` — string, required
 
 The title as used for the Spotify upload. Deliberately different from `title`: no subgenre, but with
-the BPM in front, the volume and the `id` at the end, and the mood colour as an emoji separating the
-three parts.
+the BPM in front and the volume at the end, and the mood colour as an emoji separating the two parts.
 
 **Format:**
 
 ```
-EDM [bpm]BPM [emoji] [Color] [Power] ([frequency]) [emoji] Vol. [N] [emoji] [YYYYMMDD]
+EDM [bpm]BPM [emoji] [Color] [Power] ([frequency]) [emoji] Vol. [N]
 ```
 
-**Example:** `"EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 7 🟡 20251021"`
+**Example:** `"EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. 7"`
 
 **Emoji per colour:**
 
@@ -172,20 +171,21 @@ Magenta mix (only the preview entry), so pick one together with the first Magent
 **Rules:**
 
 - `EDM` is fixed, also for Drum & Bass
-- The same emoji appears **three times**: before the colour name, after the frequency, and after the
-  volume
+- The same emoji appears **twice**: before the colour name and after the frequency
 - `frequency` keeps its parentheses
 - The volume number comes from **`volume_spotify`**, not from `volume` — see below
-- Ends with the `id` (`YYYYMMDD`), which makes the value **unique across all mixes**
+- Ends with the volume — **no `id`**: the date belongs in `id` and `id_spotify`, not in a title that
+  is read by listeners. It closed the format until 2026-08-11
 - Preview entries (`ignore: true`) use `""`
 
-**Which volume, and why the `id` on top of it.** The site's `volume` runs *per subgenre*, so the same
-`Vol. N` recurs within one colour + power + frequency combination: `Red Light (m) Vol. 1` exists as
-Tech House, Progressive House and Melodic Techno. This title omits the subgenre, so it uses
+**Which volume, and why it carries the uniqueness.** The site's `volume` runs *per subgenre*, so the
+same `Vol. N` recurs within one colour + power + frequency combination: `Red Light (m) Vol. 1` exists
+as Tech House, Progressive House and Melodic Techno. This title omits the subgenre, so it uses
 `volume_spotify` instead — that series counts straight through per colour + power + frequency + bpm.
 The mix whose site title reads `Vol. 1` can therefore read `Vol. 6` here; that is intended, not a
-mismatch. Even so, a per-series number is not unique across the whole collection, which is why the
-`id` closes the title. **Do not drop the `id` from the format.**
+mismatch. Because `volume_spotify` counts through per series and the series itself is spelled out in
+the title, all 77 filled values stay unique without a date. That does mean a duplicate
+`volume_spotify` within one series now produces a duplicate title — check it when you add a mix.
 
 ---
 
@@ -906,7 +906,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
   "id": "20260615", 
   "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
   "title": "Tech House · Red Light (m) Mix · Vol. 6",
-  "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6 🔴 20260615",
+  "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6",
   "description_nl": "Tech House mix van DJ Cylow. Een uur pumping grooves, strakke kicks en melodische elementen. Perfect voor een avondfeest of een lange drive.",
   "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.", 
   "genre": "House",
@@ -967,7 +967,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
 - [ ] `id` is `YYYYMMDD`, unique across all files
 - [ ] `id_spotify` follows `mmc_edm_[bpm]bpm_[power]_[freq]_[color]_[id]` and is unique
 - [ ] `title` follows `Subgenre · Color Power (frequency) Mix · Vol. N` format
-- [ ] `title_spotify` follows `EDM [bpm]BPM [emoji] Color Power (freq) [emoji] Vol. N [emoji] YYYYMMDD` and is unique
+- [ ] `title_spotify` follows `EDM [bpm]BPM [emoji] Color Power (freq) [emoji] Vol. N` (no date) and is unique
 - [ ] `bpm` is a number without quotes (`176` for Drum & Bass)
 - [ ] `subgenre` is filled in and matches the title
 - [ ] `color` is capitalized and matches the filename
