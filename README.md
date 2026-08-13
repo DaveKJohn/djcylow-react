@@ -152,7 +152,9 @@ djcylow-react/
 │
 ├── scripts/                    # Build/utility scripts
 ├── releases/                    # Version history (development/ + highlights/, v1.0.0 – present)
-├── workflow/                    # Claude/human workflow docs (branching, changelog, release process)
+├── branch/                     # The two files an in-flight branch works in (entry + step list)
+├── CONTRIBUTING.md             # The contribution cycle: branches, changelog entries, PR gates
+├── CLAUDE.md                   # Operating guide: safety rules, the specialists, repo conventions
 ├── next.config.ts              # output: 'export', images: unoptimized, sassOptions
 ├── tailwind.config             # Tailwind v4 configuration
 ├── tsconfig.json               # strict, ES2017, path alias @/* → ./src/*

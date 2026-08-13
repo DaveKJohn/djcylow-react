@@ -391,17 +391,22 @@ function Get-ReleaseConsumerBumps {
 # De vaste root-*.md van deze repo. cut-release behandelt ELKE andere root-*.md als een entry die
 # iemand vergeten is te folden, en weigert de cut zolang er een staat (cut-release.ps1 regel 301/344).
 #
-# Precies drie, en dat is de hele root -- nagemeten, niet overgenomen. De blueprint-default noemt er
-# negen: LICENSE, CONTRIBUTING, SECURITY, QUICKSTART, ADOPTION en UNINSTALL erbij, en die bestaan hier
-# niet. Zo'n regel voor een bestand dat er niet is blokkeert niets, maar hij beschrijft een root die
-# deze repo niet heeft en dempt het enige signaal dat de lijst waard is: duikt hier ooit een
-# QUICKSTART.md op, dan heeft iemand die per ongeluk neergezet en hoort de cut dat te zeggen in plaats
-# van hem door te laten.
+# Precies vier, en dat is de hele root -- nagemeten, niet overgenomen. De blueprint-default noemt er
+# negen: LICENSE, SECURITY, QUICKSTART, ADOPTION en UNINSTALL erbij, en die bestaan hier niet. Zo'n
+# regel voor een bestand dat er niet is blokkeert niets, maar hij beschrijft een root die deze repo
+# niet heeft en dempt het enige signaal dat de lijst waard is: duikt hier ooit een QUICKSTART.md op,
+# dan heeft iemand die per ongeluk neergezet en hoort de cut dat te zeggen in plaats van hem door te
+# laten.
+#
+# CONTRIBUTING.md STOND OP DIE LIJST VAN AFWEZIGEN EN IS ER OP 2026-08-13 BIJGEKOMEN, wat precies de
+# situatie is waarvoor de waarschuwing hieronder bestaat: zonder deze regel leest de cut het nieuwe
+# root-document als een entry die iemand vergeten is te folden, en weigert hij bij naam over een
+# wijziging die nergens meer bestaat.
 #
 # Let op bij het toevoegen van een nieuw vast root-document: hier bijschrijven, en nergens anders.
 # Komt er een tijdelijk werkbestand in de root (adopt-config schrijft bijvoorbeeld
 # config-adoption-proposal.md), dan hoort dat niet in deze lijst maar weg voordat er een release komt.
-$script:ReservedRootMd = @('CHANGELOG.md', 'CLAUDE.md', 'README.md')
+$script:ReservedRootMd = @('CHANGELOG.md', 'CLAUDE.md', 'CONTRIBUTING.md', 'README.md')
 
 function Get-ReservedRootMd {
     <# Root-*.md die vaste documenten zijn in plaats van niet-gevouwen changelog-entries. #>
@@ -455,11 +460,12 @@ function Get-LiveStage {
 # elke tier die het model heeft' -- de stand van voor de knop. Wie hem verwijdert om de zaak te
 # vereenvoudigen zet de vraag dus niet uit maar ruimer, en het gedeelde script meldt dat niet.
 #
-# DE TEKST IN CLAUDE.md LOOPT HIER NOG OP ACHTER, en dat is bewust niet hier gerepareerd. Het
-# tier-blok daar noemt drie te beantwoorden tiers met 'Tier 2 -- een bezoeker van djcylow.com merkt
-# het' en beschrijft de ladder als cumulatief; beide zijn met dit antwoord achterhaald. Dat bestand
-# wordt op docs/entry-model-migratie over ruim tweehonderd regels herschreven, dus de correctie hoort
-# in een eigen branch na die merge -- zelfde afweging als de taxonomie-noot in branch-progress.
+# DE DOCUMENTATIE LIEP HIER OP ACHTER EN IS OP 2026-08-13 BIJGETROKKEN. Het tier-blok noemde drie te
+# beantwoorden tiers met 'Tier 2 -- een bezoeker van djcylow.com merkt het' en beschreef de ladder als
+# cumulatief; beide waren met dit antwoord achterhaald. Die correctie is meegenomen op het moment dat
+# het blok toch verhuisde: het staat nu in CONTRIBUTING.md ('Significance -- het verplichte
+# tier-model') en vraagt tier 0 en tier 1, met de vervallen ladder erbij verantwoord. Een blok met een
+# bekende fout verhuizen zou de fout hebben meegenomen naar een nieuw adres.
 $script:ReleaseAudienceTier = 1
 
 function Get-ReleaseAudienceTier {
@@ -484,7 +490,8 @@ function Get-ReleaseAudienceTier {
 #   $true zou letterlijk hetzelfde zeggen als de fallback.
 #
 # Get-EntrySignificanceRubricLevels -- de tekst achter de scores 1 tot 5. De ingebouwde vijf banden
-#   volstaan, en CLAUDE.md heeft ze in eigen woorden in de tabel bij stap 3 staan, inhoudelijk gelijk.
+#   volstaan, en CONTRIBUTING.md heeft ze in eigen woorden in de tabel bij stap 3 staan, inhoudelijk
+#   gelijk (tot 2026-08-13 stond die tabel in CLAUDE.md).
 #   OPNIEUW TE WEGEN nu het publiek op 1 staat: de contract-tekst noemt als reden voor een eigen
 #   verwoording juist een repo wiens lezers geen ontwikkelaars zijn, en tier 1 is hier het management en
 #   de opdrachtgever. Dat is een keuze en geen meting, dus hij wordt gesteld en niet stil gemaakt.
@@ -495,7 +502,7 @@ function Get-ReleaseAudienceTier {
 #
 # Get-PrMergeMethod -- alleen gelezen door ship-pr.ps1, en die skill gebruikt deze repo bewust niet:
 #   hij zou in een beweging mergen, en een merge is hier een deploy die apart op Dave's woord wacht.
-#   Geen lezer, dus geen waarde. De merge-vorm zelf staat in CLAUDE.md, ontwikkelworkflow stap 6.
+#   Geen lezer, dus geen waarde. De merge-vorm zelf staat in CONTRIBUTING.md, cyclus stap 6.
 #
 # Get-ReleaseMajorMinMinors -- hoeveel minors een major-lijn moet hebben gehad voordat er een major
 #   gecut mag worden. De default is 10 en die volstaat hier: de poort leest de minor-component van de

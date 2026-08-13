@@ -1,152 +1,96 @@
-## `config/seam-adoptie` changelog
+## `docs/contributing-en-branch-readme` changelog
 
 ### Branch title
 
-De workflow-seams uit de blueprint geadopteerd en twee stille fouten in de release-keten weg
+De contributie-cyclus verhuist naar CONTRIBUTING.md, met branch/README.md erbij
 
 ### Branch ID
 
-20260811-224646
+20260813-104046
 
 ### Branch type
 
-config
+docs
 
 ### What does the change on this branch bring to main?
 
-`scripts/repo-config.ps1` beantwoordt de vragen die de gedeelde workflow-scripts stellen. Van de 26
-seam-functies in de blueprint van `workflow-davekjohn@4.5.0` waren er hier zeven beantwoord; nu
-eenentwintig, en van de vijf die leeg blijven staat per stuk in het bestand waarom dat het betere
-antwoord is.
+Deze repo had als enige van de drie repo's die met de specialisten-plugin werken geen
+`CONTRIBUTING.md`, en de map `branch/` miste het enige bestand dat de bron daar wel heeft: zijn
+`README.md`. Beide zijn er nu, in de vorm die de bron en `life-hub` al gebruiken.
 
-Acht ervan zijn door de `adopt-config`-skill geplaatst: waarden die de gedeelde werkwijze uitspreken en
-niets over deze repo beweren, in de tekst van de bron met de reden erbij. Zes zijn met de hand
-beantwoord omdat alleen deze repo ze kan geven, en drie daarvan repareren een fout die nergens een
-melding gaf.
+**`CONTRIBUTING.md` is de lokale helft van een gedeeld document.** De andere helft
+(`CONTRIBUTING-portable.md`) reist met de plugin mee en beschrijft het mechanisme; deze pagina geeft de
+antwoorden van deze repo. Dat is dezelfde splitsing die de manuals en de repo-lenzen al hanteren, en de
+reden is dat een pagina die de antwoorden van één repo vastlegt niet door de volgende repo te adopteren
+is: die moet hem herschrijven, en een herschrijving is een tweede bron.
 
-De blueprint groeide onderweg mee: `workflow-davekjohn@4.4.0` stelde 24 vragen, 4.5.0 stelt er 26.
-`Get-ReleaseNoteRoot` en `Get-ReleaseAudienceTier` zijn erbij gekomen en er is niets verdwenen, dus de
-contract-check liep door de plugin-update zelf van zes informatieve signalen terug naar acht. De drie
-seams hieronder brengen hem op vijf.
+**De cyclus staat daarmee op één plek, niet op twee.** De zeven stappen, de prefix-tabel, het
+tier-model en de vier poorten van `open-pr` stonden in `CLAUDE.md`; die ruim 180 regels zijn verhuisd in
+plaats van gekopieerd. `CLAUDE.md` houdt wat het altijd hield: de grondwet, het team en alles wat
+repo-eigen is, plus de Release Workflow. De verdeling is nu: **dit bestand houdt de grenzen, die pagina
+houdt de route.** De inleiding van `CLAUDE.md` legt uit waarom dat geen terugkeer is naar de oude
+`workflow/`-map, die juist een tweede beschrijving van dezelfde werkwijze was.
 
-**De release-notes stonden op de verkeerde indeling.** `Get-ReleaseNotesGrouping` was ongedeclareerd en
-valt dan terug op `major`, terwijl `releases/development/` 23 mappen heeft van `2.0` tot en met `2.22` —
-per minor. `cut-release.ps1` bouwt het pad uit die waarde (regel 676-681), dus de eerstvolgende
-release-cut had naar `releases/development/2.x/` geschreven: een tweede boom naast de 23 mappen die er
-al staan, met de nieuwe rij in `releases/README.md` wijzend naar een pad waar geen enkele bestaande
-note woont. Niets had geklaagd, want `major` is een geldig antwoord — alleen niet dat van deze repo. De
-waarde is van de boom afgelezen, niet gekozen.
+**`Get-ReservedRootMd` kent het nieuwe root-document.** Zonder die regel leest `cut-release` een
+`CONTRIBUTING.md` in de root als een changelog-entry die iemand vergeten is te folden, en weigert hij de
+cut bij naam over een wijziging die nergens meer bestaat. De lijst stond op precies drie bestanden, met
+in de toelichting de waarschuwing dat een nieuw vast root-document hier bijgeschreven moet worden en
+nergens anders. Dat is gebeurd.
 
-**Het handgeschreven release-document viel buiten de release, en dat is nu opgelost door de repo die het
-meldde.** `Get-ReleaseConsumerBumps` stond hier bewust op leeg: aanzetten liet `cut-release.ps1` naar
-`releases/notes/` schrijven, een pad dat tot en met v4.4.0 hardcoded was, terwijl deze repo
-`releases/highlights/` gebruikt. De knop was dus onaanzetbaar en de highlights bleven handwerk. Dat is
-als kern-bevinding gemeld via de inbound-route — `DaveKJohn/claude-code-specialists#616` — en v4.5.0
-heeft er de seam `Get-ReleaseNoteRoot` voor gebouwd. Die staat nu op `releases/highlights` en de knop
-erboven op `@('minor','major')`, allebei van de boom afgelezen: `releases/highlights/` heeft 23
-bestanden en alle 23 eindigen op `.0`, terwijl `releases/development/` er 37 heeft waarvan 14 een patch.
-Elke minor kreeg een document, geen enkele patch, 23 releases achter elkaar. Hiermee schrijft een cut het
-document voor het eerst zelf, op de plek waar de bestaande 23 al staan.
+**Eén bekende fout is bij de verhuizing gerepareerd in plaats van meeverhuisd.** Het tier-blok vroeg
+nog drie tiers, noemde tier 2 "een bezoeker van djcylow.com merkt het" en beschreef de ladder als
+cumulatief. Alle drie waren achterhaald sinds `Get-ReleaseAudienceTier` op 2026-08-12 op **1** werd
+gezet: bezoekers lezen geen release notes, en tier 1 en 2 zijn twee soorten lezer in plaats van twee
+sporten van een ladder. De nieuwe tekst vraagt tier 0 en tier 1, verantwoordt de vervallen ladder, en
+legt uit dat tier 2 nog wel gelezen wordt waar een oudere entry hem draagt. De noot in
+`scripts/repo-config.ps1` die deze correctie aankondigde als werk voor een eigen branch is bijgewerkt
+naar wat er feitelijk is gebeurd.
 
-**Wie deze repo met een release-document toespreekt, staat nu vast: het management en de
-opdrachtgever, niet de bezoeker.** `Get-ReleaseAudienceTier` is de enige seam van de blueprint die geen
-meting maar een beslissing verlangde, en Dave heeft die op 2026-08-12 genomen: **tier 1**, omdat
-bezoekers geen release notes lezen. Wie djcylow.com bezoekt luistert een mix of boekt; die persoon
-opent nooit een versie-document. De bron-repo antwoordt hier 2 omdat zij zelf de dienst is waarop
-iemand zich abonneert — die 2 overnemen zou beweren dat de bezoekers van een DJ-website release notes
-lezen, en dat is onwaar zonder dat enig script het kan weerleggen: beide waarden zijn geldig en geen
-van beide geeft ooit een fout.
+**Dave's taxonomie-besluit is met de verhuisde tabel meegekomen.** De prefix-tabel noemt de zeven
+prefixen die je zelf kiest, met per prefix het GitHub-label en het changelog-type, en eronder staat wat
+`scripts/lib/branch-info.ps1` daarnaast erkent: `feat/` als alias van `feature/` en `chore/`, met
+`Chore` als achtste type waarop een onbekende prefix terugvalt. Dat is nagemeten en niet overgenomen —
+de lib erkent negen prefixen, en `chore/` hoort daarbij, terwijl de bron-repo die juist hard weigert.
+Herken beide, schrijf één.
 
-Gevolg: `new-branch` scaffoldt vanaf nu `#### Tier 0` en `#### Tier 1`, en `open-pr` en `cut-release`
-vragen exact die twee compleet te zijn. `Get-EntryTierMax` blijft 2, en die scheiding is de hele
-veiligheid van de knop: hij zegt welke tier-nummers geldig zijn om te *lezen*, dus de entries die onder
-het cumulatieve model een `#### Tier 2`-sectie kregen — waaronder deze — blijven leesbaar. Nagemeten in
-plaats van aangenomen: met de knop op 1 levert `Get-EntryAskedTiers` `0, 1`, blijft `Get-EntryTierMax`
-op 2, en meldt de impact-gate over deze entry mét haar Tier 2-sectie niets.
+**De referentiekopie in `branch/templates/` loopt sinds deze branch weer gelijk.** `new-branch`
+verversde `branch_template_changelog.md` bij het aanmaken en haalde daar het `Tier 2`-blok uit: die
+template was geschreven vóór `Get-ReleaseAudienceTier` op 1 ging, dus de referentie vroeg nog om een
+tier die de scaffolder hier niet meer schrijft. Dat gebeurt automatisch — templates zijn gegenereerd,
+niet onderhouden — maar het is wel een bestand in deze diff, dus het hoort genoemd.
 
-De tekst in `CLAUDE.md` loopt hier nog op achter en is bewust niet op deze branch gerepareerd: het
-tier-blok daar vraagt drie tiers, noemt tier 2 "een bezoeker van djcylow.com" en beschrijft de ladder
-als cumulatief. Dat bestand wordt op `docs/entry-model-migratie` over ruim tweehonderd regels
-herschreven, dus de correctie hoort in een eigen branch ná die merge — dezelfde afweging als bij de
-taxonomie-noot.
+**`branch/README.md` is een lens, geen kopie.** De bron-versie is 265 regels vol metingen, besluiten en
+scriptpaden die daar bestaan en hier niet. Deze versie beschrijft wat de twee bestanden zijn, waarom
+hun namen vast staan, wat de reset-staat op `main` betekent, de drie stappentekens en wat de fold doet
+en verwijst voor de cyclus door naar `CONTRIBUTING.md`. Er staan twee dingen in die specifiek voor deze
+repo gelden: hoe een gestapelde branch de twee bestanden overneemt (en dat dit tot plugin v4.5.0 stil
+misging, gemeld als inbound #615 vanuit deze repo), en het conflictvenster tussen een merge en zijn
+fold.
 
-**De fold viel terug op vier branch-typen terwijl deze repo er acht produceert.** `Get-BranchTypes`
-stond hier al goed in `scripts/lib/branch-info.ps1`, maar `fold-changelog-entry.ps1` en
-`new-internal-note.ps1` dot-sourcen dat bestand nooit en vielen dus terug op de canonieke vier van de
-bron: `Feat`, `Fix`, `Docs`, `Chore`. Vijf van de acht typen hier — `Feature`, `Data`, `Content`,
-`Style`, `Config` — staan daar niet in, en een type dat de fold niet kent leest hij als typeloos,
-waarna hij bij naam weigert. `check-script-contract.ps1` meldde dit als `[INFO]` en wees de reparatie
-zelf aan: `repo-config.ps1` wordt door beide scripts wél geladen, dus één dot-source daar maakt het
-antwoord alsnog bereikbaar. De twee `NOT IN SCOPE`-meldingen zijn daarmee weg.
-
-Verder bereikt de mojibake-poort nu de bestanden waar hij voor bedoeld is: met
-`Get-MojibakePaths` onderzoekt hij 68 bestanden in plaats van de drie `*.md` in de repo-root, inclusief
-`branch/` — waar de entry staat die letterlijk in `CHANGELOG.md` wordt geplakt en van daar in een
-release-note. `Get-ReservedRootMd` noemt de drie root-documenten die deze repo werkelijk heeft in plaats
-van de negen van de bron, zodat een `*.md` die hier ooit onbedoeld in de root opduikt de release wél
-tegenhoudt. En `Get-LiveStage` blijft leeg met de reden erbij, want dat betekent hier het omgekeerde van
-wat het lijkt: `origin/main` ís de live site, en juist daarom is er geen aparte go-live-stap ná de cut.
-
-Vijf seams blijven bewust onbeantwoord, elk met de reden in het bestand: `Get-ReleasePluginTier` (de
-enige met een berekende fallback, en die meet hier het juiste), `Get-PrMergeMethod` (alleen gelezen door
-`ship-pr`, die deze repo niet gebruikt), `Get-ReleaseMajorMinMinors` (de default van 10 laat een major
-hier ruim door, want de poort leest de minor-component van v2.22.0) en de twee
-`Get-EntrySignificance*`-knoppen (de fallback is hier al het antwoord: ranking aan, met de vijf
-ingebouwde banden). Bij die laatste twee staat nu wel een kanttekening in het bestand: de contract-tekst
-noemt als reden voor een eigen verwoording juist een repo wiens lezers geen ontwikkelaars zijn, en met
-het publiek op tier 1 — het management en de opdrachtgever — is dat een vraag die opnieuw gesteld hoort
-te worden. Gesteld, niet stil beantwoord: het is een keuze en geen meting.
-
-Twee handgeschreven tellingen in dit bestand klopten niet en zijn rechtgezet. De header noemde "vier"
-bewust onbeantwoorde vragen, de blok-kop eronder "drie", en `check-script-contract.ps1` meldde er zes —
-twee ervan stonden nergens verantwoord. Beide plaatsen verwijzen nu naar de check als de enige stand die
-met de blueprint meebeweegt, in plaats van een getal te herhalen dat bij de volgende plugin-update weer
-achterloopt.
-
-Bij `Get-ReleaseMajorMinMinors` stond tot nu toe een verkeerde reden, en die is vervangen in plaats van
-stilletjes weggehaald omdat hij plausibel klonk: "geen lezer zonder consumer-laag". De bump-poort hangt
-niet aan de consumer-laag maar aan de impact-verklaring van de wachtende entries (`cut-release.ps1`
-regel 459-467) — hij schakelt zichzelf uit waar géén enkele entry zijn impact verklaart, want dan heeft
-de repo het tier-model niet geadopteerd. Deze repo heeft dat model wél, dus er was al een lezer, ook
-vóór de knop hierboven aanging. Twee onafhankelijke mechanismen die op elkaar leken.
+**De verwijzingen zijn meegelopen, want een verhuizing die dat overslaat maakt dode links.** De header
+van `scripts/lib/branch-info.ps1` wees de tabel in `CLAUDE.md` als canonieke bron aan, twee toelichtingen
+in `scripts/repo-config.ps1` verwezen naar stap 3 en stap 6 daar, en `.claude/specialists/SPECIALISTS.md`
+noemde één bestand voor de hele werkwijze. Alle vier wijzen nu naar de plek waar de tekst staat. De
+mappenboom in `README.md` noemde bovendien nog een `workflow/`-map die al niet meer bestond; die regel
+is vervangen door `branch/`, `CONTRIBUTING.md` en `CLAUDE.md`.
 
 ### Significance
 
 #### Tier 0
 
-Twee fouten in de release-keten die geen melding gaven zijn weg, en beide zouden bij de eerstvolgende
-handeling zijn toegeslagen in plaats van ooit: de release-cut had een tweede notes-boom begonnen, en de
-fold had kunnen weigeren op een branch-type dat deze repo zelf produceert — waaronder het `Config` van
-deze branch. Daar komt de release-map bij: het handgeschreven document viel buiten de cut zolang zijn
-pad niet te richten was, en die knop kan nu aan. Daarnaast is het bestand leesbaar als beslisdocument:
-van elke seam staat er of hij beantwoord is en waarom, inclusief de vijf die leeg blijven, zodat een
-volgende sessie ze niet opnieuw hoeft uit te zoeken — en één verantwoording die verkeerd was is
-vervangen in plaats van weggehaald, zodat de volgende lezer niet dezelfde plausibele conclusie trekt.
-Twee tellingen die niet klopten zijn vervangen door een verwijzing naar de contract-check, want een
-handgeschreven getal loopt bij de volgende plugin-update weer achter. Merkbaar zodra iemand een fold,
-een release of de contract-check aanraakt; het verandert niet hoe er dagelijks gewerkt wordt.
+Wie hier werkt zoekt de route vanaf nu op de plek waar elke repo van deze familie hem heeft, en vindt
+er één beschrijving in plaats van twee die uit elkaar kunnen lopen. Daar komt een gerepareerde
+tier-uitleg bij: het oude blok vroeg om een derde tier die dit repo niet meer heeft, wat een entry kost
+die de poort niet kan lezen. En het voorkomt een storing die nog niet was opgetreden maar wel klaarlag:
+een release-cut die weigert op het nieuwe root-document.
 
 **Score:** 3
 
 #### Tier 1
 
-Een collega die aan dit project meewerkt raakt de release-keten zelden, maar loopt bij een cut of een
-fold tegen dezelfde scripts aan. Die geven nu de antwoorden van deze repo in plaats van die van de
-bron-repo, en de contract-check staat op vijf informatieve signalen — de vijf die overblijven zijn de
-bewuste keuzes, niet de onbeantwoorde vragen. Wie een minor of major cut hoeft het stakeholder-document
-bovendien niet meer met de hand aan te maken: de cut zet het klaar in de map waar de vorige 23 al staan.
-En dit is vanaf nu de tier waar een entry hier naar gevraagd wordt: het publiek staat op 1, dus deze
-lezer is degene voor wie het release-document geschreven wordt. Merkbaar zodra iemand een release of een
-nieuwe branch aanraakt, maar niet eerder.
+De opdrachtgever vindt de contributie-route nu op de conventionele plek, met de seam-antwoorden van deze
+repo in één tabel bij elkaar. Aan de site, de mixen of het werk zelf verandert niets.
 
-**Score:** 3
-
-#### Tier 2
-
-Een bezoeker van djcylow.com merkt hier niets van. Er is geen applicatiecode, styling, content of
-mix-data aangeraakt; de wijziging zit volledig in de PowerShell-configuratie die de workflow-scripts
-inlezen.
-
-**Score:** N/A
+**Score:** 2
 
 ### Pull Request

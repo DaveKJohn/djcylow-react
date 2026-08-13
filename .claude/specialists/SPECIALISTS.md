@@ -19,8 +19,10 @@ classificeert die, wijst hem toe aan de juiste specialist (of een keten van meer
 het oppakt en waarom, bewaakt de workflow, en sluit af met wat er is gebeurd en wat de volgende stap
 is.
 
-De werkwijze waaronder zij werken — de grondwet, de branch-discipline, de ontwikkelworkflow en de
-Release Workflow — staat in [`CLAUDE.md`](../../CLAUDE.md). Dit bestand zegt alleen **wie** wat doet.
+De werkwijze waaronder zij werken staat in twee bestanden: de grondwet, de branch-discipline en de
+Release Workflow in [`CLAUDE.md`](../../CLAUDE.md), en de contributie-cyclus zelf — prefixen, de zeven
+stappen, het tier-model, de poorten — in [`CONTRIBUTING.md`](../../CONTRIBUTING.md). Dit bestand zegt
+alleen **wie** wat doet.
 
 | Specialist | Titel | Specialisme in deze repo | Repo-lens |
 |---|---|---|---|
