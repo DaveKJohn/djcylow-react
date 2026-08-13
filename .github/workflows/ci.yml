@@ -37,15 +37,14 @@ jobs:
       # deze workflow, run 31732352110.
       - uses: actions/checkout@v5
 
-      # LET OP: deze repo pint zijn Node-versie nergens vast -- geen .nvmrc, geen .node-version, geen
-      # engines-veld en geen NODE_VERSION in netlify.toml. Netlify draait dus zijn eigen default en CI
-      # de versie hieronder; die twee kunnen uit elkaar lopen zonder dat iets dat meldt. 22 is gekozen
-      # omdat het de versie is waarop hier lokaal wordt gewerkt. Wil je de twee hard gelijkschakelen,
-      # dan is een .nvmrc de plek -- Netlify leest dat bestand, dus dat verandert de live build en is
-      # daarmee een beslissing van Dave, niet van deze workflow.
+      # De Node-versie komt sinds 2026-08-13 uit .nvmrc en staat hier niet meer los genoemd. Dat
+      # bestand is de enige plek waar deze repo zijn Node-versie verklaart, en dat is precies waarom
+      # het er is: Netlify LEEST .nvmrc, dus CI en de live build kunnen niet meer uit elkaar lopen
+      # zonder dat iemand dat bestand aanraakt. Daarvoor stond hier '22' hardgecodeerd terwijl Netlify
+      # zijn eigen default draaide, en niets meldde het als die twee divergeerden.
       - uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       # `npm ci` en niet `npm install`: die respecteert package-lock.json exact, zodat de poort meet
@@ -59,3 +58,16 @@ jobs:
       - name: Poort (scripts/lint/lint-web.ps1 -- tsc --noEmit + npm run build)
         shell: pwsh
         run: ./scripts/lint/lint-web.ps1
+
+      # DE TESTSUITE, en die draait hier als een gewone npm-stap in plaats van via de gedeelde
+      # Invoke-TestSuiteGate zoals de bron doet. Dat is geen afwijking uit gemak: die gate woont in
+      # scripts/lib/native-capture-lib.ps1 van de BRON, en een consumer heeft dat bestand niet in zijn
+      # repo -- het komt uit de plugin onder ~/.claude, die op een CI-runner niet bestaat. De gate
+      # dot-sourcen zou hier dus falen op een ontbrekend bestand.
+      #
+      # Lokaal loopt het wel via die gate: `Get-TestCommands` in scripts/repo-config.ps1 geeft
+      # 'npx vitest run' terug, en open-pr en cut-release draaien dat naast de PowerShell-suites.
+      # Beide wegen komen daarmee bij dezelfde suite uit, en dat is wat telt -- maar het is bewust
+      # geen tweede kopie van de LOGICA, alleen van de aanroep.
+      - name: Testsuite (tests/*.test.ts -- Vitest)
+        run: npm test
