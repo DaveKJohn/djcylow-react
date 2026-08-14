@@ -404,8 +404,8 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
    je hoeft die er niet apart voor te zetten
    - `npm run lint` blijft handwerk en staat nog buiten de poort, maar meldt sinds 2026-08-14 **0
-     errors** (wel 8 warnings). Er valt dus niets meer te vergelijken op aantal: een error is nu
-     gewoon een error, en die hoort niet mee de PR in
+     errors en 0 warnings**. Er valt dus niets meer te vergelijken op aantal: elke melding is nieuw,
+     en hoort niet mee de PR in
 4. **Herschrijf het audience-concept** (alleen Minor/Major):
    `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
    jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
@@ -658,9 +658,15 @@ De grondwet hierboven, hier concreet ingevuld:
   > een latere lezer als noodzakelijk zou lezen. **De remedie van een plan is een aparte aanname dan
   > de diagnose, en faalt onafhankelijk daarvan.**
   >
-  > **Wat blijft staan zijn 8 warnings** (ongebruikte variabelen, 2× `next/no-img-element` in `Hero`).
-  > Die blokkeren niets en zijn bewust blijven staan: `no-img-element` vraagt een ontwerpafweging over
-  > `next/image` bij `unoptimized: true`, en dat is Dave's beslissing en niet die van een opruimactie.
+  > **Diezelfde dag gingen ook de 8 warnings naar 0**, en dat leverde de vondst op die de hele
+  > operatie rechtvaardigt: één ervan was een ongebruikte import van `EmailDisplay` in `ContactForm`,
+  > terwijl `info@djcylow.com` drie regels verderop voluit in de tekst stond. Die component bestaat
+  > juist om het adres uit de statische HTML te houden — de bescherming was begonnen en nooit
+  > afgemaakt, en het adres stond scrape-baar op zes pagina's. **In een lijst van acht bekende
+  > meldingen valt niet op welke er één te veel is**; daarom staat de teller nu op 0/0 en is elke
+  > volgende melding per definitie nieuw. De twee `no-img-element`-warnings in `Hero` zijn onderdrukt
+  > mét de afweging in de code: `next/image` doet bij `unoptimized: true` geen resizing en geen
+  > formaatconversie, en voegt lazy loading toe die je voor een hero niet wilt.
   > **De ESLint-stap in `lint-web.ps1` is diezelfde dag gezet**, in een eigen branch. Dat hij ook
   > blokkeert is niet aangenomen maar getoetst: met een tijdelijk bestand met één `any` erin gaf de
   > poort exit 1 met de fout erbij, waarna het bestand weer weg is. Een poort die alleen groen is

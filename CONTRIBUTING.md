@@ -217,8 +217,9 @@ build niet vangt en er niets tussen de merge en de site zit. `-SkipBuild` bestaa
 hoort niet in de poort zelf. **ESLint zit er sinds 2026-08-14 in** als tweede stap: er waren 37
 pre-existing errors, die zijn die dag in drie branches naar **0** gebracht, en daarmee verviel de reden
 om hem erbuiten te houden. Het oude advies "vergelijk op **aantal** en niet op exitcode" is dus vervallen
-— er is geen aantal meer. Errors blokkeren; de 8 resterende warnings niet, maar hun aantal wordt wel
-gemeld zodat het niet ongemerkt terugloopt.
+— er is geen aantal meer. Sinds diezelfde dag staan ook de **warnings op 0**; die blokkeren de poort
+niet, maar hun aantal wordt wel gemeld zodat het niet ongemerkt terugloopt. Elke melding die je ziet is
+dus nieuw en van jou.
 
 De PR-body komt uit [`.github/pull_request_template.md`](.github/pull_request_template.md) — loop de
 checklist na en vink af wat van toepassing is. De titel geef je **niet** mee; die stelt `open-pr` samen uit

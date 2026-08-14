@@ -32,9 +32,12 @@
     Op 2026-08-14 is die achterstand naar 0 gebracht en is de stap hier toegevoegd. De telling is
     daarmee vervangen door een check.
 
-    Errors blokkeren; WARNINGS NIET. Er staan er 8 (ongebruikte variabelen, 2x no-img-element in
-    Hero) en die vragen een ontwerpafweging die niet bij een poort hoort. Het aantal wordt wel
-    gemeld, zodat het niet ongemerkt terug kan groeien.
+    Errors blokkeren; WARNINGS NIET -- maar hun aantal wordt wel gemeld, en dat staat sinds
+    2026-08-14 op 0. Zie ze dus niet als ruis: de laatste ronde warnings bevatte een ongebruikte
+    import van EmailDisplay in ContactForm, terwijl het e-mailadres daar drie regels verderop voluit
+    in de tekst stond. Die component bestaat juist om dat adres uit de statische HTML te houden. In
+    een lijst van acht bekende meldingen valt niet op welke er een te veel is; bij 0 is elke nieuwe
+    melding per definitie van jou.
 
     De achterstand ging van 37 naar 0 in drie stappen:
       - 10x no-require-imports in scripts/ en netlify/functions/ - CommonJS in Node-land, dus geen

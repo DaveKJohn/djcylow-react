@@ -26,7 +26,9 @@ exports.handler = async (event) => {
         let data;
         try {
             data = JSON.parse(bodyContent);
-        } catch (e) {
+        } catch {
+            // Geen JSON: dan is het een klassieke form-encoded body. De fout zelf zegt niets extra's,
+            // dus die vangen we zonder binding op -- anders staat er een variabele die niemand leest.
             data = Object.fromEntries(new URLSearchParams(bodyContent));
         }
 

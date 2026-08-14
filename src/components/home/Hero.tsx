@@ -12,15 +12,31 @@ const Hero = () => {
             <div className="layer AMC gradient" id="hero_back"></div>
 
             <div className="layer ATC visual" id="hero_middle">
+                {/* BEWUST <img> en geen next/image. Deze repo draait op `images: { unoptimized: true }`
+                    (vereist voor de static export), dus next/image doet hier geen resizing en geen
+                    formaatconversie -- precies de twee dingen waar de lint-regel om vraagt. Wat het
+                    wel zou toevoegen is lazy loading, en dat is voor een hero juist ongewenst.
+
+                    WEL EEN ECHT PROBLEEM, EN DAT IS GEMETEN: beide afbeeldingen staan in de DOM en
+                    worden door de CSS met display:none geschakeld, terwijl een browser een <img src>
+                    met display:none in de regel gewoon ophaalt. Een mobiele bezoeker downloadt dus
+                    hero_desktop.webp (105 KB) bovenop de hero_mobile.webp (56 KB) die hij ziet --
+                    bijna tweemaal de nuttige lading, juist op de verbinding waar dat het meest telt.
+                    De oplossing is <picture> met een <source media=...>, zodat de browser er een
+                    kiest. Dat vraagt ook een samenvoeging in hero.scss (de mobiele variant heeft een
+                    eigen height/transform) en dus een blik op het resultaat; het staat daarom apart
+                    en niet hier. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     className="hero-img-desktop"
                     src={homeContent.heroImageDesktop}
-                    alt="heroDesktop"
+                    alt="DJ Cylow met koptelefoon achter zijn Pioneer DJ-controller"
                 />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     className="hero-img-mobile"
                     src={homeContent.heroImageMobile}
-                    alt="heroMobile"
+                    alt="DJ Cylow met koptelefoon achter zijn Pioneer DJ-controller"
                 />
             </div>
 

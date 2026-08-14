@@ -9,8 +9,9 @@ import styles from '@/styles/modules/home.module.scss';
 
 import Hero from "@/components/home/Hero";
 import Promo from "@/components/home/Promo";
-import GoogleReviews from "@/components/home/GoogleReviews";
-import Referenties from "@/components/home/Referenties";
+// Referenties en GoogleReviews staan hieronder uitgeschakeld in de JSX; hun imports zijn daarom
+// weggehaald in plaats van ongebruikt te blijven staan. Zet je een van de twee terug, dan komt de
+// import er in dezelfde handeling weer bij -- de uitgecommentarieerde regel draagt de bedoeling.
 
 
 
