@@ -142,7 +142,15 @@ export default function ContactForm() {
 
                                     <div className="column w-fill AML P45 spacing-xl">
                                         <h3 className="bold">Laat een bericht achter</h3>
-                                        <p className="size-base balanced">Stuur een e-mail naar info@djcylow.com, of vul hieronder je gegevens in en laat een bericht achter.</p>
+                                        {/* Het adres hieronder gaat via EmailDisplay en niet als platte
+                                            tekst: die component stelt het pas in de browser samen, zodat
+                                            het niet in de statische HTML staat die scrapers uitlezen. Tot
+                                            2026-08-14 stond het hier voluit terwijl de import van
+                                            EmailDisplay er ongebruikt boven hing -- de bescherming was
+                                            begonnen en nooit afgemaakt, en het adres lekte zo op zes
+                                            pagina's. De &nbsp; ervoor houdt "naar" en het adres op
+                                            dezelfde regel; die blijft dus staan. */}
+                                        <p className="size-base balanced">Stuur een e-mail naar <EmailDisplay user="info" domain="djcylow.com" />, of vul hieronder je gegevens in en laat een bericht achter.</p>
                                     </div>
 
                                     <div className="column w-fill AML P45">
