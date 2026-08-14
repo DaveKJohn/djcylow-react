@@ -403,9 +403,9 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 3. **Draai `cut-release`** met de bump die de wachtende entries verdienen (zie *Versienummer bepalen*
    hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
    je hoeft die er niet apart voor te zetten
-   - `npm run lint` blijft handwerk en staat bewust buiten de poort: ESLint meldt 13 **pre-existing**
-     errors. Die zijn acceptabel zolang je geen `.ts`/`.tsx` hebt aangeraakt; wat niet acceptabel is,
-     is een fout erbij. Vergelijk dus het **aantal**, niet de exitcode
+   - `npm run lint` blijft handwerk en staat nog buiten de poort, maar meldt sinds 2026-08-14 **0
+     errors** (wel 8 warnings). Er valt dus niets meer te vergelijken op aantal: een error is nu
+     gewoon een error, en die hoort niet mee de PR in
 4. **Herschrijf het audience-concept** (alleen Minor/Major):
    `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
    jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
@@ -637,26 +637,30 @@ De grondwet hierboven, hier concreet ingevuld:
 - **De poort vóór elke PR is de laatste wacht vóór een live deploy.** `open-pr` draait
   `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit` én `npm run build`, beide moeten
   groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte build niet
-  vangt en er niets tussen de merge en de site zit. ESLint blijft bewust buiten de poort omdat er 13
-  pre-existing errors staan; die vergelijk je op aantal. `-SkipBuild` bestaat om lokaal te itereren
-  en hoort niet in de poort zelf.
-  > **Het waren er 37 tot 2026-08-14**, in twee stappen teruggebracht naar 13. Tien waren
-  > `no-require-imports` in `scripts/` en `netlify/functions/` — CommonJS in Node-land, dus geen fout
-  > in die bestanden maar een ontbrekende override in `eslint.config.mjs`. Veertien waren
+  vangt en er niets tussen de merge en de site zit. ESLint staat nog buiten de poort, maar de reden
+  daarvoor is per 2026-08-14 vervallen: **de teller staat op 0**. Het advies "vergelijk op aantal en
+  niet op exitcode" is daarmee ook vervallen. `-SkipBuild` bestaat om lokaal te itereren en hoort niet
+  in de poort zelf.
+  > **Er stonden 37 pre-existing errors, en die zijn op 2026-08-14 in drie stappen naar 0 gebracht.**
+  > Tien waren `no-require-imports` in `scripts/` en `netlify/functions/` — CommonJS in Node-land, dus
+  > geen fout in die bestanden maar een ontbrekende override in `eslint.config.mjs`. Veertien waren
   > `ban-ts-comment`: een `@ts-ignore` boven een stylesheet-import, zestien keer in totaal (twee
-  > ervan stonden niet in de telling omdat er een `eslint-disable-next-line` overheen lag).
+  > ervan stonden niet in de telling omdat er een `eslint-disable-next-line` overheen lag). De laatste
+  > dertien waren echte code: vier hook-fouten, vijf `any`'s en vier JSX-entities.
   >
-  > **Die tweede stap liep anders dan gepland, en dat is de les.** Het plan was een eigen
+  > **De tweede stap liep anders dan gepland, en dat is de les die blijft.** Het plan was een eigen
   > `.d.ts` met `declare module '*.scss'`. Bij het meten bleek `tsc` die imports al te accepteren —
   > `next-env.d.ts` levert de declaratie via `/// <reference types="next" />`. Er was dus geen
   > declaratiebestand nodig en ook nooit nodig geweest: de zestien regels konden simpelweg weg. Was
   > het plan zonder meting uitgevoerd, dan stond er nu een `.d.ts` in de repo die niets doet en die
-  > een latere lezer als noodzakelijk zou lezen.
+  > een latere lezer als noodzakelijk zou lezen. **De remedie van een plan is een aparte aanname dan
+  > de diagnose, en faalt onafhankelijk daarvan.**
   >
-  > **Wat resteert is code en geen config**, en daarmee is de weg naar een dichte ESLint-poort
-  > afgebakend: 4× `react-hooks/set-state-in-effect` (`AudioPlayer`, `MobileContent`,
-  > `EmailDisplay`), 5× `no-explicit-any` en 4× `no-unescaped-entities`. Die stap raakt `src/` en
-  > wacht dus op Dave's woord.
+  > **Wat blijft staan zijn 8 warnings** (ongebruikte variabelen, 2× `next/no-img-element` in `Hero`).
+  > Die blokkeren niets en zijn bewust blijven staan: `no-img-element` vraagt een ontwerpafweging over
+  > `next/image` bij `unoptimized: true`, en dat is Dave's beslissing en niet die van een opruimactie.
+  > **De ESLint-stap in `lint-web.ps1` zelf is nog niet gezet**; dat is eigen werk in een eigen
+  > branch. Die raakt alleen de poort en niet `src/`, dus hij loopt onder de PR-regel gewoon door.
 - **Diezelfde poort draait sinds 2026-08-13 ook server-side**, via
   [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main`. Dat is
   **geen tweede kopie** van tsc + build maar hetzelfde `lint-web.ps1`, aangeroepen onder `pwsh` — een

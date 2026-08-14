@@ -54,7 +54,15 @@ interface Mix {
     tags?: string[];            // ? = optioneel veld
     top_artists?: string[];     // ? = optioneel veld
     tracks: number;             // Aantal items in tracklist; vooraf geteld zodat het niet elke keer opnieuw hoeft
-    tracklist: { time: string; track: string }[];
+    tracklist: Track[];
+}
+
+// Eén regel uit de tracklist. Stond als inline vorm in Mix; nu een eigen naam, zodat de twee
+// plekken die er los mee werken (getTopArtists en de tracklist-tabel) hem kunnen noemen in plaats
+// van naar any uit te wijken.
+interface Track {
+    time: string;
+    track: string;
 }
 
 // Alle losse JSON-arrays samenvoegen tot één grote lijst met alle mixen.
@@ -62,7 +70,7 @@ interface Mix {
 const allMixes: Mix[] = [
     ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightRed, ...lightMagenta, ...lightPurple,
     ...fullBlue, ...fullCyan, ...fullGreen, ...fullYellow, ...fullOrange, ...fullRed, ...fullPurple
-] as any;
+];
 
 // Vertelt Next.js dat er geen dynamische URL's bestaan buiten de vooraf gegenereerde lijst.
 // Bij een onbekend pad geeft de site een 404 in plaats van het op de server te proberen.
@@ -70,7 +78,7 @@ export const dynamicParams = false;
 
 // Fallback: als top_artists leeg is, haal de eerste unieke artiesten op uit de tracklist.
 // Niet ideaal (tracklist-volgorde ≠ populariteit) maar beter dan niets.
-function getTopArtists(tracklist: any[], limit = 5) {
+function getTopArtists(tracklist: Track[], limit = 5) {
     if (!Array.isArray(tracklist)) return '';
     const artists = tracklist.map(t => {
         const parts = t.track.split(' - ')[0];
@@ -371,7 +379,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                 <table>
                                     <tbody>
                                         {Array.isArray(mix.tracklist) && mix.tracklist.length > 0 ? (
-                                            mix.tracklist.map((track: any, index: number) => (
+                                            mix.tracklist.map((track: Track, index: number) => (
                                                 <tr key={index}>
                                                     <td className="track">{track.track}</td>
                                                     <td className="time">{track.time}</td>

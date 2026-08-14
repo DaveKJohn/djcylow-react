@@ -1,8 +1,29 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { BREAKPOINTS } from '@/constants/design';
+
+// Matcht EXACT met de SCSS map ($breakpoints small: 811px).
+const MOBILE_QUERY = `(max-width: ${BREAKPOINTS.SMALL}px)`;
+
+// De viewport is een externe bron, geen state van deze component. Met subscribe + snapshot leest
+// React hem rechtstreeks uit, in plaats van hem na te bouwen in state die een effect moet bijwerken.
+// De serversnapshot is false: bij de static export is er geen viewport om te meten.
+const subscribeToViewport = (onChange: () => void) => {
+    const mql = window.matchMedia(MOBILE_QUERY);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+};
+const getIsMobile = () => window.matchMedia(MOBILE_QUERY).matches;
+const getIsMobileOnServer = () => false;
+
+// Hetzelfde procede voor "draait dit al in de browser?" -- de vraag die de oude mounted-vlag stelde.
+// Server zegt nee, client zegt ja, en de waarde verandert daarna nooit meer; vandaar een subscribe
+// die niets doet. De gerenderde HTML blijft hierdoor identiek aan die van de mounted-vlag.
+const subscribeNever = () => () => { };
+const getMountedOnClient = () => true;
+const getMountedOnServer = () => false;
 
 interface MobileContentProps {
     title?: React.ReactNode;
@@ -22,32 +43,31 @@ export default function MobileContent({
     icon
 }: MobileContentProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-    const [mounted, setMounted] = useState(false);
     const pathname = usePathname();
 
-    useEffect(() => {
-        setMounted(true);
+    const isMobile = useSyncExternalStore(subscribeToViewport, getIsMobile, getIsMobileOnServer);
+    const mounted = useSyncExternalStore(subscribeNever, getMountedOnClient, getMountedOnServer);
 
-        // Maak een media query die EXACT matcht met je SCSS map ($breakpoints small: 811px)
-        const mql = window.matchMedia(`(max-width: ${BREAKPOINTS.SMALL}px)`);
+    // De drawer gaat dicht bij twee gebeurtenissen: naar desktop schalen, en navigeren. Allebei
+    // gebeuren ze buiten deze component, en allebei worden ze hier tijdens de render afgehandeld in
+    // plaats van in een effect -- dan sluit de drawer nog voor de browser schildert, zonder de
+    // zichtbare tussenstap die een effect na de paint oplevert.
+    const [prevIsMobile, setPrevIsMobile] = useState(isMobile);
+    if (prevIsMobile !== isMobile) {
+        setPrevIsMobile(isMobile);
+        if (!isMobile) {
+            setIsOpen(false);
+        }
+    }
 
-        const checkSize = (e: MediaQueryListEvent | MediaQueryList) => {
-            setIsMobile(e.matches);
-            if (!e.matches) {
-                setIsOpen(false); // Sluit drawer als we naar desktop gaan
-            }
-        };
+    const [prevPathname, setPrevPathname] = useState(pathname);
+    if (prevPathname !== pathname) {
+        setPrevPathname(pathname);
+        setIsOpen(false);
+    }
 
-        // Voer de check direct uit zodra de component mount
-        checkSize(mql);
-
-        // Gebruik de moderne event listener voor media queries
-        mql.addEventListener("change", checkSize);
-
-        return () => mql.removeEventListener("change", checkSize);
-    }, []);
-
+    // Dit blijft wel een effect: het schrijft naar document.body, en dat is een extern systeem
+    // bijwerken -- precies waar effects voor bedoeld zijn.
     useEffect(() => {
         if (isMobile && isOpen) {
             document.body.style.overflow = 'hidden';
@@ -55,10 +75,6 @@ export default function MobileContent({
             document.body.style.overflow = '';
         }
     }, [isOpen, isMobile]);
-
-    useEffect(() => {
-        setIsOpen(false);
-    }, [pathname]);
 
     const toggle = () => setIsOpen(prev => !prev);
 
