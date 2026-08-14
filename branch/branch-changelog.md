@@ -1,8 +1,8 @@
-## `config/scss-typedeclaratie` changelog
+## `config/overbodige-ts-ignores` changelog
 
 ### Branch title
 
-Een typedeclaratie voor SCSS-imports vervangt veertien ts-ignores
+Zestien overbodige ts-ignores verdwijnen boven de stylesheet-imports
 
 ### Branch ID
 
@@ -33,6 +33,10 @@ Bij het meten — één `@ts-ignore` weghalen en `tsc` draaien — bleek dat bes
 nodig geweest. Was het plan zonder die meting uitgevoerd, dan stond er nu een declaratiebestand in de
 repo dat niets doet en dat een latere lezer als noodzakelijk zou lezen. De remedie van een plan is een
 aparte aanname dan de diagnose, en faalt onafhankelijk daarvan.
+
+De branch heette daarom eerst `config/scss-typedeclaratie` en is vóór de push hernoemd: een naam die
+een bestand belooft dat er niet komt, misleidt precies de lezer die later terugzoekt waaróm iets zo
+is opgelost.
 
 Aan de site verandert niets: geen regel gedragscode is aangeraakt, alleen commentaarregels. De diff is
 achttien verwijderde regels in `src/` en nul toegevoegde. De build levert dezelfde 89 pagina's.

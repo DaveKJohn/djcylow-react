@@ -1,4 +1,4 @@
-## `config/scss-typedeclaratie` progress
+## `config/overbodige-ts-ignores` progress
 
 ### Steps
 
