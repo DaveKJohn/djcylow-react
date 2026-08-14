@@ -18,11 +18,23 @@
     Wat hij checkt:
       1. `tsc --noEmit` over tsconfig.lint.json (de gewone tsconfig zonder de .next/types-includes,
          zodat de uitkomst niet afhangt van hoe vers de build-output is).
-      2. `npm run build` - de static export die Netlify ook draait.
+      2. `eslint .` - sinds 2026-08-14, zie hieronder.
+      3. `npm run build` - de static export die Netlify ook draait.
 
-    Wat hij nog niet checkt: ESLint. `npm run lint` meldt sinds 2026-08-14 nul errors - de reden om
-    hem buiten de poort te houden is daarmee vervallen, en de ESLint-stap hoort er nu bij. Zie het
-    TODO-blok onder; dat is een eigen branch en niet iets om hier ongemerkt aan te plakken.
+    ESLINT STOND HIER LANG BUITEN, EN WAAROM DAT VERANDERDE
+    -------------------------------------------------------
+    Er stonden 37 pre-existing errors in de codebase. Die als poort aanzetten zou elke PR blokkeren
+    op werk dat er niets mee te maken had, dus stond ESLint erbuiten met de instructie "vergelijk
+    het AANTAL, niet de exitcode". Dat maakte deze poort de enige die een mens met het blote oog
+    moest aflezen -- een afspraak die precies zo lang standhoudt als iemand hem onthoudt, en die
+    nergens werd gecontroleerd.
+
+    Op 2026-08-14 is die achterstand naar 0 gebracht en is de stap hier toegevoegd. De telling is
+    daarmee vervangen door een check.
+
+    Errors blokkeren; WARNINGS NIET. Er staan er 8 (ongebruikte variabelen, 2x no-img-element in
+    Hero) en die vragen een ontwerpafweging die niet bij een poort hoort. Het aantal wordt wel
+    gemeld, zodat het niet ongemerkt terug kan groeien.
 
     De achterstand ging van 37 naar 0 in drie stappen:
       - 10x no-require-imports in scripts/ en netlify/functions/ - CommonJS in Node-land, dus geen
@@ -33,15 +45,12 @@
       - 13x echte code: 4x react-hooks/set-state-in-effect, 5x no-explicit-any, 4x
         no-unescaped-entities.
 
-    Wat blijft staan zijn 8 WARNINGS (ongebruikte variabelen, 2x next/no-img-element in Hero).
-    Die blokkeren niets; ze zijn bewust niet meegenomen omdat ze een oordeel vragen dat bij een
-    ontwerper of Dave hoort, niet bij een opruimactie.
+    Handmatig draaien:   powershell -NoProfile -File scripts\lint\lint-web.ps1
+    Zonder de build:     powershell -NoProfile -File scripts\lint\lint-web.ps1 -SkipBuild
 
-    Handmatig draaien:  powershell -NoProfile -File scripts\lint\lint-web.ps1
-    Alleen de typecheck: powershell -NoProfile -File scripts\lint\lint-web.ps1 -SkipBuild
-
-    -SkipBuild is er om tijdens het herstellen van typefouten niet elke keer 6 seconden te wachten.
-    Sla hem niet over in de poort zelf: dan valt precies de wacht weg die dit script toevoegt.
+    -SkipBuild is er om tijdens het herstellen van typefouten niet elke keer 6 seconden te wachten;
+    tsc en ESLint draaien dan gewoon door. Sla hem niet over in de poort zelf: dan valt precies de
+    wacht weg die dit script toevoegt.
 
     Bewust puur ASCII (repo-conventie voor .ps1).
 #>
@@ -92,11 +101,35 @@ try {
 
     Write-Host "  [OK]    geen TypeScript-fouten" -ForegroundColor Green
 
-    # TODO (eigen branch): ESLint als derde poort-stap. De voorwaarde die hier stond -- "zodra de
-    # bestaande errors zijn opgeruimd" -- is per 2026-08-14 vervuld: de teller staat op 0. Dan hier
-    # toevoegen:
-    #   $eslintOutput = & npx --no-install eslint . 2>&1
-    #   if ($LASTEXITCODE -ne 0) { ... exit 1 }
+    Write-Host ""
+    Write-Host "-- ESLint (npm run lint)" -ForegroundColor Gray
+    # Bewust GEEN 2>&1, om dezelfde reden als bij de build hieronder: in PowerShell 5.1 wikkelt dat
+    # de stderr van een native commando in ErrorRecords en begraaft het de echte melding onder
+    # NativeCommandError-ruis. We beoordelen op $LASTEXITCODE, niet op $?.
+    $eslintOutput = & npx --no-install eslint .
+    $eslintExit = $LASTEXITCODE
+
+    if ($eslintExit -ne 0) {
+        $eslintOutput | ForEach-Object { Write-Host $_ }
+        Write-Host ""
+        Write-Host "Samenvatting: ESLint-fouten gevonden -- de poort blokkeert." -ForegroundColor Red
+        exit 1
+    }
+
+    # Warnings blokkeren niet, maar ze verdwijnen ook niet in stilte: het aantal hoort zichtbaar te
+    # zijn, anders groeit het ongemerkt terug naar de achterstand die deze poort net heeft opgeruimd.
+    # Defensief, net als het paginatal: geen match mag de poort nooit laten struikelen.
+    $warnCount = ''
+    foreach ($line in $eslintOutput) {
+        $m = [regex]::Match([string]$line, '(\d+)\s+warnings?\)')
+        if ($m.Success) { $warnCount = $m.Groups[1].Value }
+    }
+    if ($warnCount -ne '' -and $warnCount -ne '0') {
+        Write-Host "  [OK]    geen ESLint-errors ($warnCount warning(s), die blokkeren niet)" -ForegroundColor Green
+    }
+    else {
+        Write-Host "  [OK]    geen ESLint-errors" -ForegroundColor Green
+    }
 
     Write-Host ""
     if ($SkipBuild) {

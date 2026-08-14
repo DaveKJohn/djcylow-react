@@ -75,10 +75,12 @@ jobs:
       # importeert -- dat is precies waarom hij er staat.
       - run: npm ci
 
-      # DEZELFDE POORT die open-pr.ps1 lokaal draait -- geen tweede kopie van tsc + build hier. Een
+      # DEZELFDE POORT die open-pr.ps1 lokaal draait -- geen tweede kopie van de checks hier. Een
       # kopie in een workflow die niemand openslaat is precies wat er als eerste uit de pas gaat lopen
-      # met het script dat wel wordt onderhouden.
-      - name: Poort (scripts/lint/lint-web.ps1 -- tsc --noEmit + npm run build)
+      # met het script dat wel wordt onderhouden. Dat het script de bron is en niet de workflow, is
+      # op 2026-08-14 uitbetaald: ESLint kwam er als derde check bij en deze stap hoefde alleen zijn
+      # NAAM aan te passen -- er stond geen commando dat meeveranderd moest worden.
+      - name: Poort (scripts/lint/lint-web.ps1 -- tsc --noEmit + eslint + npm run build)
         shell: pwsh
         run: ./scripts/lint/lint-web.ps1
 
