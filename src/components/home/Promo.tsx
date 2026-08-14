@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { homeContent } from "@/content/home";
 import ReadMore from "@/components/ui/ReadMore";
 
-// @ts-ignore
 import '@/styles/components/home/promo.scss';
 
 const Promo = () => {

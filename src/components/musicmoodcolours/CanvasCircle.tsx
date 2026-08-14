@@ -1,6 +1,5 @@
 import React from 'react';
 
-// @ts-ignore
 import '@/styles/components/musicmoodcolours/canvasCircle.scss';
 
 const COLORS = [

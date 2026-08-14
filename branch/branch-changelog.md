@@ -1,12 +1,12 @@
-## `config/eslint-node-overrides` changelog
+## `config/overbodige-ts-ignores` changelog
 
 ### Branch title
 
-ESLint stopt met Node-scripts als browsercode te lezen
+Zestien overbodige ts-ignores verdwijnen boven de stylesheet-imports
 
 ### Branch ID
 
-20260814-203611
+20260814-204723
 
 ### Branch type
 
@@ -14,41 +14,49 @@ config
 
 ### What does the change on this branch bring to main?
 
-`eslint.config.mjs` krijgt een override voor `scripts/**/*.js` en `netlify/functions/**/*.js`: daar
-staat `@typescript-eslint/no-require-imports` uit. Die drie bestanden — `add-mix.js`,
-`convert-to-webp.js` en de Netlify-function `send-email.js` — draaien op Node en niet in de browser,
-en gaan niet door de Next-bundler heen. CommonJS is er het juiste module-systeem, dus de tien errors
-die ESLint er meldde waren geen fouten in die bestanden maar een ontbrekende override in de config:
-een Next-*browser*-config las Node-scripts alsof het frontend was.
+Zestien `// @ts-ignore`-regels verdwijnen uit `src/`, elk boven een stylesheet-import. Ze waren
+overbodig: `tsc` accepteert die imports gewoon, want `next-env.d.ts` levert de declaratie al via
+`/// <reference types="next" />`. Wat er stond was dus een onderdrukking van een fout die er niet is —
+en een `@ts-ignore` is niet ongevaarlijk, want hij dempt élke fout op de regel eronder, ook een echte
+die er later bij komt.
 
-Daarmee gaat het aantal pre-existing ESLint-errors van **37 naar 27**, en dat getal is hier geen
-detail maar een instructie. `CLAUDE.md` schrijft over deze poort letterlijk *"vergelijk het aantal,
-niet de exitcode"* — de enige poort in deze repo die een mens met het blote oog moet aflezen. Alle
-vier de plekken die het oude getal noemden zijn meegegaan: `CLAUDE.md` (2×), `CONTRIBUTING.md`,
-`scripts/repo-config.ps1` en de header plus het TODO-blok van `scripts/lint/lint-web.ps1`. De
-vindplaatsen in `releases/` blijven staan: dat is historie, en een record herschrijf je niet.
+Twee van de zestien stonden niet in de ESLint-telling: in `Playlist.tsx` en `Filter.tsx` lag er een
+`// eslint-disable-next-line @typescript-eslint/ban-ts-comment` overheen. Daar was de melding ooit
+gesmoord in plaats van de oorzaak weggenomen; die twee disable-regels gaan mee weg.
 
-Wat het bovendien oplevert is een afgebakende route naar een dichte poort. De 27 die resteren zijn
-gemeten en het is allemaal code in plaats van config: 14× een `@ts-ignore` boven een SCSS-import (één
-module-declaratie maakt ze alle veertien overbodig), 4× `react-hooks/set-state-in-effect` in de
-audioplayer en de mobiele navigatie, 5× `no-explicit-any` en 4× `no-unescaped-entities`. Die twee
-vervolgstappen raken `src/` en wachten dus op Dave's woord; deze niet.
+Daarmee gaat het aantal pre-existing ESLint-errors van **27 naar 13** en is `ban-ts-comment` volledig
+verdwenen. De vier tekstplekken die het getal noemen zijn opnieuw meegegaan.
+
+**Het plan was een ander, en het verschil is de moeite van het opschrijven waard.** Het voorstel waar
+deze branch uit voortkwam stelde een eigen `src/types/scss.d.ts` voor met `declare module '*.scss'`.
+Bij het meten — één `@ts-ignore` weghalen en `tsc` draaien — bleek dat bestand niet nodig, en ook nooit
+nodig geweest. Was het plan zonder die meting uitgevoerd, dan stond er nu een declaratiebestand in de
+repo dat niets doet en dat een latere lezer als noodzakelijk zou lezen. De remedie van een plan is een
+aparte aanname dan de diagnose, en faalt onafhankelijk daarvan.
+
+De branch heette daarom eerst `config/scss-typedeclaratie` en is vóór de push hernoemd: een naam die
+een bestand belooft dat er niet komt, misleidt precies de lezer die later terugzoekt waaróm iets zo
+is opgelost.
+
+Aan de site verandert niets: geen regel gedragscode is aangeraakt, alleen commentaarregels. De diff is
+achttien verwijderde regels in `src/` en nul toegevoegde. De build levert dezelfde 89 pagina's.
 
 ### Significance
 
 #### Tier 0
 
-Haalt de ruis weg die deze poort onbetrouwbaar maakt: wie nu `npm run lint` draait, ziet geen tien
-meldingen meer over bestanden waarin niets mis is. Dat maakt de handmatige telling waar `CLAUDE.md`
-op leunt aantoonbaar makkelijker vol te houden — en het is de eerste van vier stappen naar een poort
-die zichzelf bewaakt in plaats van door een mens geteld te worden.
+Haalt zestien blinde vlekken weg. Elke `@ts-ignore` die er stond dempte niet alleen de fout die er
+niet was, maar zou ook een echte typefout op die importregel hebben verzwegen — en juist een
+verkeerd gespeld stylesheet-pad is de klasse fout die deze repo op Linux breekt en op Windows niet.
+Daarnaast is dit de tweede van vier stappen naar een ESLint-poort die zichzelf bewaakt in plaats van
+door een mens geteld te worden; na deze stap is meer dan tweederde van de achterstand weg.
 
 **Score:** 3
 
 #### Tier 1
 
-N/A — de opdrachtgever merkt hier niets van. De site levert exact dezelfde 89 pagina's: er is geen
-regel gedragscode aangeraakt, alleen een lint-override en de documentatie die het getal noemt.
+N/A — de opdrachtgever merkt hier niets van. De site levert exact dezelfde 89 pagina's; er zijn
+uitsluitend commentaarregels verwijderd.
 
 **Score:** N/A
 

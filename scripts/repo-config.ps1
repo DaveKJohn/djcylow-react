@@ -71,7 +71,7 @@ function Get-RepoBlobUrl {
 # De lint-poort van deze repo, repo-root-relatief. De open-pr-skill draait dit voor de PR. Dit is het
 # enige repo-specifieke deel van open-pr: elke consument heeft zijn eigen lint (de workshop
 # check-plugin-integrity, life-hub lint-brain, deze repo de TypeScript-typecheck).
-# lint-web.ps1 checkt nu alleen `tsc --noEmit`; ESLint komt erbij zodra de bestaande 27 errors zijn
+# lint-web.ps1 checkt nu alleen `tsc --noEmit`; ESLint komt erbij zodra de bestaande 13 errors zijn
 # opgeruimd -- de afweging staat in de header van dat script.
 $script:LintScript = 'scripts\lint\lint-web.ps1'
 

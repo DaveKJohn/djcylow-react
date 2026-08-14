@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactGoogleReviews } from "react-google-reviews";
-// @ts-ignore
 import "react-google-reviews/dist/index.css";
 
 const GoogleReviews = () => {

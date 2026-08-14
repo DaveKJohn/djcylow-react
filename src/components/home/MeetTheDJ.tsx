@@ -3,7 +3,6 @@ import { homeContent } from "@/content/home";
 import Image from 'next/image'; // Gaat uit van Next.js gezien de Image component
 import ReadMore from "@/components/ui/ReadMore";
 
-// @ts-ignore
 import '@/styles/components/home/meetTheDJ.scss';
 
 
