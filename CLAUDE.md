@@ -596,9 +596,11 @@ De stapnummers hieronder verwijzen naar
 Repo-eigen scripts:
 
 - **`scripts/lint/lint-web.ps1`** — de poort die `open-pr` draait: `tsc --noEmit` over
-  `tsconfig.lint.json` **én** `npm run build`. ESLint zit er bewust nog niet in; de reden staat in de
-  header van het script. Het draait sinds 2026-08-13 op twee plekken — lokaal onder Windows PowerShell
-  5.1 en in CI onder `pwsh` op Linux — en houdt daar in zijn preferences rekening mee.
+  `tsconfig.lint.json`, **`eslint .`** en **`npm run build`**. ESLint kwam er op 2026-08-14 bij, toen
+  de 37 pre-existing errors op 0 stonden; errors blokkeren, warnings niet maar worden wel geteld. De
+  verantwoording staat in de header van het script. Het draait sinds 2026-08-13 op twee plekken —
+  lokaal onder Windows PowerShell 5.1 en in CI onder `pwsh` op Linux — en houdt daar in zijn
+  preferences rekening mee.
 - **`.github/workflows/ci.yml`** — diezelfde poort, server-side, op elke PR en elke push naar `main`, plus
   de testsuite. Hij roept `lint-web.ps1` aan in plaats van tsc en de build over te schrijven, zodat er één
   poort te onderhouden blijft. Draait op **ubuntu** en niet op windows zoals de bron, omdat Netlify op
@@ -637,10 +639,10 @@ De grondwet hierboven, hier concreet ingevuld:
 - **De poort vóór elke PR is de laatste wacht vóór een live deploy.** `open-pr` draait
   `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit` én `npm run build`, beide moeten
   groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte build niet
-  vangt en er niets tussen de merge en de site zit. ESLint staat nog buiten de poort, maar de reden
-  daarvoor is per 2026-08-14 vervallen: **de teller staat op 0**. Het advies "vergelijk op aantal en
-  niet op exitcode" is daarmee ook vervallen. `-SkipBuild` bestaat om lokaal te itereren en hoort niet
-  in de poort zelf.
+  vangt en er niets tussen de merge en de site zit. **ESLint zit er sinds 2026-08-14 in**, als tweede
+  van de drie stappen. Daarmee is deze poort niet langer deels een afspraak: het oude advies
+  "vergelijk op aantal en niet op exitcode" is vervallen, omdat er geen aantal meer te vergelijken is.
+  `-SkipBuild` bestaat om lokaal te itereren en hoort niet in de poort zelf.
   > **Er stonden 37 pre-existing errors, en die zijn op 2026-08-14 in drie stappen naar 0 gebracht.**
   > Tien waren `no-require-imports` in `scripts/` en `netlify/functions/` — CommonJS in Node-land, dus
   > geen fout in die bestanden maar een ontbrekende override in `eslint.config.mjs`. Veertien waren
@@ -659,8 +661,10 @@ De grondwet hierboven, hier concreet ingevuld:
   > **Wat blijft staan zijn 8 warnings** (ongebruikte variabelen, 2× `next/no-img-element` in `Hero`).
   > Die blokkeren niets en zijn bewust blijven staan: `no-img-element` vraagt een ontwerpafweging over
   > `next/image` bij `unoptimized: true`, en dat is Dave's beslissing en niet die van een opruimactie.
-  > **De ESLint-stap in `lint-web.ps1` zelf is nog niet gezet**; dat is eigen werk in een eigen
-  > branch. Die raakt alleen de poort en niet `src/`, dus hij loopt onder de PR-regel gewoon door.
+  > **De ESLint-stap in `lint-web.ps1` is diezelfde dag gezet**, in een eigen branch. Dat hij ook
+  > blokkeert is niet aangenomen maar getoetst: met een tijdelijk bestand met één `any` erin gaf de
+  > poort exit 1 met de fout erbij, waarna het bestand weer weg is. Een poort die alleen groen is
+  > waargenomen, is niet aantoonbaar een poort.
 - **Diezelfde poort draait sinds 2026-08-13 ook server-side**, via
   [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main`. Dat is
   **geen tweede kopie** van tsc + build maar hetzelfde `lint-web.ps1`, aangeroepen onder `pwsh` — een
