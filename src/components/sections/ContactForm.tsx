@@ -7,7 +7,7 @@ import EmailDisplay from "@/components/common/EmailDisplay";
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
     ssr: false,
     loading: () => <div style={{ height: "78px" }}>Captcha laden...</div>,
-}) as any;
+});
 
 export default function ContactForm() {
     // 1. Slechts één status definitie met alle opties
@@ -76,9 +76,12 @@ export default function ContactForm() {
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.error || "Server fout");
             }
-        } catch (error: any) {
+        } catch (error) {
             setStatus("error");
-            setErrorMessage(error.message || "Er is een fout opgetreden.");
+            // Een throw hoeft geen Error te zijn, dus eerst vragen en dan pas .message lezen. De
+            // oude any liet die vraag weg, waardoor een niet-Error hier zelf een TypeError werd --
+            // precies in de tak die een fout netjes hoort af te handelen.
+            setErrorMessage(error instanceof Error ? error.message : "Er is een fout opgetreden.");
         }
     };
 

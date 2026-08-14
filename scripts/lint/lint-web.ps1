@@ -20,20 +20,22 @@
          zodat de uitkomst niet afhangt van hoe vers de build-output is).
       2. `npm run build` - de static export die Netlify ook draait.
 
-    Wat hij BEWUST nog niet checkt: ESLint. `npm run lint` meldt op dit moment 13 errors over 7
-    bestanden in de bestaande codebase. Die als poort aanzetten zou vandaag elke PR blokkeren op werk
-    dat niets met die PR te maken heeft. Zodra die schoonmaak is gedaan hoort de ESLint-stap hier
-    alsnog bij (zie het TODO-blok onder).
+    Wat hij nog niet checkt: ESLint. `npm run lint` meldt sinds 2026-08-14 nul errors - de reden om
+    hem buiten de poort te houden is daarmee vervallen, en de ESLint-stap hoort er nu bij. Zie het
+    TODO-blok onder; dat is een eigen branch en niet iets om hier ongemerkt aan te plakken.
 
-    Het waren er 37 tot 2026-08-14, in twee stappen teruggebracht naar 13:
+    De achterstand ging van 37 naar 0 in drie stappen:
       - 10x no-require-imports in scripts/ en netlify/functions/ - CommonJS in Node-land, dus geen
         fout maar een ontbrekende override in eslint.config.mjs.
       - 14x ban-ts-comment, allemaal een overbodige @ts-ignore boven een stylesheet-import. Gemeten
         in plaats van aangenomen: tsc accepteert die imports gewoon, want next-env.d.ts levert de
         declaratie al. Er is dus GEEN eigen .d.ts nodig - de regels konden simpelweg weg.
+      - 13x echte code: 4x react-hooks/set-state-in-effect, 5x no-explicit-any, 4x
+        no-unescaped-entities.
 
-    Wat resteert is 4x react-hooks/set-state-in-effect (AudioPlayer, MobileContent, EmailDisplay),
-    5x no-explicit-any en 4x no-unescaped-entities. Dat is echt werk aan de code, geen config meer.
+    Wat blijft staan zijn 8 WARNINGS (ongebruikte variabelen, 2x next/no-img-element in Hero).
+    Die blokkeren niets; ze zijn bewust niet meegenomen omdat ze een oordeel vragen dat bij een
+    ontwerper of Dave hoort, niet bij een opruimactie.
 
     Handmatig draaien:  powershell -NoProfile -File scripts\lint\lint-web.ps1
     Alleen de typecheck: powershell -NoProfile -File scripts\lint\lint-web.ps1 -SkipBuild
@@ -90,8 +92,9 @@ try {
 
     Write-Host "  [OK]    geen TypeScript-fouten" -ForegroundColor Green
 
-    # TODO (eigen branch): ESLint als derde poort-stap, zodra de 13 bestaande errors zijn
-    # opgeruimd. Dan hier toevoegen:
+    # TODO (eigen branch): ESLint als derde poort-stap. De voorwaarde die hier stond -- "zodra de
+    # bestaande errors zijn opgeruimd" -- is per 2026-08-14 vervuld: de teller staat op 0. Dan hier
+    # toevoegen:
     #   $eslintOutput = & npx --no-install eslint . 2>&1
     #   if ($LASTEXITCODE -ne 0) { ... exit 1 }
 

@@ -104,7 +104,7 @@ export default function BasiskleurenCarousel() {
 			<div className="row spacing-2xl descriptions">
 				{COLORS_CONFIG.map(c => (
 					<div key={c.name} className={`column text description ${c.name}`}>
-						<p className="size-sm">"{c.description}"</p>
+						<p className="size-sm">&quot;{c.description}&quot;</p>
 					</div>
 				))}
 			</div>

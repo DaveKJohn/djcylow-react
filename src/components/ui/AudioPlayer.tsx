@@ -29,12 +29,14 @@ export default function AudioPlayer({
 	const [duration, setDuration] = useState(0);
 	const [volume, setVolume] = useState(1);
 
+	// Speelt er elders een speler, dan pauzeert deze. De losse setIsPlaying(false) die hier stond is
+	// weg: pause() laat het audio-element zelf een pause-event vuren, en de onPause-handler onderaan
+	// zet de state al. Twee bronnen voor dezelfde waarheid, waarvan er een een extra render kostte.
 	useEffect(() => {
-		if (activeId !== undefined && activeId !== null && activeId !== id && isPlaying) {
+		if (activeId != null && activeId !== id) {
 			audioRef.current?.pause();
-			setIsPlaying(false);
 		}
-	}, [activeId, id, isPlaying]);
+	}, [activeId, id]);
 
 	useEffect(() => {
 		if (audioRef.current) {

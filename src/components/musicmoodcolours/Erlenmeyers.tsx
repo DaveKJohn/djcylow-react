@@ -105,7 +105,7 @@ export default function Erlenmeyers() {
                                 </svg>
                             </div>
                             <div className="column h-start text">
-                                <p className="text" id="emotion-text">"{COLOR_TO_STATE[activeColor].label}"</p>
+                                <p className="text" id="emotion-text">&quot;{COLOR_TO_STATE[activeColor].label}&quot;</p>
                             </div>
                         </div>
                     </div>
