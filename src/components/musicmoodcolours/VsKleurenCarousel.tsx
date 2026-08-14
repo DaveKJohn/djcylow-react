@@ -13,7 +13,6 @@ import lightPurple from '@/data/mixes/light-purple.json';
 import lightRed from '@/data/mixes/light-red.json';
 import lightMagenta from '@/data/mixes/light-magenta.json';
 
-// @ts-ignore
 import '@/styles/components/musicmoodcolours/vsKleurenCarousel.scss';
 
 const allMixesData = [

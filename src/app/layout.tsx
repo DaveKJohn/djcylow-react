@@ -4,7 +4,6 @@ import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import Script from "next/script";
 
-// @ts-ignore
 import "@/styles/main.scss";
 
 const poppins = Poppins({

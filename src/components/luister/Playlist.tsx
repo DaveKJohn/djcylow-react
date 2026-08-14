@@ -21,8 +21,6 @@ import fullOrange from '@/data/mixes/full-orange.json';
 import fullPurple from '@/data/mixes/full-purple.json';
 import fullRed from '@/data/mixes/full-red.json';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import '@/styles/components/luister/playlist.scss';
 
 interface MixData {

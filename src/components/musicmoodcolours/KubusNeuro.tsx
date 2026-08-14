@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-// @ts-ignore
 import '@/styles/components/musicmoodcolours/kubusNeuro.scss';
 
 export default function KubusNeuro() {

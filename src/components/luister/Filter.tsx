@@ -1,7 +1,5 @@
 'use client';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import '@/styles/components/luister/filter.scss';
 
 const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {

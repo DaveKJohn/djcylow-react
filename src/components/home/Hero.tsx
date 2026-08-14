@@ -2,7 +2,6 @@ import React from 'react';
 import { homeContent } from "@/content/home";
 import Link from "next/link";
 
-// @ts-ignore
 import '@/styles/components/home/hero.scss';
 
 

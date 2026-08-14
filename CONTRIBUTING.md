@@ -214,9 +214,10 @@ draait — resolves, scaffold, impact, step-list — en welke van de vier een `-
 deploy. [`scripts/lint/lint-web.ps1`](scripts/lint/lint-web.ps1) draait `tsc --noEmit` **én** `npm run build`
 en beide moeten groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte
 build niet vangt en er niets tussen de merge en de site zit. `-SkipBuild` bestaat om lokaal te itereren en
-hoort niet in de poort zelf. ESLint blijft er bewust buiten: er staan 27 pre-existing errors, dus die
-vergelijk je op **aantal** en niet op exitcode. Het waren er 37 tot 2026-08-14; de tien die vervielen
-waren `no-require-imports` in de Node-scripts, waar CommonJS legitiem is.
+hoort niet in de poort zelf. ESLint blijft er bewust buiten: er staan 13 pre-existing errors, dus die
+vergelijk je op **aantal** en niet op exitcode. Het waren er 37 tot 2026-08-14, in twee stappen
+teruggebracht: tien `no-require-imports` in de Node-scripts (waar CommonJS legitiem is) en veertien
+`ban-ts-comment` die overbodige `@ts-ignore`-regels bleken te zijn.
 
 De PR-body komt uit [`.github/pull_request_template.md`](.github/pull_request_template.md) — loop de
 checklist na en vink af wat van toepassing is. De titel geef je **niet** mee; die stelt `open-pr` samen uit
