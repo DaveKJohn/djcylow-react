@@ -403,7 +403,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 3. **Draai `cut-release`** met de bump die de wachtende entries verdienen (zie *Versienummer bepalen*
    hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
    je hoeft die er niet apart voor te zetten
-   - `npm run lint` blijft handwerk en staat bewust buiten de poort: ESLint meldt 37 **pre-existing**
+   - `npm run lint` blijft handwerk en staat bewust buiten de poort: ESLint meldt 27 **pre-existing**
      errors. Die zijn acceptabel zolang je geen `.ts`/`.tsx` hebt aangeraakt; wat niet acceptabel is,
      is een fout erbij. Vergelijk dus het **aantal**, niet de exitcode
 4. **Herschrijf het audience-concept** (alleen Minor/Major):
@@ -637,9 +637,16 @@ De grondwet hierboven, hier concreet ingevuld:
 - **De poort vóór elke PR is de laatste wacht vóór een live deploy.** `open-pr` draait
   `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit` én `npm run build`, beide moeten
   groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte build niet
-  vangt en er niets tussen de merge en de site zit. ESLint blijft bewust buiten de poort omdat er 37
+  vangt en er niets tussen de merge en de site zit. ESLint blijft bewust buiten de poort omdat er 27
   pre-existing errors staan; die vergelijk je op aantal. `-SkipBuild` bestaat om lokaal te itereren
   en hoort niet in de poort zelf.
+  > **Het waren er 37 tot 2026-08-14.** Tien ervan waren `no-require-imports` in `scripts/` en
+  > `netlify/functions/` — CommonJS in Node-land, dus geen fout in die bestanden maar een ontbrekende
+  > override in `eslint.config.mjs`. Wat resteert is code en geen config, en daarmee is de weg naar
+  > een dichte ESLint-poort voor het eerst afgebakend: 14× een `@ts-ignore` boven een SCSS-import
+  > (één module-declaratie maakt ze alle veertien overbodig), 4× `react-hooks/set-state-in-effect`
+  > in de audioplayer en de mobiele navigatie, 5× `no-explicit-any` en 4× `no-unescaped-entities`.
+  > Die twee stappen raken `src/` en wachten dus op Dave's woord.
 - **Diezelfde poort draait sinds 2026-08-13 ook server-side**, via
   [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main`. Dat is
   **geen tweede kopie** van tsc + build maar hetzelfde `lint-web.ps1`, aangeroepen onder `pwsh` — een

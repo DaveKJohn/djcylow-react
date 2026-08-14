@@ -20,11 +20,16 @@
          zodat de uitkomst niet afhangt van hoe vers de build-output is).
       2. `npm run build` - de static export die Netlify ook draait.
 
-    Wat hij BEWUST nog niet checkt: ESLint. `npm run lint` meldt op dit moment 37 errors over 22
-    bestanden in de bestaande codebase - grotendeels @typescript-eslint/ban-ts-comment,
-    no-require-imports (in de Node-scripts, waar CommonJS legitiem is) en no-explicit-any. Die als
-    poort aanzetten zou vandaag elke PR blokkeren op werk dat niets met die PR te maken heeft.
-    Zodra die schoonmaak is gedaan hoort de ESLint-stap hier alsnog bij (zie het TODO-blok onder).
+    Wat hij BEWUST nog niet checkt: ESLint. `npm run lint` meldt op dit moment 27 errors over 19
+    bestanden in de bestaande codebase. Die als poort aanzetten zou vandaag elke PR blokkeren op werk
+    dat niets met die PR te maken heeft. Zodra die schoonmaak is gedaan hoort de ESLint-stap hier
+    alsnog bij (zie het TODO-blok onder).
+
+    Het waren er 37 tot 2026-08-14. De 10 die vervielen waren no-require-imports in scripts/ en
+    netlify/functions/ - CommonJS in Node-land, dus geen fout maar een ontbrekende override in
+    eslint.config.mjs. Wat resteert is code en geen config: 14x ban-ts-comment (allemaal een
+    @ts-ignore boven een SCSS-import, op te lossen met een module-declaratie), 4x
+    react-hooks/set-state-in-effect, 5x no-explicit-any en 4x no-unescaped-entities.
 
     Handmatig draaien:  powershell -NoProfile -File scripts\lint\lint-web.ps1
     Alleen de typecheck: powershell -NoProfile -File scripts\lint\lint-web.ps1 -SkipBuild
@@ -81,7 +86,7 @@ try {
 
     Write-Host "  [OK]    geen TypeScript-fouten" -ForegroundColor Green
 
-    # TODO (eigen branch): ESLint als derde poort-stap, zodra de 37 bestaande errors zijn
+    # TODO (eigen branch): ESLint als derde poort-stap, zodra de 27 bestaande errors zijn
     # opgeruimd. Dan hier toevoegen:
     #   $eslintOutput = & npx --no-install eslint . 2>&1
     #   if ($LASTEXITCODE -ne 0) { ... exit 1 }
