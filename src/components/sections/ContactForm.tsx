@@ -15,6 +15,10 @@ export default function ContactForm() {
     const [errorMessage, setErrorMessage] = useState("");
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
     const [shouldLoadCaptcha, setShouldLoadCaptcha] = useState(false);
+    // Ophogen remount de widget en levert een verse challenge. Bewust geen ref met .reset():
+    // ReCAPTCHA wordt via next/dynamic geladen, en die wrapper geeft een ref niet betrouwbaar
+    // door aan het onderliggende component.
+    const [captchaKey, setCaptchaKey] = useState(0);
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -82,6 +86,13 @@ export default function ContactForm() {
             // oude any liet die vraag weg, waardoor een niet-Error hier zelf een TypeError werd --
             // precies in de tak die een fout netjes hoort af te handelen.
             setErrorMessage(error instanceof Error ? error.message : "Er is een fout opgetreden.");
+
+            // Verse challenge na een mislukking. Een reCAPTCHA-token is eenmalig en ~2 minuten
+            // geldig, dus zonder deze reset probeert de bezoeker het opnieuw met hetzelfde token,
+            // antwoordt Google 'timeout-or-duplicate' en herhaalt dat zich tot de pagina herlaadt.
+            // Eén tijdelijke serverfout kostte zo de hele aanvraag.
+            setCaptchaToken(null);
+            setCaptchaKey((k) => k + 1);
         }
     };
 
@@ -168,6 +179,7 @@ export default function ContactForm() {
                                     <div className="column w-fill AML P45">
                                         {shouldLoadCaptcha && (
                                             <ReCAPTCHA
+                                                key={captchaKey}
                                                 sitekey="6LfMHYMsAAAAAA1-Kx9-XqhhM_hlaar5iXUY8nd5"
                                                 onChange={(value: string | null) => setCaptchaToken(value)}
                                                 theme="light"
@@ -216,7 +228,10 @@ export default function ContactForm() {
                                 <div className="column w-fill AMC P45 spacing-2xl">
 
 
-                                    <h3 className="bold">Direct Contact</h3>
+                                    {/* Nederlands kent geen title case, anders dan het Engels. De rest van
+                                        de site doet het goed ("Laat een bericht achter"); "Music Mood
+                                        Colours" is een merknaam en blijft daarom wel zoals hij is. */}
+                                    <h3 className="bold">Direct contact</h3>
                                     <p className="size-base center balanced">Liever direct contact? WhatsApp mag ook!</p>
 
 
