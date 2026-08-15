@@ -1,74 +1,61 @@
-## `style/kleuren-uit-het-palet` changelog
+## `chore/npm-audit-ronde` changelog
 
 ### Branch title
 
-De losse hexwaarden komen uit het palet en de splitter-vraag is beslecht
+De acht kwetsbaarheden uit npm audit zijn weg, inclusief die in Next zelf
 
 ### Branch ID
 
-20260815-213340
+20260815-214204
 
 ### Branch type
 
-style
+chore
 
 ### What does the change on this branch bring to main?
 
-Er stonden dertien losse hexwaarden in de SCSS buiten de paletdefinitie (issue #81). Het onderzoek
-eronder leverde op dat ze niet één ding waren maar drie, met drie verschillende antwoorden — en dat
-onderscheid is het eigenlijke resultaat van deze branch, want een blinde vervangactie zou de
-YouTube-knop hebben meegenomen.
+`npm audit` meldde acht kwetsbaarheden: zeven high (`brace-expansion`, `immutable`, `js-yaml`,
+`next`, `nodemailer`, `postcss`, `sharp`) en één low (`@babel/core`). Na deze branch zijn het er
+**nul** (issue #94).
 
-**Tien waren het palet, overgetypt.** Het gradientbalkje in `basiskleurenCarousel.scss` somde de acht
-basiskleuren op als letterlijke hex. Dat balkje hoort onder elke kaart precies de kleur te tonen die
-die kaart draagt, en dat blijft alleen kloppen zolang beide dezelfde bron lezen. Ze halen hun waarde
-nu op met `map.get(v.$colors, …)`. **De gebouwde CSS is byte-identiek** — dezelfde tien stops,
-dezelfde percentages — dus dit is nul zichtbare wijziging en enkel het dichten van de mogelijkheid
-dat de twee ooit uiteenlopen. De twee uiteinden zijn géén basiskleur maar het punt waar de
-kleurencirkel van blauw terugloopt naar cyaan; die staan nu als benoemde variabele met die uitleg
-erbij, in plaats van als twee anonieme hexwaarden tussen acht die dat wél zijn.
+Zeven ervan gingen weg met `npm audit fix` — een wijziging in `package-lock.json` en verder niets.
+Next zelf schoof daarbij van 16.2.4 naar 16.3.1.
 
-**Twee waren het palet dat níet gelezen werd.** `#fff` in `filter.scss` en `#000000` in
-`_tools.scss` zijn nu `var(--white-100)` en `map.get(v.$colors, "black", "100")`. De zwarte is
-byte-identiek in de output (32 declaraties voor en na). De witte verschuift wél echt: van `#ffffff`
-naar `#eeeeee`, het wit dat de rest van de site gebruikt. Gemeten op de drie donkere achtergronden
-van deze site gaat het contrast van 21,0/18,6/13,6 naar 18,1/16,0/11,7 — alle zes ruim boven de
-AAA-grens van 7,0.
+**Nodemailer was de enige die een major vroeg** (8 → 9), en dat is de beslissing in deze branch. Er
+zijn twee vragen beantwoord voordat hij is genomen.
 
-**Drie horen hier expliciet niet.** De play-knop op de homepage imiteert bewust die van YouTube,
-want daar linkt hij heen. `#ff0000`, `#cd201f` en het witte driehoekje zijn dus **merkkleuren van
-iemand anders**. Ze zijn niet naar het palet verhuisd maar juist stevig buiten gehouden, als drie
-variabelen met de reden erboven: ze mogen niet meebewegen als DJ Cylow's palet verandert, en het
-driehoekje is `#ffffff` en niet `--white-100` omdat het YouTube's wit is. Dat is de wijziging die
-een latere lezer behoedt voor de opruimactie die deze branch bijna zelf werd.
+**Waren we kwetsbaar?** Nee. De CVE gaat over de `raw`-optie, die `disableFileAccess` en
+`disableUrlAccess` omzeilt en zo willekeurige bestanden leesbaar maakt. `netlify/functions/send-email.js`
+gebruikt `raw` niet, gebruikt geen `attachments` en geen `path`, en bouwt zijn `mailOptions` volledig
+hardcoded op — de gebruikersinvoer landt uitsluitend als string in `text`, `html`, `replyTo` en
+`subject`. Een aanvaller kan er dus geen `raw` in krijgen. De upgrade is daarmee hygiëne en geen
+reparatie, en dat is precies waarom hij hier kon zonder haast.
 
-Daarnaast is issue #116 beslecht in plaats van doorgeschoven: **de splitter krijgt in ux-mode geen
-eigen kleur.** De ux-modus hertint inhoud, en een haarlijn van 1px geeft niets te lezen. Doorslaggevend
-is het tweede argument: de key waar het oude blok naar greep (`"50"`) heeft nooit bestaan, dus wat
-daar al die jaren te zien was ís `--black-70`. Er valt niets te herstellen — een ux-kleur kiezen zou
-een nieuwe zichtbare wijziging zijn op grond van een bedoeling die niemand heeft opgeschreven. Dat
-staat nu als beslissing in de code, waar de open vraag stond.
+**Is de major veilig?** Gemeten, niet aangenomen. `engines` staat op `>=6.0.0` en deze functie
+gebruikt nodemailer op de meest basale manier die er is: `createTransport` plus één `sendMail`. De
+testsuite bewijst dat níét — die mockt `createTransport` en zou een kapotte nodemailer niet zien.
+Daarom is er los een smoke-test tegen de echte 9.0.5 gedraaid met `jsonTransport`, met exact onze
+`mailOptions`: `from`, `to`, `replyTo`, `subject`, `text` en `html` komen alle zes correct opgebouwd
+terug.
 
-Tot slot ging de ESLint-teller terug naar 0: mijn eigen honeypot-test uit een eerdere branch liet een
-ongebruikte `res` staan. Die teller staat op 0/0 juist zodat elke melding nieuw is; hem op 1 laten
-staan haalt dat weg.
+**En de Next-minor is op de output getoetst.** Voor en na de upgrade is de hele statische export
+gehasht — alle 86 HTML-bestanden, met de scripts en de asset-hashes eruit gestript. Ze zijn
+**identiek**. De poort staat groen op 0 errors, 0 warnings en 89 pagina's, en 207 tests slagen.
 
 ### Significance
 
 #### Tier 0
 
-Het gradientbalkje en de acht kaarten eronder konden uiteenlopen zodra iemand het palet aanraakte —
-niet omdat dat fout gaat, maar omdat niets het tegenhield. Belangrijker voor een latere lezer is dat
-de YouTube-kleuren nu zeggen dat ze van YouTube zijn: de volgende opruimactie op losse hexwaarden
-gaat ze niet meer meenemen, en dat is precies de fout die hier bijna is gemaakt.
+`npm audit` is alleen bruikbaar als de teller op 0 staat: in een lijst van acht bekende meldingen valt
+een nieuwe negende niet op. Dat is dezelfde reden waarom de ESLint-teller op 0/0 staat, en hij gold
+tot nu toe niet voor de dependencies.
 
-**Score:** 2
+**Score:** 3
 
 #### Tier 1
 
-De witte filterknop op mobiel gaat van `#ffffff` naar `#eeeeee`. Dat is zichtbaar noch merkbaar in de
-praktijk — contrast blijft ruim boven AAA — maar het is de enige echte kleurverandering die op de
-site landt, dus hij hoort genoemd.
+Voor een bezoeker verandert er niets — de gerenderde site is aantoonbaar identiek. Wat het waard is,
+is dat het contactformulier op een nodemailer draait waar geen openstaande high meer op zit.
 
 **Score:** 1
 

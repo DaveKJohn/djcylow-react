@@ -1,21 +1,19 @@
-## `style/kleuren-uit-het-palet` progress
+## `chore/npm-audit-ronde` progress
 
 ### Steps
 
-- [x] De dertien losse hexwaarden inventariseren en per stuk vaststellen wat ze zijn
-- [x] De tien gradient-stops uit `v.$colors` halen; de twee wrap-kleuren benoemen
-- [x] `filter.scss` en `_tools.scss` naar het palet
-- [x] De drie YouTube-kleuren juist buiten het palet houden, met de reden erbij
-- [x] Issue #116 beslecht: de splitter houdt `--black-70`, vastgelegd in `_layout.scss`
-- [x] Meten: gebouwde CSS voor en na vergelijken (gradient byte-identiek, 32 = 32 zwart-important)
-- [x] Contrast van `#ffffff` → `#eeeeee` narekenen op de drie donkere achtergronden
-- [x] ESLint-teller terug naar 0/0
+- [x] `npm audit` uitlezen: acht meldingen, per stuk kijken of er een non-breaking fix is
+- [x] `npm audit fix` — zeven weg, alleen `package-lock.json` geraakt
+- [x] Meten of we op de nodemailer-CVE kwetsbaar wáren (`raw`/`attachments`/`path` in de functie)
+- [x] Nodemailer 8 → 9, en de major toetsen met een echte smoke-test via `jsonTransport`
+- [x] De Next-minor toetsen: alle 86 HTML-bestanden voor en na gehasht
+- [x] Poort en testsuite
 
 ### Where I left off
 
-De poort staat groen (0 errors, 0 warnings, 89 pagina's) en 207 tests slagen. Dit is site-werk
-(`src/`), dus het wacht onder de normale regel op Dave — deze keer gedekt door zijn staande akkoord
-voor deze sessie.
+`npm audit` staat op 0/0/0/0. Poort groen, 207 tests groen.
 
-Wat na de merge nog kan: issue #79 opnieuw meten nu de hero gerepareerd is, om te zien of
-`overflow-x: hidden` op `musicmoodcolours` nog nodig is.
+Wat na de merge nog kan: `npm audit` periodiek terug laten komen. Hij staat nu niet in de poort en
+ook niet in CI — bewust niet, want een nieuwe advisory op een ongewijzigde tree zou dan een PR
+blokkeren die er niets mee te maken heeft. Een eigen wekelijkse workflow is de betere plek; dat is
+werk voor een aparte branch.
