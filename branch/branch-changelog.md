@@ -1,59 +1,62 @@
-## `style/dode-componenten-weg` changelog
+## `data/emoji-descriptions-en-preview-ids` changelog
 
 ### Branch title
 
-De vijf slapende componenten en hun stylesheets zijn opgeruimd
+De Cyan-emoji, drie te lange descriptions en de preview-ids zijn gelijkgetrokken
 
 ### Branch ID
 
-20260815-212111
+20260815-212715
 
 ### Branch type
 
-style
+data
 
-De vijf componenten die nergens gerenderd werden zijn weg: `Diensten`, `MeetTheDJ`, `Verzoeknummers`,
-`Referenties` en `GoogleReviews`, samen met hun drie stylesheets en `src/content/referenties.ts`. In
-`page.tsx` stonden twee ervan uitgecommentarieerd, en zulke regels lezen als "staat klaar om aan te
-zetten" — terwijl de referentiedata uit vier plaatsvullers bestond die één uncomment verwijderd waren
-van publicatie op een boekingssite.
+Drie afwijkingen in de mix-data die elk een keuze vroegen in plaats van een fix.
 
-**Dat maakt ook `react-google-reviews` los**, de dependency die in PR #114 nog moest blijven omdat
-`GoogleReviews.tsx` er als enige naar verwees. `dependencies` telt nu zes pakketten, en alle zes
-worden gebruikt.
+**De Cyan-emoji: de spec volgt de data, niet andersom.** Alle zeven Cyan-mixen gebruiken 🧊 waar de
+spec 💠 voorschreef. De spec is aangepast, om één reden: die zeven titels staan al gepubliceerd op
+Spotify. Ze hier herschrijven zou de repo iets anders laten zeggen dan de live uploads, en zou elke
+toekomstige Cyan-release tot buitenbeentje maken tussen zijn eigen broertjes. Zeven op zeven is een
+conventie, geen slordigheid.
 
-**De teksten in `src/content/home.ts` blijven wél staan**, en dat is bewust een ander oordeel dan bij
-de code. De velden die alleen die componenten lazen — `intro_story_*`, `verzoeknummers_story_*`, de
-vier `*_h3`-koppen — zijn geschreven tekst: een bio, een uitleg over verzoeknummers. Code die niets
-doet is schuld; een alinea die nog nergens staat is voorraad. Er staat nu bovenaan dat bestand welke
-velden gerenderd worden en welke klaarliggen.
+**Drie te lange `description_nl` in `full-red.json`** (165, 167 en 162 tekens) zijn ingekort naar 152,
+155 en 148. Google kapt rond 155–160 af, dus die drie verloren hun laatste zin — bij `20240226`
+precies het use-case-signaal ("of een intense thuissessie") waar de spec om vraagt. De boodschap is
+behouden; alleen de omhaal is eruit.
 
-**De test die deze slapers bewaakte is omgedraaid in plaats van weggegooid.** Hij controleerde of hun
-imports ergens naartoe wezen; nu controleert hij of **elke** component in `src/components/home/` ook
-daadwerkelijk gerenderd wordt — dus of er geen nieuwe slapers ontstaan. Dat is dezelfde regel die de
-vijf destijds had gevangen, alleen een stap eerder. Plus een test dat er geen uitgecommentarieerde
-JSX-secties achterblijven.
+**Dat verlaagde twee ratchets, en dat is het mechanisme dat werkt.** De testsuite meldde uit zichzelf
+dat er iets was opgelost: te lange beschrijvingen van 3 naar **0**, en beschrijvingen met een streepje
+van 13 naar **11** — twee van de drie herschreven teksten droegen er een (`non-stop`,
+`DnB-liefhebber`). Beide plafonds zijn verlaagd, want een ratchet die je niet bijstelt verliest
+precies de zichtbaarheid waarvoor hij bestaat.
 
-**Twee bestaande tests moesten mee, en één daarvan is er beter van geworden.** De alt-tekst-test las
-een vaste lijst bestanden waaronder `Verzoeknummers.tsx`; die viel na het verwijderen op een
-ontbrekend bestand in plaats van op een slechte alt-tekst. Hij loopt nu over de hele boom en dekt
-daarmee ook nieuwe componenten.
+**De acht preview-entries hadden vijf naamconventies** voor hun `id`: drie volgden de spec, drie waren
+lowercase, twee Title_Case. Alle acht dragen nu `Kleur_light_preview`, de vorm die de spec al
+voorschrijft. En `light-red` had als enige een afwijkende `title` (`"Preview · Red Light (f) Mix"`);
+die is gelijkgetrokken.
+
+**Een noot over de uitvoering.** De eerste poging schreef de JSON terug met `JSON.stringify(…, null, 4)`
+en produceerde een diff van 7451 regels voor 8 wijzigingen — die bestanden gebruiken CRLF, twee spaties
+en arrays op één regel. Teruggedraaid en opnieuw gedaan met gerichte tekstvervanging: **17 regels**.
+Een opmaakwijziging die als datawijziging in de historie belandt, is precies wat een latere `git blame`
+onbruikbaar maakt.
 
 ### Significance
 
 #### Tier 0
 
-Negen bestanden en een dependency minder, en de regel die slapers vangt staat nu vóór ze ontstaan in
-plaats van erna. Wat weg is staat in de git-historie; wat blijft is tekst, geen code.
+Drie inconsistenties weg, en de twee ratchets staan weer op de werkelijke stand — inclusief de eerste
+die op nul komt.
 
 **Score:** 3
 
 #### Tier 1
 
-De site levert exact dezelfde pagina's — 89, ongewijzigd. Het risico dat verdwijnt is dat iemand met
-één uncomment vier verzonnen klantcitaten publiceert.
+Drie zoekresultaten worden niet meer afgekapt midden in hun laatste zin, op precies het deel dat de
+bezoeker vertelt wanneer de mix past. De rest raakt de bezoeker niet.
 
-**Score:** 2
+**Score:** 3
 
 ### Pull Request
 

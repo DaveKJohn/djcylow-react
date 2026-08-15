@@ -1,25 +1,23 @@
-## `style/dode-componenten-weg` progress
+## `data/emoji-descriptions-en-preview-ids` progress
 
 ### Steps
 
-- [x] Geverifieerd dat geen van de vijf ergens gerenderd wordt; alleen `Referenties` en
-      `GoogleReviews` stonden uitgecommentarieerd in `page.tsx`
-- [x] De vijf componenten, hun drie stylesheets en `src/content/referenties.ts` verwijderd
-- [x] De twee uitgecommentarieerde JSX-regels weg, met in de code waarom en waar het werk terug te
-      vinden is
-- [x] `react-google-reviews` uit de dependencies — die kon in PR #114 nog niet weg omdat
-      `GoogleReviews.tsx` er als enige naar verwees. Alle zes resterende pakketten worden gebruikt
-- [x] De teksten in `home.ts` **niet** verwijderd, met de afweging erboven: dode code is schuld, een
-      ongebruikte alinea is voorraad
-- [x] De slapers-test omgedraaid: van "wijzen hun imports ergens naartoe" naar "wordt elke component
-      in `src/components/home/` ook gerenderd" — dezelfde regel, een stap eerder
-- [x] Een test toegevoegd dat er geen uitgecommentarieerde JSX-secties achterblijven
-- [x] De alt-tekst-test losgemaakt van een vaste bestandenlijst: die viel na het verwijderen op een
-      ontbrekend bestand in plaats van op een slechte alt-tekst. Loopt nu over de hele boom
-- [x] Poort groen; 207 tests groen; nog steeds 89 pagina's
+- [x] De drie punten gemeten vóór ik koos: 7/7 Cyan op 🧊, drie descriptions op 165/167/162, en vijf
+      naamconventies over acht preview-entries
+- [x] Cyan: de **spec** aangepast en niet de data — die zeven titels staan al op Spotify, en ze hier
+      herschrijven zou repo en uploads uit elkaar laten lopen
+- [x] De drie beschrijvingen ingekort naar 152/155/148, met het use-case-signaal behouden
+- [x] De twee ratchets bijgesteld die daardoor terecht klaagden: te lang 3 → 0, met dash 13 → 11
+- [x] De acht preview-id's op één conventie (`Kleur_light_preview`) en de afwijkende title van
+      `light-red` gelijkgetrokken
+- [x] **Eerste poging teruggedraaid**: `JSON.stringify(…, null, 4)` herformatteerde de bestanden en
+      gaf 7451 diffregels voor 8 wijzigingen (CRLF, twee spaties, arrays op één regel). Opnieuw
+      gedaan met gerichte tekstvervanging: 17 regels
+- [x] Poort groen, 207 tests groen, nog steeds 89 pagina's
 
 ### Where I left off
 
-Af. De site levert exact dezelfde pagina's.
+Af. Zichtbaar op de site: drie zoekresultaten worden niet meer afgekapt. De preview-id's en de
+Cyan-emoji raken de bezoeker niet.
 
-Sluit #59, en het losse eindje uit #94 (de derde dode dependency) is hiermee ook weg.
+Sluit #95.
