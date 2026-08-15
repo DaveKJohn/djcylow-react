@@ -1,75 +1,61 @@
-## `config/tailwind-eruit` changelog
+## `fix/shared-ps1-named-parameters` changelog
 
 ### Branch title
 
-Tailwind verwijderd en de ongedefinieerde utility-klassen opgeruimd
+Named parameters komen weer aan door de wrapper heen
 
 ### Branch ID
 
-20260815-143542
+20260815-160737
 
 ### Branch type
 
-config
+fix
 
 ### What does the change on this branch bring to main?
 
-**Tailwind draaide niet, en dat wist niemand.** Tailwind v4 genereert alleen utilities voor een
-stylesheet die `@import "tailwindcss"` bevat. De enige stylesheet die de app laadt is
-`src/styles/main.scss`, en die had die regel niet. Het enige bestand met een Tailwind-at-rule was
-`src/app/globals.scss` — dat **nergens werd geïmporteerd**, en de regel erin was bovendien
-`@theme "tailwindcss"`, wat geen geldige entry is. Er is dus nooit één utility gegenereerd,
-geverifieerd in de gebouwde CSS: nul Tailwind-signaturen (`--tw-`, `::backdrop`).
+`scripts/task/shared.ps1` gaf zijn doorgegeven argumenten stil als positionele door in plaats van
+als named. De wrapper draait de gedeelde workflow-scripts uit de plugin-cache, dus dit raakte elke
+repo-eigen skill-ingang: `open-pr`, `fold-changelog` en `park`. Gemeten tegen de signature van
+`open-pr.ps1` kwam `-Resolves 47` aan als `Title='-Resolves'` met een lege `Resolves` — de vlag
+verdween, en de enige aanwijzing was een waarschuwing over `-Title`, een parameter die niemand
+meegaf. Zo zijn PR's #98 tot en met #107 alle tien zonder hun `-Resolves` geopend.
 
-Dave heeft gekozen voor **eruit halen**. Aanzetten was de andere weg, maar die zet Preflight bovenop
-de eigen reset in `base/_reset.scss` — een zichtbare wijziging op elke pagina, voor utilities die
-niemand gebruikt. Weg zijn: `tailwindcss` en `@tailwindcss/postcss` uit `package.json`,
-`postcss.config.mjs`, en `src/app/globals.scss`.
+De oorzaak is array-splatting: `& $doel @Rest` geeft elk element als positioneel argument door, dus
+een `-Resolves` in die array is geen parameternaam meer maar een gewone string die op de eerste
+positionele parameter landt. De argumenten gaan nu als losse tokens naar een nieuwe host, die de
+parameterbinding zelf doet — zonder dat de wrapper hoeft te weten welke parameters switches zijn en
+welke een waarde slikken. Getoetst op vijf argumentvormen, mét en zonder vlaggen, plus de
+exitcode-doorgifte in beide richtingen.
 
-**Dat het niet draaide, is aantoonbaar in de markup gaan zitten** (#75). Er werden klassen
-geschreven die stil niets deden:
+Twee kandidaat-oorzaken zijn gemeten en verworpen in plaats van aangenomen: de `[string[]]`-typecast
+op `$Rest` (een ongetypeerde `ValueFromRemainingArguments` gedraagt zich identiek) en
+`[CmdletBinding()]` op de wrapper. De redenering staat in het script zelf, zodat een volgende lezer
+niet opnieuw bij de titel gaat zoeken.
 
-| klasse | voorkomens | wat er gebeurt |
-|---|---|---|
-| `.w-fix` | 28× | **verwijderd** — bestond nergens, en niemand kon vaststellen welke breedte het hoorde te zetten |
-| `.flex` | 6× | **verwijderd** — was Tailwind; de `.column`/`.row`-klassen zetten `display: flex` al |
-| `.size-base` | 8× | **gedefinieerd** — de scale-key bestond al |
-| `.size-lg` | 1× | **gedefinieerd** — idem |
-
-De eerste twee zijn een no-op voor het uiterlijk: ze deden al niets, dus weghalen verandert geen
-pixel en haalt alleen de suggestie weg dat er een regel achter zat. **De laatste twee zijn dat
-niet.** Op de mixpagina staan `.size-base` en `.size-lg` náást wél werkende `.size-sm`/`.size-xs` in
-dezelfde blokken; daar heeft iemand expliciet om een tekstgrootte gevraagd en de overgeërfde
-gekregen. Die tekst krijgt nu de grootte die er stond — **dat is de enige zichtbare wijziging van
-deze branch**, en precies wat op de preview bekeken moet worden.
-
-Gemeten in de gebouwde CSS na afloop: `size-base` en `size-lg` staan er nu in (waren er niet),
-`w-fix` nergens, en nog steeds geen enkele Tailwind-signatuur.
-
-**En de documentatie beweerde het omgekeerde**, op drie plekken. `CLAUDE.md` zei "Tailwind v4 +
-SCSS: beide worden naast elkaar gebruikt"; `README.md` had een tabelrij, een `tailwind.config` in
-de mappenlijst die nooit heeft bestaan, en een eigen sectie die naar dat bestand verwees. Die zijn
-vervangen door wat er werkelijk staat, inclusief een overzicht van de eigen utility-klassen.
-
-Sluit #48 en #75.
+Daarnaast miste het `Draaien`-blok van `.claude/skills/fold-changelog/SKILL.md` de vlag `-Commit`,
+terwijl stap 4 van diezelfde pagina belooft dat de fold `fold: <branch> changelog` commit. Zonder
+die vlag schreef het script alleen naar schijf. `open-pr` en `park` zijn op hetzelfde soort gat
+gecontroleerd en bleken schoon: hun scripts kennen geen commit-vlag en pushen zelf.
 
 ### Significance
 
 #### Tier 0
 
-Er stond een frameworkafhankelijkheid in `package.json` die niets deed, en de documentatie stuurde
-iedereen die hier styling schreef de verkeerde kant op — aantoonbaar, want er zijn 34 klassen in de
-markup beland die nooit iets konden doen. De eigen utility-set is nu de enige, en staat beschreven.
+De gereedschapskist die de resterende issues moet dragen, geeft vlaggen weer door. Zonder deze
+reparatie loopt elke volgende branch erlangs, en de foutmelding wijst de verkeerde kant op: wie hem
+leest zoekt in de titel en niet in het doorgeefmechanisme, wat een tweede lezer hetzelfde half uur
+kost. De fold-skill deed bovendien niet wat zijn eigen pagina beloofde.
 
-**Score:** 3
+**Score:** 4
 
 #### Tier 1
 
-Op de mixpagina's krijgt tekst die om `size-base`/`size-lg` vroeg eindelijk die grootte, dus de
-typografische hiërarchie klopt daar weer met wat er in de code staat. Verder verandert er niets
-zichtbaars: de verwijderde klassen deden al niets.
+Raakt niets wat buiten de repo zichtbaar is: de website verandert niet en de build levert dezelfde
+pagina's. Wat het oplevert is dat issue-koppeling op PR's weer werkt, en dat is administratie die
+alleen binnen het ontwikkelwerk telt.
 
-**Score:** 2
+**Score:** N/A
 
 ### Pull Request
 

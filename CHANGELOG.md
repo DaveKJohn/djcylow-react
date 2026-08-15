@@ -18,6 +18,414 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 > v2.20.2, v2.21.0 en vijf PR's al live waren. De markering is vervallen: de bovenste uitgebrachte
 > versie draait per definitie al.
 
+## `fix/luister-crash-en-ssr` changelog
+
+### Branch title
+
+De luisterpagina valt niet meer om op een onbekende kleur en staat in de statische HTML
+
+### Branch ID
+
+20260815-131934
+
+### Branch type
+
+fix
+
+### What does the change on this branch bring to main?
+
+Drie dingen aan de luisterpagina, waarvan er twee alleen zichtbaar waren voor iemand die er
+gericht naar zocht.
+
+**De pagina viel om op een onbekende kleur.** `activeColor` kwam ongefilterd uit
+`searchParams.get('color')` en ging rechtstreeks in `MOOD_DATA[activeColor].colorVar`; de guard
+sloot alleen `'all'` uit. Elke andere waarde dereferenceerde `undefined` en gaf een TypeError
+tijdens de client-render — en omdat er geen `error.tsx` is, was dat een witte pagina. Er wordt nu
+eerst opgezocht en alleen gerenderd als de kleur bestaat, en de normalisatie naar kleine letters
+gebeurt op één plek. Twee ingangen zijn daarmee dicht: `?color=Red` met een hoofdletter (wat de
+mixpagina's zelf teruglinkten) en `?color=magenta`.
+
+**Magenta stond er niet in.** De mix-data kent acht kleuren en er ligt een preview klaar in
+`light-magenta.json`, maar `MOOD_DATA` had er zeven. De achtste is toegevoegd met de omschrijving
+die de rest van de site al aanhoudt (`Geïrriteerd`, uit `BasiskleurenCarousel`), in de stijl van de
+andere zeven regels. **Dat is nieuwe publieke tekst, dus die wil je waarschijnlijk even lezen:**
+*geïrriteerd · gespannen · rusteloos · fel*.
+
+**De pagina stond helemaal niet in de statische HTML** (issue #43). Twee onafhankelijke oorzaken,
+allebei weg, en het resultaat is gemeten in de verse build in plaats van beredeneerd:
+
+| | vóór | ná |
+|---|---|---|
+| `<main>` in `out/luister.html` | 0 | 1 |
+| `<h1>` in `out/luister.html` | 0 | 1 |
+| unieke mixlinks in `out/luister.html` | 0 | **77** |
+| `href="/luister"` in `out/index.html` | 0 | 1 |
+
+De eerste oorzaak: `/luister` was één client component met `useSearchParams()`, volledig in een
+`<Suspense>` **zonder fallback**. Bij `output: 'export'` bailt Next zo'n subtree uit de prerender,
+en wat er overbleef was letterlijk `<div hidden><!--$--><!--/$--></div>`. Alles wat niet van de URL
+afhangt staat nu buiten die grens in een server component, en de grens heeft een fallback die de
+volledige mixlijst server-rendert. Een fallback belandt namelijk wél in de HTML — dat is precies
+waarom die 77 links er nu staan, terwijl `sitemap.ts` ze al die tijd op priority 0.8 aanmeldde
+zonder dat er één interne link naartoe wees.
+
+De tweede: de navigatielinks hingen achter een `mounted`-poort waarvan de serversnapshot `false`
+is, waardoor alleen het logo en de hamburger in de HTML stonden. Die poort is nodig tegen een
+hydratie-mismatch van de **class** (`ready` of `locked` hangt van de viewport af, die de server niet
+kent) maar niet van de **inhoud**, en hangt nu alleen nog aan de mobiel-specifieke onderdelen.
+
+**En de spelers pauzeren elkaar.** `AudioPlayer` had de mechaniek er al voor — `onPlay` meldt zich
+aan, `activeId` pauzeert de rest — maar de playlist gaf die twee props niet door, dus alle spelers
+konden tegelijk klinken.
+
+Twee dingen die hier zijn opgeruimd omdat ze anders opnieuw waren overgeschreven:
+
+- **De mix-imports en de slug-afleiding staan nu in één bron** (`src/data/mixes/all.ts`). De
+  vijftien JSON-bestanden werden op zes plekken los samengevoegd en de slug werd op acht plekken
+  opnieuw uit `permalink` gepeuterd — deels mét `.toLowerCase().trim()` en deels zonder. Dat laatste
+  is geen schoonheidsfoutje: de routing hangt aan die slug. Deze branch zet de twee gebruikers om die
+  hij toch aanraakt; issue #83 doet de rest.
+- **`Luguber` met een hoofdletter** midden in de moodtekst van rood, in dezelfde constante.
+
+Sluit #43, #44 en #56.
+
+### Significance
+
+#### Tier 0
+
+De mix-imports en de slug-afleiding hebben één bron gekregen, en er liggen elf tests onder de
+crash-guard — die viel anders stil terug te draaien.
+
+**Score:** 3
+
+#### Tier 1
+
+De luisterpagina is de kern van de site en stond voor crawlers, link-previews en no-JS-bezoekers
+volledig leeg: geen kop, geen inhoud, en geen enkele link naar de 77 mixpagina's die de sitemap wél
+aanmeldt. Daar bovenop viel de pagina om op een kleur die in de eigen data bestaat.
+
+**Score:** 5
+
+### Pull Request
+
+[PR #104](https://github.com/DaveKJohn/djcylow-react/pull/104) · merged 2026-08-15
+
+---
+
+## `fix/contactformulier-endpoint` changelog
+
+### Branch title
+
+Boekingsaanvragen komen compleet aan en het mail-endpoint is gehard
+
+### Branch ID
+
+20260815-130602
+
+### Branch type
+
+fix
+
+### What does the change on this branch bring to main?
+
+Het contactformulier is de enige weg waarlangs een boeking binnenkomt, en het verloor de naam van
+elke aanvraag. Het formulier verstuurt één veld `name`; de Netlify-function las `firstName` en
+`lastName`, en die bestaan nergens in `src/`. Elke aanvraag kwam binnen als **"Boekingsaanvraag:
+undefined undefined"** — beantwoorden kon nog via `replyTo`, maar terugvinden niet.
+
+**Dat het een jaar onopgemerkt bleef, kwam door het ontbreken van validatie**, en dat is meteen het
+tweede deel van deze branch. Het endpoint controleerde niets: geen aanwezigheid, geen type, geen
+lengte, geen adresvorm. Een JSON-body mag arrays en objecten leveren, en die belandden
+ongecontroleerd in de mail en in `replyTo`. Nu wordt elk veld als string gelezen, begrensd op
+lengte, en het adres op vorm getoetst; een lege aanvraag wordt geweigerd in plaats van verstuurd.
+
+Verder aan het endpoint:
+
+- **De HTML-mail escapet zijn invoer**, via één helper zodat een volgend veld niet opnieuw vergeten
+  wordt. Er gaat nu ook een `text:`-variant mee.
+- **CORS staat niet meer op `*`.** Alleen `djcylow.com`, `www.djcylow.com`, het Netlify-adres en het
+  deploy-preview-patroon krijgen de header terug, en alleen ná een match — de binnenkomende origin
+  wordt nooit blind teruggekaatst. Er zit ook een controle op `hostname` uit het
+  reCAPTCHA-antwoord bij: zonder die controle is een token dat op een ander domein is opgehaald
+  hier net zo geldig.
+- **De interne foutmelding gaat niet meer mee in de 500.** Een SMTP- of DNS-fout noemt
+  infrastructuur, en de frontend las dat veld niet eens.
+
+**De foutlus is weg.** Bij een mislukte verzending bleef het reCAPTCHA-token staan, terwijl zo'n
+token eenmalig is en ~2 minuten geldig. De bezoeker probeerde het opnieuw met hetzelfde token,
+Google antwoordde `timeout-or-duplicate`, en dat herhaalde zich tot de pagina herladen werd — één
+tijdelijke serverfout kostte de hele aanvraag. De widget wordt nu geremount voor een verse
+challenge. Bewust via een `key` en niet via een ref met `.reset()`: het component wordt met
+`next/dynamic` geladen, en die wrapper geeft een ref niet betrouwbaar door.
+
+**En er is nu een testsuite**, 23 tests, precies over wat hierboven staat (issue #71 — dit was het
+enige server-side bestand zonder ook maar één test). Dat kostte drie pogingen, en de reden is het
+vermelden waard: de function is CommonJS en woont buiten `src/`, dus Vitest laadt haar met Node's
+eigen `require`. `vi.mock` greep daardoor niet op haar `require('axios')`, en zelfs
+`vi.stubGlobal('fetch')` werd niet gezien — de module draait in een andere context en hield de
+echte `fetch`, waarna elke test in een timeout van vijf seconden liep. Beide zijn gemeten voordat
+het huidige patroon gekozen is: de twee buitenwereld-afhankelijkheden gaan nu via een derde
+parameter naar binnen, die Netlify zelf nooit meegeeft.
+
+**Bijvangst: `axios` is uit de repo.** Het werd alleen hier gebruikt, voor één POST, en Node levert
+`fetch` sinds v18. Dat is één dode dependency minder dan issue #94 straks hoeft op te ruimen.
+
+Eén tekstfout uit issue #49 zit in ditzelfde bestand en is meegenomen om een conflict met die
+branch te voorkomen: `Direct Contact` → `Direct contact`, want Nederlands kent geen title case.
+
+Sluit #42, #51, #57 en #71.
+
+### Significance
+
+#### Tier 0
+
+Het enige server-side bestand had geen enkele test en verwerkte ongevalideerde bezoekersinvoer. Er
+liggen nu 23 tests onder, en de function is testbaar gemaakt op een manier die eerst is gemeten in
+plaats van aangenomen.
+
+**Score:** 3
+
+#### Tier 1
+
+Elke boekingsaanvraag kwam binnen zonder naam en met een onbruikbaar onderwerp. Dit is het formulier
+waarlangs opdrachten binnenkomen, dus dat raakt Dave direct en dagelijks. Daar bovenop stopt een
+tijdelijke serverfout niet langer de hele aanvraag, en is het endpoint niet meer vanaf willekeurige
+domeinen bruikbaar.
+
+**Score:** 5
+
+### Pull Request
+
+[PR #103](https://github.com/DaveKJohn/djcylow-react/pull/103) · merged 2026-08-15
+
+---
+
+## `data/audio-mismatch` changelog
+
+### Branch title
+
+Twee mixen spelen weer hun eigen audio
+
+### Branch ID
+
+20260815-141837
+
+### Branch type
+
+data
+
+### What does the change on this branch bring to main?
+
+Twee live mixpagina's speelden de audio van een andere mix af. Titel, tracklist, beschrijving en
+cover waren van de ene mix, het geluid van een andere — de bezoeker hoorde dus iets anders dan
+waarop hij klikte, met een tracklist die niet meeliep.
+
+| entry | speelde | speelt nu |
+|---|---|---|
+| `20210412` — Purple Full (f), 176 BPM | het **Blue Full**-bestand van 2024-04-08 | `Purple_Full_f_EDM_DNB_20210412_Audio_V1 (Vol. 1)` |
+| `20210329` — Purple Light (f), 176 BPM | een **Progressive House 128 BPM**-bestand uit 2023 | `Purple_Light_f_EDM_DNB_20210329_Audio_V2 (Vol. 1)` |
+
+**Het projectbord noemde dit geblokkeerd op informatie, en dat is het niet gebleken.** De juiste
+objectnamen zijn niet afgeleid maar **opgezocht**: uit de 77 bestaande `audioSrc`-waarden volgt per
+kleur en power een vaste vorm (`Purple_Full_f_..._V1`, `Purple_Light_f_..._V2`), en de kandidaten
+daaruit zijn met een HEAD-request tegen R2 getoetst. Beide bestanden bestaan gewoon — het waren
+copy-paste-fouten in de data, geen ontbrekende uploads. De ene staat op de legacy-bucket, de andere
+op de actieve; dat is per bestand overgenomen zoals het werkelijk is en niet gelijkgetrokken (dat
+is issue #68).
+
+**En de naam alleen was niet genoeg bewijs**, want een naam die klopt kan nog steeds naar het
+verkeerde object wijzen. De lengte is daarom tegen de tracklist gelegd: beide nieuwe bestanden
+komen uit op **1.40 en 1.42 MB per minuut**, precies in de band van de elf andere purple-mixen
+(1.28–1.47). De duur past dus bij de tracklist die op de pagina staat.
+
+**Er ligt nu een wacht op**, zoals het issue voorstelde: `audioSrc` moet uniek zijn over alle
+bestanden. Dat die poort echt sluit is niet aangenomen maar getoetst — met een opzettelijk
+duplicaat in de tree gaf de suite een rode test met de naam erbij, waarna de tree is hersteld.
+Beide oorspronkelijke fouten waren de **oudste** entry in hun bestand, wat past bij een copy-paste
+die nooit is afgemaakt.
+
+Sluit #45.
+
+### Significance
+
+#### Tier 0
+
+De uniciteit van `audioSrc` is nu afgedwongen in plaats van verondersteld, en die poort is
+aantoonbaar sluitend.
+
+**Score:** 2
+
+#### Tier 1
+
+Twee van de 77 mixpagina's lieten de bezoeker iets anders horen dan waarop hij klikte. Op een site
+die om het luisteren draait is dat het ergste wat een pagina kan doen zonder stuk te gaan.
+
+**Score:** 4
+
+### Pull Request
+
+[PR #107](https://github.com/DaveKJohn/djcylow-react/pull/107) · merged 2026-08-15
+
+---
+
+## `data/covers-en-afbeeldingspaden` changelog
+
+### Branch title
+
+Dode afbeeldingspaden in de mix-data hersteld en de spec op de werkelijkheid gezet
+
+### Branch ID
+
+20260815-140951
+
+### Branch type
+
+data
+
+### What does the change on this branch bring to main?
+
+**Er stonden 30 dode afbeeldingspaden in de mix-data. Dat zijn er nu nul**, gemeten over alle 85
+entries tegen de schijf. De inventaris week op één punt af van wat de issues beschreven: er waren
+28 dode `image_square` en niet 23+3 — de twee extra zijn de 2026-mixen uit #67, die in geen van
+beide tellingen zaten.
+
+**De drie kapotte covers zijn de goedkoopste kritieke reparatie** (#46). Purple, Red en Yellow
+wezen naar een bestand dat op twee manieren tegelijk fout was: een hoofdletter in de mapnaam —
+fataal op Linux, en Netlify bouwt op Linux — en `_preview_square` in plaats van `_square_preview`,
+waardoor het ook lokaal al faalde. Die drie zijn drie van de acht covers op `/musicmoodcolours`, in
+alle drie de componenten die ze tonen.
+
+> Deze drie entries dragen `ignore: true`, en `CLAUDE.md` zegt die nooit te wijzigen. Die regel gaat
+> over de *inhoud* van een preview — het zijn voorbeelden — en niet over een bestandspad dat
+> aantoonbaar nergens naar wijst. Ze dragen bovendien `featured: true` en zijn dus zichtbaar.
+
+**De 25 overige dode `image_square` zijn leeggemaakt, niet gerepareerd, en dat is een beslissing die
+op een meting rust.** Issue #66 bood twee wegen: de afbeeldingen genereren, of het veld leegmaken en
+de spec bijstellen. De eerste weg is dicht, en dat was niet vooraf bekend: een bestaande square is
+**geen uitsnede** van de bijbehorende wide-afbeelding maar een aparte foto. Gemeten op een paar
+waarvan beide bestaan is het gemiddelde kanaalverschil met een centrale crop **87.9 van 255** — bij
+een echte crop was dat een handvol geweest. Een gegenereerde square zou dus verzonnen beeldmateriaal
+zijn geweest dat er als origineel uitziet. Wil je vierkante covers voor de Full-mixen, dan moeten de
+afbeeldingen aangeleverd worden; tot die tijd is leeg de eerlijke waarde.
+
+**De twee ontbrekende `small`-varianten zijn wél gegenereerd** (#67), want daar gold het omgekeerde:
+`small` ís aantoonbaar een verkleining van `large` (verschil 3.1 en 9.8 — compressieruis), dus die
+zijn mechanisch af te leiden. `20260101` en `20260507` droegen het `_large`-pad in hun `small`-veld,
+waardoor elke bezoeker van `/luister` daar 1920x1080 binnenhaalde voor een kaartje. Er staan nu twee
+echte 480x270-bestanden, en de paden wijzen ernaar.
+
+**De testsuite is meebewogen, en één ratchet is opgeheven.** `liveZonderSquareAfbeelding` stond op
+25 en is weg: `image_square` is nu een harde assertie. Daar is een nieuwe wacht bij gekomen die
+dekt wat het leegmaken openlaat — **elke `featured` entry moet een bestaand `image_square` hebben**,
+want dat zijn precies de acht die gerenderd worden. Die test kijkt naar álle entries en niet alleen
+de live, omdat de acht covers preview-entries zijn.
+
+**En de spec beschreef twee dingen verkeerd.** `image_square` heette "required" terwijl 25 entries
+het tegendeel bewezen; dat is nu "required for `featured`, may be empty otherwise", met de meting
+erbij. Daarnaast schreven `image_wide_small` en `image_square` `.jpg` voor, terwijl elk bestand op
+schijf `.webp` is en altijd is geweest.
+
+Bijvangst: `Green_Light_Preview` was de enige preview met ingevulde `image_wide_*`-velden, en die
+wezen naar bestanden die nooit hebben bestaan — previews staan uitsluitend als square op schijf. De
+andere zeven laten die velden leeg; deze is daarmee gelijkgetrokken.
+
+Sluit #46, #66 en #67.
+
+### Significance
+
+#### Tier 0
+
+De data klopt weer met de schijf, en dat is nu afgedwongen in plaats van geteld: een ratchet is
+vervangen door een harde assertie plus een nieuwe wacht op de featured-covers. De spec belooft niet
+langer iets wat de data niet levert.
+
+**Score:** 3
+
+#### Tier 1
+
+Drie van de acht covers op `/musicmoodcolours` waren gebroken afbeeldingen, in alle drie de
+componenten die ze tonen. Daarnaast haalde elke bezoeker van `/luister` voor twee mixen een
+1920x1080-bestand binnen waar een 480x270-kaartje stond.
+
+**Score:** 4
+
+### Pull Request
+
+[PR #106](https://github.com/DaveKJohn/djcylow-react/pull/106) · merged 2026-08-15
+
+---
+
+## `fix/live-tekst-en-debugtoets` changelog
+
+### Branch title
+
+Spelfouten op de live site hersteld en de debug-sneltoets uit productie
+
+### Branch ID
+
+20260815-132811
+
+### Branch type
+
+fix
+
+### What does the change on this branch bring to main?
+
+**De debug-sneltoets stond live.** `src/app/layout.tsx` registreerde op elke pagina een globale
+`keydown`-listener op de losse toets **`w`**. Elke bezoeker die daar buiten een invoerveld op drukte,
+zette de klasse `ux-mode` op `<html>` en `<body>` en veranderde daarmee het uiterlijk van de site —
+bereikbaar bij gewone toetsenbordnavigatie en bij type-ahead-zoeken op een pagina zonder gefocust
+veld. Het script staat nu achter `process.env.NODE_ENV !== 'production'`, en de combinatie is
+meteen `Ctrl+Shift+W` geworden: ook in ontwikkeling is een enkele letter te makkelijk per ongeluk te
+raken. Gemeten in de verse build: `ux-mode-toggle` en `KeyW` komen in **nul** van de 89 gebouwde
+pagina's nog voor.
+
+**Zes tekstfouten die alle zes live stonden**, geverifieerd in `out/`:
+
+| was | wordt | waar |
+|---|---|---|
+| `Muziekale kaart` | `Muzikale kaart` | `musicmoodcolours/page.tsx`, een `<h2>` |
+| `© 2025 DJ Cylow` | `© {buildjaar}` | `Footer.tsx`, op elke pagina |
+| `Geirriteerd` | `Geïrriteerd` | `Erlenmeyers.tsx` |
+| `(nor)Adrenaline` | `Adrenaline` | `musicmoodcolours/page.tsx`, een `<h3>` |
+| `top-producers` | `topproducers` | de fallback-beschrijving op elke mixpagina |
+| `Direct Contact` | `Direct contact` | *al meegenomen in `fix/contactformulier-endpoint`* |
+
+Twee daarvan verdienen een woord. Het **copyrightjaar** is nu `new Date().getFullYear()`, wat bij
+static export het **buildjaar** vastlegt — hier precies goed, want elke merge naar `main` triggert
+een Netlify-build. Een verouderd jaartal in de footer leest op een boekingssite als "wordt niet
+onderhouden", bij precies de bezoeker die op het punt staat contact op te nemen. En **`Geirriteerd`**
+stond naast `Geïrriteerd` in een tweede component op dezelfde pagina; het verschil is binnen één
+scroll te zien, maar de variant zonder trema verschijnt pas na interactie en is daardoor nooit
+opgevallen.
+
+De laatste tekstfout uit issue #49 zat in `ContactForm.tsx` en is in de contactformulier-branch
+meegenomen, omdat die hetzelfde bestand aanraakte.
+
+Sluit #49 en #55.
+
+### Significance
+
+#### Tier 0
+
+N/A — dit raakt alleen wat de bezoeker ziet. De code eromheen blijft zoals hij was.
+
+**Score:** N/A
+
+#### Tier 1
+
+Elke bezoeker kon met één toetsaanslag het uiterlijk van de site veranderen, en er stonden zes
+tekstfouten live waarvan er twee in een `<h2>`/`<h3>` staan en dus meetellen in de koppenstructuur
+die Google leest. Het copyrightjaar stond een jaar achter op elke pagina.
+
+**Score:** 4
+
+### Pull Request
+
+[PR #105](https://github.com/DaveKJohn/djcylow-react/pull/105) · merged 2026-08-15
+
+---
+
 ## `fix/emaillek-en-dode-imports` changelog
 
 ### Branch title
@@ -407,6 +815,406 @@ verlangt, en ziet in plaats daarvan per PR staan of deze op hem wacht of doorloo
 ### Pull Request
 
 [PR #31](https://github.com/DaveKJohn/djcylow-react/pull/31) · merged 2026-08-13
+
+---
+
+## `config/tailwind-eruit` changelog
+
+### Branch title
+
+Tailwind verwijderd en de ongedefinieerde utility-klassen opgeruimd
+
+### Branch ID
+
+20260815-143542
+
+### Branch type
+
+config
+
+### What does the change on this branch bring to main?
+
+**Tailwind draaide niet, en dat wist niemand.** Tailwind v4 genereert alleen utilities voor een
+stylesheet die `@import "tailwindcss"` bevat. De enige stylesheet die de app laadt is
+`src/styles/main.scss`, en die had die regel niet. Het enige bestand met een Tailwind-at-rule was
+`src/app/globals.scss` — dat **nergens werd geïmporteerd**, en de regel erin was bovendien
+`@theme "tailwindcss"`, wat geen geldige entry is. Er is dus nooit één utility gegenereerd,
+geverifieerd in de gebouwde CSS: nul Tailwind-signaturen (`--tw-`, `::backdrop`).
+
+Dave heeft gekozen voor **eruit halen**. Aanzetten was de andere weg, maar die zet Preflight bovenop
+de eigen reset in `base/_reset.scss` — een zichtbare wijziging op elke pagina, voor utilities die
+niemand gebruikt. Weg zijn: `tailwindcss` en `@tailwindcss/postcss` uit `package.json`,
+`postcss.config.mjs`, en `src/app/globals.scss`.
+
+**Dat het niet draaide, is aantoonbaar in de markup gaan zitten** (#75). Er werden klassen
+geschreven die stil niets deden:
+
+| klasse | voorkomens | wat er gebeurt |
+|---|---|---|
+| `.w-fix` | 28× | **verwijderd** — bestond nergens, en niemand kon vaststellen welke breedte het hoorde te zetten |
+| `.flex` | 6× | **verwijderd** — was Tailwind; de `.column`/`.row`-klassen zetten `display: flex` al |
+| `.size-base` | 8× | **gedefinieerd** — de scale-key bestond al |
+| `.size-lg` | 1× | **gedefinieerd** — idem |
+
+De eerste twee zijn een no-op voor het uiterlijk: ze deden al niets, dus weghalen verandert geen
+pixel en haalt alleen de suggestie weg dat er een regel achter zat. **De laatste twee zijn dat
+niet.** Op de mixpagina staan `.size-base` en `.size-lg` náást wél werkende `.size-sm`/`.size-xs` in
+dezelfde blokken; daar heeft iemand expliciet om een tekstgrootte gevraagd en de overgeërfde
+gekregen. Die tekst krijgt nu de grootte die er stond — **dat is de enige zichtbare wijziging van
+deze branch**, en precies wat op de preview bekeken moet worden.
+
+Gemeten in de gebouwde CSS na afloop: `size-base` en `size-lg` staan er nu in (waren er niet),
+`w-fix` nergens, en nog steeds geen enkele Tailwind-signatuur.
+
+**En de documentatie beweerde het omgekeerde**, op drie plekken. `CLAUDE.md` zei "Tailwind v4 +
+SCSS: beide worden naast elkaar gebruikt"; `README.md` had een tabelrij, een `tailwind.config` in
+de mappenlijst die nooit heeft bestaan, en een eigen sectie die naar dat bestand verwees. Die zijn
+vervangen door wat er werkelijk staat, inclusief een overzicht van de eigen utility-klassen.
+
+Sluit #48 en #75.
+
+### Significance
+
+#### Tier 0
+
+Er stond een frameworkafhankelijkheid in `package.json` die niets deed, en de documentatie stuurde
+iedereen die hier styling schreef de verkeerde kant op — aantoonbaar, want er zijn 34 klassen in de
+markup beland die nooit iets konden doen. De eigen utility-set is nu de enige, en staat beschreven.
+
+**Score:** 3
+
+#### Tier 1
+
+Op de mixpagina's krijgt tekst die om `size-base`/`size-lg` vroeg eindelijk die grootte, dus de
+typografische hiërarchie klopt daar weer met wat er in de code staat. Verder verandert er niets
+zichtbaars: de verwijderde klassen deden al niets.
+
+**Score:** 2
+
+### Pull Request
+
+[PR #102](https://github.com/DaveKJohn/djcylow-react/pull/102) · merged 2026-08-15
+
+---
+
+## `docs/audit-correcties` changelog
+
+### Branch title
+
+Documentatie gelijkgetrokken met de machinerie die er werkelijk staat
+
+### Branch ID
+
+20260815-144049
+
+### Branch type
+
+docs
+
+### What does the change on this branch bring to main?
+
+De documentatie beschreef op een reeks plekken machinerie die er niet meer zo staat. Vier daarvan
+waren niet passief-verouderd maar **stuurden de lezer actief de verkeerde kant op**.
+
+**Chris' repo-lens beweerde dat er nul testsuites en geen branch protection waren** (#84). Er staan
+vier testbestanden en de ruleset `main-ci-gate` bestaat sinds 2026-08-13. Dat woog het zwaarst van
+alles hier: het is de **enige lens die automatisch meelaadt**, én het is het argument waarmee de
+PR-grens wordt verantwoord — dus elke sessie woog iemand de merge-beslissing op feiten die niet meer
+klopten, terwijl `CLAUDE.md` in een tabel het omgekeerde stelde. De conclusie blijft staan, maar rust
+nu op de twee redenen die hem wél dragen: de suite dekt de mix-**data** en niet de vormgeving, en de
+ruleset heeft `bypass_actors` waardoor de check voor een admin adviserend blijft.
+
+**`CONTRIBUTING.md` gaf een opdracht tot werk dat al gedaan was, aan een seam die leeg hoort te
+blijven** (#85). Het blok beweerde dat de PR-template nog een Nederlandse placeholder droeg en dat
+`Get-PrDescriptionPlaceholder` gevuld moest worden op `docs/release-route-naar-script`. Vier
+beweringen, alle vier onwaar: de template draagt de canonieke placeholder, het is gerepareerd via de
+template-route juist *niet* via die seam, en die branch is gemerged en gefold.
+
+**`scripts/repo-config.ps1` citeerde `CLAUDE.md` voor het tegendeel** (#89). Een comment bij
+`Get-ReleaseMajorMinMinors` zei dat een major hier "een volledig redesign of een framework-migratie"
+is "en niet een recap van tien minors zoals in de bron" — met bronvermelding, terwijl `CLAUDE.md`
+sinds 2026-08-13 exact het omgekeerde zegt. Dat is de tekst waar iemand op terugvalt die die waarde
+ooit wil zetten. Ook gecorrigeerd: het testaantal (stond op 36, waren er 71 — nu verwijst het naar
+`npx vitest run` in plaats van een getal dat gegarandeerd veroudert) en de reden waarom de CI-check
+adviserend is (niet "zonder branch protection", maar door `bypass_actors`).
+
+**Vijftien repo-lenzen verwezen naar een plugin-id dat niet meer bestaat** (#90). Elke lens opende
+met *"in `specialists` plugin"*, terwijl dat id gesplitst is in `team-alpha` en `workflow-davekjohn`.
+Ze wijzen nu naar het bestand dat er werkelijk staat — en dat is **per lens gecontroleerd**: een
+eerste poging zette er `personas/NN-NN-persona.md` neer, en die map bevat er maar vier. De vijftien
+met de scaffold-header zijn precies de vijftien **agents**; één dode verwijzing was bijna vervangen
+door vijftien.
+
+Verder gelijkgetrokken met wat er staat:
+
+| | was | is |
+|---|---|---|
+| `src/data/mixes/README.md` | vier plekken schreven een ander titelformaat voor dan de spec zelf eist (#88) | alle vier gelijk aan de vereiste vorm, die alle 77 live titels al volgen |
+| idem | `description_en` "waiting on the parked `feature/i18n-setup`" | die branch is **gesloten** en gearchiveerd; hij komt niet vanzelf live |
+| `CLAUDE.md`, `CONTRIBUTING.md` | de poort als "`tsc` + build", op drie plekken | drie stappen, met `eslint .` erbij |
+| `CLAUDE.md` | "`npm run lint` = ESLint + TypeScript check" | alleen ESLint; de typecheck zit in `lint-web.ps1` |
+| `CLAUDE.md` | "`npm run lint` staat nog buiten de poort" | zit er sinds 2026-08-14 in — het document sprak zichzelf drie alinea's verderop tegen |
+| `CLAUDE.md` | versienummer en release-notes zijn "handwerk van Rendall" | het script doet ze; handwerk is het audience-concept en de Release |
+| `CLAUDE.md` | tellingen van 60 documenten / 37 development | weggehaald — ze verouderen bij elke cut |
+| `.github/pull_request_template.md` | "`npm run lint` gedraaid, geen nieuwe fouten" | de poort op 0/0, plus een regel voor de testsuite |
+
+Sluit #84, #85, #87, #88, #89 en #90.
+
+### Significance
+
+#### Tier 0
+
+Vier van deze correcties stuurden actief verkeerd werk aan: een lens die bij elke sessie meelaadt en
+de PR-grens verkeerd verantwoordt, een opdracht tot werk aan een lege seam, een bronvermelding naar
+het tegendeel, en vijftien verwijzingen naar een plugin die niet bestaat. Dat is duurder dan een
+verouderde zin, want het kost iemand een dag aan de verkeerde reparatie.
+
+**Score:** 4
+
+#### Tier 1
+
+N/A — dit raakt uitsluitend documentatie en comments. De build levert dezelfde pagina's.
+
+**Score:** N/A
+
+### Pull Request
+
+[PR #101](https://github.com/DaveKJohn/djcylow-react/pull/101) · merged 2026-08-15
+
+---
+
+## `config/webp-veiligheid-en-ignore` changelog
+
+### Branch title
+
+images:webp verwijdert niets meer ongevraagd en faalt eerlijk
+
+### Branch ID
+
+20260815-142550
+
+### Branch type
+
+config
+
+### What does the change on this branch bring to main?
+
+Drie safety-rules stonden in `CLAUDE.md` en nergens in de machinerie. Die staan er nu wel.
+
+**`npm run images:webp` verwijderde bestanden zonder iets te vragen.** Het liep recursief door
+`public/images/`, converteerde, en `unlink`te het origineel — terwijl "bestanden verwijderen uit
+`public/images/`" hierboven expliciet onder *Nooit zonder expliciete toestemming van Dave* staat,
+juist omdat een pad in de mix-JSON er stil door breekt. Erger nog: via de `npm run *`-prefixregel op
+de allowlist kon dat draaien **zonder permissieprompt**. Preview is nu de default; verwijderen
+vraagt `--apply`. Alle vier de gedragingen zijn getoetst op een wegwerpbestand in plaats van
+aangenomen:
+
+| | resultaat |
+|---|---|
+| `npm run images:webp` | toont de lijst, `.jpg` staat er daarna nog |
+| `npm run images:webp:apply` | converteert, origineel weg |
+| tweede run met bestaande `.webp` | overgeslagen in plaats van overschreven |
+| kapot bestand | `1 mislukt`, **exit 1** |
+
+Die laatste was de ernstigste: het script zette nooit `process.exitCode`, dus het gaf **exit 0
+terwijl elke conversie faalde**. Een bestaande `.webp` werd bovendien stil overschreven waarna het
+origineel verdween — twee bestanden kwijt bij één naamconflict; `--force` doet dat nu alleen op
+verzoek. En `main()` had geen `.catch()`.
+
+**De vier beschermde bestanden hebben nu enforcement** (#62). `.claude/settings.json` draagt een
+`ask`-lijst voor `next.config.ts`, `netlify.toml` en `public/images/**`. Bewust `ask` en geen
+`deny`: `CLAUDE.md` vraagt om Dave's woord, niet om onbereikbaarheid. De denylist heeft er daarnaast
+de refspec-vorm `git push origin +HEAD:main` bij gekregen, die langs de bestaande
+`git push --force`-regels glipte.
+
+> **Het issue nam aan dat dit niet zelf kon** — *"schrijfacties op settings-bestanden worden
+> geblokkeerd, de route is `/permissions` of met de hand"*. Dat bleek niet zo: de wijziging is
+> gewoon geschreven. De aanname is dus weerlegd en niet omzeild.
+
+**`.claude/settings.local.json` staat nu in `.gitignore`** (#64). Het bleef hier alleen ongetrackt
+door een **machine-globale** ignore (`~/.config/git/ignore`), niet door de repo zelf. In een verse
+clone, op een andere machine of bij een collaborator staat het gewoon in `git status` — één
+`git add -A` verwijderd van meecommitten, en `git add -A` is precies wat `cut-release.ps1` doet. Dan
+landt een persoonlijke allowlist met lokale paden en een e-mailadres in een publieke repo.
+
+**Wat hier bewust níet is gedaan: het snoeien van die allowlist zelf (#63).** Dat bestand is
+machine-lokaal en staat vanaf nu in `.gitignore`, dus zo'n wijziging verschijnt in géén enkele diff
+— en hij verandert wel wat er dagelijks zonder prompt mag draaien. Dat hoort niet ongezien te
+gebeuren. Het voorstel staat in issue #63 en blijft open, inclusief de waarschuwing die daar staat:
+de uitvoerregel voor de plugin-cache geeft `cut-release` vrije doorgang naar `origin/main`, dus die
+mag alleen samen met het dichtzetten van de push-regels.
+
+Sluit #61, #62 en #64.
+
+### Significance
+
+#### Tier 0
+
+Drie regels die alleen bestonden zolang iedereen `CLAUDE.md` gelezen had en zich eraan hield, zijn
+nu mechanisme. Het opruimscript kan niet meer stil bestanden verwijderen of een mislukking als
+succes rapporteren, en een persoonlijke allowlist kan niet meer per ongeluk in de publieke repo
+belanden.
+
+**Score:** 4
+
+#### Tier 1
+
+N/A — dit raakt de gereedschapskist en de guardrails, niet djcylow.com. De build levert dezelfde
+pagina's.
+
+**Score:** N/A
+
+### Pull Request
+
+[PR #100](https://github.com/DaveKJohn/djcylow-react/pull/100) · merged 2026-08-15
+
+---
+
+## `fix/mix-add-schema` changelog
+
+### Branch title
+
+mix:add levert een entry die het schema en de testpoort haalt
+
+### Branch ID
+
+20260815-124609
+
+### Branch type
+
+fix
+
+### What does the change on this branch bring to main?
+
+`npm run mix:add` is stap 1 van de workflow *nieuwe mix toevoegen*, en het leverde een entry
+op die de testpoort niet haalt. Vier dingen zijn gerepareerd, en het script controleert
+voortaan zijn eigen uitkomst in plaats van erop te vertrouwen.
+
+**Het beschrijvingsveld.** Het script schreef één veld `description`; de site, het schema en
+`tests/mix-data.test.ts` lezen `description_nl` en `description_en`. Er worden er nu twee
+gegenereerd, en er wordt per taal getoond of de tekst de spec haalt (120-160 tekens, geen
+streepje) voordat je hem accepteert. De prompt vroeg tot nu toe **actief** om precies wat de
+spec verbiedt: een em-dash in het opgelegde format, en "mention 2-4 notable artists". Dat is
+wat de twee dash-ratchets in de testsuite tellen (13 en 15 overtredingen) — dit sluit de kraan
+waar die achterstand uit liep.
+
+**Het afbeeldingspad.** Het script zette de datum vóór het formaat en gebruikte een koppelteken
+waar op schijf een underscore staat. Geen enkel gegenereerd pad bestond dus: `checkAndConvertImages`
+meldde altijd "Ontbreekt" en converteerde daardoor nooit. Gemeten over vier bestaande mixen gaan
+nu 11 van de 12 paden goed; de twaalfde is een bestand dat werkelijk ontbreekt (issue #66) en
+geen fout in het patroon.
+
+> De issuetekst noemde `image_square` correct. Dat klopte niet: juist dat veld produceerde
+> `..._20240408_square.webp` terwijl op schijf `..._square_20240408.webp` staat, en dat is waar
+> de 25 dode `image_square`-paden vandaan komen. Beide velden zijn nu tegen de schijf gemeten in
+> plaats van tegen de beschrijving.
+
+**Het genre in de Spotify-metadata.** `buildSpotifyId` en `buildSpotifyTitle` hardcodeerden
+`edm`/`EDM` en kregen `genre` niet eens mee, terwijl het script de keuze wel opvraagt. Een Drum &
+Bass-mix kondigde zichzelf dus als EDM aan. De afkorting staat nu op één plek (`genreSlug`) in
+plaats van drie, en werkt door in beide velden.
+
+**De audio-URL is eerlijk geworden over wat hij is.** De objectnamen op R2 volgen geen conventie
+die te reproduceren valt — in de 77 live mixen staan `V1`/`V2`/`V3`/`V4` en `v1` door elkaar,
+`Vol 1` zonder punt, een spatie waar een underscore hoort en een kleur met een kleine letter. De
+gegenereerde URL is daarmee een beginwaarde en geen afleiding, en dat staat er nu bij. Het script
+doet na afloop één HEAD-request en meldt het als het object er niet is. Dat is de bovenloop van
+issue #45, waar twee mixen de audio van een andere mix afspelen: die fout is nu zichtbaar op het
+moment dat hij ontstaat in plaats van als een bezoeker op play drukt.
+
+Sluit issue #47, en deblokkeert #46, #66 en #67 — die repareren de data die dit gereedschap
+anders bij de eerstvolgende mix opnieuw zou produceren.
+
+### Significance
+
+#### Tier 0
+
+Het enige gereedschap voor het toevoegen van een mix leverde een entry op die de eigen poort
+weigert, en produceerde stilzwijgend de datafouten die drie andere issues nu opruimen. Wie een
+mix toevoegde, kreeg pas bij de PR te horen dat het mis was, zonder aanwijzing waar.
+
+**Score:** 4
+
+#### Tier 1
+
+N/A — er verandert niets aan djcylow.com. Dit raakt het gereedschap, niet de site; de datafouten
+die het veroorzaakte worden in eigen issues gerepareerd.
+
+**Score:** N/A
+
+### Pull Request
+
+[PR #99](https://github.com/DaveKJohn/djcylow-react/pull/99) · merged 2026-08-15
+
+---
+
+## `config/lokale-workflow-skills` changelog
+
+### Branch title
+
+Repo-eigen slash-skills voor de workflow-stappen die de plugin niet autonoom aanbiedt
+
+### Branch ID
+
+20260815-125827
+
+### Branch type
+
+config
+
+### What does the change on this branch bring to main?
+
+Acht van de tien skills uit `workflow-davekjohn` dragen `disable-model-invocation: true`, en dat
+kwam pas aan het licht toen een specialist stap 4 van de cyclus wilde zetten en de Skill-tool
+weigerde met *"reserved for explicit user invocation"*. Het zijn precies de acht die naar buiten
+schrijven: `open-pr`, `ship-pr`, `park`, `fold-changelog`, `cut-release`, `lock`, `continue` en
+`fix-mojibake`. Dat is geen storing maar de guardrail van de bron — bij PR #155 beschreven als
+*"closes the autonomous-invocation surface"* — en daarmee dezelfde regel als de safety-rules hier,
+alleen gegoten in een mechanisme in plaats van in proza.
+
+**Deze repo heeft die guardrail niet weggehaald maar verlegd**, en alleen waar `CLAUDE.md` de
+uitzondering zelf al maakt. Drie skills krijgen een repo-eigen ingang in `.claude/skills/`:
+`open-pr` (de PR-regel zegt al *doorlopen tenzij*), `fold-changelog` (uitzondering 1 op "nooit
+direct op `main`", met een vastgelegde scope) en `park` (een push is geen PR). `cut-release` en
+`ship-pr` krijgen er bewust géén: die staan hier aan Dave's expliciete verzoek, en dat blijft zo.
+
+**Er wordt geen enkel gedeeld script gedupliceerd.** De drie ingangen roepen via het nieuwe
+`scripts/task/shared.ps1` het origineel uit de plugin-cache aan — dezelfde kopie die een
+plugin-skill zou draaien, dus de "cache om te draaien"-regel blijft intact. Dat helperscript lost de
+versiemap op het moment van draaien op, want er staan acht versies in de cache en een skill die het
+pad hardcodeert breekt bij de eerstvolgende plugin-update.
+
+Twee dingen zijn gemeten in plaats van aangenomen, en beide bleken anders dan de eerste opzet:
+
+- **De versiesortering moet op `[version]`**, niet op tekst. Anders wint `3.9.0` van `3.10.0`, en
+  dat zijn allebei mappen die er nu werkelijk staan.
+- **Een `--` tussen de argumenten werkt niet.** PowerShell leest die bij `-File` zelf als
+  parameternaam en stopt met *"the parameter name '' is ambiguous"*. De eerste versie van de
+  skill-documentatie schreef het voor; dat is gecorrigeerd nadat het faalde.
+
+Ook de exitcode is gerepareerd: een `.ps1` die via `&` wordt aangeroepen en zelf geen `exit` doet,
+laat de `LASTEXITCODE` van de vorige aanroep staan — een geslaagde run meldde daardoor 255.
+
+### Significance
+
+#### Tier 0
+
+Zonder dit kan een specialist geen enkele stap van de cyclus afmaken: het werk staat op een branch
+en blijft daar. Met 56 openstaande auditissues is dat het verschil tussen doorwerken en per branch
+op een handmatig commando wachten. De guardrail die de bron bedoelde blijft staan waar `CLAUDE.md`
+hem ook stelt — bij de release en bij site-werk.
+
+**Score:** 4
+
+#### Tier 1
+
+N/A — dit raakt de gereedschapskist, niet djcylow.com. De build levert dezelfde pagina's.
+
+**Score:** N/A
+
+### Pull Request
+
+[PR #98](https://github.com/DaveKJohn/djcylow-react/pull/98) · merged 2026-08-15
 
 ---
 

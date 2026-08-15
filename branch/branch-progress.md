@@ -1,27 +1,39 @@
-## `config/tailwind-eruit` progress
+## `fix/shared-ps1-named-parameters` progress
 
 ### Steps
 
-- [x] Bevestigd in de gebouwde CSS dat Tailwind nooit iets genereerde (nul `--tw-`, nul `backdrop`)
-- [x] `tailwindcss` en `@tailwindcss/postcss` uit `package.json`, `npm install` gedraaid
-- [x] `postcss.config.mjs` en `src/app/globals.scss` verwijderd
-- [x] `.w-fix` uit alle 28 voorkomens gehaald (25 automatisch, 3 in template literals)
-- [x] `.flex` uit alle 6 voorkomens gehaald
-- [x] `.size-base` en `.size-lg` toegevoegd aan `$utility-styles`
-- [x] Gemeten in de nieuwe CSS: beide staan er nu in, `w-fix` nergens, nog steeds geen Tailwind
-- [x] `CLAUDE.md` en `README.md` gelijkgetrokken (drie plekken)
-- [x] Lint-poort groen, 71 tests
+- [x] Meten wat er werkelijk gebeurt, vóór er een remedie wordt gekozen: een wegwerpdoel met de
+      exacte signature van `open-pr.ps1`, aangeroepen door een replica van de wrapper. Uitkomst:
+      `-Resolves 47` komt aan als `Title='-Resolves'`, `Resolves=''`
+- [x] De twee andere kandidaat-oorzaken toetsen in plaats van aannemen — de `[string[]]`-typecast op
+      `$Rest` en `[CmdletBinding()]`. Beide verworpen: een ongetypeerde `ValueFromRemainingArguments`
+      gedraagt zich identiek, en klassieke `$args` weigert de parameter al bij de wrapper
+- [x] De remedie bouwen in `scripts/task/shared.ps1`: doorgeven aan een nieuwe host in plaats van
+      `& $doel @Rest`, met de meting en de twee verworpen kandidaten in een comment erboven
+- [x] De fix negatief toetsen tegen de échte `shared.ps1`: vijf argumentvormen (enkele waarde,
+      komma-lijst, losse switch, geen argumenten, waarde met spaties plus twee switches)
+- [x] De exitcode-doorgifte toetsen in beide richtingen — een doelscript dat `exit 3` doet moet 3
+      opleveren en niet 0. Gemeten: 0 bij succes, 3 bij falen
+- [x] `.claude/skills/fold-changelog/SKILL.md`: `-Commit` toevoegen aan het `Draaien`-blok, met de
+      reden erbij, en `-Push` expliciet uitsluiten omdat pushen Dave's initiatief is
+- [x] `open-pr` en `park` op hetzelfde soort gat controleren. Beide schoon: hun scripts kennen geen
+      commit-vlag en pushen zelf
+- [x] De meetbestanden uit de plugin-cache opruimen
 
 ### Where I left off
 
-Klaar voor PR, maar **dit is site-werk en wacht op Dave**.
+De branch is af. Wat hierna nog wacht en geen stap van deze branch is: de PR, de merge en de fold.
 
-**Er is precies één zichtbare wijziging, en die zit op de mixpagina's.** `size-base` en `size-lg`
-werkten niet en werken nu wel, dus tekst die om die grootte vroeg verandert daadwerkelijk van
-grootte. Kijk op de deploy preview naar `/luister/mix/<willekeurige-slug>`, bij de blokken met de
-beschrijving en de tracklist — daar staan ze naast `size-sm`/`size-xs`.
+Twee dingen die tijdens het meten opvielen en hier bewust **niet** zijn meegenomen, omdat ze een
+eigen branch of een eigen route verdienen:
 
-Het verwijderen van `.w-fix` (28×) en `.flex` (6×) verandert niets: die klassen bestonden in geen
-enkele stylesheet, dus ze deden al niets. Dat is ook waarom `w-fix` is weggehaald in plaats van
-gedefinieerd — een definitie erbij zou de layout op 28 plekken wél veranderen, en niemand kan
-vaststellen welke breedte de bedoeling was.
+- **`session-status.ps1` print de open issues als `#System.Object[]`.** Zat al in de vorige lock als
+  kandidaat voor een `inbound`-issue. Het is een formatteerfout in het gedeelde script, niet in deze
+  repo, dus repareren gebeurt in de bron — check daar eerst of het issue er al staat.
+- **De komma-lijstvorm `-Resolves 42,51,57` uit `.claude/skills/open-pr/SKILL.md` werkt, maar niet
+  omdat de wrapper hem als lijst doorgeeft.** Hij komt aan als de string `42,51,57`, en dat is
+  precies wat `open-pr.ps1` verwacht — de parameter is daar `[string]$Resolves`, niet `[int[]]`.
+  Zou hij `[int[]]` zijn geweest, dan had `-File` er 425157 van gemaakt: PowerShell leest de komma
+  dan als duizendtalscheider. Dat geldt óók zonder deze wrapper, gemeten bij een directe aanroep.
+  Geen actie nodig, maar het is een valkuil voor wie ooit het type van die parameter aanpast.
+
