@@ -101,6 +101,46 @@ describe('geldige aanvraag', () => {
     });
 });
 
+/**
+ * De honeypot: een veld dat met CSS verborgen is, dus een mens laat het leeg en een bot vult het in.
+ * Het formulier zette dat veld al neer, maar deze functie las het tot 2026-08-15 nooit uit -- de val
+ * ving dus niets (issue #117). Deze tests leggen vast dat hij nu wél dichtgaat, én de manier waarop:
+ * met een 200 en zonder mail, zodat een bot niet leert dat de val bestaat.
+ */
+describe('honeypot', () => {
+    it('verstuurt niets als het bot-veld is ingevuld', async () => {
+        const res = await verzoek({ ...geldig, 'bot-field': 'ik ben een bot' });
+        expect(sendMail).not.toHaveBeenCalled();
+    });
+
+    it('antwoordt met 200 en niet met een fout, zodat de val verborgen blijft', async () => {
+        const res = await verzoek({ ...geldig, 'bot-field': 'spam' });
+        expect(res.statusCode).toBe(200);
+    });
+
+    it('laat een leeg bot-veld gewoon door -- dat is wat een mens verstuurt', async () => {
+        // Het formulier stuurt het veld altijd mee, dus leeg moet de normale weg volgen.
+        const res = await verzoek({ ...geldig, 'bot-field': '' });
+        expect(res.statusCode).toBe(200);
+        expect(sendMail).toHaveBeenCalled();
+    });
+
+    it('stopt vóór de reCAPTCHA-verificatie', async () => {
+        // Niet alleen "geen mail": een ingevuld honeypot mag ook geen call naar Google kosten, en
+        // de bot mag geen "token ontbreekt"-fout krijgen waaruit hij iets kan afleiden.
+        const res = await verzoek(zonder({ ...geldig, 'bot-field': 'spam' }, 'g-recaptcha-response'));
+        expect(res.statusCode).toBe(200);
+        expect(sendMail).not.toHaveBeenCalled();
+        expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    it('negeert een bot-veld dat alleen spaties bevat', async () => {
+        const res = await verzoek({ ...geldig, 'bot-field': '   ' });
+        expect(res.statusCode).toBe(200);
+        expect(sendMail).toHaveBeenCalled();
+    });
+});
+
 describe('invoervalidatie', () => {
     it.each([
         ['naam', { ...geldig, name: '' }],
