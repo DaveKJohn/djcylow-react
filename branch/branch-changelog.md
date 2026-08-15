@@ -1,12 +1,12 @@
-## `config/onderhoud-deno-engines-ci` changelog
+## `config/dode-dependencies` changelog
 
 ### Branch title
 
-deno.lock eruit, de Node-versie afgedwongen en CI annuleert verouderde runs
+Twee ongebruikte dependencies uit de build gehaald
 
 ### Branch ID
 
-20260815-170941
+20260815-171604
 
 ### Branch type
 
@@ -14,45 +14,39 @@ config
 
 ### What does the change on this branch bring to main?
 
-Drie stukjes onderhoud aan de machinerie, elk te klein voor een eigen branch en samen wel de moeite.
+`gray-matter` en `@next/third-parties` stonden in `dependencies` — niet in `dev` — en werden nergens
+geïmporteerd. Gemeten met een grep over `src/`, `netlify/`, `scripts/` en `tests/`: nul treffers voor
+allebei. Ze reisden dus mee in elke `npm ci` en elke Netlify-build zonder ooit iets te doen. Uit de
+lockfile verdwijnen er daarmee 129 regels.
 
-**`deno.lock` stond in de tree zonder dat er iets is dat hem gebruikt.** Het is de lockfile van de
-Netlify Edge Functions-bootstrap, achtergelaten door een `netlify dev`-run, terwijl deze repo geen
-`netlify/edge-functions/` heeft. Dat hij stale was is niet aangenomen maar te lezen: hij noemde nog
-`@tailwindcss/postcss`, dat er in augustus is uitgehaald. Untracked en in `.gitignore`.
+Vóór het verwijderen is met `npm ls` gecontroleerd dat geen van beide transitief nodig is: ze stonden
+alleen als directe dependency in de boom. De poort daarna is groen en de build levert nog steeds
+**89** statische pagina's — dat laatste is precies de wacht die gisteren is gebouwd, en dit is de
+eerste keer dat hij iets bewijst in plaats van alleen groen te zijn.
 
-**De Node-versie stond alleen in `.nvmrc`, en dat bestand leest `npm ci` op je eigen machine niet.**
-Alleen `setup-node` in CI en Netlify kijken ernaar. Wie hier Node 20 of 24 draaide kreeg dus geen
-enkele melding; de eerste rode vlag was een lockfile-conflict of een subtiel ander buildresultaat — en
-`ci.yml` documenteert al een halve dag debugwerk aan precies zo'n divergentie, de `yaml`-peer die per
-platform anders resolvet. Er staat nu een `engines`-regel in `package.json` met `engine-strict=true`
-in `.npmrc`, zodat het een blokkade is en geen waarschuwing tussen honderd regels output. Getoetst in
-beide richtingen: `npm ci` slaagt op 22.15.1 en faalt met `EBADENGINE` zodra de range niet wordt
-gehaald. Bewust een **range** (`>=22.15.1 <23`) en geen exacte pin — die zou bij elke patch-upgrade op
-twee plekken bijgewerkt moeten worden, wat juist de drift is die deze regel moet voorkomen.
-Meegemeten: geen enkele dependency blokkeert op zijn eigen `engines`, wat het echte risico van die
-vlag is.
+**`react-google-reviews` blijft staan**, en dat is een bewuste keuze en geen omissie. Dat pakket heeft
+wél twee treffers, allebei in `src/components/home/GoogleReviews.tsx` — een component die in
+`page.tsx` is uitgecommentarieerd maar nog bestaat. De dependency verwijderen zou die component
+breken. Hij hoort thuis bij de opruiming van de dode componenten (#59), die `src/` raakt en dus op
+Dave's woord wacht.
 
-**CI liet verouderde runs doorlopen en had geen tijdslimiet.** Bij een push bovenop een openstaande PR
-bleef de vorige run draaien, en de required check kan dan kortstondig groen staan op een commit die
-niet meer bovenaan ligt — precies het moment waarop iemand mergt. Een hangende `npm run build` liep
-bovendien tot GitHub's default van zes uur. Nu `concurrency` met `cancel-in-progress` en
-`timeout-minutes: 10`. De jobnaam `poort` is ongemoeid gelaten: dat is de required-check-context van
-de ruleset, en hernoemen zou de poort stil uitzetten.
+**`yaml` blijft ook staan**, ook al is dat óók nul treffers. Dat is geen dode dependency maar een
+expliciet gedeclareerde optionele peer van vite, en `ci.yml` legt in twaalf regels uit waarom: zonder
+die declaratie resolvet de boom per platform anders en faalde `npm ci` op Linux terwijl hij lokaal
+slaagde.
 
 ### Significance
 
 #### Tier 0
 
-Drie stille valkuilen weg: een lockfile die niets meer beschrijft, een versie-eis die alleen op twee
-van de drie plekken gold, en een CI die een groene check op een achterhaalde commit kon tonen. Geen
-ervan gaf ooit een foutmelding, en dat is precies wat ze duur maakt als ze toeslaan.
+Twee pakketten minder in elke install en elke build. Klein in tijd, maar het houdt de
+dependency-boom eerlijk: wat erin staat, wordt gebruikt.
 
-**Score:** 3
+**Score:** 2
 
 #### Tier 1
 
-Ontwikkel- en CI-onderhoud; de site verandert niet en buiten de repo merkt niemand er iets van.
+De site verandert niet — zelfde 89 pagina's, zelfde uitvoer. Alleen het bouwproces wordt iets lichter.
 
 **Score:** N/A
 
