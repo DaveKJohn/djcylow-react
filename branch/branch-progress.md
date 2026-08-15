@@ -1,35 +1,36 @@
-## `fix/switch-account-herstelpad` progress
+## `config/onderhoud-deno-engines-ci` progress
 
 ### Steps
 
-- [x] De fout gereproduceerd in een los proces vóór er iets veranderde:
-      `$ErrorActionPreference='Stop'; & cmd /c 'echo oops 1>&2 & exit 1' 2>&1` gooit `RemoteException`
-- [x] Beide `gh auth status`-aanroepen achter één `Get-GhAuthStatus` gezet, met `Continue` lokaal en
-      een beoordeling op de tekst — dezelfde aanpak die `lint-web.ps1` al documenteert
-- [x] Getoetst dat de constructie niet meer gooit: de tekst komt terug in plaats van een terminating
-      error, en bevat de melding die de `-notmatch` nodig heeft
-- [x] De adressen uit het script gehaald naar een gitignored `accounts.local.ps1`, met
-      `accounts.local.example.ps1` als vorm in de repo
-- [x] Beide leespaden getoetst: zonder het bestand blijft het adres leeg (val terug op de
-      browserkeuze), met het voorbeeldbestand komt het adres door
-- [x] `git check-ignore -v` bevestigt dat `accounts.local.ps1` genegeerd wordt
-- [x] Parse-check op het gewijzigde script: geen fouten
-- [x] Geverifieerd dat er geen echt adres meer in de tree staat (`git grep`), en vastgesteld dat het
-      nog wél in de history zit (commit `3c8418a`)
-- [~] Het script end-to-end draaien — bewust niet gedaan: het logt accounts uit bij `gh` en Claude,
-      dus draaien zou de sessie waarin het wordt getest onderuithalen. Alle onderdelen zijn los
-      getoetst, en dat is hier de eerlijke dekking
-- [~] Het adres uit de git-history verwijderen — buiten scope. Dat vraagt een rewrite van
-      gepubliceerde commits en is Dave's beslissing, zoals het issue zelf ook stelt
+- [x] De vier punten van #94 gemeten in plaats van overgenomen: `deno.lock` is getrackt en er is geen
+      `netlify/edge-functions/`, er staat geen `engines` en geen `.npmrc`, en `ci.yml` heeft geen
+      `concurrency` en geen `timeout-minutes`
+- [x] `deno.lock` untracked en in `.gitignore`, met de reden dat hij aantoonbaar stale was — hij
+      noemde nog `@tailwindcss/postcss`
+- [x] `engines` (`>=22.15.1 <23`) in `package.json` en `engine-strict=true` in `.npmrc`, met de
+      afweging range-versus-pin in het bestand zelf
+- [x] Getoetst dat `engine-strict` geen dependency blokkeert op zijn eigen `engines` — dat is het
+      echte risico van die vlag: `npm ci` slaagt, 504 packages
+- [x] Negatief getoetst: `engines` tijdelijk op `>=99.0.0` gaf `EBADENGINE` en exit 1, daarna
+      teruggezet. De diff van `package.json` is precies drie regels, dus geen formatting-schade
+- [x] `concurrency` met `cancel-in-progress` en `timeout-minutes: 10` in `ci.yml`, mét de kanttekening
+      dat dit ook voor `main` geldt en waarom dat hier acceptabel is
+- [x] De jobnaam `poort` ongemoeid gelaten — dat is de required-check-context van de ruleset
+- [x] `CLAUDE.md` bijgewerkt bij de `ci.yml`-beschrijving
+- [~] Punt 1 van #94 (de dode dependencies) — bewust niet in deze branch. Het issue vraagt daar zelf
+      een eigen PR voor omdat het `package.json` en dus de build raakt, en dat is een verstandige
+      splitsing: deze branch is terug te draaien zonder de dependency-boom te beroeren
+- [~] Punt 5 van #94 (`npm audit`, 9 high) — het issue stelt zelf vast dat geen ervan aantoonbaar
+      bereikbaar is en adviseert dit "zonder haast" bij een volgende ronde. #94 blijft daarvoor open
 
 ### Where I left off
 
-Af. Raakt alleen `scripts/env/` en `.gitignore`, dus de keten loopt door tot en met de fold.
+Af, de poort groen. Raakt `package.json`, `.npmrc`, `.gitignore`, `ci.yml` en `CLAUDE.md` — geen
+site-werk, dus de keten loopt door tot en met de fold.
 
-Twee dingen voor Dave:
+**#94 blijft open**: punt 1 (dode dependencies) krijgt een eigen branch, en punt 5 (`npm audit`) is
+bewust uitgesteld. Beide staan hierboven als `[~]`.
 
-- **Wil je dat het script het Claude-adres weer zelf invult**, kopieer dan
-  `scripts\env\accounts.local.example.ps1` naar `scripts\env\accounts.local.ps1` en vul je adressen
-  in. Zonder dat bestand werkt het script gewoon; je kiest het account dan in de browser.
-- **Het adres staat nog in de git-history** (commit `3c8418a`). Dat weghalen is een aparte,
-  zwaardere ingreep.
+Eén ding om te weten na deze merge: door `engine-strict` faalt `npm ci` voortaan hard op een andere
+Node-major. Dat is de bedoeling, maar het is wel nieuw gedrag — draait er ooit een machine op Node 24,
+dan is dat vanaf nu een foutmelding in plaats van stilte.

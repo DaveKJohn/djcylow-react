@@ -1,58 +1,58 @@
-## `fix/switch-account-herstelpad` changelog
+## `config/onderhoud-deno-engines-ci` changelog
 
 ### Branch title
 
-switch-account bereikt zijn eigen herstelpad, en het priveadres staat niet meer in de tree
+deno.lock eruit, de Node-versie afgedwongen en CI annuleert verouderde runs
 
 ### Branch ID
 
-20260815-170314
+20260815-170941
 
 ### Branch type
 
-fix
+config
 
 ### What does the change on this branch bring to main?
 
-**`switch-account.ps1` stierf precies in het geval dat het zegt op te vangen.** Het script zet
-`$ErrorActionPreference = "Stop"` en haalde daarna `gh auth status` op met `2>&1`. Maar `gh auth
-status` schrijft naar stderr en geeft exit 1 zodra er géén account is ingelogd — exact de situatie
-waarvoor het herstelpad eronder bestaat ("nog niet ingelogd → start de browser-flow"). Onder PS 5.1
-maakt `2>&1` van die stderr een ErrorRecord die als terminating error wordt gegooid, dus het script
-brak af vóór de `if`. Wie wél was ingelogd merkte niets — 0 bytes stderr, exit 0 — en daarom is het
-nooit opgevallen. Gereproduceerd in een los proces: `& cmd /c 'echo oops 1>&2 & exit 1' 2>&1` gooit
-`RemoteException`.
+Drie stukjes onderhoud aan de machinerie, elk te klein voor een eigen branch en samen wel de moeite.
 
-Beide aanroepen lopen nu via één `Get-GhAuthStatus`, die `$ErrorActionPreference` lokaal op
-`Continue` zet en op de tékst beoordeelt in plaats van op de exitcode — bij "geen account" ís die
-melding namelijk het antwoord dat de aanroeper nodig heeft. Dat is dezelfde aanpak die
-`scripts/lint/lint-web.ps1` al kiest en daar uitgebreid documenteert; die kennis was hierheen niet
-gereisd, en dat is de eigenlijke les.
+**`deno.lock` stond in de tree zonder dat er iets is dat hem gebruikt.** Het is de lockfile van de
+Netlify Edge Functions-bootstrap, achtergelaten door een `netlify dev`-run, terwijl deze repo geen
+`netlify/edge-functions/` heeft. Dat hij stale was is niet aangenomen maar te lezen: hij noemde nog
+`@tailwindcss/postcss`, dat er in augustus is uitgehaald. Untracked en in `.gitignore`.
 
-**En het privéadres staat niet meer in de tree.** Er stond een persoonlijk gmail-adres voluit in dit
-gecommitte script, in een **publieke** repo, dus via GitHub-codesearch te vinden — in dezelfde repo
-die op `src`-niveau juist moeite doet om `info@djcylow.com` uit de HTML te houden. De adressen komen
-nu uit een gitignored `scripts/env/accounts.local.ps1`, met een `.example` ernaast die wel meegaat.
-Ontbreekt dat bestand, dan draait de Claude-login gewoon zonder `--email` en kies je het account in
-de browser: het script blijft dus bruikbaar zonder setup, en er is geen stap die je eerst moet doen.
+**De Node-versie stond alleen in `.nvmrc`, en dat bestand leest `npm ci` op je eigen machine niet.**
+Alleen `setup-node` in CI en Netlify kijken ernaar. Wie hier Node 20 of 24 draaide kreeg dus geen
+enkele melding; de eerste rode vlag was een lockfile-conflict of een subtiel ander buildresultaat — en
+`ci.yml` documenteert al een halve dag debugwerk aan precies zo'n divergentie, de `yaml`-peer die per
+platform anders resolvet. Er staat nu een `engines`-regel in `package.json` met `engine-strict=true`
+in `.npmrc`, zodat het een blokkade is en geen waarschuwing tussen honderd regels output. Getoetst in
+beide richtingen: `npm ci` slaagt op 22.15.1 en faalt met `EBADENGINE` zodra de range niet wordt
+gehaald. Bewust een **range** (`>=22.15.1 <23`) en geen exacte pin — die zou bij elke patch-upgrade op
+twee plekken bijgewerkt moeten worden, wat juist de drift is die deze regel moet voorkomen.
+Meegemeten: geen enkele dependency blokkeert op zijn eigen `engines`, wat het echte risico van die
+vlag is.
 
-Dit haalt het adres uit de **huidige tree**, niet uit de git-history — daar staat het nog in commit
-`3c8418a`. Dat opschonen vraagt een rewrite van gepubliceerde commits en is een aparte beslissing.
+**CI liet verouderde runs doorlopen en had geen tijdslimiet.** Bij een push bovenop een openstaande PR
+bleef de vorige run draaien, en de required check kan dan kortstondig groen staan op een commit die
+niet meer bovenaan ligt — precies het moment waarop iemand mergt. Een hangende `npm run build` liep
+bovendien tot GitHub's default van zes uur. Nu `concurrency` met `cancel-in-progress` en
+`timeout-minutes: 10`. De jobnaam `poort` is ongemoeid gelaten: dat is de required-check-context van
+de ruleset, en hernoemen zou de poort stil uitzetten.
 
 ### Significance
 
 #### Tier 0
 
-Een hulpscript dat afbreekt op het enige pad waarvoor de helft van zijn code geschreven is, plus een
-privéadres dat uit een publieke repo verdwijnt. Het eerste kost tijd op precies het moment dat je
-haast hebt (je bent net uitgelogd); het tweede is een lek dat vanzelf niet weggaat.
+Drie stille valkuilen weg: een lockfile die niets meer beschrijft, een versie-eis die alleen op twee
+van de drie plekken gold, en een CI die een groene check op een achterhaalde commit kon tonen. Geen
+ervan gaf ooit een foutmelding, en dat is precies wat ze duur maakt als ze toeslaan.
 
 **Score:** 3
 
 #### Tier 1
 
-Een lokaal ontwikkelhulpmiddel; het raakt de site niet en niemand buiten de machine van de
-ontwikkelaar merkt er iets van.
+Ontwikkel- en CI-onderhoud; de site verandert niet en buiten de repo merkt niemand er iets van.
 
 **Score:** N/A
 
