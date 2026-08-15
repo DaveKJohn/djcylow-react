@@ -1,12 +1,12 @@
-## `fix/scss-hover-en-alignment` changelog
+## `fix/hero-padding-en-overflow` changelog
 
 ### Branch title
 
-Het hover-effect van de CTA-knop werkt weer en .row valt niet meer uit de uitlijnlogica
+De hero-afbeelding valt niet meer weg tussen 1332 en 1400 pixels
 
 ### Branch ID
 
-20260815-174438
+20260815-175300
 
 ### Branch type
 
@@ -14,56 +14,63 @@ fix
 
 ### What does the change on this branch bring to main?
 
-**Het hover-effect van de CTA-knop werkt weer.** Drie dingen versterkten elkaar. `_buttons.scss:54`
-riep `apply-ux-bg(width)` aan, maar die mixin verwacht een P-shade (`"15"`..`"65"`) en kreeg het woord
-`width` — het defaultargument van `cta-hover-effect`. Bij een refactor is daar de verkeerde mixinnaam
-blijven staan. Sass gaf geen fout, want `map.get` levert netjes `null`, maar in de gebouwde CSS stond
-daardoor letterlijk `body.ux-mode .btn.cta{background-color:!important}`: een lege en dus ongeldige
-declaratie. Tegelijk kreeg het `::before` wel een kleur maar geen `content`, `position`, `width` of
-`transition`, zodat het pseudo-element helemaal niet rendert — terwijl precies die vier al die tijd in
-de mixin `cta-hover-effect` stonden, die nergens werd aangeroepen. Eén regel vervangen herstelt het
-effect én ruimt de dode mixin op. Gemeten in de gebouwde CSS: `content:""`, `width:0` → `100%` op
-hover en de transition staan er nu.
+**De hero-afbeelding werd afgeknipt, en dat gebeurde stil.** `hero.scss` duwde hem naar rechts met drie
+losse magic numbers: 900px boven 1331px, 400px daaronder, 0 onder 884px. Wat buiten de container viel
+werd weggeknipt door `overflow: hidden` op `.stack`, dus er kwam geen scrollbar en geen foutmelding —
+alleen een hero die er deels niet was.
 
-**`.row` viel uit de uitlijnlogica, en dat was een val.** `_set-align-logic` zette de uitlijning twee
-keer: eerst zonder `!important`, daarna via `@at-root :is(.row-c, .stack, .column)` mét. Die eerste set
-was **altijd** dood — de tweede matcht in elk geval waarin de eerste matchte, en wint. Twaalf
-uitlijnklassen maal vier hosts, allemaal zonder effect.
+Het issue noemde dit expliciet **niet gemeten**, dus dat is eerst gedaan: in Chrome, met de pagina in
+een iframe van een exacte breedte zodat de media queries echt meedoen. Hoeveel procent van de
+afbeelding zichtbaar was, per viewportbreedte:
 
-Ernstiger was dat `.row` niet in die `:is()` stond terwijl `alignment-grid` wél op `.row, .row-c` wordt
-toegepast, en de `break-m`/`break-s`-varianten binnen dat blok zitten. Een
-`<div className="row AMC break-s">` matchte daardoor geen enkele regel: niet
-`:is(.row-c,.stack,.column).row.AMC.break-s` (een `.row` is geen `.row-c`) en niet
-`.row-c.AMC.break-s`. De klasse met de meest voor de hand liggende naam deed op mobiel dus stilletjes
-niets. Vandaag staan alle tien `break-*`-gebruiken in de JSX toevallig op `row-c`, `column` of `stack`,
-dus dit was een val en geen zichtbare storing — maar een val zonder waarschuwing.
+| breedte | vóór | ná |
+|---|---|---|
+| 900 px | 86 % | **100 %** |
+| 1330 px | 100 % | 100 % |
+| 1332 px | 81 % | **100 %** |
+| 1400 px | 86 % | 100 % |
+| 1560 px | 98 % | 100 % |
+| 1600 px | 100 % | 100 % |
 
-**En er kwam een derde geval van dezelfde faalklasse boven water dat in geen issue stond.** Bij het
-natellen van de lege declaraties bleken er **drie** te zijn, niet twee. De derde zat in `.splitter`:
-die haalde `map.get($ux-black, "50")` op terwijl die map alleen `R90`/`R80`/`G90`/… kent. Ook daar
-`background-color:!important`. Dat blok is verwijderd — gemeten visueel neutraal, want de splitter viel
-en valt terug op `var(--black-70)`. **Welke ux-kleur hij zou moeten krijgen is een ontwerpkeuze en geen
-reparatie**, dus die is niet gegokt maar vastgelegd in issue #116.
+**Twee dingen stellen het oorspronkelijke vermoeden bij.** Het issue verwachtte het probleem in het
+venster 1332–1400px; in werkelijkheid knipte **ook het hele medium-bereik**, wat niemand had opgemerkt
+— bij 900px viel er 91px af. En de kern is niet dat venster maar de **sprong** op 1331px: de afbeelding
+werd slechter naarmate het scherm bréder werd, en dat is precies de richting waarin niemand kijkt.
 
-De gebouwde CSS gaat daarmee van **3** ongeldige declaraties naar **0**.
+Alle metingen passen op één formule — wat er buiten valt is `341 - viewport/2 + padding/2` — dus nul
+afknipping vraagt `padding ≤ viewport - 682px`. De drie waarden zijn vervangen door
+`clamp(0px, 100vw - 700px, 900px)`: vloeiend, 18px marge op die grens, en bij 1600px exact dezelfde
+900px als voorheen. Boven de 1600 verandert er dus niets aan wat er nu staat.
+
+**Wat de clamp níet oplost, en dat staat in de code.** De afbeelding heeft `height: 110%; width: auto`,
+dus hij wordt breder naarmate het venster hóger is: bij 1332×1000 is hij 749px in plaats van 667px.
+Na deze fix is dat 96% zichtbaar in plaats van 78% — een grote verbetering, maar geen 100%. Die rest is
+niet met een `vw`-formule weg te nemen en zou een andere manier van schalen vragen.
+
+**En de vraag van #79 is beantwoord zonder er iets aan te veranderen.** Dat issue vroeg om te meten wát
+er uitsteekt als `body { overflow-x: hidden }` weg is. Gemeten: op de home-pagina exact één ding — deze
+hero-afbeelding. Op `/luister` steekt er bij 890px en 1000px níets uit, wat de belangrijkste zorg van
+dat issue weerlegt. Op `/musicmoodcolours` steken 120 elementen uit, maar dat is een pagina vol
+carousels waar horizontale overflow binnen een container normaal gedrag is. De regel is daarom blijven
+staan en de metingen zijn in #79 vastgelegd; dat issue blijft open.
 
 ### Significance
 
 #### Tier 0
 
-Drie plekken waar Sass een `null` doorliet en er ongeldige CSS uitrolde zonder één waarschuwing. Dat
-patroon is nu benoemd in de code zelf, op alle drie de plekken, met de meting erbij — zodat de
-volgende `map.get` met een verkeerde key herkend wordt.
+De drie magic numbers zijn vervangen door één formule met de meting ernaast, dus de volgende die hieraan
+werkt hoeft niet opnieuw te ontdekken waar de randen liggen. En het toont de faalvorm die deze repo het
+vaakst raakt: een fout die geen enkele poort kan zien, alleen een oog.
 
 **Score:** 3
 
 #### Tier 1
 
-Het hover-effect van de belangrijkste knop op de site — de "Boek nu!"-CTA — werkt weer zoals bedoeld,
-en een uitlijnklasse die op mobiel niets deed doet nu wat hij belooft. Dat eerste is direct zichtbaar
-voor elke bezoeker die over de knop beweegt.
+De hero is het eerste wat een bezoeker ziet, en hij was op een flink deel van de gangbare
+schermbreedtes voor 14 tot 19 procent afgeknipt — inclusief het hele bereik rond 900px. Dat is nu
+overal heel.
 
-**Score:** 3
+**Score:** 4
 
 ### Pull Request
 

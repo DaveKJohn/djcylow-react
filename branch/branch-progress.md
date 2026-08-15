@@ -1,46 +1,53 @@
-## `fix/scss-hover-en-alignment` progress
+## `fix/hero-padding-en-overflow` progress
 
 ### Steps
 
-- [x] Beide issues geverifieerd in de **gebouwde CSS** en niet alleen in de bron. Dat leverde meteen
-      meer op dan de issues meldden: `.btn.cta:before` bestond wél maar zonder `content`, en er stonden
-      **drie** lege `background-color:!important`-declaraties in de uitgeleverde CSS
-- [x] Gecontroleerd dat `$ux-mode` op `true` staat, dus dat `apply-ux-bg` daadwerkelijk draait en de
-      lege declaratie ook echt bij de bezoeker terechtkomt
-- [x] `_buttons.scss:54` van `apply-ux-bg(width)` naar `cta-hover-effect`, met de diagnose in de code
-- [x] Na de build gemeten dat het effect er nu is: `content:""`, `width:0` → `100%` op hover, de
-      transition en `span{z-index:1}`
-- [x] Vóór de `.row`-wijziging gemeten of hij iets kan breken: de twee elementen met `row … split`
-      (AudioPlayer `:94` en `:118`) dragen géén uitlijnklasse, dus de nieuwe `!important` botst nergens
-- [x] Bewezen dat de val echt bestond: `:is(.row-c,.stack,.column).row.AMC.break-s, .row-c.AMC.break-s`
-      matcht geen enkel element met `class="row AMC break-s"`
-- [x] `.row` toegevoegd aan de `:is()` en de altijd-dode niet-important set verwijderd; na de build
-      geverifieerd dat de nieuwe selector `.row` wél dekt
-- [x] De derde lege declaratie nagetrokken tot `.splitter` in `base/_layout.scss` — een `map.get` op
-      key `"50"` die in geen van beide ux-maps bestaat
-- [x] Gemeten dat het verwijderen van dat blok visueel neutraal is: de splitter valt terug op
-      `var(--black-70)`/`var(--white-70)` uit `_tools.scss` en is dus gewoon zichtbaar
-- [x] Eindmeting: **0** lege declaraties in de gebouwde CSS, was 3
+- [x] Een dev-server plus Chrome opgezet om te kunnen meten, want beide issues stonden expliciet als
+      "niet gemeten" en het gaat om gedrag dat alleen in een browser zichtbaar is
+- [x] De metingen in een **iframe van exacte breedte** gedaan in plaats van het venster te resizen: het
+      venster liet zich niet onder de schermbreedte krijgen, en een iframe heeft een echte eigen
+      viewport waar de media queries op reageren
+- [x] #80 gemeten vóór de fix: 900px → 86%, 1330px → 100%, 1332px → 81%, 1400px → 86%, 1560px → 98%,
+      1600px → 100%
+- [x] Twee correcties op het issue vastgesteld: het knipte **ook** in het medium-bereik (niet alleen
+      1332–1400), en de kern is de sprong op 1331px waar een bréder scherm mínder beeld gaf
+- [x] Uit de metingen een formule afgeleid (`buiten = 341 - viewport/2 + padding/2`) en die op vijf
+      meetpunten gecontroleerd voordat er iets op gebaseerd werd
+- [x] De drie magic numbers vervangen door `clamp(0px, 100vw - 700px, 900px)`
+- [x] Ná de fix opnieuw gemeten: 900px → 100%, 1332px → 100%, 1600px → 100% mét dezelfde 900px padding
+      als voorheen, en de mobiele tak (400px) ongewijzigd
+- [x] De grens van de oplossing gemeten in plaats van hem te verzwijgen: bij een venster van 1000px
+      hóóg blijft 4% afknipping over (was 78% zichtbaar, nu 96%), omdat `height: 110%` de afbeelding
+      breder maakt. Dat staat in de code
+- [x] #79's gevraagde meting gedaan: met alleen `body{overflow-x:visible}` steekt op de home-pagina
+      **alleen** de hero-afbeelding uit (96px bij 890px, 125px bij 1332px)
+- [x] `/luister` gemeten bij 890px en 1000px: **0** uitstekende elementen — dat weerlegt de
+      belangrijkste zorg van #79 over het bereik 884–1331
+- [x] `/musicmoodcolours` gemeten: 120 uitstekende elementen, maar `overschot` blijft 0 en het is een
+      pagina vol carousels
+- [x] De meetresultaten als comment in #79 gezet, want dat issue vroeg er expliciet om
 - [x] De poort groen: tsc, ESLint, build, 89 pagina's
-- [~] De ux-kleur van de splitter kiezen — bewust niet gedaan. Dat is een ontwerpkeuze en geen
-      reparatie, dus vastgelegd als issue #116 in plaats van gegokt
-- [~] De `!important`-cascade zelf opruimen (91 stuks in `src/styles/`) — het issue noemt dit al als
-      aparte branch, want het raakt elke pagina
+- [~] `body { overflow-x: hidden }` verwijderen — bewust **niet** gedaan, precies zoals #79 zelf
+      adviseert. Op home en luister zou het na deze fix veilig zijn, maar op musicmoodcolours kan de
+      meting niet uitwijzen of die 120 elementen legitiem zijn. #79 blijft daarom open
+- [~] Punt (b) van #79, het sticky-gedrag in Safari/WebKit — niet gemeten. Daar is een echte Safari
+      voor nodig; dit is in Chrome gedaan
+- [~] De vaste breedtes (`#contact-form` 700px, filter 400px, `.audioplayer-wrapper` 380px) naar
+      `max-width` brengen — ze veroorzaken aantoonbaar geen overflow, dus dat is opruimwerk en geen
+      reparatie
 
 ### Where I left off
 
-Af, poort groen, en **geparkeerd in plaats van een PR geopend**: dit is site-werk, dus de merge wacht
-op Dave.
+Af, poort groen, **geparkeerd**: dit is site-werk, dus de merge wacht op Dave.
 
-**Wat er te zien is en waar.** De deploy preview komt er pas bij een PR, dus voor nu is de manier om
-dit te bekijken `npm run dev` en dan:
+**Wat er te bekijken is.** Draai `npm run dev` en zet het browservenster op verschillende breedtes —
+de interessante zijn rond **900px** en rond **1332px**, want daar zat de afknipping. De hero hoort nu
+op elke breedte volledig in beeld te staan, zonder sprong als je het venster langzaam breder sleept.
+Boven 1600px hoort er niets veranderd te zijn: daar is de padding exact dezelfde 900px als voorheen.
 
-- **De "Boek nu!"-knop** rechtsboven in de navigatie — beweeg eroverheen. Er hoort nu een cyaan vlak
-  van links naar rechts overheen te lopen in 300 ms. Dat gebeurde vóór deze branch helemaal niet.
-- **De uitlijning** hoort nergens veranderd te zijn. Dat is de kant die het meest aandacht verdient:
-  de wijziging maakt de uitlijning van `.row` `!important` waar hij dat niet was. Gemeten is dat geen
-  enkel element dat combineert met `.split`, maar een blik op de brede pagina's (home, luister,
-  diensten) is hier meer waard dan mijn meting.
-- **De splitters** (de dunne lijntjes tussen secties) horen er precies zo uit te zien als eerst.
+**Eén ding dat ik tegenkwam maar niet heb aangeraakt:** op een smal scherm (400px) valt de **mobiele**
+hero-afbeelding voor 39% buiten beeld. Dat is pre-existent — die tak zet `padding-left: 0` en is niet
+gewijzigd — en het kan een bewuste keuze zijn voor een doorlopend sfeerbeeld. Als het dat niet is, is
+het een eigen issue waard.
 
-Sluit #76 en #77 bij een merge. Issue #116 is nieuw en blijft open.
+Sluit #80 bij een merge. #79 blijft open met de metingen erin.
