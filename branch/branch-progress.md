@@ -1,53 +1,36 @@
-## `fix/hero-padding-en-overflow` progress
+## `fix/breakpoints-een-bron` progress
 
 ### Steps
 
-- [x] Een dev-server plus Chrome opgezet om te kunnen meten, want beide issues stonden expliciet als
-      "niet gemeten" en het gaat om gedrag dat alleen in een browser zichtbaar is
-- [x] De metingen in een **iframe van exacte breedte** gedaan in plaats van het venster te resizen: het
-      venster liet zich niet onder de schermbreedte krijgen, en een iframe heeft een echte eigen
-      viewport waar de media queries op reageren
-- [x] #80 gemeten vóór de fix: 900px → 86%, 1330px → 100%, 1332px → 81%, 1400px → 86%, 1560px → 98%,
-      1600px → 100%
-- [x] Twee correcties op het issue vastgesteld: het knipte **ook** in het medium-bereik (niet alleen
-      1332–1400), en de kern is de sprong op 1331px waar een bréder scherm mínder beeld gaf
-- [x] Uit de metingen een formule afgeleid (`buiten = 341 - viewport/2 + padding/2`) en die op vijf
-      meetpunten gecontroleerd voordat er iets op gebaseerd werd
-- [x] De drie magic numbers vervangen door `clamp(0px, 100vw - 700px, 900px)`
-- [x] Ná de fix opnieuw gemeten: 900px → 100%, 1332px → 100%, 1600px → 100% mét dezelfde 900px padding
-      als voorheen, en de mobiele tak (400px) ongewijzigd
-- [x] De grens van de oplossing gemeten in plaats van hem te verzwijgen: bij een venster van 1000px
-      hóóg blijft 4% afknipping over (was 78% zichtbaar, nu 96%), omdat `height: 110%` de afbeelding
-      breder maakt. Dat staat in de code
-- [x] #79's gevraagde meting gedaan: met alleen `body{overflow-x:visible}` steekt op de home-pagina
-      **alleen** de hero-afbeelding uit (96px bij 890px, 125px bij 1332px)
-- [x] `/luister` gemeten bij 890px en 1000px: **0** uitstekende elementen — dat weerlegt de
-      belangrijkste zorg van #79 over het bereik 884–1331
-- [x] `/musicmoodcolours` gemeten: 120 uitstekende elementen, maar `overschot` blijft 0 en het is een
-      pagina vol carousels
-- [x] De meetresultaten als comment in #79 gezet, want dat issue vroeg er expliciet om
-- [x] De poort groen: tsc, ESLint, build, 89 pagina's
-- [~] `body { overflow-x: hidden }` verwijderen — bewust **niet** gedaan, precies zoals #79 zelf
-      adviseert. Op home en luister zou het na deze fix veilig zijn, maar op musicmoodcolours kan de
-      meting niet uitwijzen of die 120 elementen legitiem zijn. #79 blijft daarom open
-- [~] Punt (b) van #79, het sticky-gedrag in Safari/WebKit — niet gemeten. Daar is een echte Safari
-      voor nodig; dit is in Chrome gedaan
-- [~] De vaste breedtes (`#contact-form` 700px, filter 400px, `.audioplayer-wrapper` 380px) naar
-      `max-width` brengen — ze veroorzaken aantoonbaar geen overflow, dus dat is opruimwerk en geen
-      reparatie
+- [x] De drie plekken uit #97 geverifieerd: `design.ts` en `_config.scss` zeggen allebei 1774/1331/884,
+      en `_root.scss` genereert er CSS-variabelen uit
+- [x] Gemeten dat `--screen-size-*` echt dood is: geen enkele verwijzing in `src/` buiten `_root.scss`,
+      en drie declaraties in de gebouwde CSS die niemand leest
+- [x] Vastgesteld dat `BREAKPOINTS` precies één gebruiker heeft (`MobileContent.tsx`), dus dat de
+      koppeling smal en goed te bewaken is
+- [x] Het misleidende comment in `MobileContent.tsx` vervangen door een dat klopt en naar de test wijst
+- [x] `--screen-size-*` uit `_root.scss`, met de reden erbij dat een custom property sowieso niet in een
+      `@media`-conditie kan staan — dus ze hadden nooit kunnen doen waarvoor ze bedoeld leken
+- [x] `tests/breakpoints.test.ts` geschreven: negen tests over waarde, sleutels, volgorde, de afleiding
+      van de query, en een verbod op vreemde pixelgetallen in dat bestand
+- [x] De suite luid laten falen als de SCSS-vorm verandert, in plaats van stil nul paren te vergelijken
+      — een test die niets vindt en daarom groen blijft is precies het probleem dat dit oplost
+- [x] Negatief getoetst met het scenario uit het issue: `SMALL` op 811 zetten laat *"small komt
+      overeen"* falen. Daarna hersteld en geverifieerd dat er weer 884 staat
+- [x] Gemeten dat `screen-size` uit de gebouwde CSS verdwenen is: 3 → 0
+- [x] Poort groen, volledige suite 152 tests groen (was 143)
+- [~] `$breakpoints` genereren uit `design.ts` — technisch uitgesloten: Sass kan geen TypeScript lezen,
+      en de static export kan geen SCSS aan de clientkant evalueren. Het issue bood dit als eerste van
+      twee wegen; de tweede (de koppeling vastleggen) is genomen, maar als test in plaats van als
+      comment, want een comment was juist wat hier faalde
 
 ### Where I left off
 
-Af, poort groen, **geparkeerd**: dit is site-werk, dus de merge wacht op Dave.
+Af, poort groen, **geparkeerd**: deze branch raakt `src/`, dus de merge wacht op Dave.
 
-**Wat er te bekijken is.** Draai `npm run dev` en zet het browservenster op verschillende breedtes —
-de interessante zijn rond **900px** en rond **1332px**, want daar zat de afknipping. De hero hoort nu
-op elke breedte volledig in beeld te staan, zonder sprong als je het venster langzaam breder sleept.
-Boven 1600px hoort er niets veranderd te zijn: daar is de padding exact dezelfde 900px als voorheen.
+**Wat er te bekijken is.** Visueel hoort er niets veranderd te zijn — de breakpoints zijn dezelfde
+getallen gebleven, er is alleen dode CSS weg. Het punt om te controleren is het **mobiele menu**: sleep
+het venster door de 884px-grens en kijk of de hamburger op hetzelfde moment verschijnt als de layout
+omschakelt. Dat werkte al en hoort te blijven werken.
 
-**Eén ding dat ik tegenkwam maar niet heb aangeraakt:** op een smal scherm (400px) valt de **mobiele**
-hero-afbeelding voor 39% buiten beeld. Dat is pre-existent — die tak zet `padding-left: 0` en is niet
-gewijzigd — en het kan een bewuste keuze zijn voor een doorlopend sfeerbeeld. Als het dat niet is, is
-het een eigen issue waard.
-
-Sluit #80 bij een merge. #79 blijft open met de metingen erin.
+Sluit #97 bij een merge.

@@ -1,12 +1,12 @@
-## `fix/hero-padding-en-overflow` changelog
+## `fix/breakpoints-een-bron` changelog
 
 ### Branch title
 
-De hero-afbeelding valt niet meer weg tussen 1332 en 1400 pixels
+De breakpoints in JS en SCSS kunnen niet meer stil uit elkaar lopen
 
 ### Branch ID
 
-20260815-175300
+20260815-182139
 
 ### Branch type
 
@@ -14,63 +14,55 @@ fix
 
 ### What does the change on this branch bring to main?
 
-**De hero-afbeelding werd afgeknipt, en dat gebeurde stil.** `hero.scss` duwde hem naar rechts met drie
-losse magic numbers: 900px boven 1331px, 400px daaronder, 0 onder 884px. Wat buiten de container viel
-werd weggeknipt door `overflow: hidden` op `.stack`, dus er kwam geen scrollbar en geen foutmelding —
-alleen een hero die er deels niet was.
+De breakpoints `1774 / 1331 / 884` stonden op drie plekken los opgeschreven, en één daarvan werd door
+niemand gelezen.
 
-Het issue noemde dit expliciet **niet gemeten**, dus dat is eerst gedaan: in Chrome, met de pagina in
-een iframe van een exacte breedte zodat de media queries echt meedoen. Hoeveel procent van de
-afbeelding zichtbaar was, per viewportbreedte:
+**Het comment bij de drawer noemde een getal dat nooit heeft bestaan.** `MobileContent.tsx` bouwt zijn
+`matchMedia`-query uit `BREAKPOINTS.SMALL` en droeg het comment dat dit exact matcht met *"$breakpoints
+small: 811px"*. Zowel `_config.scss` als `design.ts` zeggen 884. Dat is de gevaarlijkste soort fout in
+een comment: het benoemt correct dát er een koppeling is, en geeft er dan de verkeerde waarde bij — dus
+wie het geloofde en de constante "corrigeerde", verbrak precies de koppeling die het comment beweerde te
+bewaken. De drawer zou dan omschakelen op een andere breedte dan de styling, zichtbaar in een smalle
+band rond de breakpoint waar niemand kijkt.
 
-| breedte | vóór | ná |
-|---|---|---|
-| 900 px | 86 % | **100 %** |
-| 1330 px | 100 % | 100 % |
-| 1332 px | 81 % | **100 %** |
-| 1400 px | 86 % | 100 % |
-| 1560 px | 98 % | 100 % |
-| 1600 px | 100 % | 100 % |
+**Er is nu een test in plaats van een afspraak.** `tests/breakpoints.test.ts` (negen tests) leest
+`_config.scss` en `design.ts` allebei en vergelijkt ze op waarde, op sleutels en op volgorde. Dat is de
+enige vorm die hier kan: Sass kan geen TypeScript lezen en de static export kan geen SCSS aan de
+clientkant evalueren, dus één bron is technisch uitgesloten — maar aan elkaar binden kan wel. Negatief
+getoetst met precies het scenario uit het issue: `SMALL` op 811 zetten laat de suite falen op *"small
+komt overeen"*.
 
-**Twee dingen stellen het oorspronkelijke vermoeden bij.** Het issue verwachtte het probleem in het
-venster 1332–1400px; in werkelijkheid knipte **ook het hele medium-bereik**, wat niemand had opgemerkt
-— bij 900px viel er 91px af. En de kern is niet dat venster maar de **sprong** op 1331px: de afbeelding
-werd slechter naarmate het scherm bréder werd, en dat is precies de richting waarin niemand kijkt.
+Twee kleinere wachten zitten er in dezelfde suite. Eén die eist dat de query uit `BREAKPOINTS.SMALL`
+wordt afgeleid en niet uit een letterlijk getal, en één die **elk** pixelgetal in `MobileContent.tsx`
+weigert dat geen echte breakpoint is — precies de vorm waarin deze fout binnenkwam. Die laatste sloeg
+meteen aan op de historische verwijzing in het nieuwe comment, dus daar staat het oude getal nu voluit
+geschreven in plaats van als cijfers.
 
-Alle metingen passen op één formule — wat er buiten valt is `341 - viewport/2 + padding/2` — dus nul
-afknipping vraagt `padding ≤ viewport - 682px`. De drie waarden zijn vervangen door
-`clamp(0px, 100vw - 700px, 900px)`: vloeiend, 18px marge op die grens, en bij 1600px exact dezelfde
-900px als voorheen. Boven de 1600 verandert er dus niets aan wat er nu staat.
+**En de derde plek is verdwenen.** `base/_root.scss` genereerde `--screen-size-large/-medium/-small`
+als CSS-variabelen. Ze werden uitgeleverd en door niemand gelezen — geen stylesheet, geen component.
+Ze waren ook niet bruikbaar voor waar je ze voor zou willen: een custom property kan niet in een
+`@media`-conditie staan, dus ze konden de media queries nooit voeden. Gemeten: drie declaraties in de
+gebouwde CSS, nu nul.
 
-**Wat de clamp níet oplost, en dat staat in de code.** De afbeelding heeft `height: 110%; width: auto`,
-dus hij wordt breder naarmate het venster hóger is: bij 1332×1000 is hij 749px in plaats van 667px.
-Na deze fix is dat 96% zichtbaar in plaats van 78% — een grote verbetering, maar geen 100%. Die rest is
-niet met een `vw`-formule weg te nemen en zou een andere manier van schalen vragen.
-
-**En de vraag van #79 is beantwoord zonder er iets aan te veranderen.** Dat issue vroeg om te meten wát
-er uitsteekt als `body { overflow-x: hidden }` weg is. Gemeten: op de home-pagina exact één ding — deze
-hero-afbeelding. Op `/luister` steekt er bij 890px en 1000px níets uit, wat de belangrijkste zorg van
-dat issue weerlegt. Op `/musicmoodcolours` steken 120 elementen uit, maar dat is een pagina vol
-carousels waar horizontale overflow binnen een container normaal gedrag is. De regel is daarom blijven
-staan en de metingen zijn in #79 vastgelegd; dat issue blijft open.
+Wat expliciet **niet** is aangeraakt: de manier waarop de SCSS zijn breakpoints leest. `_config.scss`
+blijft de bron voor alle media queries via `fn.get-breakpoint()`, en er is geen enkele afwijkende
+hardcoded media query in de repo — dat was al netjes en blijft zo.
 
 ### Significance
 
 #### Tier 0
 
-De drie magic numbers zijn vervangen door één formule met de meting ernaast, dus de volgende die hieraan
-werkt hoeft niet opnieuw te ontdekken waar de randen liggen. En het toont de faalvorm die deze repo het
-vaakst raakt: een fout die geen enkele poort kan zien, alleen een oog.
+Een comment dat een verkeerd getal noemde bij een koppeling die er echt toe doet, is vervangen door een
+test die de koppeling afdwingt. De suite groeit van 143 naar 152 tests.
 
 **Score:** 3
 
 #### Tier 1
 
-De hero is het eerste wat een bezoeker ziet, en hij was op een flink deel van de gangbare
-schermbreedtes voor 14 tot 19 procent afgeknipt — inclusief het hele bereik rond 900px. Dat is nu
-overal heel.
+Voorkomt dat het mobiele menu ooit op een andere breedte omklapt dan het uiterlijk, maar er is vandaag
+niets zichtbaar mis. De waarde zit in de volgende keer dat iemand aan die getallen komt.
 
-**Score:** 4
+**Score:** 2
 
 ### Pull Request
 
