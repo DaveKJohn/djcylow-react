@@ -12,7 +12,8 @@
 - [ ] Opruimwerk (`chore/`)
 
 ## Checklist
-- [ ] `npm run lint` gedraaid, geen nieuwe fouten
+- [ ] `scripts/lint/lint-web.ps1` groen: **0 errors, 0 warnings** (dit is de poort — `npm run lint` is er maar één van de drie stappen; de typecheck en de build zitten alleen in dat script)
+- [ ] `npm test` groen
 - [ ] Lokaal getest via `npm run dev`
 - [ ] Afbeeldingen aanwezig in `public/images/` (indien van toepassing)
 - [ ] Changelog entry-bestand aangemaakt en gevuld (`branch/branch-changelog.md`, met een score per tier)

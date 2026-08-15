@@ -114,7 +114,7 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > |---|---|
 > | lint-poort | `scripts/lint/lint-web.ps1`, lokaal én in CI |
 > | CI | [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main` |
-> | testsuite | `tests/mix-data.test.ts`, 36 tests over de mix-data |
+> | testsuite | vier suites in `tests/`: de mix-data plus AudioPlayer, MobileContent en EmailDisplay |
 > | branch protection | ruleset `main-ci-gate`, met `poort` als required check |
 >
 > **Toch wacht álles in `src/`, `public/` en `src/data/mixes/` onverkort**, ook een refactor die visueel
@@ -256,7 +256,7 @@ beweringen in die niemand zag. Een correctie boven de streep gaat dus naar de br
 komt terug via een plugin-release; hier repareren herstart de drift. Onder de streep staat het repo-eigen
 deel, ook Engels, zodat de hele pagina één register heeft.
 
-Wat **niet** meeverhuist naar het Engels: de 60 bestaande documenten in `releases/development/` en
+Wat **niet** meeverhuist naar het Engels: de bestaande documenten in `releases/development/` en
 `releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
 uitgingen, en een record is geen vertaling. De taalgrens loopt daarmee dwars door het
 development-document: Engelse tier-koppen boven Nederlandse entries.
@@ -290,7 +290,7 @@ lenzen neer. `check-script-contract.ps1` bewaakt daarnaast dat `scripts/repo-con
 ```bash
 npm run dev      # dev server → http://localhost:3000
 npm run build    # static export → .next/
-npm run lint     # ESLint + TypeScript check
+npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/lint/lint-web.ps1
 ```
 
 #### Hulpscripts
@@ -298,14 +298,25 @@ npm run lint     # ESLint + TypeScript check
 | Commando | Script | Wat het doet |
 |---|---|---|
 | `npm run mix:add` | `scripts/add-mix.js` | Voeg interactief een nieuwe mix toe aan het juiste JSON bestand |
-| `npm run images:webp` | `scripts/convert-to-webp.js` | Converteer alle `.jpg` in `public/images/` naar `.webp` en verwijder de originelen |
-| `npm run images:webp:dry` | `scripts/convert-to-webp.js --dry-run` | Preview: laat zien welke bestanden geconverteerd zouden worden |
+| `npm run images:webp` | `scripts/convert-to-webp.js` | **Preview** — laat zien wat er zou gebeuren en wijzigt niets |
+| `npm run images:webp:apply` | `scripts/convert-to-webp.js --apply` | Converteert werkelijk en verwijdert de `.jpg`-originelen |
+
+> **Preview is sinds 2026-08-15 de default, en dat is de safety-rule in mechanismevorm.** Het script
+> verwijderde eerder bestanden uit `public/images/` zonder bevestiging, terwijl dat hierboven onder
+> *Nooit zonder expliciete toestemming van Dave* staat — en het kon via de `npm run *`-allowlist
+> zelfs zonder prompt draaien. Verwijderen vraagt nu `--apply`. Verder overschrijft het geen
+> bestaande `.webp` meer (dat kostte twee bestanden bij één naamconflict; `--force` doet het
+> alsnog), en de exitcode volgt het resultaat: mislukte conversies gaven eerder exit 0.
+>
+> **Het levert nog steeds geen `small`-varianten.** Die moeten los aangeleverd of gegenereerd
+> worden; dat gat is wat de 2026-mixen hun `_small.webp` kostte.
 
 **Workflow nieuwe mix toevoegen:**
 
 1. `npm run mix:add` — vul alle gegevens in, het script genereert de afgeleide velden automatisch
 2. Afbeeldingen neerzetten in `public/images/{power}/{color}/`
-3. `npm run images:webp` — als je `.jpg`-afbeeldingen hebt aangeleverd
+3. `npm run images:webp` — als je `.jpg`-afbeeldingen hebt aangeleverd. Dat toont eerst wat er zou
+   gebeuren; `npm run images:webp:apply` voert het daarna uit
 4. Controleer het JSON-bestand in de editor
 5. Commit + push via [de cyclus in `CONTRIBUTING.md`](CONTRIBUTING.md#de-cyclus-stap-voor-stap)
 
@@ -415,9 +426,10 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 3. **Draai `cut-release`** met de bump die de wachtende entries verdienen (zie *Versienummer bepalen*
    hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
    je hoeft die er niet apart voor te zetten
-   - `npm run lint` blijft handwerk en staat nog buiten de poort, maar meldt sinds 2026-08-14 **0
-     errors en 0 warnings**. Er valt dus niets meer te vergelijken op aantal: elke melding is nieuw,
-     en hoort niet mee de PR in
+   - De poort meldt sinds 2026-08-14 **0 errors en 0 warnings**, en ESLint zit er sinds diezelfde dag
+     zélf in, als tweede van de drie stappen — dit stond hier tot 2026-08-15 nog als "blijft handwerk
+     en staat nog buiten de poort", wat het document drie alinea's verderop al tegensprak. Er valt
+     niets meer te vergelijken op aantal: elke melding is nieuw, en hoort niet mee de PR in
 4. **Herschrijf het audience-concept** (alleen Minor/Major):
    `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
    jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
@@ -444,7 +456,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    > roots en wat er per root in hoort
    > **En de submap ging later diezelfde dag van `<X.Y>` naar `<X>.x`**, toen `releases/` op Dave's
    > verzoek volledig gelijk werd getrokken met de bron: `Get-ReleaseNotesGrouping` staat sindsdien op
-   > `'major'` en alle 60 documenten (37 development, 23 audience) wonen in `2.x/`. Ook die verhuizing
+   > `'major'` en alle documenten wonen in `2.x/`. Ook die verhuizing
    > is `git mv` zonder een letter aan hun tekst te veranderen
 5. **Schrijf de aankondiging**: `releases/github/<major>.x/<versie>.md` — een paar alinea's die
    de body van de GitHub Release worden: wat er nieuw is, voor wie, en een regel die naar de twee
@@ -581,6 +593,33 @@ val.
 > verschil maakte: twee kopieën van dezelfde versie-as verwarren kost je een verouderd script, twee
 > verschillende bomen verwarren kost je een verkeerde diagnose over de repo zelf.
 
+**Acht van de tien plugin-skills kan een specialist niet zelf aanroepen, en voor drie daarvan heeft
+deze repo een eigen ingang gemaakt** (Dave, 2026-08-15). De skills die naar buiten schrijven —
+`open-pr`, `ship-pr`, `park`, `fold-changelog`, `cut-release`, plus `lock`, `continue` en
+`fix-mojibake` — dragen `disable-model-invocation: true`. Dat is geen storing maar de guardrail van
+de bron tegen autonoom pushen, mergen en releasen; de bron beschrijft het bij PR #155 als *"closes
+the autonomous-invocation surface without touching the actual fold mechanism"*. Alleen `new-branch`
+en `adopt-config` staan aan, en die doen niets buiten je machine. Het verklaart ook waarom
+`/reload-plugins` "0 skills" kan melden: die teller sluit deze acht uit.
+
+| skill | eigen ingang in `.claude/skills/`? | waarom |
+|---|---|---|
+| `open-pr` | **ja** | de PR-regel hierboven zegt al *doorlopen tenzij*; site-werk wacht, de rest niet |
+| `fold-changelog` | **ja** | de fold is uitzondering 1 op "nooit direct op `main`", met een vastgelegde scope |
+| `park` | **ja** | een push is geen PR; de branch wordt bereikbaar, de PR-regel blijft apart |
+| `cut-release` | **nee** | staat hier aan Dave's expliciete verzoek; blijft slash-only |
+| `ship-pr` | **nee** | wordt hier niet gebruikt — de site-of-niet-beoordeling kan hij niet maken |
+
+Die drie ingangen **dupliceren geen enkel gedeeld script**: ze roepen via
+`scripts/task/shared.ps1` het origineel uit de cache aan, precies zoals een plugin-skill dat zou
+doen. Dat helperscript lost de versiemap zelf op — er staan acht versies in de cache en het pad dat
+een skill zou hardcoderen verschuift bij elke update. Het sorteert op `[version]` en niet op tekst,
+want anders wint `3.9.0` van `3.10.0`.
+
+> **Geef er geen `--` aan mee** om de argumenten te scheiden. PowerShell leest dat bij `-File` zelf
+> als parameternaam en stopt met *"the parameter name '' is ambiguous"*. Het is ook niet nodig: alles
+> wat niet `-Script` of `-Plugin` heet, valt vanzelf in `-Rest`.
+
 - **`new-branch`** — maakt de branch én **twee** bestanden in `branch/` (`branch-changelog.md`,
   `branch-progress.md`) plus de referentiekopieën in `branch/templates/`, in één stap (stap 1–3). Het
   achterliggende werk zit in `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` —
@@ -670,11 +709,18 @@ Repo-eigen scripts:
 - **`check-script-contract.ps1`** — bewaakt dat `repo-config.ps1` en `branch-info.ps1` de functies
   leveren die de gedeelde scripts verwachten. Woont in de plugin (`scripts/sync/` daar), niet in deze
   repo, en draait bij het starten van een sessie via de `script-contract-sessioncheck`-hook.
-- `scripts/add-mix.js` (`npm run mix:add`) en `scripts/convert-to-webp.js` (`npm run images:webp`).
+- `scripts/add-mix.js` (`npm run mix:add`) en `scripts/convert-to-webp.js` (`npm run images:webp`,
+  preview; `npm run images:webp:apply` voert uit).
 
 De Release Workflow hierboven kent geen repo-eigen script; de sluitende stappen lopen sinds de
-herinstallatie op 2026-08-03 via de gedeelde **`cut-release`**-skill. Het bepalen van het versienummer,
-de release-notes en de changelog-verhuizing blijven handwerk van Rendall 🎬.
+herinstallatie op 2026-08-03 via de gedeelde **`cut-release`**-skill. Die skill doet het versienummer,
+de development-note en het legen van `CHANGELOG.md` **zelf** — zie de tabel bij de Release Workflow.
+Wat handwerk van Rendall 🎬 blijft: het **audience-concept herschrijven**, de aankondiging in
+`github/`, en de GitHub Release met zijn bijlagen.
+
+> Hier stond tot 2026-08-15 dat het versienummer, de release-notes en de changelog-verhuizing
+> handwerk bleven. Dat was de tekst van vóór de omzetting van 2026-08-13, en de tabel hierboven wees
+> alle drie al aan het script toe.
 
 ### Safety-invulling van djcylow-react
 
@@ -685,7 +731,7 @@ De grondwet hierboven, hier concreet ingevuld:
   **geen staging** en geen aparte publicatiestap. Een release cutten voegt daar een versienummer en
   een tag aan toe, maar zet niets nieuws live — dat was al gebeurd bij de merges.
 - **De poort vóór elke PR is de laatste wacht vóór een live deploy.** `open-pr` draait
-  `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit` én `npm run build`, beide moeten
+  `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit`, `eslint .` én `npm run build`, alle drie moeten
   groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte build niet
   vangt en er niets tussen de merge en de site zit. **ESLint zit er sinds 2026-08-14 in**, als tweede
   van de drie stappen. Daarmee is deze poort niet langer deels een afspraak: het oude advies
@@ -749,6 +795,14 @@ De grondwet hierboven, hier concreet ingevuld:
   verwijderen breekt stil een pagina en gebeurt nooit zonder Dave's woord.
 - **`next.config.ts` en `netlify.toml` zijn beschermd.** Een fout daar breekt de Netlify-build en
   dus de live site.
+- **Die drie staan sinds 2026-08-15 óók in de machinerie**, en niet meer alleen in deze tekst.
+  `.claude/settings.json` draagt een `ask`-lijst voor `next.config.ts`, `netlify.toml` en
+  `public/images/**`. Bewust `ask` en geen `deny`: een `deny` maakt een legitieme wijziging
+  onmogelijk in plaats van bewust, en wat hierboven staat is dat Dave's woord nodig is — niet dat
+  het onbereikbaar moet zijn. De denylist heeft er daarnaast de refspec-vorm
+  (`git push origin +HEAD:main`) bij gekregen, die langs `git push --force` glipte.
+  > Tot die dag leunde de bescherming volledig op of een specialist dit bestand gelezen had. Voor
+  > een repo waar de merge de deploy is, is dat de verkeerde kant om op te leunen.
 - **Alles wat de publieke site of de SEO raakt is Dave's beslissing** — titels,
   `description`-velden, metadata en routes. Een specialist stelt voor, Dave beslist.
 - **Twee uitzonderingen op "nooit direct op `main`"**: de fold-commit en de release-commit, zoals

@@ -10,7 +10,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "images:webp": "node scripts/convert-to-webp.js",
-    "images:webp:dry": "node scripts/convert-to-webp.js --dry-run",
+    "images:webp:apply": "node scripts/convert-to-webp.js --apply",
     "mix:add": "node scripts/add-mix.js"
   },
   "dependencies": {
