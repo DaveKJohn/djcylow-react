@@ -14,4 +14,22 @@ $canvas-max-width: 680px;
 
 // Kleurenlijsten voor loops
 $all-colors: ("cyan", "yellow", "red", "purple", "green", "orange", "magenta", "blue");
-$dark-text-colors: ("cyan", "yellow", "green", "orange");
+// Welke moodkleuren ZWARTE tekst krijgen; de rest krijgt --white-100 (#eeeeee).
+//
+// `red` en `magenta` staan hier sinds 2026-08-15 bij, en dat is een contrastreparatie. Wit op die
+// twee zakte door WCAG AA voor normale tekst, terwijl zwart er ruim boven zit -- berekend volgens de
+// relatieve luminantie uit WCAG 2.x:
+//
+//     kleur      wit #eee   zwart
+//     red         3.45      5.25
+//     magenta     2.70      6.70
+//     purple      5.41      3.35   <- houdt wit, zwart zou hier juist zakken
+//     blue        7.41      2.44   <- idem
+//
+// Juist rood en magenta worden als labels MÉT tekst gerenderd op de luister-filter en op Music Mood
+// Colours, dus dit is geen randgeval.
+//
+// BELANGRIJK: de MERKKLEUREN zelf zijn niet aangeraakt. Alleen de tekstkleur eróp draait om, en dat
+// is precies waarom deze oplossing gekozen is boven het bijstellen van #ff0000 en #ff00ff: het
+// contrast komt in orde zonder dat de huisstijl verandert.
+$dark-text-colors: ("cyan", "yellow", "green", "orange", "red", "magenta");
