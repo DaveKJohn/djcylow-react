@@ -3,9 +3,13 @@
 
 
 :root {
-    --screen-size-large: #{fn.get-breakpoint("large")};
-    --screen-size-medium: #{fn.get-breakpoint("medium")};
-    --screen-size-small: #{fn.get-breakpoint("small")};
+    // HIER STONDEN --screen-size-large/-medium/-small. Ze werden uitgeleverd in de CSS maar door
+    // niemand gelezen: geen enkel stylesheet en geen enkele component verwees ernaar (gemeten met
+    // een grep over `src/`, en teruggevonden in de gebouwde CSS als drie dode declaraties).
+    //
+    // Ze waren ook niet bruikbaar waarvoor je ze zou willen: een custom property kan niet in een
+    // `@media`-conditie staan, dus ze konden de media queries nooit voeden. De SCSS-kant leest de
+    // breakpoints rechtstreeks uit `$breakpoints` via `fn.get-breakpoint()`, en dat blijft zo.
 
     @each $base-color, $tints in v.$colors {
         @each $tint-name, $value in $tints {
