@@ -1,18 +1,13 @@
-## `style/contrast-rood-en-magenta` progress
+# `main` progress
+
+
+> **You are on `main`.** Do not work in this file yet -- create a branch first.
+> Anything written here on the trunk belongs to no branch, will not be folded, and is in the way
+> of the next person who does create one.
+
+This file carries the step list of the branch you are on. It is written when a branch is created
+and returns to this state after the merge.
 
 ### Steps
 
-- [x] Het contrast per moodkleur berekend voor zowel wit als zwart, in plaats van alleen de twee
-      gemelde gevallen na te rekenen — dat maakte meteen zichtbaar dat purple en blue juist wit
-      moeten hóuden
-- [x] `red` en `magenta` toegevoegd aan `$dark-text-colors`, met de meetwaarden in het bestand
-- [x] De merkkleuren zelf niet aangeraakt; alleen de tekstkleur erop
-- [x] Geverifieerd in de gebouwde CSS dat `.red p` en `.magenta p` nu `var(--black-100)` krijgen
-- [x] Poort groen
-
-### Where I left off
-
-Af. Zichtbare wijziging: de labels van rood en magenta krijgen zwarte tekst in plaats van witte —
-op de luister-filter en op Music Mood Colours.
-
-Sluit #54.
+_(filled in when a branch is created)_
