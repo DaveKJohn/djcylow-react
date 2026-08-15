@@ -1,12 +1,12 @@
-## `docs/readme-en-ruleset-kloppend` changelog
+## `docs/ruleset-strict-aan` changelog
 
 ### Branch title
 
-De README en de ruleset-bewering beschrijven weer wat er werkelijk staat
+De ruleset eist nu een PR die bij is met main
 
 ### Branch ID
 
-20260815-172021
+20260815-193142
 
 ### Branch type
 
@@ -14,59 +14,44 @@ docs
 
 ### What does the change on this branch bring to main?
 
-Twee documenten die iets anders beweerden dan er staat, kloppen weer.
+`strict_required_status_checks_policy` op de ruleset `main-ci-gate` staat sinds 2026-08-15 op `true`,
+op Dave's verzoek. Deze branch legt dat vast in `CLAUDE.md`, want die beschreef nog de oude stand.
 
-**De `README.md` liep op zes punten uit de pas** (het issue noemde er zeven; punt 3 over
-`tailwind.config` bleek al gerepareerd bij de Tailwind-verwijdering, dus dat is geverifieerd en niet
-opnieuw gedaan):
+**Wat het oplost.** Met `false` konden twee PR's die los groen zijn na elkaar mergen zonder dat `poort`
+de combinatie ooit had gezien. De klasse fout die dat oplevert — een import die na de eerste merge niet
+meer bestaat, een route die dubbel raakt — is precies wat de build zou vangen als hij tegen de juiste
+basis had gedraaid. In deze repo staat het resultaat daarvan binnen minuten live, want er is geen
+staging.
 
-- **30 mix-JSON-bestanden** terwijl het er 15 zijn — het document sprak zichzelf twee regels verderop
-  tegen, want de eigen kleurentabel somt precies 15 combinaties op
-- **`genre` is "either `EDM` or `Drum & Bass`"** terwijl géén enkele mix `genre: "EDM"` draagt.
-  Gemeten over 77 live mixen: Drum & Bass 46, House 18, Nu-Disco 10, Techno 3. Die waarde overleeft
-  alleen nog binnen oudere `permalink`-bestandsnamen, en dat staat er nu bij — anders lijkt de
-  correctie zelf weer onjuist zodra iemand een permalink openslaat
-- **Een homepage met zeven secties** terwijl er drie renderen. De vijf andere componenten bestaan nog
-  wel; dat ze er staan zonder te renderen is nu expliciet, met de opmerking dat hun verwijdering apart
-  loopt omdat het `src/` raakt
-- **Het slugformaat** stond er als iets dat `generateStaticParams` construeert. Dat doet het niet: de
-  slug komt uit `permalink`. Het gedocumenteerde patroon miste bovendien het BPM-segment, dus het zou
-  voor een nieuwe mix de verkeerde URL opleveren. Nu beschreven als afleiding, met de echte bewerking
-  erbij en een verwijzing naar de tests die het afdwingen
-- **`X-Frame-Options: DENY`** terwijl `netlify.toml` `SAMEORIGIN` zet. De **doc** is naar de config
-  bewogen en niet andersom: dat bestand is beschermd, en een live security-header aanscherpen is een
-  bewuste wijziging, geen documentatiereparatie
-- **Facebook ontbrak** in de opsomming van sociale links in de footer
+**Wat het kost, en dat hoort erbij te staan.** Een PR moet nu bij zijn met `main` vóór de merge. Hier
+schuift `main` bij élke fold op, dus een PR die even blijft liggen wordt "out of date" en vraagt een
+`Update branch` vóór hij te mergen is. Bij een reeks wachtende branches is dat één update-ronde per
+branch.
 
-**En de bewering over de ruleset klopte niet, op vier plekken.** `CLAUDE.md` stelde dat
-`main-ci-gate` "force-push, het verwijderen van `main` en merges door niet-admins" hard tegenhoudt.
-Geverifieerd via de API (ruleset 20818953): `bypass_mode` staat op `"always"` voor Admin en Maintain,
-en GitHub kent geen bypass per regel — dus de **hele** ruleset staat opzij, inclusief `deletion` en
-`non_fast_forward`. Voor de enige persoon die hier werkt houdt hij dus niets tegen.
+**Hoe de wijziging is gedaan.** Een `PUT` op de ruleset met de volledige definitie terug en daarin
+exact één gewijzigd veld. Dat is geverifieerd door de opgehaalde ruleset vóór en ná te diffen: precies
+één verschil, en `bypass_actors`, `enforcement`, de drie regeltypes en de required check `poort` zijn
+alle vier ongemoeid. De backup van de oude definitie stond klaar vóór de call.
 
-Dat is precies de verkeerde kant om je in te vergissen: wie het las kon aannemen dat een force-push
-server-side wordt geweigerd, en de lokale denylist als tweede lijn beschouwen in plaats van als de
-enige — terwijl die denylist alleen binnen Claude Code geldt en niet in een terminal. De vierde plek
-is de lens van Chris, die bij **elke sessie** meelaadt en waar die zin het argument onder de PR-grens
-draagt. Dat argument blijft staan en wordt door de correctie sterker: de menselijke blik is hier niet
-de tweede lijn maar de enige.
+**Het eerste voorstel uit #91 is bewust niet uitgevoerd.** Dat vraagt een tweede ruleset zónder bypass
+voor `deletion` en `non_fast_forward`, en die zou `cut-release`'s eigen push naar `main` blokkeren —
+precies waarom die bypass er staat. De bewering die daarover onjuist was, is al gecorrigeerd in PR #115.
 
 ### Significance
 
 #### Tier 0
 
-De README is wat iemand als eerste leest om deze repo te begrijpen, en hij beschreef een genre-indeling
-die niet bestaat, een slugafleiding die andersom werkt en een homepage die er niet zo uitziet. De
-ruleset-correctie raakt bovendien het document dat elke sessie meelaadt, en ging over hoeveel
-bescherming er werkelijk is.
+De poort kan niet langer groen staan op een combinatie die hij nooit heeft gezien. Dat kost een
+update-ronde per PR, en die afweging staat er nu bij zodat de volgende lezer weet waarom die stap er is.
 
 **Score:** 3
 
 #### Tier 1
 
-Documentatie over de repo; de site verandert niet.
+Voorkomt een storing die de bezoeker zou merken — twee losse groene PR's die samen breken — maar er is
+vandaag niets mis en de site verandert niet.
 
-**Score:** N/A
+**Score:** 2
 
 ### Pull Request
 
