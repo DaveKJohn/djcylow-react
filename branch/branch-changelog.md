@@ -1,54 +1,58 @@
-## `style/contrast-rood-en-magenta` changelog
+## `fix/nederlandse-taal-en-404` changelog
 
 ### Branch title
 
-Tekst op rood en magenta haalt WCAG AA
+De site zegt tegen browsers en Google dat hij Nederlands is
 
 ### Branch ID
 
-20260815-211304
+20260815-211644
 
 ### Branch type
 
-style
+fix
 
 ### What does the change on this branch bring to main?
 
-Tekst op de moodkleuren **rood** en **magenta** zakte door WCAG AA voor normale tekst. Berekend
-volgens de relatieve luminantie uit WCAG 2.x, met de #eeeeee die `--white-100` levert:
+De site draagt `<html lang="nl">` in plaats van `lang="en"`. Alle content is Nederlands — de teksten
+in `src/content/`, alle koppen, alle UI-strings — dus dat attribuut beschreef niets. Het kostte twee
+concrete dingen: schermlezers spraken Nederlandse tekst met een Engelse stem uit, en Google kreeg een
+taalsignaal dat de rest van de pagina tegensprak, op een site die juist lokaal gevonden wil worden.
 
-| kleur | wit #eee | zwart | gekozen |
-|---|---|---|---|
-| red `#ff0000` | 3,45 ✗ | **5,25** ✓ | zwart |
-| magenta `#ff00ff` | 2,70 ✗ | **6,70** ✓ | zwart |
-| purple `#7f00ff` | 5,41 ✓ | 3,35 | wit blijft |
-| blue `#0000ff` | 7,41 ✓ | 2,44 | wit blijft |
+**De fallback-description was ook Engels** (*"DJ Cylow - Professional DJ for your events"*). De vier
+hoofdpagina's zetten hun eigen description, maar wat dat niet doet krijgt deze — en `out/404.html`
+droeg hem letterlijk.
 
-Beide staan nu in `$dark-text-colors`, waardoor ze zwarte tekst krijgen in plaats van wit.
+**En er was geen eigen 404-pagina**, dus Next leverde zijn standaard: `404: This page could not be
+found.`, in het Engels en zonder enige styling van deze site. Er staat nu een `not-found.tsx` in de
+huisstijl, met `robots: noindex, follow` — een foutpagina hoort niet in de zoekresultaten, maar de
+links erop mogen wel gevolgd worden.
 
-**De merkkleuren zelf zijn niet aangeraakt**, en dat is precies waarom deze oplossing is gekozen
-boven het bijstellen van `#ff0000` en `#ff00ff`. Alleen de tekstkleur eróp draait om; het contrast
-komt in orde zonder dat de huisstijl verandert. Purple en blue houden wit, want daar zou zwart juist
-zakken — de keuze is per kleur gemeten en niet als groep gemaakt.
+Gemeten in de build: `out/404.html` en `out/index.html` dragen beide `lang="nl"`, de 404 heet
+*"Pagina niet gevonden | DJ Cylow"* en draagt een Nederlandse description.
 
-Dit is geen randgeval: juist rood en magenta worden als labels **met tekst** gerenderd op de
-luister-filter en op Music Mood Colours. Geverifieerd in de gebouwde CSS dat `.red p` en `.magenta p`
-nu `var(--black-100)` krijgen.
+**De documentatie sprak zichzelf hierover tegen, en dat is meegecorrigeerd.** `CLAUDE.md` zei "de
+website is Engels" met `lang="en"` als bewijs; `README.md` zei "the site is in Dutch". De code gaf
+een derde antwoord. Het attribuut was dus geen taalbesluit maar een verkeerde waarde die als besluit
+werd gepresenteerd — en die presentatie hield hem in stand. Alle drie zeggen nu hetzelfde.
+
+`description_en` blijft bestaan en wordt net zo streng bewaakt door de testsuite: dat veld is er voor
+een eventuele Engelse variant later.
 
 ### Significance
 
 #### Tier 0
 
-De meetwaarden en de afweging staan nu in de code, zodat een volgende kleur niet op gevoel bij die
-lijst wordt gezet.
+Een tegenspraak tussen twee governance-documenten en de code is weg, en de reden waarom hij ontstond
+staat erbij: een verkeerd ingevuld attribuut dat als besluit werd gelezen.
 
-**Score:** 2
+**Score:** 3
 
 #### Tier 1
 
-Twee van de acht moodkleuren waren met normale tekst slecht leesbaar — magenta op 2,70:1, ver onder de
-norm. Dat raakt elke bezoeker van de luister-filter en van Music Mood Colours, en het meest de mensen
-voor wie de norm bestaat.
+Het taalsignaal naar Google klopt nu op een site die van lokale vindbaarheid leeft, en wie een
+schermlezer gebruikt krijgt Nederlandse tekst niet langer met een Engelse stem. De 404 is bovendien
+geen kale Next-standaardpagina meer.
 
 **Score:** 4
 

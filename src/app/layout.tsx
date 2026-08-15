@@ -19,7 +19,10 @@ export const metadata: Metadata = {
     // gebouwde HTML, waardoor linkpreviews op social media een onbereikbaar adres krijgen.
     metadataBase: new URL("https://www.djcylow.com"),
     title: "DJ Cylow",
-    description: "DJ Cylow - Professional DJ for your events",
+    // Nederlands, net als de rest van de site. Dit is de FALLBACK: de vier hoofdpagina's zetten hun
+    // eigen description, maar wat dat niet doet krijgt deze -- en tot 2026-08-15 was dat de Engelse
+    // "DJ Cylow - Professional DJ for your events", die zo in `out/404.html` belandde.
+    description: "DJ Cylow draait house en nu-disco op bruiloften, bedrijfsfeesten en events in heel Nederland. Bekijk de mixen en vraag een datum aan.",
 };
 
 export default function RootLayout({
@@ -28,7 +31,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        // `nl` en niet `en`: alle content op deze site is Nederlands -- de teksten in
+        // `src/content/`, alle koppen, alle UI-strings. Tot 2026-08-15 stond hier `en`, wat twee
+        // dingen kostte: schermlezers spraken Nederlandse tekst met een Engelse stem uit, en Google
+        // kreeg een taalsignaal dat de rest van de pagina tegensprak -- op een site die juist lokaal
+        // gevonden wil worden.
+        <html lang="nl">
             <head>
                 {/* GTM Script */}
                 <Script id="gtm-delayed" strategy="afterInteractive">

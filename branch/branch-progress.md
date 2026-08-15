@@ -1,18 +1,21 @@
-## `style/contrast-rood-en-magenta` progress
+## `fix/nederlandse-taal-en-404` progress
 
 ### Steps
 
-- [x] Het contrast per moodkleur berekend voor zowel wit als zwart, in plaats van alleen de twee
-      gemelde gevallen na te rekenen — dat maakte meteen zichtbaar dat purple en blue juist wit
-      moeten hóuden
-- [x] `red` en `magenta` toegevoegd aan `$dark-text-colors`, met de meetwaarden in het bestand
-- [x] De merkkleuren zelf niet aangeraakt; alleen de tekstkleur erop
-- [x] Geverifieerd in de gebouwde CSS dat `.red p` en `.magenta p` nu `var(--black-100)` krijgen
+- [x] `lang="en"` → `lang="nl"`, met de twee concrete gevolgen in de code genoteerd
+- [x] De Engelse fallback-description vervangen; die belandde via `layout.tsx` in `out/404.html`
+- [x] Een eigen `src/app/not-found.tsx` in de huisstijl, met `robots: noindex, follow`
+- [x] Gemeten in de build: beide pagina's dragen `lang="nl"`, de 404 heeft een Nederlandse titel en
+      description
+- [x] De documentatie-tegenspraak opgelost: `CLAUDE.md` zei Engels, `README.md` zei Nederlands, de
+      code gaf een derde antwoord. Alle drie zeggen nu hetzelfde, mét de reden waarom het misging
 - [x] Poort groen
+- [~] `description_en` uitfaseren — bewust niet. Dat veld is er voor een eventuele Engelse variant
+      later, en de testsuite bewaakt het net zo streng als de Nederlandse
 
 ### Where I left off
 
-Af. Zichtbare wijziging: de labels van rood en magenta krijgen zwarte tekst in plaats van witte —
-op de luister-filter en op Music Mood Colours.
+Af. Zichtbaar: de 404-pagina is niet langer de kale Engelse Next-standaard maar een eigen pagina met
+twee knoppen. De rest is een signaal naar browsers en zoekmachines.
 
-Sluit #54.
+Sluit #50.
