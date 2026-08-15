@@ -913,6 +913,31 @@ De grondwet hierboven, hier concreet ingevuld:
   (`git push origin +HEAD:main`) bij gekregen, die langs `git push --force` glipte.
   > Tot die dag leunde de bescherming volledig op of een specialist dit bestand gelezen had. Voor
   > een repo waar de merge de deploy is, is dat de verkeerde kant om op te leunen.
+- **Later diezelfde dag zijn ook de handelingen zelf toegevoegd, en niet meer alleen de bestanden**
+  (issue #63). Op de `ask`-lijst staan nu `git push origin main` en `git push origin HEAD:…`,
+  `gh api` met een schrijvende methode (`-X`/`--method`), `gh release create`/`delete`, `gh repo
+  edit`, `gh ruleset` en `git config` — telkens in beide vormen, want `Bash(...)` en
+  `PowerShell(...)` zijn aparte regels. `gh repo delete` staat op de **deny**-lijst: dat is de enige
+  in de rij die niet terug te draaien is.
+  > **Waaróm dit in het gedeelde bestand moest.** De permissies stonden alleen in
+  > `.claude/settings.local.json`, met 89 `allow`-regels waaronder `git push *`, `PowerShell(git *)`,
+  > `gh api *` en `gh release *`. Dat bestand is **gitignored** — het reist dus niet mee, geldt alleen
+  > op deze machine, en niets in de repo kon eraan tornen. `.claude/settings.json` is de enige laag
+  > die wél meereist, en `deny` en `ask` winnen daar van een `allow` uit het lokale bestand. Dat is
+  > geen aanname: de `ask`-regels voor `netlify.toml` hebben in de praktijk gevraagd terwijl `Edit`
+  > breed was toegestaan.
+  >
+  > **En hier hoort een eerlijke grens bij.** Het lokale bestand staat ook `Bash(node *)` en
+  > `Bash(python -c ' *)` toe, en daarmee is elke regel hierboven te omzeilen —
+  > `node -e "require('child_process').execSync('…')"` valt onder geen van deze patronen. Deze lijst
+  > beschermt dus tegen een **vergissing**, niet tegen opzet. Dat maakt hem niet waardeloos: bijna
+  > alles wat in deze repo ooit is misgegaan was een vergissing. Maar wie hem leest als een
+  > sluitende afscherming leest hem verkeerd, en een lijst die meer belooft dan hij waarmaakt is
+  > gevaarlijker dan geen lijst.
+  >
+  > **Wat de patronen niet vangen:** een kale `git push` terwijl je op `main` staat. Er is geen
+  > argument om op te matchen, dus dat blijft leunen op de discipline hierboven — pushen naar
+  > `origin/main` is Dave's initiatief.
 - **Alles wat de publieke site of de SEO raakt is Dave's beslissing** — titels,
   `description`-velden, metadata en routes. Een specialist stelt voor, Dave beslist.
 - **Twee uitzonderingen op "nooit direct op `main`"**: de fold-commit en de release-commit, zoals
