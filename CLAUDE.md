@@ -290,7 +290,7 @@ lenzen neer. `check-script-contract.ps1` bewaakt daarnaast dat `scripts/repo-con
 
 ```bash
 npm run dev      # dev server → http://localhost:3000
-npm run build    # static export → .next/
+npm run build    # static export → out/ (.next/ is build-output en cache)
 npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/lint/lint-web.ps1
 ```
 
