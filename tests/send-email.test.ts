@@ -109,7 +109,7 @@ describe('geldige aanvraag', () => {
  */
 describe('honeypot', () => {
     it('verstuurt niets als het bot-veld is ingevuld', async () => {
-        const res = await verzoek({ ...geldig, 'bot-field': 'ik ben een bot' });
+        await verzoek({ ...geldig, 'bot-field': 'ik ben een bot' });
         expect(sendMail).not.toHaveBeenCalled();
     });
 

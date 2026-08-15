@@ -292,7 +292,7 @@
                     background-color: map.get($ux-white-map, $target-key) !important;
                     outline: none !important;
                 }
-                color: #000000 !important;
+                color: map.get(v.$colors, "black", "100") !important;
             }
         }
     }

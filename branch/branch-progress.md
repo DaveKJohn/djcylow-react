@@ -1,23 +1,21 @@
-## `data/emoji-descriptions-en-preview-ids` progress
+## `style/kleuren-uit-het-palet` progress
 
 ### Steps
 
-- [x] De drie punten gemeten vóór ik koos: 7/7 Cyan op 🧊, drie descriptions op 165/167/162, en vijf
-      naamconventies over acht preview-entries
-- [x] Cyan: de **spec** aangepast en niet de data — die zeven titels staan al op Spotify, en ze hier
-      herschrijven zou repo en uploads uit elkaar laten lopen
-- [x] De drie beschrijvingen ingekort naar 152/155/148, met het use-case-signaal behouden
-- [x] De twee ratchets bijgesteld die daardoor terecht klaagden: te lang 3 → 0, met dash 13 → 11
-- [x] De acht preview-id's op één conventie (`Kleur_light_preview`) en de afwijkende title van
-      `light-red` gelijkgetrokken
-- [x] **Eerste poging teruggedraaid**: `JSON.stringify(…, null, 4)` herformatteerde de bestanden en
-      gaf 7451 diffregels voor 8 wijzigingen (CRLF, twee spaties, arrays op één regel). Opnieuw
-      gedaan met gerichte tekstvervanging: 17 regels
-- [x] Poort groen, 207 tests groen, nog steeds 89 pagina's
+- [x] De dertien losse hexwaarden inventariseren en per stuk vaststellen wat ze zijn
+- [x] De tien gradient-stops uit `v.$colors` halen; de twee wrap-kleuren benoemen
+- [x] `filter.scss` en `_tools.scss` naar het palet
+- [x] De drie YouTube-kleuren juist buiten het palet houden, met de reden erbij
+- [x] Issue #116 beslecht: de splitter houdt `--black-70`, vastgelegd in `_layout.scss`
+- [x] Meten: gebouwde CSS voor en na vergelijken (gradient byte-identiek, 32 = 32 zwart-important)
+- [x] Contrast van `#ffffff` → `#eeeeee` narekenen op de drie donkere achtergronden
+- [x] ESLint-teller terug naar 0/0
 
 ### Where I left off
 
-Af. Zichtbaar op de site: drie zoekresultaten worden niet meer afgekapt. De preview-id's en de
-Cyan-emoji raken de bezoeker niet.
+De poort staat groen (0 errors, 0 warnings, 89 pagina's) en 207 tests slagen. Dit is site-werk
+(`src/`), dus het wacht onder de normale regel op Dave — deze keer gedekt door zijn staande akkoord
+voor deze sessie.
 
-Sluit #95.
+Wat na de merge nog kan: issue #79 opnieuw meten nu de hero gerepareerd is, om te zien of
+`overflow-x: hidden` op `musicmoodcolours` nog nodig is.
