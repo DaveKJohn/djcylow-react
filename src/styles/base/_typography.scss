@@ -162,6 +162,15 @@ $table-styles: (
 );
 
 $utility-styles: (
+    // .size-base en .size-lg stonden tot 2026-08-15 wel in de markup (10x) maar niet hier, dus ze
+    // deden niets: waar een developer expliciet om een tekstgrootte vroeg, gold de overgeerfde. Op
+    // de mixpagina staan ze naast wel werkende .size-sm/.size-xs in dezelfde blokken.
+    ".size-base": (
+        "scale-key": "base"
+    ),
+    ".size-lg": (
+        "scale-key": "lg"
+    ),
     ".size-sm": (
         "scale-key": "sm"
     ),

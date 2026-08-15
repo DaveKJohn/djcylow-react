@@ -8,7 +8,7 @@ export default function Footer() {
 
             <div className="column w-fill AMC P20 ">
 
-                <div className="column w-fix AMC constrainer">
+                <div className="column AMC constrainer">
 
                     <div className="column w-fill AMC P30">
 

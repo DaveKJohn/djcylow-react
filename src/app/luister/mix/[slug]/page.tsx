@@ -285,7 +285,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
             <section className="WoB column w-fill AML P15 fill-100 v-push-3xl" id="luister_mix">
                 <div className="column w-fill AML P20 ">
-                    <div className="column w-fix AML constrainer">
+                    <div className="column AML constrainer">
                         <div className="column w-fill AML P30 spacing-3xl">
 
                             <div className="column w-hug AML P35 return-wrapper">

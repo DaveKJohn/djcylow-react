@@ -48,7 +48,7 @@ The "Music Mood Colours" concept is central to the brand: each mix is assigned a
 | Framework | Next.js 16.2.4 (App Router, static export) |
 | UI Library | React 19.2.3 |
 | Language | TypeScript 5 |
-| Styling | Tailwind CSS 4 + SASS/SCSS modules |
+| Styling | SASS/SCSS + CSS modules |
 | Email | Nodemailer 8 via Netlify Functions |
 | HTTP | Axios 1.13 |
 | Forms | react-google-recaptcha 3.1 |
@@ -156,9 +156,7 @@ djcylow-react/
 ├── CONTRIBUTING.md             # The contribution cycle: branches, changelog entries, PR gates
 ├── CLAUDE.md                   # Operating guide: safety rules, the specialists, repo conventions
 ├── next.config.ts              # output: 'export', images: unoptimized, sassOptions
-├── tailwind.config             # Tailwind v4 configuration
 ├── tsconfig.json               # strict, ES2017, path alias @/* → ./src/*
-├── postcss.config.mjs          # Tailwind PostCSS preset
 └── netlify.toml                # Build command, publish dir, security headers
 ```
 
@@ -355,7 +353,12 @@ public/images/
 
 ## Styling System
 
-The project uses **both** Tailwind CSS v4 and a custom **SCSS architecture** side-by-side.
+The project uses a custom **SCSS architecture**, and nothing else.
+
+> Until 2026-08-15 this section claimed Tailwind CSS v4 ran alongside it. It did not: no stylesheet
+> the app loads ever contained the `@import "tailwindcss"` entry, so not a single utility was ever
+> generated — verified against the built CSS. Tailwind has been removed rather than switched on,
+> because enabling it would drop Preflight on top of the existing reset in `base/_reset.scss`.
 
 ### SCSS Architecture (`src/styles/`)
 
@@ -385,9 +388,21 @@ styles/
 
 `next.config.ts` includes `src/styles` in the SASS load path, so partials can be imported without relative paths.
 
-### Tailwind CSS v4
+### Utility classes
 
-Used for utility classes directly in components. Configuration lives in `tailwind.config` and is processed via `postcss.config.mjs`.
+Generated from `base/_layout.scss` and `base/_typography.scss` — there is no utility framework.
+
+| class | effect |
+|---|---|
+| `w-fill` / `w-hug` | `width: 100%` / `width: fit-content` |
+| `size-xs` … `size-lg` | font size from the design scale |
+| `spacing-*` | gap from the spacing scale |
+| `balanced`, `bold`, `italic`, `left`, `center` | text helpers |
+
+> `size-base` and `size-lg` were used in the markup but not generated until 2026-08-15, so they
+> silently did nothing. A `w-fix` class was used 28 times and never existed at all; those usages
+> have been removed rather than given a definition, since nobody could establish what width it was
+> meant to set.
 
 ---
 

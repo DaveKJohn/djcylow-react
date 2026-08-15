@@ -328,8 +328,20 @@ npm run lint     # ESLint + TypeScript check
 - **Geen inline CSS**: gebruik geen `style={{}}` in JSX. Alle CSS hoort in SCSS onder `src/styles/`.
   Uitzondering: echt dynamische runtime-waarden (`backgroundImage: url(${src})`,
   progressbar-percentages).
-- **Tailwind v4 + SCSS**: beide worden naast elkaar gebruikt. SCSS in `src/styles/`, Tailwind als
-  utility-classes in de componenten.
+- **Alleen SCSS, geen Tailwind.** De styling zit volledig in `src/styles/`, met de eigen
+  utility-klassen (`w-fill`, `w-hug`, `size-*`, `spacing-*`) die daar gegenereerd worden.
+  > **Hier stond tot 2026-08-15 "Tailwind v4 + SCSS: beide worden naast elkaar gebruikt", en dat
+  > was niet waar.** Tailwind v4 genereert alleen utilities voor een stylesheet die
+  > `@import "tailwindcss"` bevat; de enige stylesheet die de app laadt (`src/styles/main.scss`)
+  > had die regel niet. Het enige bestand met een Tailwind-at-rule was `src/app/globals.scss`, dat
+  > **nergens werd geïmporteerd** — en het droeg `@theme "tailwindcss"`, wat geen geldige entry is.
+  > Geverifieerd in de gebouwde CSS: geen enkele Tailwind-signatuur, en `.flex` nergens
+  > gedefinieerd. Er is dus nooit één utility gegenereerd.
+  >
+  > Het gevolg was dat er markup werd geschreven met klassen die stil niets deden: `.flex` 6×,
+  > `.w-fix` 28×. Dave heeft gekozen voor eruit halen (2026-08-15) — aanzetten zou Preflight
+  > bovenop de eigen reset in `base/_reset.scss` zetten, en dat is wél een zichtbare wijziging op
+  > elke pagina.
 
 #### Waar content leeft
 

@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.106.0",
-    "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^20",
@@ -38,7 +37,6 @@
     "eslint-config-next": "16.1.6",
     "jsdom": "^29.1.1",
     "sharp": "^0.35.2",
-    "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.10",
     "yaml": "^2.9.0"
