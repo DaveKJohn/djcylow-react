@@ -11,12 +11,20 @@
  * niet kan (routes met `generateStaticParams`) op de broncode. Dat laatste is zwakker en staat er
  * daarom bij welk gedrag het bewaakt.
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { render, screen, fireEvent } from '@testing-library/react';
 import './setup-dom';
 
 import Carousel from '@/components/ui/Carousel';
+
+beforeAll(() => {
+	// jsdom implementeert `Element.scrollBy` niet, en de carousel roept hem aan bij een klik op een
+	// pijl. Zonder deze stub gooit React een unhandled error: de TESTS slagen dan wel, maar Vitest
+	// eindigt op exit 1 en de testpoort van open-pr weigert de push -- met "178 passed" erboven, wat
+	// een verwarrend beeld geeft. Gemeten bij het openen van de PR voor deze branch.
+	Element.prototype.scrollBy = function () {};
+});
 
 describe('carousel: de pijlen zijn knoppen met een naam', () => {
 	it('heeft een vorige- en een volgende-knop die bij naam te vinden zijn', () => {
