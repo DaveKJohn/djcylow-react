@@ -712,6 +712,16 @@ Repo-eigen scripts:
   Linux bouwt en letterkast-fouten in imports alleen daar aan het licht komen. De job heet **`poort`**, en
   dat is de naam die de ruleset als required check gebruikt — hernoem hem niet zonder de ruleset mee te
   nemen. De Node-versie komt uit `.nvmrc`, met de **volledige** versie erin en niet alleen de major.
+  Sinds 2026-08-15 annuleert een nieuwe push de vorige run (`concurrency` met `cancel-in-progress`) en
+  breekt een hangende job na tien minuten af in plaats van na GitHub's default van zes uur.
+  > **`.nvmrc` wordt niet gelezen door `npm ci` op je eigen machine** — alleen door `setup-node` in CI
+  > en door Netlify. Wie hier Node 20 of 24 draaide kreeg dus geen enkele melding, en de eerste rode
+  > vlag was een lockfile-conflict of een subtiel ander buildresultaat. Sinds 2026-08-15 staat er
+  > daarom een `engines`-regel in `package.json` (`>=22.15.1 <23`) met `engine-strict=true` in
+  > `.npmrc`, wat van een waarschuwing een blokkade maakt. Getoetst in beide richtingen: `npm ci`
+  > slaagt op 22.15.1 en faalt met `EBADENGINE` zodra de range niet gehaald wordt. Bewust een **range**
+  > en geen exacte pin: die zou bij elke patch-upgrade op twee plekken bijgewerkt moeten worden, en dat
+  > is juist de drift die de regel moet voorkomen.
 - **`tests/`** — **acht suites, 143 tests**, gedraaid met Vitest via `npm test`. De kern is
   `mix-data.test.ts`, die de veldregels uit [`src/data/mixes/README.md`](src/data/mixes/README.md)
   afdwingt en **gemeten is in plaats van overgeschreven**: regels die de data al haalt staan als harde

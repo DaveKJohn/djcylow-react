@@ -43,6 +43,13 @@ next-env.d.ts
 # Local Netlify folder
 .netlify
 
+# De lockfile van de Netlify Edge Functions-bootstrap, die een `netlify dev`-run achterlaat. Deze
+# repo heeft geen netlify/edge-functions/ en gebruikt alleen gewone Functions, dus het bestand hoort
+# hier niet -- het stond in de tree en noemde nog `@tailwindcss/postcss`, dat er in augustus 2026 is
+# uitgehaald. Een lockfile die een afhankelijkheid noemt die niet meer bestaat, is per definitie
+# geen bron van waarheid meer.
+deno.lock
+
 # Gelockt onderwerp van de /lock-skill: werk-intentie van een enkele sessie, binnen
 # uren verouderd, en /lock -> /clear -> /continue lopen op een machine binnen minuten.
 # Meecommitten zou een pull request per sessie-afsluiting betekenen.

@@ -28,9 +28,25 @@ on:
   push:
     branches: [main]
 
+# Een nieuwe push op dezelfde branch annuleert de vorige run. Zonder dit blijft die doorlopen, en de
+# required check kan dan kortstondig groen staan op een commit die niet meer bovenaan ligt -- precies
+# het moment waarop iemand mergt. De groep bevat de ref, zodat runs van verschillende branches elkaar
+# niet in de weg zitten.
+#
+# LET OP: `main` valt hier ook onder. Twee snel opeenvolgende pushes naar main (een merge gevolgd
+# door de fold-commit is hier de normale gang) annuleren dus de eerste run. Dat is hier acceptabel --
+# de fold raakt alleen CHANGELOG.md en de twee bestanden in branch/, dus de geannuleerde run zou
+# dezelfde app-code hebben gebouwd als de run die er wel doorheen komt.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   poort:
     runs-on: ubuntu-latest
+    # GitHub's default is 6 uur. Deze poort draait normaal in ongeveer een minuut, dus een run die
+    # tien minuten kost hangt en hoort afgebroken te worden in plaats van een runner bezet te houden.
+    timeout-minutes: 10
     steps:
       # v5 en niet v4 (dat is wat de bron gebruikt): v4 draait op Node 20, dat op de runners is
       # afgeschaft, en levert bij elke run een deprecation-annotatie op. Gemeten bij de eerste run van
