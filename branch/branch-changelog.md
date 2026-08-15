@@ -1,12 +1,12 @@
-## `fix/contactformulier-endpoint` changelog
+## `fix/luister-crash-en-ssr` changelog
 
 ### Branch title
 
-Boekingsaanvragen komen compleet aan en het mail-endpoint is gehard
+De luisterpagina valt niet meer om op een onbekende kleur en staat in de statische HTML
 
 ### Branch ID
 
-20260815-130602
+20260815-131934
 
 ### Branch type
 
@@ -14,69 +14,75 @@ fix
 
 ### What does the change on this branch bring to main?
 
-Het contactformulier is de enige weg waarlangs een boeking binnenkomt, en het verloor de naam van
-elke aanvraag. Het formulier verstuurt één veld `name`; de Netlify-function las `firstName` en
-`lastName`, en die bestaan nergens in `src/`. Elke aanvraag kwam binnen als **"Boekingsaanvraag:
-undefined undefined"** — beantwoorden kon nog via `replyTo`, maar terugvinden niet.
+Drie dingen aan de luisterpagina, waarvan er twee alleen zichtbaar waren voor iemand die er
+gericht naar zocht.
 
-**Dat het een jaar onopgemerkt bleef, kwam door het ontbreken van validatie**, en dat is meteen het
-tweede deel van deze branch. Het endpoint controleerde niets: geen aanwezigheid, geen type, geen
-lengte, geen adresvorm. Een JSON-body mag arrays en objecten leveren, en die belandden
-ongecontroleerd in de mail en in `replyTo`. Nu wordt elk veld als string gelezen, begrensd op
-lengte, en het adres op vorm getoetst; een lege aanvraag wordt geweigerd in plaats van verstuurd.
+**De pagina viel om op een onbekende kleur.** `activeColor` kwam ongefilterd uit
+`searchParams.get('color')` en ging rechtstreeks in `MOOD_DATA[activeColor].colorVar`; de guard
+sloot alleen `'all'` uit. Elke andere waarde dereferenceerde `undefined` en gaf een TypeError
+tijdens de client-render — en omdat er geen `error.tsx` is, was dat een witte pagina. Er wordt nu
+eerst opgezocht en alleen gerenderd als de kleur bestaat, en de normalisatie naar kleine letters
+gebeurt op één plek. Twee ingangen zijn daarmee dicht: `?color=Red` met een hoofdletter (wat de
+mixpagina's zelf teruglinkten) en `?color=magenta`.
 
-Verder aan het endpoint:
+**Magenta stond er niet in.** De mix-data kent acht kleuren en er ligt een preview klaar in
+`light-magenta.json`, maar `MOOD_DATA` had er zeven. De achtste is toegevoegd met de omschrijving
+die de rest van de site al aanhoudt (`Geïrriteerd`, uit `BasiskleurenCarousel`), in de stijl van de
+andere zeven regels. **Dat is nieuwe publieke tekst, dus die wil je waarschijnlijk even lezen:**
+*geïrriteerd · gespannen · rusteloos · fel*.
 
-- **De HTML-mail escapet zijn invoer**, via één helper zodat een volgend veld niet opnieuw vergeten
-  wordt. Er gaat nu ook een `text:`-variant mee.
-- **CORS staat niet meer op `*`.** Alleen `djcylow.com`, `www.djcylow.com`, het Netlify-adres en het
-  deploy-preview-patroon krijgen de header terug, en alleen ná een match — de binnenkomende origin
-  wordt nooit blind teruggekaatst. Er zit ook een controle op `hostname` uit het
-  reCAPTCHA-antwoord bij: zonder die controle is een token dat op een ander domein is opgehaald
-  hier net zo geldig.
-- **De interne foutmelding gaat niet meer mee in de 500.** Een SMTP- of DNS-fout noemt
-  infrastructuur, en de frontend las dat veld niet eens.
+**De pagina stond helemaal niet in de statische HTML** (issue #43). Twee onafhankelijke oorzaken,
+allebei weg, en het resultaat is gemeten in de verse build in plaats van beredeneerd:
 
-**De foutlus is weg.** Bij een mislukte verzending bleef het reCAPTCHA-token staan, terwijl zo'n
-token eenmalig is en ~2 minuten geldig. De bezoeker probeerde het opnieuw met hetzelfde token,
-Google antwoordde `timeout-or-duplicate`, en dat herhaalde zich tot de pagina herladen werd — één
-tijdelijke serverfout kostte de hele aanvraag. De widget wordt nu geremount voor een verse
-challenge. Bewust via een `key` en niet via een ref met `.reset()`: het component wordt met
-`next/dynamic` geladen, en die wrapper geeft een ref niet betrouwbaar door.
+| | vóór | ná |
+|---|---|---|
+| `<main>` in `out/luister.html` | 0 | 1 |
+| `<h1>` in `out/luister.html` | 0 | 1 |
+| unieke mixlinks in `out/luister.html` | 0 | **77** |
+| `href="/luister"` in `out/index.html` | 0 | 1 |
 
-**En er is nu een testsuite**, 23 tests, precies over wat hierboven staat (issue #71 — dit was het
-enige server-side bestand zonder ook maar één test). Dat kostte drie pogingen, en de reden is het
-vermelden waard: de function is CommonJS en woont buiten `src/`, dus Vitest laadt haar met Node's
-eigen `require`. `vi.mock` greep daardoor niet op haar `require('axios')`, en zelfs
-`vi.stubGlobal('fetch')` werd niet gezien — de module draait in een andere context en hield de
-echte `fetch`, waarna elke test in een timeout van vijf seconden liep. Beide zijn gemeten voordat
-het huidige patroon gekozen is: de twee buitenwereld-afhankelijkheden gaan nu via een derde
-parameter naar binnen, die Netlify zelf nooit meegeeft.
+De eerste oorzaak: `/luister` was één client component met `useSearchParams()`, volledig in een
+`<Suspense>` **zonder fallback**. Bij `output: 'export'` bailt Next zo'n subtree uit de prerender,
+en wat er overbleef was letterlijk `<div hidden><!--$--><!--/$--></div>`. Alles wat niet van de URL
+afhangt staat nu buiten die grens in een server component, en de grens heeft een fallback die de
+volledige mixlijst server-rendert. Een fallback belandt namelijk wél in de HTML — dat is precies
+waarom die 77 links er nu staan, terwijl `sitemap.ts` ze al die tijd op priority 0.8 aanmeldde
+zonder dat er één interne link naartoe wees.
 
-**Bijvangst: `axios` is uit de repo.** Het werd alleen hier gebruikt, voor één POST, en Node levert
-`fetch` sinds v18. Dat is één dode dependency minder dan issue #94 straks hoeft op te ruimen.
+De tweede: de navigatielinks hingen achter een `mounted`-poort waarvan de serversnapshot `false`
+is, waardoor alleen het logo en de hamburger in de HTML stonden. Die poort is nodig tegen een
+hydratie-mismatch van de **class** (`ready` of `locked` hangt van de viewport af, die de server niet
+kent) maar niet van de **inhoud**, en hangt nu alleen nog aan de mobiel-specifieke onderdelen.
 
-Eén tekstfout uit issue #49 zit in ditzelfde bestand en is meegenomen om een conflict met die
-branch te voorkomen: `Direct Contact` → `Direct contact`, want Nederlands kent geen title case.
+**En de spelers pauzeren elkaar.** `AudioPlayer` had de mechaniek er al voor — `onPlay` meldt zich
+aan, `activeId` pauzeert de rest — maar de playlist gaf die twee props niet door, dus alle spelers
+konden tegelijk klinken.
 
-Sluit #42, #51, #57 en #71.
+Twee dingen die hier zijn opgeruimd omdat ze anders opnieuw waren overgeschreven:
+
+- **De mix-imports en de slug-afleiding staan nu in één bron** (`src/data/mixes/all.ts`). De
+  vijftien JSON-bestanden werden op zes plekken los samengevoegd en de slug werd op acht plekken
+  opnieuw uit `permalink` gepeuterd — deels mét `.toLowerCase().trim()` en deels zonder. Dat laatste
+  is geen schoonheidsfoutje: de routing hangt aan die slug. Deze branch zet de twee gebruikers om die
+  hij toch aanraakt; issue #83 doet de rest.
+- **`Luguber` met een hoofdletter** midden in de moodtekst van rood, in dezelfde constante.
+
+Sluit #43, #44 en #56.
 
 ### Significance
 
 #### Tier 0
 
-Het enige server-side bestand had geen enkele test en verwerkte ongevalideerde bezoekersinvoer. Er
-liggen nu 23 tests onder, en de function is testbaar gemaakt op een manier die eerst is gemeten in
-plaats van aangenomen.
+De mix-imports en de slug-afleiding hebben één bron gekregen, en er liggen elf tests onder de
+crash-guard — die viel anders stil terug te draaien.
 
 **Score:** 3
 
 #### Tier 1
 
-Elke boekingsaanvraag kwam binnen zonder naam en met een onbruikbaar onderwerp. Dit is het formulier
-waarlangs opdrachten binnenkomen, dus dat raakt Dave direct en dagelijks. Daar bovenop stopt een
-tijdelijke serverfout niet langer de hele aanvraag, en is het endpoint niet meer vanaf willekeurige
-domeinen bruikbaar.
+De luisterpagina is de kern van de site en stond voor crawlers, link-previews en no-JS-bezoekers
+volledig leeg: geen kop, geen inhoud, en geen enkele link naar de 77 mixpagina's die de sitemap wél
+aanmeldt. Daar bovenop viel de pagina om op een kleur die in de eigen data bestaat.
 
 **Score:** 5
 

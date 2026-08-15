@@ -80,38 +80,45 @@ export default function MobileContent({
 
     return (
         <>
-            {/* 1. Eerst de drawer (nav_menu_content) */}
-            {mounted && (
-                <>
-                    {isMobile && (
-                        <div
-                            className={`drawer-overlay ${isOpen ? "active" : ""}`}
-                            onClick={() => setIsOpen(false)}
-                        />
-                    )}
+            {/* 1. Eerst de drawer (nav_menu_content)
 
-                    <div
-                        id={id}
-                        className={`row-c break-s ATC P50 drawer ${isMobile ? "ready" : "locked"} ${isOpen ? "open" : "closed"} ${wrapperClass}`}
-                    >
-                        {isMobile && (
-                            <div className="column w-fill AMC P55 drawer-header">
-                                <div className="headerTitleGroup">
-                                    {icon && <div className="headerIcon">{icon}</div>}
-                                    {title && <p className="headerTitleText">{title}</p>}
-                                </div>
-                                <button className="btn close" onClick={() => setIsOpen(false)}>✕</button>
-                            </div>
-                        )}
+                De `mounted`-poort stond tot 2026-08-15 om dit hele blok heen, inclusief de children.
+                De serversnapshot van `mounted` is `false`, dus de inhoud belandde niet in de
+                statische HTML: van de navigatie stonden alleen het logo en de hamburger in
+                `out/*.html`, en geen enkele pagina bevatte een link naar /luister (issue #43).
 
-                        <div className="splitter mobile"></div>
-
-                        <div className="column w-fill ATC P55 drawer-content">
-                            {typeof children === 'function' ? children(toggle) : children}
-                        </div>
-                    </div>
-                </>
+                Die poort is nodig tegen een hydratie-mismatch van de *class* -- `ready` of `locked`
+                hangt af van de viewport, die de server niet kent -- maar niet van de *inhoud*.
+                Daarom hangt hij nu alleen nog aan de mobiel-specifieke onderdelen en aan de
+                classnaam. Op de server levert dat de desktopvorm (`locked closed`) met de links
+                erin, en dat is precies wat een crawler hoort te zien. */}
+            {mounted && isMobile && (
+                <div
+                    className={`drawer-overlay ${isOpen ? "active" : ""}`}
+                    onClick={() => setIsOpen(false)}
+                />
             )}
+
+            <div
+                id={id}
+                className={`row-c break-s ATC P50 drawer ${mounted && isMobile ? "ready" : "locked"} ${isOpen ? "open" : "closed"} ${wrapperClass}`}
+            >
+                {mounted && isMobile && (
+                    <div className="column w-fill AMC P55 drawer-header">
+                        <div className="headerTitleGroup">
+                            {icon && <div className="headerIcon">{icon}</div>}
+                            {title && <p className="headerTitleText">{title}</p>}
+                        </div>
+                        <button className="btn close" onClick={() => setIsOpen(false)}>✕</button>
+                    </div>
+                )}
+
+                <div className="splitter mobile"></div>
+
+                <div className="column w-fill ATC P55 drawer-content">
+                    {typeof children === 'function' ? children(toggle) : children}
+                </div>
+            </div>
 
             {/* 2. Daarna pas de trigger (de button) */}
             {trigger(toggle)}

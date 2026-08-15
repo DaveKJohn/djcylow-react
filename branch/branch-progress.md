@@ -1,25 +1,28 @@
-## `fix/contactformulier-endpoint` progress
+## `fix/luister-crash-en-ssr` progress
 
 ### Steps
 
-- [x] `name` lezen i.p.v. `firstName`/`lastName`, in onderwerp én body (#42)
-- [x] Invoervalidatie: aanwezigheid, type, lengte, adresvorm (#51.1)
-- [x] Escaping via één helper, plus een `text:`-variant (#51.2)
-- [x] CORS beperkt tot de eigen domeinen + deploy previews; hostname-check op reCAPTCHA (#51.3)
-- [x] `details` uit de 500-response (#51.4)
-- [x] Foutlus opgeheven: verse challenge na een mislukking (#57)
-- [x] Testsuite voor de function, 23 tests (#71)
-- [x] `axios` vervangen door de ingebouwde `fetch` en uit `package.json`
-- [x] Lint-poort groen op 0 errors / 0 warnings, 94 tests
+- [x] `MOOD_DATA` opzoeken i.p.v. dereferencen; normalisatie op één plek (#44)
+- [x] Magenta toegevoegd, met de omschrijving die de rest van de site aanhoudt (#44)
+- [x] `page.tsx` server component; statisch deel buiten de Suspense-grens (#43)
+- [x] `PlaylistFallback`: server-gerenderde mixlijst als fallback, dus wél in de HTML (#43)
+- [x] `mounted`-poort beperkt tot de class en de mobiele onderdelen (#43)
+- [x] `onPlay`/`activeId` doorgegeven, zodat spelers elkaar pauzeren (#56)
+- [x] `src/data/mixes/all.ts` als enige bron voor de imports en de slug
+- [x] Resultaat gemeten in `out/`: 77 unieke mixlinks, `<main>` en `<h1>` aanwezig
+- [x] Elf tests op de crash-guard en op magenta
+- [x] Lint-poort groen, 82 tests
 
 ### Where I left off
 
-Klaar voor PR, maar **dit is site-werk en wacht dus op Dave**: het raakt `src/` en het endpoint dat
-de live site gebruikt. De deploy preview is hier ook echt nodig, want twee dingen zijn alleen in de
-praktijk te zien — of een echte aanvraag aankomt met naam, en of de reCAPTCHA-hostnamecontrole geen
-legitiem verkeer weigert. Die tweede is het risico van deze branch: als Google's antwoord een
-hostname bevat die niet in de lijst staat, wordt een geldige aanvraag geweigerd. De lijst dekt
-`djcylow.com`, `www.djcylow.com`, `djcylow-react.netlify.app` en het deploy-preview-patroon.
+Klaar voor PR, maar **dit is site-werk en wacht op Dave**. Twee dingen om op de deploy preview te
+bekijken:
 
-Test op de preview: vul het formulier in en kijk of de mail aankomt met de juiste naam.
+1. **De moodtekst van magenta is nieuwe publieke tekst.** Er stond niets, dus die is geschreven in
+   de stijl van de andere zeven: *geïrriteerd · gespannen · rusteloos · fel*.
+2. **De fallback is even zichtbaar tijdens de hydratie.** Hij toont dezelfde kaarten maar zonder
+   speler, en de volledige lijst in plaats van de eerste tien. Op een trage verbinding kan die flits
+   opvallen; dat is de prijs voor 77 links in de HTML.
+
+Wat hierna komt: issue #83 zet de vier overige gebruikers van de mix-imports op `all.ts` over.
 
