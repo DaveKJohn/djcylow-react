@@ -1,12 +1,12 @@
-## `fix/toegankelijkheid-focus-en-toetsenbord` changelog
+## `fix/honeypot-wordt-uitgelezen` changelog
 
 ### Branch title
 
-De site is met het toetsenbord te bedienen en de focus is weer zichtbaar
+De honeypot van het contactformulier vangt eindelijk iets
 
 ### Branch ID
 
-20260815-202018
+20260815-203842
 
 ### Branch type
 
@@ -14,65 +14,46 @@ fix
 
 ### What does the change on this branch bring to main?
 
-**De site had nergens een zichtbare focus.** De enige `:focus`-regel in de hele styles-boom stond op
-het contactformulier en deed `outline: none` met een vervanging die niet bestaat: `--primary-color`
-wordt nergens gedefinieerd, en een `var()` zonder fallback naar een onbekende property maakt de hele
-declaratie ongeldig. Netto was de browserring weg en kwam er niets voor in de plaats — op het enige
-conversiepunt van de site. Er staat nu een `:focus-visible` in de reset én op de invoervelden, in de
-accentkleur van de CTA-knop.
+Het contactformulier zette een honeypot neer — een veld dat met CSS verborgen is, zodat een mens het
+leeg laat en een bot het invult — maar `send-email.js` las dat veld **nooit** uit. De val stond er
+dus wel en ving niets.
 
-**Vier interactieve elementen waren met het toetsenbord onbereikbaar**, en één daarvan was erger dan
-de rest: de filterknop op `/luister` had wél `role="button"` en `tabIndex`, maar geen `onKeyDown` —
-dus hij kondigde zich als knop aan en deed vervolgens niets. Dat is slechter dan geen rol. Nu een
-echte `<button>`, net als de erlenmeyers (de kerninteractie van Music Mood Colours) en de
-video-starter.
+Dat is dezelfde vorm die deze repo vandaag al twee keer heeft gevonden: `EmailDisplay` bestond
+terwijl het adres er in platte tekst naast stond, en `cta-hover-effect` bestond terwijl het hover-
+effect nergens werd aangeroepen. Het onderdeel is er, de aansluiting ontbreekt, en niets wordt rood.
 
-**Twee dingen die het issue niet noemt en die bij het bouwen bleken.** De carousel-pijlen hadden hun
-`onClick` op de omhullende `div` en niet op de `<button>` erbinnen — tabben lukte dus wel, maar Enter
-deed niets: exact dezelfde vorm als de filterknop. En `#errorMessage` in de SCSS bleek **dode code**:
-geen enkele component draagt dat id, terwijl het blok wel een te lage contrastkleur bevatte. Een
-kleur repareren die niemand ziet is geen reparatie, dus het blok is weg.
+**Het antwoord is bewust een 200 en geen fout.** Een bot die een foutmelding krijgt, weet dat de val
+bestaat en laat het veld de volgende keer leeg; een bot die "verzonden" leest, probeert het niet nog
+eens. Er wordt niets verstuurd — de functie stopt daar.
 
-**De tijdlijn van de speler wijkt bewust af van het voorstel.** Het issue stelt `<input type="range">`
-voor; dat zou de tweelaagse weergave moeten vervangen, en die speler staat op élke mixkaart. Hij
-draagt nu `role="slider"` mét een volledige toetsafhandeling — pijltjes vijf seconden, Page Up/Down
-een minuut, Home en End naar begin en eind — plus de vereiste `aria-value*`. Het verschil met de
-filterknop is precies dat die handler er wél is.
+**De check staat vóór álle andere validatie**, en dat is een tweede keuze: zo krijgt een bot ook geen
+`vul het volgende in`-antwoord terug, waaruit hij zou kunnen afleiden welke velden er zijn. Hij kost
+bovendien geen call naar Google meer.
 
-Verder namen voor drie knoppen die alleen een SVG of teken bevatten, en beschrijvende alt-teksten in
-plaats van `alt="Logo"` (tweemaal op elke pagina) en `alt="verzoek"`.
+**Vijf tests**, waarvan er drie het gedrag rond de randen vastleggen: een leeg veld moet gewoon
+doorgaan (het formulier stuurt het altijd mee), een veld met alleen spaties ook, en een ingevuld veld
+mag zelfs zonder reCAPTCHA-token nog een 200 geven. Negatief getoetst door de conditie uit te
+schakelen: twee tests vielen om.
 
-**Uit #54 is het contactformulier meegenomen, en dat corrigeert mijn eigen werk van vanmiddag.** In
-PR #125 verving ik de inline `color: 'red'` door `#d93025`. Dat loste de repo-regel op maar niet het
-contrast: gemeten geeft die kleur hier **4,30:1**, en AA vraagt 4,5:1. De melding draagt nu
-`.feedback-message.error`, die al bestond en `--error-fg` op `--error-bg` gebruikt — gemeten
-**6,80:1**.
-
-**De moodkleuren uit #54 blijven staan.** Wit op rood (3,4:1) en op magenta (2,7:1) zakken door AA,
-maar dat raakt de merkkleuren en het issue merkt zelf aan dat dit een keuze van Dave is.
-
-**Dertien nieuwe tests**, en ze legden meteen twee regressies bloot in bestaande tests: de
-volumeschuif-test zocht op `role="slider"` zonder naam en vond nu ook de tijdlijn, en de
-sluitknop-test zocht op de tekst `✕` terwijl de knop nu `aria-label="Sluiten"` draagt. Beide zijn
-meegecorrigeerd — precies waarvoor die suite bestaat.
+Het veld wordt rechtstreeks gelezen en niet via `leesVeld`, want die toetst op `MAX_LENGTE[naam]` en
+die bestaat voor dit veld niet — dan zou de vergelijking tegen `undefined` lopen.
 
 ### Significance
 
 #### Tier 0
 
-Toegankelijkheid is de fout-soort die geen enkele poort ziet: alles ziet er met een muis normaal uit.
-De dertien tests leggen het gedrag vast, inclusief het patroon "een `role` die iets belooft moet ook
-een toets afhandelen". Suite van 165 naar 178.
+Een beveiliging die er wel stond maar niets deed, doet nu wat hij belooft. Met tests eromheen, want
+dit is precies het soort aansluiting dat stil weer kan verdwijnen.
 
 **Score:** 3
 
 #### Tier 1
 
-Wie de site met een toetsenbord of schermlezer gebruikt, kon het contactformulier niet volgen, de
-mixen niet doorspoelen, de filters niet openen en de kerninteractie van Music Mood Colours niet
-bedienen. Dat werkt nu allemaal, en de foutmelding van het formulier is bovendien leesbaar geworden.
+Het contactformulier is het enige conversiepad van de site, en de tweede laag botbescherming
+functioneerde niet. reCAPTCHA deed zijn werk al wel, dus dit is een verbetering en geen gat dat
+openstond.
 
-**Score:** 4
+**Score:** 3
 
 ### Pull Request
 

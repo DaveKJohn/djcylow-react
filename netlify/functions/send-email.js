@@ -120,6 +120,28 @@ exports.handler = async (event, _context, deps = {}) => {
             return { statusCode: 400, headers, body: JSON.stringify({ error: 'Ongeldige aanvraag.' }) };
         }
 
+        // DE HONEYPOT. `ContactForm.tsx` zet een veld `bot-field` neer dat met CSS verborgen is: een
+        // mens ziet het niet en laat het leeg, een bot die het formulier uitleest vult het in.
+        //
+        // Deze functie las dat veld tot 2026-08-15 NOOIT uit. De val stond er dus wel, maar ving
+        // niets -- dezelfde vorm als de EmailDisplay-component die bestond terwijl het adres er
+        // naast in platte tekst stond, en als de cta-hover-mixin die nergens werd aangeroepen. Het
+        // onderdeel is er, de aansluiting ontbreekt, en niets wordt rood.
+        //
+        // BEWUST EEN 200 EN GEEN FOUT. Een bot die een foutmelding krijgt, weet dat de val bestaat en
+        // laat het veld de volgende keer leeg; een bot die "verzonden" leest, probeert het niet nog
+        // eens. Er wordt niets verstuurd -- de functie stopt hier.
+        //
+        // Direct na het parsen en vóór de veldvalidatie: zo krijgt een bot ook geen "vul dit nog in"
+        // terug, wat hem zou vertellen welke velden er zijn. Het veld wordt hier rechtstreeks gelezen
+        // en niet via `leesVeld`, want die toetst op `MAX_LENGTE[naam]` en dat bestaat voor dit veld
+        // niet.
+        const honeypot = data['bot-field'];
+        if (typeof honeypot === 'string' && honeypot.trim() !== '') {
+            console.warn('Honeypot ingevuld -- aanvraag stil genegeerd.');
+            return { statusCode: 200, headers, body: JSON.stringify({ message: 'Bericht verzonden!' }) };
+        }
+
         // Het formulier verstuurt één veld `name`. Tot 2026-08-15 las deze functie firstName en
         // lastName, die nergens in src/ bestaan -- elke aanvraag kwam binnen als
         // "Boekingsaanvraag: undefined undefined".
