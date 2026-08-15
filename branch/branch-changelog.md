@@ -1,12 +1,12 @@
-## `fix/honeypot-wordt-uitgelezen` changelog
+## `fix/dode-componenten-ontmanteld` changelog
 
 ### Branch title
 
-De honeypot van het contactformulier vangt eindelijk iets
+De slapende componenten breken de build niet meer en de neptestimonials zijn weg
 
 ### Branch ID
 
-20260815-203842
+20260815-204342
 
 ### Branch type
 
@@ -14,46 +14,53 @@ fix
 
 ### What does the change on this branch bring to main?
 
-Het contactformulier zette een honeypot neer — een veld dat met CSS verborgen is, zodat een mens het
-leeg laat en een bot het invult — maar `send-email.js` las dat veld **nooit** uit. De val stond er
-dus wel en ving niets.
+Vijf componenten bestaan wel maar worden nergens gerenderd. Ze zijn **niet verwijderd** — twee staan
+uitgecommentarieerd in `page.tsx`, en dat leest als "later misschien weer". Dat is een beslissing over
+het product en niet over de code. Wat wél weg moest, zijn de drie manieren waarop die slapers schade
+aanrichten zodra iemand ze terugzet.
 
-Dat is dezelfde vorm die deze repo vandaag al twee keer heeft gevonden: `EmailDisplay` bestond
-terwijl het adres er in platte tekst naast stond, en `cta-hover-effect` bestond terwijl het hover-
-effect nergens werd aangeroepen. Het onderdeel is er, de aansluiting ontbreekt, en niets wordt rood.
+**De tijdbom.** `Diensten.tsx` importeerde `@/styles/components/home/diensten.scss`, en dat bestand
+heeft nooit bestaan — die map bevat alleen hero, meetTheDJ, promo, referenties en verzoeknummers. Het
+viel niet op omdat de bundler dode modules niet compileert, maar zet iemand `<Diensten />` terug, dan
+faalt `npm run build` met *Module not found*, in een repo zonder staging. De import is weggehaald en
+niet vervangen: de component leunt op de generieke layout-klassen en heeft nooit eigen styling gehad.
 
-**Het antwoord is bewust een 200 en geen fout.** Een bot die een foutmelding krijgt, weet dat de val
-bestaat en laat het veld de volgende keer leeg; een bot die "verzonden" leest, probeert het niet nog
-eens. Er wordt niets verstuurd — de functie stopt daar.
+**De neptestimonials.** `src/content/referenties.ts` bevatte vier plaatsvullers — "Klant Naam", "Tech
+Start-up", een citaat waarin letterlijk *"het formaat is exact 300 bij 300 pixels"* staat, en tags als
+"React" en "Next.js" die bij een webbureau horen en niet bij een DJ. De sectie aanzetten is één regel
+uncommenten, en dan staan er vier verzonnen klanten op een boekingssite. Het bestand levert nu een
+lege array, met de vorm en de waarschuwing in het type ernaast.
 
-**De check staat vóór álle andere validatie**, en dat is een tweede keuze: zo krijgt een bot ook geen
-`vul het volgende in`-antwoord terug, waaruit hij zou kunnen afleiden welke velden er zijn. Hij kost
-bovendien geen call naar Google meer.
+**Het derde ding, dat het issue als aanpalend noemt:** `ReadMore` scrolde hard naar `#promo`, terwijl
+`MeetTheDJ` en `Verzoeknummers` diezelfde component gebruiken — vanuit die twee sprong de pagina dus
+naar een heel andere sectie. Het doel is nu een prop met `promo` als standaard.
 
-**Vijf tests**, waarvan er drie het gedrag rond de randen vastleggen: een leeg veld moet gewoon
-doorgaan (het formulier stuurt het altijd mee), een veld met alleen spaties ook, en een ingevuld veld
-mag zelfs zonder reCAPTCHA-token nog een 200 geven. Negatief getoetst door de conditie uit te
-schakelen: twee tests vielen om.
+**Tien tests die de dode code juist wél lezen.** Dat is de kern: de bundler kijkt er niet naar, dus
+een fout blijft er onzichtbaar in zitten tot het moment waarop hij het duurst is. De suite controleert
+dat elke import in die vijf bestanden ergens naartoe wijst, dat de referenties leeg zijn, en dat het
+scrolldoel niet meer hardgecodeerd is. Negatief getoetst door de kapotte import terug te zetten: de
+test viel om, met een melding die uitlegt wat er bij het terugzetten zou gebeuren.
 
-Het veld wordt rechtstreeks gelezen en niet via `leesVeld`, want die toetst op `MAX_LENGTE[naam]` en
-die bestaat voor dit veld niet — dan zou de vergelijking tegen `undefined` lopen.
+Bij twee tests kijkt de assertie bewust alleen naar de **data** en niet naar de toelichting erboven:
+die noemt de oude plaatsvullers letterlijk, als waarschuwing, en dat is precies de uitleg die je wilt
+houden.
 
 ### Significance
 
 #### Tier 0
 
-Een beveiliging die er wel stond maar niets deed, doet nu wat hij belooft. Met tests eromheen, want
-dit is precies het soort aansluiting dat stil weer kan verdwijnen.
+Drie valstrikken die pas afgaan op het moment dat iemand een component terugzet — en dan een gebroken
+build, een verkeerde scroll of vier neptestimonials opleveren. Met tests die de dode code lezen, want
+niets anders doet dat.
 
-**Score:** 3
+**Score:** 4
 
 #### Tier 1
 
-Het contactformulier is het enige conversiepad van de site, en de tweede laag botbescherming
-functioneerde niet. reCAPTCHA deed zijn werk al wel, dus dit is een verbetering en geen gat dat
-openstond.
+Vandaag verandert er niets aan de site: alle drie zaten in code die niet draait. De waarde zit
+volledig in wat er níet meer misgaat op het moment dat de Referenties- of Diensten-sectie terugkomt.
 
-**Score:** 3
+**Score:** 2
 
 ### Pull Request
 

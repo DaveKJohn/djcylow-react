@@ -7,9 +7,19 @@ interface ReadMoreProps {
     teaser: React.ReactNode;
     hiddenContent: React.ReactNode;
     onToggle?: (isOpen: boolean) => void;
+    /**
+     * Het id waar na het inklappen naartoe wordt gescrold. Standaard `promo`, want dat is de enige
+     * sectie die deze component vandaag gebruikt.
+     *
+     * Waarom dit een prop is geworden: het id stond hardgecodeerd, terwijl `MeetTheDJ` en
+     * `Verzoeknummers` deze component óók gebruiken. Vanuit die twee sprong de pagina dus naar een
+     * heel andere sectie. Dat is nu onschadelijk juist omdát die twee niet gerenderd worden -- en
+     * precies daarom breekt het zodra er één terugkomt, zonder dat iets waarschuwt.
+     */
+    scrollDoelId?: string;
 }
 
-export default function ReadMore({ teaser, hiddenContent, onToggle }: ReadMoreProps) {
+export default function ReadMore({ teaser, hiddenContent, onToggle, scrollDoelId = "promo" }: ReadMoreProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleReadMore = () => {
@@ -19,7 +29,7 @@ export default function ReadMore({ teaser, hiddenContent, onToggle }: ReadMorePr
 
         if (!nextState) {
             setTimeout(() => {
-                document.getElementById("promo")?.scrollIntoView({
+                document.getElementById(scrollDoelId)?.scrollIntoView({
                     behavior: "smooth",
                     block: "center",
                 });
