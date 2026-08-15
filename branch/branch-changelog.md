@@ -44,8 +44,28 @@ frame, en de site sluit er twee in.
 
 **Onderweg bleek er iets dat in geen enkel issue staat:** er zit **Cloudflare** vóór Netlify, en
 `www.djcylow.com` doet een 301 naar de apex. De `strict-transport-security`-header komt daar
-vandaan en niet uit dit bestand — dat is de reden dat het HSTS-voorstel uit #52 hier níet is
-uitgevoerd: die header aanpassen in `netlify.toml` raakt niet wat de bezoeker krijgt.
+vandaan en niet uit dit bestand — gemeten levert Netlify zelf al
+`max-age=31536000; includeSubDomains; preload`. Dat is de reden dat het HSTS-voorstel uit #52 hier
+níet is uitgevoerd: die header aanpassen in `netlify.toml` raakt niet wat de bezoeker krijgt.
+
+**En de eerste poging leverde de twee nieuwe headers helemaal niet uit — stil.** De deploy preview
+gaf `x-frame-options`, `x-content-type-options` en `referrer-policy` netjes terug, maar de CSP en de
+Permissions-Policy niet. Geen foutmelding, geen gefaalde build, en Netlify's eigen "Header
+rules"-check bleef gewoon op `pass` staan.
+
+Het verschil tussen wat wél en niet doorkwam bleek **de comments**: de nieuwe headers stonden met
+uitleg en lege regels ertussen binnen `[headers.values]`. Na het verplaatsen van precies die comments
+naar bóven het blok kwamen alle vijf door. Dat is met een tijdelijke `X-Csp-Test`-header hard gemaakt,
+zodat een structuurprobleem te onderscheiden viel van een waardeprobleem; die testheader is daarna
+weer verwijderd en de eindmeting bevestigt alle vijf.
+
+Die val staat nu als waarschuwing in het bestand zelf, want hij faalt op de gevaarlijkste manier: je
+denkt dat er twee beveiligingsheaders staan, en er staat niets. Zonder deze meting was dat precies zo
+gemerged.
+
+**Wat de deploy preview verder bewijst:** alle vier de gemeten routes (`/`, `/luister`,
+`/musicmoodcolours`, `/diensten`) geven 200 met HTML terwijl `publish = "out"` actief is. Daarmee is
+de publicatiemap niet beredeneerd maar aangetoond.
 
 ### Significance
 

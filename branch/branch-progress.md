@@ -16,29 +16,44 @@
 - [x] De twee documentatieregels meegenomen die de build naar `.next` lieten gaan (`CLAUDE.md:293` en
       `README.md:69`), plus het `netlify.toml`-citaat in de README
 - [x] Poort groen
+- [x] De PR geopend als **meetinstrument** en de preview gemeten: `publish = "out"` levert 200 met
+      HTML op `/`, `/luister`, `/musicmoodcolours` en `/diensten`. Daarmee is de publicatiemap
+      aangetoond in plaats van beredeneerd
+- [x] Bij diezelfde meting ontdekt dat de **twee nieuwe headers stil niet werden uitgeleverd** terwijl
+      de drie bestaande dat wel deden — zonder foutmelding, met Netlify's "Header rules"-check op
+      `pass`
+- [x] De oorzaak geïsoleerd met een tijdelijke `X-Csp-Test`-header, zodat een structuurprobleem te
+      onderscheiden viel van een waardeprobleem: het waren de **comments binnen `[headers.values]`**
+- [x] De comments naar bóven het blok verplaatst, de testheader weer verwijderd, en in de eindmeting
+      bevestigd dat alle vijf headers doorkomen
+- [x] Die val als waarschuwing in `netlify.toml` gezet — hij faalt stil, en dat is precies waarom hij
+      opgeschreven hoort te worden
 - [~] HSTS `includeSubDomains` toevoegen — **niet gedaan**, en dat is een correctie op #52: die header
-      komt niet uit `netlify.toml` maar van Cloudflare/Netlify zelf. Hem hier zetten verandert niet
-      wat de bezoeker krijgt. Dat hoort thuis waar hij vandaan komt
+      komt niet uit `netlify.toml`. Gemeten levert Netlify zelf al
+      `max-age=31536000; includeSubDomains; preload`
 
 ### Where I left off
 
-De poort staat groen, maar deze branch is **anders dan de andere geparkeerde branches**: hier is de
-deploy preview geen extraatje maar het bewijsmiddel. Er is geen staging, en of `out` de juiste
-publicatiemap is valt alleen te toetsen door Netlify ermee te laten bouwen.
+Af en **gemeten op een draaiende deploy**, wat deze branch onderscheidt van de andere geparkeerde
+branches: hier was de preview geen extraatje maar het bewijsmiddel. Er is geen staging, en of `out`
+de juiste publicatiemap is valt alleen te toetsen door Netlify ermee te laten bouwen.
 
-**Daarom is de vraag aan Dave hier anders.** Bij de andere branches is het "kijk of het er goed
-uitziet". Hier is het:
+De PR staat open ([#118](https://github.com/DaveKJohn/djcylow-react/pull/118)) en is **niet gemerged**
+— dat blijft Dave's beslissing, want dit is het bestand dat de safety-rules beschermen.
 
-1. Mag de PR open, zodat de preview bouwt? (Openen is geen mergen; er gaat niets live.)
-2. Werkt die preview — laadt de homepage, en werken /luister en een mixpagina? Zo ja, dan is `out`
-   bewezen juist. Zo nee, dan is `.next` de juiste waarde en hoort het comment in `netlify.toml`
-   omgedraaid te worden.
+**Wat de preview bewijst:**
 
-Pas daarna is de merge een geïnformeerde beslissing in plaats van een gok.
+| meting | uitkomst |
+|---|---|
+| `/`, `/luister`, `/musicmoodcolours`, `/diensten` met `publish = "out"` | alle vier **200** met HTML |
+| `Content-Security-Policy-Report-Only` | aanwezig |
+| `Permissions-Policy` | aanwezig |
+| de drie bestaande headers | onveranderd aanwezig |
 
-**Wat je in de preview ook kunt zien:** open de browserconsole en kijk naar de
-`Content-Security-Policy-Report-Only`-meldingen. Die vertellen precies wat er zou breken als de policy
-blokkerend wordt — dat is de meting waarvoor `Report-Only` bestaat, en de volgende stap zou zijn hem
-op basis daarvan om te zetten.
+**Wat er nog te doen is en waarom het niet hier kan.** De CSP staat op `Report-Only`, dus hij meet
+alleen. Open de preview in een browser, kijk in de console naar de CSP-meldingen, en zet hem op basis
+daarvan om naar de blokkerende `Content-Security-Policy`. Dat kan pas als er echt verkeer langs is
+geweest — GTM laadt bijvoorbeeld pas na scroll, muisbeweging of zes seconden, dus een `curl` ziet
+nooit wat die container werkelijk binnenhaalt.
 
 Sluit #52 en #65 bij een merge.
