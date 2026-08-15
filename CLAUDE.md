@@ -121,9 +121,10 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > niets verandert, en daar zijn twee redenen voor die géén van de vier hierboven wegneemt. De eerste:
 > geen enkele poort kan bewijzen dat een pagina er **góéd uitziet** — de testsuite dekt de mix-**data**,
 > niet de vormgeving. De tweede: de ruleset heeft `bypass_actors` voor Admin en Maintain, en dat **moet**
-> zo, want anders blokkeert hij `cut-release`'s eigen push naar `main`. Voor wie als admin werkt is de
-> required check dus nog steeds adviserend; wat hij hard tegenhoudt is force-push, het verwijderen van
-> `main`, en merges door niet-admins.
+> zo, want anders blokkeert hij `cut-release`'s eigen push naar `main`. Die bypass staat op
+> `bypass_mode: "always"` en zet daarmee de **hele** ruleset opzij — dus ook `deletion` en
+> `non_fast_forward`. Voor wie als admin werkt houdt hij dus **niets** tegen; hij beschermt alleen
+> tegen collaborators met minder dan Maintain, en die zijn er niet.
 >
 > **De herweging van deze grens is daarmee scherper geworden maar nog niet gemaakt, en die is Dave's
 > beslissing.** Wat er sinds 2026-08-13 bij is gekomen dat helpt: elke PR krijgt een **Netlify deploy
@@ -741,8 +742,22 @@ Repo-eigen scripts:
 - **De ruleset `main-ci-gate`** — geen bestand in de repo maar een repo-setting, van vorm gelijk aan die
   van de bron: target `~DEFAULT_BRANCH`, regels `deletion` + `non_fast_forward` + de required check
   `poort`, met **bypass voor Admin en Maintain**. Die bypass is geen slordigheid: zonder hem blokkeert de
-  ruleset `cut-release`'s eigen push naar `main`. Gevolg: voor een admin is de check adviserend en houdt de
-  ruleset vooral force-push, het verwijderen van `main` en merges door niet-admins tegen.
+  ruleset `cut-release`'s eigen push naar `main`.
+  > **De bypass dekt alle drie de regels, niet alleen de required check.** `bypass_mode` staat op
+  > `"always"` voor RepositoryRole 4 en 5, en GitHub kent geen bypass per regel — dus voor een admin
+  > staat óók `deletion` en `non_fast_forward` opzij. Geverifieerd via de API (ruleset 20818953).
+  > **Hier stond tot 2026-08-15 dat de ruleset "vooral force-push, het verwijderen van `main` en
+  > merges door niet-admins" tegenhoudt.** De eerste twee zijn onwaar voor de enige persoon die hier
+  > werkt, en dat is precies de verkeerde kant om je in te vergissen: wie dit las, kon aannemen dat
+  > een force-push server-side wordt geweigerd en de lokale denylist als tweede lijn beschouwen in
+  > plaats van als de enige — en die denylist geldt alleen binnen Claude Code, niet in een terminal.
+  > Wil je de oorspronkelijke bewering wél waarmaken, dan vraagt dat een **tweede ruleset zonder
+  > bypass** met alleen `deletion` + `non_fast_forward`. Dat is een settingswijziging en dus Dave's
+  > beslissing; zie issue #91.
+  >
+  > Datzelfde issue stelt een tweede wijziging voor: `strict_required_status_checks_policy` staat op
+  > `false`, dus twee PR's die los groen zijn kunnen na elkaar mergen zonder dat `poort` de combinatie
+  > ooit heeft gezien. Ook dat is Dave's beslissing.
 - **`check-script-contract.ps1`** — bewaakt dat `repo-config.ps1` en `branch-info.ps1` de functies
   leveren die de gedeelde scripts verwachten. Woont in de plugin (`scripts/sync/` daar), niet in deze
   repo, en draait bij het starten van een sessie via de `script-contract-sessioncheck`-hook.
@@ -846,10 +861,11 @@ De grondwet hierboven, hier concreet ingevuld:
   beide verdwijnt door meer poorten. **Eén:** de suite dekt de mix-**data**, en geen enkele poort kan
   bewijzen dat een pagina er góéd uitziet — dat is de kern van de uitzondering en die is niet
   automatiseerbaar. **Twee:** de ruleset heeft `bypass_actors` voor Admin en Maintain, en dat moet zo,
-  anders blokkeert hij `cut-release`'s eigen push naar `main`. Voor wie als admin werkt is de required
-  check dus adviserend; wat hij hard tegenhoudt is force-push, het verwijderen van `main`, en merges door
-  niet-admins. Daarom blijft álles in `src/`, `public/` en `src/data/mixes/` op Dave's woord wachten, ook
-  een refactor die visueel niets verandert.
+  anders blokkeert hij `cut-release`'s eigen push naar `main`. Die bypass staat op `always` en zet de
+  **hele** ruleset opzij, niet alleen de required check — dus voor wie als admin werkt houdt hij niets
+  hard tegen, ook geen force-push en ook niet het verwijderen van `main`. Daarom blijft álles in
+  `src/`, `public/` en `src/data/mixes/` op Dave's woord wachten, ook een refactor die visueel niets
+  verandert: de menselijke blik is hier niet de tweede lijn maar de enige.
   > **Wat er wél is bijgekomen om het kijken goedkoper te maken:** elke PR krijgt een **Netlify deploy
   > preview** op `deploy-preview-<nummer>--djcylow-react.netlify.app`. Het staat niet in `netlify.toml`
   > (die heeft geen context-config) — het is Netlify's projectdefault, en het is op 2026-08-13 gemeten

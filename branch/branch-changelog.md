@@ -1,52 +1,70 @@
-## `config/dode-dependencies` changelog
+## `docs/readme-en-ruleset-kloppend` changelog
 
 ### Branch title
 
-Twee ongebruikte dependencies uit de build gehaald
+De README en de ruleset-bewering beschrijven weer wat er werkelijk staat
 
 ### Branch ID
 
-20260815-171604
+20260815-172021
 
 ### Branch type
 
-config
+docs
 
 ### What does the change on this branch bring to main?
 
-`gray-matter` en `@next/third-parties` stonden in `dependencies` — niet in `dev` — en werden nergens
-geïmporteerd. Gemeten met een grep over `src/`, `netlify/`, `scripts/` en `tests/`: nul treffers voor
-allebei. Ze reisden dus mee in elke `npm ci` en elke Netlify-build zonder ooit iets te doen. Uit de
-lockfile verdwijnen er daarmee 129 regels.
+Twee documenten die iets anders beweerden dan er staat, kloppen weer.
 
-Vóór het verwijderen is met `npm ls` gecontroleerd dat geen van beide transitief nodig is: ze stonden
-alleen als directe dependency in de boom. De poort daarna is groen en de build levert nog steeds
-**89** statische pagina's — dat laatste is precies de wacht die gisteren is gebouwd, en dit is de
-eerste keer dat hij iets bewijst in plaats van alleen groen te zijn.
+**De `README.md` liep op zes punten uit de pas** (het issue noemde er zeven; punt 3 over
+`tailwind.config` bleek al gerepareerd bij de Tailwind-verwijdering, dus dat is geverifieerd en niet
+opnieuw gedaan):
 
-**`react-google-reviews` blijft staan**, en dat is een bewuste keuze en geen omissie. Dat pakket heeft
-wél twee treffers, allebei in `src/components/home/GoogleReviews.tsx` — een component die in
-`page.tsx` is uitgecommentarieerd maar nog bestaat. De dependency verwijderen zou die component
-breken. Hij hoort thuis bij de opruiming van de dode componenten (#59), die `src/` raakt en dus op
-Dave's woord wacht.
+- **30 mix-JSON-bestanden** terwijl het er 15 zijn — het document sprak zichzelf twee regels verderop
+  tegen, want de eigen kleurentabel somt precies 15 combinaties op
+- **`genre` is "either `EDM` or `Drum & Bass`"** terwijl géén enkele mix `genre: "EDM"` draagt.
+  Gemeten over 77 live mixen: Drum & Bass 46, House 18, Nu-Disco 10, Techno 3. Die waarde overleeft
+  alleen nog binnen oudere `permalink`-bestandsnamen, en dat staat er nu bij — anders lijkt de
+  correctie zelf weer onjuist zodra iemand een permalink openslaat
+- **Een homepage met zeven secties** terwijl er drie renderen. De vijf andere componenten bestaan nog
+  wel; dat ze er staan zonder te renderen is nu expliciet, met de opmerking dat hun verwijdering apart
+  loopt omdat het `src/` raakt
+- **Het slugformaat** stond er als iets dat `generateStaticParams` construeert. Dat doet het niet: de
+  slug komt uit `permalink`. Het gedocumenteerde patroon miste bovendien het BPM-segment, dus het zou
+  voor een nieuwe mix de verkeerde URL opleveren. Nu beschreven als afleiding, met de echte bewerking
+  erbij en een verwijzing naar de tests die het afdwingen
+- **`X-Frame-Options: DENY`** terwijl `netlify.toml` `SAMEORIGIN` zet. De **doc** is naar de config
+  bewogen en niet andersom: dat bestand is beschermd, en een live security-header aanscherpen is een
+  bewuste wijziging, geen documentatiereparatie
+- **Facebook ontbrak** in de opsomming van sociale links in de footer
 
-**`yaml` blijft ook staan**, ook al is dat óók nul treffers. Dat is geen dode dependency maar een
-expliciet gedeclareerde optionele peer van vite, en `ci.yml` legt in twaalf regels uit waarom: zonder
-die declaratie resolvet de boom per platform anders en faalde `npm ci` op Linux terwijl hij lokaal
-slaagde.
+**En de bewering over de ruleset klopte niet, op vier plekken.** `CLAUDE.md` stelde dat
+`main-ci-gate` "force-push, het verwijderen van `main` en merges door niet-admins" hard tegenhoudt.
+Geverifieerd via de API (ruleset 20818953): `bypass_mode` staat op `"always"` voor Admin en Maintain,
+en GitHub kent geen bypass per regel — dus de **hele** ruleset staat opzij, inclusief `deletion` en
+`non_fast_forward`. Voor de enige persoon die hier werkt houdt hij dus niets tegen.
+
+Dat is precies de verkeerde kant om je in te vergissen: wie het las kon aannemen dat een force-push
+server-side wordt geweigerd, en de lokale denylist als tweede lijn beschouwen in plaats van als de
+enige — terwijl die denylist alleen binnen Claude Code geldt en niet in een terminal. De vierde plek
+is de lens van Chris, die bij **elke sessie** meelaadt en waar die zin het argument onder de PR-grens
+draagt. Dat argument blijft staan en wordt door de correctie sterker: de menselijke blik is hier niet
+de tweede lijn maar de enige.
 
 ### Significance
 
 #### Tier 0
 
-Twee pakketten minder in elke install en elke build. Klein in tijd, maar het houdt de
-dependency-boom eerlijk: wat erin staat, wordt gebruikt.
+De README is wat iemand als eerste leest om deze repo te begrijpen, en hij beschreef een genre-indeling
+die niet bestaat, een slugafleiding die andersom werkt en een homepage die er niet zo uitziet. De
+ruleset-correctie raakt bovendien het document dat elke sessie meelaadt, en ging over hoeveel
+bescherming er werkelijk is.
 
-**Score:** 2
+**Score:** 3
 
 #### Tier 1
 
-De site verandert niet — zelfde 89 pagina's, zelfde uitvoer. Alleen het bouwproces wordt iets lichter.
+Documentatie over de repo; de site verandert niet.
 
 **Score:** N/A
 

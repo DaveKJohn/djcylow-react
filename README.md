@@ -127,7 +127,7 @@ djcylow-react/
 │   │   └── main.scss           # Central SCSS entry point
 │   │
 │   ├── data/
-│   │   └── mixes/              # 30 JSON files (15 color/intensity combos)
+│   │   └── mixes/              # 15 JSON files, one per color/intensity combo
 │   │
 │   ├── content/                # TypeScript content objects (text, images)
 │   │   ├── home.ts
@@ -168,7 +168,7 @@ All routes are statically generated at build time.
 
 | URL | File | Notes |
 |---|---|---|
-| `/` | `app/page.tsx` | Home (Hero, Promo, MeetTheDJ, Diensten, Referenties, Verzoeknummers, GoogleReviews) |
+| `/` | `app/page.tsx` | Home (Hero, Promo, ContactForm) |
 | `/diensten` | `app/diensten/page.tsx` | Services landing page |
 | `/diensten/bruiloft-dj` | `app/diensten/bruiloft-dj/page.tsx` | Wedding DJ |
 | `/diensten/bedrijfsfeest-dj` | `app/diensten/bedrijfsfeest-dj/page.tsx` | Corporate event DJ |
@@ -177,10 +177,22 @@ All routes are statically generated at build time.
 | `/luister/mix/[slug]` | `app/luister/mix/[slug]/page.tsx` | Individual mix detail + player |
 | `/musicmoodcolours` | `app/musicmoodcolours/page.tsx` | Interactive music theory page |
 
-**Mix slug format:** `[color]-[power]-[frequency]-[genre]-[YYYYMMDD]`
-Example: `blue-full-f-DNB-20240408`
+**Mix slug: derived from `permalink`, not constructed.** The slug is whatever `permalink` says, with
+the directory and the `.html` suffix stripped and the rest lowercased — see `mixSlug()` in
+`src/data/mixes/all.ts`. Do not build a slug from the other fields: an entry whose `permalink` is
+missing or misspelled yields no page at all, and the build will not complain.
 
-The `generateStaticParams()` in `mix/[slug]/page.tsx` reads all mix JSON files and pre-generates every detail page at build time.
+```
+permalink : luister/mix/red-light-m-EDM-128BPM-20260615.html
+slug      : red-light-m-edm-128bpm-20260615
+```
+
+In practice the filename follows `[color]-[power]-[frequency]-[genre]-[bpm]-[YYYYMMDD]`, but older
+entries omit the BPM segment. That is a description of what happens to be there, not a rule the code
+enforces. Note that the `genre` segment carries historical values such as `EDM` that the `genre`
+*field* never uses.
+
+The `generateStaticParams()` in `mix/[slug]/page.tsx` reads all mix JSON files and pre-generates every detail page at build time. `tests/mix-data.test.ts` asserts that every live mix has a non-empty `permalink` ending in `.html`, and that the derived slugs are unique.
 
 ---
 
@@ -192,25 +204,27 @@ The `generateStaticParams()` in `mix/[slug]/page.tsx` reads all mix JSON files a
 |---|---|
 | `Hero.tsx` | Full-width hero with title, subtitle, desktop/mobile images |
 | `Promo.tsx` | Embedded YouTube promo video with `<ReadMore>` expansion for bio |
-| `Diensten.tsx` | Services showcase (3 cards) linking to booking pages |
-| `MeetTheDJ.tsx` | DJ biography/intro section with portrait |
-| `Referenties.tsx` | Client testimonials in a `<Carousel>` |
-| `Verzoeknummers.tsx` | Song request info with image |
-| `GoogleReviews.tsx` | Embedded Google reviews widget |
+
+> **Only `Hero` and `Promo` are rendered.** The home page also mounts `ContactForm` from
+> `src/components/common/`. Five further components live in this directory but are not on the page:
+> `Diensten.tsx`, `MeetTheDJ.tsx`, `Referenties.tsx`, `Verzoeknummers.tsx` and `GoogleReviews.tsx` —
+> the last two are commented out in `page.tsx`, the rest are not imported at all. This table listed
+> all seven as if they shipped until 2026-08-15. Their removal is tracked separately, because
+> deleting files under `src/` is a change that has to be looked at rather than reasoned about.
 
 ### Layout Components (`src/components/layout/`)
 
 | Component | Purpose |
 |---|---|
 | `Navigation.tsx` | Top nav: logo, menu links, "Boek nu!" CTA button; uses `<MobileContent>` for hamburger menu |
-| `Footer.tsx` | Logo + social links (Instagram, LinkedIn) |
+| `Footer.tsx` | Logo + social links (Instagram, LinkedIn, Facebook) |
 
 ### Luister (Listen) Components (`src/components/luister/`)
 
 | Component | Purpose |
 |---|---|
 | `Playlist.tsx` | Mix grid with `useMemo` filtering, load-more pagination, and `<AudioPlayer>` per card. `activeId` tracks which mix is playing. |
-| `Filter.tsx` | Filter UI: color mood (8 colors), genre (EDM / Drum & Bass), intensity (Full / Light) |
+| `Filter.tsx` | Filter UI: color mood (8 colors), genre (House / Techno / Drum & Bass / Nu-Disco), intensity (Full / Light) |
 
 ### UI Components (`src/components/ui/`)
 
@@ -308,20 +322,29 @@ Each JSON file is an **array** of mix objects:
 ```
 
 **Field notes:**
-- `id` — date string `YYYYMMDD`, also used to derive the slug
+- `id` — date string `YYYYMMDD`. Used for sorting and as the entry's key; **not** for the slug
 - `featured` — if `true`, shown prominently in the playlist grid
 - `ignore` — if `true`, excluded from the public playlist
-- `genre` — either `"EDM"` or `"Drum & Bass"` — used by the Filter component
+- `genre` — one of `"House"`, `"Techno"`, `"Drum & Bass"` or `"Nu-Disco"` — must be the family of
+  `subgenre`, or the mix drops out of its own filter. Measured over the 77 live mixes: Drum & Bass 46,
+  House 18, Nu-Disco 10, Techno 3
 - `power` — either `"Full"` or `"Light"` — the intensity dimension of Music Mood Colours
 - `audioSrc` — hosted on **Cloudflare R2** CDN bucket
 - `tracklist` — structured array of `{ time, track }` objects; displayed on mix detail page
-- `permalink` — legacy `.html` URL format (kept for backwards compatibility / reference)
+- `permalink` — **the source of the URL slug.** Not a legacy field: `Playlist`, the mix detail page
+  and `sitemap.ts` all derive the route from it. An entry without a valid `permalink` gets no page
 
-**Slug construction** (done in `generateStaticParams`):
+> **Two of these read the opposite way until 2026-08-15.** `genre` was documented as *"either `EDM` or
+> `Drum & Bass`"* while no mix has ever carried `genre: "EDM"` — that value only survives inside older
+> `permalink` filenames. And `permalink` was written off as legacy while it is the one field the whole
+> routing hangs on. The full field spec lives in [`src/data/mixes/README.md`](src/data/mixes/README.md);
+> where the two disagree, that one is closer to the data.
+
+**Slug derivation** (`mixSlug()` in `src/data/mixes/all.ts`):
 ```
-[color]-[power (lowercase)]-[frequency without parens]-[genre abbreviation]-[id]
+permalink -> strip directory -> strip ".html" -> lowercase -> trim
 ```
-Example: `blue-full-f-DNB-20240408`
+Example: `luister/mix/blue-full-f-DnB-176BPM-20240408.html` → `blue-full-f-dnb-176bpm-20240408`
 
 ---
 
@@ -476,9 +499,14 @@ Config: `netlify.toml`
 ```
 
 Security headers set in `netlify.toml`:
-- `X-Frame-Options: DENY`
+- `X-Frame-Options: SAMEORIGIN`
 - `X-Content-Type-Options: nosniff`
 - `Referrer-Policy: strict-origin-when-cross-origin`
+
+> This listed `DENY` until 2026-08-15 while the config has always said `SAMEORIGIN`. The doc was
+> corrected to match the config and not the other way round: `netlify.toml` is a protected file here,
+> and tightening a live security header is a change to make deliberately rather than to slip in as a
+> documentation fix.
 
 **Why static export?** `next.config.ts` sets `output: 'export'` and `images: { unoptimized: true }`. This means:
 - No server-side rendering at request time
