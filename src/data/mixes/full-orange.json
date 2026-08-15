@@ -20,9 +20,9 @@
     "dag": "07",
     "permalink": "luister/mix/orange-full-m-DNB-20260507.html",
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20260507_Audio_V1%20(Vol.%209).mp3",
-    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20260507_large.webp",
+    "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20260507_small.webp",
     "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20260507_large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20260507_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -684,7 +684,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20230705_Audio_V1%20(Vol.%206).mp3",
     "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20230705_small.webp",
     "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20230705_large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20230705_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -913,7 +913,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20230130_Audio_V3%20(Vol.%205).mp3",
     "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20230130_small.webp",
     "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20230130_large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20230130_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -1122,7 +1122,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20221003_Audio_V1%20(Vol.%204).mp3",
     "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20221003_small.webp",
     "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20221003_large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20221003_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -1323,7 +1323,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20220509_Audio_V1%20(Vol.%203).mp3",
     "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20220509_small.webp",
     "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20220509_large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20220509_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -1520,7 +1520,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_m_EDM_176BPM_20211105_Audio_V2%20(Vol.%202).mp3",
     "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20211105_small.webp",
     "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20211105_large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20211105_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -1729,7 +1729,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/orange/Orange_Full_f_EDM_176BPM_20210621_Audio_V4%20(Vol.%201).mp3",
     "image_wide_small": "/images/full/orange/wide/image_full_orange_wide_20210621_small.webp",
     "image_wide_large": "/images/full/orange/wide/image_full_orange_wide_20210621_large.webp",
-    "image_square": "/images/full/orange/square/image_full_orange_20210621_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
