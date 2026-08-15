@@ -1,12 +1,12 @@
-## `fix/jsonld-escaping` changelog
+## `fix/scroll-lock-met-cleanup` changelog
 
 ### Branch title
 
-De JSON-LD kan niet meer uit zijn script-tag breken
+De scroll-lock laat de pagina niet meer onscrollbaar achter
 
 ### Branch ID
 
-20260815-200955
+20260815-201522
 
 ### Branch type
 
@@ -14,48 +14,46 @@ fix
 
 ### What does the change on this branch bring to main?
 
-De JSON-LD op de mixdetailpagina werd met een kale `JSON.stringify` in een
-`<script type="application/ld+json">` gezet. Die escapet `</script>` niet, dus een mix-titel of
--beschrijving met die reeks erin sluit de script-tag daar, en de browser leest de rest van de JSON als
-HTML.
+`MobileContent` schreef rechtstreeks naar `document.body.style.overflow` en gaf **geen cleanup**
+terug. Op `/luister` leven er twee instanties naast elkaar — de nav-drawer en de filter-drawer — en
+dat gaf twee manieren om de pagina onbruikbaar of onbeschermd achter te laten:
 
-**Twee plekken, niet één.** Het issue noemt alleen de `MusicPlaylist`-injectie; de `BreadcrumbList`
-eronder had exact dezelfde vorm. Beide lopen nu via één `jsonLdScript()`, die `<` vervangt door
-`<` — binnen een JSON-string dezelfde tekst, maar de HTML-parser ziet geen tag meer.
+- **Unmount met de drawer open.** Browser-back weg van `/luister` met het filterpaneel open liet
+  `overflow: hidden` staan, en dan was de **volgende** pagina niet meer scrollbaar.
+- **De ene instantie wiste de lock van de andere.** Het volstond dat de nav-instantie zijn effect
+  opnieuw draaide — een oriëntatiewissel klapt `isMobile` voor beide om — om met `isOpen === false`
+  de lock te wissen terwijl de filterdrawer nog openstond.
 
-**Waarom dit de moeite is terwijl de data uit de repo zelf komt.** Die grens is zwakker dan hij oogt:
-`scripts/add-mix.js` laat de `description`-velden door een taalmodel genereren en schrijft die
-rechtstreeks het datamodel in. Modeluitvoer is geen handgeschreven code, en een beschrijving is precies
-het vrije tekstveld waar zo'n reeks in belandt.
+De lock is nu **geteld** in plaats van geschreven: hij gaat aan bij de eerste die hem neemt en pas uit
+bij de laatste die hem teruggeeft, met een cleanup uit het effect. De teller staat op module-scope, en
+dat is precies het punt — de twee instanties moeten dezelfde teller delen.
 
-**Er staan zeven tests op**, en die bewaken twee dingen tegelijk: dat de bewerking doet wat hij moet
-doen (een sluitende script-tag overleeft niet, gewone inhoud verandert niet, en het resultaat parseert
-terug naar exact hetzelfde object), én dat de pagina hem daadwerkelijk toepast. Die tweede helft is de
-belangrijkste: zonder een test op de broncode komt een refactor die terugvalt op `JSON.stringify` er
-ongemerkt langs. Negatief getoetst door precies die terugval te maken — twee tests vielen om.
+**Een derde ding dat het issue niet noemt en dat bij het bouwen bleek:** de oude code zette `overflow`
+bij het vrijgeven hard op `''`. Dat wiste ook een waarde die er al stond, en `base/_reset.scss` zet
+`body { overflow-y: auto }`. De vorige waarde wordt nu bewaard en teruggezet.
 
-Gemeten in de gebouwde HTML: beide blokken parseren nog steeds als geldige JSON, met `@type`
-`MusicPlaylist` en `BreadcrumbList`. Nul escapes, want in de huidige data staat geen `<` — wat precies
-laat zien dat gewone inhoud onaangeroerd blijft.
+**Zes tests**, waarvan er vier precies de faalscenario's uit het issue reproduceren. Negatief getoetst
+door de oude implementatie terug te zetten: **vier van de zes vielen om**, inclusief beide gemelde
+scenario's en het herstel van de bestaande waarde.
 
-De andere `dangerouslySetInnerHTML`-plekken zijn niet aangeraakt: die lezen uit `src/content/*.ts`,
-dat met de hand geschreven is.
+De cleanup draagt een guard tegen dubbel vrijgeven, want React kan een cleanup in StrictMode twee keer
+aanroepen — dan zou de teller onder nul zakken en de lock te vroeg loslaten.
 
 ### Significance
 
 #### Tier 0
 
-Een injectiepad dicht dat vandaag niet exploiteerbaar is maar wel op een vertrouwensgrens ligt die een
-taalmodel passeert. Plus een test die bewaakt dat de reparatie blijft staan.
+Een globale bijwerking die twee componenten deelden loopt nu via één geteld mechanisme, met tests die
+beide faalpaden vastleggen. De suite gaat van 152 naar 165.
 
 **Score:** 3
 
 #### Tier 1
 
-Voorkomt dat een mixpagina kapotgaat of ongewenste HTML uitvoert bij een ongelukkige beschrijving. Er
-is vandaag niets mis en de pagina's zien er hetzelfde uit.
+Dit is een bug die de bezoeker écht kan raken: een pagina die na browser-back niet meer scrollt is
+onbruikbaar, en er is geen foutmelding die verraadt waarom. Op mobiel, waar de drawers juist bestaan.
 
-**Score:** 2
+**Score:** 4
 
 ### Pull Request
 
