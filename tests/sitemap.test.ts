@@ -24,8 +24,18 @@ import { describe, expect, it } from 'vitest';
 import sitemap from '@/app/sitemap';
 import robots from '@/app/robots';
 import { liveMixes, mixSlug } from '@/data/mixes/all';
+import { SITE_URL } from '@/constants/site';
 
-const BASE_URL = 'https://www.djcylow.com';
+// Deze suite had tot 2026-08-15 zijn EIGEN kopie van de basis-URL, en dat was precies het probleem
+// dat `SITE_URL` oplost: de waarde stond op twaalf plekken, waarvan elf in de app en één hier.
+//
+// Dat hij de constante nu importeert betekent dat hij over het DOMEIN niets meer bewijst -- een
+// verkeerde `SITE_URL` zou hier gewoon meebewegen. Dat is bewust, want deze suite gaat over de
+// STRUCTUUR van de sitemap: welke routes erin staan, of de slugs dezelfde afleiding volgen als de
+// routing, of er geen dubbele slashes ontstaan. Het domein zelf wordt getoetst in
+// `canonical-urls.test.ts`, tegen de gebouwde export in plaats van tegen een constante -- dat is de
+// enige plek waar zo'n toets ook echt iets kan aantonen.
+const BASE_URL = SITE_URL;
 
 const alles = sitemap();
 const mixUrls = alles.filter((e) => e.url.includes('/luister/mix/'));

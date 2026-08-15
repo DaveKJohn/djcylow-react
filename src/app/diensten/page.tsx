@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { dienstenContent } from "@/content/diensten";
 import ContactForm from "@/components/sections/ContactForm";
+import { SITE_URL } from "../../constants/site";
 
 
 
@@ -8,11 +9,11 @@ export const metadata: Metadata = {
     title: dienstenContent.title,
     description: dienstenContent.description,
     alternates: {
-        canonical: "https://www.djcylow.com/diensten",
+        canonical: `${SITE_URL}/diensten`,
     },
     openGraph: {
         type: "website",
-        url: "https://www.djcylow.com/diensten",
+        url: `${SITE_URL}/diensten`,
         title: dienstenContent.title,
         description: dienstenContent.description,
     },

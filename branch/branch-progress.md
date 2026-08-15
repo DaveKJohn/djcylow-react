@@ -1,17 +1,18 @@
-## `chore/overflow-propagatie-vastgelegd` progress
+## `fix/canonical-wijst-naar-een-redirect` progress
 
 ### Steps
 
-- [x] Punt (b) van issue #79 narekenen tegen de overflow-propagatieregel
-- [x] Meten of `html` ergens een overflow krijgt (gebouwde CSS + inline styles): nul treffers
-- [x] `tests/overflow-propagatie.test.ts` schrijven, met de uitleg in de assertion
-- [x] Negatief toetsen — en de eerste poging herzien, die door de `@use`-volgorde stil de build brak
-- [x] De redenering in `_reset.scss` zetten, waar iemand hem tegenkomt
-- [x] Poort en testsuite (210 tests)
+- [x] Meten waar de site werkelijk staat: www geeft 301, kaal geeft 200
+- [x] Meten wat de HTML beweert: canonical, og:url, JSON-LD, robots.txt, alle 84 sitemap-URL's
+- [x] De 22 voorkomens in elf bestanden vervangen door één `SITE_URL`
+- [x] `tests/canonical-urls.test.ts` tegen de gebouwde export, negatief getoetst
+- [x] `tests/sitemap.test.ts` van zijn eigen kopie afhalen, met de reden erbij
+- [x] Poort en volledige suite (213 tests)
 
 ### Where I left off
 
-Poort groen, 210 tests groen. De browserverificatie uit het issue (Safari/WebKit) is níét gedaan:
-de browserextensie was in deze sessie niet bereikbaar. Het argument staat op de spec plus een meting
-van de gebouwde CSS, niet op waarneming in vier browsers — dat is eerlijker gezegd dan gesuggereerd.
-Wie het alsnog wil zien: de luisterpagina in Safari, en kijken of de filter meescrollt.
+0 www-voorkomens in de export. Poort groen, 213 tests groen.
+
+Wat hierna nog kan, en aan Dave is: in Google Search Console staat het www-domein mogelijk als
+property. De 301 blijft gewoon werken, dus er gaat niets stuk, maar de nieuwe sitemap moet op het
+kale domein worden aangemeld als dat er nog niet staat.

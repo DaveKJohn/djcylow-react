@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import Script from "next/script";
 
 import "@/styles/main.scss";
+import { SITE_URL } from "../constants/site";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     // Basis waartegen Next.js relatieve URL's in metadata oplost (og:image, twitter:image).
     // Zonder deze regel valt Next terug op http://localhost:3000 en belanden die URL's zo in de
     // gebouwde HTML, waardoor linkpreviews op social media een onbereikbaar adres krijgen.
-    metadataBase: new URL("https://www.djcylow.com"),
+    metadataBase: new URL(SITE_URL),
     title: "DJ Cylow",
     // Nederlands, net als de rest van de site. Dit is de FALLBACK: de vier hoofdpagina's zetten hun
     // eigen description, maar wat dat niet doet krijgt deze -- en tot 2026-08-15 was dat de Engelse

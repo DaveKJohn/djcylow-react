@@ -1,73 +1,67 @@
-## `chore/overflow-propagatie-vastgelegd` changelog
+## `fix/canonical-wijst-naar-een-redirect` changelog
 
 ### Branch title
 
-De reden dat de sticky filter werkt staat nu in een test in plaats van in niemands hoofd
+De canonical, og:url en sitemap wezen alle 84 URLs naar een domein dat redirect
 
 ### Branch type
 
-chore
+fix
 
 ### What does the change on this branch bring to main?
 
-Issue #79 had twee punten over `body { overflow-x: hidden }` in `_reset.scss`. Het tweede is
-gemeten en blijkt **niet te kloppen** — en juist die weerlegging leverde iets op dat wél bewaakt
-moet worden.
+**De site zei van zichzelf dat hij ergens anders stond dan waar hij staat.** Gemeten op de live
+site: de www-variant van `/luister` antwoordt met `301 Moved Permanently` naar het kale domein, dat
+zelf 200 geeft. De hosting heeft die keuze dus al gemaakt. Maar de HTML in datzelfde antwoord droeg
+`<link rel="canonical" href="https://www.…">` — een canonical die naar een URL wijst die zichzelf
+wegredirect. Hetzelfde gold voor `og:url`, voor de JSON-LD op elke mixpagina, voor `robots.txt` en
+voor **alle 84 URL's in `sitemap.xml`**.
 
-**Punt (b) van het issue: `body` als scroll-container zou `position: sticky` breken bij
-afstammelingen, en `#luister_content_filter` is sticky.** Dat klopt niet, om een reden die het issue
-niet meewoog: de overflow-propagatieregel uit css-overflow-3. Staat de gebruikte overflow van het
-**root**-element (`html`) op `visible`, dan wordt `body`'s overflow doorgegeven aan de **viewport**
-en is de gebruikte waarde op `body` zelf weer `visible`. Geen scroll-container, dus sticky werkt.
-Het is ook precies waarom `body { overflow: hidden }` de páginascroll uitzet in plaats van alleen
-die van de body.
+Dat is een tegenstrijdig signaal precies waar een zoekmachine op afgaat: de server zegt "het kale
+domein is het origineel", en de pagina zegt "nee, www". Zoekmachines lossen dat meestal zelf op,
+maar niet altijd hetzelfde, en het is nergens goed voor.
 
-Gemeten in de gebouwde CSS: er staat **geen enkele `html`-selector** in — nul treffers over alle vier
-de stylesheets — en de HTML draagt geen inline style. `html` staat dus op zijn initiële `visible`, en
-de propagatie treedt op.
+De oorzaak was duplicatie: `https://www.djcylow.com` stond hard op **22 plekken in elf bestanden**,
+plus een twaalfde kopie in `tests/sitemap.test.ts`. Er is nu één bron, `src/constants/site.ts`, en
+die volgt de server in plaats van hem te bepalen — wil je ooit naar `www`, dan begint dat bij het
+omdraaien van de redirect en landt het pas daarna hier.
 
-**Maar dat hangt op één voorwaarde, en die stond nergens.** `html` mag geen eigen overflow krijgen —
-en `html { overflow-x: hidden }` is nu juist de meest voor de hand liggende reparatie van
-horizontale overflow die er is. Wie hem toevoegt, stopt de propagatie, maakt `body` alsnog een
-scroll-container en breekt de filter op de luisterpagina. Zonder foutmelding, en alleen zichtbaar
-door daar te scrollen.
+**Getoetst op het resultaat en niet op de constante**, want een `SITE_URL` die klopt bewijst niets
+zolang er ergens weer een letterlijke URL naast kan. `tests/canonical-urls.test.ts` leest de
+gebouwde export: geen enkel `.html`, `.xml`, `.txt` of `.json` mag het www-domein nog noemen, elke
+`canonical` moet op de basis-URL beginnen, en de sitemap ook. Negatief getoetst door één URL terug
+te zetten — twee van de drie tests sloegen aan, met het bestandspad in de melding.
 
-Dat is nu vastgelegd op twee plekken: `tests/overflow-propagatie.test.ts` leest de gebouwde CSS en
-faalt op een overflow op het root-element, met de uitleg in de assertion zelf; en `_reset.scss`
-draagt de redenering waar iemand hem tegenkomt. De test slaat zichzelf over als er geen build staat,
-zodat `npm test` zonder voorafgaande build niet struikelt — in de poort en in CI gaat `npm run build`
-er wel aan vooraf.
+`tests/sitemap.test.ts` importeert de constante nu in plaats van zijn eigen kopie te houden. Daarmee
+bewijst die suite over het domein niets meer, en dat staat er ook bij: hij gaat over de **structuur**
+van de sitemap (welke routes, welke slugs, geen dubbele slashes), terwijl het domein in de
+gebouwde output wordt getoetst — de enige plek waar zo'n toets iets kan aantonen.
 
-**De negatieve toets liep in eerste instantie fout, en dat is de les die blijft.** De eerste poging
-zette `html { overflow-x: hidden }` bóven de `@use`-regels van het bestand. Sass weigert dat, de
-build faalde, `out/` bleef op de vorige versie staan — en de test kwam groen terug. Dat las als
-"de test werkt niet", terwijl hij correct was en de opzet fout. Na plaatsing ónder de `@use`-regels
-faalde hij zoals bedoeld, met de bedoelde melding. **Een negatieve toets die groen blijft, kan net
-zo goed betekenen dat de toets zichzelf niet heeft uitgevoerd** — controleer dat de build wérkelijk
-opnieuw draaide voordat je concludeert dat de test niet bijt.
+**Deze wijziging raakt de SEO en is daarmee normaal gesproken Dave's beslissing.** Ik heb hem
+uitgevoerd onder het staande akkoord van deze sessie, en meld dat hier expliciet omdat het geen
+smaakkeuze was: de server had al besloten, en de metadata sprak hem tegen. De omgekeerde reparatie —
+`www` canoniek maken — kan niet in deze repo, want die begint bij de hostingconfiguratie.
 
-Punt (a) van het issue — dat `overflow-x: hidden` echte overflow maskeert — blijft staan en is
-eerder deze week al gemeten: na de reparatie van de hero steekt er niets meer uit behalve de
-carousels op `musicmoodcolours`, en die zijn horizontaal scrollend bedoeld. De regel blijft daarom
-staan.
+Gemeten na afloop: **0** voorkomens van het www-domein in de hele export, canonical en sitemap staan
+op het kale domein, 89 pagina's, poort groen, 213 tests groen.
 
 ### Significance
 
 #### Tier 0
 
-Er lag een openstaand voorstel om `overflow-x: hidden` te verwijderen op grond van een gevolg dat
-zich niet voordoet. Wie dat had uitgevoerd, had een werkende regel weggehaald om een probleem op te
-lossen dat er niet was. Belangrijker is wat ervoor in de plaats komt: de échte breekbaarheid zit een
-niveau hoger, bij `html`, en die was nergens opgeschreven.
+De basis-URL stond op twaalf plekken, waarvan één in een test die de andere elf had moeten bewaken
+maar dezelfde aanname deelde. Dat is nu één constante met twee tests eromheen die de gebouwde output
+lezen.
 
 **Score:** 3
 
 #### Tier 1
 
-Geen zichtbaar effect op de site vandaag. Wat het voorkomt is een sticky filter die stilletjes stopt
-met plakken op de luisterpagina, door een wijziging die er volstrekt redelijk uitziet.
+Elke pagina van de site vertelde zoekmachines dat de canonieke versie op een ander domein stond dan
+waar hij geserveerd wordt, inclusief de complete sitemap. Dat raakt precies waar deze site voor
+online staat: gevonden worden.
 
-**Score:** 2
+**Score:** 4
 
 ### Pull Request
 

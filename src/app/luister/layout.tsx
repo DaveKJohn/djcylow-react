@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "../../constants/site";
 
 // De pagina zelf is een client component ('use client', vanwege de filters en de URL-sync) en kan
 // daarom geen metadata exporteren. Deze layout is een server component en doet dat in haar plaats.
@@ -8,11 +9,11 @@ export const metadata: Metadata = {
     description:
         "Alle mixen van DJ Cylow op één plek. Filter op muziekstemming, genre en energie, en vind precies de sfeer die bij jouw moment past.",
     alternates: {
-        canonical: "https://www.djcylow.com/luister",
+        canonical: `${SITE_URL}/luister`,
     },
     openGraph: {
         type: "website",
-        url: "https://www.djcylow.com/luister",
+        url: `${SITE_URL}/luister`,
         title: "Luister alle mixen van DJ Cylow",
         description:
             "Alle mixen van DJ Cylow op één plek. Filter op muziekstemming, genre en energie, en vind precies de sfeer die bij jouw moment past.",
