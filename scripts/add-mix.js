@@ -18,13 +18,17 @@
  *   - Volume         getal of Enter       script stelt het volgende voor
  *   - Tracklist      tijdcode HH:MM:SS + naam per track
  *
- * BESCHRIJVING (AUTOMATISCH GEGENEREERD)
- * ---------------------------------------
- * Claude genereert de beschrijving automatisch op basis van de tracklist.
- * Je krijgt de gegenereerde tekst te zien en kiest dan:
- *   j      — gebruik deze beschrijving
- *   n      — sla beschrijving over (veld blijft leeg)
- *   edit   — typ zelf een vervangende tekst
+ * BESCHRIJVINGEN (AUTOMATISCH GEGENEREERD, TWEE TALEN)
+ * -----------------------------------------------------
+ * Claude genereert description_nl en description_en op basis van de tracklist.
+ * Je krijgt beide te zien, met per taal of ze de spec halen, en kiest dan:
+ *   j      — gebruik deze beschrijvingen
+ *   n      — sla ze over (velden blijven leeg)
+ *   edit   — typ zelf een vervangende tekst per taal
+ *
+ * De spec staat in src/data/mixes/README.md en wordt hier opgelegd: 120-160
+ * tekens, geen streepje, geen artiestnamen. tests/mix-data.test.ts toetst
+ * precies dat, dus een entry die hier wordt afgekeurd haalt de poort niet.
  *
  * Vereist: ANTHROPIC_API_KEY als omgevingsvariabele.
  * Stel in via: $env:ANTHROPIC_API_KEY="sk-ant-..."  (PowerShell)
@@ -33,31 +37,41 @@
  * WAT AUTOMATISCH WORDT GEGENEREERD
  * ----------------------------------
  *   - id             YYYYMMDD uit datum
- *   - id_spotify     mmc_edm_128bpm_light_m_yellow_YYYYMMDD
+ *   - id_spotify     mmc_{genre}_128bpm_light_m_yellow_YYYYMMDD
  *   - title          "Subgenre · Color Power (f) Mix · Vol. N"
  *   - title_spotify  "EDM 128BPM 🟡 Yellow Light (m) 🟡 Vol. N"
  *   - jaar/maand/dag uit datum
  *   - permalink      luister/mix/color-power-f-Genre-BPMbpm-YYYYMMDD.html
- *   - audioSrc       R2-URL naar het mp3 bestand op Cloudflare
+ *   - audioSrc       R2-URL naar het mp3 bestand op Cloudflare (zie hieronder)
  *   - image paden    /images/power/color/wide|square/... (altijd .webp)
  *   - tracks         aantal items in de tracklist
  *   - volume_spotify volgnummer binnen kleur+power+frequentie+bpm (los van subgenre)
  *
+ * Het genre werkt door in id_spotify en title_spotify: een Drum & Bass-mix
+ * krijgt dnb/DNB in plaats van edm/EDM. Tot 2026-08-15 stond edm daar hard
+ * ingebakken, waardoor elke DnB-mix zichzelf als EDM aankondigde.
+ *
  * NA HET SCRIPT
  * -------------
  *   1. Voeg de afbeeldingen toe in public/images/{power}/{color}/
- *      Bestandsnamen volgen het patroon in de gegenereerde image-paden.
+ *      Bestandsnamen volgen het patroon in de gegenereerde image-paden:
+ *        wide/image_{power}_{color}_wide_{YYYYMMDD}_{small|large}.webp
+ *        square/image_{power}_{color}_square_{YYYYMMDD}.webp
  *   2. Als je .jpg aanlevert: npm run images:webp
  *   3. Controleer de JSON in de editor.
- *   4. Commit + push live via de normale release workflow.
+ *   4. Commit + push live via de cyclus in CONTRIBUTING.md.
  *
  * AUDIO BESTANDSNAAM OP R2
  * ------------------------
- * Het script genereert de audioSrc op basis van dit patroon:
+ * Het script zet een BEGINWAARDE neer volgens dit patroon:
  *   {Color}_{Power}_{freq}_{Genre}_{BPM}BPM_{YYYYMMDD}_Audio_V1 (Vol. N).mp3
  * Voorbeeld: Red_Light_m_EDM_128BPM_20260615_Audio_V1 (Vol. 6).mp3
- * Controleer altijd of de bestandsnaam op R2 exact overeenkomt — R2 is
- * hoofdlettergevoelig. Pas audioSrc handmatig aan als de naam afwijkt.
+ *
+ * Dat is een gok en geen afleiding: de objecten op R2 volgen geen conventie
+ * die te reproduceren valt (V1/V2/V3/V4 en v1 door elkaar, "Vol 1" zonder
+ * punt, een spatie waar een underscore hoort, een kleur met kleine letter).
+ * Het script doet daarom na afloop een HEAD-request op de URL en meldt het
+ * als het object er niet is. R2 is bovendien hoofdlettergevoelig.
  */
 
 const readline = require('readline');
@@ -137,45 +151,62 @@ function buildTitle(subgenre, color, power, freq, vol) {
   return `${subgenre} · ${color} ${power} ${freq} Mix · Vol. ${vol}`;
 }
 
-function buildSpotifyId(color, power, freq, bpm, dateCompact) {
+// Eén bron voor de genre-afkorting. Stond tot 2026-08-15 drie keer los in dit bestand
+// (audioSrc en permalink leidden hem af, id_spotify en title_spotify hardcodeerden 'edm'),
+// waardoor een Drum & Bass-mix zijn Spotify-metadata als EDM kreeg.
+function genreSlug(genre) {
+  return genre === 'Drum & Bass' ? 'DnB' : genre;
+}
+
+function buildSpotifyId(color, power, freq, genre, bpm, dateCompact) {
   const freqClean = freq.replace(/[()]/g, '').toLowerCase();
-  return `mmc_edm_${bpm}bpm_${power.toLowerCase()}_${freqClean}_${color.toLowerCase()}_${dateCompact}`;
+  const g = genreSlug(genre).toLowerCase();
+  return `mmc_${g}_${bpm}bpm_${power.toLowerCase()}_${freqClean}_${color.toLowerCase()}_${dateCompact}`;
 }
 
 // `vol` is de volume_spotify, niet het site-volume: dat laatste loopt per subgenre en
 // telt binnen één kleur+power+frequentie dus niet netjes door. De titel sluit af met dat
 // volgnummer; het id stond er tot 2026-08-11 achter, maar hoort niet in een publieke titel.
-function buildSpotifyTitle(color, power, freq, bpm, vol) {
+function buildSpotifyTitle(color, power, freq, genre, bpm, vol) {
   const emoji = COLOR_EMOJI[color];
   if (!emoji) {
     console.warn(`\n! Geen emoji vastgesteld voor kleur ${color}. Vul title_spotify handmatig aan.`);
     return '';
   }
-  return `EDM ${bpm}BPM ${emoji} ${color} ${power} ${freq} ${emoji} Vol. ${vol}`;
+  return `${genreSlug(genre).toUpperCase()} ${bpm}BPM ${emoji} ${color} ${power} ${freq} ${emoji} Vol. ${vol}`;
 }
 
+// Patroon zoals de bestanden werkelijk op schijf staan:
+//   wide/image_{power}_{color}_wide_{YYYYMMDD}_{small|large}.webp
+//   square/image_{power}_{color}_square_{YYYYMMDD}.webp
+// Het script schreef hier tot 2026-08-15 de datum vóór het formaat en gebruikte een
+// koppelteken in plaats van een underscore. Geen enkel gegenereerd pad bestond daardoor:
+// checkAndConvertImages meldde altijd "Ontbreekt" en de 25 dode image_square-paden in de
+// data (issue #66) zijn precies wat dat opleverde.
 function buildImagePaths(power, color, dateCompact) {
   const p = power.toLowerCase();
   const c = color.toLowerCase();
   const base = `/images/${p}/${c}`;
   return {
-    wide_small: `${base}/wide/image_${p}_${c}_${dateCompact}_wide-small.webp`,
-    wide_large: `${base}/wide/image_${p}_${c}_${dateCompact}_wide-large.webp`,
-    square:     `${base}/square/image_${p}_${c}_${dateCompact}_square.webp`,
+    wide_small: `${base}/wide/image_${p}_${c}_wide_${dateCompact}_small.webp`,
+    wide_large: `${base}/wide/image_${p}_${c}_wide_${dateCompact}_large.webp`,
+    square:     `${base}/square/image_${p}_${c}_square_${dateCompact}.webp`,
   };
 }
 
+// Dit is een BEGINWAARDE, geen afleiding. De objectnamen op R2 volgen geen conventie die
+// te reproduceren valt: er staan V1/V2/V3/V4 en v1 door elkaar, "Vol 1" zonder punt, een
+// spatie waar een underscore hoort en een enkele kleur met een kleine letter. De entry
+// krijgt daarom de meest voorkomende vorm en verifyAudioSrc controleert hem daarna echt.
 function buildAudioSrc(color, power, freq, genre, bpm, dateCompact, vol) {
   const freqClean = freq.replace(/[()]/g, '');
-  const genreSlug = genre === 'Drum & Bass' ? 'DnB' : genre;
-  const filename = `${color}_${power}_${freqClean}_${genreSlug}_${bpm}BPM_${dateCompact}_Audio_V1%20(Vol.%20${vol}).mp3`;
+  const filename = `${color}_${power}_${freqClean}_${genreSlug(genre)}_${bpm}BPM_${dateCompact}_Audio_V1%20(Vol.%20${vol}).mp3`;
   return `${R2_BASE}${color.toLowerCase()}/${filename}`;
 }
 
 function buildPermalink(color, power, freq, genre, bpm, dateCompact) {
   const freqClean = freq.replace(/[()]/g, '');
-  const genreSlug = genre === 'Drum & Bass' ? 'DnB' : genre;
-  return `luister/mix/${color.toLowerCase()}-${power.toLowerCase()}-${freqClean}-${genreSlug}-${bpm}BPM-${dateCompact}.html`;
+  return `luister/mix/${color.toLowerCase()}-${power.toLowerCase()}-${freqClean}-${genreSlug(genre)}-${bpm}BPM-${dateCompact}.html`;
 }
 
 async function pickFromList(prompt, options) {
@@ -232,27 +263,33 @@ async function askTracklist() {
   });
 }
 
-async function generateDescription(subgenre, genre, color, power, tracklist) {
+// De site en de testsuite lezen twee velden, dus er worden er twee gegenereerd.
+// De regels komen uit src/data/mixes/README.md en worden hier letterlijk opgelegd:
+// 120-160 tekens, geen streepje, en GEEN artiestnamen -- die horen in top_artists.
+// De oude prompt vroeg juist om beide (em-dash in het format, "mention 2-4 artists"),
+// en dat is precies wat de twee dash-ratchets in tests/mix-data.test.ts nu tellen.
+async function generateDescriptions(subgenre, genre, color, power, tracklist) {
+  const leeg = { nl: '', en: '' };
   if (!process.env.ANTHROPIC_API_KEY) {
-    console.log('\n⚠ ANTHROPIC_API_KEY niet ingesteld — beschrijving overgeslagen.');
-    return '';
+    console.log('\n⚠ ANTHROPIC_API_KEY niet ingesteld — beschrijvingen overgeslagen.');
+    return leeg;
   }
   if (tracklist.length === 0) {
-    console.log('\n⚠ Geen tracklist — beschrijving kan niet worden gegenereerd.');
-    return '';
+    console.log('\n⚠ Geen tracklist — beschrijvingen kunnen niet worden gegenereerd.');
+    return leeg;
   }
 
   const client = new Anthropic();
-  const trackLines = tracklist.map(t => `${t.time} — ${t.track}`).join('\n');
+  const trackLines = tracklist.map(t => `${t.time} ${t.track}`).join('\n');
 
-  process.stdout.write('\nBeschrijving genereren...');
+  process.stdout.write('\nBeschrijvingen genereren...');
 
   const msg = await client.messages.create({
     model: 'claude-haiku-4-5-20251001',
-    max_tokens: 300,
+    max_tokens: 600,
     messages: [{
       role: 'user',
-      content: `Write a description for a DJ mix. Return ONLY the description text, no explanation or quotation marks.
+      content: `Write two descriptions for a DJ mix: one in Dutch, one in English.
 
 Mix info:
 - Subgenre: ${subgenre}
@@ -262,18 +299,37 @@ Mix info:
 Tracklist:
 ${trackLines}
 
-Rules:
-- Exactly 120–160 characters
-- English
+Rules for BOTH descriptions:
+- Between 120 and 160 characters
 - Mention the subgenre
-- Mention 2–4 notable artists from the tracklist
-- Describe the vibe (e.g. "warm and driving", "tight and energetic")
-- Format: "${subgenre} mix by DJ Cylow — [vibe]. Featuring [artists]."`,
+- Describe the vibe and a fitting listening moment (e.g. "warm and driving", "perfect for a long night drive")
+- Do NOT name any artists
+- Do NOT use any dash character: no "-", no "--", no em dash. Use separate sentences instead.
+
+Return ONLY this, with no explanation and no quotation marks:
+NL: <the Dutch description>
+EN: <the English description>`,
     }],
   });
 
   process.stdout.write(' klaar.\n');
-  return msg.content[0].text.trim();
+
+  const text = msg.content[0].text.trim();
+  const pick = (tag) => {
+    const m = text.match(new RegExp(`^${tag}:\\s*(.+)$`, 'im'));
+    return m ? m[1].trim() : '';
+  };
+  return { nl: pick('NL'), en: pick('EN') };
+}
+
+// Meldt wat er mis is met een beschrijving, of null als hij voldoet. Zo ziet degene die
+// het script draait dezelfde grens als de testpoort, in plaats van hem pas bij de PR.
+function keurBeschrijving(tekst) {
+  if (!tekst) return 'leeg';
+  const klachten = [];
+  if (tekst.length < 120 || tekst.length > 160) klachten.push(`${tekst.length} tekens (moet 120-160)`);
+  if (/[-—]/.test(tekst)) klachten.push('bevat een streepje');
+  return klachten.length ? klachten.join(', ') : null;
 }
 
 async function main() {
@@ -334,24 +390,39 @@ async function main() {
   // Tracklist
   const tracklist = await askTracklist();
 
-  // Beschrijving — automatisch genereren via Claude
-  const generated = await generateDescription(subgenre, genre, color, power, tracklist);
-  let description = '';
+  // Beschrijvingen — automatisch genereren via Claude, in beide talen
+  const generated = await generateDescriptions(subgenre, genre, color, power, tracklist);
+  let descriptionNl = '';
+  let descriptionEn = '';
 
-  if (generated) {
-    console.log(`\nGegenereerde beschrijving (${generated.length} tekens):`);
-    console.log(`  "${generated}"`);
+  const toon = (taal, tekst) => {
+    const klacht = keurBeschrijving(tekst);
+    console.log(`\n${taal} (${tekst.length} tekens)${klacht ? ` — ⚠ ${klacht}` : ' — ✓'}:`);
+    console.log(`  "${tekst}"`);
+  };
+
+  if (generated.nl || generated.en) {
+    toon('NL', generated.nl);
+    toon('EN', generated.en);
     const keuze = (await ask('\nGebruiken? (j = ja / n = overslaan / edit = zelf typen): ')).trim().toLowerCase();
     if (keuze === 'j') {
-      description = generated;
+      descriptionNl = generated.nl;
+      descriptionEn = generated.en;
     } else if (keuze === 'edit') {
-      description = (await ask('Beschrijving: ')).trim();
+      descriptionNl = (await ask('Beschrijving NL: ')).trim();
+      descriptionEn = (await ask('Beschrijving EN: ')).trim();
     }
   } else {
-    const handmatig = (await ask('\nBeschrijving handmatig invoeren? (j/n): ')).trim().toLowerCase();
+    const handmatig = (await ask('\nBeschrijvingen handmatig invoeren? (j/n): ')).trim().toLowerCase();
     if (handmatig === 'j') {
-      description = (await ask('> ')).trim();
+      descriptionNl = (await ask('NL > ')).trim();
+      descriptionEn = (await ask('EN > ')).trim();
     }
+  }
+
+  for (const [taal, tekst] of [['description_nl', descriptionNl], ['description_en', descriptionEn]]) {
+    const klacht = keurBeschrijving(tekst);
+    if (klacht) console.warn(`\n⚠ ${taal}: ${klacht}. De testpoort weigert dit — corrigeer het in het JSON-bestand.`);
   }
 
   // Genereer afgeleide velden
@@ -359,9 +430,9 @@ async function main() {
   const imgs = buildImagePaths(power, color, dateCompact);
   const audioSrc = buildAudioSrc(color, power, freq, genre, bpm, dateCompact, volNum);
   const permalink = buildPermalink(color, power, freq, genre, bpm, dateCompact);
-  const idSpotify = buildSpotifyId(color, power, freq, bpm, dateCompact);
+  const idSpotify = buildSpotifyId(color, power, freq, genre, bpm, dateCompact);
   const volSpotify = nextSpotifyVolume(mixes, freq, bpm);
-  const titleSpotify = buildSpotifyTitle(color, power, freq, bpm, volSpotify);
+  const titleSpotify = buildSpotifyTitle(color, power, freq, genre, bpm, volSpotify);
 
   const entry = {
     id: dateCompact,
@@ -387,7 +458,8 @@ async function main() {
     image_wide_small: imgs.wide_small,
     image_wide_large: imgs.wide_large,
     image_square:     imgs.square,
-    description,
+    description_nl: descriptionNl,
+    description_en: descriptionEn,
     top_artists: [],
     tracks: tracklist.length,
     tracklist,
@@ -413,7 +485,30 @@ async function main() {
   // Controleer en converteer afbeeldingen
   await checkAndConvertImages(entry);
 
+  // Controleer de audio echt, in plaats van erop te vertrouwen
+  await verifyAudioSrc(entry);
+
   rl.close();
+}
+
+// De audioSrc is een gok (zie buildAudioSrc), dus wordt hij getoetst in plaats van
+// aangenomen. Eén HEAD-request kost niets en vangt precies de fout die anders pas
+// opvalt als een bezoeker op play drukt en de mix van iemand anders hoort.
+async function verifyAudioSrc(entry) {
+  process.stdout.write('\nAudio controleren...');
+  try {
+    const res = await fetch(entry.audioSrc, { method: 'HEAD' });
+    if (res.ok) {
+      console.log(' ✓ bestand gevonden op R2.');
+      return;
+    }
+    console.log(` ⚠ HTTP ${res.status}.`);
+  } catch (err) {
+    console.log(` ⚠ niet te bereiken (${err.message}).`);
+  }
+  console.log(`    ${entry.audioSrc}`);
+  console.log('    R2 is hoofdlettergevoelig en de objectnamen volgen daar geen vaste conventie.');
+  console.log('    Zoek de exacte naam op in Cloudflare en pas audioSrc handmatig aan.');
 }
 
 async function checkAndConvertImages(entry) {

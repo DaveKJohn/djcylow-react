@@ -298,14 +298,25 @@ npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/l
 | Commando | Script | Wat het doet |
 |---|---|---|
 | `npm run mix:add` | `scripts/add-mix.js` | Voeg interactief een nieuwe mix toe aan het juiste JSON bestand |
-| `npm run images:webp` | `scripts/convert-to-webp.js` | Converteer alle `.jpg` in `public/images/` naar `.webp` en verwijder de originelen |
-| `npm run images:webp:dry` | `scripts/convert-to-webp.js --dry-run` | Preview: laat zien welke bestanden geconverteerd zouden worden |
+| `npm run images:webp` | `scripts/convert-to-webp.js` | **Preview** — laat zien wat er zou gebeuren en wijzigt niets |
+| `npm run images:webp:apply` | `scripts/convert-to-webp.js --apply` | Converteert werkelijk en verwijdert de `.jpg`-originelen |
+
+> **Preview is sinds 2026-08-15 de default, en dat is de safety-rule in mechanismevorm.** Het script
+> verwijderde eerder bestanden uit `public/images/` zonder bevestiging, terwijl dat hierboven onder
+> *Nooit zonder expliciete toestemming van Dave* staat — en het kon via de `npm run *`-allowlist
+> zelfs zonder prompt draaien. Verwijderen vraagt nu `--apply`. Verder overschrijft het geen
+> bestaande `.webp` meer (dat kostte twee bestanden bij één naamconflict; `--force` doet het
+> alsnog), en de exitcode volgt het resultaat: mislukte conversies gaven eerder exit 0.
+>
+> **Het levert nog steeds geen `small`-varianten.** Die moeten los aangeleverd of gegenereerd
+> worden; dat gat is wat de 2026-mixen hun `_small.webp` kostte.
 
 **Workflow nieuwe mix toevoegen:**
 
 1. `npm run mix:add` — vul alle gegevens in, het script genereert de afgeleide velden automatisch
 2. Afbeeldingen neerzetten in `public/images/{power}/{color}/`
-3. `npm run images:webp` — als je `.jpg`-afbeeldingen hebt aangeleverd
+3. `npm run images:webp` — als je `.jpg`-afbeeldingen hebt aangeleverd. Dat toont eerst wat er zou
+   gebeuren; `npm run images:webp:apply` voert het daarna uit
 4. Controleer het JSON-bestand in de editor
 5. Commit + push via [de cyclus in `CONTRIBUTING.md`](CONTRIBUTING.md#de-cyclus-stap-voor-stap)
 
@@ -570,6 +581,33 @@ val.
 > verschil maakte: twee kopieën van dezelfde versie-as verwarren kost je een verouderd script, twee
 > verschillende bomen verwarren kost je een verkeerde diagnose over de repo zelf.
 
+**Acht van de tien plugin-skills kan een specialist niet zelf aanroepen, en voor drie daarvan heeft
+deze repo een eigen ingang gemaakt** (Dave, 2026-08-15). De skills die naar buiten schrijven —
+`open-pr`, `ship-pr`, `park`, `fold-changelog`, `cut-release`, plus `lock`, `continue` en
+`fix-mojibake` — dragen `disable-model-invocation: true`. Dat is geen storing maar de guardrail van
+de bron tegen autonoom pushen, mergen en releasen; de bron beschrijft het bij PR #155 als *"closes
+the autonomous-invocation surface without touching the actual fold mechanism"*. Alleen `new-branch`
+en `adopt-config` staan aan, en die doen niets buiten je machine. Het verklaart ook waarom
+`/reload-plugins` "0 skills" kan melden: die teller sluit deze acht uit.
+
+| skill | eigen ingang in `.claude/skills/`? | waarom |
+|---|---|---|
+| `open-pr` | **ja** | de PR-regel hierboven zegt al *doorlopen tenzij*; site-werk wacht, de rest niet |
+| `fold-changelog` | **ja** | de fold is uitzondering 1 op "nooit direct op `main`", met een vastgelegde scope |
+| `park` | **ja** | een push is geen PR; de branch wordt bereikbaar, de PR-regel blijft apart |
+| `cut-release` | **nee** | staat hier aan Dave's expliciete verzoek; blijft slash-only |
+| `ship-pr` | **nee** | wordt hier niet gebruikt — de site-of-niet-beoordeling kan hij niet maken |
+
+Die drie ingangen **dupliceren geen enkel gedeeld script**: ze roepen via
+`scripts/task/shared.ps1` het origineel uit de cache aan, precies zoals een plugin-skill dat zou
+doen. Dat helperscript lost de versiemap zelf op — er staan acht versies in de cache en het pad dat
+een skill zou hardcoderen verschuift bij elke update. Het sorteert op `[version]` en niet op tekst,
+want anders wint `3.9.0` van `3.10.0`.
+
+> **Geef er geen `--` aan mee** om de argumenten te scheiden. PowerShell leest dat bij `-File` zelf
+> als parameternaam en stopt met *"the parameter name '' is ambiguous"*. Het is ook niet nodig: alles
+> wat niet `-Script` of `-Plugin` heet, valt vanzelf in `-Rest`.
+
 - **`new-branch`** — maakt de branch én **twee** bestanden in `branch/` (`branch-changelog.md`,
   `branch-progress.md`) plus de referentiekopieën in `branch/templates/`, in één stap (stap 1–3). Het
   achterliggende werk zit in `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` —
@@ -659,7 +697,8 @@ Repo-eigen scripts:
 - **`check-script-contract.ps1`** — bewaakt dat `repo-config.ps1` en `branch-info.ps1` de functies
   leveren die de gedeelde scripts verwachten. Woont in de plugin (`scripts/sync/` daar), niet in deze
   repo, en draait bij het starten van een sessie via de `script-contract-sessioncheck`-hook.
-- `scripts/add-mix.js` (`npm run mix:add`) en `scripts/convert-to-webp.js` (`npm run images:webp`).
+- `scripts/add-mix.js` (`npm run mix:add`) en `scripts/convert-to-webp.js` (`npm run images:webp`,
+  preview; `npm run images:webp:apply` voert uit).
 
 De Release Workflow hierboven kent geen repo-eigen script; de sluitende stappen lopen sinds de
 herinstallatie op 2026-08-03 via de gedeelde **`cut-release`**-skill. Die skill doet het versienummer,
@@ -744,6 +783,14 @@ De grondwet hierboven, hier concreet ingevuld:
   verwijderen breekt stil een pagina en gebeurt nooit zonder Dave's woord.
 - **`next.config.ts` en `netlify.toml` zijn beschermd.** Een fout daar breekt de Netlify-build en
   dus de live site.
+- **Die drie staan sinds 2026-08-15 óók in de machinerie**, en niet meer alleen in deze tekst.
+  `.claude/settings.json` draagt een `ask`-lijst voor `next.config.ts`, `netlify.toml` en
+  `public/images/**`. Bewust `ask` en geen `deny`: een `deny` maakt een legitieme wijziging
+  onmogelijk in plaats van bewust, en wat hierboven staat is dat Dave's woord nodig is — niet dat
+  het onbereikbaar moet zijn. De denylist heeft er daarnaast de refspec-vorm
+  (`git push origin +HEAD:main`) bij gekregen, die langs `git push --force` glipte.
+  > Tot die dag leunde de bescherming volledig op of een specialist dit bestand gelezen had. Voor
+  > een repo waar de merge de deploy is, is dat de verkeerde kant om op te leunen.
 - **Alles wat de publieke site of de SEO raakt is Dave's beslissing** — titels,
   `description`-velden, metadata en routes. Een specialist stelt voor, Dave beslist.
 - **Twee uitzonderingen op "nooit direct op `main`"**: de fold-commit en de release-commit, zoals
