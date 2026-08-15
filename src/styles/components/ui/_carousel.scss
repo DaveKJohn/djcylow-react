@@ -107,3 +107,17 @@
         }
     }
 }
+
+// De plaatsvervanger voor een ontbrekende mix, gedeeld door de drie Music Mood Colours-carousels.
+//
+// Hij stond op drie plekken anders: `BasiskleurenCarousel` en `Erlenmeyers` droegen een inline
+// `minHeight: '150px'` (de eerste ook `height: '100%'`), en `VsKleurenCarousel` gebruikte al de
+// klasse `placeholder-mix` -- die alleen nergens gedefinieerd was, dus daar had de placeholder
+// helemaal geen hoogte. Eén klasse lost alle drie op: de twee inline styles verdwijnen en de dode
+// klasse krijgt betekenis.
+//
+// Bewust NIET genest onder `.carousels`: `Erlenmeyers` gebruikt de Carousel-component niet, en zou
+// de regel dan mislopen. Dit bestand wordt via main.scss altijd geladen.
+.placeholder-mix {
+    min-height: 150px;
+}

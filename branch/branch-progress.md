@@ -1,47 +1,43 @@
-## `style/scss-opruiming` progress
+## `style/inline-styles-naar-scss` progress
 
 ### Steps
 
-- [x] Elk punt van #81 tegen de tree gecontroleerd in plaats van de lijst over te nemen. Twee bleken
-      achterhaald: `src/app/globals.scss` bestaat niet meer (al weg bij de Tailwind-verwijdering), en
-      `cta-hover-effect` is sinds 2026-08-15 geen dode mixin meer
-- [x] Bij `assen.scss` en `_onderhoud.scss` geverifieerd dat de grep-treffers **tekst in comments**
-      waren en geen imports — anders had ik een bestand verwijderd dat wel gebruikt wordt
-- [x] Gemeten wat `className={styles.pageWrapper}` met een lege module werkelijk oplevert: React laat
-      een `undefined` className weg, dus er staat géén `class="undefined"` in de HTML. Het issue
-      noemde dit als gevolg; het is dode code, geen zichtbare fout
-- [x] De acht hex-waarden in `basiskleurenCarousel.scss` één voor één vergeleken met `_colors.scss`
-      vóór ik ze verving — alle acht identiek
-- [x] Geverifieerd dat `--<kleur>-default` al in de gebouwde CSS stond en **nergens buiten `:root`**
-      wordt overschreven, want anders zou de vervanging wél kleur veranderen
-- [x] De vier dode stylesheets verwijderd (332 regels) plus hun verwijzingen in `main.scss`,
-      `page.tsx` en `luister/page.tsx`
-- [x] De carousel opgeruimd: drie ongebruikte variabelen, drie dubbele declaraties, en
-      `var(--card_height)` → `var(--card_height, auto)` zodat de feitelijke waarde expliciet is
-- [x] De drie no-op media queries uit `musicmoodcolours.module.scss`
-- [x] Het overbodige `!important` op `.carousels .hidden` weg (restant van #78)
-- [x] Poort groen; in de gebouwde CSS geverifieerd dat de acht kleurregels nu naar de variabelen
-      wijzen en dat er geen `onderhoud`-regels meer in zitten
-- [~] `cta-hover-effect` verwijderen — **niet gedaan, en dat is belangrijk**: de branch
-      `fix/scss-hover-en-alignment` roept die mixin juist aan om het kapotte hover-effect te
-      herstellen. Hem hier weghalen zou die branch breken
-- [~] De hardcoded kleuren buiten het palet in `_contact-form.scss`, `_navigation.scss`, `filter.scss`
-      en `Footer.tsx` — niet in deze branch. Dat zijn losse waarden die stuk voor stuk een
-      ontwerpvraag zijn ("welke paletkleur hoort hier?"), en dat is iets anders dan een kopie van het
-      palet vervangen. #81 blijft daarvoor open
+- [x] De vijftien gevallen zelf nagelopen en tegen de uitzondering in `CLAUDE.md` gehouden, in plaats
+      van de indeling uit het issue over te nemen
+- [x] Ontdekt dat twee van de elf duplicaten waren van CSS die er al stond: `#honeypot` en de
+      error-kleur. Die zijn dus niet verplaatst maar simpelweg aangesloten op wat er al was
+- [x] De reCAPTCHA-hoogte behouden als klasse mét de reden erbij — het is layout-shift-preventie en
+      geen opmaak, en zonder die uitleg leest 78px als een willekeurig getal
+- [x] **Het voorstel van het issue voor `marginTop` gemeten en verworpen**: `top-push-*` zet
+      `padding-top` (gemeten: `top-push-xl` = 11px), niet `margin-top`. Padding verandert de knop
+      zelf, margin de afstand eromheen — dat had de knop zichtbaar anders gemaakt
+- [x] De twee Footer-SVG's en het Filter-icoon omgezet naar SVG-presentatieattributen in plaats van
+      naar CSS, zoals het issue voorstelde
+- [x] De hardcoded `#000000` in de Facebook-icoon vervangen door `var(--black-100)`
+- [x] Gevonden dat `placeholder-mix` in `VsKleurenCarousel` wél werd gebruikt maar **nergens
+      gedefinieerd** was — dus daar had de placeholder geen hoogte. Eén gedeelde klasse dekt nu alle
+      drie de carousels
+- [x] Die klasse bewust níet genest onder `.carousels`, want `Erlenmeyers` gebruikt de
+      Carousel-component niet en zou de regel dan mislopen
+- [x] Poort groen; in de gebouwde CSS geverifieerd dat alle vijf nieuwe klassen erin staan met de
+      juiste waarden
+- [x] Geteld: van 15 inline styles naar 5, en die vijf zijn de vier toegestane plus `MeetTheDJ`
+- [~] `MeetTheDJ.tsx` (`height/width: 'auto'`) — niet aangeraakt. Die component wordt nergens
+      gerenderd; opruimen daar is werk aan dode code en hoort bij #59
 
 ### Where I left off
 
-Af, poort groen, **geparkeerd**: site-werk, dus de merge wacht op Dave.
+Af, poort groen. **Geparkeerd**: site-werk, dus de merge wacht op Dave.
 
-**Wat er te bekijken is.** De bedoeling is dat er *niets* verandert. De plek om te kijken is
-**Music Mood Colours**: de acht gekleurde bolletjes onder de basiskleuren-carousel horen exact
-dezelfde kleuren te hebben als voorheen — die lopen nu via de paletvariabelen in plaats van via een
-eigen kopie. Verder de carousel-pijlen op diezelfde pagina (die hadden een dubbele `transform`).
+**Wat er te bekijken is.** Twee dingen veranderen zichtbaar, allebei ten goede:
 
-**Let op de volgorde bij het mergen.** Deze branch en `fix/scss-hover-en-alignment` raken allebei
-`src/styles/`, maar verschillende bestanden — ze botsen inhoudelijk niet. Wat wél botst is
-`branch/branch-changelog.md` en `branch/branch-progress.md`, zoals bij elke gestapelde branch: op de
-branch `--ours`, op `main` `--theirs`.
+- **Het contactformulier**: verstuur het met een lege verplichte veld of een fout adres, en kijk naar
+  de foutmelding. Die is nu `#d93025` in plaats van puur `red` — dezelfde kleur als de melding die er
+  al onder stond, en beter leesbaar.
+- **Music Mood Colours**: de placeholder in de vs-carousel (waar een kleur geen mix heeft) heeft nu
+  hoogte, waar hij eerder inklapte.
 
-**#81 blijft open** voor de losse hardcoded kleuren; de rest van het issue is hiermee afgehandeld.
+De rest hoort identiek te zijn: de ✅ in de bevestiging (48px in plaats van 3rem ≈ 48px), de knop
+eronder, en de Facebook-icoon in de footer.
+
+Sluit #82 bij een merge.

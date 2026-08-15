@@ -71,7 +71,9 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     <div className="column w-fill AMC extra spacing-xl" id="filter_mood_output" style={{ display: mood ? 'flex' : 'none' }}                   >
                         {mood && (
                             <div className="column w-fill AMC spacing-lg color-wrapper">
-                                <svg className="column extra spacing-2xl" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
+                                {/* De maat stond hier als inline style; op een SVG horen `width` en `height`
+                                    gewoon als attribuut, en dan valt het buiten de inline-style-regel. */}
+                                <svg className="column extra spacing-2xl" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="15" height="15">
                                     <circle cx="10" cy="10" r="9" fill={`var(${mood.colorVar})`}></circle>
                                 </svg>
                                 <p className="size-sm balanced">{mood.text}</p>

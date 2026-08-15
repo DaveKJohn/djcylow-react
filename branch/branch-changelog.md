@@ -1,12 +1,12 @@
-## `style/scss-opruiming` changelog
+## `style/inline-styles-naar-scss` changelog
 
 ### Branch title
 
-Dode stylesheets eruit en het kleurenpalet staat nog maar op een plek
+De statische inline styles staan waar de repo-regel ze wil hebben
 
 ### Branch ID
 
-20260815-182601
+20260815-183754
 
 ### Branch type
 
@@ -14,59 +14,59 @@ style
 
 ### What does the change on this branch bring to main?
 
-Opruimwerk in de styling. Niets hiervan veroorzaakte een fout; het kostte leesbaarheid en liet een
-lezer denken dat er iets gebeurde.
+`CLAUDE.md` staat `style={{}}` in JSX alleen toe voor echt dynamische runtime-waarden. Van de vijftien
+inline styles vielen er elf buiten die uitzondering. Er staan er nu **vijf**, en dat zijn precies de
+vier toegestane plus één in een component die niet gerenderd wordt.
 
-**Het kleurenpalet stond twee keer, en dat is het punt dat het meest kon bijten.**
-`basiskleurenCarousel.scss` droeg de acht moodkleuren opnieuw als losse hex-waarden. Ze waren
-vandaag stuk voor stuk identiek aan de `default`-tinten in `_colors.scss`, maar niets hield dat zo —
-wijzigde daar ooit een merkkleur, dan liep deze kopie er stil uit, en juist op de pagina die over
-die kleuren gáát. Ze gebruiken nu `var(--<kleur>-default)`, en die variabelen bestonden al: `_root.scss`
-genereert ze voor het hele palet. Er is dus niets bijgekomen, alleen een kopie weg. Geverifieerd in de
-gebouwde CSS dat de acht regels nu naar de variabelen wijzen, en dat die nergens buiten `:root` worden
-overschreven — dus visueel identiek.
+**Vijf zaten in `ContactForm`**, en twee daarvan waren duplicaten van CSS die er al stond:
 
-**Vier dode stylesheets zijn weg**, samen 332 regels: `assen.scss` (nergens geïmporteerd, en er
-bestaat geen `Assen.tsx`), `_onderhoud.scss` (wél in `main.scss`, maar `#onderhoud` komt in geen
-enkele component voor en de regel stond zelf op `display: none`), en `home.module.scss` +
-`luister.module.scss` (allebei leeg op de `@use`-regels na). Die laatste twee werden wél
-geïmporteerd, en `className={styles.pageWrapper}` gaf `undefined` — gemeten blijkt dat onschadelijk,
-want React laat een `undefined` className gewoon weg en er staat geen `class="undefined"` in de HTML.
-De imports en de twee expressies zijn mee opgeruimd.
+- `display: "none"` op het honeypot-veld, terwijl `#honeypot { display: none }` al in
+  `_contact-form.scss` stond en door niets werd gebruikt. Het veld draagt nu dat `id`
+- `color: 'red'`, terwijl `#errorMessage p.text` al `#d93025` gebruikt voor precies dezelfde rol. Die
+  waarde geldt nu ook hier — meteen beter voor het contrast
+- `height: "78px"` op de reCAPTCHA-plaatshouder. Functioneel (hij houdt de ruimte vrij zodat het
+  formulier niet verspringt), dus die reden staat nu in de CSS in plaats van als kaal getal in de JSX
+- `fontSize: '3rem'` op de ✅. Die 3rem stond buiten de `$design-scale`; het is nu de `5xl`-trap (48px)
+- `marginTop: '1rem'` op de "Nieuw bericht sturen"-knop
 
-**In de carousel stonden drie ongebruikte Sass-variabelen** (`$row-1-h`, `$row-2-h`, `$gap`) en drie
-declaraties die twee keer met dezelfde waarde stonden (`align-items`, `justify-content`, `transform`).
-Ook `height: var(--card_height)` viel daar stil terug op `auto`, want die variabele wordt alleen gezet
-door `referenties.scss` en die component wordt niet gerenderd. Dat is nu `var(--card_height, auto)`:
-even expliciet als wat er feitelijk gebeurde, en het werkt weer zodra Referenties terugkomt.
+**Bij die laatste week ik bewust af van wat het issue voorstelde.** Dat noemde de `top-push-*`-
+utilities, maar die zetten `padding-top` en niet `margin-top` — gemeten geeft `top-push-xl` 11px
+padding. Padding verandert de knop zelf, margin de afstand eromheen; dat is niet hetzelfde, en de knop
+zou er anders uit gaan zien. Het is daarom een eigen regel geworden.
 
-**Drie media queries in `musicmoodcolours.module.scss` zetten exact dezelfde waarden als daarbuiten.**
-Ze deden niets, maar suggereerden dat de kaarten op medium schermen van formaat veranderen — wat het
-juist lastig maakt te zien dat dat níet gebeurt.
+**De twee SVG-gevallen zijn attributen geworden in plaats van CSS.** Op een `<path>` en een `<svg>`
+horen `fill`, `fillRule` en `width`/`height` gewoon als presentatieattribuut; dat is idiomatischer dan
+een style-object en daarmee vallen ze uit de telling. De hardcoded `#000000` in de Facebook-icoon is
+meteen `var(--black-100)` geworden — dezelfde kleur, maar nu uit het palet.
 
-En het overbodige `!important` op `.carousels .hidden` is weg; dat kwam boven water bij #78, waarvan
-de hoofdbewering juist niet standhield.
+**En de drie placeholders van de Music Mood Colours-carousels stonden alle drie anders.**
+`BasiskleurenCarousel` en `Erlenmeyers` droegen een inline `minHeight: '150px'`, terwijl
+`VsKleurenCarousel` de klasse `placeholder-mix` gebruikte die **nergens gedefinieerd** was — daar had
+de placeholder dus helemaal geen hoogte. Eén gedeelde klasse lost alle drie tegelijk op: twee inline
+styles weg, een dode klasse krijgt betekenis, en de drie zien er nu hetzelfde uit.
 
-**Twee punten uit het issue zijn níet uitgevoerd, met reden.** `src/app/globals.scss` bestond al niet
-meer — dat is bij de Tailwind-verwijdering van 2026-08-15 al opgeruimd. En de mixin
-`cta-hover-effect` staat in het issue als dood, maar dat is hij sinds diezelfde dag niet meer: de
-branch `fix/scss-hover-en-alignment` roept hem juist aan om het kapotte hover-effect van de CTA-knop
-te herstellen. Hem hier verwijderen zou die branch breken.
+**Wat er bewust blijft staan:** de vier dynamische gevallen (`backgroundImage` en de progressbar in
+`AudioPlayer`, de thumbnail in `Promo`, de `display` in `Filter`) vallen onder de uitzondering en zijn
+letterlijk de voorbeelden die `CLAUDE.md` noemt. En `MeetTheDJ.tsx` is niet aangeraakt: die component
+wordt nergens gerenderd, dus opruimen daar is werk aan dode code — dat hoort bij #59.
 
 ### Significance
 
 #### Tier 0
 
-332 regels dode stylesheet weg en het kleurenpalet terug naar één bron. Wie hierna aan de styling
-werkt, leest alleen nog wat er werkelijk gebeurt — en een merkkleur wijzigen doet nu wat je verwacht.
+Elf regels opmaak van de JSX naar de stylesheets, waarvan twee duplicaten van CSS die er al stond. De
+repo-regel is weer waar wat hij zegt, en een `placeholder-mix`-klasse die niets deed doet nu wat zijn
+naam belooft.
 
 **Score:** 3
 
 #### Tier 1
 
-Zuiver opruimwerk: de site ziet er precies hetzelfde uit, gemeten in de gebouwde CSS.
+Twee dingen die een bezoeker kan merken: de foutmelding van het contactformulier krijgt de leesbaardere
+`#d93025` in plaats van puur rood, en de placeholder in de VS-carousel heeft eindelijk hoogte. De rest
+is gelijk gebleven.
 
-**Score:** N/A
+**Score:** 2
 
 ### Pull Request
 

@@ -23,6 +23,34 @@
         display: none;
     }
 
+    // Houdt de ruimte vrij die de reCAPTCHA-widget inneemt terwijl die laadt, zodat het formulier
+    // niet verspringt. De 78px is de gemeten hoogte van de widget; hij stond tot 2026-08-15 als
+    // inline style in de `loading`-callback van de dynamic import.
+    .captcha-placeholder {
+        height: 78px;
+    }
+
+    // De ✅ in de bevestiging. Stond als `fontSize: '3rem'` inline -- buiten de $design-scale, wat
+    // precies is waarom de repo-regel inline styles weert. 48px is de "5xl"-trap van die schaal en
+    // ligt het dichtst bij de 3rem die er stond.
+    .succes-icon {
+        font-size: map.get(map.get(v.$design-scale, "5xl"), "font-size");
+        line-height: 1;
+    }
+
+    // De "Nieuw bericht sturen"-knop. Dit was `marginTop: '1rem'` inline. Bewust GEEN `top-push-*`-
+    // utility: die zetten `padding-top` en veranderen dus de knop zelf in plaats van de afstand
+    // eronder -- gemeten, `top-push-xl` geeft `padding-top: 11px`.
+    .opnieuw-btn {
+        margin-top: map.get(map.get(v.$design-scale, "2xl"), "c-space");
+    }
+
+    // De foutmelding onder het formulier. Stond als `color: 'red'` inline; dat is dezelfde rol als
+    // `#errorMessage p.text` hierboven, dus dezelfde waarde.
+    .foutmelding {
+        color: #d93025;
+    }
+
     .input-field {
         width: 100%;
         padding: map.get(map.get(v.$design-scale, "2xl"), "in-space");
