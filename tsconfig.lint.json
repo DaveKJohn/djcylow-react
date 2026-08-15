@@ -1,8 +1,9 @@
 {
-  "//": "Poort-variant van tsconfig.json voor scripts/lint/lint-web.ps1. Identiek aan de gewone config, maar zonder de .next/types-includes: die worden door `next build` gegenereerd, zodat een gewone `tsc --noEmit` afhangt van hoe vers de build-output toevallig is (een build van een andere branch laat hier stale route-types achter). De PR-poort checkt daarom puur de broncode en is zo reproduceerbaar. De route-typevalidatie zelf blijft gewoon draaien bij `npm run build`.",
+  "//": "Poort-variant van tsconfig.json voor scripts/lint/lint-web.ps1. Doel: puur de broncode checken, zodat de uitkomst niet afhangt van hoe vers de build-output toevallig is (een build van een andere branch laat stale route-types achter in .next/types).",
+  "//2": "Daarvoor is .next uitsluiten NIET genoeg, en dat stond hier tot 2026-08-15 wel zo: een exclude filtert alleen wortelbestanden, niet wat via een import binnenkomt. next-env.d.ts doet op regel 3 een directe `import \"./.next/types/routes.d.ts\"` en trok die types alsnog binnen -- gemeten: 680 bestanden inclusief routes.d.ts. Bovendien staat next-env.d.ts in .gitignore, dus in CI bestaat het niet en checkte de poort daar iets anders dan lokaal.",
+  "//3": "Daarom staat next-env.d.ts nu in de exclude. Dat kost geen dekking: de globals die het aandroeg (waaronder `declare module '*.scss'`) komen transitief uit node_modules/next/types/global.d.ts, en deze repo importeert geen afbeeldingen statisch, dus next/image-types/global is niet nodig. Gemeten: 677 bestanden, exit 0, geen .next in --listFiles. De route-typevalidatie zelf blijft gewoon draaien bij `npm run build`.",
   "extends": "./tsconfig.json",
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "src/styles/**/*.scss"
@@ -10,6 +11,7 @@
   "exclude": [
     "node_modules",
     ".next",
-    "out"
+    "out",
+    "next-env.d.ts"
   ]
 }

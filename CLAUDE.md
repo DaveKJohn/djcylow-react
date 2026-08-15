@@ -684,7 +684,10 @@ Repo-eigen scripts:
 
 - **`scripts/lint/lint-web.ps1`** — de poort die `open-pr` draait: `tsc --noEmit` over
   `tsconfig.lint.json`, **`eslint .`** en **`npm run build`**. ESLint kwam er op 2026-08-14 bij, toen
-  de 37 pre-existing errors op 0 stonden; errors blokkeren, warnings niet maar worden wel geteld. De
+  de 37 pre-existing errors op 0 stonden; errors blokkeren, warnings niet maar worden wel geteld.
+  Sinds 2026-08-15 draagt de buildstap een **ondergrens op het aantal statische pagina's**
+  (`$MinStaticPages`, nu 89): daalt het eronder, of is het getal niet uit de buildoutput te lezen,
+  dan blokkeert de poort. Groei blokkeert niet maar wordt gemeld. De
   verantwoording staat in de header van het script. Het draait sinds 2026-08-13 op twee plekken —
   lokaal onder Windows PowerShell 5.1 en in CI onder `pwsh` op Linux — en houdt daar in zijn
   preferences rekening mee.
@@ -737,6 +740,27 @@ De grondwet hierboven, hier concreet ingevuld:
   van de drie stappen. Daarmee is deze poort niet langer deels een afspraak: het oude advies
   "vergelijk op aantal en niet op exitcode" is vervallen, omdat er geen aantal meer te vergelijken is.
   `-SkipBuild` bestaat om lokaal te itereren en hoort niet in de poort zelf.
+  > **Sinds 2026-08-15 checkt de poort werkelijk wat hij beloofde, op twee punten die allebei een
+  > belofte zonder mechanisme waren.**
+  >
+  > **Eén: de isolatie van `tsconfig.lint.json` bestond niet.** Die config sluit `.next` uit en legde
+  > in zijn eigen `"//"`-comment uit dat de poort daarom "puur de broncode checkt en zo
+  > reproduceerbaar is". Een `exclude` filtert echter alleen wortelbestanden, niet wat via een import
+  > binnenkomt — en `next-env.d.ts` doet op regel 3 een **directe** `import
+  > "./.next/types/routes.d.ts"`. Gemeten: de poort typechecktte 680 bestanden mét
+  > `.next/types/routes.d.ts` erin, precies de stale build-output waarvan hij onafhankelijk heette te
+  > zijn. Daar kwam bij dat `next-env.d.ts` in `.gitignore` staat en **in CI dus niet bestaat**:
+  > lokaal en server-side draaide dezelfde poort een ánder programma. `next-env.d.ts` staat nu in de
+  > `exclude`; gemeten resultaat 677 bestanden, exit 0, geen `.next` meer — exact wat CI al deed.
+  >
+  > **Twee: het paginatal werd geprint maar niet getoetst.** Er stond een comment dat een plotse
+  > daling "ook een signaal" is, zonder drempel en zonder vergelijking. Die faalklasse is hier al
+  > eens live gegaan: `/luister` leverde een lege Suspense-shell in plaats van 78 mixlinks. Er staat
+  > nu een ondergrens (`$MinStaticPages`, gemeten op **89**) die blokkeert bij een daling, en die
+  > **ook blokkeert als het paginatal onleesbaar is** — anders valt de toets stil uit zodra Next zijn
+  > buildoutput anders formuleert. Groei blokkeert niet maar wordt wel gemeld, met het verzoek de
+  > ondergrens bewust te verhogen. Beide takken zijn negatief getoetst: ondergrens tijdelijk op 999
+  > gaf exit 1, en een opzettelijk kapotte regex ook.
   > **Er stonden 37 pre-existing errors, en die zijn op 2026-08-14 in drie stappen naar 0 gebracht.**
   > Tien waren `no-require-imports` in `scripts/` en `netlify/functions/` — CommonJS in Node-land, dus
   > geen fout in die bestanden maar een ontbrekende override in `eslint.config.mjs`. Veertien waren
@@ -745,12 +769,21 @@ De grondwet hierboven, hier concreet ingevuld:
   > dertien waren echte code: vier hook-fouten, vijf `any`'s en vier JSX-entities.
   >
   > **De tweede stap liep anders dan gepland, en dat is de les die blijft.** Het plan was een eigen
-  > `.d.ts` met `declare module '*.scss'`. Bij het meten bleek `tsc` die imports al te accepteren —
-  > `next-env.d.ts` levert de declaratie via `/// <reference types="next" />`. Er was dus geen
-  > declaratiebestand nodig en ook nooit nodig geweest: de zestien regels konden simpelweg weg. Was
-  > het plan zonder meting uitgevoerd, dan stond er nu een `.d.ts` in de repo die niets doet en die
+  > `.d.ts` met `declare module '*.scss'`. Bij het meten bleek `tsc` die imports al te accepteren.
+  > Er was dus geen declaratiebestand nodig en ook nooit nodig geweest: de zestien regels konden
+  > simpelweg weg. Was het plan zonder meting uitgevoerd, dan stond er nu een `.d.ts` in de repo die
+  > niets doet en die
   > een latere lezer als noodzakelijk zou lezen. **De remedie van een plan is een aparte aanname dan
   > de diagnose, en faalt onafhankelijk daarvan.**
+  >
+  > **Hier stond tot 2026-08-15 een verkeerde reden onder een juiste conclusie:** *"`next-env.d.ts`
+  > levert de declaratie via `/// <reference types="next" />`"*. Dat de zestien regels weg konden
+  > klopte, maar `next-env.d.ts` is niet wat het mogelijk maakte. `declare module '*.scss'` staat in
+  > `node_modules/next/types/global.d.ts` en komt transitief binnen via de `next`-imports in de code
+  > zelf — gemeten met `tsc --listFiles`, zónder `next-env.d.ts` in de config. Dat bestand staat
+  > bovendien in `.gitignore` en **bestaat in CI helemaal niet**, dus een verklaring die erop leunt
+  > verklaart alleen de lokale helft. Het is sinds 2026-08-15 uit `tsconfig.lint.json` gehaald, om de
+  > reden hieronder.
   >
   > **Diezelfde dag gingen ook de 8 warnings naar 0**, en dat leverde de vondst op die de hele
   > operatie rechtvaardigt: één ervan was een ongebruikte import van `EmailDisplay` in `ContactForm`,
