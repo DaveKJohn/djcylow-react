@@ -28,8 +28,18 @@ blijft slash-only, want die staat in `CLAUDE.md` aan Dave's expliciete verzoek.
 Vanaf `main`, direct na de merge:
 
 ```powershell
-powershell -NoProfile -File scripts/task/shared.ps1 -Script release/fold-changelog-entry.ps1
+powershell -NoProfile -File scripts/task/shared.ps1 -Script release/fold-changelog-entry.ps1 -Commit
 ```
+
+**`-Commit` is niet optioneel.** Zonder die vlag schrijft `fold-changelog-entry.ps1` de wijzigingen
+alleen naar schijf en commit het niets — terwijl stap 4 hieronder belooft dat hij
+`fold: <branch> changelog` commit. Het script stageert zelf alleen `CHANGELOG.md` en de twee
+bestanden in `branch/`, dus de scope van uitzondering 1 blijft gehandhaafd ook als er verder iets in
+de tree rondslingert.
+
+**`-Push` geven we hier bewust niet mee.** Die vlag bestaat en impliceert `-Commit`, maar pushen naar
+`origin/main` is in deze repo Dave's initiatief — zie de safety-rules in `CLAUDE.md`. De fold-commit
+blijft dus lokaal staan tot hij zelf pusht.
 
 ## Wat het doet
 

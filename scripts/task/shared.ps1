@@ -80,15 +80,39 @@ Write-Host "-- gedeeld script via $Plugin $($nieuwste.Versie)" -ForegroundColor 
 Write-Host "   $doel" -ForegroundColor DarkGray
 Write-Host ""
 
-# Doorgeven met @Rest, zodat vlaggen als -Resolves 47 ongewijzigd aankomen.
+# Doorgeven via een NIEUWE host, niet via `& $doel @Rest`.
+#
+# Waarom: array-splatting geeft elk element als POSITIONEEL argument door. Een `-Resolves` in
+# $Rest is dan geen parameternaam meer maar een gewone string, en die belandt op de eerste
+# positionele parameter van het doelscript. Gemeten op 2026-08-15 tegen de signature van
+# open-pr.ps1: `-Resolves 47` kwam aan als `Title='-Resolves'` met `Resolves=''` leeg.
+#
+# Dat verklaart de enige foutmelding die dit ooit gaf -- `WARNING: -Title is ignored since #506`,
+# een waarschuwing over een parameter die niemand meegaf. Alle tien PR's #98 t/m #107 zijn zo
+# zonder hun -Resolves geopend.
+#
+# Gemeten en verworpen als oorzaak: de [string[]]-typecast op $Rest (een ongetypeerde
+# ValueFromRemainingArguments gedraagt zich identiek) en [CmdletBinding()] op deze wrapper.
+# Klassieke $args is geen alternatief: zonder ValueFromRemainingArguments weigert -File de
+# onbekende parameter al bij de wrapper.
+#
+# De remedie geeft de argumenten als losse tokens aan een nieuwe host, die de parameterbinding
+# zelf doet -- zonder dat deze wrapper hoeft te weten welke parameters switches zijn en welke een
+# waarde slikken. Dat is precies de kennis die een hashtable-splat wel zou vereisen.
+$hostExe = (Get-Process -Id $PID).Path
+if (-not $hostExe) {
+    $hostNaam = if ($PSVersionTable.PSEdition -eq 'Core') { 'pwsh' } else { 'powershell.exe' }
+    $hostExe = Join-Path $PSHOME $hostNaam
+}
+
 # Eerst op 0 zetten: een .ps1 die via & wordt aangeroepen en zelf geen `exit` doet, laat de
 # LASTEXITCODE van de vorige aanroep staan. Zonder dit meldde een geslaagde run exit 255.
 $global:LASTEXITCODE = 0
 
 if ($Rest) {
-    & $doel @Rest
+    & $hostExe -NoProfile -File $doel @Rest
 } else {
-    & $doel
+    & $hostExe -NoProfile -File $doel
 }
 
 $code = if ($null -eq $LASTEXITCODE) { 0 } else { $LASTEXITCODE }
