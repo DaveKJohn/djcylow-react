@@ -407,6 +407,20 @@ Volume number within the same **subgenre** + color + power + frequency series.
 - Number sequentially within the same subgenre + color + power + frequency combination
 - Preview entries use `""` (empty string)
 
+> **That rule describes 19 of the 32 existing series, not all 32** (measured 2026-08-15). In the other
+> thirteen, `volume` was in fact counted per **color + power**, straight through subgenre and
+> frequency. `full-orange.json` shows it plainly: its `(m)` and `(f)` entries interleave as 1..9
+> rather than forming two separate series.
+>
+> The visible effect is a gap or a series that starts above 1 — a visitor can meet
+> `Blue Full (f) · Vol. 2` without a Vol. 1 ever existing. That matters more than it looks, because
+> `volume` builds the `<h1>`, the `<title>`, the OG title and GA4's `mix_title`.
+>
+> **Renumbering is deliberately not the answer.** It would rewrite ten existing titles and their URLs
+> to fix something cosmetic. Follow the rule above for **new** mixes; treat the thirteen as history.
+> This spec was corrected once before to match reality, and that correction did not go far enough —
+> hence the number here rather than another rewording.
+
 > **Note.** This spec previously said the series ran per color+power+frequency, without the
 > subgenre. The data has never worked that way: `Red Light (m) Vol. 1` exists four times — as Tech
 > House, Progressive House, Melodic Techno and Neurofunk — and there are eight more such pairs.
@@ -483,17 +497,39 @@ Day of the month, zero-padded to 2 digits.
 
 ---
 
-### `permalink` — string, legacy field
+### `permalink` — string, required · **this is the URL**
 
-The legacy URL for this mix (`.html` suffix, relative path). Kept for reference and backwards compatibility but **not used for routing** in the current Next.js app.
+The source of the mix page's URL. Not a legacy field: `mixSlug()` in `src/data/mixes/all.ts` derives
+the route from it, and `Playlist`, the mix detail page and `sitemap.ts` all use that.
 
 **Format:** `"luister/mix/[slug].html"`
 
+**How the slug is derived** — strip the directory, strip `.html`, lowercase, trim:
+
+```
+permalink : luister/mix/red-light-m-EDM-128BPM-20260615.html
+slug      : red-light-m-edm-128bpm-20260615
+URL       : /luister/mix/red-light-m-edm-128bpm-20260615
+```
+
 **Rules:**
 
-- Do not use this field for navigation in the codebase — use the slug derived from `id`, `color`, `power`, `frequency`, `genre`, and BPM
-- Fill it in for new mixes to maintain consistency, but the app ignores it
-- Old mixes: may have different slug patterns — that's okay, they're legacy
+- **Required and non-empty.** An entry without a usable `permalink` gets **no page at all**:
+  `generateStaticParams` skips it and the build still succeeds, so nothing goes red — the mix is
+  simply missing from the site.
+- The derived slug must be **unique**. Two mixes with the same slug means the second one is
+  unreachable while both appear in the sitemap.
+- Use only lowercase letters, digits and hyphens after the derivation.
+- Old entries may follow different slug patterns — that is fine, the value is taken as-is.
+
+`tests/mix-data.test.ts` enforces all four of these, so a mistake here fails the test suite rather
+than quietly costing a page.
+
+> **This section said the opposite until 2026-08-15.** It called `permalink` a legacy field, stated it
+> was *"not used for routing"*, and instructed readers to *"use the slug derived from `id`, `color`,
+> `power`, `frequency`, `genre`, and BPM"*. No such derivation exists anywhere in the codebase — all
+> four call sites read `permalink` directly. Following that instruction for a new mix produced an
+> entry with no page, and the build reported success.
 
 ---
 
@@ -516,6 +552,17 @@ https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_2
 - Must be a direct `.mp3` link (no redirect, no playlist format)
 - The path within the bucket is `[color]/[Filename].mp3`
 - See Audio Storage section for full bucket details
+
+> **The filename convention applies to NEW uploads.** Five existing files deviate from it —
+> `Orange_light_` instead of `Orange_Light_`, `Audio_v1` with a lowercase v, a space where an
+> underscore belongs before the date, `(Vol 1)` without the full stop, and three files with no suffix
+> at all. Those are not being renamed: renaming an object in R2 breaks the live audio of a published
+> mix, and the gain would be cosmetic.
+>
+> The reason to spell this out rather than leave it implied: without the qualifier, an odd-looking
+> filename reads as "wrong name" and gets waved through. Two entries once carried the byte-identical
+> `audioSrc` of a *different* mix, and the tell was exactly that — a filename that did not match its
+> entry. Knowing which deviations are expected is what makes the unexpected one visible.
 
 ---
 
@@ -681,6 +728,11 @@ Search keywords for this mix. Indexed as invisible metadata and used by search e
 - Lowercase preferred, but artist names can keep their casing
 - No minimum/maximum count — aim for 10–25 meaningful tags
 - Do NOT repeat tags that are already in `title`, `subgenre`, or `genre` verbatim — add variants and long-tails
+- **Preview entries (`ignore: true`) may omit this field entirely.** All eight do, and that is
+  correct: previews are filtered out of the playlist, so they are never indexed and have nothing to
+  be found by. This joins `date`, `volume` and `description`, which are already documented as
+  optional for previews — the omission of `tags` from that list made eight entries look incomplete
+  when they are not.
 
 ---
 
@@ -863,7 +915,18 @@ https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/
 https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/
 ```
 
-The legacy bucket is used by some older mixes in `full-blue.json`. New mixes and re-uploads always go to the active bucket.
+**The legacy bucket holds every Full mix — all 25 entries across all seven `full-*.json` files.** The
+60 Light entries are all on the active bucket. Measured on 2026-08-15.
+
+> This read *"used by some older mixes in `full-blue.json`"* until that date, and the difference
+> matters at exactly the wrong moment. Anyone retiring the old bucket on the strength of that sentence
+> would expect to rewrite two URLs and would in fact take **25 mix pages offline**. That is a
+> misjudged blast radius on the one operation here that carries real risk.
+>
+> Nothing is broken while the legacy bucket keeps serving. Migrating those 25 entries is worth doing,
+> but as its own deliberate piece of work — not as a side effect of something else.
+
+New mixes and re-uploads always go to the active bucket.
 
 ### Bucket folder structure
 
