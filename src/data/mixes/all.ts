@@ -27,21 +27,44 @@ import fullOrange from './full-orange.json';
 import fullPurple from './full-purple.json';
 import fullRed from './full-red.json';
 
+/** Eén regel uit de tracklist van een mix. */
+export interface Track {
+    time: string;
+    track: string;
+}
+
 export interface Mix {
     id: string;
+    id_spotify: string;
+    featured: boolean;
     ignore: boolean;
-    color: string;
+    title: string;
+    title_spotify: string;
     genre: string;
     subgenre: string;
+    bpm: number;
+    color: string;
     power: string;
     frequency: string;
     volume: string;
-    audioSrc: string;
-    image_wide_small: string;
-    permalink: string;
+    volume_spotify: number;
+    date: string;
+    jaar: string;
     maand: string;
     dag: string;
-    jaar: string;
+    /** De bron van de URL-slug. Zie `mixSlug()`; een lege of foute waarde levert géén pagina op. */
+    permalink: string;
+    audioSrc: string;
+    image_wide_small: string;
+    image_wide_large: string;
+    image_square: string;
+    description_nl?: string;
+    description_en?: string;
+    tags?: string[];
+    top_artists?: string[];
+    /** Aantal items in `tracklist`; vooraf geteld. De testsuite dwingt af dat de twee gelijk zijn. */
+    tracks: number;
+    tracklist: Track[];
 }
 
 /** Alle mixen uit alle bestanden, inclusief de preview-entries met `ignore: true`. */
@@ -64,4 +87,23 @@ export const liveMixes: Mix[] = allMixes
 export function mixSlug(mix: Pick<Mix, 'permalink'>): string {
     const filename = mix.permalink.split('/').pop() || '';
     return filename.split('.html')[0].toLowerCase().trim();
+}
+
+/**
+ * De acht covers van de Music Mood Colours-pagina: per kleur de mix die als voorbeeld dient.
+ *
+ * Het filter is bewust `power === 'Light'` ÉN `featured`, en niet alleen `featured`. De drie
+ * carousels op die pagina importeerden alleen de acht `light-*`-bestanden, dus "featured" betekende
+ * daar impliciet ook "light". Gemeten op 2026-08-15 zijn alle acht featured entries inderdaad light
+ * previews en staat er geen enkele in een `full-*`-bestand -- maar dat is een eigenschap van de data
+ * van vandaag, niet van de regel. Zonder het power-filter zou een featured Full-mix die er ooit
+ * bijkomt stilletjes een cover overnemen.
+ */
+export function featuredMixByColor(color: string): Mix | undefined {
+    return allMixes.find(
+        (mix) =>
+            mix.color?.toLowerCase() === color.toLowerCase() &&
+            mix.power === 'Light' &&
+            mix.featured === true,
+    );
 }
