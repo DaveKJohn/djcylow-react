@@ -1,60 +1,59 @@
-## `fix/nederlandse-taal-en-404` changelog
+## `style/dode-componenten-weg` changelog
 
 ### Branch title
 
-De site zegt tegen browsers en Google dat hij Nederlands is
+De vijf slapende componenten en hun stylesheets zijn opgeruimd
 
 ### Branch ID
 
-20260815-211644
+20260815-212111
 
 ### Branch type
 
-fix
+style
 
-### What does the change on this branch bring to main?
+De vijf componenten die nergens gerenderd werden zijn weg: `Diensten`, `MeetTheDJ`, `Verzoeknummers`,
+`Referenties` en `GoogleReviews`, samen met hun drie stylesheets en `src/content/referenties.ts`. In
+`page.tsx` stonden twee ervan uitgecommentarieerd, en zulke regels lezen als "staat klaar om aan te
+zetten" — terwijl de referentiedata uit vier plaatsvullers bestond die één uncomment verwijderd waren
+van publicatie op een boekingssite.
 
-De site draagt `<html lang="nl">` in plaats van `lang="en"`. Alle content is Nederlands — de teksten
-in `src/content/`, alle koppen, alle UI-strings — dus dat attribuut beschreef niets. Het kostte twee
-concrete dingen: schermlezers spraken Nederlandse tekst met een Engelse stem uit, en Google kreeg een
-taalsignaal dat de rest van de pagina tegensprak, op een site die juist lokaal gevonden wil worden.
+**Dat maakt ook `react-google-reviews` los**, de dependency die in PR #114 nog moest blijven omdat
+`GoogleReviews.tsx` er als enige naar verwees. `dependencies` telt nu zes pakketten, en alle zes
+worden gebruikt.
 
-**De fallback-description was ook Engels** (*"DJ Cylow - Professional DJ for your events"*). De vier
-hoofdpagina's zetten hun eigen description, maar wat dat niet doet krijgt deze — en `out/404.html`
-droeg hem letterlijk.
+**De teksten in `src/content/home.ts` blijven wél staan**, en dat is bewust een ander oordeel dan bij
+de code. De velden die alleen die componenten lazen — `intro_story_*`, `verzoeknummers_story_*`, de
+vier `*_h3`-koppen — zijn geschreven tekst: een bio, een uitleg over verzoeknummers. Code die niets
+doet is schuld; een alinea die nog nergens staat is voorraad. Er staat nu bovenaan dat bestand welke
+velden gerenderd worden en welke klaarliggen.
 
-**En er was geen eigen 404-pagina**, dus Next leverde zijn standaard: `404: This page could not be
-found.`, in het Engels en zonder enige styling van deze site. Er staat nu een `not-found.tsx` in de
-huisstijl, met `robots: noindex, follow` — een foutpagina hoort niet in de zoekresultaten, maar de
-links erop mogen wel gevolgd worden.
+**De test die deze slapers bewaakte is omgedraaid in plaats van weggegooid.** Hij controleerde of hun
+imports ergens naartoe wezen; nu controleert hij of **elke** component in `src/components/home/` ook
+daadwerkelijk gerenderd wordt — dus of er geen nieuwe slapers ontstaan. Dat is dezelfde regel die de
+vijf destijds had gevangen, alleen een stap eerder. Plus een test dat er geen uitgecommentarieerde
+JSX-secties achterblijven.
 
-Gemeten in de build: `out/404.html` en `out/index.html` dragen beide `lang="nl"`, de 404 heet
-*"Pagina niet gevonden | DJ Cylow"* en draagt een Nederlandse description.
-
-**De documentatie sprak zichzelf hierover tegen, en dat is meegecorrigeerd.** `CLAUDE.md` zei "de
-website is Engels" met `lang="en"` als bewijs; `README.md` zei "the site is in Dutch". De code gaf
-een derde antwoord. Het attribuut was dus geen taalbesluit maar een verkeerde waarde die als besluit
-werd gepresenteerd — en die presentatie hield hem in stand. Alle drie zeggen nu hetzelfde.
-
-`description_en` blijft bestaan en wordt net zo streng bewaakt door de testsuite: dat veld is er voor
-een eventuele Engelse variant later.
+**Twee bestaande tests moesten mee, en één daarvan is er beter van geworden.** De alt-tekst-test las
+een vaste lijst bestanden waaronder `Verzoeknummers.tsx`; die viel na het verwijderen op een
+ontbrekend bestand in plaats van op een slechte alt-tekst. Hij loopt nu over de hele boom en dekt
+daarmee ook nieuwe componenten.
 
 ### Significance
 
 #### Tier 0
 
-Een tegenspraak tussen twee governance-documenten en de code is weg, en de reden waarom hij ontstond
-staat erbij: een verkeerd ingevuld attribuut dat als besluit werd gelezen.
+Negen bestanden en een dependency minder, en de regel die slapers vangt staat nu vóór ze ontstaan in
+plaats van erna. Wat weg is staat in de git-historie; wat blijft is tekst, geen code.
 
 **Score:** 3
 
 #### Tier 1
 
-Het taalsignaal naar Google klopt nu op een site die van lokale vindbaarheid leeft, en wie een
-schermlezer gebruikt krijgt Nederlandse tekst niet langer met een Engelse stem. De 404 is bovendien
-geen kale Next-standaardpagina meer.
+De site levert exact dezelfde pagina's — 89, ongewijzigd. Het risico dat verdwijnt is dat iemand met
+één uncomment vier verzonnen klantcitaten publiceert.
 
-**Score:** 4
+**Score:** 2
 
 ### Pull Request
 
