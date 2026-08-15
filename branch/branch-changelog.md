@@ -1,57 +1,87 @@
-## `docs/ruleset-strict-aan` changelog
+## `config/netlify-publish-en-csp` changelog
 
 ### Branch title
 
-De ruleset eist nu een PR die bij is met main
+netlify.toml wijst de juiste publicatiemap aan en meet een Content-Security-Policy
 
 ### Branch ID
 
-20260815-193142
+20260815-191055
 
 ### Branch type
 
-docs
+config
 
 ### What does the change on this branch bring to main?
 
-`strict_required_status_checks_policy` op de ruleset `main-ci-gate` staat sinds 2026-08-15 op `true`,
-op Dave's verzoek. Deze branch legt dat vast in `CLAUDE.md`, want die beschreef nog de oude stand.
+Twee dingen in `netlify.toml`, het bestand dat de safety-rules beschermen omdat een fout erin de live
+site plat legt.
 
-**Wat het oplost.** Met `false` konden twee PR's die los groen zijn na elkaar mergen zonder dat `poort`
-de combinatie ooit had gezien. De klasse fout die dat oplevert — een import die na de eerste merge niet
-meer bestaat, een route die dubbel raakt — is precies wat de build zou vangen als hij tegen de juiste
-basis had gedraaid. In deze repo staat het resultaat daarvan binnen minuten live, want er is geen
-staging.
+**De publicatiemap wees naar `.next`, waar geen `index.html` staat.** `next.config.ts` zet
+`output: 'export'`, en dan schrijft `next build` de complete site naar `out/`. Als Netlify `.next`
+letterlijk zou publiceren, was de hele site een 404. Dat hij tóch werkt komt doordat de Netlify
+Next.js-runtime `output: 'export'` herkent en zelf de export-map neemt — maar die runtime staat
+nergens in dit bestand verklaard, dus de configuratie leunde op een detectie die de repo niet
+vastlegt. Nu staat er `publish = "out"`, wat de aanname expliciet maakt zonder het resultaat te
+veranderen.
 
-**Wat het kost, en dat hoort erbij te staan.** Een PR moet nu bij zijn met `main` vóór de merge. Hier
-schuift `main` bij élke fold op, dus een PR die even blijft liggen wordt "out of date" en vraagt een
-`Update branch` vóór hij te mergen is. Bij een reeks wachtende branches is dat één update-ronde per
-branch.
+**Er was geen Content-Security-Policy en geen Permissions-Policy.** Live gemeten: `x-frame-options`,
+`x-content-type-options` en `referrer-policy` komen wel door, die twee niet. Dat weegt hier zwaarder
+dan gemiddeld omdat de site GTM laadt — een mechanisme dat per ontwerp willekeurige tags injecteert,
+met een container waarvan de inhoud buiten deze repo wordt beheerd. Zonder CSP is er geen enkele
+begrenzing op wat daarlangs in de pagina van de bezoeker draait.
 
-**Hoe de wijziging is gedaan.** Een `PUT` op de ruleset met de volledige definitie terug en daarin
-exact één gewijzigd veld. Dat is geverifieerd door de opgehaalde ruleset vóór en ná te diffen: precies
-één verschil, en `bypass_actors`, `enforcement`, de drie regeltypes en de required check `poort` zijn
-alle vier ongemoeid. De backup van de oude definitie stond klaar vóór de call.
+De CSP staat **bewust als `Report-Only`**. Die blokkeert niets en meldt alleen in de console; dat is
+de juiste eerste stap, want een te strakke policy breekt de site zonder dat een build of test het
+ziet, en er is geen staging. De bronnenlijst is gemeten aan de gebouwde HTML en de componenten:
+googletagmanager, google/gstatic voor reCAPTCHA, youtube-nocookie en i.ytimg voor de promo, en de
+R2-bucket voor de audio. Fonts staan er niet bij, want `next/font/google` haalt die bij de build
+binnen en serveert ze self-hosted — geverifieerd: nul verwijzingen naar `fonts.gstatic.com` in de
+uitgeleverde HTML.
 
-**Het eerste voorstel uit #91 is bewust niet uitgevoerd.** Dat vraagt een tweede ruleset zónder bypass
-voor `deletion` en `non_fast_forward`, en die zou `cut-release`'s eigen push naar `main` blokkeren —
-precies waarom die bypass er staat. De bewering die daarover onjuist was, is al gecorrigeerd in PR #115.
+De Permissions-Policy sluit camera, microfoon en locatie af. Die stonden open voor elke ingesloten
+frame, en de site sluit er twee in.
+
+**Onderweg bleek er iets dat in geen enkel issue staat:** er zit **Cloudflare** vóór Netlify, en
+`www.djcylow.com` doet een 301 naar de apex. De `strict-transport-security`-header komt daar
+vandaan en niet uit dit bestand — gemeten levert Netlify zelf al
+`max-age=31536000; includeSubDomains; preload`. Dat is de reden dat het HSTS-voorstel uit #52 hier
+níet is uitgevoerd: die header aanpassen in `netlify.toml` raakt niet wat de bezoeker krijgt.
+
+**En de eerste poging leverde de twee nieuwe headers helemaal niet uit — stil.** De deploy preview
+gaf `x-frame-options`, `x-content-type-options` en `referrer-policy` netjes terug, maar de CSP en de
+Permissions-Policy niet. Geen foutmelding, geen gefaalde build, en Netlify's eigen "Header
+rules"-check bleef gewoon op `pass` staan.
+
+Het verschil tussen wat wél en niet doorkwam bleek **de comments**: de nieuwe headers stonden met
+uitleg en lege regels ertussen binnen `[headers.values]`. Na het verplaatsen van precies die comments
+naar bóven het blok kwamen alle vijf door. Dat is met een tijdelijke `X-Csp-Test`-header hard gemaakt,
+zodat een structuurprobleem te onderscheiden viel van een waardeprobleem; die testheader is daarna
+weer verwijderd en de eindmeting bevestigt alle vijf.
+
+Die val staat nu als waarschuwing in het bestand zelf, want hij faalt op de gevaarlijkste manier: je
+denkt dat er twee beveiligingsheaders staan, en er staat niets. Zonder deze meting was dat precies zo
+gemerged.
+
+**Wat de deploy preview verder bewijst:** alle vier de gemeten routes (`/`, `/luister`,
+`/musicmoodcolours`, `/diensten`) geven 200 met HTML terwijl `publish = "out"` actief is. Daarmee is
+de publicatiemap niet beredeneerd maar aangetoond.
 
 ### Significance
 
 #### Tier 0
 
-De poort kan niet langer groen staan op een combinatie die hij nooit heeft gezien. Dat kost een
-update-ronde per PR, en die afweging staat er nu bij zodat de volgende lezer weet waarom die stap er is.
+De config beschrijft nu wat er werkelijk gebeurt in plaats van te leunen op auto-detectie, en de
+documentatie in `CLAUDE.md` en `README.md` die de build naar `.next` liet gaan is meegecorrigeerd.
 
 **Score:** 3
 
 #### Tier 1
 
-Voorkomt een storing die de bezoeker zou merken — twee losse groene PR's die samen breken — maar er is
-vandaag niets mis en de site verandert niet.
+Twee beveiligingsheaders erbij op de live site, waarvan er één voorlopig alleen meet. De bezoeker
+merkt er niets van — dat is precies de bedoeling bij `Report-Only`.
 
-**Score:** 2
+**Score:** 3
 
 ### Pull Request
 
