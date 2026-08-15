@@ -98,8 +98,38 @@ export default function AudioPlayer({
 
 					<div className="row w-fill AMC P60 timeline-wrapper">
 						<div className="column w-fill AMC P65 fill-90">
+							{/* De tijdlijn was een <div onClick>: met de muis te bedienen, met het
+								toetsenbord niet. Hij draagt nu de slider-rol MÉT een key-handler --
+								dat laatste is het verschil met de filterknop op /luister, die de rol
+								wel beloofde maar geen toets afhandelde.
+
+								Bewust geen <input type="range">, wat het issue voorstelde: die zou de
+								tweelaagse weergave (`total` + `progress`) moeten vervangen, en die
+								speler staat op elke mixkaart. Dit geeft dezelfde bediening zonder de
+								vormgeving aan te raken. */}
 							<div
 								className="stack w-fill AMC"
+								role="slider"
+								tabIndex={0}
+								aria-label="Positie in de mix"
+								aria-valuemin={0}
+								aria-valuemax={Math.round(duration) || 0}
+								aria-valuenow={Math.round(currentTime) || 0}
+								aria-valuetext={`${Math.floor(currentTime / 60)} minuten ${Math.floor(currentTime % 60)} seconden`}
+								onKeyDown={(e) => {
+									if (!audioRef.current || !duration) return;
+									// Vijf seconden per pijltje, een minuut met Page Up/Down -- dezelfde
+									// stappen die een native audio-element aanhoudt.
+									const stap = e.key === 'PageUp' || e.key === 'PageDown' ? 60 : 5;
+									let doel: number | null = null;
+									if (e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'PageUp') doel = currentTime + stap;
+									else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown' || e.key === 'PageDown') doel = currentTime - stap;
+									else if (e.key === 'Home') doel = 0;
+									else if (e.key === 'End') doel = duration;
+									if (doel === null) return;
+									e.preventDefault();
+									audioRef.current.currentTime = Math.min(Math.max(doel, 0), duration);
+								}}
 								onClick={(e) => {
 									const rect = e.currentTarget.getBoundingClientRect();
 									const percent = (e.clientX - rect.left) / rect.width;

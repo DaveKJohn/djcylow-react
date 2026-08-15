@@ -41,19 +41,33 @@ const Promo = () => {
 
 
 
-                        <div className={`column AMC P35 stack video ${isPlaying ? 'is-playing' : ''}`} onClick={() => !isPlaying && setIsPlaying(true)}>
-                            <div className="lazyload-wrapper" style={{ backgroundImage: !isPlaying ? `url(${thumbnail})` : 'none' }}>
-                                {!isPlaying ? (
+                        {/* De starter is een echte <button> en de speler een <div>, en dat is met
+                            opzet twee takken in plaats van één element met een onClick. Het was een
+                            `<div onClick>`, dus met het toetsenbord onbereikbaar. Een <button> om de
+                            spelende iframe heen zou geen oplossing zijn: interactieve inhoud in een
+                            knop is ongeldige HTML en levert een knop op die je niet meer uit komt. */}
+                        {!isPlaying ? (
+                            <button
+                                type="button"
+                                className="column AMC P35 stack video"
+                                onClick={() => setIsPlaying(true)}
+                                aria-label="Speel de promovideo van DJ Cylow af"
+                            >
+                                <div className="lazyload-wrapper" style={{ backgroundImage: `url(${thumbnail})` }}>
                                     <div className="play-button"></div>
-                                ) : (
+                                </div>
+                            </button>
+                        ) : (
+                            <div className="column AMC P35 stack video is-playing">
+                                <div className="lazyload-wrapper">
                                     <iframe
                                         src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
                                         allow="autoplay; picture-in-picture"
                                         allowFullScreen
                                     ></iframe>
-                                )}
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                     </div>
                 </div>

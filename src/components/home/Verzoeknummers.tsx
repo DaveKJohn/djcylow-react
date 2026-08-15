@@ -20,7 +20,7 @@ const Promo = () => {
                                 src="/images/verzoek.webp"
                                 width={400}
                                 height={400}
-                                alt="verzoek"
+                                alt="Feestgangers die een verzoeknummer aanvragen bij de DJ-booth"
                             />
                         </div>
 

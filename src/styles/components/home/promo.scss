@@ -63,6 +63,16 @@
             aspect-ratio: 16 / 9;
             position: relative;
 
+            // De starter is sinds 2026-08-15 een <button> in plaats van een <div onClick>, zodat hij
+            // met het toetsenbord te bedienen is. Deze vier regels halen de eigen opmaak van een
+            // knop weg, zodat het element er precies zo uitziet als daarvoor. Zodra de video speelt
+            // is het weer een <div> -- een iframe in een knop is ongeldige HTML.
+            appearance: none;
+            background: transparent;
+            border: 0;
+            font: inherit;
+            cursor: pointer;
+
             @include mix.respond-to(v.$bp-medium) {
                 width: 100%;
             }

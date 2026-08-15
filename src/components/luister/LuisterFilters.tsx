@@ -76,19 +76,24 @@ export default function LuisterFilters() {
                                 id="luister_content_filter_drawer"
                                 icon={FilterIcon}
                                 trigger={(toggle) => (
-                                    <div
+                                    /* Een echte <button> en geen <div role="button">. Die stond hier
+                                       tot 2026-08-15 mét `tabIndex={0}`, maar zonder `onKeyDown` --
+                                       en een div krijgt geen native activering, dus Enter en Space
+                                       deden niets terwijl de rol aan hulpsoftware beloofde van wel.
+                                       Dat is erger dan geen rol: de gebruiker krijgt focus op iets
+                                       dat zich als knop aankondigt en vervolgens niet reageert. */
+                                    <button
+                                        type="button"
                                         id="luister_content_filter_mobile_button"
                                         className="column w-fill AMC P50 btn"
                                         onClick={toggle}
-                                        role="button"
-                                        tabIndex={0}
                                         aria-label="Filter openen"
                                     >
                                         <div className="row w-fill AMC P55 spacing-xl">
                                             {FilterIcon}
                                             <span>Filters</span>
                                         </div>
-                                    </div>
+                                    </button>
                                 )}
                             >
                                 {() => (

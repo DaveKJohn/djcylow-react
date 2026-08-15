@@ -45,11 +45,13 @@
         margin-top: map.get(map.get(v.$design-scale, "2xl"), "c-space");
     }
 
-    // De foutmelding onder het formulier. Stond als `color: 'red'` inline; dat is dezelfde rol als
-    // `#errorMessage p.text` hierboven, dus dezelfde waarde.
-    .foutmelding {
-        color: #d93025;
-    }
+    // HIER STOND `.foutmelding { color: #d93025 }`, en die is weg.
+    // Die regel verving op 2026-08-15 een inline `color: 'red'` en loste daarmee de repo-regel op,
+    // maar niet het onderliggende probleem: gemeten geeft #d93025 op de achtergrond hier 4,30:1,
+    // terwijl WCAG AA 4,5:1 vraagt voor normale tekst. De foutmelding draagt nu
+    // `.feedback-message.error` uit `base/_typography.scss` -- `--error-fg` op `--error-bg`, gemeten
+    // 6,80:1. Een reparatie die het gemelde symptoom wegneemt maar de oorzaak laat staan, is precies
+    // wat deze repo elders ook heeft moeten terugdraaien.
 
     .input-field {
         width: 100%;
@@ -58,9 +60,24 @@
         font-family: inherit;
         transition: border-color 0.2s;
 
-        &:focus {
-            outline: none;
-            border-color: var(--primary-color);
+        // HIER STOND `outline: none` MET EEN VERVANGING DIE NIET BESTOND.
+        // De regel eronder was `border-color: var(--primary-color)`, en die variabele wordt nergens
+        // gedefinieerd: `base/_root.scss` genereert de namen mechanisch uit `$colors` en levert
+        // `--black-100`, `--yellow-light` en zo. Een `var()` zonder fallback naar een niet-bestaande
+        // property maakt de hele declaratie ongeldig, waarna `border-color` terugviel op
+        // `currentColor` in plaats van de `#ddd` hierboven.
+        //
+        // Netto: de browser-focusring was weg en er kwam niets voor in de plaats. Op het
+        // contactformulier -- het enige conversiepunt van de site -- zag een toetsenbordgebruiker dus
+        // niet waar hij was. En dit was de ENIGE `:focus`-regel in de hele styles-boom, dus er was
+        // ook geen eigen focus-systeem dat het opving.
+        //
+        // `:focus-visible` en niet `:focus`: dan krijgt een muisklik geen ring maar toetsenbordfocus
+        // wel, wat precies het onderscheid is waarvoor die selector bestaat.
+        &:focus-visible {
+            outline: 2px solid var(--yellow-light);
+            outline-offset: 2px;
+            border-color: var(--yellow-light);
         }
 
         &.textarea-field {
@@ -69,20 +86,13 @@
         }
     }
 
-    #errorMessage {
-        display: none;
-
-        &.show {
-            display: flex;
-        }
-        p.text {
-            color: #d93025;
-            margin: 0;
-        }
-        .icon {
-            font-size: map.get(map.get(v.$design-scale, "8xl"), "font-size");
-        }
-    }
+    // HIER STOND EEN `#errorMessage`-BLOK, EN DAT WAS DOOD.
+    // Geen enkele component draagt dat id -- gemeten met een grep over `src/`. Het blok bevatte
+    // bovendien `color: #d93025`, dezelfde te lage contrastwaarde (4,30:1) die hierboven is
+    // vervangen. Een kleur repareren in CSS die niemand ziet, is geen reparatie; daarom is het blok
+    // weg in plaats van bijgewerkt.
+    //
+    // `#succesMessage` hieronder blijft wél staan: dat id staat gewoon in `ContactForm.tsx`.
 
     #succesMessage {
         display: flex;

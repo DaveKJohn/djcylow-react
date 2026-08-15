@@ -219,7 +219,11 @@ describe('AudioPlayer', () => {
         // De compacte speler op de overzichtspagina's zet deze uit; de mute-knop blijft wel staan.
         renderPlayer({ showVolumeSlider: false });
 
-        expect(screen.queryByRole('slider')).toBeNull();
+        // Op NAAM zoeken en niet op de rol alleen: sinds 2026-08-15 draagt ook de tijdlijn
+        // `role="slider"`, zodat je met de pijltjestoetsen door de mix kunt (issue #53). Een kale
+        // `queryByRole('slider')` vindt die dus altijd, en deze test zou daar onterecht op vallen.
+        expect(screen.queryByRole('slider', { name: 'Volumeregeling' })).toBeNull();
+        expect(screen.getByRole('slider', { name: 'Positie in de mix' })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Audio dempen' })).toBeInTheDocument();
     });
 

@@ -164,7 +164,7 @@ describe('MobileContent', () => {
         const { container } = renderDrawer();
 
         fireEvent.click(screen.getByRole('button', { name: 'Menu' }));
-        fireEvent.click(screen.getByRole('button', { name: '✕' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Sluiten' }));
         expect(container.querySelector('.drawer')).toHaveClass('closed');
 
         fireEvent.click(screen.getByRole('button', { name: 'Menu' }));

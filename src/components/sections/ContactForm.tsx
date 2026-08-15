@@ -197,10 +197,13 @@ export default function ContactForm() {
 
                                     {status === "error" && (
                                         <div className="column spacing-3xl">
-                                            {/* De kleur zat hier als `color: 'red'` inline. Dat was statisch én een
-                                                contrastprobleem; `#errorMessage p.text` gebruikt al #d93025, en die
-                                                waarde geldt nu ook hier. */}
-                                            <p className="size-base error text foutmelding">{errorMessage}</p>
+                                            {/* Dit stond als `color: 'red'` inline en werd op 2026-08-15 eerst
+                                                `#d93025`. Dat loste de inline style op maar niet het contrast:
+                                                gemeten geeft die kleur op de achtergrond hier 4,30:1, en WCAG AA
+                                                vraagt 4,5:1 voor normale tekst. `.feedback-message.error` bestond
+                                                al in `_typography.scss` en gebruikt `--error-fg` op `--error-bg`
+                                                — gemeten 6,80:1, dus ruim boven de norm. */}
+                                            <p className="size-base feedback-message error">{errorMessage}</p>
                                         </div>
                                     )}
 

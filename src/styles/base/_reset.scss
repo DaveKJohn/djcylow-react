@@ -23,3 +23,22 @@ body {
     }
    
 }
+
+// EEN ZICHTBARE FOCUS OP ALLES WAT FOCUS KAN KRIJGEN.
+//
+// Tot 2026-08-15 stond er in de hele styles-boom precies één `:focus`-regel, en die deed
+// `outline: none` met een vervanging die niet bestond (zie components/sections/_contact-form.scss).
+// Netto had de site dus nergens een eigen focus-systeem, en op het contactformulier was ook de
+// browserring weggehaald. Wie met het toetsenbord navigeert, zag niet waar hij was.
+//
+// `:focus-visible` en niet `:focus`: een muisklik krijgt geen ring, toetsenbordfocus wel. Dat is
+// precies het onderscheid waarvoor de selector bestaat, en het is de reden dat een blanket
+// `:focus`-regel destijds is weggehaald.
+//
+// De kleur is `--yellow-light`, dezelfde accentkleur als de CTA-knop, zodat de ring bij het ontwerp
+// hoort in plaats van de blauwe standaardring van de browser te zijn. `outline-offset` houdt hem los
+// van de rand van het element, wat hem ook zichtbaar maakt op een donkere achtergrond.
+:focus-visible {
+    outline: 2px solid var(--yellow-light);
+    outline-offset: 2px;
+}
