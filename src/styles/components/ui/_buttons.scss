@@ -51,7 +51,17 @@
     }
 
     &.cta {
-        @include mix.apply-ux-bg(width);
+        // De gele-naar-cyaan wipe. Dit stond hier tot 2026-08-15 als `apply-ux-bg(width)`, en dat
+        // was een verkeerd gebleven mixinnaam uit een refactor: `apply-ux-bg` verwacht een P-shade
+        // ("15".."65") en kreeg het woord `width` -- het DEFAULTARGUMENT van `cta-hover-effect`.
+        // Gevolg in de gebouwde CSS: `body.ux-mode .btn.cta{background-color:!important}`, een lege
+        // en dus ongeldige declaratie, drie keer. Sass gooide geen fout omdat map.get() netjes null
+        // teruggeeft.
+        //
+        // Het effect zelf ontbrak daardoor volledig: het ::before hieronder kreeg wel een kleur maar
+        // geen `content`, `position`, `width` of `transition`, dus het pseudo-element rendert niet.
+        // Die vier stonden al die tijd in `cta-hover-effect`, die nergens werd aangeroepen.
+        @include mix.cta-hover-effect;
 
         @include mix.color-utility(background-color, yellow-light);
         @include mix.color-utility(color, black-100);
@@ -60,6 +70,9 @@
             @include mix.color-utility(background-color, yellow-light);
             @include mix.color-utility(color, black-100);
         }
+
+        // De kleur van de wipe blijft hier en gaat bewust NIET de mixin in: `cta-hover-effect` is
+        // generiek (vorm en timing), de kleur hoort bij deze knop.
         &::before {
             @include mix.color-utility(background-color, cyan-light);
         }
