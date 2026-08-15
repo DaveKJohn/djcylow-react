@@ -313,6 +313,7 @@ npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/l
 | Commando | Script | Wat het doet |
 |---|---|---|
 | `npm run mix:add` | `scripts/add-mix.js` | Voeg interactief een nieuwe mix toe aan het juiste JSON bestand |
+| `npm run mix:check-audio` | `scripts/check-audio.js` | Vraagt elke `audioSrc` op en meldt wat niet bereikbaar is (exit 1) |
 | `npm run images:webp` | `scripts/convert-to-webp.js` | **Preview** — laat zien wat er zou gebeuren en wijzigt niets |
 | `npm run images:webp:apply` | `scripts/convert-to-webp.js --apply` | Converteert werkelijk en verwijdert de `.jpg`-originelen |
 
@@ -790,6 +791,14 @@ Repo-eigen scripts:
   repo, en draait bij het starten van een sessie via de `script-contract-sessioncheck`-hook.
 - `scripts/add-mix.js` (`npm run mix:add`) en `scripts/convert-to-webp.js` (`npm run images:webp`,
   preview; `npm run images:webp:apply` voert uit).
+- **`scripts/check-audio.js`** (`npm run mix:check-audio`) — vraagt elke `audioSrc` uit
+  `src/data/mixes/` op en meldt wat niet bereikbaar is, met exit 1. **Bewust geen test en geen
+  poortstap**: het doet 85 netwerkverzoeken naar een bucket buiten deze repo, en een poort die om een
+  externe oorzaak rood staat wordt genegeerd — dan bewaakt hij niets meer. Draai hem met de hand na
+  het aanraken van de mix-data of het opruimen van R2.
+  > Aanleiding: `Green Full (m) Vol. 2` stond op 404 op de live site, gevonden bij het meten van iets
+  > anders. De pagina bouwde, de link stond er, en alleen wie op play drukte merkte het. Dat is de
+  > klasse fout waar geen enkele bestaande poort naar kijkt.
 
 De Release Workflow hierboven kent geen repo-eigen script; de sluitende stappen lopen sinds de
 herinstallatie op 2026-08-03 via de gedeelde **`cut-release`**-skill. Die skill doet het versienummer,

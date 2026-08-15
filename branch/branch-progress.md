@@ -1,21 +1,20 @@
-## `config/permissions-die-meereizen` progress
+## `fix/green-full-vol2-audio-404` progress
 
 ### Steps
 
-- [x] De 89 `allow`-regels doorlopen en vaststellen welke echt gevaarlijk zijn
-- [x] Vaststellen dat `settings.local.json` gitignored is — dus dat repareren daar niets oplost
-- [x] `deny`/`ask` in `.claude/settings.json` uitbreiden met de handelingen zelf
-- [x] Vaststellen dat `ask` van `allow` wint (waargenomen bij `netlify.toml`, niet aangenomen)
-- [x] De grens eerlijk opschrijven: `node *` omzeilt alles, en een kale `git push` is niet te matchen
-- [~] Het lokale bestand opschonen — bewust niet gedaan, zie de entry: het verandert het gedrag niet
-      en vergroot de kans op een prompt midden in een sessie
+- [x] Alle 85 `audioSrc`-velden opvragen — één 404 gevonden
+- [x] Uitzoeken of het bestand echt weg is of anders heet (`_f_` in plaats van `_m_`)
+- [x] Verifiëren dat het de juiste opname is: bitrate uit de MP3-header tegen de tracklistduur
+- [x] De `audioSrc` corrigeren met een gerichte vervanging (1 regel diff, geen herformattering)
+- [x] `scripts/check-audio.js` + `npm run mix:check-audio`, negatief getoetst
+- [x] Meten of de 25 Full-mixen al op de actieve bucket staan (0 van 25) en dat vastleggen
+- [x] `README.md` en `CLAUDE.md` bijwerken
 - [x] Poort en testsuite
 
 ### Where I left off
 
-Poort groen (0/0, 89 pagina's), 207 tests groen.
+Alle 85 audio-URL's staan op 200. Poort groen, 207 tests groen.
 
-Wat open blijft en niet met permissies op te lossen is: `Bash(node *)` maakt elke regel omzeilbaar.
-Wie dat écht dicht wil, moet die regel uit het lokale bestand halen — en dan is de vraag hoe een
-specialist nog moet meten, want een groot deel van het meetwerk in deze repo loopt via `node -e`.
-Dat is een afweging, geen reparatie.
+Wat hierna aan Dave is, en alleen aan hem: de 25 Full-mixen naar de actieve bucket kopiëren (issue
+#68 blijft daarvoor open). Pas ná die kopie kunnen de URL's om. En als `Green_Full_f_…20231127…`
+ooit hernoemd wordt naar `_m_`, moet dit veld mee.

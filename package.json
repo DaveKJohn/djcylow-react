@@ -14,7 +14,8 @@
     "test:watch": "vitest",
     "images:webp": "node scripts/convert-to-webp.js",
     "images:webp:apply": "node scripts/convert-to-webp.js --apply",
-    "mix:add": "node scripts/add-mix.js"
+    "mix:add": "node scripts/add-mix.js",
+    "mix:check-audio": "node scripts/check-audio.js"
   },
   "dependencies": {
     "next": "^16.2.4",

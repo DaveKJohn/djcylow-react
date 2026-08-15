@@ -1,65 +1,60 @@
-## `config/permissions-die-meereizen` changelog
+## `fix/green-full-vol2-audio-404` changelog
 
 ### Branch title
 
-De gevaarlijke handelingen staan nu in de gedeelde permissions, niet alleen in het gitignorede bestand
+De audio van Green Full Vol. 2 speelt weer; hij stond 404 op de live site
 
 ### Branch type
 
-config
+fix
 
 ### What does the change on this branch bring to main?
 
-Issue #63 wees op gevaarlijke `allow`-regels in `.claude/settings.local.json`: 89 regels, waaronder
-`git push *`, `PowerShell(git *)`, `gh api *` en `gh release *`. Bij het aanpakken bleek de kern van
-het probleem een andere te zijn dan het weghalen van die regels, en dat is wat hier is opgelost.
+**Er stond een mixpagina live waarvan de audio het niet deed.** `Green Full (m) Vol. 2` (id
+`20231127`) verwees naar een bestand dat op de bucket niet bestaat: HTTP 404. De pagina bouwde
+gewoon, de speler stond er, en alleen wie op play drukte merkte het. Sinds wanneer is niet te zeggen.
 
-**Dat bestand is gitignored.** Het reist niet mee, het geldt alleen op deze machine, en niets in de
-repo kan eraan tornen — een reparatie daar is dus geen reparatie van de repo maar van één werkplek,
-en hij is morgen op een tweede machine weer weg. De laag die wél meereist is
-`.claude/settings.json`, en daar winnen `deny` en `ask` van een `allow` uit het lokale bestand.
-**Dat is geen aanname**: de `ask`-regels voor `netlify.toml` hebben in deze repo in de praktijk
-gevraagd terwijl `Edit` breed was toegestaan.
+Het bestand bestaat wél — het heet op de bucket `Green_Full_**f**_…` terwijl de entry `_m_` zegt. De
+data is intern consistent (`frequency`, `title` en `permalink` zeggen alle drie `m`); de upload wijkt
+af. De `audioSrc` wijst nu naar de naam die er echt staat, want een werkende pagina gaat voor een
+nette URL. Dat het ook werkelijk de juiste opname is, is gemeten en niet aangenomen: het bestand
+duurt 57m45s (83,2 MB bij 192 kbps, uit de MP3-header) en de laatste track van deze tracklist begint
+op 56m14s.
 
-Dus staat het gevaar nu daar. Nieuw op de `ask`-lijst: `git push origin main` en
-`git push origin HEAD:…`, `gh api` met een schrijvende methode (`-X` / `--method`),
-`gh release create` en `delete`, `gh repo edit`, `gh ruleset` en `git config` — elk in beide vormen,
-want `Bash(...)` en `PowerShell(...)` zijn aparte regels. `gh repo delete` staat op **deny**: dat is
-de enige in de rij die niet terug te draaien is. De keuze voor `ask` boven `deny` is dezelfde als
-bij `netlify.toml`: `deny` maakt een legitieme handeling onmogelijk in plaats van bewust, en de
-safety-rule zegt dat Dave's woord nodig is — niet dat het onbereikbaar moet zijn. `cut-release`
-pusht zelf naar `main`, en die draait alleen op Dave's verzoek; een prompt is daar precies goed.
+**Deze fout is gevonden bij het meten van iets anders**, en dat is precies waarom er nu een commando
+voor is. `scripts/check-audio.js` (`npm run mix:check-audio`) vraagt alle 85 `audioSrc`-velden op en
+meldt wat niet bereikbaar is, met exit 1. Alle 85 staan nu op 200. Het script is negatief getoetst:
+met een moedwillig kapotgemaakte URL meldt het die als enige en geeft exit 1.
 
-**Er staat een eerlijke grens bij in `CLAUDE.md`, en die is het halve punt van deze branch.** Het
-lokale bestand staat ook `Bash(node *)` en `Bash(python -c ' *)` toe, en daarmee is élke regel
-hierboven te omzeilen: `node -e "require('child_process').execSync('…')"` valt onder geen van deze
-patronen. Deze lijst beschermt tegen een **vergissing**, niet tegen opzet. Dat maakt hem niet
-waardeloos — bijna alles wat hier ooit is misgegaan was een vergissing — maar wie hem leest als
-sluitende afscherming leest hem verkeerd, en een lijst die meer belooft dan hij waarmaakt is
-gevaarlijker dan geen lijst. Dat staat er nu bij, samen met het ene geval dat de patronen niet
-kunnen vangen: een kale `git push` terwijl je op `main` staat, waar geen argument is om op te
-matchen.
+**Bewust géén test en geen poortstap.** Het doet 85 netwerkverzoeken naar een bucket buiten deze
+repo. Als R2 hikt, faalt daarmee een PR die niets met audio te maken heeft — en een poort die om een
+externe oorzaak rood staat wordt genegeerd, waarna hij niets meer bewaakt.
 
-Het lokale bestand zelf is bewust **niet** opgeschoond. De `ask`-regels overrulen de gevaarlijke
-`allow`-regels toch al, dus het weghalen ervan verandert het gedrag niet — het zou alleen de kans
-vergroten dat een lopende sessie halverwege op een prompt stuit voor iets onschuldigs.
+Daarnaast is issue #68 verder gemeten dan het zelf ging. Het stelde de migratie van de 25 Full-mixen
+naar de actieve bucket voor als het resterende werk. **Die migratie is geblokkeerd op een upload, niet
+op een herschrijving:** alle 25 URL's zijn ook tegen de actieve bucket opgevraagd en daar staat er
+**0 van de 25**. De bestanden moeten eerst gekopieerd worden, en dat vraagt R2-toegang — Dave's stap.
+De URL's herschrijven vóór die kopie zou alle 25 mixpagina's offline halen, precies de fout waar het
+issue zelf voor waarschuwt, maar dan van de andere kant. Dat staat nu in
+`src/data/mixes/README.md`, samen met de afwijkende bestandsnaam hierboven, zodat wie ooit de oude
+bucket opheft weet wat hij aantreft.
 
 ### Significance
 
 #### Tier 0
 
-De bescherming stond op de verkeerde plek: in een bestand dat niet meereist, terwijl de safety-rules
-die hij hoort af te dwingen wél meereizen. Op een tweede machine, of na een verse checkout, gold er
-niets. Nu wel.
+De README beschreef de migratie als een herschrijfklus. Wie daaraan begon, zou na 25 bewerkte velden
+ontdekken dat er niets staat om naar te wijzen — en dan staan er 25 pagina's zonder audio. Nu staat
+er wat er nodig is en in welke volgorde.
 
 **Score:** 3
 
 #### Tier 1
 
-Geen zichtbaar effect op de site. Wat het waard is, is dat een per ongeluk uitgevoerde push naar
-`main` — dus een ongevraagde deploy naar `djcylow.com` — nu eerst vraagt.
+Een van de mixen op de site kon niet worden afgespeeld en dat kan lang zo hebben gestaan. Dat is een
+bezoeker die op play drukt en niets krijgt, op de pagina waar de hele site voor bestaat.
 
-**Score:** 2
+**Score:** 4
 
 ### Pull Request
 
