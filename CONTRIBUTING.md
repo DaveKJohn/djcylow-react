@@ -72,7 +72,7 @@ niet een formaliteit onderweg.
 | hoofdbranch | `main` | — |
 | branch-prefixes | zeven die je kiest; de lib erkent er negen en levert acht changelog-typen | [`scripts/lib/branch-info.ps1`](scripts/lib/branch-info.ps1) |
 | het type waar een onbekende prefix op terugvalt | `Chore` | `Get-EntryFallbackType` |
-| de lint-poort | [`scripts/lint/lint-web.ps1`](scripts/lint/lint-web.ps1) — `tsc --noEmit` én `npm run build` | `Get-LintScript` |
+| de lint-poort | [`scripts/lint/lint-web.ps1`](scripts/lint/lint-web.ps1) — `tsc --noEmit`, `eslint .` én `npm run build` | `Get-LintScript` |
 | de sectiekoppen van een entry | de Engelse defaults — bewust niet overschreven | *(geen override gedefinieerd)* |
 | de rubric achter de scores 1–5 | de gedeelde vijf banden | *(geen override gedefinieerd)* |
 | de ene publieks-tier van deze repo | **1** — het management en de opdrachtgever | `Get-ReleaseAudienceTier` |
@@ -242,12 +242,16 @@ de entry. Twee dingen die hier gemeten zijn en niet in de portable helft staan:
   én een `upstream`-remote die naar dezelfde GitHub-URL wijzen, wat de branch-detectie van `gh` in de war
   stuurt met *"you must first push the current branch to a remote"*.
 
-> **Nog niet gerepareerd, en het bijt bij elke PR:** de placeholder in onze PR-template is
-> `<!-- Korte beschrijving van de wijziging en waarom -->`, terwijl `open-pr` letterlijk naar een andere
-> zoekt. Zonder match krijgt de PR een body **zonder beschrijving en zonder foutmelding** — gemeten bij PR
-> #26. De reparatie is niet de template naar de bron toeschrijven maar `Get-PrDescriptionPlaceholder` in
-> `scripts/repo-config.ps1` vullen met onze eigen regel; die seam bestaat sinds plugin 4.7.0 en waarschuwt
-> er nu wél hard over. Staat gepland op `docs/release-route-naar-script`.
+> **De PR-body wordt gevuld uit `branch/branch-changelog.md`**, en dat werkt omdat
+> `.github/pull_request_template.md` de canonieke placeholder draagt waar `open-pr` naar zoekt.
+> `Get-PrDescriptionPlaceholder` in `scripts/repo-config.ps1` blijft daarom **bewust leeg**: die seam
+> bestaat om een afwijkende placeholder te melden, en er is er geen.
+>
+> Hier stond tot 2026-08-15 het omgekeerde — dat dit "nog niet gerepareerd" was, dat de template een
+> Nederlandse placeholder droeg, en dat de reparatie het vullen van die seam zou zijn, gepland op
+> `docs/release-route-naar-script`. Alle vier onwaar: de reparatie was juist de template-route, ze is
+> gemerged en gefold, en die branch bestaat niet meer. Dat is de gevaarlijkste soort achterstand —
+> geen verouderde constatering maar een opdracht tot werk aan een seam die leeg hoort te blijven.
 
 ### 5. Vertel Dave wat er is gedaan
 
