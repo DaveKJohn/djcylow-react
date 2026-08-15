@@ -52,10 +52,18 @@ const FAMILIES: Record<string, readonly string[]> = {
  * bedoeling en niet een storing. Zet er nooit een hoger getal in om een test groen te maken.
  */
 const ACHTERSTAND = {
-	/** Beschrijvingen langer dan 160 tekens: 3, alle drie in `full-red.json`. */
-	descriptionNlTeLang: 3,
-	/** `description_nl` met een streepje erin, wat de spec verbiedt omdat het AI-gegenereerd oogt. */
-	descriptionNlMetDash: 13,
+	/**
+	 * Beschrijvingen langer dan 160 tekens. Stond op 3 (alle drie in `full-red.json`) en is op
+	 * 2026-08-15 naar **0** gegaan: die drie zijn ingekort met behoud van het use-case-signaal
+	 * waar de spec om vraagt. Google kapte ze anders af midden in de laatste zin.
+	 */
+	descriptionNlTeLang: 0,
+	/**
+	 * `description_nl` met een streepje erin, wat de spec verbiedt omdat het AI-gegenereerd oogt.
+	 * Van 13 naar 11: twee van de drie ingekorte beschrijvingen droegen er een (`non-stop` en
+	 * `DnB-liefhebber`), en die zijn bij het herschrijven vanzelf verdwenen.
+	 */
+	descriptionNlMetDash: 11,
 	/** Idem voor `description_en`. */
 	descriptionEnMetDash: 15,
 	/**

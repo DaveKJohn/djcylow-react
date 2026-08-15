@@ -160,13 +160,19 @@ EDM [bpm]BPM [emoji] [Color] [Power] ([frequency]) [emoji] Vol. [N]
 
 | Colour | Emoji | Colour | Emoji |
 |---|---|---|---|
-| Red | 🔴 | Cyan | 💠 |
+| Red | 🔴 | Cyan | 🧊 |
 | Orange | 🟠 | Blue | 🔵 |
 | Yellow | 🟡 | Purple | 🟣 |
 | Green | 🟢 | Magenta | not yet determined |
 
-Cyan uses a diamond because Unicode has no cyan circle. Magenta has no marker yet — there is no
+Cyan uses an ice cube because Unicode has no cyan circle. Magenta has no marker yet — there is no
 Magenta mix (only the preview entry), so pick one together with the first Magenta release.
+
+> **This table said 💠 for Cyan until 2026-08-15, and all seven Cyan mixes use 🧊.** The spec was
+> changed to match the data rather than the other way round, for one reason: those seven titles are
+> already published on Spotify. Rewriting them here would leave the repo saying one thing and the
+> live uploads another, and would make every future Cyan release the odd one out among its own
+> siblings. Seven out of seven is a convention, not a slip.
 
 **Rules:**
 
