@@ -114,7 +114,7 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > |---|---|
 > | lint-poort | `scripts/lint/lint-web.ps1`, lokaal én in CI |
 > | CI | [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main` |
-> | testsuite | `tests/mix-data.test.ts`, 36 tests over de mix-data |
+> | testsuite | vier suites in `tests/`: de mix-data plus AudioPlayer, MobileContent en EmailDisplay |
 > | branch protection | ruleset `main-ci-gate`, met `poort` als required check |
 >
 > **Toch wacht álles in `src/`, `public/` en `src/data/mixes/` onverkort**, ook een refactor die visueel
@@ -256,7 +256,7 @@ beweringen in die niemand zag. Een correctie boven de streep gaat dus naar de br
 komt terug via een plugin-release; hier repareren herstart de drift. Onder de streep staat het repo-eigen
 deel, ook Engels, zodat de hele pagina één register heeft.
 
-Wat **niet** meeverhuist naar het Engels: de 60 bestaande documenten in `releases/development/` en
+Wat **niet** meeverhuist naar het Engels: de bestaande documenten in `releases/development/` en
 `releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
 uitgingen, en een record is geen vertaling. De taalgrens loopt daarmee dwars door het
 development-document: Engelse tier-koppen boven Nederlandse entries.
@@ -290,7 +290,7 @@ lenzen neer. `check-script-contract.ps1` bewaakt daarnaast dat `scripts/repo-con
 ```bash
 npm run dev      # dev server → http://localhost:3000
 npm run build    # static export → .next/
-npm run lint     # ESLint + TypeScript check
+npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/lint/lint-web.ps1
 ```
 
 #### Hulpscripts
@@ -403,9 +403,10 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 3. **Draai `cut-release`** met de bump die de wachtende entries verdienen (zie *Versienummer bepalen*
    hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
    je hoeft die er niet apart voor te zetten
-   - `npm run lint` blijft handwerk en staat nog buiten de poort, maar meldt sinds 2026-08-14 **0
-     errors en 0 warnings**. Er valt dus niets meer te vergelijken op aantal: elke melding is nieuw,
-     en hoort niet mee de PR in
+   - De poort meldt sinds 2026-08-14 **0 errors en 0 warnings**, en ESLint zit er sinds diezelfde dag
+     zélf in, als tweede van de drie stappen — dit stond hier tot 2026-08-15 nog als "blijft handwerk
+     en staat nog buiten de poort", wat het document drie alinea's verderop al tegensprak. Er valt
+     niets meer te vergelijken op aantal: elke melding is nieuw, en hoort niet mee de PR in
 4. **Herschrijf het audience-concept** (alleen Minor/Major):
    `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
    jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
@@ -432,7 +433,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    > roots en wat er per root in hoort
    > **En de submap ging later diezelfde dag van `<X.Y>` naar `<X>.x`**, toen `releases/` op Dave's
    > verzoek volledig gelijk werd getrokken met de bron: `Get-ReleaseNotesGrouping` staat sindsdien op
-   > `'major'` en alle 60 documenten (37 development, 23 audience) wonen in `2.x/`. Ook die verhuizing
+   > `'major'` en alle documenten wonen in `2.x/`. Ook die verhuizing
    > is `git mv` zonder een letter aan hun tekst te veranderen
 5. **Schrijf de aankondiging**: `releases/github/<major>.x/<versie>.md` — een paar alinea's die
    de body van de GitHub Release worden: wat er nieuw is, voor wie, en een regel die naar de twee
@@ -661,8 +662,14 @@ Repo-eigen scripts:
 - `scripts/add-mix.js` (`npm run mix:add`) en `scripts/convert-to-webp.js` (`npm run images:webp`).
 
 De Release Workflow hierboven kent geen repo-eigen script; de sluitende stappen lopen sinds de
-herinstallatie op 2026-08-03 via de gedeelde **`cut-release`**-skill. Het bepalen van het versienummer,
-de release-notes en de changelog-verhuizing blijven handwerk van Rendall 🎬.
+herinstallatie op 2026-08-03 via de gedeelde **`cut-release`**-skill. Die skill doet het versienummer,
+de development-note en het legen van `CHANGELOG.md` **zelf** — zie de tabel bij de Release Workflow.
+Wat handwerk van Rendall 🎬 blijft: het **audience-concept herschrijven**, de aankondiging in
+`github/`, en de GitHub Release met zijn bijlagen.
+
+> Hier stond tot 2026-08-15 dat het versienummer, de release-notes en de changelog-verhuizing
+> handwerk bleven. Dat was de tekst van vóór de omzetting van 2026-08-13, en de tabel hierboven wees
+> alle drie al aan het script toe.
 
 ### Safety-invulling van djcylow-react
 
@@ -673,7 +680,7 @@ De grondwet hierboven, hier concreet ingevuld:
   **geen staging** en geen aparte publicatiestap. Een release cutten voegt daar een versienummer en
   een tag aan toe, maar zet niets nieuws live — dat was al gebeurd bij de merges.
 - **De poort vóór elke PR is de laatste wacht vóór een live deploy.** `open-pr` draait
-  `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit` én `npm run build`, beide moeten
+  `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit`, `eslint .` én `npm run build`, alle drie moeten
   groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte build niet
   vangt en er niets tussen de merge en de site zit. **ESLint zit er sinds 2026-08-14 in**, als tweede
   van de drie stappen. Daarmee is deze poort niet langer deels een afspraak: het oude advies

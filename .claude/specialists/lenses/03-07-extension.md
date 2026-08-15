@@ -5,7 +5,8 @@ group: 03
 
 # 03-07 · repo lens (VUL-IN)
 
-> Repo lens alongside portable domain guide for specialist 03-07 in `specialists` plugin.
+> Repo lens alongside the agent definition for specialist 03-07 in the `team-alpha` plugin:
+> `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/teams/team-alpha/agents/03-07-agent.md`.
 > Created by `specialists-init` as empty template; agent definition reads it automatically.
 > Fill in repo-specific tasks and context below that specialist 03-07 needs in this repo.
 
