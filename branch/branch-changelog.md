@@ -1,60 +1,73 @@
-## `fix/green-full-vol2-audio-404` changelog
+## `chore/overflow-propagatie-vastgelegd` changelog
 
 ### Branch title
 
-De audio van Green Full Vol. 2 speelt weer; hij stond 404 op de live site
+De reden dat de sticky filter werkt staat nu in een test in plaats van in niemands hoofd
 
 ### Branch type
 
-fix
+chore
 
 ### What does the change on this branch bring to main?
 
-**Er stond een mixpagina live waarvan de audio het niet deed.** `Green Full (m) Vol. 2` (id
-`20231127`) verwees naar een bestand dat op de bucket niet bestaat: HTTP 404. De pagina bouwde
-gewoon, de speler stond er, en alleen wie op play drukte merkte het. Sinds wanneer is niet te zeggen.
+Issue #79 had twee punten over `body { overflow-x: hidden }` in `_reset.scss`. Het tweede is
+gemeten en blijkt **niet te kloppen** — en juist die weerlegging leverde iets op dat wél bewaakt
+moet worden.
 
-Het bestand bestaat wél — het heet op de bucket `Green_Full_**f**_…` terwijl de entry `_m_` zegt. De
-data is intern consistent (`frequency`, `title` en `permalink` zeggen alle drie `m`); de upload wijkt
-af. De `audioSrc` wijst nu naar de naam die er echt staat, want een werkende pagina gaat voor een
-nette URL. Dat het ook werkelijk de juiste opname is, is gemeten en niet aangenomen: het bestand
-duurt 57m45s (83,2 MB bij 192 kbps, uit de MP3-header) en de laatste track van deze tracklist begint
-op 56m14s.
+**Punt (b) van het issue: `body` als scroll-container zou `position: sticky` breken bij
+afstammelingen, en `#luister_content_filter` is sticky.** Dat klopt niet, om een reden die het issue
+niet meewoog: de overflow-propagatieregel uit css-overflow-3. Staat de gebruikte overflow van het
+**root**-element (`html`) op `visible`, dan wordt `body`'s overflow doorgegeven aan de **viewport**
+en is de gebruikte waarde op `body` zelf weer `visible`. Geen scroll-container, dus sticky werkt.
+Het is ook precies waarom `body { overflow: hidden }` de páginascroll uitzet in plaats van alleen
+die van de body.
 
-**Deze fout is gevonden bij het meten van iets anders**, en dat is precies waarom er nu een commando
-voor is. `scripts/check-audio.js` (`npm run mix:check-audio`) vraagt alle 85 `audioSrc`-velden op en
-meldt wat niet bereikbaar is, met exit 1. Alle 85 staan nu op 200. Het script is negatief getoetst:
-met een moedwillig kapotgemaakte URL meldt het die als enige en geeft exit 1.
+Gemeten in de gebouwde CSS: er staat **geen enkele `html`-selector** in — nul treffers over alle vier
+de stylesheets — en de HTML draagt geen inline style. `html` staat dus op zijn initiële `visible`, en
+de propagatie treedt op.
 
-**Bewust géén test en geen poortstap.** Het doet 85 netwerkverzoeken naar een bucket buiten deze
-repo. Als R2 hikt, faalt daarmee een PR die niets met audio te maken heeft — en een poort die om een
-externe oorzaak rood staat wordt genegeerd, waarna hij niets meer bewaakt.
+**Maar dat hangt op één voorwaarde, en die stond nergens.** `html` mag geen eigen overflow krijgen —
+en `html { overflow-x: hidden }` is nu juist de meest voor de hand liggende reparatie van
+horizontale overflow die er is. Wie hem toevoegt, stopt de propagatie, maakt `body` alsnog een
+scroll-container en breekt de filter op de luisterpagina. Zonder foutmelding, en alleen zichtbaar
+door daar te scrollen.
 
-Daarnaast is issue #68 verder gemeten dan het zelf ging. Het stelde de migratie van de 25 Full-mixen
-naar de actieve bucket voor als het resterende werk. **Die migratie is geblokkeerd op een upload, niet
-op een herschrijving:** alle 25 URL's zijn ook tegen de actieve bucket opgevraagd en daar staat er
-**0 van de 25**. De bestanden moeten eerst gekopieerd worden, en dat vraagt R2-toegang — Dave's stap.
-De URL's herschrijven vóór die kopie zou alle 25 mixpagina's offline halen, precies de fout waar het
-issue zelf voor waarschuwt, maar dan van de andere kant. Dat staat nu in
-`src/data/mixes/README.md`, samen met de afwijkende bestandsnaam hierboven, zodat wie ooit de oude
-bucket opheft weet wat hij aantreft.
+Dat is nu vastgelegd op twee plekken: `tests/overflow-propagatie.test.ts` leest de gebouwde CSS en
+faalt op een overflow op het root-element, met de uitleg in de assertion zelf; en `_reset.scss`
+draagt de redenering waar iemand hem tegenkomt. De test slaat zichzelf over als er geen build staat,
+zodat `npm test` zonder voorafgaande build niet struikelt — in de poort en in CI gaat `npm run build`
+er wel aan vooraf.
+
+**De negatieve toets liep in eerste instantie fout, en dat is de les die blijft.** De eerste poging
+zette `html { overflow-x: hidden }` bóven de `@use`-regels van het bestand. Sass weigert dat, de
+build faalde, `out/` bleef op de vorige versie staan — en de test kwam groen terug. Dat las als
+"de test werkt niet", terwijl hij correct was en de opzet fout. Na plaatsing ónder de `@use`-regels
+faalde hij zoals bedoeld, met de bedoelde melding. **Een negatieve toets die groen blijft, kan net
+zo goed betekenen dat de toets zichzelf niet heeft uitgevoerd** — controleer dat de build wérkelijk
+opnieuw draaide voordat je concludeert dat de test niet bijt.
+
+Punt (a) van het issue — dat `overflow-x: hidden` echte overflow maskeert — blijft staan en is
+eerder deze week al gemeten: na de reparatie van de hero steekt er niets meer uit behalve de
+carousels op `musicmoodcolours`, en die zijn horizontaal scrollend bedoeld. De regel blijft daarom
+staan.
 
 ### Significance
 
 #### Tier 0
 
-De README beschreef de migratie als een herschrijfklus. Wie daaraan begon, zou na 25 bewerkte velden
-ontdekken dat er niets staat om naar te wijzen — en dan staan er 25 pagina's zonder audio. Nu staat
-er wat er nodig is en in welke volgorde.
+Er lag een openstaand voorstel om `overflow-x: hidden` te verwijderen op grond van een gevolg dat
+zich niet voordoet. Wie dat had uitgevoerd, had een werkende regel weggehaald om een probleem op te
+lossen dat er niet was. Belangrijker is wat ervoor in de plaats komt: de échte breekbaarheid zit een
+niveau hoger, bij `html`, en die was nergens opgeschreven.
 
 **Score:** 3
 
 #### Tier 1
 
-Een van de mixen op de site kon niet worden afgespeeld en dat kan lang zo hebben gestaan. Dat is een
-bezoeker die op play drukt en niets krijgt, op de pagina waar de hele site voor bestaat.
+Geen zichtbaar effect op de site vandaag. Wat het voorkomt is een sticky filter die stilletjes stopt
+met plakken op de luisterpagina, door een wijziging die er volstrekt redelijk uitziet.
 
-**Score:** 4
+**Score:** 2
 
 ### Pull Request
 
