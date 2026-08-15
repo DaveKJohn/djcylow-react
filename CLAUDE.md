@@ -592,6 +592,21 @@ val.
 > staat er geïnstalleerd) en niet de **map-as** (welke van twee bomen lees je), en dat is wat het
 > verschil maakte: twee kopieën van dezelfde versie-as verwarren kost je een verouderd script, twee
 > verschillende bomen verwarren kost je een verkeerde diagnose over de repo zelf.
+>
+> **Diezelfde dag leverde het onderscheid zijn tweede geval op, en dat is de nuttigste kant ervan:
+> het bespaarde een overbodig inbound-issue.** `session-status.ps1` uit de **cache** print de open
+> issues als één regel `#System.Object[]  System.Object[]` — gereproduceerd onder Windows PowerShell
+> 5.1, waar `ConvertFrom-Json` een JSON-array als één object teruggeeft in plaats van hem uit te
+> pakken, zodat `$_.number` alle 29 nummers achter elkaar plakt. Onder `pwsh` 7 valt dat niet op, wat
+> verklaart waarom niemand het eerder zag. De reflex is dan een `inbound`-issue; de **marketplace-clone**
+> laat echter zien dat de bron het al heeft gerepareerd — daar staat `$raw = gh issue list …` met een
+> `Where-Object`-filter erachter, en die pipeline pakt de array wél uit. Nagemeten onder 5.1: 29
+> issues, correct geformatteerd. Het komt hier dus vanzelf binnen met de volgende plugin-release.
+>
+> **De les is de volgorde**: eerst kijken welke van de twee bomen je leest, dán pas concluderen wie
+> achterloopt. In het eerste geval wees de marketplace-clone een probleem aan dat er hier niet was;
+> in het tweede loste hij er een op die hier wél zichtbaar is. Beide keren was de cache de waarheid
+> over wat er nú draait, en de clone de waarheid over wat er straks draait.
 
 **Acht van de tien plugin-skills kan een specialist niet zelf aanroepen, en voor drie daarvan heeft
 deze repo een eigen ingang gemaakt** (Dave, 2026-08-15). De skills die naar buiten schrijven —
