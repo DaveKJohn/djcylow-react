@@ -22,7 +22,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_128BPM_20260303_Audio_V1.mp3",
     "image_wide_small": "/images/full/yellow/wide/image_full_yellow_wide_20260303_small.webp",
     "image_wide_large": "/images/full/yellow/wide/image_full_yellow_wide_20260303_large.webp",
-    "image_square": "/images/full/yellow/square/image_full_yellow_20260303_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -214,7 +214,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20231106_Audio_V1%20(Vol.%202).mp3",
     "image_wide_small": "/images/full/yellow/wide/image_full_yellow_wide_20231106_small.webp",
     "image_wide_large": "/images/full/yellow/wide/image_full_yellow_wide_20231106_large.webp",
-    "image_square": "/images/full/yellow/square/image_full_yellow_20231106_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -438,7 +438,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/yellow/Yellow_Full_m_EDM_DNB_20230220_Audio_V3%20(Vol.%201).mp3",
     "image_wide_small": "/images/full/yellow/wide/image_full_yellow_wide_20230220_small.webp",
     "image_wide_large": "/images/full/yellow/wide/image_full_yellow_wide_20230220_large.webp",
-    "image_square": "/images/full/yellow/square/image_full_yellow_20230220_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [

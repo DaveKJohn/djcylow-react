@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",
-    "axios": "^1.13.6",
     "gray-matter": "^4.0.3",
     "next": "^16.2.4",
     "nodemailer": "^8.0.1",

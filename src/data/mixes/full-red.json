@@ -22,7 +22,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020240226_Audio_v1%20(Vol.%204).mp3",
     "image_wide_small": "/images/full/red/wide/image_full_red_wide_20240226_small.webp",
     "image_wide_large": "/images/full/red/wide/image_full_red_wide_20240226_large.webp",
-    "image_square": "/images/full/red/square/image_full_red_20240226_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -258,7 +258,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020230502_Audio_v1%20(Vol.%203).mp3",
     "image_wide_small": "/images/full/red/wide/image_full_red_wide_20230502_small.webp",
     "image_wide_large": "/images/full/red/wide/image_full_red_wide_20230502_large.webp",
-    "image_square": "/images/full/red/square/image_full_red_20230502_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -459,7 +459,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020230403_Audio_v1%20(Vol.%202).mp3",
     "image_wide_small": "/images/full/red/wide/image_full_red_wide_20230403_small.webp",
     "image_wide_large": "/images/full/red/wide/image_full_red_wide_20230403_large.webp",
-    "image_square": "/images/full/red/square/image_full_red_20230403_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
@@ -659,7 +659,7 @@
     "audioSrc": "https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/red/Red_Full_m_EDM_DNB%2020220711_Audio_v1%20(Vol.%201).mp3",
     "image_wide_small": "/images/full/red/wide/image_full_red_wide_20220711_small.webp",
     "image_wide_large": "/images/full/red/wide/image_full_red_wide_20220711_large.webp",
-    "image_square": "/images/full/red/square/image_full_red_20220711_square.webp",
+    "image_square": "",
     "featured": false,
     "ignore": false,
     "top_artists": [
