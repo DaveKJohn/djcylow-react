@@ -11,7 +11,9 @@
       "PowerShell(git reset --hard:*)",
       "PowerShell(git rebase:*)",
       "Bash(git push origin +:*)",
-      "PowerShell(git push origin +:*)"
+      "PowerShell(git push origin +:*)",
+      "Bash(gh repo delete:*)",
+      "PowerShell(gh repo delete:*)"
     ],
     "ask": [
       "Edit(./next.config.ts)",
@@ -19,7 +21,25 @@
       "Edit(./netlify.toml)",
       "Write(./netlify.toml)",
       "Edit(./public/images/**)",
-      "Write(./public/images/**)"
+      "Write(./public/images/**)",
+      "Bash(git push origin main:*)",
+      "PowerShell(git push origin main:*)",
+      "Bash(git push origin HEAD:*)",
+      "PowerShell(git push origin HEAD:*)",
+      "Bash(gh api -X:*)",
+      "PowerShell(gh api -X:*)",
+      "Bash(gh api --method:*)",
+      "PowerShell(gh api --method:*)",
+      "Bash(gh release create:*)",
+      "PowerShell(gh release create:*)",
+      "Bash(gh release delete:*)",
+      "PowerShell(gh release delete:*)",
+      "Bash(gh repo edit:*)",
+      "PowerShell(gh repo edit:*)",
+      "Bash(gh ruleset:*)",
+      "PowerShell(gh ruleset:*)",
+      "Bash(git config:*)",
+      "PowerShell(git config:*)"
     ]
   },
   "enabledPlugins": {

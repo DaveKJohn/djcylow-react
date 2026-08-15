@@ -1,19 +1,21 @@
-## `chore/npm-audit-ronde` progress
+## `config/permissions-die-meereizen` progress
 
 ### Steps
 
-- [x] `npm audit` uitlezen: acht meldingen, per stuk kijken of er een non-breaking fix is
-- [x] `npm audit fix` — zeven weg, alleen `package-lock.json` geraakt
-- [x] Meten of we op de nodemailer-CVE kwetsbaar wáren (`raw`/`attachments`/`path` in de functie)
-- [x] Nodemailer 8 → 9, en de major toetsen met een echte smoke-test via `jsonTransport`
-- [x] De Next-minor toetsen: alle 86 HTML-bestanden voor en na gehasht
+- [x] De 89 `allow`-regels doorlopen en vaststellen welke echt gevaarlijk zijn
+- [x] Vaststellen dat `settings.local.json` gitignored is — dus dat repareren daar niets oplost
+- [x] `deny`/`ask` in `.claude/settings.json` uitbreiden met de handelingen zelf
+- [x] Vaststellen dat `ask` van `allow` wint (waargenomen bij `netlify.toml`, niet aangenomen)
+- [x] De grens eerlijk opschrijven: `node *` omzeilt alles, en een kale `git push` is niet te matchen
+- [~] Het lokale bestand opschonen — bewust niet gedaan, zie de entry: het verandert het gedrag niet
+      en vergroot de kans op een prompt midden in een sessie
 - [x] Poort en testsuite
 
 ### Where I left off
 
-`npm audit` staat op 0/0/0/0. Poort groen, 207 tests groen.
+Poort groen (0/0, 89 pagina's), 207 tests groen.
 
-Wat na de merge nog kan: `npm audit` periodiek terug laten komen. Hij staat nu niet in de poort en
-ook niet in CI — bewust niet, want een nieuwe advisory op een ongewijzigde tree zou dan een PR
-blokkeren die er niets mee te maken heeft. Een eigen wekelijkse workflow is de betere plek; dat is
-werk voor een aparte branch.
+Wat open blijft en niet met permissies op te lossen is: `Bash(node *)` maakt elke regel omzeilbaar.
+Wie dat écht dicht wil, moet die regel uit het lokale bestand halen — en dan is de vraag hoe een
+specialist nog moet meten, want een groot deel van het meetwerk in deze repo loopt via `node -e`.
+Dat is een afweging, geen reparatie.

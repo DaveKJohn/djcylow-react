@@ -1,63 +1,65 @@
-## `chore/npm-audit-ronde` changelog
+## `config/permissions-die-meereizen` changelog
 
 ### Branch title
 
-De acht kwetsbaarheden uit npm audit zijn weg, inclusief die in Next zelf
-
-### Branch ID
-
-20260815-214204
+De gevaarlijke handelingen staan nu in de gedeelde permissions, niet alleen in het gitignorede bestand
 
 ### Branch type
 
-chore
+config
 
 ### What does the change on this branch bring to main?
 
-`npm audit` meldde acht kwetsbaarheden: zeven high (`brace-expansion`, `immutable`, `js-yaml`,
-`next`, `nodemailer`, `postcss`, `sharp`) en één low (`@babel/core`). Na deze branch zijn het er
-**nul** (issue #94).
+Issue #63 wees op gevaarlijke `allow`-regels in `.claude/settings.local.json`: 89 regels, waaronder
+`git push *`, `PowerShell(git *)`, `gh api *` en `gh release *`. Bij het aanpakken bleek de kern van
+het probleem een andere te zijn dan het weghalen van die regels, en dat is wat hier is opgelost.
 
-Zeven ervan gingen weg met `npm audit fix` — een wijziging in `package-lock.json` en verder niets.
-Next zelf schoof daarbij van 16.2.4 naar 16.3.1.
+**Dat bestand is gitignored.** Het reist niet mee, het geldt alleen op deze machine, en niets in de
+repo kan eraan tornen — een reparatie daar is dus geen reparatie van de repo maar van één werkplek,
+en hij is morgen op een tweede machine weer weg. De laag die wél meereist is
+`.claude/settings.json`, en daar winnen `deny` en `ask` van een `allow` uit het lokale bestand.
+**Dat is geen aanname**: de `ask`-regels voor `netlify.toml` hebben in deze repo in de praktijk
+gevraagd terwijl `Edit` breed was toegestaan.
 
-**Nodemailer was de enige die een major vroeg** (8 → 9), en dat is de beslissing in deze branch. Er
-zijn twee vragen beantwoord voordat hij is genomen.
+Dus staat het gevaar nu daar. Nieuw op de `ask`-lijst: `git push origin main` en
+`git push origin HEAD:…`, `gh api` met een schrijvende methode (`-X` / `--method`),
+`gh release create` en `delete`, `gh repo edit`, `gh ruleset` en `git config` — elk in beide vormen,
+want `Bash(...)` en `PowerShell(...)` zijn aparte regels. `gh repo delete` staat op **deny**: dat is
+de enige in de rij die niet terug te draaien is. De keuze voor `ask` boven `deny` is dezelfde als
+bij `netlify.toml`: `deny` maakt een legitieme handeling onmogelijk in plaats van bewust, en de
+safety-rule zegt dat Dave's woord nodig is — niet dat het onbereikbaar moet zijn. `cut-release`
+pusht zelf naar `main`, en die draait alleen op Dave's verzoek; een prompt is daar precies goed.
 
-**Waren we kwetsbaar?** Nee. De CVE gaat over de `raw`-optie, die `disableFileAccess` en
-`disableUrlAccess` omzeilt en zo willekeurige bestanden leesbaar maakt. `netlify/functions/send-email.js`
-gebruikt `raw` niet, gebruikt geen `attachments` en geen `path`, en bouwt zijn `mailOptions` volledig
-hardcoded op — de gebruikersinvoer landt uitsluitend als string in `text`, `html`, `replyTo` en
-`subject`. Een aanvaller kan er dus geen `raw` in krijgen. De upgrade is daarmee hygiëne en geen
-reparatie, en dat is precies waarom hij hier kon zonder haast.
+**Er staat een eerlijke grens bij in `CLAUDE.md`, en die is het halve punt van deze branch.** Het
+lokale bestand staat ook `Bash(node *)` en `Bash(python -c ' *)` toe, en daarmee is élke regel
+hierboven te omzeilen: `node -e "require('child_process').execSync('…')"` valt onder geen van deze
+patronen. Deze lijst beschermt tegen een **vergissing**, niet tegen opzet. Dat maakt hem niet
+waardeloos — bijna alles wat hier ooit is misgegaan was een vergissing — maar wie hem leest als
+sluitende afscherming leest hem verkeerd, en een lijst die meer belooft dan hij waarmaakt is
+gevaarlijker dan geen lijst. Dat staat er nu bij, samen met het ene geval dat de patronen niet
+kunnen vangen: een kale `git push` terwijl je op `main` staat, waar geen argument is om op te
+matchen.
 
-**Is de major veilig?** Gemeten, niet aangenomen. `engines` staat op `>=6.0.0` en deze functie
-gebruikt nodemailer op de meest basale manier die er is: `createTransport` plus één `sendMail`. De
-testsuite bewijst dat níét — die mockt `createTransport` en zou een kapotte nodemailer niet zien.
-Daarom is er los een smoke-test tegen de echte 9.0.5 gedraaid met `jsonTransport`, met exact onze
-`mailOptions`: `from`, `to`, `replyTo`, `subject`, `text` en `html` komen alle zes correct opgebouwd
-terug.
-
-**En de Next-minor is op de output getoetst.** Voor en na de upgrade is de hele statische export
-gehasht — alle 86 HTML-bestanden, met de scripts en de asset-hashes eruit gestript. Ze zijn
-**identiek**. De poort staat groen op 0 errors, 0 warnings en 89 pagina's, en 207 tests slagen.
+Het lokale bestand zelf is bewust **niet** opgeschoond. De `ask`-regels overrulen de gevaarlijke
+`allow`-regels toch al, dus het weghalen ervan verandert het gedrag niet — het zou alleen de kans
+vergroten dat een lopende sessie halverwege op een prompt stuit voor iets onschuldigs.
 
 ### Significance
 
 #### Tier 0
 
-`npm audit` is alleen bruikbaar als de teller op 0 staat: in een lijst van acht bekende meldingen valt
-een nieuwe negende niet op. Dat is dezelfde reden waarom de ESLint-teller op 0/0 staat, en hij gold
-tot nu toe niet voor de dependencies.
+De bescherming stond op de verkeerde plek: in een bestand dat niet meereist, terwijl de safety-rules
+die hij hoort af te dwingen wél meereizen. Op een tweede machine, of na een verse checkout, gold er
+niets. Nu wel.
 
 **Score:** 3
 
 #### Tier 1
 
-Voor een bezoeker verandert er niets — de gerenderde site is aantoonbaar identiek. Wat het waard is,
-is dat het contactformulier op een nodemailer draait waar geen openstaande high meer op zit.
+Geen zichtbaar effect op de site. Wat het waard is, is dat een per ongeluk uitgevoerde push naar
+`main` — dus een ongevraagde deploy naar `djcylow.com` — nu eerst vraagt.
 
-**Score:** 1
+**Score:** 2
 
 ### Pull Request
 
