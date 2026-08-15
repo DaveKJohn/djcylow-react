@@ -1,64 +1,72 @@
-## `config/lokale-workflow-skills` changelog
+## `fix/mix-add-schema` changelog
 
 ### Branch title
 
-Repo-eigen slash-skills voor de workflow-stappen die de plugin niet autonoom aanbiedt
+mix:add levert een entry die het schema en de testpoort haalt
 
 ### Branch ID
 
-20260815-125827
+20260815-124609
 
 ### Branch type
 
-config
+fix
 
 ### What does the change on this branch bring to main?
 
-Acht van de tien skills uit `workflow-davekjohn` dragen `disable-model-invocation: true`, en dat
-kwam pas aan het licht toen een specialist stap 4 van de cyclus wilde zetten en de Skill-tool
-weigerde met *"reserved for explicit user invocation"*. Het zijn precies de acht die naar buiten
-schrijven: `open-pr`, `ship-pr`, `park`, `fold-changelog`, `cut-release`, `lock`, `continue` en
-`fix-mojibake`. Dat is geen storing maar de guardrail van de bron — bij PR #155 beschreven als
-*"closes the autonomous-invocation surface"* — en daarmee dezelfde regel als de safety-rules hier,
-alleen gegoten in een mechanisme in plaats van in proza.
+`npm run mix:add` is stap 1 van de workflow *nieuwe mix toevoegen*, en het leverde een entry
+op die de testpoort niet haalt. Vier dingen zijn gerepareerd, en het script controleert
+voortaan zijn eigen uitkomst in plaats van erop te vertrouwen.
 
-**Deze repo heeft die guardrail niet weggehaald maar verlegd**, en alleen waar `CLAUDE.md` de
-uitzondering zelf al maakt. Drie skills krijgen een repo-eigen ingang in `.claude/skills/`:
-`open-pr` (de PR-regel zegt al *doorlopen tenzij*), `fold-changelog` (uitzondering 1 op "nooit
-direct op `main`", met een vastgelegde scope) en `park` (een push is geen PR). `cut-release` en
-`ship-pr` krijgen er bewust géén: die staan hier aan Dave's expliciete verzoek, en dat blijft zo.
+**Het beschrijvingsveld.** Het script schreef één veld `description`; de site, het schema en
+`tests/mix-data.test.ts` lezen `description_nl` en `description_en`. Er worden er nu twee
+gegenereerd, en er wordt per taal getoond of de tekst de spec haalt (120-160 tekens, geen
+streepje) voordat je hem accepteert. De prompt vroeg tot nu toe **actief** om precies wat de
+spec verbiedt: een em-dash in het opgelegde format, en "mention 2-4 notable artists". Dat is
+wat de twee dash-ratchets in de testsuite tellen (13 en 15 overtredingen) — dit sluit de kraan
+waar die achterstand uit liep.
 
-**Er wordt geen enkel gedeeld script gedupliceerd.** De drie ingangen roepen via het nieuwe
-`scripts/task/shared.ps1` het origineel uit de plugin-cache aan — dezelfde kopie die een
-plugin-skill zou draaien, dus de "cache om te draaien"-regel blijft intact. Dat helperscript lost de
-versiemap op het moment van draaien op, want er staan acht versies in de cache en een skill die het
-pad hardcodeert breekt bij de eerstvolgende plugin-update.
+**Het afbeeldingspad.** Het script zette de datum vóór het formaat en gebruikte een koppelteken
+waar op schijf een underscore staat. Geen enkel gegenereerd pad bestond dus: `checkAndConvertImages`
+meldde altijd "Ontbreekt" en converteerde daardoor nooit. Gemeten over vier bestaande mixen gaan
+nu 11 van de 12 paden goed; de twaalfde is een bestand dat werkelijk ontbreekt (issue #66) en
+geen fout in het patroon.
 
-Twee dingen zijn gemeten in plaats van aangenomen, en beide bleken anders dan de eerste opzet:
+> De issuetekst noemde `image_square` correct. Dat klopte niet: juist dat veld produceerde
+> `..._20240408_square.webp` terwijl op schijf `..._square_20240408.webp` staat, en dat is waar
+> de 25 dode `image_square`-paden vandaan komen. Beide velden zijn nu tegen de schijf gemeten in
+> plaats van tegen de beschrijving.
 
-- **De versiesortering moet op `[version]`**, niet op tekst. Anders wint `3.9.0` van `3.10.0`, en
-  dat zijn allebei mappen die er nu werkelijk staan.
-- **Een `--` tussen de argumenten werkt niet.** PowerShell leest die bij `-File` zelf als
-  parameternaam en stopt met *"the parameter name '' is ambiguous"*. De eerste versie van de
-  skill-documentatie schreef het voor; dat is gecorrigeerd nadat het faalde.
+**Het genre in de Spotify-metadata.** `buildSpotifyId` en `buildSpotifyTitle` hardcodeerden
+`edm`/`EDM` en kregen `genre` niet eens mee, terwijl het script de keuze wel opvraagt. Een Drum &
+Bass-mix kondigde zichzelf dus als EDM aan. De afkorting staat nu op één plek (`genreSlug`) in
+plaats van drie, en werkt door in beide velden.
 
-Ook de exitcode is gerepareerd: een `.ps1` die via `&` wordt aangeroepen en zelf geen `exit` doet,
-laat de `LASTEXITCODE` van de vorige aanroep staan — een geslaagde run meldde daardoor 255.
+**De audio-URL is eerlijk geworden over wat hij is.** De objectnamen op R2 volgen geen conventie
+die te reproduceren valt — in de 77 live mixen staan `V1`/`V2`/`V3`/`V4` en `v1` door elkaar,
+`Vol 1` zonder punt, een spatie waar een underscore hoort en een kleur met een kleine letter. De
+gegenereerde URL is daarmee een beginwaarde en geen afleiding, en dat staat er nu bij. Het script
+doet na afloop één HEAD-request en meldt het als het object er niet is. Dat is de bovenloop van
+issue #45, waar twee mixen de audio van een andere mix afspelen: die fout is nu zichtbaar op het
+moment dat hij ontstaat in plaats van als een bezoeker op play drukt.
+
+Sluit issue #47, en deblokkeert #46, #66 en #67 — die repareren de data die dit gereedschap
+anders bij de eerstvolgende mix opnieuw zou produceren.
 
 ### Significance
 
 #### Tier 0
 
-Zonder dit kan een specialist geen enkele stap van de cyclus afmaken: het werk staat op een branch
-en blijft daar. Met 56 openstaande auditissues is dat het verschil tussen doorwerken en per branch
-op een handmatig commando wachten. De guardrail die de bron bedoelde blijft staan waar `CLAUDE.md`
-hem ook stelt — bij de release en bij site-werk.
+Het enige gereedschap voor het toevoegen van een mix leverde een entry op die de eigen poort
+weigert, en produceerde stilzwijgend de datafouten die drie andere issues nu opruimen. Wie een
+mix toevoegde, kreeg pas bij de PR te horen dat het mis was, zonder aanwijzing waar.
 
 **Score:** 4
 
 #### Tier 1
 
-N/A — dit raakt de gereedschapskist, niet djcylow.com. De build levert dezelfde pagina's.
+N/A — er verandert niets aan djcylow.com. Dit raakt het gereedschap, niet de site; de datafouten
+die het veroorzaakte worden in eigen issues gerepareerd.
 
 **Score:** N/A
 
