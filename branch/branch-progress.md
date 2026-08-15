@@ -1,35 +1,24 @@
-## `config/componenttests` progress
+## `docs/welke-scriptkopie-draait` progress
 
 ### Steps
 
-- [x] Vitest van een DOM en de `@/`-alias voorzien (`vitest.config.mts`), met de omgeving per bestand
-      in plaats van globaal zodat `mix-data.test.ts` in node blijft draaien
-- [x] `@testing-library/react`, `@testing-library/jest-dom` en `jsdom` toevoegen als devDependencies
-- [x] `tests/EmailDisplay.test.tsx` — de component die het adres pas in de browser samenstelt
-- [x] `tests/MobileContent.test.tsx` — met een werkende `matchMedia`-stub, want zonder listeners zou
-      de belangrijkste test (schalen naar desktop) slagen zonder iets te bewijzen
-- [x] `tests/AudioPlayer.test.tsx` — met gestubde `play()`/`pause()`, die jsdom niet implementeert
-- [x] `tests/setup-dom.ts` — de jest-dom-matchers plus `afterEach(cleanup)`; zonder dat laatste
-      stapelen de renders zich op en faalt elke query op "found multiple elements"
-- [x] De configwaarschuwing wegnemen door `vitest.config.ts` → `.mts` (niet via `"type": "module"`,
-      want dat raakt de Next-build en die staat buiten deze branch)
-- [x] Meten dat de suite een echte wacht is: de render-phase reset in `MobileContent` en de
-      `onPause`-handler in `AudioPlayer` tijdelijk gesloopt — beide werden gevangen door precies de
-      bedoelde test, zonder ruis, waarna `src/` is teruggezet
-- [x] Poort: `scripts/lint/lint-web.ps1` groen (0 fouten, 0 warnings, 89 pagina's), 71 tests groen
+- [x] Verifieer de dragende feiten van de lock tegen de repo: noemt `CLAUDE.md` een van beide paden
+      (nee), wijzen `SPECIALISTS.md` r.9/r.64 naar de marketplace (ja), bestaan beide bomen (ja)
+- [x] Meet het verschil in plaats van het aan te nemen: `workflow-davekjohn/branch` komt 5× voor in
+      `entry-scaffold-lib.ps1` van de clone en 0× in cache 4.8.0
+- [x] Schrijf de alinea in de sectie **Scripts** van `CLAUDE.md`, boven de opsomming van de skills
+- [x] Scherp de bestaande noot in `CONTRIBUTING.md` aan met de map-as, verwijzend naar `CLAUDE.md`
+      in plaats van de regel te herhalen
+- [x] Controleer dat de nieuwe interne link `CLAUDE.md#scripts` bestaat
 
 ### Where I left off
 
-Af. De poort staat open en de entry is ingevuld. Deze branch raakt `tests/`, `vitest.config.mts` en
-`package.json` — geen `src/`, `public/` of `src/data/mixes/` — en valt daarmee onder de default: de
-PR kan openen, mergen en folden zonder tussenvraag.
+De alinea staat in beide bestanden. Wat afweek van de lock en hardop is gemeld: `CONTRIBUTING.md` zei
+al *"de scripts draaien uit de cache"* (sinds `3b4cd1c`, 2026-08-13), terwijl de lock aannam dat die
+pagina het verschil onbenoemd liet. De repo won, dus die kant is aangescherpt in plaats van
+overgeschreven.
 
-Wat bewust niet in deze suite zit, als testgat gemeld in plaats van stilgehouden:
-
-- **De timeline-klik in `AudioPlayer`.** Die rekent met `getBoundingClientRect()`, en jsdom geeft
-  daar overal nullen op — een test erop zou een berekening met NaN vastleggen in plaats van gedrag.
-- **Dat het e-mailadres níét in de gebouwde HTML staat.** jsdom rendert altijd de clientsnapshot, dus
-  daar valt dit niet te bewijzen. Die kant is gemeten op de echte build en de deploy preview.
-- **`Playlist`**, die in een eerdere wijziging (`359e414`) dezelfde render-phase-reset kreeg. Buiten
-  de scope die de branchtitel afbakent — maar het is dezelfde constructie en dus dezelfde kans dat
-  iemand hem later "netjes" terugzet naar een effect. Kandidaat voor een volgende branch.
+Wat bewust buiten deze branch blijft: de verhuizing van `branch/` naar `workflow-davekjohn/branch/`.
+Die bestaat in de bron maar is niet uitgebracht; hij hoort pas te gebeuren als een release hem levert,
+en dan in één keer mét `CONTRIBUTING.md`, `.github/pull_request_template.md` en `branch/templates/`.
+`CHANGELOG.md` en `releases/development/2.x/2.23.0.md` blijven daarbij staan — historie.

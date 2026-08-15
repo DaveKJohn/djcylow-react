@@ -533,6 +533,42 @@ repo verschilt woont in `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps
 De stapnummers hieronder verwijzen naar
 [de cyclus in `CONTRIBUTING.md`](CONTRIBUTING.md#de-cyclus-stap-voor-stap).
 
+**Er staan twee kopieën van elk gedeeld script op de machine, en je draait er maar één van.** Welke,
+hangt af van wat je ermee doet:
+
+| pad | wat het is | waarvoor |
+|---|---|---|
+| `~/.claude/plugins/cache/claude-code-specialists/workflow-davekjohn/<versie>/` | de **uitgebrachte release** | **draaien** — hierheen wijst `${CLAUDE_PLUGIN_ROOT}`, dus dit is wat een skill werkelijk uitvoert |
+| `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/…/` | de **bron-checkout**, die vóórloopt met alles wat sinds de laatste cut is gemerged | **lezen** — de persona's, waarnaar `.claude/specialists/SPECIALISTS.md` `@`-importeert |
+
+**Cache om te dráaien, marketplace om te lézen.** Beide verwijzingen in deze repo zijn dus juist voor
+hun eigen doel, en dat is precies wat het onderscheid onzichtbaar maakt: `SPECIALISTS.md` wijst naar de
+marketplace en hoort dat te doen, maar het is ook de enige prominente pluginverwijzing die elke sessie
+meelaadt. **Het makkelijkste advies is daarom: roep de skill aan in plaats van het script rechtstreeks.**
+Elke skill print zijn eigen commando met de volledige cache-URL erin, dus wie dat volgt loopt niet in de
+val.
+
+> **Deze val is op 2026-08-15 dichtgelopen en kostte bijna een verkeerde repo-brede verhuizing.**
+> `open-pr.ps1` uit de **marketplace-clone** zocht de changelog-entry in `workflow-davekjohn/branch/` —
+> een verplaatsing die in de bron zit maar nog niet is uitgebracht — vond niets, viel terug op het
+> legacy-pad en faalde met *"the entry's title section is empty"* terwijl de entry gevuld was. De
+> conclusie die daaruit rolde was dat déze repo achterliep en zijn `branch/`-map moest verhuizen. Het
+> omgekeerde was waar: migreren zou de repo vooruit laten lopen op een ongereleasede wijziging, waarna
+> de geïnstalleerde 4.8.0 de bestanden juist niet meer zou vinden. De migratie is ingetrokken vóór er
+> iets verplaatst was. **Verhuis `branch/` dus niet zolang de cache hem op `branch/` leest**; doe dat pas
+> als een release die wijziging levert, en dan in één keer mét `CONTRIBUTING.md`,
+> `.github/pull_request_template.md` en `branch/templates/`.
+>
+> **Dit is geen fout van de bron en dus geen inbound-issue.** Een bron-checkout die vóórloopt op de
+> release is precies wat een bron-checkout hoort te zijn, en de skills wijzen correct naar
+> `${CLAUDE_PLUGIN_ROOT}`. Wat ontbrak was deze alinea.
+>
+> **En er stond al een waarschuwing die dit had moeten vangen** — [`CONTRIBUTING.md`](CONTRIBUTING.md)
+> zegt sinds 2026-08-13 dat de scripts uit de cache draaien. Die dekte de **versie-as** (welke versie
+> staat er geïnstalleerd) en niet de **map-as** (welke van twee bomen lees je), en dat is wat het
+> verschil maakte: twee kopieën van dezelfde versie-as verwarren kost je een verouderd script, twee
+> verschillende bomen verwarren kost je een verkeerde diagnose over de repo zelf.
+
 - **`new-branch`** — maakt de branch én **twee** bestanden in `branch/` (`branch-changelog.md`,
   `branch-progress.md`) plus de referentiekopieën in `branch/templates/`, in één stap (stap 1–3). Het
   achterliggende werk zit in `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` —
