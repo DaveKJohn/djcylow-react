@@ -19,6 +19,26 @@ import { allMixes, mixSlug, type Track } from '@/data/mixes/all';
 // Bij een onbekend pad geeft de site een 404 in plaats van het op de server te proberen.
 export const dynamicParams = false;
 
+/**
+ * Zet een object om naar de inhoud van een `<script type="application/ld+json">`.
+ *
+ * WAAROM DIT NIET GEWOON `JSON.stringify` IS. Die escapet `</script>` niet. Staat die reeks in een
+ * mix-titel of -beschrijving, dan sluit de browser de script-tag daar en leest hij de rest van de
+ * JSON als HTML. Het vervangen van `<` door `<` sluit dat af: binnen een JSON-string is dat
+ * dezelfde tekst, maar de HTML-parser ziet geen `<` meer.
+ *
+ * Waarom dit de moeite is terwijl de data uit de repo zelf komt: die grens is zwakker dan hij oogt.
+ * `scripts/add-mix.js` laat de `description`-velden door een taalmodel genereren en schrijft die
+ * rechtstreeks het datamodel in. Modeluitvoer is geen handgeschreven code, en dit is precies het
+ * soort tekstveld waar zo'n reeks in kan belanden.
+ *
+ * De andere `dangerouslySetInnerHTML`-plekken in deze repo lezen uit `src/content/*.ts`, dat met de
+ * hand geschreven is; daar is de grens wél hard en is deze behandeling niet nodig.
+ */
+function jsonLdScript(data: unknown) {
+    return { __html: JSON.stringify(data).replace(/</g, '\\u003c') };
+}
+
 // Fallback: als top_artists leeg is, haal de eerste unieke artiesten op uit de tracklist.
 // Niet ideaal (tracklist-volgorde ≠ populariteit) maar beter dan niets.
 function getTopArtists(tracklist: Track[], limit = 5) {
@@ -196,14 +216,16 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
 
     return (
         <main className="luister mix">
-            {/* JSON-LD structured data — onzichtbaar voor bezoekers, gelezen door Google */}
+            {/* JSON-LD structured data — onzichtbaar voor bezoekers, gelezen door Google.
+                Via `jsonLdScript` en niet via een kale `JSON.stringify`: zie de toelichting bij die
+                functie bovenaan dit bestand. */}
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                dangerouslySetInnerHTML={jsonLdScript(jsonLd)}
             />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+                dangerouslySetInnerHTML={jsonLdScript(breadcrumbLd)}
             />
 
             {/* Stuurt mix-gegevens naar Google Analytics zodat je kunt zien welke mixen bekeken worden */}
