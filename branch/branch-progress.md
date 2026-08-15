@@ -1,13 +1,19 @@
-# `main` progress
-
-
-> **You are on `main`.** Do not work in this file yet -- create a branch first.
-> Anything written here on the trunk belongs to no branch, will not be folded, and is in the way
-> of the next person who does create one.
-
-This file carries the step list of the branch you are on. It is written when a branch is created
-and returns to this state after the merge.
+## `chore/npm-audit-ronde` progress
 
 ### Steps
 
-_(filled in when a branch is created)_
+- [x] `npm audit` uitlezen: acht meldingen, per stuk kijken of er een non-breaking fix is
+- [x] `npm audit fix` — zeven weg, alleen `package-lock.json` geraakt
+- [x] Meten of we op de nodemailer-CVE kwetsbaar wáren (`raw`/`attachments`/`path` in de functie)
+- [x] Nodemailer 8 → 9, en de major toetsen met een echte smoke-test via `jsonTransport`
+- [x] De Next-minor toetsen: alle 86 HTML-bestanden voor en na gehasht
+- [x] Poort en testsuite
+
+### Where I left off
+
+`npm audit` staat op 0/0/0/0. Poort groen, 207 tests groen.
+
+Wat na de merge nog kan: `npm audit` periodiek terug laten komen. Hij staat nu niet in de poort en
+ook niet in CI — bewust niet, want een nieuwe advisory op een ongewijzigde tree zou dan een PR
+blokkeren die er niets mee te maken heeft. Een eigen wekelijkse workflow is de betere plek; dat is
+werk voor een aparte branch.
