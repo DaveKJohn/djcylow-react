@@ -1,39 +1,37 @@
-## `fix/shared-ps1-named-parameters` progress
+## `config/poort-isolatie-en-paginadrempel` progress
 
 ### Steps
 
-- [x] Meten wat er werkelijk gebeurt, vóór er een remedie wordt gekozen: een wegwerpdoel met de
-      exacte signature van `open-pr.ps1`, aangeroepen door een replica van de wrapper. Uitkomst:
-      `-Resolves 47` komt aan als `Title='-Resolves'`, `Resolves=''`
-- [x] De twee andere kandidaat-oorzaken toetsen in plaats van aannemen — de `[string[]]`-typecast op
-      `$Rest` en `[CmdletBinding()]`. Beide verworpen: een ongetypeerde `ValueFromRemainingArguments`
-      gedraagt zich identiek, en klassieke `$args` weigert de parameter al bij de wrapper
-- [x] De remedie bouwen in `scripts/task/shared.ps1`: doorgeven aan een nieuwe host in plaats van
-      `& $doel @Rest`, met de meting en de twee verworpen kandidaten in een comment erboven
-- [x] De fix negatief toetsen tegen de échte `shared.ps1`: vijf argumentvormen (enkele waarde,
-      komma-lijst, losse switch, geen argumenten, waarde met spaties plus twee switches)
-- [x] De exitcode-doorgifte toetsen in beide richtingen — een doelscript dat `exit 3` doet moet 3
-      opleveren en niet 0. Gemeten: 0 bij succes, 3 bij falen
-- [x] `.claude/skills/fold-changelog/SKILL.md`: `-Commit` toevoegen aan het `Draaien`-blok, met de
-      reden erbij, en `-Push` expliciet uitsluiten omdat pushen Dave's initiatief is
-- [x] `open-pr` en `park` op hetzelfde soort gat controleren. Beide schoon: hun scripts kennen geen
-      commit-vlag en pushen zelf
-- [x] De meetbestanden uit de plugin-cache opruimen
+- [x] Gemeten dat #92 nog staat: `tsc -p tsconfig.lint.json --listFiles` gaf 680 bestanden mét
+      `.next/types/routes.d.ts`, en `next-env.d.ts` staat op `.gitignore:41`
+- [x] De tweede weg van #92 nagemeten in plaats van overgenomen — en de reporter zat er net naast:
+      `next-env.d.ts` uit de `include`-lijst halen doet niets, want de glob `**/*.ts` matcht hem
+      alsnog. Het moest via `exclude`
+- [x] Gemeten dat de dekking niet wegvalt: `next/types/global.d.ts` komt transitief binnen (levert
+      `declare module '*.scss'`), en er zijn geen statische image-imports die `next/image-types/global`
+      nodig hebben. Resultaat 677 bestanden, exit 0
+- [x] `next-env.d.ts` in de `exclude` van `tsconfig.lint.json`, en de `"//"`-comment herschreven zodat
+      hij beschrijft wat er werkelijk gebeurt
+- [x] #74: het paginatal gemeten (89) en omgezet van een print naar een toets in `lint-web.ps1`, met
+      een ondergrens die ook blokkeert als het getal onleesbaar is
+- [x] De keuze uit stap 2 van de lock gemaakt: drempel in `lint-web.ps1`, niet als ratchet in de
+      testsuite — de suite heeft de build-output niet, en dit is de plek waar de meting al stond
+- [x] Negatief getoetst: ondergrens tijdelijk op 999 → exit 1 met de daling-melding; regex opzettelijk
+      kapot → exit 1 met de onleesbaar-melding. Beide daarna teruggezet
+- [x] De gemeten onwaarheid over `next-env.d.ts` gecorrigeerd in `CLAUDE.md` én in de header van
+      `lint-web.ps1`, waar dezelfde bewering bleek te staan
+- [x] De poort integraal groen gedraaid: exit 0, 89 pagina's, ondergrens gehaald
 
 ### Where I left off
 
-De branch is af. Wat hierna nog wacht en geen stap van deze branch is: de PR, de merge en de fold.
+Alles is af en de poort staat groen. Wat na de merge nog gebeurt: PR openen, CI afwachten, mergen en
+folden — deze branch raakt `src/`, `public/` noch `src/data/mixes/`, dus de keten loopt door zonder
+tussenvraag.
 
-Twee dingen die tijdens het meten opvielen en hier bewust **niet** zijn meegenomen, omdat ze een
-eigen branch of een eigen route verdienen:
+Twee dingen die tijdens deze branch zijn opgevallen en hier níet bij horen:
 
-- **`session-status.ps1` print de open issues als `#System.Object[]`.** Zat al in de vorige lock als
-  kandidaat voor een `inbound`-issue. Het is een formatteerfout in het gedeelde script, niet in deze
-  repo, dus repareren gebeurt in de bron — check daar eerst of het issue er al staat.
-- **De komma-lijstvorm `-Resolves 42,51,57` uit `.claude/skills/open-pr/SKILL.md` werkt, maar niet
-  omdat de wrapper hem als lijst doorgeeft.** Hij komt aan als de string `42,51,57`, en dat is
-  precies wat `open-pr.ps1` verwacht — de parameter is daar `[string]$Resolves`, niet `[int[]]`.
-  Zou hij `[int[]]` zijn geweest, dan had `-File` er 425157 van gemaakt: PowerShell leest de komma
-  dan als duizendtalscheider. Dat geldt óók zonder deze wrapper, gemeten bij een directe aanroep.
-  Geen actie nodig, maar het is een valkuil voor wie ooit het type van die parameter aanpast.
-
+- CI draait `lint-web.ps1` op ubuntu zonder `.next` en zonder `next-env.d.ts`. Na deze wijziging
+  checkt de poort daar hetzelfde als lokaal — dat is precies het doel, maar het is pas ná de merge in
+  CI te zíen.
+- De ondergrens 89 is de stand van vandaag. Bij de eerstvolgende mix die pagina's toevoegt meldt de
+  poort dat hij verhoogd mag worden; dat is bedoeld gedrag, geen storing.

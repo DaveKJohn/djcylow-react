@@ -16,10 +16,35 @@
     server-side mag). Kost ongeveer 6 seconden - verwaarloosbaar tegen een platliggende site.
 
     Wat hij checkt:
-      1. `tsc --noEmit` over tsconfig.lint.json (de gewone tsconfig zonder de .next/types-includes,
-         zodat de uitkomst niet afhangt van hoe vers de build-output is).
+      1. `tsc --noEmit` over tsconfig.lint.json (de gewone tsconfig zonder .next, zodat de uitkomst
+         niet afhangt van hoe vers de build-output is - zie hieronder).
       2. `eslint .` - sinds 2026-08-14, zie hieronder.
-      3. `npm run build` - de static export die Netlify ook draait.
+      3. `npm run build` - de static export die Netlify ook draait, MET een ondergrens op het aantal
+         gegenereerde pagina's ($MinStaticPages).
+
+    DIE ISOLATIE WAS ER LANG NIET ECHT
+    ----------------------------------
+    tsconfig.lint.json sluit .next uit, maar een `exclude` filtert alleen wortelbestanden - niet wat
+    via een import binnenkomt. En next-env.d.ts (dat in de include stond) doet op regel 3 een directe
+    `import "./.next/types/routes.d.ts"`. De poort trok die route-types dus gewoon binnen: gemeten op
+    2026-08-15 checkte hij 680 bestanden inclusief .next/types/routes.d.ts, precies de stale
+    build-output waarvan hij beweerde onafhankelijk te zijn.
+    Erger: next-env.d.ts staat in .gitignore, dus in CI bestaat dat bestand helemaal niet. Lokaal en
+    server-side draaide deze poort daarmee een ander programma.
+
+    Sinds 2026-08-15 staat next-env.d.ts in de exclude. Dat kost niets: de globals die het bestand
+    aandroeg komen transitief uit node_modules/next/types/global.d.ts (waaronder
+    `declare module '*.scss'`), en deze repo heeft geen statische image-imports die
+    next/image-types/global nodig hebben. Gemeten: 677 bestanden, exit 0, geen .next meer in
+    --listFiles. Dat is exact het aantal dat CI al checkte.
+
+    HET PAGINATAL WERD GEPRINT MAAR NIET GETOETST
+    ---------------------------------------------
+    Het aantal statische pagina's stond hier met de comment dat een plotse daling "ook een signaal"
+    is - zonder drempel en zonder vergelijking. Die faalklasse is hier al een keer live gegaan:
+    /luister leverde een lege Suspense-shell in plaats van 78 mixlinks. Een generateStaticParams die
+    stilvalt geeft een groene poort met een ander getal erin dat niemand naleest. Sinds 2026-08-15 is
+    het een toets: onder de ondergrens blokkeert de poort, en ook een onleesbaar paginatal blokkeert.
 
     ESLINT STOND HIER LANG BUITEN, EN WAAROM DAT VERANDERDE
     -------------------------------------------------------
@@ -43,8 +68,11 @@
       - 10x no-require-imports in scripts/ en netlify/functions/ - CommonJS in Node-land, dus geen
         fout maar een ontbrekende override in eslint.config.mjs.
       - 14x ban-ts-comment, allemaal een overbodige @ts-ignore boven een stylesheet-import. Gemeten
-        in plaats van aangenomen: tsc accepteert die imports gewoon, want next-env.d.ts levert de
-        declaratie al. Er is dus GEEN eigen .d.ts nodig - de regels konden simpelweg weg.
+        in plaats van aangenomen: tsc accepteert die imports gewoon. Er is dus GEEN eigen .d.ts
+        nodig - de regels konden simpelweg weg. (De reden stond hier tot 2026-08-15 verkeerd, als
+        "want next-env.d.ts levert de declaratie al". De conclusie klopte, de reden niet: de
+        declaratie komt uit node_modules/next/types/global.d.ts, en next-env.d.ts bestaat in CI
+        helemaal niet. Sinds vandaag staat het bestand niet eens meer in deze poort.)
       - 13x echte code: 4x react-hooks/set-state-in-effect, 5x no-explicit-any, 4x
         no-unescaped-entities.
 
@@ -66,6 +94,13 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+
+# De ondergrens voor het aantal statische pagina's dat de build oplevert; zie de toets onderaan.
+# Gemeten op 2026-08-15: 89. Bewust GEEN parameter -- een drempel die je per aanroep kunt verlagen
+# is geen drempel. Groeit de site (een nieuwe mix, een nieuwe pagina), dan meldt de poort dat en
+# blokkeert hij niet; verhoog dit getal dan bewust in dezelfde branch. Verdwijnt er terecht een
+# pagina, verlaag het dan met de reden in de changelog-entry.
+$MinStaticPages = 89
 
 # Dit script draait op twee plekken: lokaal onder Windows PowerShell 5.1, en sinds 2026-08-13 in
 # .github/workflows/ci.yml onder pwsh 7 op Linux. PowerShell 7 kan een native commando met een
@@ -156,20 +191,47 @@ try {
             exit 1
         }
 
-        # Het aantal gegenereerde pagina's meemelden: een build die slaagt maar plots veel minder
-        # pagina's oplevert is ook een signaal (bijvoorbeeld een generateStaticParams die stilvalt).
-        # Defensief: geen match mag hier nooit de poort laten struikelen, dus geen property-toegang
-        # op een mogelijk leeg resultaat (Set-StrictMode zou daarop een fout gooien).
+        # Het aantal gegenereerde pagina's TOETSEN, niet alleen melden. Een build die slaagt maar
+        # plots veel minder pagina's oplevert is precies het scenario dat deze repo al een keer live
+        # heeft gehad: een generateStaticParams die stilvalt geeft exit 0 met een ander getal erin.
+        # Een getal dat alleen wordt afgedrukt, wordt niet gelezen -- dezelfde afspraak-in-plaats-van-
+        # check die hierboven bij ESLint is afgeschaft.
         $pages = ''
         foreach ($line in $buildOutput) {
             $m = [regex]::Match([string]$line, 'Generating static pages.*?\((\d+)/(\d+)\)')
             if ($m.Success) { $pages = $m.Groups[2].Value }
         }
-        if ($pages -ne '') {
-            Write-Host "  [OK]    build geslaagd -- $pages statische pagina's" -ForegroundColor Green
+
+        # Geen match is hier WEL blokkerend, anders valt de toets stil uit zodra Next zijn
+        # buildoutput anders formuleert -- en een poort die stil uitvalt is geen poort. Wie hier
+        # strandt op een formaatwijziging past de regex aan; dat is zichtbaar werk, in tegenstelling
+        # tot een drempel die niemand meer haalt.
+        if ($pages -eq '') {
+            $buildOutput | ForEach-Object { Write-Host $_ }
+            Write-Host ""
+            Write-Host "Samenvatting: het paginatal is niet uit de buildoutput te lezen -- de poort blokkeert." -ForegroundColor Red
+            Write-Host "De regex hierboven matcht de 'Generating static pages'-regel niet meer. Pas hem aan;" -ForegroundColor Red
+            Write-Host "ongetoetst doorlaten zou de daling verbergen waarvoor deze toets bestaat." -ForegroundColor Red
+            exit 1
+        }
+
+        $pageCount = [int]$pages
+        if ($pageCount -lt $MinStaticPages) {
+            Write-Host ""
+            Write-Host "Samenvatting: de build levert $pageCount statische pagina's, minder dan de ondergrens $MinStaticPages -- de poort blokkeert." -ForegroundColor Red
+            Write-Host "Er zijn pagina's verdwenen zonder dat de build faalde. Controleer generateStaticParams" -ForegroundColor Red
+            Write-Host "en de routes voor je verder gaat; klopt de daling wel, verlaag dan bewust MinStaticPages" -ForegroundColor Red
+            Write-Host "bovenin dit script en zeg in de changelog-entry waarom." -ForegroundColor Red
+            exit 1
+        }
+
+        if ($pageCount -gt $MinStaticPages) {
+            # Groei blokkeert niet -- een nieuwe mix of pagina hoort geen rode poort te geven. Maar hij
+            # blijft wel zichtbaar, want een ondergrens die ver achterloopt vangt de volgende daling niet.
+            Write-Host "  [OK]    build geslaagd -- $pageCount statische pagina's (ondergrens $MinStaticPages; verhoog hem als dit de nieuwe stand is)" -ForegroundColor Green
         }
         else {
-            Write-Host "  [OK]    build geslaagd" -ForegroundColor Green
+            Write-Host "  [OK]    build geslaagd -- $pageCount statische pagina's (ondergrens gehaald)" -ForegroundColor Green
         }
     }
 
