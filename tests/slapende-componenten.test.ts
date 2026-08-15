@@ -1,98 +1,91 @@
 /**
- * De vijf componenten die wél bestaan maar nergens gerenderd worden.
+ * Deze suite bewaakte tot 2026-08-15 vijf componenten die wél bestonden maar nergens gerenderd
+ * werden — en één daarvan importeerde een stylesheet die nooit heeft bestaan, wat pas zou breken op
+ * het moment dat iemand hem terugzette.
  *
- * WAAROM DIT EEN TESTSUITE VERDIENT terwijl die componenten niets doen. Juist dáárom: de bundler
- * compileert dode modules niet, dus fouten erin blijven onzichtbaar tot iemand ze terugzet. Op dat
- * moment breekt de build — in een repo zonder staging, waar de build de laatste wacht is vóór live.
- * Een test die de dode code wél leest, verplaatst dat moment naar nu.
+ * **Die vijf zijn nu verwijderd**, samen met hun stylesheets en `src/content/referenties.ts`. Wat
+ * hier overblijft is het deel dat nog iets bewaakt:
  *
- * Concreet stond er één zo'n bom: `Diensten.tsx` importeerde een stylesheet die nooit heeft bestaan.
- * Deze suite bewaakt dat elke import in die vijf bestanden ergens naar wijst.
+ * 1. Dat er geen nieuwe slapers ontstaan: elke component in `src/components/home/` moet ook
+ *    daadwerkelijk ergens gerenderd worden. Dat is de regel die de vijf destijds had gevangen.
+ * 2. Dat `ReadMore` zijn scrolldoel niet weer hardcodeert.
  *
- * De componenten zelf zijn bewust NIET verwijderd. Ze staan uitgecommentarieerd in `page.tsx`, wat
- * "later misschien weer" betekent, en dat is een beslissing over het product en niet over de code.
+ * De referentie-tests zijn vervallen met het bestand dat ze bewaakten: er is geen contentlaag meer
+ * waarin een plaatsvuller kan sluipen.
  */
-import { existsSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-const SLAPERS = [
-	'src/components/home/Diensten.tsx',
-	'src/components/home/MeetTheDJ.tsx',
-	'src/components/home/Verzoeknummers.tsx',
-	'src/components/home/Referenties.tsx',
-	'src/components/home/GoogleReviews.tsx',
-];
-
-/** Lost een importpad op naar een pad op schijf; `@/` wijst naar `src/`. */
-function resolveerImport(vanuit: string, spec: string): string | null {
-	if (spec.startsWith('@/')) return resolve('src', spec.slice(2));
-	if (spec.startsWith('.')) return resolve(dirname(vanuit), spec);
-	return null; // een package uit node_modules; die controleert de build zelf
+/** Alle plekken die een home-component zouden kunnen gebruiken. */
+function alleBronbestanden(map = 'src'): string[] {
+	return readdirSync(map, { withFileTypes: true }).flatMap((e) => {
+		const pad = `${map}/${e.name}`;
+		if (e.isDirectory()) return alleBronbestanden(pad);
+		return /\.(tsx?|jsx?)$/.test(e.name) ? [pad] : [];
+	});
 }
 
-/** Probeert de gangbare extensies, zoals de bundler dat ook doet. */
-function bestaatModule(pad: string): boolean {
-	const kandidaten = [pad, `${pad}.ts`, `${pad}.tsx`, `${pad}.js`, `${pad}.jsx`, `${pad}.scss`, `${pad}.json`];
-	// Een SCSS-partial mag ook als `_naam.scss` op schijf staan.
-	const map = dirname(pad);
-	const naam = pad.slice(map.length + 1);
-	kandidaten.push(join(map, `_${naam}`), join(map, `_${naam}.scss`));
-	kandidaten.push(join(pad, 'index.ts'), join(pad, 'index.tsx'));
-	return kandidaten.some((k) => existsSync(k));
-}
+describe('geen nieuwe slapers in src/components/home', () => {
+	const componenten = readdirSync('src/components/home')
+		.filter((f) => f.endsWith('.tsx'))
+		.map((f) => f.replace(/\.tsx$/, ''));
 
-describe('slapende componenten: elke import wijst ergens naartoe', () => {
-	it.each(SLAPERS)('%s', (pad) => {
-		expect(existsSync(pad), `${pad} bestaat niet meer -- pas deze lijst aan`).toBe(true);
-		const bron = readFileSync(pad, 'utf8');
+	it('vindt de componenten die er zijn', () => {
+		// Faalt luid als de map leeg raakt of hernoemd wordt, in plaats van stil nul dingen te
+		// controleren — dat is precies de fout die deze suite hoort te vangen.
+		expect(componenten.length).toBeGreaterThan(0);
+	});
 
-		const specs = [...bron.matchAll(/^\s*import\s+(?:[^'"]*?from\s+)?['"]([^'"]+)['"]/gm)].map((m) => m[1]);
-		const kapot = specs
-			.map((s) => ({ spec: s, doel: resolveerImport(pad, s) }))
-			.filter((x) => x.doel !== null && !bestaatModule(x.doel!))
-			.map((x) => x.spec);
+	it.each(readdirSync('src/components/home').filter((f) => f.endsWith('.tsx')))(
+		'%s wordt ergens gerenderd',
+		(bestand) => {
+			const naam = bestand.replace(/\.tsx$/, '');
+			const gebruikers = alleBronbestanden()
+				.filter((p) => p !== `src/components/home/${bestand}`)
+				.filter((p) => {
+					const bron = readFileSync(p, 'utf8');
+					// Alleen een echt gebruik telt: `<Naam` of `<Naam/`. Een vermelding in een
+					// comment of in een string haalt dit niet.
+					return new RegExp(`<${naam}[\\s/>]`).test(bron);
+				});
 
-		expect(kapot, `deze imports wijzen nergens naartoe en breken de build zodra ${pad} weer gerenderd wordt`).toEqual([]);
+			expect(
+				gebruikers,
+				`${bestand} wordt nergens gerenderd. Vijf van zulke slapers zijn op 2026-08-15 opgeruimd; ` +
+					`fouten erin blijven onzichtbaar omdat de bundler dode modules niet compileert. ` +
+					`Zet hem in gebruik of verwijder hem.`,
+			).not.toEqual([]);
+		},
+	);
+});
+
+describe('de opgeruimde bestanden zijn ook echt weg', () => {
+	it.each([
+		'src/components/home/Diensten.tsx',
+		'src/components/home/MeetTheDJ.tsx',
+		'src/components/home/Verzoeknummers.tsx',
+		'src/components/home/Referenties.tsx',
+		'src/components/home/GoogleReviews.tsx',
+		'src/content/referenties.ts',
+		'src/styles/components/home/meetTheDJ.scss',
+		'src/styles/components/home/verzoeknummers.scss',
+		'src/styles/components/home/referenties.scss',
+	])('%s bestaat niet meer', (pad) => {
+		expect(existsSync(pad)).toBe(false);
+	});
+
+	it('laat geen uitgecommentarieerde secties achter in page.tsx', () => {
+		// Er stonden `{/* <Referenties /> */}` en `{/* <GoogleReviews /> */}`. Zulke regels lezen als
+		// "staat klaar om aan te zetten", terwijl de component er niet meer is.
+		const bron = readFileSync('src/app/page.tsx', 'utf8');
+		expect(bron).not.toMatch(/\{\/\*\s*<[A-Z]\w*\s*\/>\s*\*\/\}/);
 	});
 });
 
-describe('referenties: geen plaatsvullers in de contentlaag', () => {
-	const bron = readFileSync('src/content/referenties.ts', 'utf8');
-	/**
-	 * Alleen de DATA, niet de toelichting erboven. Die noemt de oude plaatsvullers namelijk
-	 * letterlijk, als waarschuwing voor wie ze ooit terug wil zetten — en dat is precies de uitleg
-	 * die je wilt houden. Een test die op het hele bestand kijkt, dwingt af dat je die uitleg
-	 * weglaat, en dan wint de test van het doel.
-	 */
-	const data = bron.slice(bron.indexOf('export const referentiesData'));
-
-	it('bevat geen dummy-klantnamen meer', () => {
-		// Deze stonden er letterlijk: vier verzonnen klanten op een boekingssite.
-		for (const dummy of ['Klant Naam', 'Bedrijfsnaam', 'Nieuwe Partner', 'Tech Start-up']) {
-			expect(data).not.toContain(dummy);
-		}
-	});
-
-	it('bevat geen tags die bij een webbureau horen in plaats van bij een DJ', () => {
-		for (const tag of ['Web Design', 'Development', 'Branding', 'SEO', 'Copywriting', 'React', 'Next.js']) {
-			expect(data).not.toContain(tag);
-		}
-	});
-
-	it('levert een lege lijst, zodat aanzetten geen neptestimonials publiceert', async () => {
-		const mod = await import('@/content/referenties');
-		expect(Array.isArray(mod.referentiesData)).toBe(true);
-		expect(mod.referentiesData).toHaveLength(0);
-	});
-});
-
-describe('ReadMore: het scrolldoel is niet meer hardgecodeerd', () => {
+describe('ReadMore: het scrolldoel is niet hardgecodeerd', () => {
 	const bron = readFileSync('src/components/ui/ReadMore.tsx', 'utf8');
 
 	it('gebruikt een prop in plaats van een vast id', () => {
-		// `MeetTheDJ` en `Verzoeknummers` gebruiken deze component ook; met een vast "promo" sprong
-		// de pagina daar naar een heel andere sectie.
 		expect(bron).not.toMatch(/getElementById\(["']promo["']\)/);
 		expect(bron).toContain('scrollDoelId');
 	});

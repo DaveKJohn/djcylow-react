@@ -12,7 +12,16 @@
  * daarom bij welk gedrag het bewaakt.
  */
 import { describe, it, expect, beforeAll } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
+
+/** Alle JSX-bestanden onder een map, recursief. */
+function alleTsxBestanden(map: string): string[] {
+	return readdirSync(map, { withFileTypes: true }).flatMap((e) => {
+		const pad = `${map}/${e.name}`;
+		if (e.isDirectory()) return alleTsxBestanden(pad);
+		return e.name.endsWith('.tsx') ? [pad] : [];
+	});
+}
 import { render, screen, fireEvent } from '@testing-library/react';
 import './setup-dom';
 
@@ -107,14 +116,13 @@ describe('knoppen en afbeeldingen hebben een naam', () => {
 	});
 
 	it('gebruikt geen niet-beschrijvende alt-teksten meer', () => {
-		const verdacht = [/alt="Logo"/, /alt="verzoek"/i];
-		const bestanden = [
-			'src/components/layout/Footer.tsx',
-			'src/components/layout/Navigation.tsx',
-			'src/components/home/Verzoeknummers.tsx',
-		];
+		// Over de héle boom en niet over een vaste bestandenlijst: die lijst noemde
+		// `Verzoeknummers.tsx`, dat op 2026-08-15 is verwijderd, waarna de test op een ontbrekend
+		// bestand viel in plaats van op een slechte alt-tekst. Zo dekt hij bovendien meteen nieuwe
+		// componenten.
+		const verdacht = [/alt="Logo"/i, /alt="verzoek"/i, /alt="image"/i, /alt="foto"/i, /alt="afbeelding"/i];
 		const fout: string[] = [];
-		for (const p of bestanden) {
+		for (const p of alleTsxBestanden('src')) {
 			const bron = readFileSync(p, 'utf8');
 			for (const r of verdacht) if (r.test(bron)) fout.push(`${p} → ${r}`);
 		}

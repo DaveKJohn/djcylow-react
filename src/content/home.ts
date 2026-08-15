@@ -1,3 +1,19 @@
+/**
+ * De teksten van de homepage.
+ *
+ * NIET ALLES HIERIN WORDT VANDAAG GERENDERD. Op 2026-08-15 zijn vijf slapende componenten
+ * verwijderd (Diensten, MeetTheDJ, Verzoeknummers, Referenties, GoogleReviews), en de velden die
+ * alleen zíj lazen staan er nog: `intro_h3`, `diensten_h3`, `klantervaringen_h3`,
+ * `verzoeknummers_h3`, en de `intro_story_*` en `verzoeknummers_story_*` blokken.
+ *
+ * Die zijn bewust NIET meegegaan met de componenten, en dat is een ander oordeel dan bij de code.
+ * Dit is geschreven tekst — een bio, een uitleg over verzoeknummers — en geen dode logica. Code die
+ * niets doet is schuld; een alinea die nog niet ergens staat is voorraad. Ze staan hier klaar voor
+ * het moment dat zo'n sectie terugkomt.
+ *
+ * Wat er WEL wordt gerenderd: `title`, `subtitle`, `description`, de twee hero-afbeeldingen,
+ * `promo_h` en de drie `promo_story_*`.
+ */
 export const homeContent = {
   title: "DJ CYLOW",
   subtitle: "<span class='cyan-light-fg'>De expert in </span><span class='yellow-light-fg'> muziekstemmingen</span>",
