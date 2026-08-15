@@ -152,6 +152,20 @@ Dit staat ook in [`CLAUDE.md`](CLAUDE.md#ontwikkelworkflow--de-route-staat-in-co
 twee dingen die aan élke wijziging voorafgaan, en dat is met opzet: het is een grondwetregel die het niet mag
 uitmaken welk van de twee documenten je open hebt.
 
+> **Lees bij die `git status` ook de `ahead`-regel, want een vooruitlopende `main` reist mee.** Loopt je
+> lokale `main` voor op `origin/main` — wat hier de normale stand is, want de fold-commit blijft bewust
+> lokaal — dan takt je branch daarvan af en draagt hij die commits mee. Bij de merge komen ze
+> **allemaal** op `origin/main` terecht, zonder dat er ooit `git push origin main` is gedraaid.
+>
+> **Dit is structureel, niet incidenteel, en het is gemeten.** Bij PR #108 gingen zo negentien lokale
+> commits (tien folds en negen merges) mee; bij PR #109 de fold van #108. Er is niets aan stuk — het
+> zijn commits die er hoe dan ook heen moesten — maar het verklaart wel waarom `main` na een merge
+> ineens gelijkloopt terwijl niemand heeft gepusht. Wie dat niet weet, gaat zoeken naar een push die
+> niet bestaat.
+>
+> Wil je dat een branch die commits **niet** meedraagt, tak dan af van `origin/main`
+> (`git checkout -b <naam> origin/main`) in plaats van van je lokale `main`.
+
 ### 2. Classificeer de wijziging en noem de branch
 
 Volgens de [prefix-tabel](#de-prefixen-zeven-die-je-kiest-negen-die-de-lib-kent) hierboven.
@@ -221,15 +235,18 @@ draait — resolves, scaffold, impact, step-list — en welke van de vier een `-
 **portable helft, stap 3**. Wat hier van ons is:
 
 **De lint-poort uit `Get-LintScript` is de laatste wacht vóór de live site**, want een merge is hier een
-deploy. [`scripts/lint/lint-web.ps1`](scripts/lint/lint-web.ps1) draait `tsc --noEmit` **én** `npm run build`
-en beide moeten groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte
+deploy. [`scripts/lint/lint-web.ps1`](scripts/lint/lint-web.ps1) draait `tsc --noEmit`, `eslint .` **én**
+`npm run build`, en alle drie moeten groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte
 build niet vangt en er niets tussen de merge en de site zit. `-SkipBuild` bestaat om lokaal te itereren en
 hoort niet in de poort zelf. **ESLint zit er sinds 2026-08-14 in** als tweede stap: er waren 37
 pre-existing errors, die zijn die dag in drie branches naar **0** gebracht, en daarmee verviel de reden
 om hem erbuiten te houden. Het oude advies "vergelijk op **aantal** en niet op exitcode" is dus vervallen
 — er is geen aantal meer. Sinds diezelfde dag staan ook de **warnings op 0**; die blokkeren de poort
 niet, maar hun aantal wordt wel gemeld zodat het niet ongemerkt terugloopt. Elke melding die je ziet is
-dus nieuw en van jou.
+dus nieuw en van jou. **Sinds 2026-08-15 toetst de buildstap ook het aantal statische pagina's** tegen
+een ondergrens: daalt het eronder — een `generateStaticParams` die stilvalt geeft namelijk gewoon exit 0
+— of is het getal niet uit de buildoutput te lezen, dan blokkeert de poort. Groei blokkeert niet maar
+wordt gemeld, met het verzoek de ondergrens bewust te verhogen.
 
 De PR-body komt uit [`.github/pull_request_template.md`](.github/pull_request_template.md) — loop de
 checklist na en vink af wat van toepassing is. De titel geef je **niet** mee; die stelt `open-pr` samen uit

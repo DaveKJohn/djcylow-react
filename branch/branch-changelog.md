@@ -1,68 +1,56 @@
-## `config/poort-isolatie-en-paginadrempel` changelog
+## `docs/vooruitlopende-main-en-scriptkopie` changelog
 
 ### Branch title
 
-De lint-poort checkt echt alleen de broncode en toetst het paginatal
+Twee valkuilen die deze week zijn gemeten staan nu opgeschreven
 
 ### Branch ID
 
-20260815-162801
+20260815-164708
 
 ### Branch type
 
-config
+docs
 
 ### What does the change on this branch bring to main?
 
-De lint-poort deed twee dingen niet die hij wel beloofde, en beide zijn nu mechanisme in plaats van
-tekst.
+Twee dingen die deze week gemeten zijn maar alleen in een sessie stonden, staan nu in de documenten.
 
-**De isolatie van `tsconfig.lint.json` bestond niet.** Die config sluit `.next` uit en legde in zijn
-eigen `"//"`-comment uit dat de poort daarom "puur de broncode checkt en zo reproduceerbaar is". Maar
-een `exclude` filtert alleen wortelbestanden, niet wat via een import binnenkomt — en `next-env.d.ts`
-doet op regel 3 een directe `import "./.next/types/routes.d.ts"`. Gemeten: de poort typechecktte 680
-bestanden mét `.next/types/routes.d.ts` erin, dus juist de stale build-output van een vorige branch.
-Daar kwam bij dat `next-env.d.ts` in `.gitignore` staat en in CI dus niet bestaat: lokaal en
-server-side draaide dezelfde poort een ánder programma. `next-env.d.ts` staat nu in de `exclude`, wat
-geen dekking kost — `declare module '*.scss'` komt uit `node_modules/next/types/global.d.ts` via de
-gewone `next`-imports, en deze repo importeert geen afbeeldingen statisch. Gemeten: 677 bestanden,
-exit 0, geen `.next` meer in `--listFiles`; exact wat CI al deed.
+**`CONTRIBUTING.md` waarschuwt bij stap 1 dat een vooruitlopende `main` meereist.** Takt een branch af
+van een lokale `main` die vóór ligt op `origin` — hier de normale stand, want de fold-commit blijft
+bewust lokaal — dan draagt hij die commits mee, en bij de merge landen ze allemaal op `origin/main`
+zonder dat er ooit `git push origin main` is gedraaid. Gemeten bij PR #108 (negentien commits) en
+opnieuw bij #109. Er gaat niets stuk, maar het verklaart waarom `main` na een merge ineens gelijkloopt
+terwijl niemand heeft gepusht; wie dat niet weet, gaat zoeken naar een push die niet bestaat. Met de
+uitweg erbij: `git checkout -b <naam> origin/main` als je die commits niet wilt meedragen.
 
-**Het paginatal werd geprint maar niet getoetst.** Er stond een comment dat een plotse daling "ook een
-signaal" is, zonder drempel en zonder vergelijking. Die faalklasse is hier al eens live gegaan:
-`/luister` leverde een lege Suspense-shell in plaats van 78 mixlinks, en een `generateStaticParams`
-die stilvalt geeft een groene poort met een ander getal erin dat niemand naleest. Er staat nu een
-ondergrens (`$MinStaticPages`, gemeten op 89) die blokkeert bij een daling én bij een paginatal dat
-niet uit de buildoutput te lezen is — anders valt de toets stil uit zodra Next zijn output anders
-formuleert, wat dezelfde stille uitval zou zijn. Groei blokkeert niet maar wordt gemeld met het
-verzoek de ondergrens bewust te verhogen.
+**`CLAUDE.md` krijgt het tweede gemeten geval van de cache-versus-marketplace-val**, en dat is de
+nuttige kant ervan. `session-status.ps1` uit de cache print de open issues als één regel
+`#System.Object[]`, gereproduceerd onder Windows PowerShell 5.1 waar `ConvertFrom-Json` een JSON-array
+als één object teruggeeft. De reflex is een `inbound`-issue; de marketplace-clone laat zien dat de bron
+het al heeft gerepareerd, en die reparatie is hier nagemeten onder 5.1 (29 issues, correct
+geformatteerd). Het onderscheid bespaarde dus een overbodig issue, waar het de vorige keer een
+verkeerde repo-brede verhuizing tegenhield.
 
-**En de reden onder een juiste conclusie in `CLAUDE.md` is gecorrigeerd.** Daar stond dat de zestien
-overbodige `@ts-ignore`-regels weg konden omdat `next-env.d.ts` de declaratie levert. Dat klopte niet:
-de declaratie komt uit `node_modules`, en `next-env.d.ts` bestaat in CI helemaal niet. Dezelfde
-onwaarheid stond in de header van `lint-web.ps1` en is daar ook weg.
-
-Beide poortstappen zijn negatief getoetst, niet alleen groen waargenomen: ondergrens tijdelijk op 999
-gaf exit 1 met de daling-melding, en een opzettelijk kapotte regex gaf exit 1 met de
-onleesbaar-melding.
+**En de poortbeschrijving in `CONTRIBUTING.md` is bijgewerkt**: die noemde alleen `tsc` en de build,
+terwijl ESLint er sinds 2026-08-14 in zit en de paginadrempel sinds gisteren.
 
 ### Significance
 
 #### Tier 0
 
-De enige wacht vóór een live deploy checkte aantoonbaar iets anders dan hij beweerde, en verschillend
-lokaal versus in CI. Wie de poort lokaal groen kreeg, wist daarmee niet wat CI zou zeggen. Dat raakt
-elke branch die hierlangs komt, en des te meer de negen SCSS-branches die hierna volgen.
+Twee valkuilen die allebei tot een verkeerde diagnose leiden in plaats van tot een foutmelding: zoeken
+naar een push die niet bestaat, en een inbound-issue indienen voor iets dat al gerepareerd is. Precies
+het soort kennis dat anders per sessie opnieuw wordt ontdekt.
 
-**Score:** 4
+**Score:** 3
 
 #### Tier 1
 
-Voorkomt een faalklasse die hier al één keer live is gegaan (`/luister` als lege shell), maar er is
-vandaag niets zichtbaar mis en de site verandert niet. De waarde zit in de volgende keer dat een
-`generateStaticParams` stilvalt.
+Documentatie over de eigen werkwijze; buiten de mensen die in deze repo werken merkt niemand er iets
+van, en de site verandert niet.
 
-**Score:** 2
+**Score:** N/A
 
 ### Pull Request
 
