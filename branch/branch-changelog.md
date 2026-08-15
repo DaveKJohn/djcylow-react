@@ -1,72 +1,81 @@
-## `fix/mix-add-schema` changelog
+## `config/webp-veiligheid-en-ignore` changelog
 
 ### Branch title
 
-mix:add levert een entry die het schema en de testpoort haalt
+images:webp verwijdert niets meer ongevraagd en faalt eerlijk
 
 ### Branch ID
 
-20260815-124609
+20260815-142550
 
 ### Branch type
 
-fix
+config
 
 ### What does the change on this branch bring to main?
 
-`npm run mix:add` is stap 1 van de workflow *nieuwe mix toevoegen*, en het leverde een entry
-op die de testpoort niet haalt. Vier dingen zijn gerepareerd, en het script controleert
-voortaan zijn eigen uitkomst in plaats van erop te vertrouwen.
+Drie safety-rules stonden in `CLAUDE.md` en nergens in de machinerie. Die staan er nu wel.
 
-**Het beschrijvingsveld.** Het script schreef één veld `description`; de site, het schema en
-`tests/mix-data.test.ts` lezen `description_nl` en `description_en`. Er worden er nu twee
-gegenereerd, en er wordt per taal getoond of de tekst de spec haalt (120-160 tekens, geen
-streepje) voordat je hem accepteert. De prompt vroeg tot nu toe **actief** om precies wat de
-spec verbiedt: een em-dash in het opgelegde format, en "mention 2-4 notable artists". Dat is
-wat de twee dash-ratchets in de testsuite tellen (13 en 15 overtredingen) — dit sluit de kraan
-waar die achterstand uit liep.
+**`npm run images:webp` verwijderde bestanden zonder iets te vragen.** Het liep recursief door
+`public/images/`, converteerde, en `unlink`te het origineel — terwijl "bestanden verwijderen uit
+`public/images/`" hierboven expliciet onder *Nooit zonder expliciete toestemming van Dave* staat,
+juist omdat een pad in de mix-JSON er stil door breekt. Erger nog: via de `npm run *`-prefixregel op
+de allowlist kon dat draaien **zonder permissieprompt**. Preview is nu de default; verwijderen
+vraagt `--apply`. Alle vier de gedragingen zijn getoetst op een wegwerpbestand in plaats van
+aangenomen:
 
-**Het afbeeldingspad.** Het script zette de datum vóór het formaat en gebruikte een koppelteken
-waar op schijf een underscore staat. Geen enkel gegenereerd pad bestond dus: `checkAndConvertImages`
-meldde altijd "Ontbreekt" en converteerde daardoor nooit. Gemeten over vier bestaande mixen gaan
-nu 11 van de 12 paden goed; de twaalfde is een bestand dat werkelijk ontbreekt (issue #66) en
-geen fout in het patroon.
+| | resultaat |
+|---|---|
+| `npm run images:webp` | toont de lijst, `.jpg` staat er daarna nog |
+| `npm run images:webp:apply` | converteert, origineel weg |
+| tweede run met bestaande `.webp` | overgeslagen in plaats van overschreven |
+| kapot bestand | `1 mislukt`, **exit 1** |
 
-> De issuetekst noemde `image_square` correct. Dat klopte niet: juist dat veld produceerde
-> `..._20240408_square.webp` terwijl op schijf `..._square_20240408.webp` staat, en dat is waar
-> de 25 dode `image_square`-paden vandaan komen. Beide velden zijn nu tegen de schijf gemeten in
-> plaats van tegen de beschrijving.
+Die laatste was de ernstigste: het script zette nooit `process.exitCode`, dus het gaf **exit 0
+terwijl elke conversie faalde**. Een bestaande `.webp` werd bovendien stil overschreven waarna het
+origineel verdween — twee bestanden kwijt bij één naamconflict; `--force` doet dat nu alleen op
+verzoek. En `main()` had geen `.catch()`.
 
-**Het genre in de Spotify-metadata.** `buildSpotifyId` en `buildSpotifyTitle` hardcodeerden
-`edm`/`EDM` en kregen `genre` niet eens mee, terwijl het script de keuze wel opvraagt. Een Drum &
-Bass-mix kondigde zichzelf dus als EDM aan. De afkorting staat nu op één plek (`genreSlug`) in
-plaats van drie, en werkt door in beide velden.
+**De vier beschermde bestanden hebben nu enforcement** (#62). `.claude/settings.json` draagt een
+`ask`-lijst voor `next.config.ts`, `netlify.toml` en `public/images/**`. Bewust `ask` en geen
+`deny`: `CLAUDE.md` vraagt om Dave's woord, niet om onbereikbaarheid. De denylist heeft er daarnaast
+de refspec-vorm `git push origin +HEAD:main` bij gekregen, die langs de bestaande
+`git push --force`-regels glipte.
 
-**De audio-URL is eerlijk geworden over wat hij is.** De objectnamen op R2 volgen geen conventie
-die te reproduceren valt — in de 77 live mixen staan `V1`/`V2`/`V3`/`V4` en `v1` door elkaar,
-`Vol 1` zonder punt, een spatie waar een underscore hoort en een kleur met een kleine letter. De
-gegenereerde URL is daarmee een beginwaarde en geen afleiding, en dat staat er nu bij. Het script
-doet na afloop één HEAD-request en meldt het als het object er niet is. Dat is de bovenloop van
-issue #45, waar twee mixen de audio van een andere mix afspelen: die fout is nu zichtbaar op het
-moment dat hij ontstaat in plaats van als een bezoeker op play drukt.
+> **Het issue nam aan dat dit niet zelf kon** — *"schrijfacties op settings-bestanden worden
+> geblokkeerd, de route is `/permissions` of met de hand"*. Dat bleek niet zo: de wijziging is
+> gewoon geschreven. De aanname is dus weerlegd en niet omzeild.
 
-Sluit issue #47, en deblokkeert #46, #66 en #67 — die repareren de data die dit gereedschap
-anders bij de eerstvolgende mix opnieuw zou produceren.
+**`.claude/settings.local.json` staat nu in `.gitignore`** (#64). Het bleef hier alleen ongetrackt
+door een **machine-globale** ignore (`~/.config/git/ignore`), niet door de repo zelf. In een verse
+clone, op een andere machine of bij een collaborator staat het gewoon in `git status` — één
+`git add -A` verwijderd van meecommitten, en `git add -A` is precies wat `cut-release.ps1` doet. Dan
+landt een persoonlijke allowlist met lokale paden en een e-mailadres in een publieke repo.
+
+**Wat hier bewust níet is gedaan: het snoeien van die allowlist zelf (#63).** Dat bestand is
+machine-lokaal en staat vanaf nu in `.gitignore`, dus zo'n wijziging verschijnt in géén enkele diff
+— en hij verandert wel wat er dagelijks zonder prompt mag draaien. Dat hoort niet ongezien te
+gebeuren. Het voorstel staat in issue #63 en blijft open, inclusief de waarschuwing die daar staat:
+de uitvoerregel voor de plugin-cache geeft `cut-release` vrije doorgang naar `origin/main`, dus die
+mag alleen samen met het dichtzetten van de push-regels.
+
+Sluit #61, #62 en #64.
 
 ### Significance
 
 #### Tier 0
 
-Het enige gereedschap voor het toevoegen van een mix leverde een entry op die de eigen poort
-weigert, en produceerde stilzwijgend de datafouten die drie andere issues nu opruimen. Wie een
-mix toevoegde, kreeg pas bij de PR te horen dat het mis was, zonder aanwijzing waar.
+Drie regels die alleen bestonden zolang iedereen `CLAUDE.md` gelezen had en zich eraan hield, zijn
+nu mechanisme. Het opruimscript kan niet meer stil bestanden verwijderen of een mislukking als
+succes rapporteren, en een persoonlijke allowlist kan niet meer per ongeluk in de publieke repo
+belanden.
 
 **Score:** 4
 
 #### Tier 1
 
-N/A — er verandert niets aan djcylow.com. Dit raakt het gereedschap, niet de site; de datafouten
-die het veroorzaakte worden in eigen issues gerepareerd.
+N/A — dit raakt de gereedschapskist en de guardrails, niet djcylow.com. De build levert dezelfde
+pagina's.
 
 **Score:** N/A
 

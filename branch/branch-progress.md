@@ -1,22 +1,30 @@
-## `fix/mix-add-schema` progress
+## `config/webp-veiligheid-en-ignore` progress
 
 ### Steps
 
-- [x] Werkelijke bestandsnaampatronen op schijf gemeten (`public/images/**`) i.p.v. aangenomen
-- [x] `buildImagePaths` gecorrigeerd voor wide én square; geverifieerd tegen vier bestaande mixen
-- [x] `genreSlug` als enige bron; `buildSpotifyId`/`buildSpotifyTitle` krijgen `genre` mee
-- [x] `description` gesplitst in `description_nl` + `description_en`
-- [x] Prompt herschreven: geen dash, geen artiestnamen, 120-160 tekens, beide talen
-- [x] `keurBeschrijving` toont dezelfde grens als de testpoort, vóór het opslaan
-- [x] `verifyAudioSrc`: HEAD-request op de R2-URL i.p.v. blind vertrouwen
-- [x] Kopdocumentatie van het script gelijkgetrokken met het nieuwe gedrag
-- [x] Lint-poort groen
+- [x] `convert-to-webp.js`: preview als default, verwijderen achter `--apply` (#61)
+- [x] Bestaande `.webp` wordt overgeslagen i.p.v. overschreven; `--force` doet het alsnog (#61)
+- [x] Exitcode volgt het resultaat; `main()` heeft een `.catch()` (#61)
+- [x] Alle vier gedragingen getoetst op een wegwerpbestand, inclusief exit 1 bij falen
+- [x] `npm run images:webp:dry` vervangen door `images:webp:apply`
+- [x] `ask`-regels voor de vier beschermde bestanden in `.claude/settings.json` (#62)
+- [x] Refspec-vorm `git push origin +HEAD:main` toegevoegd aan de denylist (#63, deelfix)
+- [x] `.claude/settings.local.json` in `.gitignore`, met verantwoording (#64)
+- [x] `CLAUDE.md` bijgewerkt: hulpscript-tabel, workflowstap 3, en de safety-invulling
+- [~] Allowlist snoeien (#63): bewust niet gedaan — zie hieronder
+- [x] Lint-poort groen, 71 tests, testmap opgeruimd
 
 ### Where I left off
 
-Klaar voor PR. Het script is niet interactief gedraaid (dat zou een echte mix toevoegen); de
-pure padfuncties zijn los getoetst tegen de schijf — 11 van de 12 paden bestaan, en de twaalfde
-is het werkelijk ontbrekende `full/blue/square/`-bestand uit issue #66.
+Klaar voor PR. Dit is machinerie en docs, dus het loopt door tot en met de fold — er verandert
+niets aan `djcylow.com`.
 
-Wat hierna volgt: #46, #66 en #67 ruimen de data op die dit script heeft geproduceerd. Die drie
-konden niet eerder, want dan zou het gereedschap ze bij de volgende mix opnieuw maken.
+**Eén ding blijft bewust open: #63, het snoeien van `.claude/settings.local.json`.** Dat bestand is
+machine-lokaal en staat vanaf deze branch in `.gitignore`, dus zo'n wijziging zou in geen enkele
+diff zichtbaar zijn terwijl hij wel verandert wat er dagelijks zonder prompt draait. Dat hoort niet
+ongezien te gebeuren. Het issue blijft open met het volledige voorstel, en de volgordewaarschuwing
+die daar staat geldt onverkort: de uitvoerregel voor de plugin-cache geeft `cut-release` vrije
+doorgang naar `origin/main`, dus die mag er alleen bij als de push-regels tegelijk dichtgaan.
+
+Let op bij het testen van de `ask`-regels: die gelden vanaf de volgende sessie. In deze sessie is de
+wijziging wel geschreven maar nog niet actief.
