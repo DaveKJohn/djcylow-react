@@ -552,7 +552,9 @@ export const BREAKPOINTS = {
 
 ## Language & Locale
 
-The site is in **Dutch** (`nl`). Key Dutch terms used throughout the codebase:
+The site is in **Dutch**, and since 2026-08-15 the markup says so too: `<html lang="nl">`. It carried
+`lang="en"` until then, which is why `CLAUDE.md` described the site as English — the attribute was
+taken for a decision. All content has always been Dutch. Key Dutch terms used throughout the codebase:
 
 | Dutch | English meaning |
 |---|---|

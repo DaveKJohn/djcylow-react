@@ -237,9 +237,23 @@ specialist.**
 
 ### Taal
 
-De website is **Engels** (`lang="en"`, domein `djcylow.com`). De repo-documentatie, commit-berichten
-en de communicatie met Dave zijn **Nederlands**. De `description`-velden in de mix-data zijn
-tweetalig: `description_nl` en `description_en`.
+De website is **Nederlands** (`lang="nl"`, domein `djcylow.com`). De repo-documentatie,
+commit-berichten en de communicatie met Dave zijn dat ook. De `description`-velden in de mix-data
+zijn tweetalig: `description_nl` en `description_en`; de site rendert de Nederlandse.
+
+> **Hier stond tot 2026-08-15 dat de website Engels is** — met `lang="en"` erbij als bewijs. Dat
+> attribuut stond er inderdaad, maar het beschreef niets: álle content is Nederlands, in
+> `src/content/`, in de koppen en in de UI-strings. Het was dus geen taalbesluit maar een verkeerd
+> ingevuld attribuut dat als besluit werd gepresenteerd, en deze sectie hield dat in stand.
+>
+> Wat het kostte: schermlezers spraken Nederlandse tekst met een Engelse stem uit, en Google kreeg
+> een taalsignaal dat de rest van de pagina tegensprak — op een site die juist lokaal gevonden wil
+> worden. `README.md` had het bij het rechte eind over de inhoud ("The site is in Dutch") en ongelijk
+> over het attribuut; die twee documenten spraken elkaar dus tegen terwijl de code een derde antwoord
+> gaf. Sinds 2026-08-15 zeggen alle drie hetzelfde.
+>
+> `description_en` blijft bestaan en wordt onderhouden: het veld is er voor een eventuele Engelse
+> variant later, en de testsuite bewaakt het net zo streng als de Nederlandse.
 
 **Uitzondering: de zes sectiekopjes van een changelog-entry** (`Branch title`, `Branch ID`,
 `Branch type`, `What does the change on this branch bring to main?`, `Significance`,
