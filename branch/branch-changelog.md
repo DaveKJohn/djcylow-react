@@ -1,12 +1,12 @@
-## `fix/luister-crash-en-ssr` changelog
+## `fix/live-tekst-en-debugtoets` changelog
 
 ### Branch title
 
-De luisterpagina valt niet meer om op een onbekende kleur en staat in de statische HTML
+Spelfouten op de live site hersteld en de debug-sneltoets uit productie
 
 ### Branch ID
 
-20260815-131934
+20260815-132811
 
 ### Branch type
 
@@ -14,77 +14,54 @@ fix
 
 ### What does the change on this branch bring to main?
 
-Drie dingen aan de luisterpagina, waarvan er twee alleen zichtbaar waren voor iemand die er
-gericht naar zocht.
+**De debug-sneltoets stond live.** `src/app/layout.tsx` registreerde op elke pagina een globale
+`keydown`-listener op de losse toets **`w`**. Elke bezoeker die daar buiten een invoerveld op drukte,
+zette de klasse `ux-mode` op `<html>` en `<body>` en veranderde daarmee het uiterlijk van de site —
+bereikbaar bij gewone toetsenbordnavigatie en bij type-ahead-zoeken op een pagina zonder gefocust
+veld. Het script staat nu achter `process.env.NODE_ENV !== 'production'`, en de combinatie is
+meteen `Ctrl+Shift+W` geworden: ook in ontwikkeling is een enkele letter te makkelijk per ongeluk te
+raken. Gemeten in de verse build: `ux-mode-toggle` en `KeyW` komen in **nul** van de 89 gebouwde
+pagina's nog voor.
 
-**De pagina viel om op een onbekende kleur.** `activeColor` kwam ongefilterd uit
-`searchParams.get('color')` en ging rechtstreeks in `MOOD_DATA[activeColor].colorVar`; de guard
-sloot alleen `'all'` uit. Elke andere waarde dereferenceerde `undefined` en gaf een TypeError
-tijdens de client-render — en omdat er geen `error.tsx` is, was dat een witte pagina. Er wordt nu
-eerst opgezocht en alleen gerenderd als de kleur bestaat, en de normalisatie naar kleine letters
-gebeurt op één plek. Twee ingangen zijn daarmee dicht: `?color=Red` met een hoofdletter (wat de
-mixpagina's zelf teruglinkten) en `?color=magenta`.
+**Zes tekstfouten die alle zes live stonden**, geverifieerd in `out/`:
 
-**Magenta stond er niet in.** De mix-data kent acht kleuren en er ligt een preview klaar in
-`light-magenta.json`, maar `MOOD_DATA` had er zeven. De achtste is toegevoegd met de omschrijving
-die de rest van de site al aanhoudt (`Geïrriteerd`, uit `BasiskleurenCarousel`), in de stijl van de
-andere zeven regels. **Dat is nieuwe publieke tekst, dus die wil je waarschijnlijk even lezen:**
-*geïrriteerd · gespannen · rusteloos · fel*.
-
-**De pagina stond helemaal niet in de statische HTML** (issue #43). Twee onafhankelijke oorzaken,
-allebei weg, en het resultaat is gemeten in de verse build in plaats van beredeneerd:
-
-| | vóór | ná |
+| was | wordt | waar |
 |---|---|---|
-| `<main>` in `out/luister.html` | 0 | 1 |
-| `<h1>` in `out/luister.html` | 0 | 1 |
-| unieke mixlinks in `out/luister.html` | 0 | **77** |
-| `href="/luister"` in `out/index.html` | 0 | 1 |
+| `Muziekale kaart` | `Muzikale kaart` | `musicmoodcolours/page.tsx`, een `<h2>` |
+| `© 2025 DJ Cylow` | `© {buildjaar}` | `Footer.tsx`, op elke pagina |
+| `Geirriteerd` | `Geïrriteerd` | `Erlenmeyers.tsx` |
+| `(nor)Adrenaline` | `Adrenaline` | `musicmoodcolours/page.tsx`, een `<h3>` |
+| `top-producers` | `topproducers` | de fallback-beschrijving op elke mixpagina |
+| `Direct Contact` | `Direct contact` | *al meegenomen in `fix/contactformulier-endpoint`* |
 
-De eerste oorzaak: `/luister` was één client component met `useSearchParams()`, volledig in een
-`<Suspense>` **zonder fallback**. Bij `output: 'export'` bailt Next zo'n subtree uit de prerender,
-en wat er overbleef was letterlijk `<div hidden><!--$--><!--/$--></div>`. Alles wat niet van de URL
-afhangt staat nu buiten die grens in een server component, en de grens heeft een fallback die de
-volledige mixlijst server-rendert. Een fallback belandt namelijk wél in de HTML — dat is precies
-waarom die 77 links er nu staan, terwijl `sitemap.ts` ze al die tijd op priority 0.8 aanmeldde
-zonder dat er één interne link naartoe wees.
+Twee daarvan verdienen een woord. Het **copyrightjaar** is nu `new Date().getFullYear()`, wat bij
+static export het **buildjaar** vastlegt — hier precies goed, want elke merge naar `main` triggert
+een Netlify-build. Een verouderd jaartal in de footer leest op een boekingssite als "wordt niet
+onderhouden", bij precies de bezoeker die op het punt staat contact op te nemen. En **`Geirriteerd`**
+stond naast `Geïrriteerd` in een tweede component op dezelfde pagina; het verschil is binnen één
+scroll te zien, maar de variant zonder trema verschijnt pas na interactie en is daardoor nooit
+opgevallen.
 
-De tweede: de navigatielinks hingen achter een `mounted`-poort waarvan de serversnapshot `false`
-is, waardoor alleen het logo en de hamburger in de HTML stonden. Die poort is nodig tegen een
-hydratie-mismatch van de **class** (`ready` of `locked` hangt van de viewport af, die de server niet
-kent) maar niet van de **inhoud**, en hangt nu alleen nog aan de mobiel-specifieke onderdelen.
+De laatste tekstfout uit issue #49 zat in `ContactForm.tsx` en is in de contactformulier-branch
+meegenomen, omdat die hetzelfde bestand aanraakte.
 
-**En de spelers pauzeren elkaar.** `AudioPlayer` had de mechaniek er al voor — `onPlay` meldt zich
-aan, `activeId` pauzeert de rest — maar de playlist gaf die twee props niet door, dus alle spelers
-konden tegelijk klinken.
-
-Twee dingen die hier zijn opgeruimd omdat ze anders opnieuw waren overgeschreven:
-
-- **De mix-imports en de slug-afleiding staan nu in één bron** (`src/data/mixes/all.ts`). De
-  vijftien JSON-bestanden werden op zes plekken los samengevoegd en de slug werd op acht plekken
-  opnieuw uit `permalink` gepeuterd — deels mét `.toLowerCase().trim()` en deels zonder. Dat laatste
-  is geen schoonheidsfoutje: de routing hangt aan die slug. Deze branch zet de twee gebruikers om die
-  hij toch aanraakt; issue #83 doet de rest.
-- **`Luguber` met een hoofdletter** midden in de moodtekst van rood, in dezelfde constante.
-
-Sluit #43, #44 en #56.
+Sluit #49 en #55.
 
 ### Significance
 
 #### Tier 0
 
-De mix-imports en de slug-afleiding hebben één bron gekregen, en er liggen elf tests onder de
-crash-guard — die viel anders stil terug te draaien.
+N/A — dit raakt alleen wat de bezoeker ziet. De code eromheen blijft zoals hij was.
 
-**Score:** 3
+**Score:** N/A
 
 #### Tier 1
 
-De luisterpagina is de kern van de site en stond voor crawlers, link-previews en no-JS-bezoekers
-volledig leeg: geen kop, geen inhoud, en geen enkele link naar de 77 mixpagina's die de sitemap wél
-aanmeldt. Daar bovenop viel de pagina om op een kleur die in de eigen data bestaat.
+Elke bezoeker kon met één toetsaanslag het uiterlijk van de site veranderen, en er stonden zes
+tekstfouten live waarvan er twee in een `<h2>`/`<h3>` staan en dus meetellen in de koppenstructuur
+die Google leest. Het copyrightjaar stond een jaar achter op elke pagina.
 
-**Score:** 5
+**Score:** 4
 
 ### Pull Request
 

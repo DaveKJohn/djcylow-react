@@ -1,28 +1,24 @@
-## `fix/luister-crash-en-ssr` progress
+## `fix/live-tekst-en-debugtoets` progress
 
 ### Steps
 
-- [x] `MOOD_DATA` opzoeken i.p.v. dereferencen; normalisatie op één plek (#44)
-- [x] Magenta toegevoegd, met de omschrijving die de rest van de site aanhoudt (#44)
-- [x] `page.tsx` server component; statisch deel buiten de Suspense-grens (#43)
-- [x] `PlaylistFallback`: server-gerenderde mixlijst als fallback, dus wél in de HTML (#43)
-- [x] `mounted`-poort beperkt tot de class en de mobiele onderdelen (#43)
-- [x] `onPlay`/`activeId` doorgegeven, zodat spelers elkaar pauzeren (#56)
-- [x] `src/data/mixes/all.ts` als enige bron voor de imports en de slug
-- [x] Resultaat gemeten in `out/`: 77 unieke mixlinks, `<main>` en `<h1>` aanwezig
-- [x] Elf tests op de crash-guard en op magenta
-- [x] Lint-poort groen, 82 tests
+- [x] UX-toggle achter `NODE_ENV !== 'production'` en op `Ctrl+Shift+W` (#55)
+- [x] Geverifieerd in `out/`: `ux-mode-toggle` en `KeyW` in 0 van 89 pagina's
+- [x] `Muziekale` → `Muzikale`, in de kop én de comment erboven (#49)
+- [x] Copyrightjaar dynamisch; buildjaar, wat hier het juiste antwoord is (#49)
+- [x] `Geirriteerd` → `Geïrriteerd` (#49)
+- [x] `(nor)Adrenaline` → `Adrenaline` (#49)
+- [x] `top-producers` → `topproducers` in de fallback-beschrijving (#49)
+- [~] `Direct Contact` → `Direct contact`: al gedaan in `fix/contactformulier-endpoint`, dat
+      hetzelfde bestand aanraakte — hier nogmaals doen zou een conflict opleveren
+- [x] Alle zes gecontroleerd in de gebouwde HTML
+- [x] Lint-poort groen
 
 ### Where I left off
 
-Klaar voor PR, maar **dit is site-werk en wacht op Dave**. Twee dingen om op de deploy preview te
-bekijken:
+Klaar voor PR, maar **dit is site-werk en wacht op Dave**. Op de deploy preview zijn twee dingen
+het bekijken waard: het jaartal in de footer (moet nu 2026 zijn) en de kop *Muzikale kaart* op
+`/musicmoodcolours`.
 
-1. **De moodtekst van magenta is nieuwe publieke tekst.** Er stond niets, dus die is geschreven in
-   de stijl van de andere zeven: *geïrriteerd · gespannen · rusteloos · fel*.
-2. **De fallback is even zichtbaar tijdens de hydratie.** Hij toont dezelfde kaarten maar zonder
-   speler, en de volledige lijst in plaats van de eerste tien. Op een trage verbinding kan die flits
-   opvallen; dat is de prijs voor 77 links in de HTML.
-
-Wat hierna komt: issue #83 zet de vier overige gebruikers van de mix-imports op `all.ts` over.
-
+Let op de volgorde met `fix/contactformulier-endpoint`: die branch draagt de zesde tekstfout. Welke
+van de twee als eerste mergt maakt niet uit — ze raken verschillende bestanden.
