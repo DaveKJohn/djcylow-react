@@ -1,64 +1,63 @@
-## `fix/dode-componenten-ontmanteld` changelog
+## `docs/mixspec-klopt-met-de-data` changelog
 
 ### Branch title
 
-De slapende componenten breken de build niet meer en de neptestimonials zijn weg
+De veldspec beschrijft de mix-data zoals die werkelijk is
 
 ### Branch ID
 
-20260815-204342
+20260815-205009
 
 ### Branch type
 
-fix
+docs
 
-### What does the change on this branch bring to main?
+De veldspec in `src/data/mixes/README.md` beschreef de data op vijf punten anders dan die werkelijk
+is. Dat is de instructie die iedereen volgt bij het toevoegen van een mix, dus een fout daar
+vermenigvuldigt zich.
 
-Vijf componenten bestaan wel maar worden nergens gerenderd. Ze zijn **niet verwijderd** — twee staan
-uitgecommentarieerd in `page.tsx`, en dat leest als "later misschien weer". Dat is een beslissing over
-het product en niet over de code. Wat wél weg moest, zijn de drie manieren waarop die slapers schade
-aanrichten zodra iemand ze terugzet.
+**`permalink` stond beschreven als legacy field, "not used for routing".** Het tegenovergestelde is
+waar: vier plekken leiden de URL eruit af. De spec instrueerde bovendien om *"de slug afgeleid uit
+`id`, `color`, `power`, `frequency`, `genre` en BPM"* te gebruiken — zo'n afleiding bestaat nergens in
+de codebase. Wie die instructie volgde voor een nieuwe mix, kreeg een entry **zonder pagina**, en de
+build meldde succes. De sectie beschrijft nu de echte afleiding, met de vier regels die
+`tests/mix-data.test.ts` sinds PR #111 afdwingt.
 
-**De tijdbom.** `Diensten.tsx` importeerde `@/styles/components/home/diensten.scss`, en dat bestand
-heeft nooit bestaan — die map bevat alleen hero, meetTheDJ, promo, referenties en verzoeknummers. Het
-viel niet op omdat de bundler dode modules niet compileert, maar zet iemand `<Diensten />` terug, dan
-faalt `npm run build` met *Module not found*, in een repo zonder staging. De import is weggehaald en
-niet vervangen: de component leunt op de generieke layout-klassen en heeft nooit eigen styling gehad.
+**De legacy R2-bucket stond als "some older mixes in `full-blue.json`".** Gemeten: het is elke
+Full-mix, 25 entries over zeven bestanden. Wie op die zin afgaat bij het opheffen van de oude bucket
+denkt twee URL's om te zetten en haalt in werkelijkheid 25 mixpagina's offline. Dat is een verkeerd
+ingeschatte blast radius bij precies de handeling die risico draagt.
 
-**De neptestimonials.** `src/content/referenties.ts` bevatte vier plaatsvullers — "Klant Naam", "Tech
-Start-up", een citaat waarin letterlijk *"het formaat is exact 300 bij 300 pixels"* staat, en tags als
-"React" en "Next.js" die bij een webbureau horen en niet bij een DJ. De sectie aanzetten is één regel
-uncommenten, en dan staan er vier verzonnen klanten op een boekingssite. Het bestand levert nu een
-lege array, met de vorm en de waarschuwing in het type ernaast.
+**De volume-regel beschreef 19 van de 32 series alsof het er 32 waren.** In de andere dertien is
+`volume` in werkelijkheid per color+power geteld, dwars door subgenre en frequency heen. Hernummeren
+is bewust níet de oplossing — dat zou tien bestaande titels en URL's herschrijven voor iets
+cosmetisch. De regel geldt nu expliciet voor **nieuwe** mixen, met het aantal erbij; deze spec is
+hier eerder al eens op gecorrigeerd en die correctie ging niet ver genoeg.
 
-**Het derde ding, dat het issue als aanpalend noemt:** `ReadMore` scrolde hard naar `#promo`, terwijl
-`MeetTheDJ` en `Verzoeknummers` diezelfde component gebruiken — vanuit die twee sprong de pagina dus
-naar een heel andere sectie. Het doel is nu een prop met `promo` als standaard.
+**De audio-naamconventie geldt voor nieuwe uploads**, en dat stond er niet bij. Vijf bestaande
+bestanden wijken af en worden niet hernoemd: een object in R2 hernoemen breekt de live audio van een
+gepubliceerde mix. De reden om dat op te schrijven is scherper dan netheid — twee entries droegen ooit
+de byte-identieke `audioSrc` van een ándere mix, en het signaal was juist een naam die niet bij de
+entry paste. Weten welke afwijkingen verwacht zijn, is wat de onverwachte zichtbaar maakt.
 
-**Tien tests die de dode code juist wél lezen.** Dat is de kern: de bundler kijkt er niet naar, dus
-een fout blijft er onzichtbaar in zitten tot het moment waarop hij het duurst is. De suite controleert
-dat elke import in die vijf bestanden ergens naartoe wijst, dat de referenties leeg zijn, en dat het
-scrolldoel niet meer hardgecodeerd is. Negatief getoetst door de kapotte import terug te zetten: de
-test viel om, met een melding die uitlegt wat er bij het terugzetten zou gebeuren.
-
-Bij twee tests kijkt de assertie bewust alleen naar de **data** en niet naar de toelichting erboven:
-die noemt de oude plaatsvullers letterlijk, als waarschuwing, en dat is precies de uitleg die je wilt
-houden.
+**En preview-entries mogen `tags` weglaten.** Alle acht doen dat, en terecht: previews worden uit de
+playlist gefilterd en zijn dus nooit vindbaar. Dat stond al vastgelegd voor `date`, `volume` en
+`description`; het ontbreken van `tags` in dat rijtje liet acht entries onvolledig lijken.
 
 ### Significance
 
 #### Tier 0
 
-Drie valstrikken die pas afgaan op het moment dat iemand een component terugzet — en dan een gebroken
-build, een verkeerde scroll of vier neptestimonials opleveren. Met tests die de dode code lezen, want
-niets anders doet dat.
+De instructie die bij elke nieuwe mix wordt gevolgd, klopt weer — inclusief het veld waar de hele
+routing aan hangt. En de zin die de blast radius van een bucket-migratie met een factor twaalf te
+laag inschatte, staat nu op de gemeten stand.
 
 **Score:** 4
 
 #### Tier 1
 
-Vandaag verandert er niets aan de site: alle drie zaten in code die niet draait. De waarde zit
-volledig in wat er níet meer misgaat op het moment dat de Referenties- of Diensten-sectie terugkomt.
+Documentatie; de site verandert niet. De waarde zit in de volgende mix die wordt toegevoegd en in de
+volgende keer dat iemand aan de oude bucket komt.
 
 **Score:** 2
 
