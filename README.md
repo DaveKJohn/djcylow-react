@@ -66,7 +66,7 @@ The "Music Mood Colours" concept is central to the brand: each mix is assigned a
 ```bash
 npm install
 npm run dev        # starts dev server at http://localhost:3000
-npm run build      # static export → .next/
+npm run build      # static export → out/ (.next/ is build-output and cache)
 npm run lint       # ESLint check
 ```
 
@@ -492,11 +492,18 @@ Config: `netlify.toml`
 ```toml
 [build]
   command = "npm run build"
-  publish = ".next"
+  publish = "out"
 
 [functions]
   directory = "netlify/functions"
 ```
+
+> **`publish` was `.next` tot 2026-08-15.** With `output: 'export'`, `next build` writes the complete
+> static site to `out/`; `.next/` holds build output and cache and has no `index.html`. The site
+> worked regardless because Netlify's Next.js runtime recognises `output: 'export'` and picks the
+> export directory itself — but that runtime is declared nowhere in `netlify.toml`, so the config
+> relied on a detection the repo does not record. See the comments in `netlify.toml` for how this was
+> verified before merging.
 
 Security headers set in `netlify.toml`:
 - `X-Frame-Options: SAMEORIGIN`
