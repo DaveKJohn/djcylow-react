@@ -11,6 +11,7 @@ import MixAnalytics from '@/components/analytics/MixAnalytics';
 // slug, dus een vergelijking die anders normaliseert dan de generatie kan een pagina onvindbaar
 // maken terwijl hij wel gebouwd is.
 import { allMixes, mixSlug, type Track } from '@/data/mixes/all';
+import { SITE_URL } from "../../../../constants/site";
 
 // Het `Mix`- en `Track`-type en de samengevoegde lijst stonden hier tot 2026-08-15 opnieuw
 // gedefinieerd; ze komen nu uit `@/data/mixes/all` (zie de import hierboven).
@@ -103,11 +104,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     // Dezelfde afleiding als generateStaticParams gebruikt, zodat de canonieke URL gegarandeerd naar
     // een pagina wijst die ook echt gebouwd is.
-    const pageUrl = `https://www.djcylow.com/luister/mix/${mixSlug(mix)}`;
+    const pageUrl = `${SITE_URL}/luister/mix/${mixSlug(mix)}`;
     const ogImageUrl = mix.image_wide_large || '';
 
     return {
-        metadataBase: new URL('https://www.djcylow.com'),
+        metadataBase: new URL(SITE_URL),
         title: titleText,
         description: descriptionText,
         keywords: mix.tags,     // Zoekwoorden uit het tags-veld in de JSON
@@ -156,7 +157,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     // top_artists heeft prioriteit; als het veld leeg is valt het terug op de tracklist
     const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 6);
 
-    const pageUrl = `https://www.djcylow.com/luister/mix/${mixSlug(mix)}`;
+    const pageUrl = `${SITE_URL}/luister/mix/${mixSlug(mix)}`;
     const mixDescription = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre} set van DJ Cylow met tracks van top artiesten.`;
 
     // JSON-LD = gestructureerde data die Google leest om rich results te tonen in de zoekresultaten
@@ -170,7 +171,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         'numTracks': Array.isArray(mix.tracklist) ? mix.tracklist.length : 0,
         'genre': mix.subgenre,
         ...(mix.date && { 'datePublished': mix.date, 'dateModified': mix.date }),
-        'image': `https://www.djcylow.com${mix.image_wide_large}`,
+        'image': `${SITE_URL}${mix.image_wide_large}`,
         'url': pageUrl,
         'isAccessibleForFree': true,
         ...(mix.tags && mix.tags.length > 0 && { 'keywords': mix.tags.join(', ') }),
@@ -178,7 +179,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
             '@type': 'Person',
             'name': 'DJ Cylow',
             'jobTitle': 'DJ',
-            'url': 'https://www.djcylow.com',
+            'url': SITE_URL,
         },
         // AudioObject vertelt Google dat er een beluisterbaar audiobestand aan deze pagina gekoppeld is
         'associatedMedia': {
@@ -208,8 +209,8 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.djcylow.com' },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Listen', 'item': 'https://www.djcylow.com/luister' },
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE_URL },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Listen', 'item': `${SITE_URL}/luister` },
             { '@type': 'ListItem', 'position': 3, 'name': `${mix.color} ${mix.subgenre} Mix ${mix.volume}`, 'item': pageUrl },
         ],
     };

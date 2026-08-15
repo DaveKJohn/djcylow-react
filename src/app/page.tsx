@@ -7,6 +7,7 @@ import ContactForm from "@/components/sections/ContactForm";
 
 import Hero from "@/components/home/Hero";
 import Promo from "@/components/home/Promo";
+import { SITE_URL } from "../constants/site";
 
 
 
@@ -15,11 +16,11 @@ export const metadata: Metadata = {
     title: homeContent.title,
     description: homeContent.description,
     alternates: {
-        canonical: "https://www.djcylow.com/",
+        canonical: `${SITE_URL}/`,
     },
     openGraph: {
         type: "website",
-        url: "https://www.djcylow.com/",
+        url: `${SITE_URL}/`,
         title: homeContent.title,
         description: homeContent.description,
     },

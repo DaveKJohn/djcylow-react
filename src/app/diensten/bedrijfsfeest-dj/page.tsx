@@ -1,11 +1,12 @@
 import { Metadata } from "next";
 import ContactForm from "@/components/sections/ContactForm";
+import { SITE_URL } from "../../../constants/site";
 
 export const metadata: Metadata = {
   title: "Boek DJ Cylow voor je bedrijfsfeest!",
   description: "De DJ die iedereen op de dansvloer krijgt.",
   alternates: {
-    canonical: "https://www.djcylow.com/diensten/bedrijfsfeest-dj",
+    canonical: `${SITE_URL}/diensten/bedrijfsfeest-dj`,
   },
   openGraph: {
     title: "Boek DJ Cylow voor je bedrijfsfeest!",
