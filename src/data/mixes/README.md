@@ -64,7 +64,7 @@ Within each file, mixes are sorted **newest first** (descending by date).
   {
     "id": "20260615",
     "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
-    "title": "Red Tech House Mix · Vol. 6",
+    "title": "Tech House Mix · Red Light (m) · Vol. 6",
     "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6",
     "description_nl": "Tech House mix van DJ Cylow. Warm en gedreven, vol strakke kicks en diepe basslines. Perfect voor sporten, rijden of je pre-party.",
     "description_en": "Tech House mix by DJ Cylow. Warm and driven, with tight kicks and deep basslines. Perfect for working out, driving, or pre-party.",
@@ -758,7 +758,7 @@ Google indexes individual mix pages at `/luister/mix/[slug]`. For each page to r
 |---|---|---|
 | `color` + `subgenre` + `volume` | Together they build the `<h1>`, the `<title>` tag, OG/Twitter title, the mix card and GA4's `mix_title` | **Critical** |
 | `description_nl` | Meta description, OG description (NL) | **Critical** |
-| `description_en` | Meta description, OG description (EN) — **not live yet**, waiting on the parked `feature/i18n-setup`; currently absent from the built HTML | **Critical** |
+| `description_en` | Meta description, OG description (EN) — **not live yet**. The `feature/i18n-setup` branch was CLOSED on 2026-08-13 and archived as tag `archive/feature-i18n-setup`, so this will not go live on its own; the field is currently absent from the built HTML | **Critical** |
 | `subgenre` | Appears in title, structured data, URL context | **High** |
 | `tracklist` | Indexed as text content on the page; artists are searchable | **High** |
 | `color` | Used in structured data and page schema | Medium |
@@ -884,7 +884,7 @@ These inconsistencies exist in older JSON files. They are **not bugs that break 
 
 | Field | Old (legacy) | Target (new standard) | Files affected |
 |---|---|---|---|
-| `title` | `"Blue Full (f)"` | `"Subgenre · Blue Full (f) Mix · Vol. N"` | `full-blue.json`, most old entries |
+| `title` | `"Blue Full (f)"` | `"Subgenre Mix · Blue Full (f) · Vol. N"` | `full-blue.json`, most old entries |
 | `color` | `"blue"` (lowercase) | `"Blue"` (capitalized) | `full-blue.json`, `light-purple.json`, others |
 | `date` | `""` (empty) | `"YYYY-MM-DD"` | Most files except `light-red.json` |
 | `subgenre` | `""` (empty) | e.g. `"Liquid Drum & Bass"` | Most old entries |
@@ -905,7 +905,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
 {
   "id": "20260615", 
   "id_spotify": "mmc_edm_128bpm_light_m_red_20260615",
-  "title": "Tech House · Red Light (m) Mix · Vol. 6",
+  "title": "Tech House Mix · Red Light (m) · Vol. 6",
   "title_spotify": "EDM 128BPM 🔴 Red Light (m) 🔴 Vol. 6",
   "description_nl": "Tech House mix van DJ Cylow. Een uur pumping grooves, strakke kicks en melodische elementen. Perfect voor een avondfeest of een lange drive.",
   "description_en": "Tech House mix by DJ Cylow. An hour of pumping grooves, tight kicks and melodic elements. Perfect for a house party or a long drive.", 
@@ -966,7 +966,7 @@ Below is a model entry that follows all rules and maximizes SEO value:
 
 - [ ] `id` is `YYYYMMDD`, unique across all files
 - [ ] `id_spotify` follows `mmc_edm_[bpm]bpm_[power]_[freq]_[color]_[id]` and is unique
-- [ ] `title` follows `Subgenre · Color Power (frequency) Mix · Vol. N` format
+- [ ] `title` follows `[Subgenre] Mix · [Color] [Power] ([Frequency]) · Vol. [N]` format
 - [ ] `title_spotify` follows `EDM [bpm]BPM [emoji] Color Power (freq) [emoji] Vol. N` (no date) and is unique
 - [ ] `bpm` is a number without quotes (`176` for Drum & Bass)
 - [ ] `subgenre` is filled in and matches the title
