@@ -20,7 +20,7 @@ export default function Footer() {
                                     src="/images/djcylow_logo.webp"
                                     width={130}
                                     height={51}
-                                    alt="Logo"
+                                    alt="DJ Cylow"
                                 />
                             </Link>
 

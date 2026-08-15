@@ -107,10 +107,17 @@ export default function Erlenmeyers() {
                         {SUBSTANCES.map((sub) => {
                             const isActive = substances[sub];
                             return (
-                                <div
+                                /* Een <button> in plaats van een <div onClick>: dit is de
+                                   kerninteractie van deze pagina, en met het toetsenbord was hij
+                                   onbereikbaar. `aria-pressed` maakt bovendien hoorbaar of de stof
+                                   aan of uit staat -- dat was alleen visueel (de gevulde kolf). */
+                                <button
+                                    type="button"
                                     key={sub}
                                     className={`erlenmeyer ${sub} ${isActive ? 'is-active is-filled' : ''}`}
                                     onClick={() => toggleSubstance(sub)}
+                                    aria-pressed={isActive}
+                                    aria-label={`${sub}: ${isActive ? 'hoog' : 'laag'}`}
                                 >
                                     <svg viewBox="0 0 100 100" className="erlenmeyer-svg">
                                         <defs>
@@ -127,7 +134,7 @@ export default function Erlenmeyers() {
                                         <path d="M35 10 L35 40 L15 85 Q10 95 25 95 L75 95 Q90 95 85 85 L65 40 L65 10" fill="none" stroke="white" strokeWidth="1" className="glass-outline" />
                                     </svg>
                                     <p className="status-text size-sm">{isActive ? 'Hoog' : 'Laag'}</p>
-                                </div>
+                                </button>
                             );
                         })}
                     </div>

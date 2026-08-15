@@ -45,8 +45,12 @@ export default function Carousel({ children, className = "", id }: CarouselProps
 		<div className={`column w-fill AMC P30 carousels ${className}`}>
 			<div className={`stack w-fill AMC P35`}>
 				{/* Linker Pijl */}
-				<div className={`arrow left ${!showLeftArrow ? 'hidden' : ''}`} onClick={() => scroll(-1)}>
-					<button className="btn">
+				{/* De onClick zat op de OMHULLENDE div en niet op de knop, dus tabben lukte wel maar
+				    Enter deed niets -- dezelfde vorm als de filterknop op /luister. Hij zit nu op de
+				    knop zelf, met een naam erbij: een knop met alleen een SVG erin wordt door een
+				    schermlezer aangekondigd als "knop", zonder meer. */}
+				<div className={`arrow left ${!showLeftArrow ? 'hidden' : ''}`}>
+					<button type="button" className="btn" onClick={() => scroll(-1)} aria-label="Vorige">
 						<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
 							<path fill="currentColor" fillRule="evenodd" d="M8.793 5.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.086 12 8.793 6.707a1 1 0 0 1 0-1.414" clipRule="evenodd" transform="rotate(180 12 12)" />
 						</svg>
@@ -64,8 +68,8 @@ export default function Carousel({ children, className = "", id }: CarouselProps
 				</div>
 
 				{/* Rechter Pijl */}
-				<div className={`arrow right ${!showRightArrow ? 'hidden' : ''}`} onClick={() => scroll(1)}>
-					<button className="btn">
+				<div className={`arrow right ${!showRightArrow ? 'hidden' : ''}`}>
+					<button type="button" className="btn" onClick={() => scroll(1)} aria-label="Volgende">
 						<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
 							<path fill="currentColor" fillRule="evenodd" d="M8.793 5.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.086 12 8.793 6.707a1 1 0 0 1 0-1.414" clipRule="evenodd" />
 						</svg>

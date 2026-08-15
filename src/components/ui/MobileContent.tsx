@@ -165,7 +165,9 @@ export default function MobileContent({
                             {icon && <div className="headerIcon">{icon}</div>}
                             {title && <p className="headerTitleText">{title}</p>}
                         </div>
-                        <button className="btn close" onClick={() => setIsOpen(false)}>✕</button>
+                        {/* Het kruisje is een teken en geen tekst, dus zonder aria-label kondigt een
+                            schermlezer dit aan als "knop" zonder naam. */}
+                        <button type="button" className="btn close" onClick={() => setIsOpen(false)} aria-label="Sluiten">✕</button>
                     </div>
                 )}
 
