@@ -3,22 +3,14 @@
 import React, { useState, useMemo } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 
-import lightBlue from '@/data/mixes/light-blue.json';
-import lightCyan from '@/data/mixes/light-cyan.json';
-import lightGreen from '@/data/mixes/light-green.json';
-import lightYellow from '@/data/mixes/light-yellow.json';
-import lightOrange from '@/data/mixes/light-orange.json';
-import lightPurple from '@/data/mixes/light-purple.json';
-import lightRed from '@/data/mixes/light-red.json';
-import lightMagenta from '@/data/mixes/light-magenta.json';
+// De acht light-bestanden stonden hier los geimporteerd en samengevoegd. Zie @/data/mixes/all:
+// featuredMixByColor draagt nu ook het power-filter dat voorheen impliciet in die imports zat.
+import { featuredMixByColor } from '@/data/mixes/all';
+
 
 import '@/styles/components/musicmoodcolours/erlenmeyers.scss';
 
 
-const allMixesData = [
-    ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta,
-
-];
 
 
 const COLOR_TO_STATE: Record<string, { dopamine: boolean; serotonine: boolean; adrenaline: boolean; label: string }> = {
@@ -48,13 +40,9 @@ export default function Erlenmeyers() {
         return emotions[combo] || 'blue';
     }, [substances]);
 
-    const currentMix = useMemo(() => {
-        // !m.ignore weggehaald om de previews te kunnen laden
-        return allMixesData.find(m =>
-            m.color.toLowerCase() === activeColor &&
-            m.featured === true
-        );
-    }, [activeColor]);
+    // Bewust géén ignore-filter: de acht covers ZIJN preview-entries. `featuredMixByColor` houdt dat
+    // zo en voegt het power-filter toe dat hier voorheen impliciet in de acht light-imports zat.
+    const currentMix = useMemo(() => featuredMixByColor(activeColor), [activeColor]);
 
     const toggleSubstance = (type: keyof typeof substances) => {
         setSubstances(prev => ({ ...prev, [type]: !prev[type] }));

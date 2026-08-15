@@ -5,7 +5,40 @@
 
 #hero {
     .visual {
-        padding-left: 900px;
+        // DE HERO-AFBEELDING WERD AFGEKNIPT, EN DAT GEBEURDE STIL.
+        //
+        // Hier stonden drie losse magic numbers: 900px boven 1331px, 400px daaronder en 0 onder
+        // 884px. Wat buiten de container viel werd weggeknipt door `overflow: hidden` op `.stack`,
+        // dus er kwam geen scrollbar en geen foutmelding -- alleen een hero die er deels niet was.
+        //
+        // GEMETEN OP 2026-08-15 in de browser, want dit issue was expliciet niet gemeten. Per
+        // viewportbreedte, hoeveel procent van de afbeelding zichtbaar was:
+        //
+        //     900px  -> 86%  (91px eraf)   <- de 400px-variant knipt OOK
+        //    1330px  -> 100%
+        //    1332px  -> 81%  (125px eraf)  <- breder scherm, MINDER beeld
+        //    1400px  -> 86%
+        //    1560px  -> 98%
+        //    1582px  -> 100% (en breder blijft goed)
+        //
+        // Twee dingen die het oorspronkelijke vermoeden bijstellen. Ten eerste zat het probleem niet
+        // alleen in het venster 1332-1400: ook het hele medium-bereik knipte, wat niemand had
+        // opgemerkt. Ten tweede is de sprong op 1331px de kern -- de afbeelding werd SLECHTER
+        // naarmate het scherm BREDER werd, wat niemand verwacht en dus niemand controleert.
+        //
+        // Alle vijf metingen passen op een formule: wat er buiten valt is `341 - viewport/2 +
+        // padding/2`. Nul afknipping vraagt dus `padding <= viewport - 682px`. De clamp hieronder
+        // houdt 18px marge op die grens, loopt vloeiend mee zodat er geen sprong meer is, en komt
+        // bij 1600px op dezelfde 900px uit als voorheen. Onder 884px blijft de mobiele tak gelden.
+        //
+        // LET OP: die formule geldt bij een venster van ~900px HOOG. De afbeelding heeft
+        // `height: 110%; width: auto`, dus hij wordt breder naarmate het venster hoger is -- bij
+        // 1332x1000 is hij 749px in plaats van 667px. Gemeten resultaat na deze fix: 100% zichtbaar
+        // bij 900px hoogte, 96% bij 1000px hoogte (was daar 78%). Die rest is niet met een
+        // vw-formule weg te nemen; dat zou een andere manier van schalen vragen. Weet dus dat de
+        // clamp de sprong en het gros van de afknipping oplost, niet de laatste procenten op een
+        // ongewoon hoog venster.
+        padding-left: clamp(0px, 100vw - 700px, 900px);
 
         img {
             height: 110%;
@@ -21,10 +54,6 @@
 
         .hero-img-mobile {
             display: none;
-        }
-
-        @include mix.respond-to(v.$bp-medium) {
-            padding-left: 400px;
         }
 
         @include mix.respond-to(v.$bp-small) {

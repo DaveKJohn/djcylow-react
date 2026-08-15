@@ -39,15 +39,21 @@
 @mixin _set-align-logic($ver, $hor, $direction, $forced-break: false, $break-target: center) {
     $is-row: $direction == row;
 
-    @if $is-row {
-        justify-content: $hor;
-        align-items: $ver;
-    } @else {
-        justify-content: $ver;
-        align-items: $hor;
-    }
-
-    @at-root :is(.row-c, .stack, .column)#{&} {
+    // HIER STOND TOT 2026-08-15 EEN TWEEDE, NIET-IMPORTANT SET van dezelfde twee declaraties. Die was
+    // altijd dood: het @at-root-blok hieronder matcht in elk geval waarin de eerste set matchte, en
+    // wint met !important. Gemeten in de gebouwde CSS: `.column.AMC{justify-content:center;
+    // align-items:center}` stond er netjes in, direct gevolgd door dezelfde waarden met !important.
+    // Twaalf uitlijnklassen maal vier hosts, allemaal zonder effect.
+    //
+    // EN .row ONTBRAK IN DE :is()-LIJST, wat ernstiger was dan de dode CSS. `alignment-grid` wordt
+    // wél op `.row, .row-c` toegepast (base/_layout.scss:26-38), en de break-varianten hieronder
+    // zitten binnen dit @at-root-blok. Een `<div className="row AMC break-s">` matchte daardoor
+    // geen enkele regel -- niet `:is(.row-c,.stack,.column).row.AMC.break-s` (want een .row is geen
+    // .row-c) en niet `.row-c.AMC.break-s`. De klasse met de meest voor de hand liggende naam deed
+    // op mobiel dus stilletjes niets. Vandaag staan alle tien break-gebruiken in de JSX toevallig op
+    // `row-c`, `column` of `stack`, dus het was een val en geen zichtbare storing -- maar een val
+    // zonder waarschuwing.
+    @at-root :is(.row, .row-c, .stack, .column)#{&} {
         @if $is-row {
             justify-content: $hor !important;
             align-items: $ver !important;

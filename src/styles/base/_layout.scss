@@ -132,22 +132,21 @@
     height: 1px;
     width: 100%;
 
-    @if v.$ux-mode == true {
-        $ux-black-50: map.get(map.get(v.$colors, "ux-black"), "50");
-        $ux-white-50: map.get(map.get(v.$colors, "ux-white"), "50");
-
-        // We gebruiken interpolatie #{} om er zeker van te zijn dat
-        // de splitter correct wordt genest onder de modus-classes.
-        @at-root body.ux-mode {
-            .WoB .splitter {
-                background-color: #{$ux-black-50} !important;
-            }
-
-            .BoW .splitter {
-                background-color: #{$ux-white-50} !important;
-            }
-        }
-    }
+    // HIER STOND EEN UX-MODE-BLOK DAT ONGELDIGE CSS PRODUCEERDE. Het haalde `map.get($ux-black, "50")`
+    // op, maar die map kent geen key "50" -- alleen R90/R80/G90/G80/B90/B80/Y90/Y80/M90/M80/C90/C80.
+    // `map.get` gaf dus null, en `#{null}` is een lege string, waardoor er letterlijk
+    // `body.ux-mode .WoB .splitter{background-color:!important}` in de gebouwde CSS stond. Een
+    // browser gooit zo'n declaratie weg, dus het blok deed al niets: de splitter viel en valt terug
+    // op `.WoB .splitter{background-color:var(--black-70)}` uit `_tools.scss`, en is dus gewoon
+    // zichtbaar. Het weghalen is daarmee visueel neutraal -- gemeten in de gebouwde CSS, niet
+    // aangenomen.
+    //
+    // WAT ER NIET IS OPGELOST: welke ux-kleur de splitter zou moeten krijgen. Dat is een
+    // ontwerpkeuze en geen reparatie, dus die blijft open in plaats van dat er hier een kleur wordt
+    // gegokt die niemand heeft gekozen.
+    //
+    // Dit was de derde lege `background-color:!important` in de gebouwde CSS; de andere twee kwamen
+    // van dezelfde soort fout bij `.btn.cta` (zie `components/ui/_buttons.scss`).
 
     &.mobile {
         display: none;
