@@ -114,7 +114,7 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > |---|---|
 > | lint-poort | `scripts/lint/lint-web.ps1`, lokaal én in CI |
 > | CI | [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main` |
-> | testsuite | vier suites in `tests/`: de mix-data plus AudioPlayer, MobileContent en EmailDisplay |
+> | testsuite | acht suites in `tests/`: de mix-data plus AudioPlayer, MobileContent, EmailDisplay, Filter, Playlist, sitemap en send-email |
 > | branch protection | ruleset `main-ci-gate`, met `poort` als required check |
 >
 > **Toch wacht álles in `src/`, `public/` en `src/data/mixes/` onverkort**, ook een refactor die visueel
@@ -712,13 +712,22 @@ Repo-eigen scripts:
   Linux bouwt en letterkast-fouten in imports alleen daar aan het licht komen. De job heet **`poort`**, en
   dat is de naam die de ruleset als required check gebruikt — hernoem hem niet zonder de ruleset mee te
   nemen. De Node-versie komt uit `.nvmrc`, met de **volledige** versie erin en niet alleen de major.
-- **`tests/mix-data.test.ts`** — de testsuite, 36 tests, gedraaid met Vitest via `npm test`. Hij dwingt de
-  veldregels uit [`src/data/mixes/README.md`](src/data/mixes/README.md) af, en is **gemeten in plaats van
-  overgeschreven**: 23 regels die de data al haalt staan als harde assertie, 7 met bekende achterstand
-  staan als **ratchet** op het gemeten aantal. Die ratchet faalt óók als er iets is opgelost, met de vraag
-  het plafond te verlagen — zo blijft de achterstand zichtbaar. `Get-TestCommands` in
-  `scripts/repo-config.ps1` zorgt dat `open-pr` en `cut-release` de suite meedraaien; zonder die seam
-  meldden ze eerlijk "test gate skipped".
+- **`tests/`** — **acht suites, 143 tests**, gedraaid met Vitest via `npm test`. De kern is
+  `mix-data.test.ts`, die de veldregels uit [`src/data/mixes/README.md`](src/data/mixes/README.md)
+  afdwingt en **gemeten is in plaats van overgeschreven**: regels die de data al haalt staan als harde
+  assertie, regels met bekende achterstand als **ratchet** op het gemeten aantal. Die ratchet faalt óók
+  als er iets is opgelost, met de vraag het plafond te verlagen — zo blijft de achterstand zichtbaar.
+  Daarnaast: `AudioPlayer`, `MobileContent`, `EmailDisplay`, `Filter`, `Playlist`, `sitemap` en de
+  Netlify-function `send-email`. `Get-TestCommands` in `scripts/repo-config.ps1` zorgt dat `open-pr` en
+  `cut-release` de suite meedraaien; zonder die seam meldden ze eerlijk "test gate skipped".
+  > **Een ratchet moet tellen wat de regel bewaakt, en dat ging bij twee van de zeven mis.** De
+  > tijd- en scheidingsratchets telden **entries met minstens één overtreding** (73 en 33) in plaats
+  > van de overtredingen zelf (2444 en 70). Daarmee stonden ze in de praktijk uit: 73 van de 85
+  > entries zaten al in de ratchet, en zolang een entry erin zit is de regel voor die entry
+  > uitgeschakeld. Gemeten op 2026-08-15 met een in-memory simulatie: een nieuwe overtreding
+  > toevoegen liet de oude teller op 73 staan, en 41 overtredingen repareren óók — terwijl de nieuwe
+  > teller in beide gevallen bewoog. Sindsdien tellen ze per track. Bij de vijf andere ratchets
+  > speelt dit niet: die tellen per mix één eigenschap, dus daar is entry = overtreding.
 - **De ruleset `main-ci-gate`** — geen bestand in de repo maar een repo-setting, van vorm gelijk aan die
   van de bron: target `~DEFAULT_BRANCH`, regels `deletion` + `non_fast_forward` + de required check
   `poort`, met **bypass voor Admin en Maintain**. Die bypass is geen slordigheid: zonder hem blokkeert de

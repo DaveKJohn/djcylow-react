@@ -58,12 +58,21 @@ const ACHTERSTAND = {
 	descriptionNlMetDash: 13,
 	/** Idem voor `description_en`. */
 	descriptionEnMetDash: 15,
-	/** Entries met minstens één tracklist-tijd die geen `HH:MM:SS` is. Legacy `MM:SS` en `H:MM:SS`. */
-	entriesMetLegacyTijd: 73,
-	/** Entries met minstens één track zonder ` - ` tussen artiest en titel. */
-	entriesMetTrackZonderScheiding: 33,
+	/**
+	 * Tracklist-tijden die geen `HH:MM:SS` zijn (legacy `MM:SS` en `H:MM:SS`), geteld PER TRACK.
+	 * Verdeeld over 73 van de 85 entries, op 2667 tracks in totaal.
+	 */
+	trackTijdenNietHHMMSS: 2444,
+	/** Tracks zonder ` - ` tussen artiest en titel, geteld PER TRACK. Verdeeld over 33 entries. */
+	tracksZonderScheiding: 70,
 	/** Live mixen die nog op de legacy R2-bucket staan. */
 	liveOpLegacyBucket: 25,
+	/**
+	 * Het aantal live mixen. Geen achterstand maar een ondergrens-in-ratchetvorm: verdwijnt er stil
+	 * een mix, dan valt hij hier op. Groeit de collectie, dan vraagt de ratchet dit getal te
+	 * verhogen -- dat hoort bij het toevoegen van een mix.
+	 */
+	liveMixen: 77,
 } as const;
 
 type Track = { time: string; track: string };
@@ -87,6 +96,7 @@ type Mix = {
 	maand: string;
 	dag: string;
 	audioSrc: string;
+	permalink: string;
 	image_wide_small: string;
 	image_wide_large: string;
 	image_square: string;
@@ -158,6 +168,17 @@ describe('mix-data: structuur', () => {
 		expect(dubbel).toEqual([]);
 	});
 
+	/**
+	 * Het aantal live mixen lag nergens vast. De dekking die er toevallig was, kwam van de ratchets:
+	 * van de 77 live mixen raakt er precies één geen enkele ratchet, dus voor de andere 76 zou
+	 * verdwijnen een plafond onderuit duwen. Dat is toevallige dekking die verdampt naarmate de
+	 * achterstand wordt opgelost -- en ze dekt de nieuwste, schoonste mixen het slechtst, want die
+	 * zitten juist in geen enkele achterstand.
+	 */
+	it('heeft het verwachte aantal live mixen [ratchet]', () => {
+		verwachtAchterstand(live.map(label), ACHTERSTAND.liveMixen, 'live mixen');
+	});
+
 	it('sorteert elk bestand nieuwste eerst', () => {
 		const fout = bestanden.filter((file) => {
 			const dated = alle
@@ -198,6 +219,16 @@ describe('mix-data: uniciteit van de sleutels', () => {
 
 	it('heeft een unieke `description_nl` per live mix', () => {
 		expect(uniek(live.map((e) => e.mix.description_nl))).toEqual([]);
+	});
+
+	/**
+	 * De veldspec merkt beide beschrijvingen als SEO-kritisch met dezelfde regel "must be unique per
+	 * mix", maar alleen de Nederlandse werd bewaakt -- een gekopieerde Engelse beschrijving kwam er
+	 * dus doorheen. De site is Engels, dus dat is juist de kant die Google leest. Gemeten: 0
+	 * duplicaten, dus dit kan hard.
+	 */
+	it('heeft een unieke `description_en` per live mix', () => {
+		expect(uniek(live.map((e) => e.mix.description_en))).toEqual([]);
 	});
 });
 
@@ -301,13 +332,23 @@ describe('mix-data: beschrijvingen (SEO-kritisch)', () => {
 		verwachtAchterstand(fout, ACHTERSTAND.descriptionNlTeLang, 'description_nl buiten 120-160');
 	});
 
+	/**
+	 * De dash-regel dekte twee van de drie streepjes: hyphen `-` en em-dash `—`, maar niet de
+	 * en-dash `–` (U+2013) -- juist het teken dat tekstverwerkers en AI-uitvoer het vaakst
+	 * produceren en dat in een zoekresultaat niet van een em-dash te onderscheiden is. Gemeten: 0
+	 * voorkomens vandaag, dus dit is een open deur die dichtgaat en geen achterstand. De plafonds
+	 * blijven daarom precies gelijk (13 en 15) -- als ze meebewogen, was dat het bewijs dat er wél
+	 * en-dashes stonden.
+	 */
+	const DASH = /[-–—]/;
+
 	it('gebruikt geen streepje in `description_nl` [ratchet]', () => {
-		const fout = live.filter((e) => /[-—]/.test(e.mix.description_nl)).map(label);
+		const fout = live.filter((e) => DASH.test(e.mix.description_nl)).map(label);
 		verwachtAchterstand(fout, ACHTERSTAND.descriptionNlMetDash, 'description_nl met dash');
 	});
 
 	it('gebruikt geen streepje in `description_en` [ratchet]', () => {
-		const fout = live.filter((e) => /[-—]/.test(e.mix.description_en)).map(label);
+		const fout = live.filter((e) => DASH.test(e.mix.description_en)).map(label);
 		verwachtAchterstand(fout, ACHTERSTAND.descriptionEnMetDash, 'description_en met dash');
 	});
 });
@@ -323,14 +364,32 @@ describe('mix-data: tracklist', () => {
 		expect(fout).toEqual([]);
 	});
 
-	it('gebruikt `HH:MM:SS` met voorloopnullen [ratchet]', () => {
-		const fout = alle.filter((e) => e.mix.tracklist.some((t) => !/^\d{2}:\d{2}:\d{2}$/.test(t.time))).map(label);
-		verwachtAchterstand(fout, ACHTERSTAND.entriesMetLegacyTijd, 'entries met een legacy tracklist-tijd');
+	/**
+	 * DEZE TWEE TELLEN TRACKS, NIET ENTRIES -- en dat verschil is de hele reden dat ze bestaan.
+	 *
+	 * Tot 2026-08-15 telden ze het aantal entries met MINSTENS ÉÉN overtreding: 73 respectievelijk
+	 * 33. Daarmee stonden ze in de praktijk uit. 73 van de 85 entries zaten al "in" de ratchet, en
+	 * zolang een entry erin zit is de regel voor die entry volledig uitgeschakeld: een track met
+	 * tijd "3:07" toevoegen aan zo'n entry liet de teller op 73 staan, en 2443 van de 2444 tijden
+	 * repareren óók. Het plafond bewoog alleen als een entry van 0 naar 1 overtreding ging of
+	 * andersom -- precies het omgekeerde van wat een ratchet belooft.
+	 *
+	 * Op trackniveau is de eenheid gelijk aan de eenheid waar de regel over gaat, en wordt elke
+	 * losse reparatie zichtbaar. Bij de vijf andere ratchets speelt dit niet: die tellen per mix één
+	 * eigenschap, dus daar is entry = overtreding.
+	 */
+	it('gebruikt `HH:MM:SS` met voorloopnullen [ratchet, per track]', () => {
+		const fout = alle.flatMap((e) =>
+			e.mix.tracklist.filter((t) => !/^\d{2}:\d{2}:\d{2}$/.test(t.time)).map((t) => `${label(e)} "${t.time}"`),
+		);
+		verwachtAchterstand(fout, ACHTERSTAND.trackTijdenNietHHMMSS, 'tracklist-tijden zonder HH:MM:SS');
 	});
 
-	it('scheidt artiest en titel met ` - ` [ratchet]', () => {
-		const fout = alle.filter((e) => e.mix.tracklist.some((t) => !t.track.includes(' - '))).map(label);
-		verwachtAchterstand(fout, ACHTERSTAND.entriesMetTrackZonderScheiding, 'entries met een track zonder " - "');
+	it('scheidt artiest en titel met ` - ` [ratchet, per track]', () => {
+		const fout = alle.flatMap((e) =>
+			e.mix.tracklist.filter((t) => !t.track.includes(' - ')).map((t) => `${label(e)} "${t.track}"`),
+		);
+		verwachtAchterstand(fout, ACHTERSTAND.tracksZonderScheiding, 'tracks zonder " - " tussen artiest en titel');
 	});
 });
 
@@ -388,6 +447,60 @@ describe('mix-data: afbeeldingen', () => {
 		const fout = featured
 			.filter((e) => !e.mix.image_square || ontbreekt(e.mix.image_square))
 			.map((e) => `${label(e)}=${e.mix.image_square || '(leeg)'}`);
+		expect(fout).toEqual([]);
+	});
+});
+
+/**
+ * PERMALINK -- HET VELD WAAR DE HELE ROUTING AAN HANGT
+ *
+ * Vier plekken leiden de URL-slug af uit `permalink`, en tot 2026-08-15 noemde deze suite het veld
+ * geen enkele keer. `Playlist.tsx` doet `mix.permalink.split('/')` zonder guard, op data die met
+ * `as MixData[]` wordt gecast -- de cast liegt daar namens de JSON, dus TypeScript vangt een
+ * ontbrekend veld niet.
+ *
+ * Wat er zonder deze tests doorheen glipt:
+ *   - een nieuwe mix zonder `permalink` -> TypeError bij het renderen van de mixkaart, dus de hele
+ *     Luister-pagina valt om. De build merkt het niet: `generateStaticParams` slaat de entry over,
+ *     dus de build slaagt met één pagina minder. (Sinds 2026-08-15 vangt de paginadrempel in
+ *     `lint-web.ps1` dát laatste wél -- maar die zegt niet welk veld eronder zit.)
+ *   - een typefout -> de playlist linkt naar een slug die niet bestaat, of de sitemap noemt een andere
+ *   - twee mixen met dezelfde slug -> de tweede wordt onbereikbaar terwijl beide in de sitemap staan
+ *
+ * De slug wordt hier met dezelfde drie bewerkingen afgeleid als in `src/data/mixes/all.ts`, zodat
+ * de test meet wat de code doet en niet wat de spec beweert.
+ *
+ * Alleen live mixen: de acht preview-entries hebben géén `permalink`, en dat hoort zo -- de spec
+ * zegt dat hun velden leeg zijn. Ze leveren ook geen pagina.
+ */
+describe('mix-data: permalink en de slug die eraan hangt', () => {
+	const slugVan = (permalink: string) => (permalink.split('/').pop() || '').split('.html')[0].toLowerCase().trim();
+
+	it('heeft voor elke live mix een niet-lege `permalink`', () => {
+		const fout = live.filter((e) => !e.mix.permalink || !e.mix.permalink.trim()).map(label);
+		expect(fout).toEqual([]);
+	});
+
+	it('laat elke `permalink` op `.html` eindigen', () => {
+		const fout = live.filter((e) => !e.mix.permalink.endsWith('.html')).map((e) => `${label(e)}="${e.mix.permalink}"`);
+		expect(fout).toEqual([]);
+	});
+
+	it('leidt uit elke `permalink` een niet-lege slug af', () => {
+		const fout = live.filter((e) => slugVan(e.mix.permalink) === '').map((e) => `${label(e)}="${e.mix.permalink}"`);
+		expect(fout).toEqual([]);
+	});
+
+	it('houdt de afgeleide slugs uniek -- anders is de tweede mix onbereikbaar', () => {
+		const slugs = live.map((e) => slugVan(e.mix.permalink));
+		const dubbel = slugs.filter((s, i) => slugs.indexOf(s) !== i);
+		expect(dubbel).toEqual([]);
+	});
+
+	it('laat de slug alleen url-veilige tekens bevatten', () => {
+		const fout = live
+			.filter((e) => !/^[a-z0-9-]+$/.test(slugVan(e.mix.permalink)))
+			.map((e) => `${label(e)}="${slugVan(e.mix.permalink)}"`);
 		expect(fout).toEqual([]);
 	});
 });
