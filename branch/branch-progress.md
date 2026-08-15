@@ -1,24 +1,31 @@
-## `fix/live-tekst-en-debugtoets` progress
+## `data/covers-en-afbeeldingspaden` progress
 
 ### Steps
 
-- [x] UX-toggle achter `NODE_ENV !== 'production'` en op `Ctrl+Shift+W` (#55)
-- [x] Geverifieerd in `out/`: `ux-mode-toggle` en `KeyW` in 0 van 89 pagina's
-- [x] `Muziekale` → `Muzikale`, in de kop én de comment erboven (#49)
-- [x] Copyrightjaar dynamisch; buildjaar, wat hier het juiste antwoord is (#49)
-- [x] `Geirriteerd` → `Geïrriteerd` (#49)
-- [x] `(nor)Adrenaline` → `Adrenaline` (#49)
-- [x] `top-producers` → `topproducers` in de fallback-beschrijving (#49)
-- [~] `Direct Contact` → `Direct contact`: al gedaan in `fix/contactformulier-endpoint`, dat
-      hetzelfde bestand aanraakte — hier nogmaals doen zou een conflict opleveren
-- [x] Alle zes gecontroleerd in de gebouwde HTML
-- [x] Lint-poort groen
+- [x] Alle 85 entries tegen de schijf gemeten: 30 dode paden gevonden (issues telden er 28)
+- [x] Gemeten of een square een crop van de wide is — **nee**, 87.9/255 verschil, aparte foto
+- [x] Gemeten of small een verkleining van large is — **ja**, 3.1 en 9.8 verschil
+- [x] Twee ontbrekende `_small.webp` gegenereerd uit `_large` (480x270)
+- [x] #46: drie covers hersteld (mapcasing + omgedraaide suffix)
+- [x] #67: twee `image_wide_small` van `_large` naar `_small`
+- [x] #66: 25 niet-afleidbare `image_square` leeggemaakt
+- [x] Bijvangst: dode wide-paden van `Green_Light_Preview` leeggemaakt
+- [x] Ratchet `liveZonderSquareAfbeelding` opgeheven, harde assertie in de plaats
+- [x] Nieuwe test: elke `featured` entry heeft een bestaand `image_square`
+- [x] Spec bijgesteld: `required` genuanceerd, en `.jpg` → `.webp` op twee plekken
+- [x] Hertelling: **0 dode paden**, 214 geldige, 41 lege velden
+- [x] Lint-poort groen, 72 tests
 
 ### Where I left off
 
-Klaar voor PR, maar **dit is site-werk en wacht op Dave**. Op de deploy preview zijn twee dingen
-het bekijken waard: het jaartal in de footer (moet nu 2026 zijn) en de kop *Muzikale kaart* op
-`/musicmoodcolours`.
+Klaar voor PR, maar **dit is site-werk en wacht op Dave**. Wat er op de deploy preview te zien is:
+de acht covers op `/musicmoodcolours` horen nu alle acht een afbeelding te tonen — Purple, Red en
+Yellow waren gebroken.
 
-Let op de volgorde met `fix/contactformulier-endpoint`: die branch draagt de zesde tekstfout. Welke
-van de twee als eerste mergt maakt niet uit — ze raken verschillende bestanden.
+**Eén ding staat open en is jouw beslissing:** de 25 leeggemaakte `image_square`-velden. De
+afbeeldingen zijn niet af te leiden (gemeten), dus als Full-mixen ooit vierkante covers moeten
+krijgen, moeten die aangeleverd worden. Zolang dat niet gebeurt is er niets zichtbaars aan de hand:
+de drie componenten die dit veld lezen filteren op `featured`, en geen enkele Full-mix is dat.
+
+Nog niet gedaan uit dit spoor: #68 (alle 25 Full-mixen op de legacy R2-bucket), #95 (volume-nummering,
+Cyan-emoji, drie te lange descriptions) en #45 (twee mixen spelen andermans audio).
