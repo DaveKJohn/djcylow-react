@@ -1,59 +1,56 @@
-## `config/contactform-tests` changelog
+## `style/contrast-rood-en-magenta` changelog
 
 ### Branch title
 
-Het contactformulier heeft eindelijk tests
+Tekst op rood en magenta haalt WCAG AA
 
 ### Branch ID
 
-20260815-205505
+20260815-211304
 
 ### Branch type
 
-config
+style
 
-Het contactformulier is het enige conversiepad van de site en had geen enkele test op de component
-zelf. De Netlify-function erachter was al gedekt; dit is de clientkant.
+### What does the change on this branch bring to main?
 
-**Negen tests over de vier dingen die stil kunnen breken:** de knop blijft uit tot de captcha is
-opgelost, de velden gaan de deur uit onder de namen die de function verwacht, de bevestiging vervangt
-het formulier, en na een fout wordt het captcha-token ververst.
+Tekst op de moodkleuren **rood** en **magenta** zakte door WCAG AA voor normale tekst. Berekend
+volgens de relatieve luminantie uit WCAG 2.x, met de #eeeeee die `--white-100` levert:
 
-**Twee daarvan bewaken bugs die hier écht zijn gebeurd**, en die zijn negatief getoetst:
+| kleur | wit #eee | zwart | gekozen |
+|---|---|---|---|
+| red `#ff0000` | 3,45 ✗ | **5,25** ✓ | zwart |
+| magenta `#ff00ff` | 2,70 ✗ | **6,70** ✓ | zwart |
+| purple `#7f00ff` | 5,41 ✓ | 3,35 | wit blijft |
+| blue `#0000ff` | 7,41 ✓ | 2,44 | wit blijft |
 
-- De veldnamen. De function las ooit `firstName` en `lastName`, die nergens bestonden, en elke
-  aanvraag kwam binnen als *"Boekingsaanvraag: undefined undefined"*. Toets: `name` hernoemen naar
-  `firstName` laat de test vallen.
-- De token-reset. Een reCAPTCHA-token is eenmalig en ongeveer twee minuten geldig, dus zonder reset
-  probeert de bezoeker het opnieuw met hetzelfde token, antwoordt Google `timeout-or-duplicate`, en
-  herhaalt dat zich tot de pagina herlaadt — één tijdelijke serverfout kostte zo de hele aanvraag.
-  Toets: de reset weghalen laat de test vallen.
+Beide staan nu in `$dark-text-colors`, waardoor ze zwarte tekst krijgen in plaats van wit.
 
-Er staat ook een test op dat `bot-field` wordt meegestuurd. Dat sluit aan op de honeypot die vandaag
-in de function is aangesloten: die kan alleen iets vangen als de clientkant het veld blijft
-meesturen, en dat verband is nu vastgelegd in plaats van aangenomen.
+**De merkkleuren zelf zijn niet aangeraakt**, en dat is precies waarom deze oplossing is gekozen
+boven het bijstellen van `#ff0000` en `#ff00ff`. Alleen de tekstkleur eróp draait om; het contrast
+komt in orde zonder dat de huisstijl verandert. Purple en blue houden wit, want daar zou zwart juist
+zakken — de keuze is per kleur gemeten en niet als groep gemaakt.
 
-**Twee omgevingsstubs waren nodig**, en beide staan met hun reden in het bestand. `IntersectionObserver`
-bestaat niet in jsdom terwijl de component hem gebruikt om de captcha lui te laden — zonder stub zou
-elke test op de zes-secondenfallback wachten. En de reCAPTCHA-widget is vervangen door een knop die
-een token teruggeeft: die praat met Google, en wat hier telt is wat de component met het tóken doet.
+Dit is geen randgeval: juist rood en magenta worden als labels **met tekst** gerenderd op de
+luister-filter en op Music Mood Colours. Geverifieerd in de gebouwde CSS dat `.red p` en `.magenta p`
+nu `var(--black-100)` krijgen.
 
 ### Significance
 
 #### Tier 0
 
-De belangrijkste ongeteste component van de repo is gedekt, met twee tests die precies de twee
-storingen bewaken die hier eerder zijn opgetreden. Suite van 193 naar 202.
+De meetwaarden en de afweging staan nu in de code, zodat een volgende kleur niet op gevoel bij die
+lijst wordt gezet.
 
-**Score:** 4
+**Score:** 2
 
 #### Tier 1
 
-Er verandert vandaag niets aan het formulier; het werkt zoals het werkte. De waarde is dat een
-volgende wijziging aan het verzendpad niet meer stil kan breken — en dit is het pad waarlangs boekingen
-binnenkomen.
+Twee van de acht moodkleuren waren met normale tekst slecht leesbaar — magenta op 2,70:1, ver onder de
+norm. Dat raakt elke bezoeker van de luister-filter en van Music Mood Colours, en het meest de mensen
+voor wie de norm bestaat.
 
-**Score:** 2
+**Score:** 4
 
 ### Pull Request
 
