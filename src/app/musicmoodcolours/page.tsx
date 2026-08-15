@@ -167,7 +167,7 @@ export default function MusicMoodColoursPage() {
 
                 </div>
 
-                {/* 5. NEURO (Muziekale kaart) */}
+                {/* 5. NEURO (Muzikale kaart) */}
                 <div className="column w-fill AMC P20 spacing-6xl" id="neurotransmitters_4">
 
                     <div className="column w-fix AML constrainer spacing-2xl">
@@ -178,7 +178,7 @@ export default function MusicMoodColoursPage() {
 
 
 
-                                <h2>Muziekale kaart</h2>
+                                <h2>Muzikale kaart</h2>
 
 
                             </div>
@@ -205,7 +205,7 @@ export default function MusicMoodColoursPage() {
                                         <p>{musicMoodColoursContent.neuro.serotonine}</p>
                                     </li>
                                     <li className="column spacing-xl">
-                                        <h3>(nor)Adrenaline</h3>
+                                        <h3>Adrenaline</h3>
                                         <p>{musicMoodColoursContent.neuro.adrenaline}</p>
                                     </li>
                                 </ul>

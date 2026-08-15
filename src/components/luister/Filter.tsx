@@ -2,12 +2,16 @@
 
 import '@/styles/components/luister/filter.scss';
 
+// De acht kleuren van Music Mood Colours. Magenta ontbrak hier tot 2026-08-15, terwijl de
+// mix-data hem wél kent en er een preview klaarligt in light-magenta.json -- `?color=magenta`
+// liet de pagina daardoor omvallen.
 const MOOD_DATA: Record<string, { colorVar: string; text: string }> = {
     yellow: { colorVar: '--yellow-default', text: 'avontuur · passie · ambitie · gretig' },
     cyan: { colorVar: '--cyan-default', text: 'vrolijk · feestelijk · gezellig · blij · sfeervol' },
     green: { colorVar: '--green-default', text: 'romantisch · vredig · euforisch · warm · trots' },
     orange: { colorVar: '--orange-default', text: 'inspirerend · episch · resoluut · heldhaftig' },
-    red: { colorVar: '--red-default', text: 'eng · duister · Luguber · beklemmend · vies' },
+    red: { colorVar: '--red-default', text: 'eng · duister · luguber · beklemmend · vies' },
+    magenta: { colorVar: '--magenta-default', text: 'geïrriteerd · gespannen · rusteloos · fel' },
     purple: { colorVar: '--purple-default', text: 'verdriet · pijn · verlies · rouw · schaamte' },
     blue: { colorVar: '--blue-default', text: 'neutraal · nuchter · stabiel · tevreden · serene' },
 };
@@ -22,6 +26,12 @@ interface FilterProps {
 }
 
 export default function Filter({ activeColor, setActiveColor, activeGenre, setActiveGenre, activePower, setActivePower }: FilterProps) {
+    // Opzoeken in plaats van blind dereferencen. `activeColor` komt uit de URL en kan elke waarde
+    // hebben; tot 2026-08-15 ging die rechtstreeks in MOOD_DATA[activeColor].colorVar, en elke
+    // onbekende waarde gaf een TypeError tijdens de client-render. Er is geen error.tsx, dus dat
+    // was een witte pagina.
+    const mood = MOOD_DATA[activeColor];
+
     return (
 
 
@@ -58,13 +68,13 @@ export default function Filter({ activeColor, setActiveColor, activeGenre, setAc
                     </div>
 
                     {/* MOOD OUTPUT - Nu met dynamische display: none/flex */}
-                    <div className="column w-fill AMC extra spacing-xl" id="filter_mood_output" style={{ display: activeColor === 'all' ? 'none' : 'flex' }}                   >
-                        {activeColor !== 'all' && (
+                    <div className="column w-fill AMC extra spacing-xl" id="filter_mood_output" style={{ display: mood ? 'flex' : 'none' }}                   >
+                        {mood && (
                             <div className="column w-fill AMC spacing-lg color-wrapper">
                                 <svg className="column extra spacing-2xl" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '15px', height: '15px' }}>
-                                    <circle cx="10" cy="10" r="9" fill={`var(${MOOD_DATA[activeColor].colorVar})`}></circle>
+                                    <circle cx="10" cy="10" r="9" fill={`var(${mood.colorVar})`}></circle>
                                 </svg>
-                                <p className="size-sm balanced">{MOOD_DATA[activeColor].text}</p>
+                                <p className="size-sm balanced">{mood.text}</p>
                             </div>
                         )}
                     </div>

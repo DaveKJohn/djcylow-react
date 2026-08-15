@@ -331,7 +331,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
                                         Ben je op zoek naar een energieke {mix.subgenre} mix? In <strong>{mix.color} {mix.volume}</strong> brengt
                                         DJ Cylow een vloeiende, non-stop selectie van de beste tracks van dit moment.
                                         Deze set heeft een <strong>{mix.power}</strong> feel en is perfect geschikt voor tijdens het streamen, sporten of je pre-party.
-                                        {topArtists && <span> Geniet van unieke overgangen en platen van top-producers zoals <em>{topArtists}</em> en vele anderen.</span>}
+                                        {topArtists && <span> Geniet van unieke overgangen en platen van topproducers zoals <em>{topArtists}</em> en vele anderen.</span>}
                                     </p>
                                 )}
                             </div>
