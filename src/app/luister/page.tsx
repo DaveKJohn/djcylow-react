@@ -1,54 +1,21 @@
-'use client';
-
 import { Suspense } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import styles from '@/styles/modules/luister.module.scss';
 
-import Filter from '@/components/luister/Filter';
-import Playlist from '@/components/luister/Playlist';
-import MobileContent from '@/components/ui/MobileContent';
+import LuisterFilters from '@/components/luister/LuisterFilters';
+import PlaylistFallback from '@/components/luister/PlaylistFallback';
 
-const FilterIcon = (
-    <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <line x1="4" y1="21" x2="4" y2="14"></line>
-        <line x1="4" y1="10" x2="4" y2="3"></line>
-        <line x1="12" y1="21" x2="12" y2="12"></line>
-        <line x1="12" y1="8" x2="12" y2="3"></line>
-        <line x1="20" y1="21" x2="20" y2="16"></line>
-        <line x1="20" y1="12" x2="20" y2="3"></line>
-        <line x1="1" y1="14" x2="7" y2="14"></line>
-        <line x1="9" y1="8" x2="15" y2="8"></line>
-        <line x1="17" y1="16" x2="23" y2="16"></line>
-    </svg>
-);
-
-function LuisterPageContent() {
-    const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-
-    const activeColor = searchParams.get('color') ?? 'all';
-    const activeGenre = searchParams.get('genre') ?? 'all';
-    const activePower = searchParams.get('power') ?? 'all';
-
-    const setFilter = (key: string, value: string) => {
-        const params = new URLSearchParams(searchParams.toString());
-        if (value === 'all') {
-            params.delete(key);
-        } else {
-            params.set(key, value);
-        }
-        const qs = params.toString();
-        router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-    };
-
+/**
+ * De luisterpagina. Dit bestand is bewust GEEN client component.
+ *
+ * Tot 2026-08-15 stond hier `'use client'` boven een component die `useSearchParams()` gebruikte
+ * en volledig in een `<Suspense>` zonder fallback zat. Bij `output: 'export'` bailt Next zo'n
+ * subtree uit de prerender, dus `out/luister.html` bevatte geen `<main>`, geen `<h1>` en geen
+ * enkele mixlink -- alleen `<div hidden><!--$--><!--/$--></div>` (issue #43).
+ *
+ * Nu staat alles wat niet van de URL afhangt buiten de Suspense-grens, en heeft die grens een
+ * fallback die de volledige mixlijst server-rendert. Beide belanden in de statische HTML.
+ */
+export default function LuisterPage() {
     return (
         <main className={styles.pageWrapper}>
             {/* Banner bovenaan */}
@@ -66,71 +33,12 @@ function LuisterPageContent() {
 
                 <div className="column w-fill AMC P20 spacing-2xl " id="luister_content">
                     <div className="row-c break-s ATC constrainer">
-
-                        <Playlist
-                            activeColor={activeColor}
-                            activeGenre={activeGenre}
-                            activePower={activePower}
-                        />
-
-                        <div className="column AMC P30 spacing-xl " id="luister_content_filter">
-
-                            <div className="column w-fill AMC P35 spacing-xl">
-
-                                <div className="column w-fill AMC P40 spacing-xl fill-90">
-
-                                    <div className="column w-fill AMC P45 spacing-xl">
-
-                                        {/* RECHTS: De filters (op desktop locked in de kolom, op mobiel een knop) */}
-                                        <MobileContent
-                                            title="Filters"
-                                            id="luister_content_filter_drawer"
-                                            icon={FilterIcon}
-                                            trigger={(toggle) => (
-                                                <div
-                                                    id="luister_content_filter_mobile_button"
-                                                    className="column w-fill AMC P50 btn"
-                                                    onClick={toggle}
-                                                    role="button"
-                                                    tabIndex={0}
-                                                    aria-label="Filter openen"
-                                                >
-                                                    <div className="row w-fill AMC P55 spacing-xl">
-                                                        {FilterIcon}
-                                                        <span>Filters</span>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        >
-                                            {() => (
-                                                <div className="column w-fill AML P60 break-s spacing-2xl">
-                                                    <Filter
-                                                        activeColor={activeColor}
-                                                        setActiveColor={(v: string) => setFilter('color', v)}
-                                                        activeGenre={activeGenre}
-                                                        setActiveGenre={(v: string) => setFilter('genre', v)}
-                                                        activePower={activePower}
-                                                        setActivePower={(v: string) => setFilter('power', v)}
-                                                    />
-                                                </div>
-                                            )}
-                                        </MobileContent>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Suspense fallback={<PlaylistFallback />}>
+                            <LuisterFilters />
+                        </Suspense>
                     </div>
-
                 </div>
             </section>
         </main>
-    );
-}
-
-export default function LuisterPage() {
-    return (
-        <Suspense>
-            <LuisterPageContent />
-        </Suspense>
     );
 }

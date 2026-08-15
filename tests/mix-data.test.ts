@@ -64,15 +64,6 @@ const ACHTERSTAND = {
 	entriesMetTrackZonderScheiding: 33,
 	/** Live mixen die nog op de legacy R2-bucket staan. */
 	liveOpLegacyBucket: 25,
-	/**
-	 * Live mixen met een `image_square` die niet in `public/images/` bestaat -- 25 stuks, en dit is
-	 * de ernstigste van de zeven omdat het ZICHTBAAR is. `image_square` wordt gerenderd door
-	 * BasiskleurenCarousel, Erlenmeyers en VsKleurenCarousel op de Music Mood Colours-pagina, dus
-	 * deze 25 leveren daar een 404-afbeelding. Het is geen extensie-mismatch: de `square/`-mappen
-	 * bestaan grotendeels niet (bijvoorbeeld `public/images/full/blue/` heeft alleen `wide/`).
-	 * Repareren vraagt echte afbeeldingen en is daarmee Dave's beslissing, niet die van deze suite.
-	 */
-	liveZonderSquareAfbeelding: 25,
 } as const;
 
 type Track = { time: string; track: string };
@@ -187,6 +178,18 @@ describe('mix-data: uniciteit van de sleutels', () => {
 
 	it('heeft een unieke `id_spotify` per live mix', () => {
 		expect(uniek(live.map((e) => e.mix.id_spotify))).toEqual([]);
+	});
+
+	/**
+	 * Issue #45: twee mixen droegen de `audioSrc` van een ándere entry, byte-identiek. Titel,
+	 * tracklist, beschrijving en cover waren van mix A, het geluid van mix B -- de bezoeker hoorde
+	 * dus iets anders dan waarop hij klikte, met een tracklist die niet meeliep.
+	 *
+	 * Het waren allebei de oudste entry in hun bestand, wat past bij een copy-paste die nooit is
+	 * afgemaakt. Niets hield dat tegen; dit is de wacht die daarop staat.
+	 */
+	it('heeft een unieke `audioSrc` per live mix', () => {
+		expect(uniek(live.map((e) => e.mix.audioSrc))).toEqual([]);
 	});
 
 	it('heeft een unieke `title_spotify` per live mix -- die uniciteit hangt aan volume_spotify', () => {
@@ -356,9 +359,36 @@ describe('mix-data: afbeeldingen', () => {
 		expect(fout).toEqual([]);
 	});
 
-	it('heeft elk `image_square`-bestand echt in public/images/ [ratchet -- zichtbaar defect]', () => {
+	/**
+	 * Dit was tot 2026-08-15 een ratchet op 25. Die 25 paden wezen naar `square/`-mappen die
+	 * grotendeels niet bestaan, in een naamvolgorde die nergens op schijf voorkomt -- ze zijn dus
+	 * nooit gegenereerd maar met de hand ingevuld. Ze zijn nu leeggemaakt in plaats van gerepareerd,
+	 * want de afbeeldingen zijn niet af te leiden: een bestaande square is GEEN uitsnede van de
+	 * bijbehorende wide (gemeten gemiddeld kanaalverschil 87.9 van 255), maar een aparte foto.
+	 *
+	 * Een leeg veld is daarmee de eerlijke waarde en wordt overgeslagen door `ontbreekt`. Wat een
+	 * leeg veld niet mag zijn, is stil: de test hieronder bewaakt dat precies waar het zichtbaar
+	 * wordt.
+	 */
+	it('heeft elk `image_square`-bestand echt in public/images/', () => {
 		const fout = live.filter((e) => ontbreekt(e.mix.image_square)).map((e) => `${label(e)}=${e.mix.image_square}`);
-		verwachtAchterstand(fout, ACHTERSTAND.liveZonderSquareAfbeelding, 'live mixen zonder image_square-bestand');
+		expect(fout).toEqual([]);
+	});
+
+	/**
+	 * `image_square` wordt uitsluitend gerenderd door BasiskleurenCarousel, Erlenmeyers en
+	 * VsKleurenCarousel, en die filteren alle drie op `featured === true`. Een featured entry met
+	 * een leeg of ontbrekend square-veld levert daar dus een gebroken cover -- precies wat issue #46
+	 * op drie van de acht liet zien. Dit is de wacht die daarop staat, en hij kijkt naar ALLE
+	 * entries, want de acht covers zijn preview-entries met `ignore: true`.
+	 */
+	it('heeft voor elke featured entry een bestaand `image_square`', () => {
+		const featured = alle.filter((e) => e.mix.featured);
+		expect(featured.length).toBeGreaterThan(0);
+		const fout = featured
+			.filter((e) => !e.mix.image_square || ontbreekt(e.mix.image_square))
+			.map((e) => `${label(e)}=${e.mix.image_square || '(leeg)'}`);
+		expect(fout).toEqual([]);
 	});
 });
 

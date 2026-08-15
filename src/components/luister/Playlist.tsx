@@ -4,41 +4,9 @@ import { useMemo, useState } from 'react';
 import AudioPlayer from '../ui/AudioPlayer';
 import Link from 'next/link';
 
-import lightBlue from '@/data/mixes/light-blue.json';
-import lightCyan from '@/data/mixes/light-cyan.json';
-import lightGreen from '@/data/mixes/light-green.json';
-import lightYellow from '@/data/mixes/light-yellow.json';
-import lightOrange from '@/data/mixes/light-orange.json';
-import lightPurple from '@/data/mixes/light-purple.json';
-import lightRed from '@/data/mixes/light-red.json';
-import lightMagenta from '@/data/mixes/light-magenta.json';
-
-import fullBlue from '@/data/mixes/full-blue.json';
-import fullCyan from '@/data/mixes/full-cyan.json';
-import fullGreen from '@/data/mixes/full-green.json';
-import fullYellow from '@/data/mixes/full-yellow.json';
-import fullOrange from '@/data/mixes/full-orange.json';
-import fullPurple from '@/data/mixes/full-purple.json';
-import fullRed from '@/data/mixes/full-red.json';
+import { allMixes, mixSlug } from '@/data/mixes/all';
 
 import '@/styles/components/luister/playlist.scss';
-
-interface MixData {
-    id: string;
-    ignore: boolean;
-    color: string;
-    genre: string;
-    subgenre: string;
-    power: string;
-    frequency: string;
-    volume: string;
-    audioSrc: string;
-    image_wide_small: string;
-    permalink: string;
-    maand: string;
-    dag: string;
-    jaar: string;
-}
 
 interface PlaylistProps {
     activeColor: string;
@@ -46,13 +14,12 @@ interface PlaylistProps {
     activePower: string;
 }
 
-const allMixesData: MixData[] = [
-    ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta,
-    ...fullBlue, ...fullCyan, ...fullGreen, ...fullYellow, ...fullOrange, ...fullPurple, ...fullRed
-] as MixData[];
-
 export default function Luister({ activeColor, activeGenre, activePower }: PlaylistProps) {
     const [limit, setLimit] = useState(10);
+    // Welke speler er nu klinkt. AudioPlayer had de mechaniek hiervoor al -- onPlay meldt zich aan
+    // en activeId pauzeert de rest -- maar deze lijst gaf die twee niet door, waardoor alle spelers
+    // tegelijk konden spelen (issue #56).
+    const [activeId, setActiveId] = useState<string | null>(null);
     const filterKey = `${activeColor}|${activeGenre}|${activePower}`;
     const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
 
@@ -66,7 +33,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: Playl
     };
 
     const filteredMixes = useMemo(() => {
-        return allMixesData
+        return allMixes
             .filter(mix => {
                 if (mix.ignore === true) return false;
                 const matchColor = activeColor === 'all' || mix.color?.toLowerCase() === activeColor.toLowerCase();
@@ -89,9 +56,7 @@ export default function Luister({ activeColor, activeGenre, activePower }: Playl
 
                     {filteredMixes.length > 0 ? (
                         filteredMixes.slice(0, limit).map((mix) => {
-                            // Bereken de schone slug exact zoals in de backend
-                            const filename = mix.permalink.split('/').pop() || '';
-                            const cleanSlug = filename.split('.html')[0].toLowerCase().trim();
+                            const cleanSlug = mixSlug(mix);
                             const filterParams = new URLSearchParams();
                             if (activeColor !== 'all') filterParams.set('color', activeColor);
                             if (activeGenre !== 'all') filterParams.set('genre', activeGenre);
@@ -106,6 +71,8 @@ export default function Luister({ activeColor, activeGenre, activePower }: Playl
                                         src={mix.audioSrc}
                                         image={mix.image_wide_small}
                                         className={mix.color?.toLowerCase()}
+                                        onPlay={setActiveId}
+                                        activeId={activeId}
                                     />
                                     <div className="column w-hug AML ">
                                         <div className="column w-hug AML spacing-xs">

@@ -80,7 +80,13 @@ export default function Footer() {
 
                                 <span className="size-xs P45">Gemaakt door <a className="btn" href="https://www.linkedin.com/in/dave-kok-34553798/" target="_blank" rel="noopener noreferrer">Dave Kok</a></span>
 
-                                <span className="size-xs P45">© 2025 DJ Cylow</span>
+                                {/* Bij static export legt dit het BUILDjaar vast, niet het jaar van de
+                                    bezoeker. Dat is hier precies goed: elke merge naar main triggert een
+                                    Netlify-build, dus het jaartal loopt vanzelf mee. Het stond hard op
+                                    2025, en een verouderd jaartal in de footer leest op een boekingssite
+                                    als "wordt niet onderhouden" -- bij precies de bezoeker die op het
+                                    punt staat contact op te nemen. */}
+                                <span className="size-xs P45">© {new Date().getFullYear()} DJ Cylow</span>
 
                             </div>
 
