@@ -1,30 +1,25 @@
-## `docs/audit-correcties` progress
+## `fix/contactformulier-endpoint` progress
 
 ### Steps
 
-- [x] Chris' lens: de twee redenen die de PR-grens wél dragen (#84)
-- [x] Vijftien lenzen naar het bestand dat er werkelijk staat — per lens gecontroleerd (#90)
-- [x] `repo-config.ps1`: testaantal, branch protection, en de major-recap-tegenspraak (#89)
-- [x] `CONTRIBUTING.md`: het blok dat opdracht gaf tot werk aan een lege seam (#85)
-- [x] `src/data/mixes/README.md`: titelformaat op vier plekken, plus de i18n-branchstatus (#88)
-- [x] `CLAUDE.md`: vijf punten uit #87 (pijler-tabel, `npm run lint`, ESLint-in-de-poort,
-      de release-taakverdeling, en de verouderende tellingen)
-- [x] De poort als drie stappen beschreven i.p.v. twee, op drie plekken
-- [x] PR-template: de poort op 0/0 plus een regel voor de testsuite
-- [x] Lint-poort groen, 71 tests
+- [x] `name` lezen i.p.v. `firstName`/`lastName`, in onderwerp én body (#42)
+- [x] Invoervalidatie: aanwezigheid, type, lengte, adresvorm (#51.1)
+- [x] Escaping via één helper, plus een `text:`-variant (#51.2)
+- [x] CORS beperkt tot de eigen domeinen + deploy previews; hostname-check op reCAPTCHA (#51.3)
+- [x] `details` uit de 500-response (#51.4)
+- [x] Foutlus opgeheven: verse challenge na een mislukking (#57)
+- [x] Testsuite voor de function, 23 tests (#71)
+- [x] `axios` vervangen door de ingebouwde `fetch` en uit `package.json`
+- [x] Lint-poort groen op 0 errors / 0 warnings, 94 tests
 
 ### Where I left off
 
-Klaar voor PR. Dit is documentatie, dus het loopt door tot en met de fold.
+Klaar voor PR, maar **dit is site-werk en wacht dus op Dave**: het raakt `src/` en het endpoint dat
+de live site gebruikt. De deploy preview is hier ook echt nodig, want twee dingen zijn alleen in de
+praktijk te zien — of een echte aanvraag aankomt met naam, en of de reCAPTCHA-hostnamecontrole geen
+legitiem verkeer weigert. Die tweede is het risico van deze branch: als Google's antwoord een
+hostname bevat die niet in de lijst staat, wordt een geldige aanvraag geweigerd. De lijst dekt
+`djcylow.com`, `www.djcylow.com`, `djcylow-react.netlify.app` en het deploy-preview-patroon.
 
-**Twee dingen om te weten bij het mergen:**
+Test op de preview: vul het formulier in en kijk of de mail aankomt met de juiste naam.
 
-1. **`src/data/mixes/README.md` wordt ook door `data/covers-en-afbeeldingspaden` gewijzigd.** Die
-   branch corrigeert de twee afbeeldingssecties (`.jpg` → `.webp`, en `required` genuanceerd); deze
-   het titelformaat en de i18n-noot. Verschillende plekken in hetzelfde bestand, dus een conflict is
-   onwaarschijnlijk maar niet uitgesloten. Merge ze niet gelijktijdig.
-2. **`CLAUDE.md` wordt ook door `config/tailwind-eruit` en `config/webp-veiligheid-en-ignore`
-   gewijzigd**, eveneens op andere plekken.
-
-#86 (README, zeven punten) is **niet** in deze branch afgerond: de Tailwind-punten daarvan zitten in
-`config/tailwind-eruit`, en de rest is nog open. Dat issue blijft dus staan.

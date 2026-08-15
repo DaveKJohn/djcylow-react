@@ -1,82 +1,84 @@
-## `docs/audit-correcties` changelog
+## `fix/contactformulier-endpoint` changelog
 
 ### Branch title
 
-Documentatie gelijkgetrokken met de machinerie die er werkelijk staat
+Boekingsaanvragen komen compleet aan en het mail-endpoint is gehard
 
 ### Branch ID
 
-20260815-144049
+20260815-130602
 
 ### Branch type
 
-docs
+fix
 
 ### What does the change on this branch bring to main?
 
-De documentatie beschreef op een reeks plekken machinerie die er niet meer zo staat. Vier daarvan
-waren niet passief-verouderd maar **stuurden de lezer actief de verkeerde kant op**.
+Het contactformulier is de enige weg waarlangs een boeking binnenkomt, en het verloor de naam van
+elke aanvraag. Het formulier verstuurt één veld `name`; de Netlify-function las `firstName` en
+`lastName`, en die bestaan nergens in `src/`. Elke aanvraag kwam binnen als **"Boekingsaanvraag:
+undefined undefined"** — beantwoorden kon nog via `replyTo`, maar terugvinden niet.
 
-**Chris' repo-lens beweerde dat er nul testsuites en geen branch protection waren** (#84). Er staan
-vier testbestanden en de ruleset `main-ci-gate` bestaat sinds 2026-08-13. Dat woog het zwaarst van
-alles hier: het is de **enige lens die automatisch meelaadt**, én het is het argument waarmee de
-PR-grens wordt verantwoord — dus elke sessie woog iemand de merge-beslissing op feiten die niet meer
-klopten, terwijl `CLAUDE.md` in een tabel het omgekeerde stelde. De conclusie blijft staan, maar rust
-nu op de twee redenen die hem wél dragen: de suite dekt de mix-**data** en niet de vormgeving, en de
-ruleset heeft `bypass_actors` waardoor de check voor een admin adviserend blijft.
+**Dat het een jaar onopgemerkt bleef, kwam door het ontbreken van validatie**, en dat is meteen het
+tweede deel van deze branch. Het endpoint controleerde niets: geen aanwezigheid, geen type, geen
+lengte, geen adresvorm. Een JSON-body mag arrays en objecten leveren, en die belandden
+ongecontroleerd in de mail en in `replyTo`. Nu wordt elk veld als string gelezen, begrensd op
+lengte, en het adres op vorm getoetst; een lege aanvraag wordt geweigerd in plaats van verstuurd.
 
-**`CONTRIBUTING.md` gaf een opdracht tot werk dat al gedaan was, aan een seam die leeg hoort te
-blijven** (#85). Het blok beweerde dat de PR-template nog een Nederlandse placeholder droeg en dat
-`Get-PrDescriptionPlaceholder` gevuld moest worden op `docs/release-route-naar-script`. Vier
-beweringen, alle vier onwaar: de template draagt de canonieke placeholder, het is gerepareerd via de
-template-route juist *niet* via die seam, en die branch is gemerged en gefold.
+Verder aan het endpoint:
 
-**`scripts/repo-config.ps1` citeerde `CLAUDE.md` voor het tegendeel** (#89). Een comment bij
-`Get-ReleaseMajorMinMinors` zei dat een major hier "een volledig redesign of een framework-migratie"
-is "en niet een recap van tien minors zoals in de bron" — met bronvermelding, terwijl `CLAUDE.md`
-sinds 2026-08-13 exact het omgekeerde zegt. Dat is de tekst waar iemand op terugvalt die die waarde
-ooit wil zetten. Ook gecorrigeerd: het testaantal (stond op 36, waren er 71 — nu verwijst het naar
-`npx vitest run` in plaats van een getal dat gegarandeerd veroudert) en de reden waarom de CI-check
-adviserend is (niet "zonder branch protection", maar door `bypass_actors`).
+- **De HTML-mail escapet zijn invoer**, via één helper zodat een volgend veld niet opnieuw vergeten
+  wordt. Er gaat nu ook een `text:`-variant mee.
+- **CORS staat niet meer op `*`.** Alleen `djcylow.com`, `www.djcylow.com`, het Netlify-adres en het
+  deploy-preview-patroon krijgen de header terug, en alleen ná een match — de binnenkomende origin
+  wordt nooit blind teruggekaatst. Er zit ook een controle op `hostname` uit het
+  reCAPTCHA-antwoord bij: zonder die controle is een token dat op een ander domein is opgehaald
+  hier net zo geldig.
+- **De interne foutmelding gaat niet meer mee in de 500.** Een SMTP- of DNS-fout noemt
+  infrastructuur, en de frontend las dat veld niet eens.
 
-**Vijftien repo-lenzen verwezen naar een plugin-id dat niet meer bestaat** (#90). Elke lens opende
-met *"in `specialists` plugin"*, terwijl dat id gesplitst is in `team-alpha` en `workflow-davekjohn`.
-Ze wijzen nu naar het bestand dat er werkelijk staat — en dat is **per lens gecontroleerd**: een
-eerste poging zette er `personas/NN-NN-persona.md` neer, en die map bevat er maar vier. De vijftien
-met de scaffold-header zijn precies de vijftien **agents**; één dode verwijzing was bijna vervangen
-door vijftien.
+**De foutlus is weg.** Bij een mislukte verzending bleef het reCAPTCHA-token staan, terwijl zo'n
+token eenmalig is en ~2 minuten geldig. De bezoeker probeerde het opnieuw met hetzelfde token,
+Google antwoordde `timeout-or-duplicate`, en dat herhaalde zich tot de pagina herladen werd — één
+tijdelijke serverfout kostte de hele aanvraag. De widget wordt nu geremount voor een verse
+challenge. Bewust via een `key` en niet via een ref met `.reset()`: het component wordt met
+`next/dynamic` geladen, en die wrapper geeft een ref niet betrouwbaar door.
 
-Verder gelijkgetrokken met wat er staat:
+**En er is nu een testsuite**, 23 tests, precies over wat hierboven staat (issue #71 — dit was het
+enige server-side bestand zonder ook maar één test). Dat kostte drie pogingen, en de reden is het
+vermelden waard: de function is CommonJS en woont buiten `src/`, dus Vitest laadt haar met Node's
+eigen `require`. `vi.mock` greep daardoor niet op haar `require('axios')`, en zelfs
+`vi.stubGlobal('fetch')` werd niet gezien — de module draait in een andere context en hield de
+echte `fetch`, waarna elke test in een timeout van vijf seconden liep. Beide zijn gemeten voordat
+het huidige patroon gekozen is: de twee buitenwereld-afhankelijkheden gaan nu via een derde
+parameter naar binnen, die Netlify zelf nooit meegeeft.
 
-| | was | is |
-|---|---|---|
-| `src/data/mixes/README.md` | vier plekken schreven een ander titelformaat voor dan de spec zelf eist (#88) | alle vier gelijk aan de vereiste vorm, die alle 77 live titels al volgen |
-| idem | `description_en` "waiting on the parked `feature/i18n-setup`" | die branch is **gesloten** en gearchiveerd; hij komt niet vanzelf live |
-| `CLAUDE.md`, `CONTRIBUTING.md` | de poort als "`tsc` + build", op drie plekken | drie stappen, met `eslint .` erbij |
-| `CLAUDE.md` | "`npm run lint` = ESLint + TypeScript check" | alleen ESLint; de typecheck zit in `lint-web.ps1` |
-| `CLAUDE.md` | "`npm run lint` staat nog buiten de poort" | zit er sinds 2026-08-14 in — het document sprak zichzelf drie alinea's verderop tegen |
-| `CLAUDE.md` | versienummer en release-notes zijn "handwerk van Rendall" | het script doet ze; handwerk is het audience-concept en de Release |
-| `CLAUDE.md` | tellingen van 60 documenten / 37 development | weggehaald — ze verouderen bij elke cut |
-| `.github/pull_request_template.md` | "`npm run lint` gedraaid, geen nieuwe fouten" | de poort op 0/0, plus een regel voor de testsuite |
+**Bijvangst: `axios` is uit de repo.** Het werd alleen hier gebruikt, voor één POST, en Node levert
+`fetch` sinds v18. Dat is één dode dependency minder dan issue #94 straks hoeft op te ruimen.
 
-Sluit #84, #85, #87, #88, #89 en #90.
+Eén tekstfout uit issue #49 zit in ditzelfde bestand en is meegenomen om een conflict met die
+branch te voorkomen: `Direct Contact` → `Direct contact`, want Nederlands kent geen title case.
+
+Sluit #42, #51, #57 en #71.
 
 ### Significance
 
 #### Tier 0
 
-Vier van deze correcties stuurden actief verkeerd werk aan: een lens die bij elke sessie meelaadt en
-de PR-grens verkeerd verantwoordt, een opdracht tot werk aan een lege seam, een bronvermelding naar
-het tegendeel, en vijftien verwijzingen naar een plugin die niet bestaat. Dat is duurder dan een
-verouderde zin, want het kost iemand een dag aan de verkeerde reparatie.
+Het enige server-side bestand had geen enkele test en verwerkte ongevalideerde bezoekersinvoer. Er
+liggen nu 23 tests onder, en de function is testbaar gemaakt op een manier die eerst is gemeten in
+plaats van aangenomen.
 
-**Score:** 4
+**Score:** 3
 
 #### Tier 1
 
-N/A — dit raakt uitsluitend documentatie en comments. De build levert dezelfde pagina's.
+Elke boekingsaanvraag kwam binnen zonder naam en met een onbruikbaar onderwerp. Dit is het formulier
+waarlangs opdrachten binnenkomen, dus dat raakt Dave direct en dagelijks. Daar bovenop stopt een
+tijdelijke serverfout niet langer de hele aanvraag, en is het endpoint niet meer vanaf willekeurige
+domeinen bruikbaar.
 
-**Score:** N/A
+**Score:** 5
 
 ### Pull Request
 
