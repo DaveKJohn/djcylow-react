@@ -2,22 +2,15 @@
 
 import React, { useMemo, useState } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
+
+// De acht light-bestanden stonden hier los geimporteerd en samengevoegd. Zie @/data/mixes/all:
+// featuredMixByColor draagt nu ook het power-filter dat voorheen impliciet in die imports zat.
+import { featuredMixByColor } from '@/data/mixes/all';
 import Carousel from '@/components/ui/Carousel';
 
-import lightBlue from '@/data/mixes/light-blue.json';
-import lightCyan from '@/data/mixes/light-cyan.json';
-import lightGreen from '@/data/mixes/light-green.json';
-import lightYellow from '@/data/mixes/light-yellow.json';
-import lightOrange from '@/data/mixes/light-orange.json';
-import lightPurple from '@/data/mixes/light-purple.json';
-import lightRed from '@/data/mixes/light-red.json';
-import lightMagenta from '@/data/mixes/light-magenta.json';
 
 import '@/styles/components/musicmoodcolours/vsKleurenCarousel.scss';
 
-const allMixesData = [
-    ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta
-];
 
 const VS_CONFIG = [
     { top: 'cyan', bottom: 'red', id: 'cyan-vs-red' },
@@ -33,8 +26,8 @@ export default function VsKleurenCarousel() {
     const vsPairs = useMemo(() => {
         return VS_CONFIG.map(pair => ({
             ...pair,
-            topMix: allMixesData.find(m => m.color.toLowerCase() === pair.top && m.featured === true),
-            bottomMix: allMixesData.find(m => m.color.toLowerCase() === pair.bottom && m.featured === true),
+            topMix: featuredMixByColor(pair.top),
+            bottomMix: featuredMixByColor(pair.bottom),
         }));
     }, []);
 

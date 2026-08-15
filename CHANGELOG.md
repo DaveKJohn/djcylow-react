@@ -200,6 +200,86 @@ domeinen bruikbaar.
 
 ---
 
+## `fix/hero-padding-en-overflow` changelog
+
+### Branch title
+
+De hero-afbeelding valt niet meer weg tussen 1332 en 1400 pixels
+
+### Branch ID
+
+20260815-175300
+
+### Branch type
+
+fix
+
+### What does the change on this branch bring to main?
+
+**De hero-afbeelding werd afgeknipt, en dat gebeurde stil.** `hero.scss` duwde hem naar rechts met drie
+losse magic numbers: 900px boven 1331px, 400px daaronder, 0 onder 884px. Wat buiten de container viel
+werd weggeknipt door `overflow: hidden` op `.stack`, dus er kwam geen scrollbar en geen foutmelding —
+alleen een hero die er deels niet was.
+
+Het issue noemde dit expliciet **niet gemeten**, dus dat is eerst gedaan: in Chrome, met de pagina in
+een iframe van een exacte breedte zodat de media queries echt meedoen. Hoeveel procent van de
+afbeelding zichtbaar was, per viewportbreedte:
+
+| breedte | vóór | ná |
+|---|---|---|
+| 900 px | 86 % | **100 %** |
+| 1330 px | 100 % | 100 % |
+| 1332 px | 81 % | **100 %** |
+| 1400 px | 86 % | 100 % |
+| 1560 px | 98 % | 100 % |
+| 1600 px | 100 % | 100 % |
+
+**Twee dingen stellen het oorspronkelijke vermoeden bij.** Het issue verwachtte het probleem in het
+venster 1332–1400px; in werkelijkheid knipte **ook het hele medium-bereik**, wat niemand had opgemerkt
+— bij 900px viel er 91px af. En de kern is niet dat venster maar de **sprong** op 1331px: de afbeelding
+werd slechter naarmate het scherm bréder werd, en dat is precies de richting waarin niemand kijkt.
+
+Alle metingen passen op één formule — wat er buiten valt is `341 - viewport/2 + padding/2` — dus nul
+afknipping vraagt `padding ≤ viewport - 682px`. De drie waarden zijn vervangen door
+`clamp(0px, 100vw - 700px, 900px)`: vloeiend, 18px marge op die grens, en bij 1600px exact dezelfde
+900px als voorheen. Boven de 1600 verandert er dus niets aan wat er nu staat.
+
+**Wat de clamp níet oplost, en dat staat in de code.** De afbeelding heeft `height: 110%; width: auto`,
+dus hij wordt breder naarmate het venster hóger is: bij 1332×1000 is hij 749px in plaats van 667px.
+Na deze fix is dat 96% zichtbaar in plaats van 78% — een grote verbetering, maar geen 100%. Die rest is
+niet met een `vw`-formule weg te nemen en zou een andere manier van schalen vragen.
+
+**En de vraag van #79 is beantwoord zonder er iets aan te veranderen.** Dat issue vroeg om te meten wát
+er uitsteekt als `body { overflow-x: hidden }` weg is. Gemeten: op de home-pagina exact één ding — deze
+hero-afbeelding. Op `/luister` steekt er bij 890px en 1000px níets uit, wat de belangrijkste zorg van
+dat issue weerlegt. Op `/musicmoodcolours` steken 120 elementen uit, maar dat is een pagina vol
+carousels waar horizontale overflow binnen een container normaal gedrag is. De regel is daarom blijven
+staan en de metingen zijn in #79 vastgelegd; dat issue blijft open.
+
+### Significance
+
+#### Tier 0
+
+De drie magic numbers zijn vervangen door één formule met de meting ernaast, dus de volgende die hieraan
+werkt hoeft niet opnieuw te ontdekken waar de randen liggen. En het toont de faalvorm die deze repo het
+vaakst raakt: een fout die geen enkele poort kan zien, alleen een oog.
+
+**Score:** 3
+
+#### Tier 1
+
+De hero is het eerste wat een bezoeker ziet, en hij was op een flink deel van de gangbare
+schermbreedtes voor 14 tot 19 procent afgeknipt — inclusief het hele bereik rond 900px. Dat is nu
+overal heel.
+
+**Score:** 4
+
+### Pull Request
+
+[PR #121](https://github.com/DaveKJohn/djcylow-react/pull/121) · merged 2026-08-15
+
+---
+
 ## `data/audio-mismatch` changelog
 
 ### Branch title
@@ -423,6 +503,170 @@ die Google leest. Het copyrightjaar stond een jaar achter op elke pagina.
 ### Pull Request
 
 [PR #105](https://github.com/DaveKJohn/djcylow-react/pull/105) · merged 2026-08-15
+
+---
+
+## `fix/scss-hover-en-alignment` changelog
+
+### Branch title
+
+Het hover-effect van de CTA-knop werkt weer en .row valt niet meer uit de uitlijnlogica
+
+### Branch ID
+
+20260815-174438
+
+### Branch type
+
+fix
+
+### What does the change on this branch bring to main?
+
+**Het hover-effect van de CTA-knop werkt weer.** Drie dingen versterkten elkaar. `_buttons.scss:54`
+riep `apply-ux-bg(width)` aan, maar die mixin verwacht een P-shade (`"15"`..`"65"`) en kreeg het woord
+`width` — het defaultargument van `cta-hover-effect`. Bij een refactor is daar de verkeerde mixinnaam
+blijven staan. Sass gaf geen fout, want `map.get` levert netjes `null`, maar in de gebouwde CSS stond
+daardoor letterlijk `body.ux-mode .btn.cta{background-color:!important}`: een lege en dus ongeldige
+declaratie. Tegelijk kreeg het `::before` wel een kleur maar geen `content`, `position`, `width` of
+`transition`, zodat het pseudo-element helemaal niet rendert — terwijl precies die vier al die tijd in
+de mixin `cta-hover-effect` stonden, die nergens werd aangeroepen. Eén regel vervangen herstelt het
+effect én ruimt de dode mixin op. Gemeten in de gebouwde CSS: `content:""`, `width:0` → `100%` op
+hover en de transition staan er nu.
+
+**`.row` viel uit de uitlijnlogica, en dat was een val.** `_set-align-logic` zette de uitlijning twee
+keer: eerst zonder `!important`, daarna via `@at-root :is(.row-c, .stack, .column)` mét. Die eerste set
+was **altijd** dood — de tweede matcht in elk geval waarin de eerste matchte, en wint. Twaalf
+uitlijnklassen maal vier hosts, allemaal zonder effect.
+
+Ernstiger was dat `.row` niet in die `:is()` stond terwijl `alignment-grid` wél op `.row, .row-c` wordt
+toegepast, en de `break-m`/`break-s`-varianten binnen dat blok zitten. Een
+`<div className="row AMC break-s">` matchte daardoor geen enkele regel: niet
+`:is(.row-c,.stack,.column).row.AMC.break-s` (een `.row` is geen `.row-c`) en niet
+`.row-c.AMC.break-s`. De klasse met de meest voor de hand liggende naam deed op mobiel dus stilletjes
+niets. Vandaag staan alle tien `break-*`-gebruiken in de JSX toevallig op `row-c`, `column` of `stack`,
+dus dit was een val en geen zichtbare storing — maar een val zonder waarschuwing.
+
+**En er kwam een derde geval van dezelfde faalklasse boven water dat in geen issue stond.** Bij het
+natellen van de lege declaraties bleken er **drie** te zijn, niet twee. De derde zat in `.splitter`:
+die haalde `map.get($ux-black, "50")` op terwijl die map alleen `R90`/`R80`/`G90`/… kent. Ook daar
+`background-color:!important`. Dat blok is verwijderd — gemeten visueel neutraal, want de splitter viel
+en valt terug op `var(--black-70)`. **Welke ux-kleur hij zou moeten krijgen is een ontwerpkeuze en geen
+reparatie**, dus die is niet gegokt maar vastgelegd in issue #116.
+
+De gebouwde CSS gaat daarmee van **3** ongeldige declaraties naar **0**.
+
+### Significance
+
+#### Tier 0
+
+Drie plekken waar Sass een `null` doorliet en er ongeldige CSS uitrolde zonder één waarschuwing. Dat
+patroon is nu benoemd in de code zelf, op alle drie de plekken, met de meting erbij — zodat de
+volgende `map.get` met een verkeerde key herkend wordt.
+
+**Score:** 3
+
+#### Tier 1
+
+Het hover-effect van de belangrijkste knop op de site — de "Boek nu!"-CTA — werkt weer zoals bedoeld,
+en een uitlijnklasse die op mobiel niets deed doet nu wat hij belooft. Dat eerste is direct zichtbaar
+voor elke bezoeker die over de knop beweegt.
+
+**Score:** 3
+
+### Pull Request
+
+[PR #120](https://github.com/DaveKJohn/djcylow-react/pull/120) · merged 2026-08-15
+
+---
+
+## `config/netlify-publish-en-csp` changelog
+
+### Branch title
+
+netlify.toml wijst de juiste publicatiemap aan en meet een Content-Security-Policy
+
+### Branch ID
+
+20260815-191055
+
+### Branch type
+
+config
+
+### What does the change on this branch bring to main?
+
+Twee dingen in `netlify.toml`, het bestand dat de safety-rules beschermen omdat een fout erin de live
+site plat legt.
+
+**De publicatiemap wees naar `.next`, waar geen `index.html` staat.** `next.config.ts` zet
+`output: 'export'`, en dan schrijft `next build` de complete site naar `out/`. Als Netlify `.next`
+letterlijk zou publiceren, was de hele site een 404. Dat hij tóch werkt komt doordat de Netlify
+Next.js-runtime `output: 'export'` herkent en zelf de export-map neemt — maar die runtime staat
+nergens in dit bestand verklaard, dus de configuratie leunde op een detectie die de repo niet
+vastlegt. Nu staat er `publish = "out"`, wat de aanname expliciet maakt zonder het resultaat te
+veranderen.
+
+**Er was geen Content-Security-Policy en geen Permissions-Policy.** Live gemeten: `x-frame-options`,
+`x-content-type-options` en `referrer-policy` komen wel door, die twee niet. Dat weegt hier zwaarder
+dan gemiddeld omdat de site GTM laadt — een mechanisme dat per ontwerp willekeurige tags injecteert,
+met een container waarvan de inhoud buiten deze repo wordt beheerd. Zonder CSP is er geen enkele
+begrenzing op wat daarlangs in de pagina van de bezoeker draait.
+
+De CSP staat **bewust als `Report-Only`**. Die blokkeert niets en meldt alleen in de console; dat is
+de juiste eerste stap, want een te strakke policy breekt de site zonder dat een build of test het
+ziet, en er is geen staging. De bronnenlijst is gemeten aan de gebouwde HTML en de componenten:
+googletagmanager, google/gstatic voor reCAPTCHA, youtube-nocookie en i.ytimg voor de promo, en de
+R2-bucket voor de audio. Fonts staan er niet bij, want `next/font/google` haalt die bij de build
+binnen en serveert ze self-hosted — geverifieerd: nul verwijzingen naar `fonts.gstatic.com` in de
+uitgeleverde HTML.
+
+De Permissions-Policy sluit camera, microfoon en locatie af. Die stonden open voor elke ingesloten
+frame, en de site sluit er twee in.
+
+**Onderweg bleek er iets dat in geen enkel issue staat:** er zit **Cloudflare** vóór Netlify, en
+`www.djcylow.com` doet een 301 naar de apex. De `strict-transport-security`-header komt daar
+vandaan en niet uit dit bestand — gemeten levert Netlify zelf al
+`max-age=31536000; includeSubDomains; preload`. Dat is de reden dat het HSTS-voorstel uit #52 hier
+níet is uitgevoerd: die header aanpassen in `netlify.toml` raakt niet wat de bezoeker krijgt.
+
+**En de eerste poging leverde de twee nieuwe headers helemaal niet uit — stil.** De deploy preview
+gaf `x-frame-options`, `x-content-type-options` en `referrer-policy` netjes terug, maar de CSP en de
+Permissions-Policy niet. Geen foutmelding, geen gefaalde build, en Netlify's eigen "Header
+rules"-check bleef gewoon op `pass` staan.
+
+Het verschil tussen wat wél en niet doorkwam bleek **de comments**: de nieuwe headers stonden met
+uitleg en lege regels ertussen binnen `[headers.values]`. Na het verplaatsen van precies die comments
+naar bóven het blok kwamen alle vijf door. Dat is met een tijdelijke `X-Csp-Test`-header hard gemaakt,
+zodat een structuurprobleem te onderscheiden viel van een waardeprobleem; die testheader is daarna
+weer verwijderd en de eindmeting bevestigt alle vijf.
+
+Die val staat nu als waarschuwing in het bestand zelf, want hij faalt op de gevaarlijkste manier: je
+denkt dat er twee beveiligingsheaders staan, en er staat niets. Zonder deze meting was dat precies zo
+gemerged.
+
+**Wat de deploy preview verder bewijst:** alle vier de gemeten routes (`/`, `/luister`,
+`/musicmoodcolours`, `/diensten`) geven 200 met HTML terwijl `publish = "out"` actief is. Daarmee is
+de publicatiemap niet beredeneerd maar aangetoond.
+
+### Significance
+
+#### Tier 0
+
+De config beschrijft nu wat er werkelijk gebeurt in plaats van te leunen op auto-detectie, en de
+documentatie in `CLAUDE.md` en `README.md` die de build naar `.next` liet gaan is meegecorrigeerd.
+
+**Score:** 3
+
+#### Tier 1
+
+Twee beveiligingsheaders erbij op de live site, waarvan er één voorlopig alleen meet. De bezoeker
+merkt er niets van — dat is precies de bedoeling bij `Report-Only`.
+
+**Score:** 3
+
+### Pull Request
+
+[PR #118](https://github.com/DaveKJohn/djcylow-react/pull/118) · merged 2026-08-15
 
 ---
 
@@ -815,6 +1059,209 @@ verlangt, en ziet in plaats daarvan per PR staan of deze op hem wacht of doorloo
 ### Pull Request
 
 [PR #31](https://github.com/DaveKJohn/djcylow-react/pull/31) · merged 2026-08-13
+
+---
+
+## `fix/mix-imports-een-bron` changelog
+
+### Branch title
+
+De mix-imports en de slug-afleiding staan nog maar op een plek
+
+### Branch ID
+
+20260815-183126
+
+### Branch type
+
+fix
+
+### What does the change on this branch bring to main?
+
+De vijftien mix-imports en de slug-afleiding stonden in **zes** bestanden met de hand overgeschreven,
+elk met een eigen volgorde en een eigen typedefinitie. Vijf daarvan lezen nu uit
+`src/data/mixes/all.ts`; de zesde (`Playlist.tsx`) deed dat al.
+
+**De slug-afleiding stond vier keer in één bestand, en niet elke keer hetzelfde.** In
+`[slug]/page.tsx` deden `findMixBySlug` en `generateStaticParams` het **zonder**
+`.toLowerCase().trim()`, terwijl de twee plekken die de canonieke URL bouwen het er wél bij deden. Dat
+is geen schoonheidsfoutje: als de vergelijking anders normaliseert dan de generatie, kan een pagina
+onvindbaar zijn terwijl hij wel gebouwd is. Alle vier lopen nu via `mixSlug()`. De `decodeURIComponent`
+blijft staan op de **inkomende** slug, want die komt uit de URL en kan geëncodeerd zijn — de permalinks
+in de data zijn dat niet (gemeten: alle 77 slugs matchen `^[a-z0-9-]+$`).
+
+**Het `Mix`-type stond twee keer volledig uitgeschreven.** `all.ts` droeg een afgeslankte versie van
+veertien velden, `[slug]/page.tsx` de volledige met dertig. Nu staat de volledige in `all.ts`, inclusief
+het `Track`-type.
+
+**Bij de drie Music Mood Colours-carousels zat er een aanname in de import.** Die importeerden alleen
+de acht `light-*`-bestanden en zochten daarin `featured === true` — dus "featured" betekende daar
+impliciet ook "light". Naïef overzetten op `allMixes` zou dat filter stil weggooien. De nieuwe
+`featuredMixByColor()` draagt het **expliciet**: `power === 'Light'` én `featured`. Gemeten zijn alle
+acht featured entries vandaag inderdaad light previews en staat er geen enkele in een `full-*`-bestand
+— maar dat is een eigenschap van de data van vandaag, niet van de regel, en zonder dat filter zou een
+featured Full-mix die er ooit bijkomt stilletjes een cover overnemen.
+
+**Wat het concreet oplevert:** een zestiende kleurbestand hoeft nog op één plek te worden
+bijgeschreven in plaats van op vier, en de kans dat de plek die je vergeet stil faalt is weg.
+
+**Geverifieerd dat het gedrag gelijk bleef**, en niet alleen dat het bouwt: de sitemap-suite uit
+PR #111 blijft groen (dertien tests, waaronder de eis dat elke sitemap-URL exact de slug van `mixSlug`
+draagt), de build levert dezelfde 89 pagina's, `out/sitemap.xml` bevat dezelfde 84 URL's, en op de
+Music Mood Colours-pagina staan nog steeds de acht mp3-bronnen van de covers.
+
+### Significance
+
+#### Tier 0
+
+Zes kopieën terug naar één bron, en een normalisatieverschil weg dat een mixpagina onvindbaar had
+kunnen maken. Wie hierna een kleur toevoegt, doet dat op één plek.
+
+**Score:** 4
+
+#### Tier 1
+
+De site levert exact dezelfde pagina's en URL's op — gemeten. De waarde is dat de volgende mix niet
+half wordt toegevoegd.
+
+**Score:** 2
+
+### Pull Request
+
+[PR #123](https://github.com/DaveKJohn/djcylow-react/pull/123) · merged 2026-08-15
+
+---
+
+## `fix/breakpoints-een-bron` changelog
+
+### Branch title
+
+De breakpoints in JS en SCSS kunnen niet meer stil uit elkaar lopen
+
+### Branch ID
+
+20260815-182139
+
+### Branch type
+
+fix
+
+### What does the change on this branch bring to main?
+
+De breakpoints `1774 / 1331 / 884` stonden op drie plekken los opgeschreven, en één daarvan werd door
+niemand gelezen.
+
+**Het comment bij de drawer noemde een getal dat nooit heeft bestaan.** `MobileContent.tsx` bouwt zijn
+`matchMedia`-query uit `BREAKPOINTS.SMALL` en droeg het comment dat dit exact matcht met *"$breakpoints
+small: 811px"*. Zowel `_config.scss` als `design.ts` zeggen 884. Dat is de gevaarlijkste soort fout in
+een comment: het benoemt correct dát er een koppeling is, en geeft er dan de verkeerde waarde bij — dus
+wie het geloofde en de constante "corrigeerde", verbrak precies de koppeling die het comment beweerde te
+bewaken. De drawer zou dan omschakelen op een andere breedte dan de styling, zichtbaar in een smalle
+band rond de breakpoint waar niemand kijkt.
+
+**Er is nu een test in plaats van een afspraak.** `tests/breakpoints.test.ts` (negen tests) leest
+`_config.scss` en `design.ts` allebei en vergelijkt ze op waarde, op sleutels en op volgorde. Dat is de
+enige vorm die hier kan: Sass kan geen TypeScript lezen en de static export kan geen SCSS aan de
+clientkant evalueren, dus één bron is technisch uitgesloten — maar aan elkaar binden kan wel. Negatief
+getoetst met precies het scenario uit het issue: `SMALL` op 811 zetten laat de suite falen op *"small
+komt overeen"*.
+
+Twee kleinere wachten zitten er in dezelfde suite. Eén die eist dat de query uit `BREAKPOINTS.SMALL`
+wordt afgeleid en niet uit een letterlijk getal, en één die **elk** pixelgetal in `MobileContent.tsx`
+weigert dat geen echte breakpoint is — precies de vorm waarin deze fout binnenkwam. Die laatste sloeg
+meteen aan op de historische verwijzing in het nieuwe comment, dus daar staat het oude getal nu voluit
+geschreven in plaats van als cijfers.
+
+**En de derde plek is verdwenen.** `base/_root.scss` genereerde `--screen-size-large/-medium/-small`
+als CSS-variabelen. Ze werden uitgeleverd en door niemand gelezen — geen stylesheet, geen component.
+Ze waren ook niet bruikbaar voor waar je ze voor zou willen: een custom property kan niet in een
+`@media`-conditie staan, dus ze konden de media queries nooit voeden. Gemeten: drie declaraties in de
+gebouwde CSS, nu nul.
+
+Wat expliciet **niet** is aangeraakt: de manier waarop de SCSS zijn breakpoints leest. `_config.scss`
+blijft de bron voor alle media queries via `fn.get-breakpoint()`, en er is geen enkele afwijkende
+hardcoded media query in de repo — dat was al netjes en blijft zo.
+
+### Significance
+
+#### Tier 0
+
+Een comment dat een verkeerd getal noemde bij een koppeling die er echt toe doet, is vervangen door een
+test die de koppeling afdwingt. De suite groeit van 143 naar 152 tests.
+
+**Score:** 3
+
+#### Tier 1
+
+Voorkomt dat het mobiele menu ooit op een andere breedte omklapt dan het uiterlijk, maar er is vandaag
+niets zichtbaar mis. De waarde zit in de volgende keer dat iemand aan die getallen komt.
+
+**Score:** 2
+
+### Pull Request
+
+[PR #122](https://github.com/DaveKJohn/djcylow-react/pull/122) · merged 2026-08-15
+
+---
+
+## `docs/ruleset-strict-aan` changelog
+
+### Branch title
+
+De ruleset eist nu een PR die bij is met main
+
+### Branch ID
+
+20260815-193142
+
+### Branch type
+
+docs
+
+### What does the change on this branch bring to main?
+
+`strict_required_status_checks_policy` op de ruleset `main-ci-gate` staat sinds 2026-08-15 op `true`,
+op Dave's verzoek. Deze branch legt dat vast in `CLAUDE.md`, want die beschreef nog de oude stand.
+
+**Wat het oplost.** Met `false` konden twee PR's die los groen zijn na elkaar mergen zonder dat `poort`
+de combinatie ooit had gezien. De klasse fout die dat oplevert — een import die na de eerste merge niet
+meer bestaat, een route die dubbel raakt — is precies wat de build zou vangen als hij tegen de juiste
+basis had gedraaid. In deze repo staat het resultaat daarvan binnen minuten live, want er is geen
+staging.
+
+**Wat het kost, en dat hoort erbij te staan.** Een PR moet nu bij zijn met `main` vóór de merge. Hier
+schuift `main` bij élke fold op, dus een PR die even blijft liggen wordt "out of date" en vraagt een
+`Update branch` vóór hij te mergen is. Bij een reeks wachtende branches is dat één update-ronde per
+branch.
+
+**Hoe de wijziging is gedaan.** Een `PUT` op de ruleset met de volledige definitie terug en daarin
+exact één gewijzigd veld. Dat is geverifieerd door de opgehaalde ruleset vóór en ná te diffen: precies
+één verschil, en `bypass_actors`, `enforcement`, de drie regeltypes en de required check `poort` zijn
+alle vier ongemoeid. De backup van de oude definitie stond klaar vóór de call.
+
+**Het eerste voorstel uit #91 is bewust niet uitgevoerd.** Dat vraagt een tweede ruleset zónder bypass
+voor `deletion` en `non_fast_forward`, en die zou `cut-release`'s eigen push naar `main` blokkeren —
+precies waarom die bypass er staat. De bewering die daarover onjuist was, is al gecorrigeerd in PR #115.
+
+### Significance
+
+#### Tier 0
+
+De poort kan niet langer groen staan op een combinatie die hij nooit heeft gezien. Dat kost een
+update-ronde per PR, en die afweging staat er nu bij zodat de volgende lezer weet waarom die stap er is.
+
+**Score:** 3
+
+#### Tier 1
+
+Voorkomt een storing die de bezoeker zou merken — twee losse groene PR's die samen breken — maar er is
+vandaag niets mis en de site verandert niet.
+
+**Score:** 2
+
+### Pull Request
+
+[PR #119](https://github.com/DaveKJohn/djcylow-react/pull/119) · merged 2026-08-15
 
 ---
 
@@ -1692,6 +2139,82 @@ pagina's; wat verandert is het aantal renderrondes en de typeveiligheid eronder.
 ### Pull Request
 
 [PR #37](https://github.com/DaveKJohn/djcylow-react/pull/37) · merged 2026-08-14
+
+---
+
+## `style/scss-opruiming` changelog
+
+### Branch title
+
+Dode stylesheets eruit en het kleurenpalet staat nog maar op een plek
+
+### Branch ID
+
+20260815-182601
+
+### Branch type
+
+style
+
+### What does the change on this branch bring to main?
+
+Opruimwerk in de styling. Niets hiervan veroorzaakte een fout; het kostte leesbaarheid en liet een
+lezer denken dat er iets gebeurde.
+
+**Het kleurenpalet stond twee keer, en dat is het punt dat het meest kon bijten.**
+`basiskleurenCarousel.scss` droeg de acht moodkleuren opnieuw als losse hex-waarden. Ze waren
+vandaag stuk voor stuk identiek aan de `default`-tinten in `_colors.scss`, maar niets hield dat zo —
+wijzigde daar ooit een merkkleur, dan liep deze kopie er stil uit, en juist op de pagina die over
+die kleuren gáát. Ze gebruiken nu `var(--<kleur>-default)`, en die variabelen bestonden al: `_root.scss`
+genereert ze voor het hele palet. Er is dus niets bijgekomen, alleen een kopie weg. Geverifieerd in de
+gebouwde CSS dat de acht regels nu naar de variabelen wijzen, en dat die nergens buiten `:root` worden
+overschreven — dus visueel identiek.
+
+**Vier dode stylesheets zijn weg**, samen 332 regels: `assen.scss` (nergens geïmporteerd, en er
+bestaat geen `Assen.tsx`), `_onderhoud.scss` (wél in `main.scss`, maar `#onderhoud` komt in geen
+enkele component voor en de regel stond zelf op `display: none`), en `home.module.scss` +
+`luister.module.scss` (allebei leeg op de `@use`-regels na). Die laatste twee werden wél
+geïmporteerd, en `className={styles.pageWrapper}` gaf `undefined` — gemeten blijkt dat onschadelijk,
+want React laat een `undefined` className gewoon weg en er staat geen `class="undefined"` in de HTML.
+De imports en de twee expressies zijn mee opgeruimd.
+
+**In de carousel stonden drie ongebruikte Sass-variabelen** (`$row-1-h`, `$row-2-h`, `$gap`) en drie
+declaraties die twee keer met dezelfde waarde stonden (`align-items`, `justify-content`, `transform`).
+Ook `height: var(--card_height)` viel daar stil terug op `auto`, want die variabele wordt alleen gezet
+door `referenties.scss` en die component wordt niet gerenderd. Dat is nu `var(--card_height, auto)`:
+even expliciet als wat er feitelijk gebeurde, en het werkt weer zodra Referenties terugkomt.
+
+**Drie media queries in `musicmoodcolours.module.scss` zetten exact dezelfde waarden als daarbuiten.**
+Ze deden niets, maar suggereerden dat de kaarten op medium schermen van formaat veranderen — wat het
+juist lastig maakt te zien dat dat níet gebeurt.
+
+En het overbodige `!important` op `.carousels .hidden` is weg; dat kwam boven water bij #78, waarvan
+de hoofdbewering juist niet standhield.
+
+**Twee punten uit het issue zijn níet uitgevoerd, met reden.** `src/app/globals.scss` bestond al niet
+meer — dat is bij de Tailwind-verwijdering van 2026-08-15 al opgeruimd. En de mixin
+`cta-hover-effect` staat in het issue als dood, maar dat is hij sinds diezelfde dag niet meer: de
+branch `fix/scss-hover-en-alignment` roept hem juist aan om het kapotte hover-effect van de CTA-knop
+te herstellen. Hem hier verwijderen zou die branch breken.
+
+### Significance
+
+#### Tier 0
+
+332 regels dode stylesheet weg en het kleurenpalet terug naar één bron. Wie hierna aan de styling
+werkt, leest alleen nog wat er werkelijk gebeurt — en een merkkleur wijzigen doet nu wat je verwacht.
+
+**Score:** 3
+
+#### Tier 1
+
+Zuiver opruimwerk: de site ziet er precies hetzelfde uit, gemeten in de gebouwde CSS.
+
+**Score:** N/A
+
+### Pull Request
+
+[PR #124](https://github.com/DaveKJohn/djcylow-react/pull/124) · merged 2026-08-15
 
 ---
 

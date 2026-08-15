@@ -26,19 +26,22 @@
     }
 
     .arrow {
+        // Dit blok droeg drie Sass-variabelen ($row-1-h, $row-2-h, $gap) die nergens werden gelezen,
+        // en zette `align-items`, `justify-content` en `transform` elk twee keer met dezelfde waarde.
+        // Alle drie zijn hier opgeruimd; de tweede set won toch al, dus er verandert niets.
         display: flex;
+        position: absolute;
         align-items: center;
         justify-content: center;
-        position: absolute;
-
-        $row-1-h: map.get(map.get(v.$design-scale, "xl"), "c-space");
-        $row-2-h: 70px;
-        $gap: map.get(map.get(v.$design-scale, "base"), "c-space");
-
+        top: 50%;
         transform: translateY(-50%);
 
         width: auto;
-        height: var(--card_height);
+        // `--card_height` wordt alleen gezet in components/home/referenties.scss, en die component
+        // wordt niet gerenderd -- op de Music Mood Colours-pagina is de variabele dus ongedefinieerd
+        // en viel `height` stil terug op `auto`. De fallback maakt dat expliciet zonder het gedrag te
+        // wijzigen: komt Referenties ooit terug, dan werkt de variabele weer zoals bedoeld.
+        height: var(--card_height, auto);
 
         z-index: 400;
 
@@ -46,11 +49,6 @@
         -webkit-appearance: none;
         appearance: none;
         background: transparent;
-
-        justify-content: center;
-        align-items: center;
-        top: 50%;
-        transform: translateY(-50%);
 
         // Pijl locaties
         &.left {
@@ -87,9 +85,11 @@
         }
     }
 
-    // Pijl verbergen
+    // Pijl verbergen. Het `!important` dat hier stond was overbodig: `.carousels .hidden` heeft
+    // specificiteit 0-2-0 en wint dus sowieso van `.hidden` (0-1-0) in base/_layout.scss. Dat kwam
+    // boven water bij #78, waarvan de hoofdbewering juist niet standhield.
     .hidden {
-        display: none !important;
+        display: none;
     }
 
     .card-wrapper {

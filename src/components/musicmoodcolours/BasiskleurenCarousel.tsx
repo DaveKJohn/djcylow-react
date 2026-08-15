@@ -4,21 +4,12 @@ import React, { useMemo, useState } from 'react';
 import AudioPlayer from '@/components/ui/AudioPlayer';
 import Carousel from '@/components/ui/Carousel';
 
-// 1. Importeer ALLE bestanden
-import lightBlue from '@/data/mixes/light-blue.json';
-import lightCyan from '@/data/mixes/light-cyan.json';
-import lightGreen from '@/data/mixes/light-green.json';
-import lightYellow from '@/data/mixes/light-yellow.json';
-import lightOrange from '@/data/mixes/light-orange.json';
-import lightPurple from '@/data/mixes/light-purple.json';
-import lightRed from '@/data/mixes/light-red.json';
-import lightMagenta from '@/data/mixes/light-magenta.json';
+// De acht `light-*`-bestanden stonden hier tot 2026-08-15 los geïmporteerd en samengevoegd, net als
+// in twee andere carousels op deze pagina. `featuredMixByColor` doet nu hetzelfde -- inclusief het
+// `power === 'Light'`-filter dat hier voorheen impliciet in de import zat.
+import { featuredMixByColor } from '@/data/mixes/all';
 
 import '@/styles/components/musicmoodcolours/basiskleurenCarousel.scss';
-
-const allMixesData = [
-	...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightPurple, ...lightRed, ...lightMagenta
-];
 
 const COLORS_CONFIG = [
 	{ id: 1, name: 'cyan', description: 'Vermaakt' },
@@ -35,13 +26,7 @@ export default function BasiskleurenCarousel() {
 	const [activeMixId, setActiveMixId] = useState<string | null>(null);
 
 	const featuredMixes = useMemo(() => {
-		return COLORS_CONFIG.map(config => {
-			const mix = allMixesData.find(m =>
-				m.color.toLowerCase() === config.name.toLowerCase() &&
-				m.featured === true
-			);
-			return { ...config, mix };
-		});
+		return COLORS_CONFIG.map(config => ({ ...config, mix: featuredMixByColor(config.name) }));
 	}, []);
 
 	return (

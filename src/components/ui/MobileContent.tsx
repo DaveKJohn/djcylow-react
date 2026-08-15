@@ -4,7 +4,18 @@ import { useState, useEffect, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { BREAKPOINTS } from '@/constants/design';
 
-// Matcht EXACT met de SCSS map ($breakpoints small: 811px).
+// Deze query moet EXACT gelijk lopen met `$breakpoints: small` in
+// src/styles/abstracts/_config.scss -- dat is de breedte waarop de styling omschakelt, en als de
+// twee uit elkaar lopen schakelt de drawer op een andere breedte dan het uiterlijk.
+//
+// Er stond hier tot 2026-08-15 een comment dat een andere waarde claimde (achthonderdelf) dan de
+// twee bronnen: die zeggen allebei 884. Wie dat comment geloofde en de constante "corrigeerde",
+// ontkoppelde precies wat het comment beloofde te bewaken. Het getal staat hier bewust voluit
+// geschreven en niet als cijfers, want de test hieronder weigert elk pixelgetal in dit bestand dat
+// geen echte breakpoint is -- en dat hoort ook voor een historische verwijzing te gelden.
+//
+// Sinds die datum is het geen afspraak meer maar een test: `tests/breakpoints.test.ts` leest beide
+// bestanden en faalt zodra ze verschillen.
 const MOBILE_QUERY = `(max-width: ${BREAKPOINTS.SMALL}px)`;
 
 // De viewport is een externe bron, geen state van deze component. Met subscribe + snapshot leest

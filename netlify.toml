@@ -1,13 +1,68 @@
+# Netlify-configuratie voor djcylow.com.
+#
+# DE PUBLICATIEMAP IS "out" EN NIET ".next" (gewijzigd 2026-08-15).
+# `next.config.ts` zet `output: 'export'`, en dan schrijft `next build` de complete statische site
+# naar `out/`. In `.next/` staat alleen build-output en cache -- daar zit geen `index.html`, dus als
+# Netlify die map letterlijk zou publiceren, was de hele site een 404.
+#
+# Dat de site tot nu toe wél werkte, komt doordat de Netlify Next.js-runtime `output: 'export'`
+# herkent en dan zelf de export-map neemt. Die runtime staat nergens in dit bestand verklaard (er is
+# geen `[[plugins]]`-blok), dus de configuratie leunde op een detectie die de repo niet vastlegt. Dit
+# maakt de aanname expliciet en laat het resultaat gelijk.
+#
+# BEWIJS VÓÓR DE MERGE: de deploy preview van de PR waarin deze regel verandert, bouwt met precies
+# deze config. Werkt die preview, dan is bewezen dat `out` de juiste map is; blijft hij leeg of geeft
+# hij 404, dan is de oude waarde de juiste en hoort daar dit comment omgedraaid te staan. Er is geen
+# staging, dus dit is het enige moment waarop dit veilig te toetsen valt.
 [build]
   command = "npm run build"
-  publish = ".next"
+  publish = "out"
 
 [functions]
   directory = "netlify/functions"
 
+# SECURITY-HEADERS.
+#
+# DE COMMENTS STAAN BOVEN DIT BLOK EN NOOIT ERTUSSEN -- DAT IS GEEN STIJLKEUZE.
+# Bij de eerste poging stonden ze mét lege regels binnen `[headers.values]`, en toen leverde de deploy
+# preview de twee NIEUWE headers niet uit terwijl de drie bestaande gewoon doorkwamen. Geen
+# foutmelding, en Netlify's eigen "Header rules"-check bleef op `pass` staan. Na het verplaatsen van
+# precies die comments kwamen alle vijf door, geverifieerd met `curl -I` op deploy-preview-118.
+# Zet hier dus geen comment tussen: je headers verdwijnen dan stil.
+#
+# PERMISSIONS-POLICY: camera, microfoon en locatie stonden open voor elke ingesloten frame, en de
+# site sluit er twee in (YouTube en reCAPTCHA). Geen van beide heeft die rechten nodig.
+#
+# CONTENT-SECURITY-POLICY, BEWUST EERST ALLEEN RAPPORTEREND. `-Report-Only` blokkeert niets; de
+# browser meldt overtredingen alleen in de console. Dat is hier de juiste eerste stap, want een te
+# strakke CSP breekt de site zonder dat een build of test dat ziet -- en er is geen staging. Kijk in
+# de console van een echte pagina wat er gemeld wordt, en zet hem pas daarna om naar de blokkerende
+# `Content-Security-Policy`.
+#
+# De bronnen zijn gemeten aan de gebouwde HTML en aan de componenten, niet geraden:
+#   - googletagmanager.com  -> de GTM-loader in app/layout.tsx (container GTM-PK7VHJ46)
+#   - google.com / gstatic  -> reCAPTCHA in ContactForm
+#   - youtube-nocookie.com  -> de promo-embed
+#   - i.ytimg.com           -> de thumbnail van diezelfde video (valt onder img-src https:)
+#   - de r2.dev-bucket      -> alle mix-audio
+# Fonts staan er niet bij: `next/font/google` haalt ze bij de build binnen en serveert ze
+# self-hosted vanaf /_next/static/media (geverifieerd: 0 verwijzingen naar fonts.gstatic.com).
+#
+# `'unsafe-inline'` bij script-src is bij deze site niet te vermijden: de export bevat 13 inline
+# scripts en een static export kan geen per-request nonce zetten. Dat is precies waarom GTM hier de
+# grootste openstaande deur blijft, ook mét deze policy.
+#
+# `img-src https:` is met opzet ruim: GTM-tags laden pixels van domeinen die buiten deze repo worden
+# beheerd. Wie dit later blokkerend maakt, hoort die lijst eerst uit de rapportage op te bouwen.
+#
+# HSTS staat hier NIET, en dat is een correctie op issue #52: die header komt niet uit dit bestand.
+# Gemeten op de preview levert Netlify zelf al
+# `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`.
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=()"
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; media-src 'self' https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev; frame-src https://www.youtube-nocookie.com https://www.google.com; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
