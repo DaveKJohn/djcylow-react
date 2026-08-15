@@ -5,72 +5,15 @@ import AudioPlayer from '@/components/ui/AudioPlayer';
 import BackButton from '@/components/ui/BackButton';
 import MixAnalytics from '@/components/analytics/MixAnalytics';
 
-// Alle JSON-bestanden met mix-data inladen (één bestand per kleur + power-combinatie)
-import lightBlue from '@/data/mixes/light-blue.json';
-import lightCyan from '@/data/mixes/light-cyan.json';
-import lightGreen from '@/data/mixes/light-green.json';
-import lightMagenta from '@/data/mixes/light-magenta.json';
-import lightOrange from '@/data/mixes/light-orange.json';
-import lightPurple from '@/data/mixes/light-purple.json';
-import lightRed from '@/data/mixes/light-red.json';
-import lightYellow from '@/data/mixes/light-yellow.json';
+// De vijftien JSON-bestanden, het Mix-type en de slug-afleiding komen uit één bron. Dit bestand had
+// ze tot 2026-08-15 alle drie zelf overgeschreven, en de slug zelfs VIER keer -- twee daarvan mét
+// `.toLowerCase().trim()` en twee zonder. Dat is geen schoonheidsfoutje: de routing hangt aan die
+// slug, dus een vergelijking die anders normaliseert dan de generatie kan een pagina onvindbaar
+// maken terwijl hij wel gebouwd is.
+import { allMixes, mixSlug, type Track } from '@/data/mixes/all';
 
-import fullBlue from '@/data/mixes/full-blue.json';
-import fullCyan from '@/data/mixes/full-cyan.json';
-import fullGreen from '@/data/mixes/full-green.json';
-import fullOrange from '@/data/mixes/full-orange.json';
-import fullPurple from '@/data/mixes/full-purple.json';
-import fullRed from '@/data/mixes/full-red.json';
-import fullYellow from '@/data/mixes/full-yellow.json';
-
-// Interface = een beschrijving van welke velden een mix-object heeft en wat voor type data erin zit.
-// TypeScript gebruikt dit om fouten te vangen als je een veld verkeerd gebruikt.
-interface Mix {
-    id: string;
-    id_spotify: string;      // Spotify-identifier, bijv. mmc_edm_128bpm_light_m_yellow_20251021
-    featured: boolean;
-    ignore: boolean;
-    title: string;
-    title_spotify: string;   // Titel zoals gebruikt bij de Spotify-upload (met kleur-emoji)
-    genre: string;
-    subgenre: string;
-    bpm: number;             // Tempo van de mix; Drum & Bass is altijd 176
-    color: string;
-    power: string;
-    frequency: string;
-    volume: string;
-    volume_spotify: number;  // Doorlopende nummering per kleur+power+frequentie+bpm, los van het subgenre
-    date: string;
-    jaar: string;
-    maand: string;
-    dag: string;
-    permalink: string;
-    audioSrc: string;
-    image_wide_small: string;
-    image_wide_large: string;
-    image_square: string;
-    description_nl?: string;     // Nederlandse beschrijving (SEO meta, weergave op pagina)
-    description_en?: string;     // Engelse beschrijving (toekomstige EN-pagina)
-    tags?: string[];            // ? = optioneel veld
-    top_artists?: string[];     // ? = optioneel veld
-    tracks: number;             // Aantal items in tracklist; vooraf geteld zodat het niet elke keer opnieuw hoeft
-    tracklist: Track[];
-}
-
-// Eén regel uit de tracklist. Stond als inline vorm in Mix; nu een eigen naam, zodat de twee
-// plekken die er los mee werken (getTopArtists en de tracklist-tabel) hem kunnen noemen in plaats
-// van naar any uit te wijken.
-interface Track {
-    time: string;
-    track: string;
-}
-
-// Alle losse JSON-arrays samenvoegen tot één grote lijst met alle mixen.
-// De ... (spread-operator) pakt alle items uit een array en plakt ze erin.
-const allMixes: Mix[] = [
-    ...lightBlue, ...lightCyan, ...lightGreen, ...lightYellow, ...lightOrange, ...lightRed, ...lightMagenta, ...lightPurple,
-    ...fullBlue, ...fullCyan, ...fullGreen, ...fullYellow, ...fullOrange, ...fullRed, ...fullPurple
-];
+// Het `Mix`- en `Track`-type en de samengevoegde lijst stonden hier tot 2026-08-15 opnieuw
+// gedefinieerd; ze komen nu uit `@/data/mixes/all` (zie de import hierboven).
 
 // Vertelt Next.js dat er geen dynamische URL's bestaan buiten de vooraf gegenereerde lijst.
 // Bij een onbekend pad geeft de site een 404 in plaats van het op de server te proberen.
@@ -97,12 +40,10 @@ function findMixBySlug(slug: string) {
 
     return allMixes.find((m) => {
         if (!m || !m.permalink || m.ignore) return false;
-
-        const filename = m.permalink.split('/').pop() || '';
-        const pureSlug = filename.split('.html')[0];
-        const cleanCurrentSlug = decodeURIComponent(pureSlug).toLowerCase().trim();
-
-        return cleanCurrentSlug === decodedIncomingSlug;
+        // `mixSlug` doet dezelfde drie bewerkingen als `generateStaticParams` hieronder -- dat is de
+        // hele reden dat die functie bestaat. De decode blijft op de INKOMENDE slug staan (die komt
+        // uit de URL en kan geëncodeerd zijn); de permalinks in de data zijn dat niet.
+        return mixSlug(m) === decodedIncomingSlug;
     });
 }
 
@@ -114,14 +55,10 @@ export async function generateStaticParams() {
         .map((mix) => {
             if (!mix || !mix.permalink || mix.ignore) return null;
 
-            const filename = mix.permalink.split('/').pop() || '';
-            const pureSlug = filename.split('.html')[0];
+            const slug = mixSlug(mix);
+            if (!slug) return null;
 
-            if (!pureSlug || pureSlug.trim() === '') return null;
-
-            return {
-                slug: decodeURIComponent(pureSlug).toLowerCase().trim(),
-            };
+            return { slug };
         })
         .filter((param): param is { slug: string } => param !== null);
 
@@ -144,10 +81,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     // Gebruik de handgeschreven description als die bestaat; anders een automatisch gegenereerde tekst
     const descriptionText = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre} set (${mix.volume}) van DJ Cylow. Een dikke non-stop mix met tracks van o.a. ${topArtists}. Stream nu gratis!`;
 
-    // Zet de .html-extensie om naar een schone slug voor de canonieke URL
-    const cleanFilename = mix.permalink.split('/').pop() || '';
-    const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
-    const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
+    // Dezelfde afleiding als generateStaticParams gebruikt, zodat de canonieke URL gegarandeerd naar
+    // een pagina wijst die ook echt gebouwd is.
+    const pageUrl = `https://www.djcylow.com/luister/mix/${mixSlug(mix)}`;
     const ogImageUrl = mix.image_wide_large || '';
 
     return {
@@ -200,9 +136,7 @@ export default async function MixDetail({ params }: { params: Promise<{ slug: st
     // top_artists heeft prioriteit; als het veld leeg is valt het terug op de tracklist
     const topArtists = mix.top_artists?.length ? mix.top_artists.join(', ') : getTopArtists(mix.tracklist, 6);
 
-    const cleanFilename = mix.permalink.split('/').pop() || '';
-    const cleanSlug = cleanFilename.split('.html')[0].toLowerCase().trim();
-    const pageUrl = `https://www.djcylow.com/luister/mix/${cleanSlug}`;
+    const pageUrl = `https://www.djcylow.com/luister/mix/${mixSlug(mix)}`;
     const mixDescription = mix.description_nl || `Beluister de ${mix.color} ${mix.subgenre} set van DJ Cylow met tracks van top artiesten.`;
 
     // JSON-LD = gestructureerde data die Google leest om rich results te tonen in de zoekresultaten

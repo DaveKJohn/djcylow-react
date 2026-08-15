@@ -1,36 +1,48 @@
-## `fix/breakpoints-een-bron` progress
+## `fix/mix-imports-een-bron` progress
 
 ### Steps
 
-- [x] De drie plekken uit #97 geverifieerd: `design.ts` en `_config.scss` zeggen allebei 1774/1331/884,
-      en `_root.scss` genereert er CSS-variabelen uit
-- [x] Gemeten dat `--screen-size-*` echt dood is: geen enkele verwijzing in `src/` buiten `_root.scss`,
-      en drie declaraties in de gebouwde CSS die niemand leest
-- [x] Vastgesteld dat `BREAKPOINTS` precies één gebruiker heeft (`MobileContent.tsx`), dus dat de
-      koppeling smal en goed te bewaken is
-- [x] Het misleidende comment in `MobileContent.tsx` vervangen door een dat klopt en naar de test wijst
-- [x] `--screen-size-*` uit `_root.scss`, met de reden erbij dat een custom property sowieso niet in een
-      `@media`-conditie kan staan — dus ze hadden nooit kunnen doen waarvoor ze bedoeld leken
-- [x] `tests/breakpoints.test.ts` geschreven: negen tests over waarde, sleutels, volgorde, de afleiding
-      van de query, en een verbod op vreemde pixelgetallen in dat bestand
-- [x] De suite luid laten falen als de SCSS-vorm verandert, in plaats van stil nul paren te vergelijken
-      — een test die niets vindt en daarom groen blijft is precies het probleem dat dit oplost
-- [x] Negatief getoetst met het scenario uit het issue: `SMALL` op 811 zetten laat *"small komt
-      overeen"* falen. Daarna hersteld en geverifieerd dat er weer 884 staat
-- [x] Gemeten dat `screen-size` uit de gebouwde CSS verdwenen is: 3 → 0
-- [x] Poort groen, volledige suite 152 tests groen (was 143)
-- [~] `$breakpoints` genereren uit `design.ts` — technisch uitgesloten: Sass kan geen TypeScript lezen,
-      en de static export kan geen SCSS aan de clientkant evalueren. Het issue bood dit als eerste van
-      twee wegen; de tweede (de koppeling vastleggen) is genomen, maar als test in plaats van als
-      comment, want een comment was juist wat hier faalde
+- [x] Gemeten welke van de zes bestanden nog een eigen kopie droegen: `Playlist.tsx` was al over,
+      `sitemap.ts` en `[slug]/page.tsx` hadden 15 imports, de drie MMC-carousels elk 8
+- [x] Dat verschil (8 versus 15) uitgezocht in plaats van weggepoetst: de carousels importeerden
+      **alleen light**, dus hun `featured`-filter betekende impliciet ook "light"
+- [x] Gemeten of dat vandaag uitmaakt: alle 8 featured entries zijn light previews, 0 in `full-*`.
+      Overzetten op `allMixes` zou dus vandaag hetzelfde resultaat geven — maar niet noodzakelijk
+      morgen, dus het filter is expliciet gemaakt in `featuredMixByColor()`
+- [x] `all.ts` uitgebreid: het volledige `Mix`-type (30 velden), `Track`, en `featuredMixByColor()`
+- [x] `sitemap.ts` overgezet op `liveMixes` + `mixSlug`
+- [x] `[slug]/page.tsx` overgezet: 15 imports, twee typedefinities en **vier** slug-afleidingen weg
+- [x] Vastgesteld dat die vier niet identiek waren — twee mét `.toLowerCase().trim()` en twee zonder
+      — en dat dat een pagina onvindbaar had kunnen maken. De `decodeURIComponent` op de inkomende
+      slug is bewust blijven staan
+- [x] De drie MMC-carousels overgezet op `featuredMixByColor()`
+- [x] De poort gedraaid, één nieuwe ESLint-warning gezien (`Mix` ongebruikt) en die meteen opgelost —
+      de teller staat weer op 0/0, en dat is precies waarom hij op 0 hoort te staan
+- [x] Gedragsgelijkheid gemeten in plaats van aangenomen: sitemap-suite groen (13 tests, waaronder de
+      koppeling met `mixSlug`), 89 pagina's, 84 URL's in `out/sitemap.xml`, en 8 mp3-bronnen op de
+      Music Mood Colours-pagina
+- [~] De onbereikbare "Mix niet gevonden"-tak in `[slug]/page.tsx` — het issue noemt hem als
+      aanpalend. Niet weggehaald: met `dynamicParams = false` is hij inderdaad onbereikbaar bij de
+      static export, maar het is defensieve code die niets kost, en hem verwijderen is riskanter dan
+      hem laten staan
+- [~] Het honeypot-veld `bot-field` dat `send-email.js` nooit uitleest — óók aanpalend genoemd in
+      #83, maar dat is een **securitybevinding** en geen DRY-kwestie: de botbescherming van het
+      contactformulier doet aantoonbaar niets. Dat verdient een eigen behandeling; zie hieronder
 
 ### Where I left off
 
-Af, poort groen, **geparkeerd**: deze branch raakt `src/`, dus de merge wacht op Dave.
+Af, poort groen (0 errors, 0 warnings), 143 tests groen. **Geparkeerd**: raakt `src/`, dus de merge
+wacht op Dave.
 
-**Wat er te bekijken is.** Visueel hoort er niets veranderd te zijn — de breakpoints zijn dezelfde
-getallen gebleven, er is alleen dode CSS weg. Het punt om te controleren is het **mobiele menu**: sleep
-het venster door de 884px-grens en kijk of de hamburger op hetzelfde moment verschijnt als de layout
-omschakelt. Dat werkte al en hoort te blijven werken.
+**Wat er te bekijken is.** De bedoeling is dat er niets verandert, en dat is op vier manieren gemeten
+(zie hierboven). De plek om met het oog te kijken is **Music Mood Colours**: de drie carousels
+(basiskleuren, erlenmeyers, vs-kleuren) horen alle drie hun acht covers te tonen en af te spelen — dat
+is de code die het meest is aangeraakt. Daarnaast een willekeurige **mixdetailpagina** via /luister,
+want daar zijn de vier slug-afleidingen vervangen.
 
-Sluit #97 bij een merge.
+**Eén bevinding die hier niet thuishoort maar wel gemeld moet worden:** `ContactForm.tsx` zet een
+honeypot-veld `bot-field` neer, en `netlify/functions/send-email.js` leest dat veld nooit uit. De
+botbescherming die daar lijkt te staan, doet dus niets. Dat is geen refactor-kwestie en het raakt de
+Netlify-function; het staat als aanpalend punt in #83 en verdient een eigen issue of branch.
+
+Sluit #83 bij een merge.

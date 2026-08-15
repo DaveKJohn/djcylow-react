@@ -1,12 +1,12 @@
-## `fix/breakpoints-een-bron` changelog
+## `fix/mix-imports-een-bron` changelog
 
 ### Branch title
 
-De breakpoints in JS en SCSS kunnen niet meer stil uit elkaar lopen
+De mix-imports en de slug-afleiding staan nog maar op een plek
 
 ### Branch ID
 
-20260815-182139
+20260815-183126
 
 ### Branch type
 
@@ -14,53 +14,51 @@ fix
 
 ### What does the change on this branch bring to main?
 
-De breakpoints `1774 / 1331 / 884` stonden op drie plekken los opgeschreven, en één daarvan werd door
-niemand gelezen.
+De vijftien mix-imports en de slug-afleiding stonden in **zes** bestanden met de hand overgeschreven,
+elk met een eigen volgorde en een eigen typedefinitie. Vijf daarvan lezen nu uit
+`src/data/mixes/all.ts`; de zesde (`Playlist.tsx`) deed dat al.
 
-**Het comment bij de drawer noemde een getal dat nooit heeft bestaan.** `MobileContent.tsx` bouwt zijn
-`matchMedia`-query uit `BREAKPOINTS.SMALL` en droeg het comment dat dit exact matcht met *"$breakpoints
-small: 811px"*. Zowel `_config.scss` als `design.ts` zeggen 884. Dat is de gevaarlijkste soort fout in
-een comment: het benoemt correct dát er een koppeling is, en geeft er dan de verkeerde waarde bij — dus
-wie het geloofde en de constante "corrigeerde", verbrak precies de koppeling die het comment beweerde te
-bewaken. De drawer zou dan omschakelen op een andere breedte dan de styling, zichtbaar in een smalle
-band rond de breakpoint waar niemand kijkt.
+**De slug-afleiding stond vier keer in één bestand, en niet elke keer hetzelfde.** In
+`[slug]/page.tsx` deden `findMixBySlug` en `generateStaticParams` het **zonder**
+`.toLowerCase().trim()`, terwijl de twee plekken die de canonieke URL bouwen het er wél bij deden. Dat
+is geen schoonheidsfoutje: als de vergelijking anders normaliseert dan de generatie, kan een pagina
+onvindbaar zijn terwijl hij wel gebouwd is. Alle vier lopen nu via `mixSlug()`. De `decodeURIComponent`
+blijft staan op de **inkomende** slug, want die komt uit de URL en kan geëncodeerd zijn — de permalinks
+in de data zijn dat niet (gemeten: alle 77 slugs matchen `^[a-z0-9-]+$`).
 
-**Er is nu een test in plaats van een afspraak.** `tests/breakpoints.test.ts` (negen tests) leest
-`_config.scss` en `design.ts` allebei en vergelijkt ze op waarde, op sleutels en op volgorde. Dat is de
-enige vorm die hier kan: Sass kan geen TypeScript lezen en de static export kan geen SCSS aan de
-clientkant evalueren, dus één bron is technisch uitgesloten — maar aan elkaar binden kan wel. Negatief
-getoetst met precies het scenario uit het issue: `SMALL` op 811 zetten laat de suite falen op *"small
-komt overeen"*.
+**Het `Mix`-type stond twee keer volledig uitgeschreven.** `all.ts` droeg een afgeslankte versie van
+veertien velden, `[slug]/page.tsx` de volledige met dertig. Nu staat de volledige in `all.ts`, inclusief
+het `Track`-type.
 
-Twee kleinere wachten zitten er in dezelfde suite. Eén die eist dat de query uit `BREAKPOINTS.SMALL`
-wordt afgeleid en niet uit een letterlijk getal, en één die **elk** pixelgetal in `MobileContent.tsx`
-weigert dat geen echte breakpoint is — precies de vorm waarin deze fout binnenkwam. Die laatste sloeg
-meteen aan op de historische verwijzing in het nieuwe comment, dus daar staat het oude getal nu voluit
-geschreven in plaats van als cijfers.
+**Bij de drie Music Mood Colours-carousels zat er een aanname in de import.** Die importeerden alleen
+de acht `light-*`-bestanden en zochten daarin `featured === true` — dus "featured" betekende daar
+impliciet ook "light". Naïef overzetten op `allMixes` zou dat filter stil weggooien. De nieuwe
+`featuredMixByColor()` draagt het **expliciet**: `power === 'Light'` én `featured`. Gemeten zijn alle
+acht featured entries vandaag inderdaad light previews en staat er geen enkele in een `full-*`-bestand
+— maar dat is een eigenschap van de data van vandaag, niet van de regel, en zonder dat filter zou een
+featured Full-mix die er ooit bijkomt stilletjes een cover overnemen.
 
-**En de derde plek is verdwenen.** `base/_root.scss` genereerde `--screen-size-large/-medium/-small`
-als CSS-variabelen. Ze werden uitgeleverd en door niemand gelezen — geen stylesheet, geen component.
-Ze waren ook niet bruikbaar voor waar je ze voor zou willen: een custom property kan niet in een
-`@media`-conditie staan, dus ze konden de media queries nooit voeden. Gemeten: drie declaraties in de
-gebouwde CSS, nu nul.
+**Wat het concreet oplevert:** een zestiende kleurbestand hoeft nog op één plek te worden
+bijgeschreven in plaats van op vier, en de kans dat de plek die je vergeet stil faalt is weg.
 
-Wat expliciet **niet** is aangeraakt: de manier waarop de SCSS zijn breakpoints leest. `_config.scss`
-blijft de bron voor alle media queries via `fn.get-breakpoint()`, en er is geen enkele afwijkende
-hardcoded media query in de repo — dat was al netjes en blijft zo.
+**Geverifieerd dat het gedrag gelijk bleef**, en niet alleen dat het bouwt: de sitemap-suite uit
+PR #111 blijft groen (dertien tests, waaronder de eis dat elke sitemap-URL exact de slug van `mixSlug`
+draagt), de build levert dezelfde 89 pagina's, `out/sitemap.xml` bevat dezelfde 84 URL's, en op de
+Music Mood Colours-pagina staan nog steeds de acht mp3-bronnen van de covers.
 
 ### Significance
 
 #### Tier 0
 
-Een comment dat een verkeerd getal noemde bij een koppeling die er echt toe doet, is vervangen door een
-test die de koppeling afdwingt. De suite groeit van 143 naar 152 tests.
+Zes kopieën terug naar één bron, en een normalisatieverschil weg dat een mixpagina onvindbaar had
+kunnen maken. Wie hierna een kleur toevoegt, doet dat op één plek.
 
-**Score:** 3
+**Score:** 4
 
 #### Tier 1
 
-Voorkomt dat het mobiele menu ooit op een andere breedte omklapt dan het uiterlijk, maar er is vandaag
-niets zichtbaar mis. De waarde zit in de volgende keer dat iemand aan die getallen komt.
+De site levert exact dezelfde pagina's en URL's op — gemeten. De waarde is dat de volgende mix niet
+half wordt toegevoegd.
 
 **Score:** 2
 
