@@ -51,14 +51,72 @@ $ErrorActionPreference = "Stop"
 
 $accounts = @{
     work     = @{
-        GitHubUser  = "davekokbwj"
-        ClaudeEmail = "dave@bwjecommerce.com"
-        Label       = "werk"
+        GitHubUser = "davekokbwj"
+        Label      = "werk"
     }
     personal = @{
-        GitHubUser  = "DaveKJohn"
-        ClaudeEmail = "davekok.main@gmail.com"
-        Label       = "prive"
+        GitHubUser = "DaveKJohn"
+        Label      = "prive"
+    }
+}
+
+<#
+DE E-MAILADRESSEN STAAN NIET MEER IN DIT BESTAND.
+
+Ze stonden hier voluit, in een gecommit script in een PUBLIEKE repo, dus via GitHub-codesearch te
+vinden. Wrang detail: dat was dezelfde repo die op src-niveau juist moeite doet om info@djcylow.com
+uit de HTML te houden (zie EmailDisplay).
+
+Ze komen nu uit accounts.local.ps1 naast dit script - gitignored, dus lokaal en niet gedeeld. Zie
+accounts.local.example.ps1 voor de vorm. Ontbreekt dat bestand, dan draait de Claude-login gewoon
+ZONDER --email en kies je het account in de browser; het script blijft dus bruikbaar zonder setup.
+
+Dit haalt het adres uit de huidige tree, NIET uit de git-history. Dat laatste vraagt een rewrite van
+gepubliceerde commits en is een aparte beslissing van Dave.
+#>
+$claudeEmails = @{}
+$lokaal = Join-Path $PSScriptRoot 'accounts.local.ps1'
+if (Test-Path $lokaal) {
+    # Dot-source: het bestand zet $ClaudeEmails in deze scope. De Test-Path op de variabele erna is
+    # geen overdaad -- een leeg of half ingevuld bestand hoort hier stil te eindigen in "geen adres
+    # bekend", niet in een fout, en onder een latere Set-StrictMode zou een kale verwijzing gooien.
+    . $lokaal
+    if ((Test-Path variable:ClaudeEmails) -and $ClaudeEmails -is [hashtable]) {
+        $claudeEmails = $ClaudeEmails
+    }
+}
+
+<#
+.SYNOPSIS
+    Haalt `gh auth status` op zonder dat het script erover struikelt.
+
+.DESCRIPTION
+    `gh auth status` schrijft naar stderr en geeft exit 1 zodra er GEEN account is ingelogd -- en dat
+    is precies de situatie waarvoor het herstelpad hieronder bestaat ("nog niet ingelogd -> start de
+    browser-flow"). Met $ErrorActionPreference = "Stop" maakt `2>&1` van die stderr een ErrorRecord
+    die PowerShell als terminating error gooit, dus het script stierf op regel 76 in het enige geval
+    dat regel 77-93 zegt op te vangen. Gereproduceerd onder PS 5.1:
+
+        $ErrorActionPreference='Stop'; & cmd /c 'echo oops 1>&2 & exit 1' 2>&1   ->  RemoteException
+
+    Wie wel is ingelogd merkte niets (exit 0, 0 bytes stderr) -- daarom is dit nooit opgevallen.
+
+    Beoordeeld wordt op de TEKST en niet op de exitcode: bij "geen account" is de melding zelf het
+    antwoord dat de aanroeper nodig heeft. Dezelfde aanpak die scripts\lint\lint-web.ps1 al kiest;
+    die kennis stond daar gedocumenteerd en was hierheen niet gereisd.
+#>
+function Get-GhAuthStatus {
+    $vorige = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        return (& gh auth status 2>&1 | Out-String)
+    }
+    catch {
+        # Vangnet voor het geval gh helemaal niet te starten is; dan is de melding zelf de status.
+        return ($_ | Out-String)
+    }
+    finally {
+        $ErrorActionPreference = $vorige
     }
 }
 
@@ -73,7 +131,7 @@ $other = $accounts[$otherKey]
 
 Write-Host "== GitHub CLI ==" -ForegroundColor Cyan
 
-$ghStatus = & gh auth status 2>&1 | Out-String
+$ghStatus = Get-GhAuthStatus
 if ($ghStatus -notmatch [regex]::Escape($target.GitHubUser)) {
     Write-Host "Account '$($target.GitHubUser)' is nog niet ingelogd via gh CLI." -ForegroundColor Yellow
     Write-Host "Er wordt nu een login gestart - rond die af in de geopende browser (incl. eventuele 2FA)." -ForegroundColor Yellow
@@ -84,7 +142,7 @@ if ($ghStatus -notmatch [regex]::Escape($target.GitHubUser)) {
         exit 1
     }
 
-    $ghStatus = & gh auth status 2>&1 | Out-String
+    $ghStatus = Get-GhAuthStatus
     if ($ghStatus -notmatch [regex]::Escape($target.GitHubUser)) {
         Write-Host "Na het inloggen staat '$($target.GitHubUser)' nog steeds niet in 'gh auth status'." -ForegroundColor Red
         Write-Host "Controleer of je in de browser met het juiste account bent ingelogd en probeer het script opnieuw." -ForegroundColor Red
@@ -123,8 +181,21 @@ Write-Host ""
 Write-Host "== Claude Code ==" -ForegroundColor Cyan
 
 & claude auth logout
-& claude auth login --email $target.ClaudeEmail
-Write-Host "Rond de Claude-login af in de geopende browser." -ForegroundColor Green
+
+$claudeEmail = $claudeEmails[$Naar]
+if ($claudeEmail) {
+    & claude auth login --email $claudeEmail
+    Write-Host "Rond de Claude-login af in de geopende browser ($claudeEmail)." -ForegroundColor Green
+}
+else {
+    # Zonder --email opent dezelfde flow, alleen kies je het account zelf. Het script blijft dus
+    # volledig bruikbaar zonder accounts.local.ps1 -- dat bestand scheelt een keuze, meer niet.
+    & claude auth login
+    Write-Host "Rond de Claude-login af in de geopende browser." -ForegroundColor Green
+    Write-Host "Kies daar zelf het '$($target.Label)'-account: er is geen accounts.local.ps1 gevonden." -ForegroundColor Yellow
+    Write-Host "Wil je dat het script het adres invult, kopieer dan scripts\env\accounts.local.example.ps1" -ForegroundColor DarkGray
+    Write-Host "naar scripts\env\accounts.local.ps1 en vul je adressen in (dat bestand is gitignored)." -ForegroundColor DarkGray
+}
 
 Write-Host ""
 Write-Host "== Handmatige stap ==" -ForegroundColor Cyan
