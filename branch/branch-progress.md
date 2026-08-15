@@ -1,43 +1,35 @@
-## `config/testsuite-permalink-en-ratchets` progress
+## `fix/switch-account-herstelpad` progress
 
 ### Steps
 
-- [x] De vier issues geverifieerd tegen de boom in plaats van ze over te nemen. Twee correcties:
-      `Filter.test.tsx` en `send-email.test.ts` bestonden al (#73 sprak over "33 van de 36 componenten
-      zonder test"), en `mixSlug`/`liveMixes` zijn al geëxtraheerd naar `src/data/mixes/all.ts` — de
-      extractie die #69 en #73 als bouwerswerk aankondigden, is er dus al
-- [x] Alle plafonds gemeten op de echte data: 77 live mixen, 2667 tracks, 2444 tijd-overtredingen
-      (73 entries), 70 scheiding-overtredingen (33 entries), 0 duplicaten in `description_en`, 0
-      en-dashes, 0 permalink-problemen
-- [x] #70: de twee ratchets omgezet naar trackniveau, met de reden in de suite zelf
-- [x] #70 negatief getoetst zónder de repo-data aan te raken: een in-memory simulatie liet de oude
-      teller op 73 staan bij zowel een nieuwe overtreding als bij 41 reparaties, terwijl de nieuwe
-      teller naar 2445 respectievelijk 2403 bewoog
-- [x] #69: vijf harde permalink-asserties, met de slug-afleiding gelijk aan die in `all.ts`
-- [x] #72: `description_en` op uniciteit, de en-dash in de dash-regex (plafonds bewegen niet, wat
-      bevestigt dat er geen en-dashes staan), en een ratchet op 77 live mixen
-- [x] #72: de anti-scrape-eigenschap van `EmailDisplay` vastgelegd met `renderToStaticMarkup`, en de
-      kanttekening gecorrigeerd die zei dat dit niet te testen viel
-- [x] #73: `tests/sitemap.test.ts` (dertien tests) en `tests/Playlist.test.tsx` (dertien tests)
-- [x] De sitemap-koppeling negatief getoetst: `.toLowerCase()` tijdelijk uit `sitemap.ts` gehaald →
-      twee tests vielen om. Daarna hersteld met `git checkout` en geverifieerd dat `src/` schoon is
-- [x] `CLAUDE.md` bijgewerkt: die sprak van vier suites en 36 tests, en het zijn er acht en 143
-- [~] `ContactForm.tsx` testen (#73 noemt dit "de belangrijkste") — niet in deze branch. Het is een
-      component in `src/`, dus site-werk, en de branch zou daarmee op Dave gaan wachten terwijl de
-      rest doorloopt. De backend (`send-email.js`) is al gedekt
-- [~] De spec-correctie van #69 (`permalink` herclassificeren in `src/data/mixes/README.md`) — hoort
-      bij dezelfde issue maar raakt `src/data/mixes/`, dus die gaat naar een eigen branch die op
-      Dave's woord wacht. #69 blijft daarom open
+- [x] De fout gereproduceerd in een los proces vóór er iets veranderde:
+      `$ErrorActionPreference='Stop'; & cmd /c 'echo oops 1>&2 & exit 1' 2>&1` gooit `RemoteException`
+- [x] Beide `gh auth status`-aanroepen achter één `Get-GhAuthStatus` gezet, met `Continue` lokaal en
+      een beoordeling op de tekst — dezelfde aanpak die `lint-web.ps1` al documenteert
+- [x] Getoetst dat de constructie niet meer gooit: de tekst komt terug in plaats van een terminating
+      error, en bevat de melding die de `-notmatch` nodig heeft
+- [x] De adressen uit het script gehaald naar een gitignored `accounts.local.ps1`, met
+      `accounts.local.example.ps1` als vorm in de repo
+- [x] Beide leespaden getoetst: zonder het bestand blijft het adres leeg (val terug op de
+      browserkeuze), met het voorbeeldbestand komt het adres door
+- [x] `git check-ignore -v` bevestigt dat `accounts.local.ps1` genegeerd wordt
+- [x] Parse-check op het gewijzigde script: geen fouten
+- [x] Geverifieerd dat er geen echt adres meer in de tree staat (`git grep`), en vastgesteld dat het
+      nog wél in de history zit (commit `3c8418a`)
+- [~] Het script end-to-end draaien — bewust niet gedaan: het logt accounts uit bij `gh` en Claude,
+      dus draaien zou de sessie waarin het wordt getest onderuithalen. Alle onderdelen zijn los
+      getoetst, en dat is hier de eerlijke dekking
+- [~] Het adres uit de git-history verwijderen — buiten scope. Dat vraagt een rewrite van
+      gepubliceerde commits en is Dave's beslissing, zoals het issue zelf ook stelt
 
 ### Where I left off
 
-Af, 143 tests groen, de poort groen. Deze branch raakt alleen `tests/` en `CLAUDE.md`, dus de keten
-loopt door tot en met de fold.
+Af. Raakt alleen `scripts/env/` en `.gitignore`, dus de keten loopt door tot en met de fold.
 
-Sluit #70 en #72 volledig. **#69 en #73 blijven bewust open**: van #69 staat het spec-deel nog open en
-van #73 het `ContactForm`-deel, en beide raken `src/`. Dat staat hierboven bij de twee `[~]`-stappen.
+Twee dingen voor Dave:
 
-Wat hierna logisch is voor wie deze suite oppakt: de tijd-conversie zelf. 2444 van de 2667
-tracklist-tijden staan niet in `HH:MM:SS`, de conversie is volledig mechanisch (`MM:SS` → `00:MM:SS`),
-en de ratchet is er nu geschikt voor gemaakt — hij telt per track, dus elke reparatie is zichtbaar. Dat
-is wel een wijziging in `src/data/mixes/`.
+- **Wil je dat het script het Claude-adres weer zelf invult**, kopieer dan
+  `scripts\env\accounts.local.example.ps1` naar `scripts\env\accounts.local.ps1` en vul je adressen
+  in. Zonder dat bestand werkt het script gewoon; je kiest het account dan in de browser.
+- **Het adres staat nog in de git-history** (commit `3c8418a`). Dat weghalen is een aparte,
+  zwaardere ingreep.
