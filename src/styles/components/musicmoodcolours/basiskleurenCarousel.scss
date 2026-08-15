@@ -213,21 +213,18 @@ $total-content-width: calc((#{$card-width-basiskleuren} * 8) + #{$total-h-gap} +
                 border-radius: 50%;
             }
 
-            @each $name,
-                $hex
-                    in (
-                        "cyan": #00ffff,
-                        "green": #00ff00,
-                        "yellow": #ffff00,
-                        "orange": #ff7f00,
-                        "red": #ff0000,
-                        "magenta": #ff00ff,
-                        "purple": #7f00ff,
-                        "blue": #0000ff
-                    )
-            {
+            // HIER STOND HET KLEURENPALET EEN TWEEDE KEER, als acht losse hex-waarden. Ze waren op
+            // 2026-08-15 stuk voor stuk identiek aan de "default"-tinten in
+            // abstracts/variables/_colors.scss -- maar niets hield dat zo. Wijzigde daar ooit een
+            // merkkleur, dan liep deze kopie er stil uit, en juist op de pagina die over die kleuren
+            // gaat.
+            //
+            // De variabelen die hier nu gebruikt worden bestonden al: `base/_root.scss` genereert
+            // `--<kleur>-<tint>` voor elke kleur in het palet, dus `--cyan-default` en de rest stonden
+            // al in de uitgeleverde CSS. Er is dus niets bijgekomen, alleen een kopie weg.
+            @each $name in ("cyan", "green", "yellow", "orange", "red", "magenta", "purple", "blue") {
                 .circle.#{$name}::after {
-                    background-color: $hex;
+                    background-color: var(--#{$name}-default);
                 }
             }
         }

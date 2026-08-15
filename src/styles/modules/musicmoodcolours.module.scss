@@ -3,28 +3,21 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/functions" as fn;
 
+// Drie `respond-to(bp-medium)`-blokken stonden hier tot 2026-08-15 exact dezelfde zes waarden te
+// zetten als daarbuiten. Ze deden dus niets, maar suggereerden wel dat de kaarten op medium schermen
+// van formaat veranderen -- wat het lastig maakt te zien dat dat juist níet gebeurt. Ze zijn weg; de
+// waarden zelf zijn onveranderd.
+//
+// De drie paren staan bewust nog los van elkaar, ook al zijn ze alle zes 180px: het zijn drie
+// verschillende carousels (erlenmeyers, basiskleuren, vs), en ze samenvoegen zou aannemen dat ze
+// altijd gelijk blijven. Dat is een ontwerpkeuze en geen opruiming.
 .pageWrapper {
     --card_width_erlenmeyers: 180px;
     --card_height_erlenmeyers: 180px;
 
-    @include mix.respond-to(v.$bp-medium) {
-        --card_width_erlenmeyers: 180px;
-        --card_height_erlenmeyers: 180px;
-    }
-
     --card_width_basiskleuren: 180px;
     --card_height_basiskleuren: 180px;
 
-    @include mix.respond-to(v.$bp-medium) {
-        --card_width_basiskleuren: 180px;
-        --card_height_basiskleuren: 180px;
-    }
-
     --card_width_vs: 180px;
     --card_height_vs: 180px;
-
-    @include mix.respond-to(v.$bp-medium) {
-        --card_width_vs: 180px;
-        --card_height_vs: 180px;
-    }
 }

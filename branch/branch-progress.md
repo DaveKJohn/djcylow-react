@@ -1,48 +1,47 @@
-## `fix/mix-imports-een-bron` progress
+## `style/scss-opruiming` progress
 
 ### Steps
 
-- [x] Gemeten welke van de zes bestanden nog een eigen kopie droegen: `Playlist.tsx` was al over,
-      `sitemap.ts` en `[slug]/page.tsx` hadden 15 imports, de drie MMC-carousels elk 8
-- [x] Dat verschil (8 versus 15) uitgezocht in plaats van weggepoetst: de carousels importeerden
-      **alleen light**, dus hun `featured`-filter betekende impliciet ook "light"
-- [x] Gemeten of dat vandaag uitmaakt: alle 8 featured entries zijn light previews, 0 in `full-*`.
-      Overzetten op `allMixes` zou dus vandaag hetzelfde resultaat geven — maar niet noodzakelijk
-      morgen, dus het filter is expliciet gemaakt in `featuredMixByColor()`
-- [x] `all.ts` uitgebreid: het volledige `Mix`-type (30 velden), `Track`, en `featuredMixByColor()`
-- [x] `sitemap.ts` overgezet op `liveMixes` + `mixSlug`
-- [x] `[slug]/page.tsx` overgezet: 15 imports, twee typedefinities en **vier** slug-afleidingen weg
-- [x] Vastgesteld dat die vier niet identiek waren — twee mét `.toLowerCase().trim()` en twee zonder
-      — en dat dat een pagina onvindbaar had kunnen maken. De `decodeURIComponent` op de inkomende
-      slug is bewust blijven staan
-- [x] De drie MMC-carousels overgezet op `featuredMixByColor()`
-- [x] De poort gedraaid, één nieuwe ESLint-warning gezien (`Mix` ongebruikt) en die meteen opgelost —
-      de teller staat weer op 0/0, en dat is precies waarom hij op 0 hoort te staan
-- [x] Gedragsgelijkheid gemeten in plaats van aangenomen: sitemap-suite groen (13 tests, waaronder de
-      koppeling met `mixSlug`), 89 pagina's, 84 URL's in `out/sitemap.xml`, en 8 mp3-bronnen op de
-      Music Mood Colours-pagina
-- [~] De onbereikbare "Mix niet gevonden"-tak in `[slug]/page.tsx` — het issue noemt hem als
-      aanpalend. Niet weggehaald: met `dynamicParams = false` is hij inderdaad onbereikbaar bij de
-      static export, maar het is defensieve code die niets kost, en hem verwijderen is riskanter dan
-      hem laten staan
-- [~] Het honeypot-veld `bot-field` dat `send-email.js` nooit uitleest — óók aanpalend genoemd in
-      #83, maar dat is een **securitybevinding** en geen DRY-kwestie: de botbescherming van het
-      contactformulier doet aantoonbaar niets. Dat verdient een eigen behandeling; zie hieronder
+- [x] Elk punt van #81 tegen de tree gecontroleerd in plaats van de lijst over te nemen. Twee bleken
+      achterhaald: `src/app/globals.scss` bestaat niet meer (al weg bij de Tailwind-verwijdering), en
+      `cta-hover-effect` is sinds 2026-08-15 geen dode mixin meer
+- [x] Bij `assen.scss` en `_onderhoud.scss` geverifieerd dat de grep-treffers **tekst in comments**
+      waren en geen imports — anders had ik een bestand verwijderd dat wel gebruikt wordt
+- [x] Gemeten wat `className={styles.pageWrapper}` met een lege module werkelijk oplevert: React laat
+      een `undefined` className weg, dus er staat géén `class="undefined"` in de HTML. Het issue
+      noemde dit als gevolg; het is dode code, geen zichtbare fout
+- [x] De acht hex-waarden in `basiskleurenCarousel.scss` één voor één vergeleken met `_colors.scss`
+      vóór ik ze verving — alle acht identiek
+- [x] Geverifieerd dat `--<kleur>-default` al in de gebouwde CSS stond en **nergens buiten `:root`**
+      wordt overschreven, want anders zou de vervanging wél kleur veranderen
+- [x] De vier dode stylesheets verwijderd (332 regels) plus hun verwijzingen in `main.scss`,
+      `page.tsx` en `luister/page.tsx`
+- [x] De carousel opgeruimd: drie ongebruikte variabelen, drie dubbele declaraties, en
+      `var(--card_height)` → `var(--card_height, auto)` zodat de feitelijke waarde expliciet is
+- [x] De drie no-op media queries uit `musicmoodcolours.module.scss`
+- [x] Het overbodige `!important` op `.carousels .hidden` weg (restant van #78)
+- [x] Poort groen; in de gebouwde CSS geverifieerd dat de acht kleurregels nu naar de variabelen
+      wijzen en dat er geen `onderhoud`-regels meer in zitten
+- [~] `cta-hover-effect` verwijderen — **niet gedaan, en dat is belangrijk**: de branch
+      `fix/scss-hover-en-alignment` roept die mixin juist aan om het kapotte hover-effect te
+      herstellen. Hem hier weghalen zou die branch breken
+- [~] De hardcoded kleuren buiten het palet in `_contact-form.scss`, `_navigation.scss`, `filter.scss`
+      en `Footer.tsx` — niet in deze branch. Dat zijn losse waarden die stuk voor stuk een
+      ontwerpvraag zijn ("welke paletkleur hoort hier?"), en dat is iets anders dan een kopie van het
+      palet vervangen. #81 blijft daarvoor open
 
 ### Where I left off
 
-Af, poort groen (0 errors, 0 warnings), 143 tests groen. **Geparkeerd**: raakt `src/`, dus de merge
-wacht op Dave.
+Af, poort groen, **geparkeerd**: site-werk, dus de merge wacht op Dave.
 
-**Wat er te bekijken is.** De bedoeling is dat er niets verandert, en dat is op vier manieren gemeten
-(zie hierboven). De plek om met het oog te kijken is **Music Mood Colours**: de drie carousels
-(basiskleuren, erlenmeyers, vs-kleuren) horen alle drie hun acht covers te tonen en af te spelen — dat
-is de code die het meest is aangeraakt. Daarnaast een willekeurige **mixdetailpagina** via /luister,
-want daar zijn de vier slug-afleidingen vervangen.
+**Wat er te bekijken is.** De bedoeling is dat er *niets* verandert. De plek om te kijken is
+**Music Mood Colours**: de acht gekleurde bolletjes onder de basiskleuren-carousel horen exact
+dezelfde kleuren te hebben als voorheen — die lopen nu via de paletvariabelen in plaats van via een
+eigen kopie. Verder de carousel-pijlen op diezelfde pagina (die hadden een dubbele `transform`).
 
-**Eén bevinding die hier niet thuishoort maar wel gemeld moet worden:** `ContactForm.tsx` zet een
-honeypot-veld `bot-field` neer, en `netlify/functions/send-email.js` leest dat veld nooit uit. De
-botbescherming die daar lijkt te staan, doet dus niets. Dat is geen refactor-kwestie en het raakt de
-Netlify-function; het staat als aanpalend punt in #83 en verdient een eigen issue of branch.
+**Let op de volgorde bij het mergen.** Deze branch en `fix/scss-hover-en-alignment` raken allebei
+`src/styles/`, maar verschillende bestanden — ze botsen inhoudelijk niet. Wat wél botst is
+`branch/branch-changelog.md` en `branch/branch-progress.md`, zoals bij elke gestapelde branch: op de
+branch `--ours`, op `main` `--theirs`.
 
-Sluit #83 bij een merge.
+**#81 blijft open** voor de losse hardcoded kleuren; de rest van het issue is hiermee afgehandeld.

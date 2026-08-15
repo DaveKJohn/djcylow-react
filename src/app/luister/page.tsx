@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import styles from '@/styles/modules/luister.module.scss';
 
 import LuisterFilters from '@/components/luister/LuisterFilters';
 import PlaylistFallback from '@/components/luister/PlaylistFallback';
@@ -17,7 +16,7 @@ import PlaylistFallback from '@/components/luister/PlaylistFallback';
  */
 export default function LuisterPage() {
     return (
-        <main className={styles.pageWrapper}>
+        <main>
             {/* Banner bovenaan */}
             <section className="WoB column w-fill AMC P15 v-push-4xl" id="luister">
 

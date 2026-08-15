@@ -1,66 +1,72 @@
-## `fix/mix-imports-een-bron` changelog
+## `style/scss-opruiming` changelog
 
 ### Branch title
 
-De mix-imports en de slug-afleiding staan nog maar op een plek
+Dode stylesheets eruit en het kleurenpalet staat nog maar op een plek
 
 ### Branch ID
 
-20260815-183126
+20260815-182601
 
 ### Branch type
 
-fix
+style
 
 ### What does the change on this branch bring to main?
 
-De vijftien mix-imports en de slug-afleiding stonden in **zes** bestanden met de hand overgeschreven,
-elk met een eigen volgorde en een eigen typedefinitie. Vijf daarvan lezen nu uit
-`src/data/mixes/all.ts`; de zesde (`Playlist.tsx`) deed dat al.
+Opruimwerk in de styling. Niets hiervan veroorzaakte een fout; het kostte leesbaarheid en liet een
+lezer denken dat er iets gebeurde.
 
-**De slug-afleiding stond vier keer in één bestand, en niet elke keer hetzelfde.** In
-`[slug]/page.tsx` deden `findMixBySlug` en `generateStaticParams` het **zonder**
-`.toLowerCase().trim()`, terwijl de twee plekken die de canonieke URL bouwen het er wél bij deden. Dat
-is geen schoonheidsfoutje: als de vergelijking anders normaliseert dan de generatie, kan een pagina
-onvindbaar zijn terwijl hij wel gebouwd is. Alle vier lopen nu via `mixSlug()`. De `decodeURIComponent`
-blijft staan op de **inkomende** slug, want die komt uit de URL en kan geëncodeerd zijn — de permalinks
-in de data zijn dat niet (gemeten: alle 77 slugs matchen `^[a-z0-9-]+$`).
+**Het kleurenpalet stond twee keer, en dat is het punt dat het meest kon bijten.**
+`basiskleurenCarousel.scss` droeg de acht moodkleuren opnieuw als losse hex-waarden. Ze waren
+vandaag stuk voor stuk identiek aan de `default`-tinten in `_colors.scss`, maar niets hield dat zo —
+wijzigde daar ooit een merkkleur, dan liep deze kopie er stil uit, en juist op de pagina die over
+die kleuren gáát. Ze gebruiken nu `var(--<kleur>-default)`, en die variabelen bestonden al: `_root.scss`
+genereert ze voor het hele palet. Er is dus niets bijgekomen, alleen een kopie weg. Geverifieerd in de
+gebouwde CSS dat de acht regels nu naar de variabelen wijzen, en dat die nergens buiten `:root` worden
+overschreven — dus visueel identiek.
 
-**Het `Mix`-type stond twee keer volledig uitgeschreven.** `all.ts` droeg een afgeslankte versie van
-veertien velden, `[slug]/page.tsx` de volledige met dertig. Nu staat de volledige in `all.ts`, inclusief
-het `Track`-type.
+**Vier dode stylesheets zijn weg**, samen 332 regels: `assen.scss` (nergens geïmporteerd, en er
+bestaat geen `Assen.tsx`), `_onderhoud.scss` (wél in `main.scss`, maar `#onderhoud` komt in geen
+enkele component voor en de regel stond zelf op `display: none`), en `home.module.scss` +
+`luister.module.scss` (allebei leeg op de `@use`-regels na). Die laatste twee werden wél
+geïmporteerd, en `className={styles.pageWrapper}` gaf `undefined` — gemeten blijkt dat onschadelijk,
+want React laat een `undefined` className gewoon weg en er staat geen `class="undefined"` in de HTML.
+De imports en de twee expressies zijn mee opgeruimd.
 
-**Bij de drie Music Mood Colours-carousels zat er een aanname in de import.** Die importeerden alleen
-de acht `light-*`-bestanden en zochten daarin `featured === true` — dus "featured" betekende daar
-impliciet ook "light". Naïef overzetten op `allMixes` zou dat filter stil weggooien. De nieuwe
-`featuredMixByColor()` draagt het **expliciet**: `power === 'Light'` én `featured`. Gemeten zijn alle
-acht featured entries vandaag inderdaad light previews en staat er geen enkele in een `full-*`-bestand
-— maar dat is een eigenschap van de data van vandaag, niet van de regel, en zonder dat filter zou een
-featured Full-mix die er ooit bijkomt stilletjes een cover overnemen.
+**In de carousel stonden drie ongebruikte Sass-variabelen** (`$row-1-h`, `$row-2-h`, `$gap`) en drie
+declaraties die twee keer met dezelfde waarde stonden (`align-items`, `justify-content`, `transform`).
+Ook `height: var(--card_height)` viel daar stil terug op `auto`, want die variabele wordt alleen gezet
+door `referenties.scss` en die component wordt niet gerenderd. Dat is nu `var(--card_height, auto)`:
+even expliciet als wat er feitelijk gebeurde, en het werkt weer zodra Referenties terugkomt.
 
-**Wat het concreet oplevert:** een zestiende kleurbestand hoeft nog op één plek te worden
-bijgeschreven in plaats van op vier, en de kans dat de plek die je vergeet stil faalt is weg.
+**Drie media queries in `musicmoodcolours.module.scss` zetten exact dezelfde waarden als daarbuiten.**
+Ze deden niets, maar suggereerden dat de kaarten op medium schermen van formaat veranderen — wat het
+juist lastig maakt te zien dat dat níet gebeurt.
 
-**Geverifieerd dat het gedrag gelijk bleef**, en niet alleen dat het bouwt: de sitemap-suite uit
-PR #111 blijft groen (dertien tests, waaronder de eis dat elke sitemap-URL exact de slug van `mixSlug`
-draagt), de build levert dezelfde 89 pagina's, `out/sitemap.xml` bevat dezelfde 84 URL's, en op de
-Music Mood Colours-pagina staan nog steeds de acht mp3-bronnen van de covers.
+En het overbodige `!important` op `.carousels .hidden` is weg; dat kwam boven water bij #78, waarvan
+de hoofdbewering juist niet standhield.
+
+**Twee punten uit het issue zijn níet uitgevoerd, met reden.** `src/app/globals.scss` bestond al niet
+meer — dat is bij de Tailwind-verwijdering van 2026-08-15 al opgeruimd. En de mixin
+`cta-hover-effect` staat in het issue als dood, maar dat is hij sinds diezelfde dag niet meer: de
+branch `fix/scss-hover-en-alignment` roept hem juist aan om het kapotte hover-effect van de CTA-knop
+te herstellen. Hem hier verwijderen zou die branch breken.
 
 ### Significance
 
 #### Tier 0
 
-Zes kopieën terug naar één bron, en een normalisatieverschil weg dat een mixpagina onvindbaar had
-kunnen maken. Wie hierna een kleur toevoegt, doet dat op één plek.
+332 regels dode stylesheet weg en het kleurenpalet terug naar één bron. Wie hierna aan de styling
+werkt, leest alleen nog wat er werkelijk gebeurt — en een merkkleur wijzigen doet nu wat je verwacht.
 
-**Score:** 4
+**Score:** 3
 
 #### Tier 1
 
-De site levert exact dezelfde pagina's en URL's op — gemeten. De waarde is dat de volgende mix niet
-half wordt toegevoegd.
+Zuiver opruimwerk: de site ziet er precies hetzelfde uit, gemeten in de gebouwde CSS.
 
-**Score:** 2
+**Score:** N/A
 
 ### Pull Request
 

@@ -17,7 +17,8 @@
 // LAYOUT
 @use "layout/navigation";
 @use "layout/footer";
-@use "layout/onderhoud";
+// `layout/onderhoud` is op 2026-08-15 verwijderd: het stylesheet werd wel geladen, maar `#onderhoud`
+// komt in geen enkele component voor en de regel stond bovendien zelf op `display: none`.
 
 // COMPONENTS -> Gloabal
 @use "components/sections/contact-form";
