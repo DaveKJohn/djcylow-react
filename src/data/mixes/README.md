@@ -523,15 +523,17 @@ https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev/red/Red_Light_m_EDM_128BPM_2
 
 Path to the small-width wide-format cover image (used as playlist card thumbnail).
 
-**Format:** `/images/[power-lowercase]/[color-lowercase]/wide/image_[power-lowercase]_[color-lowercase]_wide_[YYYYMMDD]_small.jpg`
+**Format:** `/images/[power-lowercase]/[color-lowercase]/wide/image_[power-lowercase]_[color-lowercase]_wide_[YYYYMMDD]_small.webp`
 
-**Example:** `/images/light/red/wide/image_light_red_wide_20260615_small.jpg`
+**Example:** `/images/light/red/wide/image_light_red_wide_20260615_small.webp`
 
 **Rules:**
 
 - Leading slash
 - Power and color in lowercase in the path, regardless of the `color`/`power` field capitalization
-- File type: `.jpg`
+- File type: `.webp` (this said `.jpg` until 2026-08-15; every file on disk is and always was `.webp`)
+- Must be the **small** variant (480x270), not the large one. Two 2026 entries carried the `_large`
+  path in this field because the small variant had never been generated — see `npm run images:webp`
 
 ---
 
@@ -550,18 +552,33 @@ Path to the large wide-format cover image (used on the mix detail page).
 
 ---
 
-### `image_square` — string, required
+### `image_square` — string, required for `featured`, may be empty otherwise
 
-Path to the square-cropped cover image (used in mix grid cards).
+Path to the square cover image (300x300). Read **only** by `BasiskleurenCarousel`, `Erlenmeyers`
+and `VsKleurenCarousel`, which all filter on `featured === true` — so this field is what produces
+the eight covers on `/musicmoodcolours`.
 
-**Format:** `/images/[power-lowercase]/[color-lowercase]/square/image_[power-lowercase]_[color-lowercase]_square_[YYYYMMDD].jpg`
+**Format:** `/images/[power-lowercase]/[color-lowercase]/square/image_[power-lowercase]_[color-lowercase]_square_[YYYYMMDD].webp`
 
-**Example:** `/images/light/red/square/image_light_red_square_20260615.jpg`
+**Example:** `/images/light/red/square/image_light_red_square_20260615.webp`
+
+For a preview entry the date is replaced by `preview`:
+`/images/light/red/square/image_light_red_square_preview.webp`
 
 **Rules:**
 
 - Leading slash
-- File type: `.jpg`
+- File type: `.webp` (this said `.jpg` until 2026-08-15; every file on disk is and always was `.webp`)
+- **Required and must exist when `featured` is `true`** — `tests/mix-data.test.ts` enforces this
+- **May be an empty string otherwise**
+
+> **This field said "required" until 2026-08-15, and 25 entries proved that untrue.** Their paths
+> pointed at `square/` directories that mostly do not exist, in a name order (`..._[YYYYMMDD]_square`)
+> that occurs nowhere on disk — so they were never generated but filled in by hand. They have been
+> emptied rather than repaired, because the images cannot be derived: a square is **not** a crop of
+> the matching wide image but a separate photo (measured: average channel difference 87.9 out of
+> 255). Generating one would be inventing artwork. If Full mixes should have square covers, the
+> images have to be supplied; until then an empty field is the honest value.
 
 ---
 
