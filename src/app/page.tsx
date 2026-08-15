@@ -3,8 +3,6 @@ import { homeContent } from "@/content/home";
 import ContactForm from "@/components/sections/ContactForm";
 
 
-import styles from '@/styles/modules/home.module.scss';
-
 
 
 import Hero from "@/components/home/Hero";
@@ -32,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
     return (
-        <main className={styles.pageWrapper}>
+        <main>
             <section className="slideshow">
                 <Hero />
                 {/* <Referenties /> */}
