@@ -11,6 +11,24 @@
 }
 
 // Body Basis
+//
+// DEZE `overflow` ZIT OP `body` EN DAT IS NIET TOEVALLIG -- verplaats hem niet naar `html`.
+//
+// Issue #79 stelde dat `overflow-x: hidden` hier `position: sticky` breekt bij afstammelingen, en
+// `#luister_content_filter` is sticky. Dat zou kloppen als `body` er een scroll-container van werd,
+// maar dat wordt hij niet. De overflow-propagatieregel uit css-overflow-3: staat de gebruikte
+// overflow van het ROOT-element (`html`) op `visible` -- en dat is de initiële waarde -- dan wordt
+// de overflow van `body` doorgegeven aan de VIEWPORT, en is de gebruikte waarde op `body` zelf weer
+// `visible`. Geen scroll-container, dus sticky werkt. Het is ook precies waarom
+// `body { overflow: hidden }` de páginascroll uitzet in plaats van alleen die van de body.
+//
+// Het geheel hangt daarmee op één voorwaarde: `html` mag geen eigen overflow krijgen. En dat is
+// juist de meest voor de hand liggende reparatie van horizontale overflow die er is. Zet iemand
+// hier ooit `html { overflow-x: hidden }` neer, dan stopt de propagatie, wordt `body` alsnog een
+// scroll-container, en werkt de filter op de luisterpagina niet meer -- zonder foutmelding.
+//
+// `tests/overflow-propagatie.test.ts` bewaakt dat, gemeten in de gebouwde CSS. Heb je horizontale
+// overflow, repareer dan het element dat te breed is.
 body {
     background-color: var(--black-100);
     overflow-x: hidden;
