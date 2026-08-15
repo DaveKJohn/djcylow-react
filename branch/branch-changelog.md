@@ -1,64 +1,75 @@
-## `data/audio-mismatch` changelog
+## `config/tailwind-eruit` changelog
 
 ### Branch title
 
-Twee mixen spelen weer hun eigen audio
+Tailwind verwijderd en de ongedefinieerde utility-klassen opgeruimd
 
 ### Branch ID
 
-20260815-141837
+20260815-143542
 
 ### Branch type
 
-data
+config
 
 ### What does the change on this branch bring to main?
 
-Twee live mixpagina's speelden de audio van een andere mix af. Titel, tracklist, beschrijving en
-cover waren van de ene mix, het geluid van een andere — de bezoeker hoorde dus iets anders dan
-waarop hij klikte, met een tracklist die niet meeliep.
+**Tailwind draaide niet, en dat wist niemand.** Tailwind v4 genereert alleen utilities voor een
+stylesheet die `@import "tailwindcss"` bevat. De enige stylesheet die de app laadt is
+`src/styles/main.scss`, en die had die regel niet. Het enige bestand met een Tailwind-at-rule was
+`src/app/globals.scss` — dat **nergens werd geïmporteerd**, en de regel erin was bovendien
+`@theme "tailwindcss"`, wat geen geldige entry is. Er is dus nooit één utility gegenereerd,
+geverifieerd in de gebouwde CSS: nul Tailwind-signaturen (`--tw-`, `::backdrop`).
 
-| entry | speelde | speelt nu |
+Dave heeft gekozen voor **eruit halen**. Aanzetten was de andere weg, maar die zet Preflight bovenop
+de eigen reset in `base/_reset.scss` — een zichtbare wijziging op elke pagina, voor utilities die
+niemand gebruikt. Weg zijn: `tailwindcss` en `@tailwindcss/postcss` uit `package.json`,
+`postcss.config.mjs`, en `src/app/globals.scss`.
+
+**Dat het niet draaide, is aantoonbaar in de markup gaan zitten** (#75). Er werden klassen
+geschreven die stil niets deden:
+
+| klasse | voorkomens | wat er gebeurt |
 |---|---|---|
-| `20210412` — Purple Full (f), 176 BPM | het **Blue Full**-bestand van 2024-04-08 | `Purple_Full_f_EDM_DNB_20210412_Audio_V1 (Vol. 1)` |
-| `20210329` — Purple Light (f), 176 BPM | een **Progressive House 128 BPM**-bestand uit 2023 | `Purple_Light_f_EDM_DNB_20210329_Audio_V2 (Vol. 1)` |
+| `.w-fix` | 28× | **verwijderd** — bestond nergens, en niemand kon vaststellen welke breedte het hoorde te zetten |
+| `.flex` | 6× | **verwijderd** — was Tailwind; de `.column`/`.row`-klassen zetten `display: flex` al |
+| `.size-base` | 8× | **gedefinieerd** — de scale-key bestond al |
+| `.size-lg` | 1× | **gedefinieerd** — idem |
 
-**Het projectbord noemde dit geblokkeerd op informatie, en dat is het niet gebleken.** De juiste
-objectnamen zijn niet afgeleid maar **opgezocht**: uit de 77 bestaande `audioSrc`-waarden volgt per
-kleur en power een vaste vorm (`Purple_Full_f_..._V1`, `Purple_Light_f_..._V2`), en de kandidaten
-daaruit zijn met een HEAD-request tegen R2 getoetst. Beide bestanden bestaan gewoon — het waren
-copy-paste-fouten in de data, geen ontbrekende uploads. De ene staat op de legacy-bucket, de andere
-op de actieve; dat is per bestand overgenomen zoals het werkelijk is en niet gelijkgetrokken (dat
-is issue #68).
+De eerste twee zijn een no-op voor het uiterlijk: ze deden al niets, dus weghalen verandert geen
+pixel en haalt alleen de suggestie weg dat er een regel achter zat. **De laatste twee zijn dat
+niet.** Op de mixpagina staan `.size-base` en `.size-lg` náást wél werkende `.size-sm`/`.size-xs` in
+dezelfde blokken; daar heeft iemand expliciet om een tekstgrootte gevraagd en de overgeërfde
+gekregen. Die tekst krijgt nu de grootte die er stond — **dat is de enige zichtbare wijziging van
+deze branch**, en precies wat op de preview bekeken moet worden.
 
-**En de naam alleen was niet genoeg bewijs**, want een naam die klopt kan nog steeds naar het
-verkeerde object wijzen. De lengte is daarom tegen de tracklist gelegd: beide nieuwe bestanden
-komen uit op **1.40 en 1.42 MB per minuut**, precies in de band van de elf andere purple-mixen
-(1.28–1.47). De duur past dus bij de tracklist die op de pagina staat.
+Gemeten in de gebouwde CSS na afloop: `size-base` en `size-lg` staan er nu in (waren er niet),
+`w-fix` nergens, en nog steeds geen enkele Tailwind-signatuur.
 
-**Er ligt nu een wacht op**, zoals het issue voorstelde: `audioSrc` moet uniek zijn over alle
-bestanden. Dat die poort echt sluit is niet aangenomen maar getoetst — met een opzettelijk
-duplicaat in de tree gaf de suite een rode test met de naam erbij, waarna de tree is hersteld.
-Beide oorspronkelijke fouten waren de **oudste** entry in hun bestand, wat past bij een copy-paste
-die nooit is afgemaakt.
+**En de documentatie beweerde het omgekeerde**, op drie plekken. `CLAUDE.md` zei "Tailwind v4 +
+SCSS: beide worden naast elkaar gebruikt"; `README.md` had een tabelrij, een `tailwind.config` in
+de mappenlijst die nooit heeft bestaan, en een eigen sectie die naar dat bestand verwees. Die zijn
+vervangen door wat er werkelijk staat, inclusief een overzicht van de eigen utility-klassen.
 
-Sluit #45.
+Sluit #48 en #75.
 
 ### Significance
 
 #### Tier 0
 
-De uniciteit van `audioSrc` is nu afgedwongen in plaats van verondersteld, en die poort is
-aantoonbaar sluitend.
+Er stond een frameworkafhankelijkheid in `package.json` die niets deed, en de documentatie stuurde
+iedereen die hier styling schreef de verkeerde kant op — aantoonbaar, want er zijn 34 klassen in de
+markup beland die nooit iets konden doen. De eigen utility-set is nu de enige, en staat beschreven.
 
-**Score:** 2
+**Score:** 3
 
 #### Tier 1
 
-Twee van de 77 mixpagina's lieten de bezoeker iets anders horen dan waarop hij klikte. Op een site
-die om het luisteren draait is dat het ergste wat een pagina kan doen zonder stuk te gaan.
+Op de mixpagina's krijgt tekst die om `size-base`/`size-lg` vroeg eindelijk die grootte, dus de
+typografische hiërarchie klopt daar weer met wat er in de code staat. Verder verandert er niets
+zichtbaars: de verwijderde klassen deden al niets.
 
-**Score:** 4
+**Score:** 2
 
 ### Pull Request
 

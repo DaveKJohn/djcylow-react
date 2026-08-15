@@ -1,29 +1,27 @@
-## `data/audio-mismatch` progress
+## `config/tailwind-eruit` progress
 
 ### Steps
 
-- [x] Het naampatroon afgeleid uit de 77 bestaande `audioSrc`-waarden
-- [x] Kandidaten getoetst met HEAD-requests tegen beide R2-buckets — beide gevonden
-- [x] Geverifieerd dat de lengte bij de tracklist past (1.40 en 1.42 MB/min, band 1.28–1.47)
-- [x] `20210412` in `full-purple.json` gecorrigeerd
-- [x] `20210329` in `light-purple.json` gecorrigeerd, zonder de entry te raken die dezelfde URL
-      terecht droeg
-- [x] Test toegevoegd: `audioSrc` uniek per live mix
-- [x] Bewezen dat die test blokkeert, met een opzettelijk duplicaat; tree daarna hersteld
-- [x] JSON geldig, 72 tests groen
+- [x] Bevestigd in de gebouwde CSS dat Tailwind nooit iets genereerde (nul `--tw-`, nul `backdrop`)
+- [x] `tailwindcss` en `@tailwindcss/postcss` uit `package.json`, `npm install` gedraaid
+- [x] `postcss.config.mjs` en `src/app/globals.scss` verwijderd
+- [x] `.w-fix` uit alle 28 voorkomens gehaald (25 automatisch, 3 in template literals)
+- [x] `.flex` uit alle 6 voorkomens gehaald
+- [x] `.size-base` en `.size-lg` toegevoegd aan `$utility-styles`
+- [x] Gemeten in de nieuwe CSS: beide staan er nu in, `w-fix` nergens, nog steeds geen Tailwind
+- [x] `CLAUDE.md` en `README.md` gelijkgetrokken (drie plekken)
+- [x] Lint-poort groen, 71 tests
 
 ### Where I left off
 
-Klaar voor PR, maar **dit is site-werk en wacht op Dave**. Te controleren op de deploy preview:
-open de twee mixpagina's en luister of het geluid bij de tracklist past.
+Klaar voor PR, maar **dit is site-werk en wacht op Dave**.
 
-- `/luister/mix/purple-full-f-edm-176bpm-20210412`
-- `/luister/mix/purple-light-f-edm-dnb-20210329`
+**Er is precies één zichtbare wijziging, en die zit op de mixpagina's.** `size-base` en `size-lg`
+werkten niet en werken nu wel, dus tekst die om die grootte vroeg verandert daadwerkelijk van
+grootte. Kijk op de deploy preview naar `/luister/mix/<willekeurige-slug>`, bij de blokken met de
+beschrijving en de tracklist — daar staan ze naast `size-sm`/`size-xs`.
 
-De eerste hoort Liquid Drum & Bass op 176 BPM te zijn en niet de Blue-mix; de tweede idem en niet
-een Progressive House-set op 128 BPM.
-
-Wat dit issue blootlegde en openblijft: de objectnamen op R2 volgen geen reproduceerbare conventie
-(`V1`/`V2`/`V3`/`V4` en `v1` door elkaar, `Vol 1` zonder punt, een spatie waar een underscore
-hoort). Daardoor is zo'n naam niet af te leiden maar alleen op te zoeken. `mix:add` waarschuwt daar
-sinds `fix/mix-add-schema` voor met een HEAD-check, maar de namen zelf zijn niet opgeschoond.
+Het verwijderen van `.w-fix` (28×) en `.flex` (6×) verandert niets: die klassen bestonden in geen
+enkele stylesheet, dus ze deden al niets. Dat is ook waarom `w-fix` is weggehaald in plaats van
+gedefinieerd — een definitie erbij zou de layout op 28 plekken wél veranderen, en niemand kan
+vaststellen welke breedte de bedoeling was.

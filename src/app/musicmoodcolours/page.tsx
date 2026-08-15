@@ -21,7 +21,7 @@ export default function MusicMoodColoursPage() {
 
 
             {/* 1. BANNER */}
-            <div className="WoB stack w-fill AMC P15 banner  v-push-7xl" id="mmc_banner">
+            <div className="WoB stack w-fill AMC P15 banner v-push-7xl" id="mmc_banner">
 
                 <div className="layer AMC visual back" id="mmc_banner_back"></div>
 
@@ -34,7 +34,7 @@ export default function MusicMoodColoursPage() {
 
                 <div className="column w-fill AMC P20 front" id="mmc_banner_front">
 
-                    <div className="column w-fix constrainer AML spacing-2xl">
+                    <div className="column constrainer AML spacing-2xl">
 
                         <div className="column w-hug AMC P30">
 
@@ -53,7 +53,7 @@ export default function MusicMoodColoursPage() {
                 {/* 2. INTRO */}
                 <div className="column w-fill AMC P20 spacing-6xl" id="intro">
 
-                    <div className="column w-fix AML constrainer">
+                    <div className="column AML constrainer">
 
                         <div className="column w-hug AML P30">
 
@@ -70,7 +70,7 @@ export default function MusicMoodColoursPage() {
 
                 <div className="column w-fill AMC P20 spacing-6xl" id="kleurenspectrum_2">
 
-                    <div className="column w-fix AML constrainer spacing-4xl">
+                    <div className="column AML constrainer spacing-4xl">
 
                         <div className="column w-hug AML P30 spacing-4xl">
 
@@ -102,7 +102,7 @@ export default function MusicMoodColoursPage() {
                             <BasiskleurenCarousel />
 
                 
-                    <div className="column w-fix AML constrainer spacing-2xl">
+                    <div className="column AML constrainer spacing-2xl">
 
 
                         <div className="column w-hug AML P30 spacing-2xl">
@@ -130,7 +130,7 @@ export default function MusicMoodColoursPage() {
 
                 <div className="column w-fill AMC P20 spacing-6xl" id="complementair_3">
 
-                    <div className="column w-fix AML constrainer spacing-2xl">
+                    <div className="column AML constrainer spacing-2xl">
 
                         <div className="column w-hug AML P30 spacing-2xl">
 
@@ -170,7 +170,7 @@ export default function MusicMoodColoursPage() {
                 {/* 5. NEURO (Muzikale kaart) */}
                 <div className="column w-fill AMC P20 spacing-6xl" id="neurotransmitters_4">
 
-                    <div className="column w-fix AML constrainer spacing-2xl">
+                    <div className="column AML constrainer spacing-2xl">
 
                         <div className="column w-hug AML P30 spacing-2xl">
 
@@ -254,7 +254,7 @@ export default function MusicMoodColoursPage() {
                 {/* 6. CONCLUSIE */}
                 <div className="column w-fill AMC P20 spacing-6xl" id="conclusie_5">
 
-                    <div className="column w-fix AML constrainer spacing-2xl">
+                    <div className="column AML constrainer spacing-2xl">
 
                         <div className="column w-hug AML P30 spacing-2xl">
 

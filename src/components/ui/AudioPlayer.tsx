@@ -81,13 +81,13 @@ export default function AudioPlayer({
 
 	return (
 		<div
-			className={`stack w-fix AMC audioplayer-wrapper ${stateClass} ${className}`}
+			className={`stack AMC audioplayer-wrapper ${stateClass} ${className}`}
 			data-id={id}
 			style={{ backgroundImage: `url(${image})` }}
 		>
 
 			{/* Playing */}
-			<div className="layer w-fix ABC P50 playing-wrapper">
+			<div className="layer ABC P50 playing-wrapper">
 
 				<div className="column w-fill AMC P55">
 
@@ -119,7 +119,7 @@ export default function AudioPlayer({
 						<div className="column w-hug AMC P65 pauseFilters">
 							<div className="column w-hug ALC pause">
 								<button className="btn w-hug pause fill-100" onClick={handleTogglePlay} aria-label="Pauzeer audio">
-									<svg className="w-fix pause" viewBox="6 5 12 14" aria-hidden="true">
+									<svg className="pause" viewBox="6 5 12 14" aria-hidden="true">
 										<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
 									</svg>
 								</button>
@@ -134,7 +134,7 @@ export default function AudioPlayer({
 								aria-label="Audio dempen"
 								onClick={() => setVolume(volume === 0 ? 1 : 0)}
 							>
-								<svg className="w-fix mute" viewBox="3 3.23 18 17.54" aria-hidden="true">
+								<svg className="mute" viewBox="3 3.23 18 17.54" aria-hidden="true">
 									<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.81 5 3.53 5 6.71s-2.11 5.9-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path>
 								</svg>
 							</button>
@@ -146,7 +146,7 @@ export default function AudioPlayer({
 							{showVolumeSlider && (
 								<div className="btn w-hug slider">
 									<input
-										className="w-fix slider"
+										className="slider"
 										type="range"
 										min="0"
 										max="1"
@@ -164,7 +164,7 @@ export default function AudioPlayer({
 			</div>
 
 			{/* Loading */}
-			<div className="layer w-fix AMC P50 loading-wrapper">
+			<div className="layer AMC P50 loading-wrapper">
 
 				<div className="column w-fill AMC P55 playfilters">
 
@@ -181,7 +181,7 @@ export default function AudioPlayer({
 			</div>
 
 			{/* Ready */}
-			<div className="layer w-fix AMC P50 ready-wrapper">
+			<div className="layer AMC P50 ready-wrapper">
 
 				<div className="column w-fill AMC P55 playfilters">
 
@@ -190,7 +190,7 @@ export default function AudioPlayer({
 						<div className="column w-hug AMC P65">
 
 							<button className="btn w-hug play" onClick={handleTogglePlay} aria-label="Speel audio af">
-								<svg className="w-fix play" viewBox="5 5 14 14" aria-hidden="true">
+								<svg className="play" viewBox="5 5 14 14" aria-hidden="true">
 									<path d="M8 5v14l11-7z"></path>
 								</svg>
 							</button>
