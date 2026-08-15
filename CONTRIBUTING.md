@@ -16,11 +16,21 @@ Die pagina beschrijft de cyclus zoals de gedeelde `workflow-davekjohn`-scripts h
 overal de **seam** waar een repo zelf het antwoord geeft. Deze pagina geeft die antwoorden. Lees de
 portable pagina voor het mechanisme, deze voor de waarden.
 
-> **Beide paden staan er met opzet, en het verschil is een keer duur geweest.** De scripts draaien uit de
-> **cache**, dus dat is de tekst die beschrijft wat er feitelijk gebeurt. De marketplace-clone is de bron en
-> kan verder zijn. Deze repo stond een tijd op 4.5.0 terwijl `life-hub` al op 4.6.0 liep, en de
-> release-scripts verschilden precies in het stuk dat toen geauditeerd werd. Lees bij twijfel
-> `installed_plugins.json` op `projectPath` en niet de sessie-context.
+> **Beide paden staan er met opzet, en het verschil is twee keer duur geweest — op twee verschillende
+> assen.** De scripts draaien uit de **cache**, dus dat is de tekst die beschrijft wat er feitelijk
+> gebeurt. De marketplace-clone is de bron en kan verder zijn.
+>
+> - **De versie-as:** deze repo stond een tijd op 4.5.0 terwijl `life-hub` al op 4.6.0 liep, en de
+>   release-scripts verschilden precies in het stuk dat toen geauditeerd werd. Lees bij twijfel
+>   `installed_plugins.json` op `projectPath` en niet de sessie-context.
+> - **De map-as:** op 2026-08-15 draaide er een `open-pr.ps1` uit de **clone** in plaats van uit de cache.
+>   Die zocht de entry op een pad dat nog niet is uitgebracht, vond niets, en de diagnose wees naar déze
+>   repo in plaats van naar de gedraaide kopie. Deze waarschuwing stond er toen al en ving hem niet: hij
+>   dekte alleen de as hierboven.
+>
+> De regel die beide dekt staat in [`CLAUDE.md`](CLAUDE.md#scripts): **cache om te dráaien, marketplace om
+> te lézen** — en het makkelijkste advies is de skill aanroepen in plaats van het script, want die print
+> zijn eigen cache-pad.
 
 **Hier staat de cyclus niet nóg een keer.** Wat hieronder volgt zijn de **antwoorden** van deze repo, per
 stap, met een verwijzing naar de portable stap waar het mechanisme staat. Tot 2026-08-13 beschreef deze
