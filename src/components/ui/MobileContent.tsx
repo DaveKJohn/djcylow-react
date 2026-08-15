@@ -36,6 +36,53 @@ const subscribeNever = () => () => { };
 const getMountedOnClient = () => true;
 const getMountedOnServer = () => false;
 
+/**
+ * De scroll-lock op `document.body`, geteld in plaats van geschreven.
+ *
+ * WAAROM EEN TELLER EN NIET GEWOON EEN TOEWIJZING. Op /luister leven er TWEE instanties van deze
+ * component naast elkaar: de nav-drawer en de filter-drawer. Tot 2026-08-15 schreef elke instantie
+ * rechtstreeks `document.body.style.overflow`, en het effect gaf geen cleanup terug. Dat gaf twee
+ * manieren om de pagina onbruikbaar of onbeschermd achter te laten:
+ *
+ *   (a) Unmount met de drawer open -- browser-back weg van /luister met het filterpaneel open --
+ *       liet `overflow: hidden` staan. De VOLGENDE pagina was dan niet meer scrollbaar.
+ *   (b) De nav-instantie hoefde alleen zijn eigen effect opnieuw te draaien (een oriëntatiewissel
+ *       klapt `isMobile` voor beide instanties om) om met `isOpen === false` de lock te WISSEN
+ *       terwijl de filterdrawer nog openstond.
+ *
+ * Met een teller kan geen van beide: de lock gaat aan bij de eerste die hem neemt en pas uit bij de
+ * laatste die hem teruggeeft. De oorspronkelijke waarde wordt bewaard en hersteld in plaats van
+ * hardgecodeerd leeggemaakt, zodat een stylesheet die `body { overflow-y: auto }` zet -- en dat doet
+ * `base/_reset.scss` -- niet stilletjes wordt overschreven.
+ *
+ * Module-scope en niet component-scope: dat is precies het punt. De twee instanties moeten dezelfde
+ * teller delen.
+ */
+let scrollLocks = 0;
+let vorigeOverflow: string | null = null;
+
+function lockScroll(): () => void {
+    if (scrollLocks === 0) {
+        vorigeOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+    }
+    scrollLocks += 1;
+
+    let vrijgegeven = false;
+    return () => {
+        // Guard tegen dubbel vrijgeven: React kan een cleanup in StrictMode twee keer aanroepen, en
+        // dan zou de teller onder nul zakken en de lock te vroeg loslaten.
+        if (vrijgegeven) return;
+        vrijgegeven = true;
+
+        scrollLocks -= 1;
+        if (scrollLocks === 0) {
+            document.body.style.overflow = vorigeOverflow ?? '';
+            vorigeOverflow = null;
+        }
+    };
+}
+
 interface MobileContentProps {
     title?: React.ReactNode;
     icon?: React.ReactNode;
@@ -78,13 +125,11 @@ export default function MobileContent({
     }
 
     // Dit blijft wel een effect: het schrijft naar document.body, en dat is een extern systeem
-    // bijwerken -- precies waar effects voor bedoeld zijn.
+    // bijwerken -- precies waar effects voor bedoeld zijn. Wat er WEL bij moest is een cleanup en
+    // een teller; zie `lockScroll` hierboven voor waarom.
     useEffect(() => {
-        if (isMobile && isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+        if (!(isMobile && isOpen)) return;
+        return lockScroll();
     }, [isOpen, isMobile]);
 
     const toggle = () => setIsOpen(prev => !prev);
