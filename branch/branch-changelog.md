@@ -1,12 +1,12 @@
-## `data/covers-en-afbeeldingspaden` changelog
+## `data/audio-mismatch` changelog
 
 ### Branch title
 
-Dode afbeeldingspaden in de mix-data hersteld en de spec op de werkelijkheid gezet
+Twee mixen spelen weer hun eigen audio
 
 ### Branch ID
 
-20260815-140951
+20260815-141837
 
 ### Branch type
 
@@ -14,68 +14,49 @@ data
 
 ### What does the change on this branch bring to main?
 
-**Er stonden 30 dode afbeeldingspaden in de mix-data. Dat zijn er nu nul**, gemeten over alle 85
-entries tegen de schijf. De inventaris week op één punt af van wat de issues beschreven: er waren
-28 dode `image_square` en niet 23+3 — de twee extra zijn de 2026-mixen uit #67, die in geen van
-beide tellingen zaten.
+Twee live mixpagina's speelden de audio van een andere mix af. Titel, tracklist, beschrijving en
+cover waren van de ene mix, het geluid van een andere — de bezoeker hoorde dus iets anders dan
+waarop hij klikte, met een tracklist die niet meeliep.
 
-**De drie kapotte covers zijn de goedkoopste kritieke reparatie** (#46). Purple, Red en Yellow
-wezen naar een bestand dat op twee manieren tegelijk fout was: een hoofdletter in de mapnaam —
-fataal op Linux, en Netlify bouwt op Linux — en `_preview_square` in plaats van `_square_preview`,
-waardoor het ook lokaal al faalde. Die drie zijn drie van de acht covers op `/musicmoodcolours`, in
-alle drie de componenten die ze tonen.
+| entry | speelde | speelt nu |
+|---|---|---|
+| `20210412` — Purple Full (f), 176 BPM | het **Blue Full**-bestand van 2024-04-08 | `Purple_Full_f_EDM_DNB_20210412_Audio_V1 (Vol. 1)` |
+| `20210329` — Purple Light (f), 176 BPM | een **Progressive House 128 BPM**-bestand uit 2023 | `Purple_Light_f_EDM_DNB_20210329_Audio_V2 (Vol. 1)` |
 
-> Deze drie entries dragen `ignore: true`, en `CLAUDE.md` zegt die nooit te wijzigen. Die regel gaat
-> over de *inhoud* van een preview — het zijn voorbeelden — en niet over een bestandspad dat
-> aantoonbaar nergens naar wijst. Ze dragen bovendien `featured: true` en zijn dus zichtbaar.
+**Het projectbord noemde dit geblokkeerd op informatie, en dat is het niet gebleken.** De juiste
+objectnamen zijn niet afgeleid maar **opgezocht**: uit de 77 bestaande `audioSrc`-waarden volgt per
+kleur en power een vaste vorm (`Purple_Full_f_..._V1`, `Purple_Light_f_..._V2`), en de kandidaten
+daaruit zijn met een HEAD-request tegen R2 getoetst. Beide bestanden bestaan gewoon — het waren
+copy-paste-fouten in de data, geen ontbrekende uploads. De ene staat op de legacy-bucket, de andere
+op de actieve; dat is per bestand overgenomen zoals het werkelijk is en niet gelijkgetrokken (dat
+is issue #68).
 
-**De 25 overige dode `image_square` zijn leeggemaakt, niet gerepareerd, en dat is een beslissing die
-op een meting rust.** Issue #66 bood twee wegen: de afbeeldingen genereren, of het veld leegmaken en
-de spec bijstellen. De eerste weg is dicht, en dat was niet vooraf bekend: een bestaande square is
-**geen uitsnede** van de bijbehorende wide-afbeelding maar een aparte foto. Gemeten op een paar
-waarvan beide bestaan is het gemiddelde kanaalverschil met een centrale crop **87.9 van 255** — bij
-een echte crop was dat een handvol geweest. Een gegenereerde square zou dus verzonnen beeldmateriaal
-zijn geweest dat er als origineel uitziet. Wil je vierkante covers voor de Full-mixen, dan moeten de
-afbeeldingen aangeleverd worden; tot die tijd is leeg de eerlijke waarde.
+**En de naam alleen was niet genoeg bewijs**, want een naam die klopt kan nog steeds naar het
+verkeerde object wijzen. De lengte is daarom tegen de tracklist gelegd: beide nieuwe bestanden
+komen uit op **1.40 en 1.42 MB per minuut**, precies in de band van de elf andere purple-mixen
+(1.28–1.47). De duur past dus bij de tracklist die op de pagina staat.
 
-**De twee ontbrekende `small`-varianten zijn wél gegenereerd** (#67), want daar gold het omgekeerde:
-`small` ís aantoonbaar een verkleining van `large` (verschil 3.1 en 9.8 — compressieruis), dus die
-zijn mechanisch af te leiden. `20260101` en `20260507` droegen het `_large`-pad in hun `small`-veld,
-waardoor elke bezoeker van `/luister` daar 1920x1080 binnenhaalde voor een kaartje. Er staan nu twee
-echte 480x270-bestanden, en de paden wijzen ernaar.
+**Er ligt nu een wacht op**, zoals het issue voorstelde: `audioSrc` moet uniek zijn over alle
+bestanden. Dat die poort echt sluit is niet aangenomen maar getoetst — met een opzettelijk
+duplicaat in de tree gaf de suite een rode test met de naam erbij, waarna de tree is hersteld.
+Beide oorspronkelijke fouten waren de **oudste** entry in hun bestand, wat past bij een copy-paste
+die nooit is afgemaakt.
 
-**De testsuite is meebewogen, en één ratchet is opgeheven.** `liveZonderSquareAfbeelding` stond op
-25 en is weg: `image_square` is nu een harde assertie. Daar is een nieuwe wacht bij gekomen die
-dekt wat het leegmaken openlaat — **elke `featured` entry moet een bestaand `image_square` hebben**,
-want dat zijn precies de acht die gerenderd worden. Die test kijkt naar álle entries en niet alleen
-de live, omdat de acht covers preview-entries zijn.
-
-**En de spec beschreef twee dingen verkeerd.** `image_square` heette "required" terwijl 25 entries
-het tegendeel bewezen; dat is nu "required for `featured`, may be empty otherwise", met de meting
-erbij. Daarnaast schreven `image_wide_small` en `image_square` `.jpg` voor, terwijl elk bestand op
-schijf `.webp` is en altijd is geweest.
-
-Bijvangst: `Green_Light_Preview` was de enige preview met ingevulde `image_wide_*`-velden, en die
-wezen naar bestanden die nooit hebben bestaan — previews staan uitsluitend als square op schijf. De
-andere zeven laten die velden leeg; deze is daarmee gelijkgetrokken.
-
-Sluit #46, #66 en #67.
+Sluit #45.
 
 ### Significance
 
 #### Tier 0
 
-De data klopt weer met de schijf, en dat is nu afgedwongen in plaats van geteld: een ratchet is
-vervangen door een harde assertie plus een nieuwe wacht op de featured-covers. De spec belooft niet
-langer iets wat de data niet levert.
+De uniciteit van `audioSrc` is nu afgedwongen in plaats van verondersteld, en die poort is
+aantoonbaar sluitend.
 
-**Score:** 3
+**Score:** 2
 
 #### Tier 1
 
-Drie van de acht covers op `/musicmoodcolours` waren gebroken afbeeldingen, in alle drie de
-componenten die ze tonen. Daarnaast haalde elke bezoeker van `/luister` voor twee mixen een
-1920x1080-bestand binnen waar een 480x270-kaartje stond.
+Twee van de 77 mixpagina's lieten de bezoeker iets anders horen dan waarop hij klikte. Op een site
+die om het luisteren draait is dat het ergste wat een pagina kan doen zonder stuk te gaan.
 
 **Score:** 4
 

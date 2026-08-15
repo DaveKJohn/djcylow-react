@@ -180,6 +180,18 @@ describe('mix-data: uniciteit van de sleutels', () => {
 		expect(uniek(live.map((e) => e.mix.id_spotify))).toEqual([]);
 	});
 
+	/**
+	 * Issue #45: twee mixen droegen de `audioSrc` van een ándere entry, byte-identiek. Titel,
+	 * tracklist, beschrijving en cover waren van mix A, het geluid van mix B -- de bezoeker hoorde
+	 * dus iets anders dan waarop hij klikte, met een tracklist die niet meeliep.
+	 *
+	 * Het waren allebei de oudste entry in hun bestand, wat past bij een copy-paste die nooit is
+	 * afgemaakt. Niets hield dat tegen; dit is de wacht die daarop staat.
+	 */
+	it('heeft een unieke `audioSrc` per live mix', () => {
+		expect(uniek(live.map((e) => e.mix.audioSrc))).toEqual([]);
+	});
+
 	it('heeft een unieke `title_spotify` per live mix -- die uniciteit hangt aan volume_spotify', () => {
 		expect(uniek(live.map((e) => e.mix.title_spotify))).toEqual([]);
 	});

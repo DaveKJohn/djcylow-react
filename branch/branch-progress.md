@@ -1,31 +1,29 @@
-## `data/covers-en-afbeeldingspaden` progress
+## `data/audio-mismatch` progress
 
 ### Steps
 
-- [x] Alle 85 entries tegen de schijf gemeten: 30 dode paden gevonden (issues telden er 28)
-- [x] Gemeten of een square een crop van de wide is — **nee**, 87.9/255 verschil, aparte foto
-- [x] Gemeten of small een verkleining van large is — **ja**, 3.1 en 9.8 verschil
-- [x] Twee ontbrekende `_small.webp` gegenereerd uit `_large` (480x270)
-- [x] #46: drie covers hersteld (mapcasing + omgedraaide suffix)
-- [x] #67: twee `image_wide_small` van `_large` naar `_small`
-- [x] #66: 25 niet-afleidbare `image_square` leeggemaakt
-- [x] Bijvangst: dode wide-paden van `Green_Light_Preview` leeggemaakt
-- [x] Ratchet `liveZonderSquareAfbeelding` opgeheven, harde assertie in de plaats
-- [x] Nieuwe test: elke `featured` entry heeft een bestaand `image_square`
-- [x] Spec bijgesteld: `required` genuanceerd, en `.jpg` → `.webp` op twee plekken
-- [x] Hertelling: **0 dode paden**, 214 geldige, 41 lege velden
-- [x] Lint-poort groen, 72 tests
+- [x] Het naampatroon afgeleid uit de 77 bestaande `audioSrc`-waarden
+- [x] Kandidaten getoetst met HEAD-requests tegen beide R2-buckets — beide gevonden
+- [x] Geverifieerd dat de lengte bij de tracklist past (1.40 en 1.42 MB/min, band 1.28–1.47)
+- [x] `20210412` in `full-purple.json` gecorrigeerd
+- [x] `20210329` in `light-purple.json` gecorrigeerd, zonder de entry te raken die dezelfde URL
+      terecht droeg
+- [x] Test toegevoegd: `audioSrc` uniek per live mix
+- [x] Bewezen dat die test blokkeert, met een opzettelijk duplicaat; tree daarna hersteld
+- [x] JSON geldig, 72 tests groen
 
 ### Where I left off
 
-Klaar voor PR, maar **dit is site-werk en wacht op Dave**. Wat er op de deploy preview te zien is:
-de acht covers op `/musicmoodcolours` horen nu alle acht een afbeelding te tonen — Purple, Red en
-Yellow waren gebroken.
+Klaar voor PR, maar **dit is site-werk en wacht op Dave**. Te controleren op de deploy preview:
+open de twee mixpagina's en luister of het geluid bij de tracklist past.
 
-**Eén ding staat open en is jouw beslissing:** de 25 leeggemaakte `image_square`-velden. De
-afbeeldingen zijn niet af te leiden (gemeten), dus als Full-mixen ooit vierkante covers moeten
-krijgen, moeten die aangeleverd worden. Zolang dat niet gebeurt is er niets zichtbaars aan de hand:
-de drie componenten die dit veld lezen filteren op `featured`, en geen enkele Full-mix is dat.
+- `/luister/mix/purple-full-f-edm-176bpm-20210412`
+- `/luister/mix/purple-light-f-edm-dnb-20210329`
 
-Nog niet gedaan uit dit spoor: #68 (alle 25 Full-mixen op de legacy R2-bucket), #95 (volume-nummering,
-Cyan-emoji, drie te lange descriptions) en #45 (twee mixen spelen andermans audio).
+De eerste hoort Liquid Drum & Bass op 176 BPM te zijn en niet de Blue-mix; de tweede idem en niet
+een Progressive House-set op 128 BPM.
+
+Wat dit issue blootlegde en openblijft: de objectnamen op R2 volgen geen reproduceerbare conventie
+(`V1`/`V2`/`V3`/`V4` en `v1` door elkaar, `Vol 1` zonder punt, een spatie waar een underscore
+hoort). Daardoor is zo'n naam niet af te leiden maar alleen op te zoeken. `mix:add` waarschuwt daar
+sinds `fix/mix-add-schema` voor met een HEAD-check, maar de namen zelf zijn niet opgeschoond.
