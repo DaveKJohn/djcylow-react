@@ -25,7 +25,7 @@ const COLOR_TO_STATE: Record<string, { dopamine: boolean; serotonine: boolean; a
     "blue": { dopamine: false, serotonine: false, adrenaline: false, label: "Onverschillig" },
     "cyan": { dopamine: true, serotonine: false, adrenaline: false, label: "Vermaakt" },
     "purple": { dopamine: false, serotonine: true, adrenaline: false, label: "Verdrietig" },
-    "magenta": { dopamine: false, serotonine: false, adrenaline: true, label: "Geirriteerd" },
+    "magenta": { dopamine: false, serotonine: false, adrenaline: true, label: "Geïrriteerd" },
     "green": { dopamine: true, serotonine: true, adrenaline: false, label: "Dankbaar" },
     "yellow": { dopamine: true, serotonine: false, adrenaline: true, label: "Ambitieus" },
     "red": { dopamine: false, serotonine: true, adrenaline: true, label: "Bang" },

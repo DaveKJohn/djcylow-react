@@ -55,31 +55,42 @@ export default function RootLayout({
                     `}
                 </Script>
 
-                {/* UX Toggle Script */}
-                <Script id="ux-mode-toggle" strategy="afterInteractive">
-                    {`
-                        (function() {           
+                {/* UX Toggle Script -- alleen buiten productie.
+
+                    Dit registreerde tot 2026-08-15 op ELKE pagina een globale keydown-listener op de
+                    losse toets `w`. Elke bezoeker die buiten een invoerveld op die toets drukte, zette
+                    de klasse `ux-mode` op <html> en <body> en veranderde daarmee het uiterlijk van de
+                    site. Dat is bereikbaar bij gewone toetsenbordnavigatie en bij type-ahead-zoeken op
+                    een pagina zonder gefocust veld.
+
+                    De combinatie is meteen Ctrl+Shift+W geworden in plaats van de losse toets: ook in
+                    ontwikkeling is een enkele letter te makkelijk per ongeluk te raken. */}
+                {process.env.NODE_ENV !== 'production' && (
+                    <Script id="ux-mode-toggle" strategy="afterInteractive">
+                        {`
+                        (function() {
 
                             function toggle() {
                                 document.body.classList.toggle('ux-mode');
                                 document.documentElement.classList.toggle('ux-mode');
-                                
+
                                 const isEnabled = document.body.classList.contains('ux-mode');
                                 console.log('✅ UX Mode:', isEnabled ? 'AAN' : 'UIT');
                             }
 
                             window.addEventListener('keydown', (e) => {
-                                const isTyping = e.target.tagName === 'INPUT' || 
-                                                e.target.tagName === 'TEXTAREA' || 
+                                const isTyping = e.target.tagName === 'INPUT' ||
+                                                e.target.tagName === 'TEXTAREA' ||
                                                 e.target.isContentEditable;
 
-                                if (e.code === 'KeyW' && !isTyping) {
+                                if (e.code === 'KeyW' && e.ctrlKey && e.shiftKey && !isTyping) {
                                     toggle();
                                 }
                             });
                         })();
                     `}
-                </Script>
+                    </Script>
+                )}
             </head>
 
             <body className={`${poppins.variable} antialiased`}>
