@@ -755,9 +755,22 @@ Repo-eigen scripts:
   > bypass** met alleen `deletion` + `non_fast_forward`. Dat is een settingswijziging en dus Dave's
   > beslissing; zie issue #91.
   >
-  > Datzelfde issue stelt een tweede wijziging voor: `strict_required_status_checks_policy` staat op
-  > `false`, dus twee PR's die los groen zijn kunnen na elkaar mergen zonder dat `poort` de combinatie
-  > ooit heeft gezien. Ook dat is Dave's beslissing.
+  > **`strict_required_status_checks_policy` staat sinds 2026-08-15 op `true`** (Dave). Daarvóór
+  > stond hij op `false`, en dan konden twee PR's die los groen zijn na elkaar mergen zonder dat
+  > `poort` de combinatie ooit had gezien — precies de klasse fout die de build zou vangen als hij
+  > tegen de juiste basis had gedraaid, en in deze repo staat dat resultaat binnen minuten live.
+  >
+  > **Wat dat in de praktijk betekent: een PR moet bij zijn met `main` vóór de merge.** Is `main`
+  > intussen opgeschoven — en dat gebeurt hier bij elke fold — dan meldt GitHub de PR als "out of
+  > date" en is het `Update branch` of een lokale merge/rebase vóór je kunt mergen. Bij een reeks
+  > wachtende branches betekent dat dus één update-ronde per branch.
+  >
+  > De wijziging is gedaan met een `PUT` op de ruleset, met de volledige definitie terug en daarin
+  > exact één gewijzigd veld — geverifieerd door de opgehaalde ruleset vóór en ná te diffen: één
+  > verschil, en `bypass_actors`, `enforcement` en de required check `poort` zijn ongemoeid.
+  >
+  > **Het eerste voorstel uit #91 is bewust níet uitgevoerd**: een tweede ruleset zonder bypass zou
+  > `cut-release`'s eigen push naar `main` blokkeren, en dat is precies waarom die bypass er staat.
 - **`check-script-contract.ps1`** — bewaakt dat `repo-config.ps1` en `branch-info.ps1` de functies
   leveren die de gedeelde scripts verwachten. Woont in de plugin (`scripts/sync/` daar), niet in deze
   repo, en draait bij het starten van een sessie via de `script-contract-sessioncheck`-hook.
