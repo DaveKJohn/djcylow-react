@@ -23,11 +23,12 @@
 
 # SECURITY-HEADERS.
 #
-# De comments staan bewust BOVEN dit blok en niet ertussen. Bij de eerste poging stonden ze binnen
-# `[headers.values]`, en toen kwamen de twee nieuwe headers niet door in de deploy preview terwijl de
-# drie oude dat wel deden -- gemeten met `curl -I` op deploy-preview-118. Of dat werkelijk aan de
-# comments lag, wijst de volgende preview uit; de `X-Csp-Test`-header hieronder is er om dat te
-# onderscheiden. Zie de step-list van deze branch.
+# DE COMMENTS STAAN BOVEN DIT BLOK EN NOOIT ERTUSSEN -- DAT IS GEEN STIJLKEUZE.
+# Bij de eerste poging stonden ze mét lege regels binnen `[headers.values]`, en toen leverde de deploy
+# preview de twee NIEUWE headers niet uit terwijl de drie bestaande gewoon doorkwamen. Geen
+# foutmelding, en Netlify's eigen "Header rules"-check bleef op `pass` staan. Na het verplaatsen van
+# precies die comments kwamen alle vijf door, geverifieerd met `curl -I` op deploy-preview-118.
+# Zet hier dus geen comment tussen: je headers verdwijnen dan stil.
 #
 # PERMISSIONS-POLICY: camera, microfoon en locatie stonden open voor elke ingesloten frame, en de
 # site sluit er twee in (YouTube en reCAPTCHA). Geen van beide heeft die rechten nodig.
@@ -65,4 +66,3 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=()"
     Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; media-src 'self' https://pub-4fa4c2c1f9a644c4878cba29a7926443.r2.dev; frame-src https://www.youtube-nocookie.com https://www.google.com; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
-    X-Csp-Test = "aanwezig"
