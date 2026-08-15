@@ -6,7 +6,10 @@ import EmailDisplay from "@/components/common/EmailDisplay";
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
     ssr: false,
-    loading: () => <div style={{ height: "78px" }}>Captcha laden...</div>,
+    // De hoogte is functioneel en geen opmaak: hij houdt de ruimte vrij die de reCAPTCHA-widget
+    // straks inneemt, zodat het formulier niet verspringt zodra die laadt. Daarom een klasse met de
+    // reden erbij, in plaats van een los getal in de JSX.
+    loading: () => <div className="captcha-placeholder">Captcha laden...</div>,
 });
 
 export default function ContactForm() {
@@ -120,15 +123,14 @@ export default function ContactForm() {
                     {status === "success" ? (
                         <div className="column spacing-3xl center" id="succesMessage">
                             <div className="column text-wrapper center spacing-3xl">
-                                <div style={{ fontSize: '3rem' }}>✅</div>
+                                <div className="succes-icon">✅</div>
                                 <h3 className="succes text">Bericht verzonden!</h3>
                                 <p>Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op.</p>
                             </div>
                             {/* Knop om terug te gaan naar het formulier */}
                             <button
-                                className="btn size-base"
+                                className="btn size-base opnieuw-btn"
                                 onClick={() => setStatus("idle")}
-                                style={{ marginTop: '1rem' }}
                             >
                                 Nieuw bericht sturen
                             </button>
@@ -147,7 +149,13 @@ export default function ContactForm() {
                                 <div className="column w-fill AML P40-xl fill-80">
                                     <input className="column w-fill AML P45" type="hidden" name="form-name" value="contact" />
 
-                                    <div className="column w-fill AML P45" style={{ display: "none" }}>
+                                    {/* Honeypot: onzichtbaar voor mensen, wel invulbaar voor bots. Het `id` haakt
+                                        in op `#honeypot { display: none }`, dat al in _contact-form.scss stond maar
+                                        door niets werd gebruikt -- de inline `display: none` hier was dus een
+                                        duplicaat van bestaande CSS.
+                                        LET OP: `netlify/functions/send-email.js` leest `bot-field` niet uit, dus
+                                        deze val vangt vandaag niets. Dat is een aparte bevinding (zie #83). */}
+                                    <div className="column w-fill AML P45" id="honeypot">
                                         <label>Bot field: <input name="bot-field" /></label>
                                     </div>
 
@@ -189,7 +197,10 @@ export default function ContactForm() {
 
                                     {status === "error" && (
                                         <div className="column spacing-3xl">
-                                            <p className="size-base error text" style={{ color: 'red' }}>{errorMessage}</p>
+                                            {/* De kleur zat hier als `color: 'red'` inline. Dat was statisch én een
+                                                contrastprobleem; `#errorMessage p.text` gebruikt al #d93025, en die
+                                                waarde geldt nu ook hier. */}
+                                            <p className="size-base error text foutmelding">{errorMessage}</p>
                                         </div>
                                     )}
 

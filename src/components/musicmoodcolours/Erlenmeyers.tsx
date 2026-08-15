@@ -93,7 +93,7 @@ export default function Erlenmeyers() {
                                 className={activeColor}
                             />
                         ) : (
-                            <div className="column center wrapper" style={{ minHeight: '150px' }}>
+                            <div className="column center wrapper placeholder-mix">
                                 <p className="size-xs">Selecteer stoffen...</p>
                             </div>
                         )}
