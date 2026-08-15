@@ -141,9 +141,18 @@
     // zichtbaar. Het weghalen is daarmee visueel neutraal -- gemeten in de gebouwde CSS, niet
     // aangenomen.
     //
-    // WAT ER NIET IS OPGELOST: welke ux-kleur de splitter zou moeten krijgen. Dat is een
-    // ontwerpkeuze en geen reparatie, dus die blijft open in plaats van dat er hier een kleur wordt
-    // gegokt die niemand heeft gekozen.
+    // WELKE UX-KLEUR DE SPLITTER KRIJGT, IS OP 2026-08-15 BESLIST: geen. Hij houdt `--black-70` /
+    // `--white-70`, dezelfde kleur als buiten ux-mode. Twee redenen, en de tweede is de sterkste.
+    //
+    // Ten eerste is de ux-modus een leesbaarheidsmodus die INHOUD hertint -- tekst en de vlakken
+    // eronder. Een splitter is geen inhoud maar structuur: een haarlijn van 1px die zegt waar een
+    // blok ophoudt. Er is geen leesbaarheidswinst te halen op iets dat niets te lezen geeft.
+    //
+    // Ten tweede: dit heeft nóóit gewerkt. De key "50" bestond niet vanaf de eerste regel, dus wat
+    // hier al die tijd te zien was IS `--black-70`. Er is dus niets om naar terug te keren -- een
+    // ux-kleur kiezen zou een NIEUWE zichtbare wijziging zijn, gebaseerd op een bedoeling die
+    // niemand ooit heeft opgeschreven. Wie hem alsnog wil, kiest daarmee iets nieuws en niet
+    // iets verlorens, en dat is een aparte beslissing van Dave.
     //
     // Dit was de derde lege `background-color:!important` in de gebouwde CSS; de andere twee kwamen
     // van dezelfde soort fout bij `.btn.cta` (zie `components/ui/_buttons.scss`).

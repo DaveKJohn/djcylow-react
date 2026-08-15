@@ -3,6 +3,15 @@
 @use "../../abstracts/variables" as v;
 @use "../../abstracts/functions" as fn;
 
+// De play-knop imiteert bewust die van YouTube, want daar linkt hij heen. Dit zijn dus de
+// MERKKLEUREN VAN YOUTUBE en niet die van DJ Cylow — ze horen daarom expliciet niet in
+// `abstracts/variables/_colors.scss`, en ze mogen niet meebewegen als het palet verandert.
+// Ze staan hier als variabele zodat ze herkenbaar zijn als "van iemand anders", niet om
+// hergebruikt te worden.
+$youtube-red: #ff0000;
+$youtube-red-hover: #cd201f;
+$youtube-arrow: #ffffff; // het driehoekje; wit van YouTube, niet --white-100 (#eeeeee)
+
 #promo {
     #promo_front {
         z-index: 2;
@@ -101,7 +110,7 @@
                 transform: translate(-50%, -50%);
                 width: 68px;
                 height: 48px;
-                background-color: #ff0000;
+                background-color: $youtube-red;
                 transition: all 0.2s ease;
                 z-index: 2;
                 border-radius: 12px;
@@ -115,12 +124,12 @@
                     transform: translate(-50%, -50%);
                     border: solid transparent;
                     border-width: 10px 0 10px 18px;
-                    border-left-color: #fff;
+                    border-left-color: $youtube-arrow;
                 }
             }
 
             &:hover:not(.is-playing) .play-button {
-                background-color: #cd201f;
+                background-color: $youtube-red-hover;
                 transform: translate(-50%, -50%) scale(1.1);
             }
 
