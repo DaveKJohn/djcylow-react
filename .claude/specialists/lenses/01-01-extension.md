@@ -44,8 +44,16 @@ tóch niet meebewogen, en dat is geen verzuim maar rust op twee dingen die geen 
 1. **De suite dekt de mix-data, niet de vormgeving.** Geen enkele test kan bewijzen dat een pagina er góéd
    uitziet, en dat is precies wat de uitzondering bewaakt.
 2. **De ruleset `main-ci-gate` heeft `bypass_actors` voor Admin en Maintain**, en dat moet zo — anders
-   blokkeert hij `cut-release`'s eigen push naar `main`. Voor wie als admin werkt is de required check dus
-   adviserend; wat hij hard tegenhoudt is force-push, het verwijderen van `main`, en merges door niet-admins.
+   blokkeert hij `cut-release`'s eigen push naar `main`. Die bypass staat op `bypass_mode: "always"`, en
+   GitHub kent geen bypass per regel: de **hele** ruleset staat daarmee opzij voor een admin, dus ook
+   `deletion` en `non_fast_forward`. Voor Dave houdt hij dus **niets** hard tegen — hij beschermt alleen
+   tegen collaborators met minder dan Maintain, en die zijn er niet.
+
+   > **Hier stond tot 2026-08-15 dat hij "force-push, het verwijderen van `main`, en merges door
+   > niet-admins" hard tegenhoudt.** Geverifieerd via de API (ruleset 20818953): onjuist voor de eerste
+   > twee. Dat woog zwaar omdat dit de enige lens is die automatisch meelaadt én het argument waarmee de
+   > PR-grens wordt verantwoord — het argument zelf blijft staan, en wordt door deze correctie zelfs
+   > sterker: de menselijke blik is hier niet de tweede lijn maar de enige.
 
 Vandaar dat ook een refactor die visueel niets verandert onder de uitzondering blijft vallen. Het herwegen
 van die grens is een beslissing van Dave, en die staat nu open — makkelijker dan eerst, want elke PR krijgt
