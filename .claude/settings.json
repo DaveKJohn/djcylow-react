@@ -9,7 +9,17 @@
       "PowerShell(git push --force:*)",
       "PowerShell(git push -f:*)",
       "PowerShell(git reset --hard:*)",
-      "PowerShell(git rebase:*)"
+      "PowerShell(git rebase:*)",
+      "Bash(git push origin +:*)",
+      "PowerShell(git push origin +:*)"
+    ],
+    "ask": [
+      "Edit(./next.config.ts)",
+      "Write(./next.config.ts)",
+      "Edit(./netlify.toml)",
+      "Write(./netlify.toml)",
+      "Edit(./public/images/**)",
+      "Write(./public/images/**)"
     ]
   },
   "enabledPlugins": {
