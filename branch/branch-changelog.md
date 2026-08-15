@@ -1,85 +1,67 @@
-## `config/netlify-publish-en-csp` changelog
+## `fix/scss-hover-en-alignment` changelog
 
 ### Branch title
 
-netlify.toml wijst de juiste publicatiemap aan en meet een Content-Security-Policy
+Het hover-effect van de CTA-knop werkt weer en .row valt niet meer uit de uitlijnlogica
 
 ### Branch ID
 
-20260815-191055
+20260815-174438
 
 ### Branch type
 
-config
+fix
 
 ### What does the change on this branch bring to main?
 
-Twee dingen in `netlify.toml`, het bestand dat de safety-rules beschermen omdat een fout erin de live
-site plat legt.
+**Het hover-effect van de CTA-knop werkt weer.** Drie dingen versterkten elkaar. `_buttons.scss:54`
+riep `apply-ux-bg(width)` aan, maar die mixin verwacht een P-shade (`"15"`..`"65"`) en kreeg het woord
+`width` — het defaultargument van `cta-hover-effect`. Bij een refactor is daar de verkeerde mixinnaam
+blijven staan. Sass gaf geen fout, want `map.get` levert netjes `null`, maar in de gebouwde CSS stond
+daardoor letterlijk `body.ux-mode .btn.cta{background-color:!important}`: een lege en dus ongeldige
+declaratie. Tegelijk kreeg het `::before` wel een kleur maar geen `content`, `position`, `width` of
+`transition`, zodat het pseudo-element helemaal niet rendert — terwijl precies die vier al die tijd in
+de mixin `cta-hover-effect` stonden, die nergens werd aangeroepen. Eén regel vervangen herstelt het
+effect én ruimt de dode mixin op. Gemeten in de gebouwde CSS: `content:""`, `width:0` → `100%` op
+hover en de transition staan er nu.
 
-**De publicatiemap wees naar `.next`, waar geen `index.html` staat.** `next.config.ts` zet
-`output: 'export'`, en dan schrijft `next build` de complete site naar `out/`. Als Netlify `.next`
-letterlijk zou publiceren, was de hele site een 404. Dat hij tóch werkt komt doordat de Netlify
-Next.js-runtime `output: 'export'` herkent en zelf de export-map neemt — maar die runtime staat
-nergens in dit bestand verklaard, dus de configuratie leunde op een detectie die de repo niet
-vastlegt. Nu staat er `publish = "out"`, wat de aanname expliciet maakt zonder het resultaat te
-veranderen.
+**`.row` viel uit de uitlijnlogica, en dat was een val.** `_set-align-logic` zette de uitlijning twee
+keer: eerst zonder `!important`, daarna via `@at-root :is(.row-c, .stack, .column)` mét. Die eerste set
+was **altijd** dood — de tweede matcht in elk geval waarin de eerste matchte, en wint. Twaalf
+uitlijnklassen maal vier hosts, allemaal zonder effect.
 
-**Er was geen Content-Security-Policy en geen Permissions-Policy.** Live gemeten: `x-frame-options`,
-`x-content-type-options` en `referrer-policy` komen wel door, die twee niet. Dat weegt hier zwaarder
-dan gemiddeld omdat de site GTM laadt — een mechanisme dat per ontwerp willekeurige tags injecteert,
-met een container waarvan de inhoud buiten deze repo wordt beheerd. Zonder CSP is er geen enkele
-begrenzing op wat daarlangs in de pagina van de bezoeker draait.
+Ernstiger was dat `.row` niet in die `:is()` stond terwijl `alignment-grid` wél op `.row, .row-c` wordt
+toegepast, en de `break-m`/`break-s`-varianten binnen dat blok zitten. Een
+`<div className="row AMC break-s">` matchte daardoor geen enkele regel: niet
+`:is(.row-c,.stack,.column).row.AMC.break-s` (een `.row` is geen `.row-c`) en niet
+`.row-c.AMC.break-s`. De klasse met de meest voor de hand liggende naam deed op mobiel dus stilletjes
+niets. Vandaag staan alle tien `break-*`-gebruiken in de JSX toevallig op `row-c`, `column` of `stack`,
+dus dit was een val en geen zichtbare storing — maar een val zonder waarschuwing.
 
-De CSP staat **bewust als `Report-Only`**. Die blokkeert niets en meldt alleen in de console; dat is
-de juiste eerste stap, want een te strakke policy breekt de site zonder dat een build of test het
-ziet, en er is geen staging. De bronnenlijst is gemeten aan de gebouwde HTML en de componenten:
-googletagmanager, google/gstatic voor reCAPTCHA, youtube-nocookie en i.ytimg voor de promo, en de
-R2-bucket voor de audio. Fonts staan er niet bij, want `next/font/google` haalt die bij de build
-binnen en serveert ze self-hosted — geverifieerd: nul verwijzingen naar `fonts.gstatic.com` in de
-uitgeleverde HTML.
+**En er kwam een derde geval van dezelfde faalklasse boven water dat in geen issue stond.** Bij het
+natellen van de lege declaraties bleken er **drie** te zijn, niet twee. De derde zat in `.splitter`:
+die haalde `map.get($ux-black, "50")` op terwijl die map alleen `R90`/`R80`/`G90`/… kent. Ook daar
+`background-color:!important`. Dat blok is verwijderd — gemeten visueel neutraal, want de splitter viel
+en valt terug op `var(--black-70)`. **Welke ux-kleur hij zou moeten krijgen is een ontwerpkeuze en geen
+reparatie**, dus die is niet gegokt maar vastgelegd in issue #116.
 
-De Permissions-Policy sluit camera, microfoon en locatie af. Die stonden open voor elke ingesloten
-frame, en de site sluit er twee in.
-
-**Onderweg bleek er iets dat in geen enkel issue staat:** er zit **Cloudflare** vóór Netlify, en
-`www.djcylow.com` doet een 301 naar de apex. De `strict-transport-security`-header komt daar
-vandaan en niet uit dit bestand — gemeten levert Netlify zelf al
-`max-age=31536000; includeSubDomains; preload`. Dat is de reden dat het HSTS-voorstel uit #52 hier
-níet is uitgevoerd: die header aanpassen in `netlify.toml` raakt niet wat de bezoeker krijgt.
-
-**En de eerste poging leverde de twee nieuwe headers helemaal niet uit — stil.** De deploy preview
-gaf `x-frame-options`, `x-content-type-options` en `referrer-policy` netjes terug, maar de CSP en de
-Permissions-Policy niet. Geen foutmelding, geen gefaalde build, en Netlify's eigen "Header
-rules"-check bleef gewoon op `pass` staan.
-
-Het verschil tussen wat wél en niet doorkwam bleek **de comments**: de nieuwe headers stonden met
-uitleg en lege regels ertussen binnen `[headers.values]`. Na het verplaatsen van precies die comments
-naar bóven het blok kwamen alle vijf door. Dat is met een tijdelijke `X-Csp-Test`-header hard gemaakt,
-zodat een structuurprobleem te onderscheiden viel van een waardeprobleem; die testheader is daarna
-weer verwijderd en de eindmeting bevestigt alle vijf.
-
-Die val staat nu als waarschuwing in het bestand zelf, want hij faalt op de gevaarlijkste manier: je
-denkt dat er twee beveiligingsheaders staan, en er staat niets. Zonder deze meting was dat precies zo
-gemerged.
-
-**Wat de deploy preview verder bewijst:** alle vier de gemeten routes (`/`, `/luister`,
-`/musicmoodcolours`, `/diensten`) geven 200 met HTML terwijl `publish = "out"` actief is. Daarmee is
-de publicatiemap niet beredeneerd maar aangetoond.
+De gebouwde CSS gaat daarmee van **3** ongeldige declaraties naar **0**.
 
 ### Significance
 
 #### Tier 0
 
-De config beschrijft nu wat er werkelijk gebeurt in plaats van te leunen op auto-detectie, en de
-documentatie in `CLAUDE.md` en `README.md` die de build naar `.next` liet gaan is meegecorrigeerd.
+Drie plekken waar Sass een `null` doorliet en er ongeldige CSS uitrolde zonder één waarschuwing. Dat
+patroon is nu benoemd in de code zelf, op alle drie de plekken, met de meting erbij — zodat de
+volgende `map.get` met een verkeerde key herkend wordt.
 
 **Score:** 3
 
 #### Tier 1
 
-Twee beveiligingsheaders erbij op de live site, waarvan er één voorlopig alleen meet. De bezoeker
-merkt er niets van — dat is precies de bedoeling bij `Report-Only`.
+Het hover-effect van de belangrijkste knop op de site — de "Boek nu!"-CTA — werkt weer zoals bedoeld,
+en een uitlijnklasse die op mobiel niets deed doet nu wat hij belooft. Dat eerste is direct zichtbaar
+voor elke bezoeker die over de knop beweegt.
 
 **Score:** 3
 
