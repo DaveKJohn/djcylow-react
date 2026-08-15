@@ -22,7 +22,7 @@ export default function LuisterPage() {
             <section className="WoB column w-fill AMC P15 v-push-4xl" id="luister">
 
                 <div className="column w-fill AMC P20 spacing-2xl" id="luister_banner">
-                    <div className="column w-fix AMC constrainer">
+                    <div className="column AMC constrainer">
                         <div className="column w-fill AMC P30-banner">
                             <div className="column w-fill AMC P35">
                                 <h1>Luister</h1>
@@ -32,7 +32,7 @@ export default function LuisterPage() {
                 </div>
 
                 <div className="column w-fill AMC P20 spacing-2xl " id="luister_content">
-                    <div className="row-c break-s w-fix ATC constrainer">
+                    <div className="row-c break-s ATC constrainer">
                         <Suspense fallback={<PlaylistFallback />}>
                             <LuisterFilters />
                         </Suspense>

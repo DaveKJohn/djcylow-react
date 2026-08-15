@@ -11,7 +11,7 @@ const LINES = [45, 90, 135, 180];
 
 export default function CanvasCircle() {
 	return (
-		<div className="stack w-fix AMC fill-90" id="canvas_circle">
+		<div className="stack AMC fill-90" id="canvas_circle">
 			
 				{/* De scheidslijnen */}
 				<div className="layer lines">
@@ -21,7 +21,7 @@ export default function CanvasCircle() {
 				</div>
 
 				{/* De gradient overlay */}
-				<div className="layer w-fix circle"></div>
+				<div className="layer circle"></div>
 
 				{/* De kleurnamen gepositioneerd in de cirkel */}
 				<div className="layer overlay colours">

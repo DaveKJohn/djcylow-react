@@ -42,7 +42,7 @@ const Hero = () => {
 
             <div className="column w-fill AMC P20" id="hero_front">
 
-                <div className="column w-fix constrainer AML-C break-s spacing-2xl">
+                <div className="column constrainer AML-C break-s spacing-2xl">
 
                     <div className="column w-hug AMC P30">
                         <div className="column w-hug P35 AML-C break-s spacing-2xl text-wrapper">

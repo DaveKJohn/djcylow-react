@@ -65,7 +65,7 @@ export default function LuisterFilters() {
                 activePower={activePower}
             />
 
-            <div className="column w-fix AMC P30 spacing-xl " id="luister_content_filter">
+            <div className="column AMC P30 spacing-xl " id="luister_content_filter">
                 <div className="column w-fill AMC P35 spacing-xl">
                     <div className="column w-fill AMC P40 spacing-xl fill-90">
                         <div className="column w-fill AMC P45 spacing-xl">

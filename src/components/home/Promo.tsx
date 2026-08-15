@@ -20,7 +20,7 @@ const Promo = () => {
 
             <div className="column w-fill AMC P20" id="promo_front">
         
-                <div className={`column w-fix AMC constrainer  ${isExpanded ? 'is-expanded' : ''}`}>
+                <div className={`column AMC constrainer  ${isExpanded ? 'is-expanded' : ''}`}>
 
                     <div className="row-c break-m w-fill AMC P30 spacing-4xl">
 
@@ -41,7 +41,7 @@ const Promo = () => {
 
 
 
-                        <div className={`column w-fix AMC P35 stack video ${isPlaying ? 'is-playing' : ''}`} onClick={() => !isPlaying && setIsPlaying(true)}>
+                        <div className={`column AMC P35 stack video ${isPlaying ? 'is-playing' : ''}`} onClick={() => !isPlaying && setIsPlaying(true)}>
                             <div className="lazyload-wrapper" style={{ backgroundImage: !isPlaying ? `url(${thumbnail})` : 'none' }}>
                                 {!isPlaying ? (
                                     <div className="play-button"></div>

@@ -9,12 +9,12 @@ const Promo = () => {
     return (
         <section className="fullscreen column center WoB" id="verzoeknummers">
             <div className="column constrainer">
-                <div className="column spacing-4xl flex">
-                    <div className="column flex header">
+                <div className="column spacing-4xl">
+                    <div className="column header">
                         <h2 dangerouslySetInnerHTML={{ __html: homeContent.verzoeknummers_h3 || "" }} />
                     </div>
 
-                    <div className="column flex spacing-5xl v-start">
+                    <div className="column spacing-5xl v-start">
                         <div className="column spacing-3xl left">
                             <Image
                                 src="/images/verzoek.webp"
