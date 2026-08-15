@@ -1,30 +1,30 @@
-## `config/webp-veiligheid-en-ignore` progress
+## `docs/audit-correcties` progress
 
 ### Steps
 
-- [x] `convert-to-webp.js`: preview als default, verwijderen achter `--apply` (#61)
-- [x] Bestaande `.webp` wordt overgeslagen i.p.v. overschreven; `--force` doet het alsnog (#61)
-- [x] Exitcode volgt het resultaat; `main()` heeft een `.catch()` (#61)
-- [x] Alle vier gedragingen getoetst op een wegwerpbestand, inclusief exit 1 bij falen
-- [x] `npm run images:webp:dry` vervangen door `images:webp:apply`
-- [x] `ask`-regels voor de vier beschermde bestanden in `.claude/settings.json` (#62)
-- [x] Refspec-vorm `git push origin +HEAD:main` toegevoegd aan de denylist (#63, deelfix)
-- [x] `.claude/settings.local.json` in `.gitignore`, met verantwoording (#64)
-- [x] `CLAUDE.md` bijgewerkt: hulpscript-tabel, workflowstap 3, en de safety-invulling
-- [~] Allowlist snoeien (#63): bewust niet gedaan — zie hieronder
-- [x] Lint-poort groen, 71 tests, testmap opgeruimd
+- [x] Chris' lens: de twee redenen die de PR-grens wél dragen (#84)
+- [x] Vijftien lenzen naar het bestand dat er werkelijk staat — per lens gecontroleerd (#90)
+- [x] `repo-config.ps1`: testaantal, branch protection, en de major-recap-tegenspraak (#89)
+- [x] `CONTRIBUTING.md`: het blok dat opdracht gaf tot werk aan een lege seam (#85)
+- [x] `src/data/mixes/README.md`: titelformaat op vier plekken, plus de i18n-branchstatus (#88)
+- [x] `CLAUDE.md`: vijf punten uit #87 (pijler-tabel, `npm run lint`, ESLint-in-de-poort,
+      de release-taakverdeling, en de verouderende tellingen)
+- [x] De poort als drie stappen beschreven i.p.v. twee, op drie plekken
+- [x] PR-template: de poort op 0/0 plus een regel voor de testsuite
+- [x] Lint-poort groen, 71 tests
 
 ### Where I left off
 
-Klaar voor PR. Dit is machinerie en docs, dus het loopt door tot en met de fold — er verandert
-niets aan `djcylow.com`.
+Klaar voor PR. Dit is documentatie, dus het loopt door tot en met de fold.
 
-**Eén ding blijft bewust open: #63, het snoeien van `.claude/settings.local.json`.** Dat bestand is
-machine-lokaal en staat vanaf deze branch in `.gitignore`, dus zo'n wijziging zou in geen enkele
-diff zichtbaar zijn terwijl hij wel verandert wat er dagelijks zonder prompt draait. Dat hoort niet
-ongezien te gebeuren. Het issue blijft open met het volledige voorstel, en de volgordewaarschuwing
-die daar staat geldt onverkort: de uitvoerregel voor de plugin-cache geeft `cut-release` vrije
-doorgang naar `origin/main`, dus die mag er alleen bij als de push-regels tegelijk dichtgaan.
+**Twee dingen om te weten bij het mergen:**
 
-Let op bij het testen van de `ask`-regels: die gelden vanaf de volgende sessie. In deze sessie is de
-wijziging wel geschreven maar nog niet actief.
+1. **`src/data/mixes/README.md` wordt ook door `data/covers-en-afbeeldingspaden` gewijzigd.** Die
+   branch corrigeert de twee afbeeldingssecties (`.jpg` → `.webp`, en `required` genuanceerd); deze
+   het titelformaat en de i18n-noot. Verschillende plekken in hetzelfde bestand, dus een conflict is
+   onwaarschijnlijk maar niet uitgesloten. Merge ze niet gelijktijdig.
+2. **`CLAUDE.md` wordt ook door `config/tailwind-eruit` en `config/webp-veiligheid-en-ignore`
+   gewijzigd**, eveneens op andere plekken.
+
+#86 (README, zeven punten) is **niet** in deze branch afgerond: de Tailwind-punten daarvan zitten in
+`config/tailwind-eruit`, en de rest is nog open. Dat issue blijft dus staan.

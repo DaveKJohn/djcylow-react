@@ -1,81 +1,80 @@
-## `config/webp-veiligheid-en-ignore` changelog
+## `docs/audit-correcties` changelog
 
 ### Branch title
 
-images:webp verwijdert niets meer ongevraagd en faalt eerlijk
+Documentatie gelijkgetrokken met de machinerie die er werkelijk staat
 
 ### Branch ID
 
-20260815-142550
+20260815-144049
 
 ### Branch type
 
-config
+docs
 
 ### What does the change on this branch bring to main?
 
-Drie safety-rules stonden in `CLAUDE.md` en nergens in de machinerie. Die staan er nu wel.
+De documentatie beschreef op een reeks plekken machinerie die er niet meer zo staat. Vier daarvan
+waren niet passief-verouderd maar **stuurden de lezer actief de verkeerde kant op**.
 
-**`npm run images:webp` verwijderde bestanden zonder iets te vragen.** Het liep recursief door
-`public/images/`, converteerde, en `unlink`te het origineel — terwijl "bestanden verwijderen uit
-`public/images/`" hierboven expliciet onder *Nooit zonder expliciete toestemming van Dave* staat,
-juist omdat een pad in de mix-JSON er stil door breekt. Erger nog: via de `npm run *`-prefixregel op
-de allowlist kon dat draaien **zonder permissieprompt**. Preview is nu de default; verwijderen
-vraagt `--apply`. Alle vier de gedragingen zijn getoetst op een wegwerpbestand in plaats van
-aangenomen:
+**Chris' repo-lens beweerde dat er nul testsuites en geen branch protection waren** (#84). Er staan
+vier testbestanden en de ruleset `main-ci-gate` bestaat sinds 2026-08-13. Dat woog het zwaarst van
+alles hier: het is de **enige lens die automatisch meelaadt**, én het is het argument waarmee de
+PR-grens wordt verantwoord — dus elke sessie woog iemand de merge-beslissing op feiten die niet meer
+klopten, terwijl `CLAUDE.md` in een tabel het omgekeerde stelde. De conclusie blijft staan, maar rust
+nu op de twee redenen die hem wél dragen: de suite dekt de mix-**data** en niet de vormgeving, en de
+ruleset heeft `bypass_actors` waardoor de check voor een admin adviserend blijft.
 
-| | resultaat |
-|---|---|
-| `npm run images:webp` | toont de lijst, `.jpg` staat er daarna nog |
-| `npm run images:webp:apply` | converteert, origineel weg |
-| tweede run met bestaande `.webp` | overgeslagen in plaats van overschreven |
-| kapot bestand | `1 mislukt`, **exit 1** |
+**`CONTRIBUTING.md` gaf een opdracht tot werk dat al gedaan was, aan een seam die leeg hoort te
+blijven** (#85). Het blok beweerde dat de PR-template nog een Nederlandse placeholder droeg en dat
+`Get-PrDescriptionPlaceholder` gevuld moest worden op `docs/release-route-naar-script`. Vier
+beweringen, alle vier onwaar: de template draagt de canonieke placeholder, het is gerepareerd via de
+template-route juist *niet* via die seam, en die branch is gemerged en gefold.
 
-Die laatste was de ernstigste: het script zette nooit `process.exitCode`, dus het gaf **exit 0
-terwijl elke conversie faalde**. Een bestaande `.webp` werd bovendien stil overschreven waarna het
-origineel verdween — twee bestanden kwijt bij één naamconflict; `--force` doet dat nu alleen op
-verzoek. En `main()` had geen `.catch()`.
+**`scripts/repo-config.ps1` citeerde `CLAUDE.md` voor het tegendeel** (#89). Een comment bij
+`Get-ReleaseMajorMinMinors` zei dat een major hier "een volledig redesign of een framework-migratie"
+is "en niet een recap van tien minors zoals in de bron" — met bronvermelding, terwijl `CLAUDE.md`
+sinds 2026-08-13 exact het omgekeerde zegt. Dat is de tekst waar iemand op terugvalt die die waarde
+ooit wil zetten. Ook gecorrigeerd: het testaantal (stond op 36, waren er 71 — nu verwijst het naar
+`npx vitest run` in plaats van een getal dat gegarandeerd veroudert) en de reden waarom de CI-check
+adviserend is (niet "zonder branch protection", maar door `bypass_actors`).
 
-**De vier beschermde bestanden hebben nu enforcement** (#62). `.claude/settings.json` draagt een
-`ask`-lijst voor `next.config.ts`, `netlify.toml` en `public/images/**`. Bewust `ask` en geen
-`deny`: `CLAUDE.md` vraagt om Dave's woord, niet om onbereikbaarheid. De denylist heeft er daarnaast
-de refspec-vorm `git push origin +HEAD:main` bij gekregen, die langs de bestaande
-`git push --force`-regels glipte.
+**Vijftien repo-lenzen verwezen naar een plugin-id dat niet meer bestaat** (#90). Elke lens opende
+met *"in `specialists` plugin"*, terwijl dat id gesplitst is in `team-alpha` en `workflow-davekjohn`.
+Ze wijzen nu naar het bestand dat er werkelijk staat — en dat is **per lens gecontroleerd**: een
+eerste poging zette er `personas/NN-NN-persona.md` neer, en die map bevat er maar vier. De vijftien
+met de scaffold-header zijn precies de vijftien **agents**; één dode verwijzing was bijna vervangen
+door vijftien.
 
-> **Het issue nam aan dat dit niet zelf kon** — *"schrijfacties op settings-bestanden worden
-> geblokkeerd, de route is `/permissions` of met de hand"*. Dat bleek niet zo: de wijziging is
-> gewoon geschreven. De aanname is dus weerlegd en niet omzeild.
+Verder gelijkgetrokken met wat er staat:
 
-**`.claude/settings.local.json` staat nu in `.gitignore`** (#64). Het bleef hier alleen ongetrackt
-door een **machine-globale** ignore (`~/.config/git/ignore`), niet door de repo zelf. In een verse
-clone, op een andere machine of bij een collaborator staat het gewoon in `git status` — één
-`git add -A` verwijderd van meecommitten, en `git add -A` is precies wat `cut-release.ps1` doet. Dan
-landt een persoonlijke allowlist met lokale paden en een e-mailadres in een publieke repo.
+| | was | is |
+|---|---|---|
+| `src/data/mixes/README.md` | vier plekken schreven een ander titelformaat voor dan de spec zelf eist (#88) | alle vier gelijk aan de vereiste vorm, die alle 77 live titels al volgen |
+| idem | `description_en` "waiting on the parked `feature/i18n-setup`" | die branch is **gesloten** en gearchiveerd; hij komt niet vanzelf live |
+| `CLAUDE.md`, `CONTRIBUTING.md` | de poort als "`tsc` + build", op drie plekken | drie stappen, met `eslint .` erbij |
+| `CLAUDE.md` | "`npm run lint` = ESLint + TypeScript check" | alleen ESLint; de typecheck zit in `lint-web.ps1` |
+| `CLAUDE.md` | "`npm run lint` staat nog buiten de poort" | zit er sinds 2026-08-14 in — het document sprak zichzelf drie alinea's verderop tegen |
+| `CLAUDE.md` | versienummer en release-notes zijn "handwerk van Rendall" | het script doet ze; handwerk is het audience-concept en de Release |
+| `CLAUDE.md` | tellingen van 60 documenten / 37 development | weggehaald — ze verouderen bij elke cut |
+| `.github/pull_request_template.md` | "`npm run lint` gedraaid, geen nieuwe fouten" | de poort op 0/0, plus een regel voor de testsuite |
 
-**Wat hier bewust níet is gedaan: het snoeien van die allowlist zelf (#63).** Dat bestand is
-machine-lokaal en staat vanaf nu in `.gitignore`, dus zo'n wijziging verschijnt in géén enkele diff
-— en hij verandert wel wat er dagelijks zonder prompt mag draaien. Dat hoort niet ongezien te
-gebeuren. Het voorstel staat in issue #63 en blijft open, inclusief de waarschuwing die daar staat:
-de uitvoerregel voor de plugin-cache geeft `cut-release` vrije doorgang naar `origin/main`, dus die
-mag alleen samen met het dichtzetten van de push-regels.
-
-Sluit #61, #62 en #64.
+Sluit #84, #85, #87, #88, #89 en #90.
 
 ### Significance
 
 #### Tier 0
 
-Drie regels die alleen bestonden zolang iedereen `CLAUDE.md` gelezen had en zich eraan hield, zijn
-nu mechanisme. Het opruimscript kan niet meer stil bestanden verwijderen of een mislukking als
-succes rapporteren, en een persoonlijke allowlist kan niet meer per ongeluk in de publieke repo
-belanden.
+Vier van deze correcties stuurden actief verkeerd werk aan: een lens die bij elke sessie meelaadt en
+de PR-grens verkeerd verantwoordt, een opdracht tot werk aan een lege seam, een bronvermelding naar
+het tegendeel, en vijftien verwijzingen naar een plugin die niet bestaat. Dat is duurder dan een
+verouderde zin, want het kost iemand een dag aan de verkeerde reparatie.
 
 **Score:** 4
 
 #### Tier 1
 
-N/A — dit raakt de gereedschapskist en de guardrails, niet djcylow.com. De build levert dezelfde
-pagina's.
+N/A — dit raakt uitsluitend documentatie en comments. De build levert dezelfde pagina's.
 
 **Score:** N/A
 

@@ -37,12 +37,26 @@ site-werk en wacht hij.
 
 ### Waarom die grens hier ruimer ligt dan in de bron
 
-De gedeelde default leunt op *"the lint gate, the test gate, and CI"*. Daarvan ontbraken er hier twee.
-**Sinds 2026-08-13 is de CI er wel** (`.github/workflows/ci.yml`), maar de grens is niet meebewogen, en dat
-is geen verzuim: er zijn nog altijd nul testsuites, en zonder branch protection houdt een rode run een merge
-niet tegen — hij maakt hem zichtbaar. De poort bewijst nog steeds dat de code **bouwt**, niet dat het gedrag
-gelijk bleef. Vandaar dat ook een refactor die visueel niets verandert onder de uitzondering blijft vallen.
-Het herwegen van die grens is een beslissing van Dave, en die staat nu open.
+De gedeelde default leunt op *"the lint gate, the test gate, and CI"*. **Die drie staan er nu alle drie**:
+de lint-poort (`scripts/lint/lint-web.ps1`), CI (`.github/workflows/ci.yml`) en een testsuite. De grens is
+tóch niet meebewogen, en dat is geen verzuim maar rust op twee dingen die geen enkele poort wegneemt:
+
+1. **De suite dekt de mix-data, niet de vormgeving.** Geen enkele test kan bewijzen dat een pagina er góéd
+   uitziet, en dat is precies wat de uitzondering bewaakt.
+2. **De ruleset `main-ci-gate` heeft `bypass_actors` voor Admin en Maintain**, en dat moet zo — anders
+   blokkeert hij `cut-release`'s eigen push naar `main`. Voor wie als admin werkt is de required check dus
+   adviserend; wat hij hard tegenhoudt is force-push, het verwijderen van `main`, en merges door niet-admins.
+
+Vandaar dat ook een refactor die visueel niets verandert onder de uitzondering blijft vallen. Het herwegen
+van die grens is een beslissing van Dave, en die staat nu open — makkelijker dan eerst, want elke PR krijgt
+een Netlify deploy preview, dus site-werk is vóór de merge te bekíjken.
+
+> **Hier stond tot 2026-08-15 dat er "nog altijd nul testsuites" waren en "zonder branch protection".**
+> Beide waren onjuist: er staan vier testbestanden en de ruleset bestaat sinds 2026-08-13. Dat woog zwaar,
+> want dit is de **enige lens die automatisch meelaadt** én het argument waarmee de PR-grens wordt
+> verantwoord — een lezer woog de merge-beslissing dus op feiten die niet meer klopten, bij elke sessie
+> opnieuw. `CLAUDE.md` stelde in een tabel al het omgekeerde. De conclusie blijft staan; de redenering
+> eronder is vervangen door de twee die hem wél dragen.
 
 ### Routing die specifiek voor deze repo geldt
 
