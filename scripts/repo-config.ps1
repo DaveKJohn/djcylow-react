@@ -89,9 +89,14 @@ function Get-LintScript {
 # terwijl beide poorten zeggen "all test suites green". De seam bestaat sinds plugin 4.8.0
 # (inbound #644) precies voor dit geval.
 #
-# HET GETAL DAT DIT BEWAAKT: 36 tests over de mix-data in tests\mix-data.test.ts. De veldspec in
-# src\data\mixes\README.md beschreef die regels al, maar niets hield ze tegen; een fout erin haalt de
-# build (JSON is geldig, TypeScript is tevreden) en wordt daarna op djcylow.com zichtbaar.
+# WAT DIT BEWAAKT: de hele suite in tests\, niet alleen de mix-data. Die begon op 2026-08-13 met
+# 36 tests in tests\mix-data.test.ts en is sindsdien gegroeid -- vraag het huidige aantal op met
+# 'npx vitest run' in plaats van het hier bij te houden, want een getal in een comment loopt
+# gegarandeerd uit de pas (dit stond tot 2026-08-15 nog op 36 terwijl het er 71 waren).
+#
+# De veldspec in src\data\mixes\README.md beschreef die regels al, maar niets hield ze tegen; een
+# fout erin haalt de build (JSON is geldig, TypeScript is tevreden) en wordt daarna op djcylow.com
+# zichtbaar.
 #
 # 'vitest run' EN NIET 'npm test', bewust: npm zet er zijn eigen laag omheen die op een non-zero
 # exit een tweede foutblok print, en de poort leest de exit code. Het npm-script bestaat wel
@@ -565,7 +570,10 @@ function Get-ReleaseAudienceTier {
 #   REDEN 1 IS DIEZELFDE DAG OOK VERVALLEN, precies zoals de regel hierboven voorspelde: sinds
 #   2026-08-13 draait .github/workflows/ci.yml op elke PR. Er is dus wel een status-check. Wat overblijft
 #   is reden 2, en die verdwijnt niet vanzelf -- het is een menselijke beoordeling, geen poort. Let op:
-#   zonder branch protection is die check bovendien adviserend, want een merge gaat er gewoon langs.
+#   die check is voor een admin adviserend, maar om een ANDERE reden dan hier tot 2026-08-15 stond.
+#   Branch protection bestaat wel degelijk (ruleset main-ci-gate, sinds 2026-08-13); het punt is dat
+#   die bypass_actors heeft voor Admin en Maintain -- en dat MOET, anders blokkeert hij cut-release's
+#   eigen push naar main.
 #
 # Get-ReleaseMajorMinMinors -- hoeveel minors een major-lijn moet hebben gehad voordat er een major
 #   gecut mag worden. De default is 10 en die volstaat hier: de poort leest de minor-component van de
@@ -582,7 +590,12 @@ function Get-ReleaseAudienceTier {
 #
 #   WAT ER OP TE LETTEN VALT, voor wie hier ooit toch een waarde zet: de teller kijkt naar de minors
 #   binnen de HUIDIGE major. Vlak na een v3.0.0 staat die op nul, en dan houdt de default een v4.0.0
-#   tien minors lang tegen. Dat botst met het model van deze repo, waar een major een volledig redesign
-#   of een framework-migratie is (CLAUDE.md, "Versienummer bepalen") en niet een recap van tien minors
-#   zoals in de bron. Het is nu geen probleem en het is bij de eerstvolgende major geen probleem; het
-#   wordt er een bij de major die daarop volgt.
+#   tien minors lang tegen. Dat is iets om te weten, geen botsing: deze repo volgt sinds 2026-08-13
+#   het model van de bron, waarin een major juist WEL een recap van de minors ervoor is
+#   (CLAUDE.md, "Versienummer bepalen"). Het is nu geen probleem en bij de eerstvolgende major ook
+#   niet; het wordt er een bij de major die daarop volgt.
+#
+#   Hier stond tot 2026-08-15 het tegendeel -- "waar een major een volledig redesign of een
+#   framework-migratie is ... en niet een recap van tien minors zoals in de bron" -- met een
+#   bronvermelding naar CLAUDE.md die de lezer dus naar de omgekeerde regel stuurde. De tabel die dat
+#   comment aanhaalde is op 2026-08-13 vervangen; het comment bleef staan.
