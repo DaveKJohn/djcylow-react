@@ -580,6 +580,33 @@ val.
 > verschil maakte: twee kopieën van dezelfde versie-as verwarren kost je een verouderd script, twee
 > verschillende bomen verwarren kost je een verkeerde diagnose over de repo zelf.
 
+**Acht van de tien plugin-skills kan een specialist niet zelf aanroepen, en voor drie daarvan heeft
+deze repo een eigen ingang gemaakt** (Dave, 2026-08-15). De skills die naar buiten schrijven —
+`open-pr`, `ship-pr`, `park`, `fold-changelog`, `cut-release`, plus `lock`, `continue` en
+`fix-mojibake` — dragen `disable-model-invocation: true`. Dat is geen storing maar de guardrail van
+de bron tegen autonoom pushen, mergen en releasen; de bron beschrijft het bij PR #155 als *"closes
+the autonomous-invocation surface without touching the actual fold mechanism"*. Alleen `new-branch`
+en `adopt-config` staan aan, en die doen niets buiten je machine. Het verklaart ook waarom
+`/reload-plugins` "0 skills" kan melden: die teller sluit deze acht uit.
+
+| skill | eigen ingang in `.claude/skills/`? | waarom |
+|---|---|---|
+| `open-pr` | **ja** | de PR-regel hierboven zegt al *doorlopen tenzij*; site-werk wacht, de rest niet |
+| `fold-changelog` | **ja** | de fold is uitzondering 1 op "nooit direct op `main`", met een vastgelegde scope |
+| `park` | **ja** | een push is geen PR; de branch wordt bereikbaar, de PR-regel blijft apart |
+| `cut-release` | **nee** | staat hier aan Dave's expliciete verzoek; blijft slash-only |
+| `ship-pr` | **nee** | wordt hier niet gebruikt — de site-of-niet-beoordeling kan hij niet maken |
+
+Die drie ingangen **dupliceren geen enkel gedeeld script**: ze roepen via
+`scripts/task/shared.ps1` het origineel uit de cache aan, precies zoals een plugin-skill dat zou
+doen. Dat helperscript lost de versiemap zelf op — er staan acht versies in de cache en het pad dat
+een skill zou hardcoderen verschuift bij elke update. Het sorteert op `[version]` en niet op tekst,
+want anders wint `3.9.0` van `3.10.0`.
+
+> **Geef er geen `--` aan mee** om de argumenten te scheiden. PowerShell leest dat bij `-File` zelf
+> als parameternaam en stopt met *"the parameter name '' is ambiguous"*. Het is ook niet nodig: alles
+> wat niet `-Script` of `-Plugin` heet, valt vanzelf in `-Rest`.
+
 - **`new-branch`** — maakt de branch én **twee** bestanden in `branch/` (`branch-changelog.md`,
   `branch-progress.md`) plus de referentiekopieën in `branch/templates/`, in één stap (stap 1–3). Het
   achterliggende werk zit in `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` —
