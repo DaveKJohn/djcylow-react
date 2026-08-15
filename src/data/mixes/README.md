@@ -932,6 +932,25 @@ https://pub-9096148d84e34c73a3eca828877fcd5b.r2.dev/
 > Nothing is broken while the legacy bucket keeps serving. Migrating those 25 entries is worth doing,
 > but as its own deliberate piece of work — not as a side effect of something else.
 
+**And that migration is blocked on an upload, not on a rewrite.** On 2026-08-15 every one of the 25
+legacy URLs was requested against the *active* bucket as well: **0 of 25 exist there**. So the work is
+not "swap the hostname in 25 fields" — the files have to be copied to the active bucket first, which
+needs R2 access and is therefore Dave's step. Rewriting the URLs before that copy would take all 25
+mix pages offline, which is the exact failure the paragraph above warns about, arriving from the other
+direction.
+
+**One filename on the legacy bucket does not match its own data.** `Green Full (m) Vol. 2` (id
+`20231127`) is stored as `Green_Full_**f**_…` while the entry's `frequency`, `title` and `permalink`
+all say `m`. The data is internally consistent; the upload is what deviates. The `audioSrc` was
+pointed at the name that actually exists, because a working page beats a tidy URL — but if that file
+is ever renamed on R2, this field has to move with it. Verified to be the right recording rather than
+assumed: the file is 57m45s at 192 kbps and this tracklist's last track starts at 56m14s.
+
+**Use `node scripts/check-audio.js` to verify all of this.** It requests every `audioSrc` and exits 1
+on anything that is not reachable. It is deliberately not part of the test suite or the gate: it makes
+85 network calls to a bucket outside this repo, and a gate that goes red for an external reason gets
+ignored, at which point it guards nothing.
+
 New mixes and re-uploads always go to the active bucket.
 
 ### Bucket folder structure
