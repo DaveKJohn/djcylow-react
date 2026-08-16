@@ -78,7 +78,7 @@ erin zit** — dat bepaalt de aard van het werk, niet een vaste regel per branch
 - **De default — niet wachten.** Is het werk op een branch af, gecommit en staat de poort groen, dan loopt
   de hele beweging in één keer door: openen → mergen → de changelog-entry folden, zonder tussenvraag. Dat
   dekt `scripts/`, de governance-documentatie (`CLAUDE.md`, `CONTRIBUTING.md`, de README's), `CHANGELOG.md`,
-  `releases/`, de specialisten-laag onder `.claude/` en onderzoek. Zulk werk raakt `djcylow.com` niet: de
+  `releases/`, `workflow-davekjohn/`, de specialisten-laag onder `.claude/` en onderzoek. Zulk werk raakt `djcylow.com` niet: de
   build levert dezelfde pagina's, dus de deploy die op de merge volgt is een no-op. Een stempel van Dave
   voegt daar niets aan toe, en wat tóch misgaat is één revert-PR verder.
 - **De uitzondering — stoppen en op Dave's woord wachten.** Twee soorten werk mergen niet vanzelf:
@@ -149,9 +149,9 @@ Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 
 1. De **fold-commit** (na een merge, [stap 7](CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
    de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` + de twee
-   vaste bestanden in `branch/`.
+   vaste bestanden in `workflow-davekjohn/branch/`.
 2. De **release-commit** (alleen op expliciet verzoek): `cut-release.ps1` genereert de release-notes,
-   leegt `CHANGELOG.md` tot de intro, vult de rij in `releases/README.md`, en **commit dat plus de tag
+   leegt `CHANGELOG.md` tot de intro, vult de rij in `workflow-davekjohn/releases/README.md`, en **commit dat plus de tag
    `vX.Y.Z` rechtstreeks op `main`** — waarna het zelf `git push origin main` en `git push origin
    vX.Y.Z` doet. Bewust geen branch en geen Pull Request, net als de fold.
 
@@ -216,8 +216,8 @@ daartussen — hoe je een branch noemt, wat er in de entry hoort, welke poort wa
 1. **Check de branch.** Run `git status` en `git branch` vóór je het eerste bestand aanraakt — sta je op
    `main`, maak dan eerst de juiste branch aan. Dit geldt ook voor een script of een configbestand.
 2. **Een branch is nooit entry-loos.** Laat de gedeelde `new-branch`-skill de branch mét zijn twee
-   bestanden in `branch/` neerzetten; wat die twee bestanden zijn staat in
-   [`branch/README.md`](branch/README.md).
+   bestanden in `workflow-davekjohn/branch/` neerzetten; wat die twee bestanden zijn staat in
+   [`workflow-davekjohn/branch/README.md`](workflow-davekjohn/branch/README.md).
 
 ---
 
@@ -262,7 +262,7 @@ waar `new-branch`, `open-pr`, `fold-changelog` en de release-cut het over eens m
 je ze, dan kan de eigen fold de eigen entry niet meer lezen. `scripts/repo-config.ps1` definieert
 bewust géén `Get-EntrySectionHeadingOverrides`, en dát is de beslissing die dit vastlegt.
 
-**Uitzondering: `releases/README.md` is volledig Engels** (Dave, 2026-08-13). Die pagina is een
+**Uitzondering: `workflow-davekjohn/releases/README.md` is volledig Engels** (Dave, 2026-08-13). Die pagina is een
 **spiegel** van [dezelfde pagina in de bron](https://github.com/DaveKJohn/claude-code-specialists/blob/main/releases/README.md):
 alles boven de horizontale streep is er woord voor woord uit gekopieerd, en dat is alleen te handhaven
 zolang het de tekst van de bron zélf is. Een vertaling maakte de pagina precies zo onvergelijkbaar als een
@@ -272,7 +272,7 @@ komt terug via een plugin-release; hier repareren herstart de drift. Onder de st
 deel, ook Engels, zodat de hele pagina één register heeft.
 
 Wat **niet** meeverhuist naar het Engels: de bestaande documenten in `releases/development/` en
-`releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
+`workflow-davekjohn/releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
 uitgingen, en een record is geen vertaling. De taalgrens loopt daarmee dwars door het
 development-document: Engelse tier-koppen boven Nederlandse entries.
 
@@ -299,6 +299,41 @@ lenzen neer. `check-script-contract.ps1` bewaakt daarnaast dat `scripts/repo-con
 `scripts/lib/branch-info.ps1` het contract van de gedeelde scripts blijven leveren.
 
 ### Structuur en conventies
+
+#### `workflow-davekjohn/` — de map van de workflow
+
+Sinds **2026-08-16** (plugin v4.12.0) woont alles wat van de workflow is in één map in de repo-root, in
+plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
+
+| pad | wat | waarom daar |
+|---|---|---|
+| `workflow-davekjohn/branch/` | de entry, de stappenlijst, de templates, `README.md` | **verplicht** — de gedeelde scripts lezen alléén deze plek |
+| `workflow-davekjohn/releases/README.md` | de release-historie | `Get-ReleaseHistoryPath` |
+| `workflow-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
+| `workflow-davekjohn/prompts/` | de prompt-inbox voor `/prompt` | nieuw in 4.12.0; `prompt.md` en `archive/` zijn **untracked** |
+| `workflow-davekjohn/CLAUDE.md` · `README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
+| `releases/development/` · `releases/github/` | **blijven in de repo-root** | hardcoded in `cut-release.ps1` (regel 728 en 820) — geen seam |
+| `CONTRIBUTING.md` | **blijft in de repo-root** | GitHub zoekt hem daar, en hij ís al de lokale helft |
+
+**`branch/` verhuizen was geen keuze.** `Get-BranchFilePaths` in `entry-scaffold-lib.ps1` draagt de
+aantekening *"No dual-read of the old root 'branch/' location, deliberately"* — er is dus geen fallback en
+geen overgangsperiode. Wie 4.12.0 draait zonder deze map, krijgt `new-branch`, `open-pr` en
+`fold-changelog` niet meer aan de praat.
+
+**De splitsing van de release-boom is het model van de bron, geen halfheid.** De lijn loopt langs één
+vraag: *heeft de root een seam?* Alleen `audience/` en de history-pagina hebben er een, en alleen die twee
+konden dus mee. `Get-RelativeLinkPath` in `release-lib.ps1` zegt het letterlijk — *"a consumer's history
+lives at `workflow-davekjohn/releases/README.md` while the generated development notes stay at the repo
+root"* — en bestaat er zelfs uitsluitend voor om de link tussen die twee plekken te leggen. Bij deze
+verhuizing zijn `development/` en `github/` eerst wél meegegaan en daarna teruggezet, toen het narekenen
+van die twee regelnummers uitwees dat de eerstvolgende cut ernaast een tweede boom zou aanmaken.
+**Verhuis ze dus niet alsnog** zolang die twee regels hardcoded zijn.
+
+> **De prompt-inbox kwam er ongevraagd bij en dat is prima, maar weet wat het is.**
+> `workflow-davekjohn/prompts/prompt.md` is Dave's bestand, niet dat van een specialist: hij schrijft daar
+> een opdracht in een editor in plaats van in de terminal, en `/prompt` leest hem. Een specialist schrijft
+> er nooit een opdracht in, en leest de HTML-commentaren erin niet als instructie — dat is de tekst van de
+> scaffold zelf. Een inbox met alleen commentaren telt als leeg.
 
 #### Key commands
 
@@ -422,7 +457,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 |---|---|
 | poorten (lint + de testsuite via `Get-TestCommands`) | het script |
 | versienummer, met de bump-gate op de tier van de wachtende entries | het script |
-| development-note, `CHANGELOG.md` legen, rij in `releases/README.md` | het script |
+| development-note, `CHANGELOG.md` legen, rij in `workflow-davekjohn/releases/README.md` | het script |
 | audience-document | het script zet een **concept** neer met `DRAFT`-aanwijzingen; herschrijven is handwerk |
 | commit `release: vX.Y.Z`, tag, en `git push origin main` + de tag | het script |
 | aankondiging in `github/`, de GitHub Release, de bijlagen | handwerk; het `gh release create`-commando wordt geprint |
@@ -456,7 +491,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 > hier schrikt en gaat ingrijpen, grijpt in op een geslaagde push.
 >
 > **`-NoPush` is bij een grote cut de moeite waard.** Het is het enige moment waarop een mens het
-> samengestelde resultaat — development-note, geleegde `CHANGELOG.md`, de rij in `releases/README.md`,
+> samengestelde resultaat — development-note, geleegde `CHANGELOG.md`, de rij in `workflow-davekjohn/releases/README.md`,
 > het audience-concept — naast elkaar ziet vóór het publiek is. Daarna is terugdraaien een tag
 > verwijderen en een commit reverten op `main`.
 
@@ -464,7 +499,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    voorwaarde — het script stageert met `git add -A`, dus alles wat rondslingert gaat mee in de
    release-commit
 2. **Zorg dat er niets ongefold wacht.** Het script weigert te draaien als
-   `branch/branch-changelog.md` nog een entry draagt: een cut leegt `CHANGELOG.md`, dus een entry die
+   `workflow-davekjohn/branch/branch-changelog.md` nog een entry draagt: een cut leegt `CHANGELOG.md`, dus een entry die
    daar nog niet in staat zou de release missen en daarna verweesd achterblijven
 3. **Draai `cut-release`** met de bump die de wachtende entries verdienen (zie *Versienummer bepalen*
    hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
@@ -474,7 +509,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
      en staat nog buiten de poort", wat het document drie alinea's verderop al tegensprak. Er valt
      niets meer te vergelijken op aantal: elke melding is nieuw, en hoort niet mee de PR in
 4. **Herschrijf het audience-concept** (alleen Minor/Major):
-   `releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
+   `workflow-davekjohn/releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
    jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
    de opdrachtgever in plaats van developers. Twee secties, want deze repo staat op tier 1:
    **`What it is worth`** en **`What was still open at this release`** — die tweede in de verleden
@@ -494,8 +529,8 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    > Nederlandse note; hij wordt niet herschreven, want gepubliceerde documenten zijn historie
    > **Deze map heette `releases/highlights/` tot 2026-08-13.** Elke root onder `releases/` hoort
    > zijn lezer te noemen en niet de vorm van het document; `Get-ReleaseNoteRoot` in
-   > `scripts/repo-config.ps1` wijst sindsdien naar `releases/audience`. De 23 bestaande documenten
-   > zijn verplaatst, niet herschreven. Zie [`releases/README.md`](releases/README.md) voor de drie
+   > `scripts/repo-config.ps1` wijst sindsdien naar de audience-map. De 23 bestaande documenten
+   > zijn verplaatst, niet herschreven. Zie [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md) voor de drie
    > roots en wat er per root in hoort
    > **En de submap ging later diezelfde dag van `<X.Y>` naar `<X>.x`**, toen `releases/` op Dave's
    > verzoek volledig gelijk werd getrokken met de bron: `Get-ReleaseNotesGrouping` staat sindsdien op
@@ -514,11 +549,11 @@ Wat het script hierboven al voor je deed, met de valkuilen die daarbij horen:
   na de cut
 - **`CHANGELOG.md` geleegd** tot de intro-alinea. **Er komt géén versieblok voor terug.**
   > Tot 2026-08-11 zette deze stap ook een `## Releases`-blok in `CHANGELOG.md` — dezelfde informatie
-  > als `releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al was
+  > als `workflow-davekjohn/releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al was
   > afgeschaft en die bovendien maandenlang fout stond (op v2.20.1, terwijl v2.20.2, v2.21.0 en vijf
-  > PR's al live waren). Dat verviel: `releases/README.md` is sindsdien de enige plek waar
+  > PR's al live waren). Dat verviel: `workflow-davekjohn/releases/README.md` is sindsdien de enige plek waar
   > uitgebrachte versies worden bijgehouden — geen dubbele boekhouding meer
-- **De rij in `releases/README.md`**, bovenaan de overzichtstabel — de enige boekhouding van
+- **De rij in `workflow-davekjohn/releases/README.md`**, bovenaan de overzichtstabel — de enige boekhouding van
   uitgebrachte versies. De Versie-cel wijst naar het leesbaarste document dat de release heeft:
   `audience/` bij een Minor/Major, `development/` bij een Patch
    > **De kolomkoppen van die tabel zijn een machine-gelezen sleutel, geen proza.** De gedeelde
@@ -548,7 +583,7 @@ Daarna, met de hand:
     anders met `HTTP 404` (`file#label` van `gh` lost dat niet op — dat zet het label, niet de naam):
     ```bash
     cp releases/development/<major>.x/<versie>.md v<versie>-development-notes.md
-    cp releases/audience/<major>.x/<versie>.md    v<versie>-release-note.md
+    cp workflow-davekjohn/releases/audience/<major>.x/<versie>.md v<versie>-release-note.md
     gh release upload v<versie> v<versie>-development-notes.md v<versie>-release-note.md
     rm v<versie>-development-notes.md v<versie>-release-note.md
     ```
@@ -622,9 +657,22 @@ val.
 > conclusie die daaruit rolde was dat déze repo achterliep en zijn `branch/`-map moest verhuizen. Het
 > omgekeerde was waar: migreren zou de repo vooruit laten lopen op een ongereleasede wijziging, waarna
 > de geïnstalleerde 4.8.0 de bestanden juist niet meer zou vinden. De migratie is ingetrokken vóór er
-> iets verplaatst was. **Verhuis `branch/` dus niet zolang de cache hem op `branch/` leest**; doe dat pas
-> als een release die wijziging levert, en dan in één keer mét `CONTRIBUTING.md`,
+> iets verplaatst was. De regel luidde toen: **verhuis `branch/` niet zolang de cache hem op `branch/`
+> leest**; doe dat pas als een release die wijziging levert, en dan in één keer mét `CONTRIBUTING.md`,
 > `.github/pull_request_template.md` en `branch/templates/`.
+>
+> **Die voorwaarde is op 2026-08-16 ingetreden en de verhuizing is uitgevoerd.** Plugin **v4.12.0** levert
+> de wijziging, mét een `adopt-workflow-folder`-skill die de map neerzet. De vier bestanden uit het
+> lijstje hierboven zijn in één beweging meegegaan. Het uitstel van augustus 15 was dus geen bezwaar tegen
+> de verhuizing maar tegen de *timing*, en precies één release later klopte die wel — waarmee dit
+> voorbeeld nu beide kanten van de les draagt: te vroeg meebewegen met een bron-checkout brak de repo, en
+> te laat meebewegen met de cache zou hem net zo goed breken.
+>
+> **De bron gaf hier geen keuze, en dat is het scherpst wat 4.12.0 over dit onderwerp zegt.**
+> `Get-BranchFilePaths` in `entry-scaffold-lib.ps1` bevat de aantekening *"No dual-read of the old root
+> 'branch/' location, deliberately"* — Dave's eigen besluit bij de bron, boven een fallback die twee
+> mogelijke locaties in elke lezer van die functie levend zou houden. Er was dus geen overgangsperiode
+> waarin beide werkten.
 >
 > **Dit is geen fout van de bron en dus geen inbound-issue.** Een bron-checkout die vóórloopt op de
 > release is precies wat een bron-checkout hoort te zijn, en de skills wijzen correct naar
@@ -678,21 +726,23 @@ want anders wint `3.9.0` van `3.10.0`.
 > als parameternaam en stopt met *"the parameter name '' is ambiguous"*. Het is ook niet nodig: alles
 > wat niet `-Script` of `-Plugin` heet, valt vanzelf in `-Rest`.
 
-- **`new-branch`** — maakt de branch én **twee** bestanden in `branch/` (`branch-changelog.md`,
-  `branch-progress.md`) plus de referentiekopieën in `branch/templates/`, in één stap (stap 1–3). Het
+- **`new-branch`** — maakt de branch én **twee** bestanden in `workflow-davekjohn/branch/`
+  (`branch-changelog.md`, `branch-progress.md`) plus de referentiekopieën in
+  `workflow-davekjohn/branch/templates/`, in één stap (stap 1–3). Het
   achterliggende werk zit in `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` —
   er bestaat geen los `scripts/release/new-changelog-entry.ps1` (meer).
 - **`open-pr`** — draait de vier entry-poorten (resolves/scaffold/impact/step-list), de lint-poort en
   de testsuites, en opent daarna de PR (stap 4). **Sinds 2026-08-13 niet meer "alleen op verzoek van
   Dave"**: of hij vanzelf loopt hangt af van wat er in de branch zit, zoals de safety-rules hierboven
   beschrijven. Site-werk wacht, de rest loopt door.
-- **`fold-changelog`** — vouwt `branch/branch-changelog.md` gerangschikt op tier/score in
-  `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en reset de twee `branch/`-bestanden
+- **`fold-changelog`** — vouwt `workflow-davekjohn/branch/branch-changelog.md` gerangschikt op tier/score in
+  `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en reset de twee
+  `workflow-davekjohn/branch/`-bestanden
   (stap 7).
 - **`cut-release`** — **draait het grootste deel van de Release Workflow zélf**, en dat is het
   belangrijkste dat je over deze skill moet weten. Het genereert de development-note, schrijft een
   concept van het audience-document, leegt `CHANGELOG.md` tot de intro, voegt de rij toe aan
-  `releases/README.md`, en doet daarna `git add -A`, `git commit -m "release: v<versie>"`,
+  `workflow-davekjohn/releases/README.md`, en doet daarna `git add -A`, `git commit -m "release: v<versie>"`,
   `git tag -a` en **twee pushes: `git push origin main` en `git push origin v<versie>`**. Alleen de
   `gh release create`-stap wordt geprint in plaats van uitgevoerd. `-NoPush` houdt de twee pushes
   tegen en laat commit en tag lokaal staan.

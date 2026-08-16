@@ -219,15 +219,17 @@ function Get-MojibakePaths {
     $paths = @(Get-ChildItem -LiteralPath $RepoRoot -Filter '*.md' -File |
         Select-Object -ExpandProperty FullName)
 
-    # branch/ -- the branch's entry and step list. They were covered by the root glob above until the split
-    # moved them (August 6, 2026), and the entry is the single highest-value file in this set: its text is
-    # pasted verbatim into CHANGELOG.md and from there into the release notes, so a mis-decode caught
-    # anywhere later has already been copied twice.
-    # -Recurse for templates/: those are pasted into a real entry, so a mis-decode there is copied forward
-    # into every branch that uses them rather than staying in one file.
-    $branchDir = Join-Path $RepoRoot 'branch'
-    if (Test-Path -LiteralPath $branchDir) {
-        $paths += @(Get-ChildItem -LiteralPath $branchDir -Recurse -Filter '*.md' -File |
+    # workflow-davekjohn/ -- the workflow's own root folder, which holds the branch's entry and step list
+    # (under branch/, covered by the root glob above until the split moved them on August 6, 2026, and
+    # under this folder since August 14, 2026). The entry is the single highest-value file in this set:
+    # its text is pasted verbatim into CHANGELOG.md and from there into the release notes, so a mis-decode
+    # caught anywhere later has already been copied twice.
+    # -Recurse covers branch/templates/ (pasted into a real entry, so a mis-decode there is copied forward
+    # into every branch that uses them), the folder's scaffolded docs, and the audience notes that moved
+    # in here on August 16, 2026. The development notes did NOT move -- the block below still covers those.
+    $workflowDir = Join-Path $RepoRoot 'workflow-davekjohn'
+    if (Test-Path -LiteralPath $workflowDir) {
+        $paths += @(Get-ChildItem -LiteralPath $workflowDir -Recurse -Filter '*.md' -File |
             Select-Object -ExpandProperty FullName)
     }
 
@@ -254,6 +256,13 @@ function Get-MojibakePaths {
     # changelog). They sit outside the language rule because they are history, but the two questions are
     # not the same: not translating an old note preserves what it said, while leaving mojibake in it
     # preserves a mis-decode nobody wrote.
+    #
+    # THIS BLOCK STILL EARNS ITS PLACE AFTER THE AUGUST 16, 2026 MOVE, and that is worth stating because
+    # it looks redundant next to the -Recurse above. Only audience/ went into workflow-davekjohn/;
+    # development/ (39 files) and github/ stayed at the repo root because cut-release.ps1 hardcodes those
+    # two roots there -- see the comment on Get-ReleaseNoteRoot below. Drop this block and those 39
+    # documents leave coverage while the tool keeps reporting "clean", which is the exact failure that
+    # made this function necessary.
     $releasesRoot = Join-Path $RepoRoot 'releases'
     if (Test-Path -LiteralPath $releasesRoot) {
         $paths += @(Get-ChildItem -LiteralPath $releasesRoot -Recurse -File -Filter '*.md' |
@@ -286,14 +295,20 @@ function Get-MojibakePaths {
 # would land in, the inserter that writes that row, and new-internal-note.ps1, which repoints that row's
 # Version cell at the internal note once the note exists. One edit here moves all three.
 #
-# It is deliberately left at the DEFAULT, releases/README.md. The list lived in its own HISTORY.md for one
-# day (August 4, 2026), on the reasoning that one page should describe the process and another the outcome.
-# That reasoning was superseded the same day: the pages had since been reorganised portable-half first with
-# everything repo-specific in one named slot, and once that split exists, process-versus-outcome stops
-# earning a file boundary -- the outcome IS repo-specific content, so it is simply the last section of the
-# slot. Merging them also removed four cross-references the two pages needed to introduce each other, and
-# left a consumer with one file to mirror instead of two.
-$script:ReleaseHistoryPath = 'releases/README.md'
+# IT MOVED OFF THE DEFAULT ON 2026-08-16, when the whole releases/ tree went into workflow-davekjohn/
+# with the plugin's v4.12.0 upgrade. The shared default deliberately STAYS at the old root location --
+# "an unstated seam has to keep meaning what it meant yesterday", says the blueprint -- so a repo that
+# moves the tree has to say so here, or the guardrail, the inserter and new-internal-note.ps1 all keep
+# writing to a path that no longer exists. This is a 'decide' seam for exactly that reason.
+#
+# The file itself is unchanged by the move: still one page, still the mirror of the source's own. It
+# lived in its own HISTORY.md for one day (August 4, 2026), on the reasoning that one page should
+# describe the process and another the outcome. That reasoning was superseded the same day: the pages had
+# since been reorganised portable-half first with everything repo-specific in one named slot, and once
+# that split exists, process-versus-outcome stops earning a file boundary -- the outcome IS repo-specific
+# content, so it is simply the last section of the slot. Merging them also removed four cross-references
+# the two pages needed to introduce each other, and left a consumer with one file to mirror instead of two.
+$script:ReleaseHistoryPath = 'workflow-davekjohn/releases/README.md'
 
 function Get-ReleaseHistoryPath {
     <# Repo-root-relative path to the file that lists every release this repo has cut. #>
@@ -407,10 +422,26 @@ function Get-ReleaseNotesGrouping {
 # heeft er ook geen, en dat is een ANDERE reden: die root staat hardcoded in cut-release.ps1 (regel
 # 792) omdat een nieuwe root geen bestaande plaatsing hoeft te accommoderen. Deze repo hoeft daar dus
 # niets te declareren, maar de map moet wel bestaan -- de eerstvolgende cut schrijft erin.
-$script:ReleaseNoteRoot = 'releases/audience'
+#
+# VERHUISD OP 2026-08-16 van releases/audience naar workflow-davekjohn/releases/audience, met de
+# v4.12.0-upgrade van de plugin. De 25 bestaande documenten zijn met git mv meegegaan, zonder een letter
+# aan hun tekst te veranderen -- het zijn gepubliceerde documenten en dus historie.
+#
+# ALLEEN AUDIENCE VERHUIST, EN DAT IS GEEN HALF WERK MAAR HET BEDOELDE MODEL. De twee roots hierboven
+# zonder seam staan HARDCODED RELATIEF AAN DE REPO-ROOT in cut-release.ps1 -- releases/development/ op
+# regel 728, releases/github/ op regel 820 -- dus die kunnen niet mee: een cut zou ernaast een nieuwe
+# root-map aanmaken en je had twee boekhoudingen in plaats van een verhuizing. De bron zegt het met
+# zoveel woorden in Get-RelativeLinkPath (release-lib.ps1, regel 1011): "a consumer's history lives at
+# workflow-davekjohn/releases/README.md while the generated development notes stay at the repo root."
+# Die functie bestaat puur om de relatieve link tussen die twee plekken te leggen.
+#
+# Bij deze verhuizing zijn development/ en github/ eerst wel meegegaan en daarna teruggezet, toen het
+# narekenen van regel 728 en 820 dit aan het licht bracht. De boom die je nu ziet is de gemeten uitkomst,
+# niet de eerste aanname.
+$script:ReleaseNoteRoot = 'workflow-davekjohn/releases/audience'
 
 function Get-ReleaseNoteRoot {
-    <# Root-relatieve map van het handgeschreven release-document. Hier releases/audience. #>
+    <# Root-relatieve map van het handgeschreven release-document. Hier workflow-davekjohn/releases/audience. #>
     return $script:ReleaseNoteRoot
 }
 
