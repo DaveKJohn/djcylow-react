@@ -86,8 +86,9 @@ plan als afgerond melden dat nooit is geschreven.
 
 1. **De entry bevat het entry-blok en niets eromheen** — geen inleiding, geen waarschuwing. Dat is wat
    hem in één keer in `CHANGELOG.md` plakbaar maakt, en dat is zijn hele bestaansreden.
-2. **Noem paden in de entry als code-span, niet als link.** Een entry heeft twee woonplaatsen — `branch/`
-   zolang de branch loopt, en `CHANGELOG.md` ná de fold — en een relatief pad kan niet in beide kloppen.
+2. **Noem paden in de entry als code-span, niet als link.** Een entry heeft twee woonplaatsen —
+   `workflow-davekjohn/branch/` zolang de branch loopt, en `CHANGELOG.md` ná de fold — en een relatief
+   pad kan niet in beide kloppen.
    `` `next.config.ts` `` is op beide plekken correct; `[x](next.config.ts)` is dat op precies één plek.
    In `branch-progress.md` mag een gewone relatieve link (`../scripts/...`): dat bestand reist nooit.
 3. **Elke stap is opgelost vóór de PR** — `- [x]` of `- [~]`, zoals hierboven.

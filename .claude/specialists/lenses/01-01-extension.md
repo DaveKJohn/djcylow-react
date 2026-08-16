@@ -27,7 +27,7 @@ bron — dit is een verwijzing, geen tweede formulering. Wat je moet weten om te
 | de PR-regel: *doorlopen tenzij*, en welke ene soort werk wacht | [`#nooit-direct-op-main--via-branch--pr`](../../../CLAUDE.md#nooit-direct-op-main--via-branch--pr) |
 | wat nooit zonder Dave's woord gebeurt | [`#nooit-zonder-expliciete-toestemming-van-dave`](../../../CLAUDE.md#nooit-zonder-expliciete-toestemming-van-dave) |
 | de concrete paden, scripts en de poort | [`#safety-invulling-van-djcylow-react`](../../../CLAUDE.md#safety-invulling-van-djcylow-react) |
-| de route van branch tot fold | [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) plus de portable helft in de plugin |
+| de route van branch tot fold | [`workflow-davekjohn/CONTRIBUTING.md`](../../../workflow-davekjohn/CONTRIBUTING.md) plus de portable helft in de plugin |
 
 **De ene regel die Chris bij het routeren in zijn hoofd moet hebben:** deze repo *is* een frontend, dus de
 uitzondering "er valt iets aan de frontend te bekíjken" is hier geen randgeval maar het gros van het werk.

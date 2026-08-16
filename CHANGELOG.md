@@ -9,7 +9,8 @@ knippen) staat in [`CLAUDE.md`](CLAUDE.md).
 PR-merge schrijft daar rechtstreeks in. Alles hieronder staat dus al op `djcylow.com` — live, maar
 nog zonder versienummer. Een release is een label op wat al draait.
 
-**De uitgebrachte versies staan niet hier maar in [`releases/README.md`](releases/README.md)**, met
+**De uitgebrachte versies staan niet hier maar in
+[`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md)**, met
 datum, type en een samenvattende regel per versie. Dit bestand houdt alleen wat nog géén
 versienummer heeft; een release-cut haalt die entries eruit en laat deze intro achter.
 

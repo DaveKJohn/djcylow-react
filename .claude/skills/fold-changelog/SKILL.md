@@ -2,8 +2,9 @@
 name: fold-changelog
 description: >-
   Vouw de changelog-entry van een zojuist gemergede branch in CHANGELOG.md, verrijkt met de
-  PR-link en de merge-datum, en zet de twee bestanden in branch/ terug in hun resetstaat.
-  Dit is stap 7 van de cyclus in CONTRIBUTING.md en de enige directe commit op main, met een
+  PR-link en de merge-datum, en zet de twee bestanden in workflow-davekjohn/branch/ terug in hun
+  resetstaat. Dit is stap 7 van de cyclus in workflow-davekjohn/CONTRIBUTING.md en de enige
+  directe commit op main, met een
   scope die beperkt blijft tot CHANGELOG.md plus die twee bestanden. Gebruik dit direct na een
   merge, vanaf main.
 ---

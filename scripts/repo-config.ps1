@@ -547,7 +547,7 @@ function Get-LiveStage {
 # DE DOCUMENTATIE LIEP HIER OP ACHTER EN IS OP 2026-08-13 BIJGETROKKEN. Het tier-blok noemde drie te
 # beantwoorden tiers met 'Tier 2 -- een bezoeker van djcylow.com merkt het' en beschreef de ladder als
 # cumulatief; beide waren met dit antwoord achterhaald. Die correctie is meegenomen op het moment dat
-# het blok toch verhuisde: het staat nu in CONTRIBUTING.md ('Significance -- het verplichte
+# het blok toch verhuisde: het staat nu in workflow-davekjohn/CONTRIBUTING.md ('Significance -- het verplichte
 # tier-model') en vraagt tier 0 en tier 1, met de vervallen ladder erbij verantwoord. Een blok met een
 # bekende fout verhuizen zou de fout hebben meegenomen naar een nieuw adres.
 $script:ReleaseAudienceTier = 1
@@ -574,7 +574,7 @@ function Get-ReleaseAudienceTier {
 #   $true zou letterlijk hetzelfde zeggen als de fallback.
 #
 # Get-EntrySignificanceRubricLevels -- de tekst achter de scores 1 tot 5. De ingebouwde vijf banden
-#   volstaan, en CONTRIBUTING.md heeft ze in eigen woorden in de tabel bij stap 3 staan, inhoudelijk
+#   volstaan, en workflow-davekjohn/CONTRIBUTING.md heeft ze in eigen woorden in de tabel bij stap 3, inhoudelijk
 #   gelijk (tot 2026-08-13 stond die tabel in CLAUDE.md).
 #   OPNIEUW TE WEGEN nu het publiek op 1 staat: de contract-tekst noemt als reden voor een eigen
 #   verwoording juist een repo wiens lezers geen ontwikkelaars zijn, en tier 1 is hier het management en
@@ -585,7 +585,7 @@ function Get-ReleaseAudienceTier {
 #   uit. Een stub zou een correcte meting overschrijven met een waarde die niets nakijkt.
 #
 # Get-PrMergeMethod -- alleen gelezen door ship-pr.ps1, en die skill gebruikt deze repo bewust niet.
-#   Geen lezer, dus geen waarde. De merge-vorm zelf staat in CONTRIBUTING.md, cyclus stap 6.
+#   Geen lezer, dus geen waarde. De merge-vorm zelf staat in workflow-davekjohn/CONTRIBUTING.md, cyclus stap 6.
 #
 #   DE REDEN IS OP 2026-08-13 VERVANGEN, en dat is het opschrijven waard omdat de oude reden nu
 #   ONJUIST is. Hier stond: "hij zou in een beweging mergen, en een merge is hier een deploy die apart

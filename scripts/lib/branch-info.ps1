@@ -11,9 +11,10 @@
     bepaalt zowel het GitHub-label van de PR als het branch-type van de changelog-entry, en is PER
     REPO anders.
 
-    De canonieke bron van de taxonomie is de tabel in CONTRIBUTING.md, onder "De prefixen: zeven die
-    je kiest, negen die de lib kent"; deze tabel spiegelt die. (Tot 2026-08-13 stond die tabel in CLAUDE.md, onder
-    "Ontwikkelworkflow" stap 2.) Leid hem niet af uit de git-historie - die mist prefixen die wel
+    De canonieke bron van de taxonomie is de tabel in workflow-davekjohn/CONTRIBUTING.md, onder "De
+    prefixen: zeven die je kiest, negen die de lib kent"; deze tabel spiegelt die. (Tot 2026-08-13
+    stond die tabel in CLAUDE.md, onder "Ontwikkelworkflow" stap 2; tot 2026-08-16 stond de pagina
+    zelf in de repo-root.) Leid hem niet af uit de git-historie - die mist prefixen die wel
     bestaan (zo ontbrak style/ erin). De labels volgen de standaard GitHub-labels: enhancement / bug /
     documentation. Wijzigt de taxonomie? Dan op beide plekken - en nergens anders: alle scripts
     lezen deze ene tabel.
