@@ -560,9 +560,13 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
    je hoeft die er niet apart voor te zetten
    - De poort meldt sinds 2026-08-14 **0 errors en 0 warnings**, en ESLint zit er sinds diezelfde dag
-     zélf in, als tweede van de drie stappen — dit stond hier tot 2026-08-15 nog als "blijft handwerk
+     zélf in, als tweede van de vier stappen — dit stond hier tot 2026-08-15 nog als "blijft handwerk
      en staat nog buiten de poort", wat het document drie alinea's verderop al tegensprak. Er valt
      niets meer te vergelijken op aantal: elke melding is nieuw, en hoort niet mee de PR in
+   - De vierde stap is sinds 2026-08-16 de link- en anker-check. Bij een cut is dat de stap die er het
+     meest toe doet: een release schrijft in één keer een development-note, een audience-document en
+     een rij in `workflow-davekjohn/releases/README.md`, allemaal met verse relatieve links tussen twee
+     verschillende bomen — en dat is precies het soort werk waar PR #145 vijftien dode links liet staan
 4. **Herschrijf het audience-concept** (alleen Minor/Major):
    `workflow-davekjohn/releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
    jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
@@ -847,7 +851,8 @@ want anders wint `3.9.0` van `3.10.0`.
 Repo-eigen scripts:
 
 - **`scripts/lint/lint-web.ps1`** — de poort die `open-pr` draait: `tsc --noEmit` over
-  `tsconfig.lint.json`, **`eslint .`** en **`npm run build`**. ESLint kwam er op 2026-08-14 bij, toen
+  `tsconfig.lint.json`, **`eslint .`**, **`npm run build`** en sinds 2026-08-16 **`check-links.ps1`**.
+  ESLint kwam er op 2026-08-14 bij, toen
   de 37 pre-existing errors op 0 stonden; errors blokkeren, warnings niet maar worden wel geteld.
   Sinds 2026-08-15 draagt de buildstap een **ondergrens op het aantal statische pagina's**
   (`$MinStaticPages`, nu 89): daalt het eronder, of is het getal niet uit de buildoutput te lezen,
@@ -855,6 +860,24 @@ Repo-eigen scripts:
   verantwoording staat in de header van het script. Het draait sinds 2026-08-13 op twee plekken —
   lokaal onder Windows PowerShell 5.1 en in CI onder `pwsh` op Linux — en houdt daar in zijn
   preferences rekening mee.
+- **`scripts/lint/check-links.ps1`** — de **vierde** stap van die poort, sinds 2026-08-16: elke
+  relatieve link en elk anker in alle 107 markdown-bestanden tegen de tree. Hij dekt het enige deel
+  van deze repo dat tsc, ESLint en de build niet aanraken, terwijl het wel het deel is dat élke
+  sessie meeleest. **Aanleiding:** de mapverhuizing naar `workflow-davekjohn/` (PR #145) liet
+  **vijftien dode links** achter die een etmaal onopgemerkt bleven met een groene poort en groene CI;
+  ze zijn gevonden omdat er toevallig een tweede verhuizing overheen ging. Drie eigenschappen die je
+  moet kennen voor je hem aanpast:
+  - **Hij toetst tegen `git ls-files`, hoofdlettergevoelig, niet tegen `Test-Path`.** Een bestand dat
+    niet in git zit bestaat niet voor een lezer op GitHub, en `Test-Path` is op Windows
+    hoofdletterongevoelig — precies de letterkast-klasse waarvoor CI op ubuntu draait. Een doel dat
+    alleen op letterkast afwijkt krijgt een eigen melding.
+  - **Code-spans gaan eruit vóór hij op links matcht, maar níet uit koppen.** Beide richtingen zijn
+    fout gegaan tijdens het bouwen: `` `[x](next.config.ts)` `` in `workflow-davekjohn/branch/README.md`
+    is een *illustratie* en werd als dode link gemeld, en andersom rekent GitHub de tekst binnen
+    backticks wél mee in een anker — `#nooit-direct-op-main--via-branch--pr` bevat het woord `main`.
+    Wie die twee door elkaar haalt, "repareert" werkende links kapot.
+  - **Hij doet geen enkel netwerkverzoek.** Externe links worden niet opgevraagd, bewust dezelfde
+    afweging als bij `check-audio.js`: een poort die om een externe oorzaak rood staat wordt genegeerd.
 - **`.github/workflows/ci.yml`** — diezelfde poort, server-side, op elke PR en elke push naar `main`, plus
   de testsuite. Hij roept `lint-web.ps1` aan in plaats van tsc en de build over te schrijven, zodat er één
   poort te onderhouden blijft. Draait op **ubuntu** en niet op windows zoals de bron, omdat Netlify op
@@ -965,12 +988,16 @@ De grondwet hierboven, hier concreet ingevuld:
   **geen staging** en geen aparte publicatiestap. Een release cutten voegt daar een versienummer en
   een tag aan toe, maar zet niets nieuws live — dat was al gebeurd bij de merges.
 - **De poort vóór elke PR is de laatste wacht vóór een live deploy.** `open-pr` draait
-  `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit`, `eslint .` én `npm run build`, alle drie moeten
+  `scripts/lint/lint-web.ps1` (via `Get-LintScript`): `tsc --noEmit`, `eslint .`, `npm run build` én
+  `check-links.ps1`, alle vier moeten
   groen zijn. De build zit er sinds 2026-07-26 in, precies omdat een typecheck een kapotte build niet
   vangt en er niets tussen de merge en de site zit. **ESLint zit er sinds 2026-08-14 in**, als tweede
-  van de drie stappen. Daarmee is deze poort niet langer deels een afspraak: het oude advies
+  van de vier stappen. Daarmee is deze poort niet langer deels een afspraak: het oude advies
   "vergelijk op aantal en niet op exitcode" is vervallen, omdat er geen aantal meer te vergelijken is.
-  `-SkipBuild` bestaat om lokaal te itereren en hoort niet in de poort zelf.
+  **De link- en anker-check kwam er op 2026-08-16 bij**, als vierde en laatste — bewust áchter de
+  build, want een kapotte build is het ergste dat hier kan gebeuren en hoort als eerste te blokkeren.
+  `-SkipBuild` bestaat om lokaal te itereren en hoort niet in de poort zelf; de link-check slaat hij
+  níet over, want dode links repareren is precies het werk waarbij je de build niet nodig hebt.
   > **Sinds 2026-08-15 checkt de poort werkelijk wat hij beloofde, op twee punten die allebei een
   > belofte zonder mechanisme waren.**
   >
