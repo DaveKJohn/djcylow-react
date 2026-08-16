@@ -571,4 +571,4 @@ taken for a decision. All content has always been Dutch. Key Dutch terms used th
 
 ## Version History
 
-Detailed release notes are stored in `/releases/` (v1.0.0 – present), in three directories named after their reader: `development/` holds the full per-PR record of every release, `audience/` holds a plain-language note for Minor/Major releases, and `github/` holds the short announcement used as the GitHub Release body. See [`releases/README.md`](releases/README.md).
+Detailed release notes are stored in three directories named after their reader: `releases/development/` holds the full per-PR record of every release, `workflow-davekjohn/releases/audience/` holds a plain-language note for Minor/Major releases, and `releases/github/` holds the short announcement used as the GitHub Release body. The audience notes moved into `workflow-davekjohn/` on 2026-08-16 because that root is a configurable seam; the other two are hardcoded in the release script and stay at the repo root. See [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md).

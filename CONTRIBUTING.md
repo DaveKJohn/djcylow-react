@@ -36,7 +36,8 @@ portable pagina voor het mechanisme, deze voor de waarden.
 stap, met een verwijzing naar de portable stap waar het mechanisme staat. Tot 2026-08-13 beschreef deze
 pagina de zeven stappen wél voluit — inclusief het tier-model met zijn score-tabel, de zes entry-secties, de
 vier poorten van `open-pr` en de fold-mechaniek. Dat was een tweede beschrijving van tekst die al met de
-plugin meereist, en een tweede beschrijving loopt uit de pas: `releases/README.md` deed hetzelfde en daar
+plugin meereist, en een tweede beschrijving loopt uit de pas: de release-pagina (toen `releases/README.md`,
+sinds 2026-08-16 [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md)) deed hetzelfde en daar
 waren op de dag van het opruimen drie beweringen stil verouderd. De portable helft schrijft deze splitsing
 zelf voor — *"read this page for the cycle; read your own page for the values"* — dus dit is de bedoelde
 vorm en geen bezuiniging.
@@ -77,10 +78,11 @@ niet een formaliteit onderweg.
 | de rubric achter de scores 1–5 | de gedeelde vijf banden | *(geen override gedefinieerd)* |
 | de ene publieks-tier van deze repo | **1** — het management en de opdrachtgever | `Get-ReleaseAudienceTier` |
 | permanente root-docs | `CHANGELOG.md` · `CLAUDE.md` · `README.md` · `CONTRIBUTING.md` | `Get-ReservedRootMd` |
-| de release-historie | de tabel in [`releases/README.md`](releases/README.md) | `Get-ReleaseHistoryPath` |
+| de release-historie | de tabel in [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md) | `Get-ReleaseHistoryPath` |
 | indeling van de release-notes | per **major** (`2.x/`) — gelijk aan de bron sinds 2026-08-13 | `Get-ReleaseNotesGrouping` |
-| het handgeschreven release-document | [`releases/audience/`](releases/audience/), bij een minor en een major | `Get-ReleaseNoteRoot` · `Get-ReleaseConsumerBumps` |
-| de aankondiging die de Release-body wordt | [`releases/github/`](releases/github/), bij elke release | *(hardcoded in de bron, geen seam)* |
+| het handgeschreven release-document | [`workflow-davekjohn/releases/audience/`](workflow-davekjohn/releases/audience/), bij een minor en een major | `Get-ReleaseNoteRoot` · `Get-ReleaseConsumerBumps` |
+| de aankondiging die de Release-body wordt | [`releases/github/`](releases/github/) — **repo-root**, zie hieronder | *(hardcoded in de bron, geen seam)* |
+| de gegenereerde development-note | [`releases/development/`](releases/development/) — **repo-root**, zie hieronder | *(hardcoded in de bron, geen seam)* |
 | een aparte go-live-stap ná de cut | geen — de code stond al live vanaf zijn eigen PR-merge | `Get-LiveStage` (leeg) |
 
 Op één na wonen ze allemaal in [`scripts/repo-config.ps1`](scripts/repo-config.ps1); de prefix-tabel is
@@ -92,6 +94,29 @@ zelf.
 door `check-script-contract.ps1` als `[INFO]` gemeld, en dat aantal is de enige stand die met de
 blueprint meebeweegt — handgeschreven tellingen liepen hier al eens met drie verschillende getallen
 uiteen. De check draait bij elke sessiestart via de `script-contract-sessioncheck`-hook.
+
+#### De release-boom staat sinds 2026-08-16 op twee plekken, en dat is geen halve verhuizing
+
+Met plugin **v4.12.0** kreeg de workflow zijn eigen map, en de release-boom is daarbij gesplitst langs
+precies één lijn: **wat een seam heeft is mee verhuisd, wat hardcoded is niet.**
+
+| root | waar | waarom daar |
+|---|---|---|
+| `workflow-davekjohn/releases/README.md` | de map | `Get-ReleaseHistoryPath` wijst erheen |
+| `workflow-davekjohn/releases/audience/` | de map | `Get-ReleaseNoteRoot` wijst erheen |
+| `releases/development/` | de **repo-root** | hardcoded in `cut-release.ps1` (regel 728) |
+| `releases/github/` | de **repo-root** | hardcoded in `cut-release.ps1` (regel 820) |
+
+Dat is het model dat de bron zelf voorschrijft, met zoveel woorden in `Get-RelativeLinkPath`
+(`release-lib.ps1`, regel 1011): *"a consumer's history lives at `workflow-davekjohn/releases/README.md`
+while the generated development notes stay at the repo root."* Die functie bestaat er zelfs uitsluitend
+voor, om de relatieve link tussen de twee plekken te leggen.
+
+**Verhuis `development/` of `github/` dus niet alsnog "voor de netheid".** Bij deze upgrade zijn ze
+eerst wél meegegaan en daarna teruggezet, toen het narekenen van die twee regels uitwees wat er zou
+gebeuren: de eerstvolgende cut schrijft naar de repo-root, dus je zou een tweede boom náást de verhuisde
+krijgen in plaats van een verhuizing. De boom die je nu ziet is de gemeten uitkomst, niet de eerste
+aanname.
 
 ### De prefixen: zeven die je kiest, negen die de lib kent
 
@@ -173,10 +198,11 @@ Volgens de [prefix-tabel](#de-prefixen-zeven-die-je-kiest-negen-die-de-lib-kent)
 ### 3. Ontwikkel op de branch en houd de twee branch-bestanden bij
 
 Maak wijzigingen op de branch en commit met een duidelijke boodschap. De gedeelde
-**`new-branch`**-skill zet de branch én zijn twee bestanden in [`branch/`](branch/) in één stap neer — een
+**`new-branch`**-skill zet de branch én zijn twee bestanden in
+[`workflow-davekjohn/branch/`](workflow-davekjohn/branch/) in één stap neer — een
 branch is nooit entry-loos. Wat die twee bestanden zijn, welke zes secties de entry heeft, waarom de namen
 vast zijn en wat de drie stappentekens betekenen: **portable helft, stap 1 en 2**, en
-[`branch/README.md`](branch/README.md) voor het tweetal zelf.
+[`workflow-davekjohn/branch/README.md`](workflow-davekjohn/branch/README.md) voor het tweetal zelf.
 
 Wat déze repo daaraan toevoegt:
 
@@ -190,7 +216,7 @@ beslissing die dit vastlegt, niet deze alinea.
 hetzelfde blok, wat bij lang-openstaande branches tot merge-conflicten leidde. De vaste branch-bestanden
 lossen dat op: er is niets om over te conflicteren.
 
-**Nooit mergen zonder een gevuld `branch/branch-changelog.md`.** Dit geldt ook voor kleine of puur
+**Nooit mergen zonder een gevuld `workflow-davekjohn/branch/branch-changelog.md`.** Dit geldt ook voor kleine of puur
 documentaire wijzigingen.
 
 **Een entry met het verkeerde kopniveau wordt stil overgeslagen.** `Get-EntryHeadingLevel` is hier 2, dus de
@@ -210,21 +236,21 @@ keuze van 2026-08-12, in zijn eigen woorden — *bezoekers lezen geen release no
 daarom `#### Tier 0` en `#### Tier 1`, en vragen `open-pr` en de release-cut exact die twee compleet te zijn.
 
 Wie tier 1 hier precies is, welke wijzigingen hem bereiken en waarom dat de release-cadans bepaalt, staat op
-één plek: **[`releases/README.md`](releases/README.md#what-tier-1-means-here)**. Daar hoort het, want het is
+één plek: **[`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md#what-tier-1-means-here)**. Daar hoort het, want het is
 onderdeel van het release-model; hier staat alleen dát het antwoord 1 is. Eén regel om bij het invullen op
 terug te vallen: repo-machinerie bereikt Dave als **onderhouder** en blijft tier 0, de site zelf bereikt hem
 als **opdrachtgever** en is tier 1.
 
 ### 4. Push de branch en open de PR — behalve bij site-werk
 
-Zodra de branch klaar is (commits + een gevuld `branch/branch-changelog.md` en een leeg
-`branch/branch-progress.md`): push hem. **Of de PR daarna vanzelf opengaat, hangt af van wat er in de branch
+Zodra de branch klaar is (commits + een gevuld `workflow-davekjohn/branch/branch-changelog.md` en een leeg
+`workflow-davekjohn/branch/branch-progress.md`): push hem. **Of de PR daarna vanzelf opengaat, hangt af van wat er in de branch
 zit** — de toets en de twee uitzonderingen staan in de safety-rules van
 [`CLAUDE.md`](CLAUDE.md#nooit-direct-op-main--via-branch--pr), en die gaan boven deze pagina:
 
 | wat er in de branch zit | wat er gebeurt |
 |---|---|
-| `scripts/`, governance-docs, `CHANGELOG.md`, `releases/`, `.claude/`, onderzoek | **loopt door**: openen → mergen → folden, zonder tussenvraag |
+| `scripts/`, governance-docs, `CHANGELOG.md`, `releases/`, `workflow-davekjohn/`, `.claude/`, onderzoek | **loopt door**: openen → mergen → folden, zonder tussenvraag |
 | iets in `src/`, `public/` of `src/data/mixes/` | **stop na de push** en meld dat de branch klaar staat — een merge is hier een deploy naar `djcylow.com` |
 | een release, een tag, of een beschermd bestand | **stop** — expliciet verzoek van Dave vereist |
 
@@ -259,7 +285,7 @@ de entry. Twee dingen die hier gemeten zijn en niet in de portable helft staan:
   én een `upstream`-remote die naar dezelfde GitHub-URL wijzen, wat de branch-detectie van `gh` in de war
   stuurt met *"you must first push the current branch to a remote"*.
 
-> **De PR-body wordt gevuld uit `branch/branch-changelog.md`**, en dat werkt omdat
+> **De PR-body wordt gevuld uit `workflow-davekjohn/branch/branch-changelog.md`**, en dat werkt omdat
 > `.github/pull_request_template.md` de canonieke placeholder draagt waar `open-pr` naar zoekt.
 > `Get-PrDescriptionPlaceholder` in `scripts/repo-config.ps1` blijft daarom **bewust leeg**: die seam
 > bestaat om een afwijkende placeholder te melden, en er is er geen.
@@ -305,13 +331,13 @@ niet, en die kan een skill die openen, mergen en folden in één beweging doet n
 
 ### 7. Na de merge: vouw de changelog entry
 
-Vouw `branch/branch-changelog.md` in `CHANGELOG.md` via de gedeelde **`fold-changelog`**-skill. Hoe die de
-entry rangschikt, wat hij met de kop doet en dat de twee `branch/`-bestanden **gereset** worden in plaats van
+Vouw `workflow-davekjohn/branch/branch-changelog.md` in `CHANGELOG.md` via de gedeelde **`fold-changelog`**-skill. Hoe die de
+entry rangschikt, wat hij met de kop doet en dat de twee `workflow-davekjohn/branch/`-bestanden **gereset** worden in plaats van
 verwijderd: **portable helft, stap 5**. Dit gebeurt zonder aparte toestemming — het hoort bij het afronden
 van de zojuist goedgekeurde merge, net als de branch-opruiming in stap 6.
 
 Draai de skill met `-Commit`: die commit dan zelf, met bericht `fold: [branch] changelog (#NN)`, en de
-scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de twee `branch/`-bestanden. Dit is de
+scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de twee `workflow-davekjohn/branch/`-bestanden. Dit is de
 **enige echte directe commit op `main`** in deze repo — één van de twee met naam genoemde uitzonderingen in
 [`CLAUDE.md`](CLAUDE.md#nooit-direct-op-main--via-branch--pr).
 
@@ -331,7 +357,7 @@ naar `origin/main`, initiatief van Dave. De skill kent een `-Push`-vlag; die geb
 Een release begint **alleen op expliciet verzoek** van Dave. Dat is een grondwetregel, geen voorkeur.
 De volledige route — het versienummer bepalen, de release-notes, de changelog-verhuizing, de tag en de
 GitHub Release — staat in [`CLAUDE.md`](CLAUDE.md#release-workflow), en de lijst van wat er is
-uitgebracht in [`releases/README.md`](releases/README.md).
+uitgebracht in [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md).
 
 Let op de volgorde van oorzaak en gevolg, want die is hier omgekeerd ten opzichte van wat je zou
 verwachten: **een release zet niets nieuws live.** De wijzigingen stonden al op de site vanaf hun eigen
@@ -345,10 +371,10 @@ een release-cut laagrisico — er gaat geen ongeteste code mee naar buiten — e
   `CONTRIBUTING-portable.md` in de plugin, via een van de twee paden bovenaan deze pagina. Dat is de helft
   die met elke plugin-release meebeweegt; een correctie daarin gaat als
   [`inbound`-issue](https://github.com/DaveKJohn/claude-code-specialists/issues) naar de bron en niet hier.
-- De twee bestanden waarin een branch werkt, en de drie stappentekens: [`branch/README.md`](branch/README.md).
+- De twee bestanden waarin een branch werkt, en de drie stappentekens: [`workflow-davekjohn/branch/README.md`](workflow-davekjohn/branch/README.md).
 - Wat live is maar nog geen versienummer heeft: [`CHANGELOG.md`](CHANGELOG.md).
 - De grondwet, het roster en alles wat repo-eigen is: [`CLAUDE.md`](CLAUDE.md).
-- Het release-model en de lijst uitgebrachte versies: [`releases/README.md`](releases/README.md). Let op dat
+- Het release-model en de lijst uitgebrachte versies: [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md). Let op dat
   die pagina de **andere** constructie draagt: daar staat de portable helft verbatim in het bestand zelf,
   boven een streep, omdat de release-lijst er lokaal in moet wonen en `release-lib.ps1` er rijen in schrijft.
   Dat er twee vormen naast elkaar bestaan is geen inconsistentie maar een gevolg van dat verschil — en het is

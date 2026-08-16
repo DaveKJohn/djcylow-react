@@ -1,5 +1,5 @@
 ## Wat doet deze wijziging?
-<!-- Filled from branch/branch-changelog.md. Opening a PR by hand? Paste that file's body here. -->
+<!-- Filled from workflow-davekjohn/branch/branch-changelog.md. Opening a PR by hand? Paste that file's body here. -->
 
 ## Type wijziging
 - [ ] Nieuwe feature/pagina (`feature/`)
@@ -16,7 +16,7 @@
 - [ ] `npm test` groen
 - [ ] Lokaal getest via `npm run dev`
 - [ ] Afbeeldingen aanwezig in `public/images/` (indien van toepassing)
-- [ ] Changelog entry-bestand aangemaakt en gevuld (`branch/branch-changelog.md`, met een score per tier)
+- [ ] Changelog entry-bestand aangemaakt en gevuld (`workflow-davekjohn/branch/branch-changelog.md`, met een score per tier)
 - [ ] Geen zichtbare fouten in de browser console
 - [ ] Mobiel/responsive getest (bij UI-wijzigingen)
 
