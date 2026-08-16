@@ -114,7 +114,7 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > |---|---|
 > | lint-poort | `scripts/lint/lint-web.ps1`, lokaal én in CI |
 > | CI | [`.github/workflows/ci.yml`](.github/workflows/ci.yml), op elke PR en elke push naar `main` |
-> | testsuite | acht suites in `tests/`: de mix-data plus AudioPlayer, MobileContent, EmailDisplay, Filter, Playlist, sitemap en send-email |
+> | testsuite | zestien suites in `tests/`, 213 tests: de mix-data, de componenten, de publieke output en de Netlify-function |
 > | branch protection | ruleset `main-ci-gate`, met `poort` als required check |
 >
 > **Toch wacht álles in `src/`, `public/` en `src/data/mixes/` onverkort**, ook een refactor die visueel
@@ -433,6 +433,33 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 > release-branch landde de commit daar terwijl de push naar `main` ging. De stappen hieronder zijn wat
 > er ná het script nog te doen is, plus wat je moet weten om het te kunnen draaien.
 
+> **Deze route is op 2026-08-15 voor het eerst gelópen in plaats van gelezen — v2.24.0, 54 entries.**
+> Alles hierboven bleek te kloppen; wat het document niet kon vertellen was wat het kóst en hoe het
+> eruitziet terwijl het draait. Drie dingen uit die run, nagemeten op 2026-08-16 uit de
+> git-timestamps en `gh release view v2.24.0`, zodat ze niet op de herinnering van één avond leunen:
+>
+> | leg | van → tot | duur |
+> |---|---|---|
+> | de cut zelf (poorten, notes, commit, tag, twee pushes) | 22:55:00 → 22:58:04 | **3m 04s** |
+> | audience-document herschrijven, PR, CI, merge, fold | 22:58:04 → 23:27:50 | **29m 46s** |
+> | GitHub Release + de twee bijlagen | 23:27:50 → 23:30:40 | **2m 50s** |
+> | **van cut tot gepubliceerd** | | **35m 40s** |
+>
+> **Het script is dus niet de kostenpost — het handwerk erna is dat.** Bijna vijf zesde van de tijd
+> zit in stap 4 en 5 hierboven, en dat is precies het deel dat `cut-release` bewust niet automatiseert.
+> Reken op een half uur voor een minor, niet op drie minuten.
+>
+> **De push naar `main` meldt `Required status check "poort" is expected`, en dat is geen fout.** Het
+> is de ruleset `main-ci-gate` die zijn required check mist op een commit die er rechtstreeks op landt,
+> waarna de bypass voor Admin hem alsnog doorlaat. Verwacht gedrag, precies zoals de ruleset-noot in
+> de safety-rules beschrijft — maar het ziet er op het beslissende moment uit als een blokkade. Wie
+> hier schrikt en gaat ingrijpen, grijpt in op een geslaagde push.
+>
+> **`-NoPush` is bij een grote cut de moeite waard.** Het is het enige moment waarop een mens het
+> samengestelde resultaat — development-note, geleegde `CHANGELOG.md`, de rij in `releases/README.md`,
+> het audience-concept — naast elkaar ziet vóór het publiek is. Daarna is terugdraaien een tag
+> verwijderen en een commit reverten op `main`.
+
 1. **Sta op `main` met een schone tree**: `git status && git branch`. Dat is geen formaliteit maar een
    voorwaarde — het script stageert met `git add -A`, dus alles wat rondslingert gaat mee in de
    release-commit
@@ -738,14 +765,27 @@ Repo-eigen scripts:
   > slaagt op 22.15.1 en faalt met `EBADENGINE` zodra de range niet gehaald wordt. Bewust een **range**
   > en geen exacte pin: die zou bij elke patch-upgrade op twee plekken bijgewerkt moeten worden, en dat
   > is juist de drift die de regel moet voorkomen.
-- **`tests/`** — **acht suites, 143 tests**, gedraaid met Vitest via `npm test`. De kern is
+- **`tests/`** — **zestien suites, 213 tests**, gedraaid met Vitest via `npm test`; gemeten op
+  2026-08-16 met Vitest 4.1.10, looptijd 19s. De kern is
   `mix-data.test.ts`, die de veldregels uit [`src/data/mixes/README.md`](src/data/mixes/README.md)
   afdwingt en **gemeten is in plaats van overgeschreven**: regels die de data al haalt staan als harde
   assertie, regels met bekende achterstand als **ratchet** op het gemeten aantal. Die ratchet faalt óók
   als er iets is opgelost, met de vraag het plafond te verlagen — zo blijft de achterstand zichtbaar.
-  Daarnaast: `AudioPlayer`, `MobileContent`, `EmailDisplay`, `Filter`, `Playlist`, `sitemap` en de
+  Daarnaast, gegroepeerd naar wat ze bewaken: **componenten** (`AudioPlayer`, `MobileContent`,
+  `MobileContent.scroll-lock`, `EmailDisplay`, `ContactForm`, `Filter`, `Playlist`), **de publieke
+  output** (`sitemap`, `canonical-urls`, `jsonld-escaping`), **regels die eerder stil braken**
+  (`breakpoints`, `overflow-propagatie`, `slapende-componenten`, `toegankelijkheid`) en de
   Netlify-function `send-email`. `Get-TestCommands` in `scripts/repo-config.ps1` zorgt dat `open-pr` en
   `cut-release` de suite meedraaien; zonder die seam meldden ze eerlijk "test gate skipped".
+  > **Hier stond tot 2026-08-16 "acht suites, 143 tests", met acht van de zestien in de opsomming.**
+  > Dat getal was juist toen het werd opgeschreven en is daarna blijven staan terwijl de auditbacklog
+  > (PR's #98 t/m #142) de suite verdubbelde — precies de acht die eronder ontbraken zijn de suites
+  > die uit die backlog kwamen. Het stond in de sectie die beschrijft hoe streng de poort is, in het
+  > bestand dat élke sessie meelaadt, dus een lezer onderschatte structureel wat er bewaakt wordt en
+  > kon een testgat vermoeden dat al gedicht was. **De les is dat een getal in een document een
+  > houdbaarheidsdatum heeft die de bewering eromheen niet heeft**: de rest van deze bullet — de
+  > ratchet, de seam — is nooit onjuist geweest. Meet opnieuw voor je hem aanpast; neem het niet uit
+  > een handover over.
   > **Een ratchet moet tellen wat de regel bewaakt, en dat ging bij twee van de zeven mis.** De
   > tijd- en scheidingsratchets telden **entries met minstens één overtreding** (73 en 33) in plaats
   > van de overtredingen zelf (2444 en 70). Daarmee stonden ze in de praktijk uit: 73 van de 85
