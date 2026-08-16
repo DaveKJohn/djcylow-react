@@ -56,7 +56,7 @@ de twee uitzonderingen op "nooit direct op `main`", de release-toestemming — s
 **Eén van die grenzen hoort hier wel genoemd, omdat ze de hele route kleurt: een PR mergen is in deze
 repo een deploy.** `origin/main` ís de live site — Netlify bouwt en publiceert bij elke push naar
 `main`, en `gh pr merge` schrijft daar server-side rechtstreeks in. Er is **geen staging**. De poorten
-in [stap 4](#4-push-de-branch-en-open-de-pr--behalve-bij-site-werk) zijn dus de laatste wacht vóór `djcylow.com`, en
+in [stap 4](#4-push-de-branch-en-open-de-pr--behalve-bij-frontend-werk) zijn dus de laatste wacht vóór `djcylow.com`, en
 niet een formaliteit onderweg.
 
 ---
@@ -178,15 +178,21 @@ twee dingen die aan élke wijziging voorafgaan, en dat is met opzet: het is een 
 uitmaken welk van de twee documenten je open hebt.
 
 > **Lees bij die `git status` ook de `ahead`-regel, want een vooruitlopende `main` reist mee.** Loopt je
-> lokale `main` voor op `origin/main` — wat hier de normale stand is, want de fold-commit blijft bewust
-> lokaal — dan takt je branch daarvan af en draagt hij die commits mee. Bij de merge komen ze
-> **allemaal** op `origin/main` terecht, zonder dat er ooit `git push origin main` is gedraaid.
+> lokale `main` voor op `origin/main`, dan takt je branch daarvan af en draagt hij die commits mee. Bij de
+> merge komen ze **allemaal** op `origin/main` terecht, zonder dat er ooit `git push origin main` is
+> gedraaid.
 >
-> **Dit is structureel, niet incidenteel, en het is gemeten.** Bij PR #108 gingen zo negentien lokale
-> commits (tien folds en negen merges) mee; bij PR #109 de fold van #108. Er is niets aan stuk — het
-> zijn commits die er hoe dan ook heen moesten — maar het verklaart wel waarom `main` na een merge
-> ineens gelijkloopt terwijl niemand heeft gepusht. Wie dat niet weet, gaat zoeken naar een push die
-> niet bestaat.
+> **Dit was tot 2026-08-16 de normale stand hier, en is dat sindsdien niet meer.** De oorzaak was de
+> push-regel: de fold-commit bleef bewust lokaal, dus `main` liep na élke merge weer voor. Gemeten toen
+> dat nog gold: bij PR #108 gingen zo negentien lokale commits mee (tien folds en negen merges), bij
+> PR #109 de fold van #108. Er was niets aan stuk — het zijn commits die er hoe dan ook heen moesten —
+> maar het verklaarde waarom `main` na een merge ineens gelijkliep terwijl niemand had gepusht, en wie
+> dat niet wist ging zoeken naar een push die niet bestond.
+>
+> Nu de fold met `-Push` draait, hoort `main` na elke ronde weer gelijk te staan. **De waarschuwing
+> blijft staan** omdat het mechanisme niet weg is: onderbreek je een keten halverwege, of commit je iets
+> anders lokaal op `main`, dan geldt hetzelfde. Alleen is het nu een uitzondering in plaats van de regel,
+> en een `ahead`-regel is daarmee een signaal geworden in plaats van behang.
 >
 > Wil je dat een branch die commits **niet** meedraagt, tak dan af van `origin/main`
 > (`git checkout -b <naam> origin/main`) in plaats van van je lokale `main`.
@@ -241,20 +247,30 @@ onderdeel van het release-model; hier staat alleen dát het antwoord 1 is. Eén 
 terug te vallen: repo-machinerie bereikt Dave als **onderhouder** en blijft tier 0, de site zelf bereikt hem
 als **opdrachtgever** en is tier 1.
 
-### 4. Push de branch en open de PR — behalve bij site-werk
+### 4. Push de branch en open de PR — behalve bij frontend-werk
 
 Zodra de branch klaar is (commits + een gevuld `workflow-davekjohn/branch/branch-changelog.md` en een leeg
 `workflow-davekjohn/branch/branch-progress.md`): push hem. **Of de PR daarna vanzelf opengaat, hangt af van wat er in de branch
-zit** — de toets en de twee uitzonderingen staan in de safety-rules van
+zit** — de toets en de ene uitzondering staan in de safety-rules van
 [`CLAUDE.md`](CLAUDE.md#nooit-direct-op-main--via-branch--pr), en die gaan boven deze pagina:
 
 | wat er in de branch zit | wat er gebeurt |
 |---|---|
-| `scripts/`, governance-docs, `CHANGELOG.md`, `releases/`, `workflow-davekjohn/`, `.claude/`, onderzoek | **loopt door**: openen → mergen → folden, zonder tussenvraag |
-| iets in `src/`, `public/` of `src/data/mixes/` | **stop na de push** en meld dat de branch klaar staat — een merge is hier een deploy naar `djcylow.com` |
-| een release, een tag, of een beschermd bestand | **stop** — expliciet verzoek van Dave vereist |
+| `scripts/`, governance-docs, `CHANGELOG.md`, `releases/`, `workflow-davekjohn/`, `.claude/`, onderzoek | **loopt door**: openen → mergen → folden → pushen, zonder tussenvraag |
+| iets in `src/`, `public/` of `src/data/mixes/` | **stop na de push** en meld dat de branch klaar staat — hier valt iets aan de frontend te bekíjken, en een merge is een deploy naar `djcylow.com` |
 
-Bij twijfel geldt de zwaarste kolom. Draagt een branch beide soorten werk, dan is het site-werk en wacht hij.
+Bij twijfel geldt de zwaarste rij. Draagt een branch beide soorten werk, dan is het frontend-werk en wacht hij.
+
+> **Er stond hier tot 2026-08-16 een derde rij** — *"een release, een tag, of een beschermd bestand →
+> stop, expliciet verzoek van Dave vereist"*. Die is geschrapt op Dave's woord: *"de enige uitzondering
+> dat een PR niet meteen gemerged mag worden is wanneer er iets op de frontend gecheckt kan worden."*
+>
+> **De beschermde bestanden zijn niet vrijgegeven** — `next.config.ts`, `netlify.toml` en verwijderingen
+> uit `public/images/` staan onverkort op de lijst in
+> [`CLAUDE.md`](CLAUDE.md#nooit-zonder-expliciete-toestemming-van-dave). Wat verviel is de **tweede**
+> keer vragen: Dave's woord valt bij het uitdelen van het werk, niet nóg eens bij de merge-knop. Een
+> release en een tag hoorden sowieso niet in deze tabel, want een release cut loopt hier niet via een
+> branch of een PR — er valt niets te mergen.
 
 Gebruik in beide gevallen de gedeelde **`open-pr`**-skill. Welke poorten die vóór het pushen
 draait — resolves, scaffold, impact, step-list — en welke van de vier een `-Force` kent, staat in de
@@ -299,9 +315,12 @@ de entry. Twee dingen die hier gemeten zijn en niet in de portable helft staan:
 ### 5. Vertel Dave wat er is gedaan
 
 Rapporteer wat er veranderd is en deel de PR-link. **Wanneer die rapportage valt, hangt af van stap 4:** bij
-site-werk is dit het stoppunt en wacht de keten hier op Dave's woord; bij werk dat doorloopt is het de
-afsluiting ná de fold. In beide gevallen geldt: **vraag niet naar releasen of pushen naar `main`** — dat blijft
-Dave's initiatief, en er niet naar vragen is een aparte grondwetregel.
+frontend-werk is dit het stoppunt en wacht de keten hier op Dave's woord; bij werk dat doorloopt is het de
+afsluiting ná de fold en de push. **Vraag niet naar releasen** — dát blijft een expliciet verzoek van Dave.
+
+> **Hier stond tot 2026-08-16 "vraag niet naar releasen óf pushen naar `main`".** Pushen is die dag
+> vrijgegeven (Dave), dus er valt niets meer over te vragen: het gebeurt gewoon. Alleen de release
+> blijft een expliciet verzoek.
 
 ### 6. Merge de Pull Request
 
@@ -319,8 +338,8 @@ merge-commit de `merge:`-prefix, consistent met de rest van de geschiedenis; zon
 gebruikt GitHub het generieke "Merge pull request #N from ...". Controleer daarna of de lokale branch
 écht weg is en ruim 'm zo nodig alsnog op: `git branch -d [branch]`.
 
-Deze merge is de handeling die de site verandert — bij site-werk althans; bij de rest is de deploy die erop
-volgt een no-op die dezelfde pagina's oplevert.
+Deze merge is de handeling die de site verandert — bij frontend-werk althans; bij de rest is de deploy die
+erop volgt een no-op die dezelfde pagina's oplevert.
 
 `Get-PrMergeMethod` blijft onbeantwoord in `repo-config.ps1`, maar sinds 2026-08-13 om een andere reden dan
 "de merge wacht altijd op Dave". Die knop wordt alleen gelezen door **`ship-pr`**, en die gebruiken we hier
@@ -336,10 +355,12 @@ entry rangschikt, wat hij met de kop doet en dat de twee `workflow-davekjohn/bra
 verwijderd: **portable helft, stap 5**. Dit gebeurt zonder aparte toestemming — het hoort bij het afronden
 van de zojuist goedgekeurde merge, net als de branch-opruiming in stap 6.
 
-Draai de skill met `-Commit`: die commit dan zelf, met bericht `fold: [branch] changelog (#NN)`, en de
-scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de twee `workflow-davekjohn/branch/`-bestanden. Dit is de
-**enige echte directe commit op `main`** in deze repo — één van de twee met naam genoemde uitzonderingen in
-[`CLAUDE.md`](CLAUDE.md#nooit-direct-op-main--via-branch--pr).
+Draai de skill met **`-Push`**: die commit én pusht dan zelf, met bericht `fold: [branch] changelog (#NN)`,
+en de scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de twee
+`workflow-davekjohn/branch/`-bestanden. Dit is de **enige echte directe commit op `main`** in deze repo —
+één van de twee met naam genoemde uitzonderingen in
+[`CLAUDE.md`](CLAUDE.md#nooit-direct-op-main--via-branch--pr). `-Push` impliceert `-Commit`, dus je hoeft
+er maar één mee te geven.
 
 > Tot 2026-08-11 stond hier `chore: fold changelog entry [branch]` als handmatig `git add`/`git
 > commit`-blok. **`fold:` is sindsdien de erkende prefix voor deze ene commit** — de reden: `merge:` en
@@ -347,8 +368,14 @@ scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de twee `workfl
 > "huishouding". Changelog-bookkeeping blijft daarnaast wél `chore:` voor ander boekhoudwerk — dit is een
 > met naam genoemde uitzondering, geen algemene regelwijziging.
 
-**Pushen van deze fold-commit naar `origin` gebeurt niet automatisch** — dat blijft, net als elke push
-naar `origin/main`, initiatief van Dave. De skill kent een `-Push`-vlag; die gebruiken we hier niet.
+> **Dit stond hier tot 2026-08-16 andersom:** *"Pushen van deze fold-commit naar `origin` gebeurt niet
+> automatisch — dat blijft, net als elke push naar `origin/main`, initiatief van Dave. De skill kent een
+> `-Push`-vlag; die gebruiken we hier niet."* Dave heeft die regel die dag geschrapt. De reden dat hij
+> juist hier het langst bleef staan is ook de reden dat hij verviel: na de omzetting van de PR-stap op
+> 2026-08-13 was de fold-commit het **enige** dat er nog onder viel — en dat is de minst riskante commit
+> die deze repo kent. Hij verandert geen enkele gebouwde pagina; Netlify meldt bij zo'n PR letterlijk
+> *"Pages changed — skipping"*. Daarmee wachtte de lichtste handeling terwijl de zwaarste, de merge zelf,
+> allang doorliep. Deze repo volgt nu de bron, waar de gedeelde skill `-Push` als de normale route noemt.
 
 ---
 

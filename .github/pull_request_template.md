@@ -25,5 +25,5 @@
 
 ## Merge — welke helft van de PR-regel?
 <!-- Eén van de twee aanvinken. De regel zelf staat in `CLAUDE.md`, onder "Nooit direct op `main`". -->
-- [ ] **Zichtbaar resultaat** — raakt `src/`, `public/` of `src/data/mixes/`. Deze PR **wacht op @DaveKJohn**: mergen is hier deployen naar `djcylow.com`, en geen poort kan bewijzen dat iets er góéd uitziet.
-- [ ] **Geen zichtbaar resultaat** — raakt dat niet. Deze PR **loopt door** tot en met de fold.
+- [ ] **Er valt iets aan de frontend te bekijken** — raakt `src/`, `public/` of `src/data/mixes/`. Deze PR **wacht op @DaveKJohn**: mergen is hier deployen naar `djcylow.com`, en geen poort kan bewijzen dat iets er góéd uitziet. De deploy preview hieronder maakt het kijken goedkoop.
+- [ ] **Er valt niets te bekijken** — raakt dat niet. Deze PR **loopt door** tot en met de fold en de push.

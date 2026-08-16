@@ -1,41 +1,32 @@
-## `config/plugin-v4-12-workflow-folder` progress
+## `docs/pushen-vrij-en-een-merge-uitzondering` progress
 
 ### Steps
 
 #### PLAN
 
-- [x] Gemeten wat er in de cache staat en wat er geïnstalleerd is: 4.12.0 lag er al (via life-hub), deze repo stond op 4.8.0
-- [x] De vier minors doorgenomen op wat de consumer raakt — de verhuizing van `branch/`, de nieuwe `adopt-workflow-folder`-skill, de prompt-inbox
-- [x] Nagegaan of er een fallback op de oude `branch/`-locatie is: nee, `Get-BranchFilePaths` sluit dat expliciet uit
-- [x] Vastgesteld dat de breuk al latent was — `shared.ps1` pakt de hoogste cacheversie
-- [x] `check-script-contract.ps1` uit 4.12.0 gedraaid als nulmeting: 1 error (de ontbrekende map), 7 optionele INFO's
-- [x] De scope-vraag over `releases/` aan Dave voorgelegd — antwoord: volledig, zoals life-hub
+- [x] De twee regels opgezocht in hun bron in plaats van uit het hoofd: `CLAUDE.md` regel 60, de `park`- en `fold-changelog`-skills, en de gedragscorrectie van 2026-07-02 in het geheugen
+- [x] Gemeten waar ze overal herhaald staan: 21 plekken over 8 bestanden
+- [x] Vastgesteld wat Dave's uitspraak wél en niet raakt — de merge-regel wel, de lijst *Nooit zonder toestemming* niet
 
 #### CREATE
 
-- [x] `claude plugin update` voor `team-alpha` en `workflow-davekjohn`, project-scope → beide 4.12.0
-- [x] Branch aangemaakt met het 4.12.0-`new-branch`-script, zodat de entry meteen op de nieuwe plek landde
-- [x] `releases/` en `branch/README.md` met `git mv` verplaatst, de oude `branch/` verwijderd
-- [x] `adopt-workflow-folder -Apply` gedraaid — eerst droog, en pas ná de `git mv` zodat de bestaande `releases/README.md` niet door een scaffold werd vervangen
-- [~] `development/` en `github/` mee laten verhuizen — teruggedraaid: beide staan hardcoded in `cut-release.ps1` (regel 728 en 820), dus een cut zou ernaast een tweede boom aanmaken. De bron schrijft deze splitsing zelf voor in `Get-RelativeLinkPath`
-- [x] De overbodige `.gitkeep` uit `audience/` verwijderd (25 documenten aanwezig)
-- [~] De gescaffolde `workflow-davekjohn/CONTRIBUTING.md` behouden — verwijderd in plaats daarvan: de root-pagina is hier al de lokale helft, en GitHub zoekt hem in de root. Vastgelegd in `workflow-davekjohn/README.md`
-- [x] `Get-ReleaseNoteRoot`, `Get-ReleaseHistoryPath` en `Get-MojibakePaths` omgezet, met de verantwoording erbij
-- [x] `CLAUDE.md`: de vervulde `branch/`-waarschuwing omgezet naar geschiedenis, plus een nieuwe sectie over de mapindeling
-- [x] `CONTRIBUTING.md`, `README.md`, `.github/pull_request_template.md` en de release-pagina op de nieuwe paden
-- [x] De tien gebroken relatieve links in de verhuisde release-pagina op `../../` gezet en als tweede spiegel-afwijking gedocumenteerd
+- [x] `CLAUDE.md`: de push-bullet geschrapt, de twee merge-uitzonderingen teruggebracht tot één, de herweging van de grens afgerond, de fold-uitzondering op `-Push`
+- [x] `CLAUDE.md`: de samenvatting "drie regels zijn óók grondwet" naar twee, en de approval-bullet uit elkaar getrokken (vooraf wegen ≠ achteraf mergen)
+- [x] `.claude/settings.json`: de vier `git push origin main|HEAD`-regels van de `ask`-lijst; deny-lijst onaangeroerd
+- [x] `CONTRIBUTING.md`: stap 4 (de derde tabelrij weg, kop hernoemd), stap 5 (niet meer "vraag niet naar pushen"), stap 7 (`-Push`)
+- [x] `.claude/specialists/lenses/01-01-extension.md`: de gatekeeper-tabel en de verantwoording van de grens
+- [x] De drie repo-eigen skills en `.github/pull_request_template.md`
+- [x] Het geheugen omgekeerd in plaats van verwijderd — de oude reflex is hardnekkig, dus het bestand legt nu uit wat er verviel en waarom
+- [~] `.claude/handover.md` bijwerken — bewust niet: dat is een lock-notitie van 2026-08-15 die bij de volgende `/lock` wordt overschreven, geen governance-document
 
 #### TEST
 
-- [x] `check-script-contract.ps1` tegen 4.12.0: **0 errors**
-- [x] De drie seams teruggelezen uit een echte dot-source: beide paden correct, `Get-MojibakePaths` dekt 82 bestanden over beide bomen (41 + 37)
-- [x] De PR-template-placeholder gelijkgetrokken met de canonieke string uit `Get-PrDescriptionPlaceholderDefaults`, zodat `open-pr` de body blijft vullen
+- [x] Sweep op tegenstrijdige formuleringen: alleen historische noten (*"stond hier tot 2026-08-16"*) blijven over
+- [x] Het anker `#4-push-de-branch-en-open-de-pr--behalve-bij-site-werk` meegenomen toen die kop hernoemd werd — anders was de link uit regel 59 stil kapot
 - [x] `scripts/lint/lint-web.ps1`: 0 fouten, 89 statische pagina's
 - [x] `npm test`: 16 suites, 213 tests groen
 
 ### Where I left off
 
-Klaar voor de PR. Eén ding blijft over dat níet op deze branch thuishoort: het **`inbound`-issue** over de
-tien relatieve links in de release-pagina van de bron. Dat is een reparatie in
-`DaveKJohn/claude-code-specialists`, niet hier — hier is hij al omzeild.
+Af. De fold van deze branch is meteen de eerste die met `-Push` draait.
 

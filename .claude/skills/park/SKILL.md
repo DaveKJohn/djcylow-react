@@ -4,7 +4,7 @@ description: >-
   Commit het openstaande werk op de huidige branch en push die met git push -u naar origin, zodat
   je hem elders precies zo oppakt. Opent geen Pull Request en zet niets live. Gebruik dit om werk
   veilig te stellen dat nog niet af is, of om een branch klaar te zetten waarvan de PR op Dave
-  wacht -- site-werk in src/, public/ of src/data/mixes/.
+  wacht -- frontend-werk in src/, public/ of src/data/mixes/.
 ---
 
 # park — werk veiligstellen zonder PR
@@ -19,8 +19,13 @@ buiten schrijven. Voor `park` weegt dat het lichtst van allemaal: **een push is 
 branch wordt bereikbaar vanaf een ander apparaat, en de PR-regel uit `CLAUDE.md` blijft
 onaangetast en apart.
 
-Juist daarom is dit de skill die site-werk afsluit: de branch staat veilig op `origin`, en de PR
+Juist daarom is dit de skill die frontend-werk afsluit: de branch staat veilig op `origin`, en de PR
 wacht op Dave.
+
+> **Sinds 2026-08-16 is dat het énige geval waarvoor je hem nog nodig hebt** om een áfgeronde branch weg
+> te zetten. Pushen naar `origin/main` is die dag vrijgegeven en de tweede merge-uitzondering is
+> geschrapt, dus al het overige werk loopt gewoon door via `open-pr`. Voor half werk dat je later
+> oppakt blijft `park` uiteraard gewoon wat hij was.
 
 ## Draaien
 
@@ -32,5 +37,5 @@ powershell -NoProfile -File scripts/task/shared.ps1 -Script task/park-branch.ps1
 
 ## Wat het niet doet
 
-- **Geen PR.** Dat is de `open-pr`-skill, en voor site-werk is dat Dave's beslissing.
+- **Geen PR.** Dat is de `open-pr`-skill, en voor frontend-werk is dat Dave's beslissing.
 - **Niets live.** Alleen een merge naar `main` deployt in deze repo.

@@ -52,15 +52,12 @@ djcylow-specifieke invulling (concrete paden, scripts en de lint-poort) staat in
 
 ### Nooit zonder expliciete toestemming van Dave
 
-- **Werk met een zichtbaar resultaat mergen** — levert de wijziging iets op dat Dave met het oog moet
-  beoordelen, dan stopt de branch en meldt in plaats van vanzelf door te mergen. **In deze repo is dat
+- **Werk mergen waar iets aan de frontend te bekíjken valt** — kan een mens met het oog zien of dit
+  klopt, dan stopt de branch en meldt in plaats van vanzelf door te mergen. **In deze repo is dat
   alles in `src/`, `public/` en `src/data/mixes/`**, want een merge is hier een deploy naar
-  `djcylow.com`. Geen poort kan bewijzen dat iets er góéd uitziet. De volledige uitwerking staat
-  hieronder onder [Nooit direct op `main`](#nooit-direct-op-main--via-branch--pr).
-- **Pushen naar `origin/main`** — dit initiatief ligt altijd bij Dave. **Vraag hier nooit naar, ook
-  niet impliciet** ("zeg het maar als je wil pushen") — rapporteer feitelijk de git-status en stop
-  daar. In de praktijk gaat het alleen nog om de fold-commit; al het overige bereikt `origin/main`
-  via de PR-merge.
+  `djcylow.com`. Geen poort kan bewijzen dat iets er góéd uitziet. **Dit is sinds 2026-08-16 de
+  énige reden waarom een PR nog wacht**; de volledige uitwerking staat hieronder onder
+  [Nooit direct op `main`](#nooit-direct-op-main--via-branch--pr).
 - Een **release cutten** — start alleen op expliciet verzoek ("commit en push live", "maak een nieuwe
   release en push live" of gelijkwaardig).
 - `git push --force` (welke branch dan ook), `git reset --hard`, `git rebase` op een gedeelde branch.
@@ -69,25 +66,59 @@ djcylow-specifieke invulling (concrete paden, scripts en de lint-poort) staat in
 - **`next.config.ts` aanpassen** (static-export-config — een fout hier breekt de Netlify-build) en
   **`netlify.toml` aanpassen**.
 
+> **De laatste drie gaan over het maken van de wijziging, niet over het mergen ervan** — en dat
+> onderscheid draagt sinds 2026-08-16 gewicht dat het eerder niet had. Heeft Dave een wijziging aan
+> `next.config.ts` eenmaal goedgekeurd, dan wacht de PR daarna niet nóg een keer: hij is al gewogen
+> op het moment dat het werk begon. Alleen als er iets te bekíjken valt komt hij aan het eind
+> terug — de eerste bullet.
+>
+> **Pushen naar `origin/main` stond hier tot 2026-08-16 ook bij, en is geschrapt** (Dave). De regel
+> luidde *"dit initiatief ligt altijd bij Dave; vraag hier nooit naar, ook niet impliciet"* en kwam
+> uit een correctie van 2 juli 2026, met als reden *"een release is gevaarlijk (gaat live op
+> productie)"*. Die reden was uitgehold: sinds de PR-stap op *doorlopen tenzij* staat, bereikt al het
+> overige `origin/main` allang via de merge — en `gh pr merge` schrijft daar server-side rechtstreeks
+> in. Wat er ná die uitholling nog onder viel was precies één handeling, de **fold-commit**, en dat
+> is de mínst riskante van alles wat hier naar `origin/main` schrijft: `CHANGELOG.md` plus twee
+> bestanden in `workflow-davekjohn/branch/`, die geen enkele gebouwde pagina veranderen. Netlify
+> meldde bij PR #145 letterlijk *"Pages changed — skipping"*.
+>
+> De zwaarste stap liep dus automatisch en de lichtste bleef wachten — omgekeerd aan de risicologica
+> die de regel motiveerde. **Claude pusht nu gewoon naar `origin`.** Dat brengt deze repo ook terug
+> bij de bron, waar de gedeelde `fold-changelog`-skill `-Push` als normale route noemt
+> (*"normally should: `-Commit`, or `-Push` to commit and push"*).
+
 ### Nooit direct op `main` — via branch + PR
 
 Alle wijzigingen gaan via een branch + Pull Request. **Of die PR op Dave's woord wacht, hangt af van wát
 erin zit** — dat bepaalt de aard van het werk, niet een vaste regel per branch. De toets is één vraag:
-*voegt Dave's eigen blik iets toe dat de poorten niet kunnen?*
+*valt er iets aan de frontend te bekíjken?*
 
 - **De default — niet wachten.** Is het werk op een branch af, gecommit en staat de poort groen, dan loopt
-  de hele beweging in één keer door: openen → mergen → de changelog-entry folden, zonder tussenvraag. Dat
-  dekt `scripts/`, de governance-documentatie (`CLAUDE.md`, `CONTRIBUTING.md`, de README's), `CHANGELOG.md`,
-  `releases/`, `workflow-davekjohn/`, de specialisten-laag onder `.claude/` en onderzoek. Zulk werk raakt `djcylow.com` niet: de
-  build levert dezelfde pagina's, dus de deploy die op de merge volgt is een no-op. Een stempel van Dave
-  voegt daar niets aan toe, en wat tóch misgaat is één revert-PR verder.
-- **De uitzondering — stoppen en op Dave's woord wachten.** Twee soorten werk mergen niet vanzelf:
-  1. **Zichtbaar resultaat** — de wijziging levert iets op dat met het oog beoordeeld moet worden. **In deze
-     repo is dat alles in `src/`, `public/` en `src/data/mixes/`**: componenten, styling, teksten, mix-data,
-     afbeeldingen, metadata en routes. Geen poort kan bewijzen dat iets er góéd uitziet, en deze repo *is*
-     een frontend — dit is hier dus geen randgeval maar het gros van het werk.
-  2. **Onomkeerbaar of naar buiten gericht** — een release, een tag, repo-settings, en de met naam genoemde
-     beschermde bestanden hierboven (`next.config.ts`, `netlify.toml`, verwijderingen uit `public/images/`).
+  de hele beweging in één keer door: openen → mergen → de changelog-entry folden → pushen, zonder
+  tussenvraag. Dat dekt `scripts/`, de governance-documentatie (`CLAUDE.md`, `CONTRIBUTING.md`, de
+  README's), `CHANGELOG.md`, `releases/`, `workflow-davekjohn/`, de specialisten-laag onder `.claude/` en
+  onderzoek. Zulk werk raakt `djcylow.com` niet: de build levert dezelfde pagina's, dus de deploy die op de
+  merge volgt is een no-op. Een stempel van Dave voegt daar niets aan toe, en wat tóch misgaat is één
+  revert-PR verder.
+- **De uitzondering — stoppen en op Dave's woord wachten.** Er is er sinds 2026-08-16 nog **één**:
+  **er valt iets aan de frontend te bekíjken.** De wijziging levert iets op dat een mens met het oog moet
+  beoordelen. **In deze repo is dat alles in `src/`, `public/` en `src/data/mixes/`**: componenten,
+  styling, teksten, mix-data, afbeeldingen, metadata en routes. Geen poort kan bewijzen dat iets er góéd
+  uitziet, en deze repo *is* een frontend — dit is hier dus geen randgeval maar het gros van het werk.
+  De [Netlify deploy preview](#safety-invulling-van-djcylow-react) maakt dat kijken goedkoop, maar neemt
+  het niet weg: er moet nog steeds iemand kijken.
+
+  > **Er stond hier tot 2026-08-16 een tweede uitzondering: *onomkeerbaar of naar buiten gericht*** — een
+  > release, een tag, repo-settings, en de beschermde bestanden `next.config.ts`, `netlify.toml` en
+  > verwijderingen uit `public/images/`. Die is geschrapt op Dave's woord: *"de enige uitzondering dat een
+  > PR niet meteen gemerged mag worden is wanneer er iets op de frontend gecheckt kan worden."*
+  >
+  > **Wat daarmee níet is geschrapt:** die bestanden en handelingen staan nog onverkort op de lijst
+  > [hierboven](#nooit-zonder-expliciete-toestemming-van-dave). Het verschil is *wannéér* Dave's woord
+  > valt. Dat was tot nu toe twee keer — één keer om de wijziging te mogen maken, en nog eens om hem te
+  > mogen mergen — en die tweede keer was een stempel op een besluit dat al genomen was. Nu valt het één
+  > keer, aan het begin. Een release en een tag stonden bovendien sowieso al los van deze regel: een
+  > release cut loopt hier niet via een branch of een PR, dus er viel niets te mergen.
 - **Dave houdt het stuur in beide richtingen.** Hij kan een specifieke klus alsnog onder de uitzondering
   trekken bij het uitdelen ("deze wil ik eerst zien") — dan wacht de keten. En geeft hij een expliciet
   PR-commando ("open de PR", "zet de PR op", "doe het live"), dan telt dat als goedkeuring voor de hele
@@ -126,11 +157,17 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > `non_fast_forward`. Voor wie als admin werkt houdt hij dus **niets** tegen; hij beschermt alleen
 > tegen collaborators met minder dan Maintain, en die zijn er niet.
 >
-> **De herweging van deze grens is daarmee scherper geworden maar nog niet gemaakt, en die is Dave's
-> beslissing.** Wat er sinds 2026-08-13 bij is gekomen dat helpt: elke PR krijgt een **Netlify deploy
-> preview** (`deploy-preview-<nummer>--djcylow-react.netlify.app`), dus site-werk is nu wél vóór de merge
-> te bekíjken. Dat neemt de uitzondering niet weg — er moet nog steeds iemand kijken — maar het maakt het
-> kijken goedkoper dan een merge terugdraaien.
+> **De herweging is op 2026-08-16 gemaakt, en de grens is blijven staan waar hij stond** (Dave). Hij is
+> alleen *scherper* geworden: de tweede uitzondering — onomkeerbaar of naar buiten gericht — is
+> geschrapt, zodat wat overblijft exact de eerste reden hierboven is en niets anders. De ruleset-bypass
+> uit de tweede reden verantwoordt dus niet langer een bredere uitzondering; die staat er als feit over
+> wat er níet hard tegenhoudt, en de conclusie die hij droeg is nu dat de menselijke blik op de vórm de
+> enige lijn is.
+>
+> Wat dat kijken goedkoop maakt: elke PR krijgt sinds 2026-08-13 een **Netlify deploy preview**
+> (`deploy-preview-<nummer>--djcylow-react.netlify.app`), dus site-werk is vóór de merge te bekíjken.
+> Dat neemt de uitzondering niet weg — er moet nog steeds iemand kijken — maar het maakt het kijken
+> goedkoper dan een merge terugdraaien.
 
 > **Een PR mergen is een deploy.** `gh pr merge` schrijft server-side rechtstreeks in `origin/main`,
 > en Netlify bouwt en publiceert bij elke push naar `main`. Er is **geen staging**. Op het moment dat
@@ -149,7 +186,8 @@ Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 
 1. De **fold-commit** (na een merge, [stap 7](CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
    de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` + de twee
-   vaste bestanden in `workflow-davekjohn/branch/`.
+   vaste bestanden in `workflow-davekjohn/branch/`. **Hij wordt meteen gepusht** — sinds 2026-08-16 draait
+   de fold met `-Push` in plaats van `-Commit`, want pushen naar `origin/main` is geen apart besluit meer.
 2. De **release-commit** (alleen op expliciet verzoek): `cut-release.ps1` genereert de release-notes,
    leegt `CHANGELOG.md` tot de intro, vult de rij in `workflow-davekjohn/releases/README.md`, en **commit dat plus de tag
    `vX.Y.Z` rechtstreeks op `main`** — waarna het zelf `git push origin main` en `git push origin
@@ -192,9 +230,11 @@ Dit zijn de **enige** twee. Ook een "onschuldige" opruim- of chore-commit gaat v
   config, branches, commits, tooling/scripts, en het doorzetten van een oplevering naar de volgende
   schakel in een al vastgelegde keten — wordt gewoon uitgevoerd en gemeld, niet eerst gevraagd. Bij
   twijfel kiest een specialist een verstandige default, voert die uit, en meldt het pas. **Dit staat sinds
-  2026-08-13 niet meer los van de PR-regel maar zegt hetzelfde**: die regel is nu óók "doorlopen tenzij", en
-  wat er tenzij is — zichtbaar resultaat, onomkeerbaar, naar buiten gericht — is precies de opsomming aan
-  het begin van deze bullet.
+  2026-08-13 niet meer los van de PR-regel maar zegt hetzelfde**: die regel is nu óók "doorlopen tenzij".
+  Sinds 2026-08-16 is dat *tenzij* bij de **merge** nog maar één ding — valt er iets aan de frontend te
+  bekíjken — terwijl "onomkeerbaar, naar buiten gericht, reëel risico" blijft gelden voor het **starten**
+  van zulk werk. De twee vragen zijn uit elkaar getrokken: Dave weegt vooraf of iets mag, niet nog eens
+  achteraf of het gemerged mag.
 
 ### Ontwikkelworkflow — de route staat in `CONTRIBUTING.md`
 
@@ -205,11 +245,14 @@ gedeeld document; de **portable helft** (`CONTRIBUTING-portable.md`) reist met d
 mechanisme: het tier-model, de rubric, de vier poorten van `open-pr`, de fold. Samen zijn ze de enige plek
 waar de route beschreven staat — en sinds 2026-08-13 staat elk stuk ervan maar in één van de twee.
 
-Drie regels uit die route zijn óók grondwet, en die vind je daarom hierboven in
-[de safety-rules](#safety-rules): **mergen is hier deployen**, werk met een **zichtbaar resultaat** wacht
-daarom op Dave (al het overige loopt door), en pushen naar `origin/main` is Dave's initiatief. Alles
-daartussen — hoe je een branch noemt, wat er in de entry hoort, welke poort wat weigert — lees je in
-`CONTRIBUTING.md` of de portable helft waarnaar dat document verwijst.
+Twee regels uit die route zijn óók grondwet, en die vind je daarom hierboven in
+[de safety-rules](#safety-rules): **mergen is hier deployen**, en werk waaraan **iets aan de frontend te
+bekíjken valt** wacht daarom op Dave — al het overige loopt door tot en met de push. Alles daartussen —
+hoe je een branch noemt, wat er in de entry hoort, welke poort wat weigert — lees je in `CONTRIBUTING.md`
+of de portable helft waarnaar dat document verwijst.
+
+> **Dit waren er drie tot 2026-08-16**; de derde was *"pushen naar `origin/main` is Dave's initiatief"*.
+> Die is geschrapt — zie de noot bij de safety-rules hierboven.
 
 **Twee dingen gaan aan élke wijziging vooraf**, dus die staan hier ook:
 
@@ -710,11 +753,11 @@ en `adopt-config` staan aan, en die doen niets buiten je machine. Het verklaart 
 
 | skill | eigen ingang in `.claude/skills/`? | waarom |
 |---|---|---|
-| `open-pr` | **ja** | de PR-regel hierboven zegt al *doorlopen tenzij*; site-werk wacht, de rest niet |
-| `fold-changelog` | **ja** | de fold is uitzondering 1 op "nooit direct op `main`", met een vastgelegde scope |
+| `open-pr` | **ja** | de PR-regel hierboven zegt al *doorlopen tenzij*; frontend-werk wacht, de rest niet |
+| `fold-changelog` | **ja** | de fold is uitzondering 1 op "nooit direct op `main`", met een vastgelegde scope; draait sinds 2026-08-16 met `-Push` |
 | `park` | **ja** | een push is geen PR; de branch wordt bereikbaar, de PR-regel blijft apart |
 | `cut-release` | **nee** | staat hier aan Dave's expliciete verzoek; blijft slash-only |
-| `ship-pr` | **nee** | wordt hier niet gebruikt — de site-of-niet-beoordeling kan hij niet maken |
+| `ship-pr` | **nee** | wordt hier niet gebruikt — de frontend-of-niet-beoordeling kan hij niet maken |
 
 Die drie ingangen **dupliceren geen enkel gedeeld script**: ze roepen via
 `scripts/task/shared.ps1` het origineel uit de cache aan, precies zoals een plugin-skill dat zou
@@ -734,7 +777,7 @@ want anders wint `3.9.0` van `3.10.0`.
 - **`open-pr`** — draait de vier entry-poorten (resolves/scaffold/impact/step-list), de lint-poort en
   de testsuites, en opent daarna de PR (stap 4). **Sinds 2026-08-13 niet meer "alleen op verzoek van
   Dave"**: of hij vanzelf loopt hangt af van wat er in de branch zit, zoals de safety-rules hierboven
-  beschrijven. Site-werk wacht, de rest loopt door.
+  beschrijven. Frontend-werk wacht, de rest loopt door.
 - **`fold-changelog`** — vouwt `workflow-davekjohn/branch/branch-changelog.md` gerangschikt op tier/score in
   `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en reset de twee
   `workflow-davekjohn/branch/`-bestanden
@@ -1034,11 +1077,18 @@ De grondwet hierboven, hier concreet ingevuld:
   > sluitende afscherming leest hem verkeerd, en een lijst die meer belooft dan hij waarmaakt is
   > gevaarlijker dan geen lijst.
   >
-  > **Wat de patronen niet vangen:** een kale `git push` terwijl je op `main` staat. Er is geen
-  > argument om op te matchen, dus dat blijft leunen op de discipline hierboven — pushen naar
-  > `origin/main` is Dave's initiatief.
+  > **De vier push-regels zijn op 2026-08-16 van de `ask`-lijst gehaald** (Dave):
+  > `git push origin main` en `git push origin HEAD:…`, in beide vormen. Ze codificeerden een regel die
+  > die dag verviel, en een `ask` op een handeling die vrij is, is geen bescherming maar een prompt die
+  > mensen leren wegklikken. Wat blijft staan is de **deny**-lijst — force-push in alle drie zijn vormen,
+  > `reset --hard`, `rebase`, en `gh repo delete` — plus de `ask` op het cutten van een release en op
+  > repo-settings. Vrij pushen is niet hetzelfde als vrij herschrijven.
 - **Alles wat de publieke site of de SEO raakt is Dave's beslissing** — titels,
-  `description`-velden, metadata en routes. Een specialist stelt voor, Dave beslist.
+  `description`-velden, metadata en routes. Een specialist stelt voor, Dave beslist. Dat weegt vooraf,
+  bij het uitdelen van het werk; het is geen tweede poort bij de merge.
+- **Pushen naar `origin` is vrij** (Dave, 2026-08-16), inclusief `origin/main`. Force-push, `reset --hard`
+  en `rebase` op een gedeelde branch blijven verboden — die staan op de **deny**-lijst en zijn een andere
+  handeling dan pushen.
 - **Twee uitzonderingen op "nooit direct op `main`"**: de fold-commit en de release-commit, zoals
   hierboven beschreven. Dit zijn de enige twee.
 - **Kernverbeteringen gaan via de inbound-route.** Ontdek je een verbetering aan de *gedeelde* kern

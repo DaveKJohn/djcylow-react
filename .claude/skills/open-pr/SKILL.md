@@ -5,8 +5,9 @@ description: >-
   Draait eerst de vier entry-poorten (resolves, scaffold, impact, step-list), daarna de lint-poort
   van deze repo en alle testsuites; bij een fout wordt er niets gepusht en geen PR geopend.
   Gebruik dit als een branch af is en de PR-regel uit CLAUDE.md het openen toestaat -- dus voor
-  werk in scripts/, de governance-docs, CHANGELOG.md, releases/, .claude/ en onderzoek. Site-werk
-  (src/, public/, src/data/mixes/) wacht op Dave; dat is stap 4 van de cyclus in CONTRIBUTING.md.
+  werk in scripts/, de governance-docs, CHANGELOG.md, releases/, workflow-davekjohn/, .claude/ en
+  onderzoek. Frontend-werk (src/, public/, src/data/mixes/) wacht op Dave, en dat is sinds
+  2026-08-16 de enige reden waarom een PR nog wacht; dat is stap 4 van de cyclus in CONTRIBUTING.md.
 ---
 
 # open-pr — stap 4 van de cyclus, in deze repo
@@ -58,8 +59,10 @@ Alles wat niet `-Script` of `-Plugin` heet, gaat ongewijzigd door naar het gedee
 
 ## Vóór je dit draait
 
-1. **Is dit site-werk?** Alles in `src/`, `public/` en `src/data/mixes/` wacht op Dave. Draagt een
-   branch zowel site-werk als machinerie, dan telt het als site-werk.
+1. **Valt er iets aan de frontend te bekíjken?** Alles in `src/`, `public/` en `src/data/mixes/` wacht
+   op Dave. Draagt een branch zowel frontend-werk als machinerie, dan telt het als frontend-werk.
+   Sinds 2026-08-16 is dit de **enige** reden waarom een PR nog wacht — de tweede uitzondering
+   (onomkeerbaar of naar buiten gericht) is die dag geschrapt, en pushen naar `origin/main` is vrij.
 2. **Staat de step-list op groen?** Het script weigert te pushen zolang er nog een `- [ ]` staat.
    Een stap die niet nodig bleek krijgt `- [~]` met de reden erbij — niet een vinkje voor werk dat
    niet gedaan is.

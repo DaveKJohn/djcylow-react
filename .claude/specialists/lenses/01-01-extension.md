@@ -24,16 +24,27 @@ bron — dit is een verwijzing, geen tweede formulering. Wat je moet weten om te
 
 | gatekeeper | waar het staat |
 |---|---|
-| de PR-regel: *doorlopen tenzij*, en welke twee soorten werk wachten | [`#nooit-direct-op-main--via-branch--pr`](../../../CLAUDE.md#nooit-direct-op-main--via-branch--pr) |
+| de PR-regel: *doorlopen tenzij*, en welke ene soort werk wacht | [`#nooit-direct-op-main--via-branch--pr`](../../../CLAUDE.md#nooit-direct-op-main--via-branch--pr) |
 | wat nooit zonder Dave's woord gebeurt | [`#nooit-zonder-expliciete-toestemming-van-dave`](../../../CLAUDE.md#nooit-zonder-expliciete-toestemming-van-dave) |
 | de concrete paden, scripts en de poort | [`#safety-invulling-van-djcylow-react`](../../../CLAUDE.md#safety-invulling-van-djcylow-react) |
 | de route van branch tot fold | [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) plus de portable helft in de plugin |
 
 **De ene regel die Chris bij het routeren in zijn hoofd moet hebben:** deze repo *is* een frontend, dus de
-uitzondering "zichtbaar resultaat" is hier geen randgeval maar het gros van het werk. Alles in `src/`,
-`public/` en `src/data/mixes/` stopt na de push en wacht op Dave; `scripts/`, de governance-docs,
-`CHANGELOG.md`, `releases/` en `.claude/` lopen door tot en met de fold. Draagt een branch beide, dan is het
-site-werk en wacht hij.
+uitzondering "er valt iets aan de frontend te bekíjken" is hier geen randgeval maar het gros van het werk.
+Alles in `src/`, `public/` en `src/data/mixes/` stopt na de push en wacht op Dave; `scripts/`, de
+governance-docs, `CHANGELOG.md`, `releases/`, `workflow-davekjohn/` en `.claude/` lopen door tot en met de
+fold **en de push**. Draagt een branch beide, dan is het frontend-werk en wacht hij.
+
+> **Twee dingen zijn op 2026-08-16 vereenvoudigd, en allebei in de richting van minder wachten** (Dave).
+>
+> **De tweede merge-uitzondering is weg.** Er stonden er twee — *zichtbaar resultaat* én *onomkeerbaar of
+> naar buiten gericht*. Nu is er één: *valt er iets aan de frontend te bekíjken?* De beschermde bestanden
+> staan nog wél op de lijst hierboven, maar Dave's woord valt daar bij het **uitdelen** van het werk, niet
+> nóg eens bij de merge-knop.
+>
+> **Pushen naar `origin/main` is vrij.** Dat was een aparte gatekeeper met een verbod om er zelfs maar
+> naar te vragen. Chris hoeft die niet meer te bewaken: een keten loopt nu door tot en met de push. Force-push,
+> `reset --hard` en `rebase` blijven verboden — die staan op de deny-lijst en zijn iets anders dan pushen.
 
 ### Waarom die grens hier ruimer ligt dan in de bron
 
@@ -55,9 +66,15 @@ tóch niet meebewogen, en dat is geen verzuim maar rust op twee dingen die geen 
    > PR-grens wordt verantwoord — het argument zelf blijft staan, en wordt door deze correctie zelfs
    > sterker: de menselijke blik is hier niet de tweede lijn maar de enige.
 
-Vandaar dat ook een refactor die visueel niets verandert onder de uitzondering blijft vallen. Het herwegen
-van die grens is een beslissing van Dave, en die staat nu open — makkelijker dan eerst, want elke PR krijgt
-een Netlify deploy preview, dus site-werk is vóór de merge te bekíjken.
+Vandaar dat ook een refactor die visueel niets verandert onder de uitzondering blijft vallen.
+
+**Het herwegen van die grens is op 2026-08-16 gebeurd, en de grens is blijven staan waar hij stond**
+(Dave). Wat er wél veranderde is de ruimte eromheen: de tweede uitzondering verviel en pushen werd vrij,
+zodat deze ene lijn nu alles is wat een keten nog onderbreekt. Reden 2 hierboven verantwoordt dus geen
+bredere uitzondering meer — hij staat er als feit over wat er níet hard tegenhoudt, en de conclusie die
+hij droeg is dat de menselijke blik op de **vorm** de enige lijn is. Elke PR krijgt daarbij een Netlify
+deploy preview, dus frontend-werk is vóór de merge te bekíjken; dat maakt het kijken goedkoop, niet
+overbodig.
 
 > **Hier stond tot 2026-08-15 dat er "nog altijd nul testsuites" waren en "zonder branch protection".**
 > Beide waren onjuist: er staan vier testbestanden en de ruleset bestaat sinds 2026-08-13. Dat woog zwaar,
