@@ -28,25 +28,31 @@ blijft slash-only, want die staat in `CLAUDE.md` aan Dave's expliciete verzoek.
 Vanaf `main`, direct na de merge:
 
 ```powershell
-powershell -NoProfile -File scripts/task/shared.ps1 -Script release/fold-changelog-entry.ps1 -Commit
+powershell -NoProfile -File scripts/task/shared.ps1 -Script release/fold-changelog-entry.ps1 -Push
 ```
 
-**`-Commit` is niet optioneel.** Zonder die vlag schrijft `fold-changelog-entry.ps1` de wijzigingen
-alleen naar schijf en commit het niets — terwijl stap 4 hieronder belooft dat hij
+**Een vlag is niet optioneel.** Zonder `-Commit` of `-Push` schrijft `fold-changelog-entry.ps1` de
+wijzigingen alleen naar schijf en commit het niets — terwijl stap 4 hieronder belooft dat hij
 `fold: <branch> changelog` commit. Het script stageert zelf alleen `CHANGELOG.md` en de twee
-bestanden in `branch/`, dus de scope van uitzondering 1 blijft gehandhaafd ook als er verder iets in
-de tree rondslingert.
+bestanden in `workflow-davekjohn/branch/`, dus de scope van uitzondering 1 blijft gehandhaafd ook als er
+verder iets in de tree rondslingert.
 
-**`-Push` geven we hier bewust niet mee.** Die vlag bestaat en impliceert `-Commit`, maar pushen naar
-`origin/main` is in deze repo Dave's initiatief — zie de safety-rules in `CLAUDE.md`. De fold-commit
-blijft dus lokaal staan tot hij zelf pusht.
+**`-Push` impliceert `-Commit`**, dus geef alleen die mee. Sinds 2026-08-16 is dat de route hier: pushen
+naar `origin/main` is vrijgegeven door Dave, en de fold hoort de laatste stap van de keten te zijn in
+plaats van een commit die blijft liggen.
+
+> **Tot 2026-08-16 stond hier `-Commit`, met de instructie `-Push` bewust wég te laten** omdat pushen
+> Dave's initiatief was. Die regel is geschrapt. De reden dat hij juist hier het langst gold, is ook de
+> reden dat hij verviel: na de omzetting van de PR-stap was dit het enige dat er nog onder viel, en het
+> is de minst riskante commit die deze repo kent — `CHANGELOG.md` plus twee bestanden die geen enkele
+> gebouwde pagina veranderen.
 
 ## Wat het doet
 
-1. Leest `branch/branch-changelog.md` en zoekt de bijbehorende PR op via `gh`.
+1. Leest `workflow-davekjohn/branch/branch-changelog.md` en zoekt de bijbehorende PR op via `gh`.
 2. Voegt de entry op tier/score-volgorde in `CHANGELOG.md` in, met de PR-link en de merge-datum.
-3. Zet `branch/branch-changelog.md` en `branch/branch-progress.md` terug in hun resetstaat.
-4. Commit dat als `fold: <branch> changelog`.
+3. Zet de twee bestanden in `workflow-davekjohn/branch/` terug in hun resetstaat.
+4. Commit dat als `fold: <branch> changelog` en pusht het naar `origin/main`.
 
 Elke `##`-kop in `CHANGELOG.md` is één wijziging; er is sinds 2026-08-11 geen sectiekop meer.
 
