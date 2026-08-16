@@ -59,7 +59,7 @@
  *        square/image_{power}_{color}_square_{YYYYMMDD}.webp
  *   2. Als je .jpg aanlevert: npm run images:webp
  *   3. Controleer de JSON in de editor.
- *   4. Commit + push live via de cyclus in CONTRIBUTING.md.
+ *   4. Commit + push live via de cyclus in workflow-davekjohn/CONTRIBUTING.md.
  *
  * AUDIO BESTANDSNAAM OP R2
  * ------------------------

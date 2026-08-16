@@ -151,9 +151,10 @@ djcylow-react/
 │   └── functions/              # Serverless functions (contact form email)
 │
 ├── scripts/                    # Build/utility scripts
-├── releases/                   # Version history (development/ + audience/ + github/, v1.0.0 – present)
-├── branch/                     # The two files an in-flight branch works in (entry + step list)
-├── CONTRIBUTING.md             # The contribution cycle: branches, changelog entries, PR gates
+├── releases/                   # Generated release notes (development/ + github/, v1.0.0 – present)
+├── workflow-davekjohn/         # The workflow's own folder: branch dossier, release history,
+│                               #   audience notes, and its CONTRIBUTING layer
+├── CONTRIBUTING.md             # The standard workflow; the plugin's layer is in workflow-davekjohn/
 ├── CLAUDE.md                   # Operating guide: safety rules, the specialists, repo conventions
 ├── next.config.ts              # output: 'export', images: unoptimized, sassOptions
 ├── tsconfig.json               # strict, ES2017, path alias @/* → ./src/*

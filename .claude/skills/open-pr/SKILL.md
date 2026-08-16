@@ -7,7 +7,8 @@ description: >-
   Gebruik dit als een branch af is en de PR-regel uit CLAUDE.md het openen toestaat -- dus voor
   werk in scripts/, de governance-docs, CHANGELOG.md, releases/, workflow-davekjohn/, .claude/ en
   onderzoek. Frontend-werk (src/, public/, src/data/mixes/) wacht op Dave, en dat is sinds
-  2026-08-16 de enige reden waarom een PR nog wacht; dat is stap 4 van de cyclus in CONTRIBUTING.md.
+  2026-08-16 de enige reden waarom een PR nog wacht; dat is stap 4 van de cyclus in
+  workflow-davekjohn/CONTRIBUTING.md.
 ---
 
 # open-pr — stap 4 van de cyclus, in deze repo
@@ -70,5 +71,6 @@ Alles wat niet `-Script` of `-Plugin` heet, gaat ongewijzigd door naar het gedee
 
 ## Daarna
 
-Stap 5 tot en met 7 uit [`CONTRIBUTING.md`](../../../CONTRIBUTING.md): de review, de merge, en de
-fold via de `fold-changelog`-skill.
+Stap 5 tot en met 7 uit
+[`workflow-davekjohn/CONTRIBUTING.md`](../../../workflow-davekjohn/CONTRIBUTING.md): de review, de
+merge, en de fold via de `fold-changelog`-skill.

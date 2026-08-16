@@ -7,7 +7,8 @@ elke repo die met de Claude Specialists werkt), en **alles wat specifiek is voor
 onderaan** onder [`## Eigen aan deze repo (djcylow-react)`](#eigen-aan-deze-repo-djcylow-react) — het
 concrete team, de projectstructuur, de taal en de manier waarop de grondwet hier is ingevuld.
 
-**Dit bestand houdt de grénzen; de route staat in [`CONTRIBUTING.md`](CONTRIBUTING.md).** Daar staan sinds
+**Dit bestand houdt de grénzen; de route staat in
+[`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md).** Daar staan sinds
 2026-08-13 de **antwoorden** van deze repo op de contributie-cyclus: de branch-prefixen, de zeven stappen van
 branch tot fold, en per stap wat hier anders is. Het **mechanisme** van die cyclus — het tier-model, de
 rubric, de poorten die `open-pr` draait — staat er sinds 2026-08-13 níet meer in, maar in
@@ -15,9 +16,17 @@ rubric, de poorten die `open-pr` draait — staat er sinds 2026-08-13 níet meer
 **onderwerp**, niet van dezelfde werkwijze in twee documenten: wat op Dave's woord wacht staat hier, hoe het
 werk loopt staat daar, en geen van beide beschrijft het onderwerp van de ander.
 
+> **Er staan sinds 2026-08-16 twee `CONTRIBUTING.md`'s, en dat is één onderwerp in twee lagen.** De
+> root-pagina is de **standaardwerkwijze** — nooit direct op `main`, CI groen vóór de merge, één
+> wijziging per branch — en die blijft kloppen op de dag dat de plugin er niet is. De pagina in
+> `workflow-davekjohn/` is de **laag van de plugin**, en die **wint waar de twee elkaar
+> tegenspreken**. Overgenomen van de bron, die de splitsing op 14 augustus maakte; tot 2026-08-16
+> stond de hele pluginlaag hier in de root, waar een bezoeker die niets van de plugin weet er als
+> eerste tegenaan liep.
+
 Dat is precies het verschil met de oude `workflow/`-map, die niet meer bestaat: dat was een **tweede
 werkwijze-document** naast dit bestand, en twee beschrijvingen van hetzelfde liepen onvermijdelijk uit
-elkaar. `CONTRIBUTING.md` is bovendien maar de helft van zijn eigen onderwerp — de andere helft reist
+elkaar. De pluginlaag is bovendien maar de helft van zijn eigen onderwerp — de andere helft reist
 met de plugin mee en wordt daar onderhouden, dus ook dáár staat de cyclus maar één keer beschreven.
 Dezelfde constructie als in de bron-repo en in `life-hub`.
 
@@ -184,7 +193,7 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 
 Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 
-1. De **fold-commit** (na een merge, [stap 7](CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
+1. De **fold-commit** (na een merge, [stap 7](workflow-davekjohn/CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
    de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` + de twee
    vaste bestanden in `workflow-davekjohn/branch/`. **Hij wordt meteen gepusht** — sinds 2026-08-16 draait
    de fold met `-Push` in plaats van `-Commit`, want pushen naar `origin/main` is geen apart besluit meer.
@@ -236,9 +245,10 @@ Dit zijn de **enige** twee. Ook een "onschuldige" opruim- of chore-commit gaat v
   van zulk werk. De twee vragen zijn uit elkaar getrokken: Dave weegt vooraf of iets mag, niet nog eens
   achteraf of het gemerged mag.
 
-### Ontwikkelworkflow — de route staat in `CONTRIBUTING.md`
+### Ontwikkelworkflow — de route staat in `workflow-davekjohn/CONTRIBUTING.md`
 
-De route staat in [`CONTRIBUTING.md`](CONTRIBUTING.md): de branch-prefixen met hun label en changelog-type,
+De route staat in [`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md): de
+branch-prefixen met hun label en changelog-type,
 de zeven stappen van branch tot fold, en per stap het antwoord van déze repo — welke lint-poort de laatste
 wacht is, waarom stap 5 bestaat, welke `gh`-vlaggen hier stukgaan. Die pagina is de **lokale helft** van een
 gedeeld document; de **portable helft** (`CONTRIBUTING-portable.md`) reist met de plugin mee en draagt het
@@ -248,8 +258,8 @@ waar de route beschreven staat — en sinds 2026-08-13 staat elk stuk ervan maar
 Twee regels uit die route zijn óók grondwet, en die vind je daarom hierboven in
 [de safety-rules](#safety-rules): **mergen is hier deployen**, en werk waaraan **iets aan de frontend te
 bekíjken valt** wacht daarom op Dave — al het overige loopt door tot en met de push. Alles daartussen —
-hoe je een branch noemt, wat er in de entry hoort, welke poort wat weigert — lees je in `CONTRIBUTING.md`
-of de portable helft waarnaar dat document verwijst.
+hoe je een branch noemt, wat er in de entry hoort, welke poort wat weigert — lees je in
+`workflow-davekjohn/CONTRIBUTING.md` of de portable helft waarnaar dat document verwijst.
 
 > **Dit waren er drie tot 2026-08-16**; de derde was *"pushen naar `origin/main` is Dave's initiatief"*.
 > Die is geschrapt — zie de noot bij de safety-rules hierboven.
@@ -327,8 +337,9 @@ meebewogen zodat de twee elkaar niet meer tegenspreken. Tot die avond deden ze d
 op Engels en stap 6 droeg Nederlands op, met als meetbaar gevolg dat `/continue` de "nog open"-sectie
 van een note niet kon vinden. `v2.23.0` is de laatste Nederlandse note.
 
-**Ook `CONTRIBUTING.md` is Nederlands**, net als dit bestand. De portable helft ernaast is Engels en
-valt buiten deze regel: die is niet van deze repo maar van de plugin, en wordt daar onderhouden.
+**Ook beide `CONTRIBUTING.md`'s zijn Nederlands**, net als dit bestand — de standaardlaag in de root
+en de pluginlaag in `workflow-davekjohn/`. De portable helft ernaast is Engels en valt buiten deze
+regel: die is niet van deze repo maar van de plugin, en wordt daar onderhouden.
 
 ### Het team: roster & routing
 
@@ -356,7 +367,8 @@ plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 | `workflow-davekjohn/prompts/` | de prompt-inbox voor `/prompt` | nieuw in 4.12.0; `prompt.md` en `archive/` zijn **untracked** |
 | `workflow-davekjohn/CLAUDE.md` · `README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
 | `releases/development/` · `releases/github/` | **blijven in de repo-root** | hardcoded in `cut-release.ps1` (regel 728 en 820) — geen seam |
-| `CONTRIBUTING.md` | **blijft in de repo-root** | GitHub zoekt hem daar, en hij ís al de lokale helft |
+| `workflow-davekjohn/CONTRIBUTING.md` | de **pluginlaag** van de cyclus — wint bij conflict | model van de bron, overgenomen 2026-08-16 |
+| `CONTRIBUTING.md` | **blijft in de repo-root**, maar dun: de **standaardwerkwijze** | GitHub zoekt hem daar, en hij moet kloppen zónder plugin |
 
 **`branch/` verhuizen was geen keuze.** `Get-BranchFilePaths` in `entry-scaffold-lib.ps1` draagt de
 aantekening *"No dual-read of the old root 'branch/' location, deliberately"* — er is dus geen fallback en
@@ -412,7 +424,7 @@ npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/l
 3. `npm run images:webp` — als je `.jpg`-afbeeldingen hebt aangeleverd. Dat toont eerst wat er zou
    gebeuren; `npm run images:webp:apply` voert het daarna uit
 4. Controleer het JSON-bestand in de editor
-5. Commit + push via [de cyclus in `CONTRIBUTING.md`](CONTRIBUTING.md#de-cyclus-stap-voor-stap)
+5. Commit + push via [de cyclus in `workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md#de-cyclus-stap-voor-stap)
 
 #### Critical constraints
 
@@ -676,7 +688,7 @@ in [`DaveKJohn/claude-code-specialists`](https://github.com/DaveKJohn/claude-cod
 repo verschilt woont in `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1`.
 
 De stapnummers hieronder verwijzen naar
-[de cyclus in `CONTRIBUTING.md`](CONTRIBUTING.md#de-cyclus-stap-voor-stap).
+[de cyclus in `workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md#de-cyclus-stap-voor-stap).
 
 **Er staan twee kopieën van elk gedeeld script op de machine, en je draait er maar één van.** Welke,
 hangt af van wat je ermee doet:
@@ -721,7 +733,8 @@ val.
 > release is precies wat een bron-checkout hoort te zijn, en de skills wijzen correct naar
 > `${CLAUDE_PLUGIN_ROOT}`. Wat ontbrak was deze alinea.
 >
-> **En er stond al een waarschuwing die dit had moeten vangen** — [`CONTRIBUTING.md`](CONTRIBUTING.md)
+> **En er stond al een waarschuwing die dit had moeten vangen** —
+> [`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md)
 > zegt sinds 2026-08-13 dat de scripts uit de cache draaien. Die dekte de **versie-as** (welke versie
 > staat er geïnstalleerd) en niet de **map-as** (welke van twee bomen lees je), en dat is wat het
 > verschil maakte: twee kopieën van dezelfde versie-as verwarren kost je een verouderd script, twee
@@ -1104,7 +1117,8 @@ geleerde lessen in de docs, de grondwet boven elk gemak) is draagbaar en staat b
 (dit roster, de Next.js-structuur, de mix-data-conventies, de Release Workflow, het feit dat een
 merge hier direct deployt, de scripts en de poort) is van deze repo en staat in dit slot.
 
-Diezelfde tweedeling loopt door in [`CONTRIBUTING.md`](CONTRIBUTING.md), en dat is geen tweede systeem
+Diezelfde tweedeling loopt door in
+[`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md), en dat is geen tweede systeem
 maar hetzelfde: de portable helft van die pagina woont in de plugin, de antwoorden van déze repo staan
 in de repo. Wat dit bestand hier doet voor de **grenzen**, doet die pagina daar voor de **route**.
 

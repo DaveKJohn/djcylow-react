@@ -9,6 +9,7 @@ source repo -- and each page in this folder is this repo's own set of answers to
 | here | what it holds |
 |---|---|
 | [`CLAUDE.md`](CLAUDE.md) | the working rules a Claude session needs in this folder |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | this repo's answers to the contribution cycle -- the layer that wins over the root page |
 | [`branch/`](branch/) | the branch dossier: the entry, the step list, the generated templates |
 | [`prompts/`](prompts/) | the prompt inbox: an assignment written in an editor instead of the terminal |
 | [`releases/`](releases/) | the release history and the published audience notes |
@@ -16,15 +17,7 @@ source repo -- and each page in this folder is this repo's own set of answers to
 Scaffolded by the `adopt-workflow-folder` skill on August 16, 2026; strictly additive, so everything
 here past the VUL-IN markers is this repo's own writing.
 
-## Two ways this repo differs from the scaffold
-
-**There is no `CONTRIBUTING.md` in this folder, deliberately.** The scaffold places one, on the
-assumption that a repo's root page describes a plugin-free workflow and the folder page layers the
-plugin's answers on top. This repo has no such split: its root
-[`CONTRIBUTING.md`](../CONTRIBUTING.md) already *is* the local half of `CONTRIBUTING-portable.md`,
-and it is what `CLAUDE.md` points at throughout. A second page here would have been the same subject
-described twice -- the exact failure that retired the old `workflow/` directory. The root page also
-stays where GitHub looks for it, which a page in this folder would not.
+## One way this repo differs from the scaffold
 
 **Only `audience/` moved into `releases/` here.** The generated development notes and the GitHub
 announcements stayed at the repo root, because `cut-release.ps1` hardcodes those two roots relative
