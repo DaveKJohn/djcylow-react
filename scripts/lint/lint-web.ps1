@@ -21,6 +21,21 @@
       2. `eslint .` - sinds 2026-08-14, zie hieronder.
       3. `npm run build` - de static export die Netlify ook draait, MET een ondergrens op het aantal
          gegenereerde pagina's ($MinStaticPages).
+      4. `scripts\lint\check-links.ps1` - elke relatieve link en elk anker in de markdown van de repo
+         tegen de tree, sinds 2026-08-16; zie hieronder.
+
+    DE VIERDE STAP DEKT HET ENIGE DEEL DAT DE ANDERE DRIE NIET AANRAKEN
+    -------------------------------------------------------------------
+    tsc, ESLint en de build kijken naar de app. De governance-documentatie -- CLAUDE.md, beide
+    CONTRIBUTING.md's, de READMEs, de lenzen -- wordt door geen van drieen aangeraakt, terwijl dat
+    wel het deel is dat elke sessie meeleest. Gemeten wat dat kost: de mapverhuizing naar
+    workflow-davekjohn/ (PR #145) liet vijftien dode links achter die een etmaal onopgemerkt bleven
+    met een groene poort en groene CI.
+
+    De stap staat bewust ACHTER de build en niet ervoor. Hij kost geen netwerk en nauwelijks tijd,
+    maar een kapotte build is het ergste dat hier kan gebeuren en hoort dus als eerste te blokkeren;
+    wie op een dode link strandt, weet dan al dat de rest goed staat. -SkipBuild slaat hem niet over:
+    dode links repareren is precies het werk waarbij je de build niet nodig hebt.
 
     DIE ISOLATIE WAS ER LANG NIET ECHT
     ----------------------------------
@@ -233,6 +248,21 @@ try {
         else {
             Write-Host "  [OK]    build geslaagd -- $pageCount statische pagina's (ondergrens gehaald)" -ForegroundColor Green
         }
+    }
+
+    Write-Host ""
+    Write-Host "-- Links en ankers (check-links.ps1)" -ForegroundColor Gray
+    # Met & en NIET dot-sourced, en bewust ook niet als kindproces: `& powershell -File ...` zou hier
+    # lokaal werken en in CI stuklopen, want daar draait dit onder pwsh op Linux en bestaat het
+    # commando `powershell` niet. Een aanroep met & houdt de eigen Set-StrictMode, Push-Location en
+    # exit van dat script binnen zijn eigen scope, en zet $LASTEXITCODE voor ons -- zonder de kosten
+    # en de platformafhankelijkheid van een tweede host. Zijn eigen rapport is de melding; hier komt
+    # er niets bovenop behalve de blokkade.
+    & (Join-Path $PSScriptRoot 'check-links.ps1')
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host ""
+        Write-Host "Samenvatting: dode links of ankers gevonden -- de poort blokkeert." -ForegroundColor Red
+        exit 1
     }
 
     Write-Host ""
