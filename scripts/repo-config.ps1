@@ -215,7 +215,9 @@ function Get-MojibakePaths {
     <# Absolute paths of the files fix-mojibake.ps1 examines when called without -Path. #>
     param([Parameter(Mandatory = $true)][string]$RepoRoot)
 
-    # Every markdown file in the repo root: CHANGELOG.md and the root docs.
+    # Every markdown file in the repo root: the root docs. CHANGELOG.md moved into workflow-davekjohn/
+    # on 2026-08-27 and is picked up by the -Recurse block below instead -- not named here separately,
+    # so this comment does not go stale a second time if it moves again.
     $paths = @(Get-ChildItem -LiteralPath $RepoRoot -Filter '*.md' -File |
         Select-Object -ExpandProperty FullName)
 
@@ -490,7 +492,13 @@ function Get-ReleaseConsumerBumps {
 # Let op bij het toevoegen van een nieuw vast root-document: hier bijschrijven, en nergens anders.
 # Komt er een tijdelijk werkbestand in de root (adopt-config schrijft bijvoorbeeld
 # config-adoption-proposal.md), dan hoort dat niet in deze lijst maar weg voordat er een release komt.
-$script:ReservedRootMd = @('CHANGELOG.md', 'CLAUDE.md', 'CONTRIBUTING.md', 'README.md')
+#
+# CHANGELOG.md STAAT ER SINDS 2026-08-27 NIET MEER OP: die dag verhuisde het bestand naar
+# workflow-davekjohn/CHANGELOG.md (issue #885/#914 in de bron -- een consumer-repo isoleert zijn
+# changelog voortaan in de workflow-map, en Assert-WorkflowIsolatedSeamPath weigert elk antwoord dat
+# daarbuiten wijst). Deze lijst dekt alleen root-*.md, dus een vermelding zou hier toch nooit meer
+# iets matchen -- weggehaald in plaats van als dode entry laten staan.
+$script:ReservedRootMd = @('CLAUDE.md', 'CONTRIBUTING.md', 'README.md')
 
 function Get-ReservedRootMd {
     <# Root-*.md die vaste documenten zijn in plaats van niet-gevouwen changelog-entries. #>

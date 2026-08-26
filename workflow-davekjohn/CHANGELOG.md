@@ -3,14 +3,14 @@
 De geschiedenis van de DJ Cylow-website: elke gemergde branch met zijn pull request, nieuwste
 bovenaan. Er zijn geen secties meer — **elke `##`-kop hieronder is één wijziging**, en dat is wat de
 gedeelde workflow-scripts lezen. Het mechanisme (het entry-bestand in `branch/`, folden, een release
-knippen) staat in [`CLAUDE.md`](CLAUDE.md).
+knippen) staat in [`CLAUDE.md`](../CLAUDE.md).
 
 **`origin/main` is de live site.** Netlify bouwt en publiceert bij elke push naar `main`, en een
 PR-merge schrijft daar rechtstreeks in. Alles hieronder staat dus al op `djcylow.com` — live, maar
 nog zonder versienummer. Een release is een label op wat al draait.
 
 **De uitgebrachte versies staan niet hier maar in
-[`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md)**, met
+[`workflow-davekjohn/releases/README.md`](releases/README.md)**, met
 datum, type en een samenvattende regel per versie. Dit bestand houdt alleen wat nog géén
 versienummer heeft; een release-cut haalt die entries eruit en laat deze intro achter.
 

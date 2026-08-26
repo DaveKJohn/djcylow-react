@@ -32,7 +32,7 @@ bron — dit is een verwijzing, geen tweede formulering. Wat je moet weten om te
 **De ene regel die Chris bij het routeren in zijn hoofd moet hebben:** deze repo *is* een frontend, dus de
 uitzondering "er valt iets aan de frontend te bekíjken" is hier geen randgeval maar het gros van het werk.
 Alles in `src/`, `public/` en `src/data/mixes/` stopt na de push en wacht op Dave; `scripts/`, de
-governance-docs, `CHANGELOG.md`, `releases/`, `workflow-davekjohn/` en `.claude/` lopen door tot en met de
+governance-docs, `releases/`, `workflow-davekjohn/` (met `CHANGELOG.md` erin) en `.claude/` lopen door tot en met de
 fold **en de push**. Draagt een branch beide, dan is het frontend-werk en wacht hij.
 
 > **Twee dingen zijn op 2026-08-16 vereenvoudigd, en allebei in de richting van minder wachten** (Dave).

@@ -105,7 +105,7 @@ erin zit** — dat bepaalt de aard van het werk, niet een vaste regel per branch
 - **De default — niet wachten.** Is het werk op een branch af, gecommit en staat de poort groen, dan loopt
   de hele beweging in één keer door: openen → mergen → de changelog-entry folden → pushen, zonder
   tussenvraag. Dat dekt `scripts/`, de governance-documentatie (`CLAUDE.md`, `CONTRIBUTING.md`, de
-  README's), `CHANGELOG.md`, `releases/`, `workflow-davekjohn/`, de specialisten-laag onder `.claude/` en
+  README's), `releases/`, `workflow-davekjohn/` (met `CHANGELOG.md` erin sinds 2026-08-27), de specialisten-laag onder `.claude/` en
   onderzoek. Zulk werk raakt `djcylow.com` niet: de build levert dezelfde pagina's, dus de deploy die op de
   merge volgt is een no-op. Een stempel van Dave voegt daar niets aan toe, en wat tóch misgaat is één
   revert-PR verder.
@@ -362,6 +362,7 @@ plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 | pad | wat | waarom daar |
 |---|---|---|
 | `workflow-davekjohn/branch/` | de entry, de stappenlijst, de templates, `README.md` | **verplicht** — de gedeelde scripts lezen alléén deze plek |
+| `workflow-davekjohn/CHANGELOG.md` | de wachtende entries, live maar nog zonder versienummer | sinds 2026-08-27; `Get-ChangelogPath` (geen override, computed default) |
 | `workflow-davekjohn/releases/README.md` | de release-historie | `Get-ReleaseHistoryPath` |
 | `workflow-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
 | `workflow-davekjohn/prompts/` | de prompt-inbox voor `/prompt` | nieuw in 4.12.0; `prompt.md` en `archive/` zijn **untracked** |
@@ -369,6 +370,17 @@ plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 | `releases/development/` · `releases/github/` | **blijven in de repo-root** | hardcoded in `cut-release.ps1` (regel 728 en 820) — geen seam |
 | `workflow-davekjohn/CONTRIBUTING.md` | de **pluginlaag** van de cyclus — wint bij conflict | model van de bron, overgenomen 2026-08-16 |
 | `CONTRIBUTING.md` | **blijft in de repo-root**, maar dun: de **standaardwerkwijze** | GitHub zoekt hem daar, en hij moet kloppen zónder plugin |
+
+**`CHANGELOG.md` verhuizen was op 2026-08-27 wél een keuze, en niet meer een die deze repo kon
+uitstellen.** De bron maakte `Get-ChangelogPath` die dagen ervoor (25-26 augustus, issue #885/#914)
+**isolate-by-default** voor een consumer-repo: `Assert-WorkflowIsolatedSeamPath` in de gedeelde
+`seam-lib.ps1` weigert sindsdien (exit 1) élk antwoord — ook een expliciete override in
+`scripts/repo-config.ps1` — dat buiten `workflow-davekjohn/` wijst. Deze repo bewaarde het bestand tot
+die dag als vaste root-doc; de eerste keer dat `fold-changelog-entry.ps1` uit v4.20.0 daadwerkelijk
+tegen die grens liep (PR #149's fold), moest die ene entry met de hand in de oude root-locatie worden
+gevouwen. Er is bewust **geen** eigen `Get-ChangelogPath` gezet: de computed default volgt
+`Get-WorkflowFolderName` en wijst dus vanzelf naar `workflow-davekjohn/CHANGELOG.md` zolang die map zo
+heet.
 
 **`branch/` verhuizen was geen keuze.** `Get-BranchFilePaths` in `entry-scaffold-lib.ps1` draagt de
 aantekening *"No dual-read of the old root 'branch/' location, deliberately"* — er is dus geen fallback en
@@ -471,7 +483,7 @@ npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/l
 | Music Mood Colours tekst | `src/content/musicmoodcolours.ts` |
 | Referenties | `src/content/referenties.ts` |
 | Breakpoints | `src/constants/design.ts` |
-| Live, maar nog zonder versienummer | `CHANGELOG.md` (elke `##`-kop is één wijziging) |
+| Live, maar nog zonder versienummer | `workflow-davekjohn/CHANGELOG.md` (elke `##`-kop is één wijziging) |
 
 #### Audio storage
 

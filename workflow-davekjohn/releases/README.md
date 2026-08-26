@@ -4,7 +4,7 @@
 state of the marketplace, with all plugin versions in lockstep. This page carries both halves: the
 **process** — the tier model, what a release must earn, the release documents, and how one is cut — and,
 under the repo heading at the end, the **full list of releases** actually cut. The release block in
-[`CHANGELOG.md`](../../CHANGELOG.md) points here for everything but the current version.
+[`CHANGELOG.md`](../CHANGELOG.md) points here for everything but the current version.
 
 [`scripts/release/cut-release.ps1`](https://github.com/DaveKJohn/claude-code-specialists/blob/main/scripts/release/cut-release.ps1)
 itself publishes nothing to GitHub Releases — that is a separate, manual closing step. Releases are cut
@@ -256,7 +256,7 @@ it was granted at.
 
 A release is a **captured moment**: all plugins get the same version number (**lockstep, repo-wide**) and
 the state is tagged as `vX.Y.Z`. `cut-release.ps1` produces only a git tag, the full notes here in
-`development/`, and a reference to them in [`CHANGELOG.md`](../../CHANGELOG.md). A release is cut **only on the
+`development/`, and a reference to them in [`CHANGELOG.md`](../CHANGELOG.md). A release is cut **only on the
 owner's explicit request** and deliberately does **not** go through a branch + PR: like the fold commit, the
 release commit is a permitted direct-on-`main` action (the second exception to "everything via branch + PR"
 — see [`CONTRIBUTING.md`](../CONTRIBUTING.md)).
@@ -363,7 +363,7 @@ release, which is what keeps every consumer's copy in step. Fixing it here inste
 drift this mirror was made to end — and this repo has already paid for that lesson once, in a local
 `cut-release.ps1` copy that had to be deleted because every upstream improvement needed porting by hand.
 
-**Two mechanical edits were made on the way, and only two.** Both are about *paths*, never about words.
+**Three mechanical edits were made on the way, and only three.** All are about *paths*, never about words.
 
 **The first: links out of this tree were made absolute.** Links to files that live in the **source repo or
 the plugin install** — `cut-release.ps1`, `release-lib.ps1`, `release-lib.tests.ps1`,
@@ -377,10 +377,11 @@ would simply have stayed wrong.
 **The second: every link into this repo gained a `../`** (August 16, 2026). The source keeps this page at
 `releases/README.md`, one level below its root, so `../CHANGELOG.md` resolves there. Plugin **v4.12.0**
 moved a consumer's copy to `workflow-davekjohn/releases/README.md`, one level deeper — and at that moment
-all ten of those links pointed one directory short. They are `../../` here, and that is not drift: keeping
-them identical to the source would have meant keeping them **broken**, which is the opposite of what the
-mirror is for. The shared text means *this repo's `CHANGELOG.md`* by `../CHANGELOG.md`; `../../CHANGELOG.md`
-is what that sentence means from where the page now sits.
+all ten of those links pointed one directory short. They became `../../` here, and that was not drift:
+keeping them identical to the source would have meant keeping them **broken**, which is the opposite of
+what the mirror is for. The shared text means *this repo's `CHANGELOG.md`* by `../CHANGELOG.md`;
+`../../CHANGELOG.md` was what that sentence meant from where the page sat between August 16 and
+August 27, 2026.
 
 > **This is worth an `inbound` issue, and it is a defect in the source rather than in this copy.** The
 > source prescribes the move for consumers — `Get-RelativeLinkPath` in `release-lib.ps1` exists purely to
@@ -388,6 +389,17 @@ is what that sentence means from where the page now sits.
 > not given the same treatment. Every consumer who follows the prescribed layout inherits ten dead links,
 > and none of them will notice: a consumer's gate reads no markdown either. The fix belongs upstream, so
 > the next release hands every consumer working links instead of each of them repairing the same ten.
+
+**The third: the two `CHANGELOG.md` links lost that extra `../` again** (August 27, 2026). `CHANGELOG.md`
+itself moved that day, from the repo root into `workflow-davekjohn/CHANGELOG.md` — the source's own
+`Get-ChangelogPath` seam turned **isolate-by-default** for a consumer repo on August 25-26, 2026
+(issue #885/#914), and this repo's copy had kept its changelog at the root until then. From
+`workflow-davekjohn/releases/README.md`, the target now sits one level up instead of two, so the two
+`CHANGELOG.md` links above the rule read `../CHANGELOG.md` again — coincidentally the same depth the
+source itself uses, though for an unrelated reason: there, `../CHANGELOG.md` is one level from the
+source's own root; here, it is one level from this page to a file that sits *inside* the same workflow
+folder this page does. This is a repo-specific fact about where **this** repo's `CHANGELOG.md` lives, not
+a second instance of the group-two defect above, so it is not part of that `inbound` issue.
 
 **The three roots are no longer siblings here, and the text above still reads as if they are.** Above the
 rule, `development/<dir>/`, `audience/<dir>/` and `github/<dir>/` are written as three directories beside
@@ -697,7 +709,7 @@ Reconciling the two wordings is queued with the release-route branch above.
 ### The release list
 
 **Every release ever cut, newest first, grouped by major version.** This is the **full record**:
-[`CHANGELOG.md`](../../CHANGELOG.md) keeps only what is live but has no version number yet, and points here
+[`CHANGELOG.md`](../CHANGELOG.md) keeps only what is live but has no version number yet, and points here
 for the rest. **Which version the site currently runs is the top row below.**
 
 **The version cell points at the most readable document that release has** — the hand-written document where
