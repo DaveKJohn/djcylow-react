@@ -1,5 +1,5 @@
 ## Wat doet deze wijziging?
-<!-- Filled from workflow-davekjohn/branch/branch-changelog.md. Opening a PR by hand? Paste that file's body here. -->
+<!-- Filled from branch/branch-changelog.md. Opening a PR by hand? Paste that file's body here. -->
 
 ## Type wijziging
 - [ ] Nieuwe feature/pagina (`feature/`)
