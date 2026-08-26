@@ -25,7 +25,13 @@
   Bijvoorbeeld: release/open-pr.ps1
 
 .PARAMETER Plugin
-  Naam van de plugin in de cache. Standaard workflow-davekjohn.
+  Naam van de plugin in de cache. Standaard contributing-davekjohn.
+
+  Heette tot plugin-versie 4.20.0 `workflow-davekjohn`; de bron hernoemde dat pluginpakket naar
+  `contributing-davekjohn` (issue #886, gemeten op 2026-08-27 in deze repo). De repo-eigen map
+  `workflow-davekjohn/` in de working tree is een ander ding en heet niet mee -- dat is een
+  seam (`Get-WorkflowFolderName`) die zowel de oude als de nieuwe mapnaam leest en dus geen
+  hernoeming afdwingt.
 
 .PARAMETER Rest
   Alle overige argumenten worden ongewijzigd doorgegeven aan het gedeelde script.
@@ -40,7 +46,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)][string]$Script,
-    [string]$Plugin = 'workflow-davekjohn',
+    [string]$Plugin = 'contributing-davekjohn',
     [Parameter(ValueFromRemainingArguments)][string[]]$Rest
 )
 
