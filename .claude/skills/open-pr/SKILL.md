@@ -5,7 +5,7 @@ description: >-
   Draait eerst de vier entry-poorten (resolves, scaffold, impact, step-list), daarna de lint-poort
   van deze repo en alle testsuites; bij een fout wordt er niets gepusht en geen PR geopend.
   Gebruik dit als een branch af is en de PR-regel uit CLAUDE.md het openen toestaat -- dus voor
-  werk in scripts/, de governance-docs, CHANGELOG.md, releases/, workflow-davekjohn/, .claude/ en
+  werk in scripts/, de governance-docs, releases/, workflow-davekjohn/ (met CHANGELOG.md erin), .claude/ en
   onderzoek. Frontend-werk (src/, public/, src/data/mixes/) wacht op Dave, en dat is sinds
   2026-08-16 de enige reden waarom een PR nog wacht; dat is stap 4 van de cyclus in
   workflow-davekjohn/CONTRIBUTING.md.

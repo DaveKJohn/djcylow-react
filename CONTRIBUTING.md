@@ -41,5 +41,5 @@ de plugin meereist.
 |---|---|
 | de grenzen: safety-rules, branch-discipline, de Release Workflow | [`CLAUDE.md`](CLAUDE.md) |
 | wie welk soort werk oppakt | [`.claude/specialists/SPECIALISTS.md`](.claude/specialists/SPECIALISTS.md) |
-| wat live is maar nog geen versienummer heeft | [`CHANGELOG.md`](CHANGELOG.md) |
+| wat live is maar nog geen versienummer heeft | [`CHANGELOG.md`](workflow-davekjohn/CHANGELOG.md) |
 | de uitgebrachte versies | [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md) |

@@ -96,7 +96,8 @@ niet een formaliteit onderweg.
 | de sectiekoppen van een entry | de Engelse defaults — bewust niet overschreven | *(geen override gedefinieerd)* |
 | de rubric achter de scores 1–5 | de gedeelde vijf banden | *(geen override gedefinieerd)* |
 | de ene publieks-tier van deze repo | **1** — het management en de opdrachtgever | `Get-ReleaseAudienceTier` |
-| permanente root-docs | `CHANGELOG.md` · `CLAUDE.md` · `README.md` · `CONTRIBUTING.md` | `Get-ReservedRootMd` |
+| permanente root-docs | `CLAUDE.md` · `README.md` · `CONTRIBUTING.md` | `Get-ReservedRootMd` |
+| de flat changelog met de wachtende entries | [`workflow-davekjohn/CHANGELOG.md`](CHANGELOG.md) — sinds 2026-08-27, isolate-by-default (issue #885/#914 in de bron) | *(geen override gedefinieerd; de computed default)* |
 | de release-historie | de tabel in [`workflow-davekjohn/releases/README.md`](releases/README.md) | `Get-ReleaseHistoryPath` |
 | indeling van de release-notes | per **major** (`2.x/`) — gelijk aan de bron sinds 2026-08-13 | `Get-ReleaseNotesGrouping` |
 | het handgeschreven release-document | [`workflow-davekjohn/releases/audience/`](releases/audience/), bij een minor en een major | `Get-ReleaseNoteRoot` · `Get-ReleaseConsumerBumps` |
@@ -113,6 +114,17 @@ zelf.
 door `check-script-contract.ps1` als `[INFO]` gemeld, en dat aantal is de enige stand die met de
 blueprint meebeweegt — handgeschreven tellingen liepen hier al eens met drie verschillende getallen
 uiteen. De check draait bij elke sessiestart via de `script-contract-sessioncheck`-hook.
+
+**`CHANGELOG.md` verhuisde op 2026-08-27 van de repo-root naar `workflow-davekjohn/CHANGELOG.md`**
+(Dave). De bron maakte de `Get-ChangelogPath`-seam op 25-26 augustus **isolate-by-default** voor een
+consumer-repo: `Assert-WorkflowIsolatedSeamPath` weigert sindsdien (exit 1) élk antwoord — ook een
+expliciete override in `scripts/repo-config.ps1` — dat buiten de workflow-map wijst. Deze repo bewaarde
+het bestand tot die dag als vaste root-doc (`Get-ReservedRootMd`); de eerste keer dat de gedeelde
+`fold-changelog-entry.ps1` daadwerkelijk tegen de nieuwe grens liep, moest die entry met de hand
+gevouwen worden. Er is bewust **geen** eigen `Get-ChangelogPath` in `repo-config.ps1` gezet: de
+computed default volgt `Get-WorkflowFolderName` en wijst dus vanzelf naar
+`workflow-davekjohn/CHANGELOG.md` zolang die map zo heet, en zou vanzelf meebewegen als de map ooit
+naar `contributing-davekjohn/` hernoemt.
 
 #### De release-boom staat sinds 2026-08-16 op twee plekken, en dat is geen halve verhuizing
 
@@ -418,7 +430,7 @@ een release-cut laagrisico — er gaat geen ongeteste code mee naar buiten — e
   die met elke plugin-release meebeweegt; een correctie daarin gaat als
   [`inbound`-issue](https://github.com/DaveKJohn/claude-code-specialists/issues) naar de bron en niet hier.
 - De twee bestanden waarin een branch werkt, en de drie stappentekens: [`workflow-davekjohn/branch/README.md`](branch/README.md).
-- Wat live is maar nog geen versienummer heeft: [`CHANGELOG.md`](../CHANGELOG.md).
+- Wat live is maar nog geen versienummer heeft: [`CHANGELOG.md`](CHANGELOG.md).
 - De grondwet, het roster en alles wat repo-eigen is: [`CLAUDE.md`](../CLAUDE.md).
 - Het release-model en de lijst uitgebrachte versies: [`workflow-davekjohn/releases/README.md`](releases/README.md). Let op dat
   die pagina de **andere** constructie draagt: daar staat de portable helft verbatim in het bestand zelf,
