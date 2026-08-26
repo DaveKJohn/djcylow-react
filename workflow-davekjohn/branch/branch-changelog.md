@@ -16,6 +16,14 @@ Deze branch trekt de installatie recht:
 - `workflow-davekjohn@claude-code-specialists` verwijderd (projectscope) en vervangen door `contributing-davekjohn@claude-code-specialists`; `team-alpha@claude-code-specialists` bijgewerkt van 4.12.0 naar 4.20.0. `.claude/settings.json` is automatisch meeveranderd (`enabledPlugins`).
 - `scripts/task/shared.ps1` — de standaardwaarde van `-Plugin` stond hardcoded op `workflow-davekjohn`, de nu verwijderde plugin-id. De drie repo-eigen skills (`open-pr`, `fold-changelog`, `park`) roepen dit script altijd zonder `-Plugin` aan, dus liepen ze stil door tegen de oude, niet meer bijgewerkte cache (laatste versie daar: 4.18.0) totdat die cache-map ooit wordt opgeruimd. De default is nu `contributing-davekjohn`.
 
+Een derde plek bleek stil kapot: `.github/pull_request_template.md` verwees in zijn placeholder-comment
+letterlijk naar `workflow-davekjohn/branch/branch-changelog.md`, en die exacte tekst staat niet meer in
+de herkenningslijst van het gedeelde `open-pr.ps1` (die verwacht sinds de rename óf geen mapprefix óf
+`contributing-davekjohn/`). Het gevolg, gezien bij het openen van déze PR: geen enkele regel matchte, en
+de PR-body bleef leeg. De placeholder-comment is nu de folder-agnostische variant
+(`<!-- Filled from branch/branch-changelog.md. ... -->`), zodat een latere mapnaamwijziging dit niet
+opnieuw breekt.
+
 Gemeten met `check-script-contract.ps1` uit de nieuwe 4.20.0-cache: **0 errors**. De 14 gemelde `[INFO]`-signalen zijn optionele nieuwe seams (o.a. een significance-rubric-override, de hernoemde release-note-roots) met een werkende fallback — geen van alle vereist een wijziging om te blijven werken. De repo-eigen map `workflow-davekjohn/` hoeft niet mee te hernoemen: `Get-WorkflowFolderName` leest zowel de oude als de nieuwe mapnaam, en de check bevestigt dat expliciet ("yours to do when it suits you").
 
 ### Significance

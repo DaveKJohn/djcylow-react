@@ -15,6 +15,10 @@
 #### TEST
 - [x] `check-script-contract.ps1` uit de nieuwe 4.20.0-cache gedraaid tegen deze repo: 0 errors, 14 optionele info-signalen (allemaal met werkende fallback, geen actie vereist)
 - [x] `scripts/task/shared.ps1 -Script sync/check-script-contract.ps1` gedraaid om te bevestigen dat het pad-resolutiemechanisme zelf weer naar de juiste (nieuwste) plugin-cache wijst
+- [x] `open-pr` gedraaid -- ontdekte dat `.github/pull_request_template.md`'s placeholder-comment niet
+      meer matchte tegen de herkenningslijst van de nieuwe `open-pr.ps1` (verwees nog naar
+      `workflow-davekjohn/branch/...` expliciet); gerepareerd naar de folder-agnostische variant en de
+      PR-body handmatig alsnog gevuld
 
 ### Where I left off
 Klaar. De pluginversie is bijgewerkt en de kapotte installatie is gerepareerd. De sessie zelf draait nog
