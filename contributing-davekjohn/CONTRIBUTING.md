@@ -88,7 +88,7 @@ vorm en geen bezuiniging.
 > [stap 3](#3-ontwikkel-op-de-branch-en-houd-development-cyclemd-bij).
 
 **De grondwet staat hier niet.** Wat mag en wat op Dave's woord wacht — de safety-rules, de PR-regel,
-de twee uitzonderingen op "nooit direct op `main`", de release-toestemming — staat in
+de drie uitzonderingen op "nooit direct op `main`", de release-toestemming — staat in
 [`CLAUDE.md`](../CLAUDE.md#safety-rules) en gaat boven alles op deze pagina. Deze pagina beschrijft de
 **route**; die beschrijft de **grenzen**.
 
