@@ -33,19 +33,38 @@
 
 ### PLAN
 
+`contributing-davekjohn/CLAUDE.md` restated points already covered, in more detail and with dates, by
+the root `CLAUDE.md` and by `contributing-davekjohn/CONTRIBUTING.md` -- checked point by point,
+including the most specific one (the `### DEPLOY` heading-collision rule), which was already verbatim
+in `CONTRIBUTING.md`. Two references pointed at it and needed updating along with the removal.
+
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] Verwijder `contributing-davekjohn/CLAUDE.md`
+- [x] Werk de tabelrij in de root `CLAUDE.md` bij (verwijst niet langer naar het verwijderde bestand)
+- [x] Werk `contributing-davekjohn/README.md` bij: verwijder de tabelrij + link, voeg een korte notitie
+      toe over de verwijdering, in dezelfde stijl als de `prompts/`-notitie ernaast
 
 ### TEST
 
+- [x] `scripts/lint/lint-web.ps1` draait groen (inclusief de link- en anker-check, de enige poort die
+      dode links in markdown zou vangen)
+
 ### DEPLOY: `docs/verwijder-workflow-claude-md-v1`
 
-**Score:**
+`contributing-davekjohn/CLAUDE.md` is verwijderd: alles erin stond al, uitgebreider en met eigen
+datums, in de root `CLAUDE.md` en in `contributing-davekjohn/CONTRIBUTING.md`. De twee verwijzingen
+ernaar (de tabelrij in de root `CLAUDE.md`, en de tabelrij + link in `contributing-davekjohn/README.md`)
+zijn bijgewerkt, en README.md heeft er een korte notitie over gekregen naast de bestaande over
+`prompts/`.
+
+**Score:** 1
 
 #### What makes this deploy extra special
 
-**Score:**
+N/A -- interne documentatie-opruiming, geen effect buiten deze repo's eigen ontwikkelaars.
+
+**Score:** N/A
 
 #### Pull Request
 

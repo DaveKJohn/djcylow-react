@@ -374,7 +374,7 @@ plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 | `contributing-davekjohn/CHANGELOG.md` | de wachtende entries, live maar nog zonder versienummer | sinds 2026-08-27; `Get-ChangelogPath` (geen override, computed default) |
 | `contributing-davekjohn/releases/README.md` | de release-historie | `Get-ReleaseHistoryPath` |
 | `contributing-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
-| `contributing-davekjohn/CLAUDE.md` · `README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
+| `contributing-davekjohn/README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
 | `releases/development/` · `releases/github/` | **blijven in de repo-root** | hardcoded in `cut-release.ps1` (regel 728 en 820) — geen seam |
 | `contributing-davekjohn/CONTRIBUTING.md` | de **pluginlaag** van de cyclus — wint bij conflict | model van de bron, overgenomen 2026-08-16 |
 | `CONTRIBUTING.md` | **blijft in de repo-root**, maar dun: de **standaardwerkwijze** | GitHub zoekt hem daar, en hij moet kloppen zónder plugin |

@@ -8,7 +8,6 @@ this folder is this repo's own set of answers to them.
 
 | here | what it holds |
 |---|---|
-| [`CLAUDE.md`](CLAUDE.md) | the working rules a Claude session needs in this folder |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | this repo's answers to the contribution cycle -- the layer that wins over the root page |
 | `development-cycle.md` | the branch's own document -- the plan and the changelog entry, both sections of one file; exists only while a branch is open, so it is absent here on the trunk |
 | [`releases/`](releases/) | the release history and the published audience notes |
@@ -48,3 +47,12 @@ The scaffold's prompt inbox (`prompts/prompt.md`) landed on 2026-08-16 and was r
 request the same day as the folder rename, 2026-08-27: writing an assignment into an editor file for
 `/prompt` to pick up never replaced typing it into the terminal. Nothing else in this folder depended
 on it.
+
+## `CLAUDE.md` existed here too, and was removed as duplicative
+
+The scaffold also placed a `CLAUDE.md` in this folder on 2026-08-16, with the working rules a session
+needs while it operates inside `contributing-davekjohn/`. Every point in it -- the one-file
+`development-cycle.md` model, how the `### DEPLOY` section folds, the retired `prompts/` and `branch/`
+sub-folders -- was already stated, in more detail and with its own dates, in the root `../CLAUDE.md`
+and in [`CONTRIBUTING.md`](CONTRIBUTING.md). It carried nothing this folder's own pages did not already
+say, so it came out on 2026-08-27 rather than drift out of sync with them.
