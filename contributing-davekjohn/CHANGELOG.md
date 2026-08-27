@@ -27,6 +27,34 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `docs/consolideer-contributing-naar-plugin-v1` · 20260827-102440
+
+Consolideert de twee-lagen-`CONTRIBUTING.md`-split (2026-08-16) terug naar één bestand:
+`contributing-davekjohn/CONTRIBUTING.md`. De root-`CONTRIBUTING.md` is verwijderd, en elke verwijzing
+ernaar in `CLAUDE.md`, `README.md`, `contributing-davekjohn/CONTRIBUTING.md`,
+`contributing-davekjohn/README.md`, `scripts/repo-config.ps1` (`Get-ReservedRootMd`) en
+`scripts/lint/lint-web.ps1` is bijgewerkt. Trekt deze repo gelijk met het huidige plugin-scaffold, dat
+sinds v4.20.0 zelf ook nog maar één `CONTRIBUTING.md` scaffoldt. Kost GitHub's automatische
+"contributing guidelines"-link (die zoekt alleen in de root, `.github/` of `docs/`), niets functioneels.
+
+**Score:** 2 -- klein, maar wel gemerkt: wie voortaan bijdraagt vindt de werkwijze op één plek in
+plaats van in twee documenten die kunnen uiteenlopen (precies de klasse fout die bij de vorige
+mapverhuizing al eens dode links opleverde).
+
+#### What makes this deploy extra special
+
+N/A -- raakt alleen de contributiedocumentatie, niet de site.
+
+**Score:** N/A
+
+#### Pull Request
+
+Consolideer CONTRIBUTING.md naar de pluginlaag
+
+[PR #159](https://github.com/DaveKJohn/djcylow-react/pull/159)
+
+---
+
 ### DEPLOY: `config/migreer-release-roots-v1` · 20260827-100930
 
 **Score:** 1 -- voorkomt een fout die nog niet is opgetreden: zonder deze migratie was de eerstvolgende
