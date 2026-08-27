@@ -401,32 +401,50 @@ source's own root; here, it is one level from this page to a file that sits *ins
 folder this page does. This is a repo-specific fact about where **this** repo's `CHANGELOG.md` lives, not
 a second instance of the group-two defect above, so it is not part of that `inbound` issue.
 
-**The three roots are no longer siblings here, and the text above still reads as if they are.** Above the
-rule, `development/<dir>/`, `audience/<dir>/` and `github/<dir>/` are written as three directories beside
-this page — true in the source, where all four sit in one `releases/`. Since August 16, 2026 only
-`audience/` sits beside this page; `development/` and `github/` are at
-[`releases/`](../../releases/) in the repo root:
+**The three roots are siblings again, as of August 27, 2026 — they split for eleven days and rejoined.**
+Above the rule, `changelog/<dir>/`, `audience/<dir>/` and `github/<dir>/` are written as three directories
+beside this page, and that is true here again. Between August 16 and August 27, 2026 only `audience/` sat
+beside this page; `development/` (its name until this move) and `github/` sat at the repo root, because
+`Get-ReleaseChangelogNotesRoot` and `Get-ReleaseGithubNotesRoot` did not exist yet — those two paths were
+hardcoded in `cut-release.ps1`, not seams, so there was nothing to point elsewhere.
 
 | root | where | why |
 |---|---|---|
 | `contributing-davekjohn/releases/README.md` | here | `Get-ReleaseHistoryPath` points at it |
 | `contributing-davekjohn/releases/audience/` | here | `Get-ReleaseNoteRoot` points at it |
-| `releases/development/` | repo root | hardcoded in `cut-release.ps1` (line 728) |
-| `releases/github/` | repo root | hardcoded in `cut-release.ps1` (line 820) |
+| `contributing-davekjohn/releases/changelog/` | here | `Get-ReleaseChangelogNotesRoot`'s computed default, since #914 |
+| `contributing-davekjohn/releases/github/` | here | `Get-ReleaseGithubNotesRoot`'s computed default, since #914 |
 
-**This split is the source's own model, not a compromise.** `Get-RelativeLinkPath` says it outright: *"a
-consumer's history lives at `contributing-davekjohn/releases/README.md` while the generated development notes
-stay at the repo root."* Only two of the four roots are seams, so only those two could move; the other two
-would have been re-created at the root by the next cut, leaving two trees where there had been one. Both
-were in fact moved and then moved back during the v4.12.0 upgrade, once lines 728 and 820 were read rather
-than assumed. **The text above the rule is left alone** — it describes the source's layout correctly, and
-this note is the repo-specific answer that belongs on this side of the rule.
+**Source issue [#914](https://github.com/DaveKJohn/claude-code-specialists/issues/914) (closed August 26,
+2026) turned that hardcoding into two real seams with a computed default inside the workflow folder, and
+renamed `development` to `changelog` in the same move.** `Get-DefaultReleaseChangelogNotesRoot` and
+`Get-DefaultReleaseGithubNotesRoot` in `seam-lib.ps1` now resolve to `<folder>/releases/changelog` and
+`<folder>/releases/github` for every consumer — reversing the August 14, 2026 reasoning
+`Get-RelativeLinkPath`'s own comment gave for keeping these two at the repo root, which held only while
+they had no seam at all.
 
-**The folder itself was renamed a fourth time, on August 27, 2026: `workflow-davekjohn/` ->
+**Nothing in the plugin migrated this repo's existing 39 + 2 files, and nothing told this repo it needed
+to.** `adopt-workflow-folder.ps1` prints an explicit re-adoption warning for the sibling relocations of
+`Get-ReleaseHistoryPath` and `Get-ChangelogPath` — "your next cut starts a NEW list here, beside whatever
+history already sits at your root..." — but never mentions `Get-ReleaseChangelogNotesRoot` or
+`Get-ReleaseGithubNotesRoot`, and `cut-release.ps1` prints nothing when it resolves either of them. That
+gap sat unnoticed for the eleven days between the plugin update landing here (2026-08-26) and this
+migration; it is filed upstream as inbound
+[#955](https://github.com/DaveKJohn/claude-code-specialists/issues/955), so the next consumer who upgrades
+gets a warning instead of a silently forked tree.
+
+**So this repo moved by hand rather than waiting for the next cut to fork one.**
+`git mv releases/development contributing-davekjohn/releases/changelog` and
+`git mv releases/github contributing-davekjohn/releases/github` — 39 + 2 files, not one letter of their
+text changed. Both roots now resolve at their computed default; nothing is declared in `repo-config.ps1`
+for either, the same way `audience/` already needed nothing beyond its own explicit line.
+
+**The folder itself was renamed a fourth time on August 27, 2026 too: `workflow-davekjohn/` ->
 `contributing-davekjohn/`.** The source's own package rename in v4.20.0 (#886) is not a link-depth
 change — `contributing-davekjohn/releases/README.md` sits exactly as deep under the repo root as
-`workflow-davekjohn/releases/README.md` did, so none of the three groups above needed a fourth
-adjustment. Only the literal name in this table and in the quote above changed, via `git mv`.
+`workflow-davekjohn/releases/README.md` did, so none of the four groups above needed a further adjustment
+for that rename specifically. Only the literal name in this table changed, via `git mv`, on the same day
+as the changelog/github move above — two unrelated migrations that happened to land together.
 
 **One sentence above the rule is wrong about a file of ours, and it is worth naming precisely because the
 link is live.** The intro says *"the release block in `CHANGELOG.md` points here for everything but the
@@ -719,7 +737,7 @@ Reconciling the two wordings is queued with the release-route branch above.
 for the rest. **Which version the site currently runs is the top row below.**
 
 **The version cell points at the most readable document that release has** — the hand-written document where
-the bump wrote one, the development record on a patch.
+the bump wrote one, the changelog record on a patch.
 
 New releases are added to the current major's table, the top one. That is why **opening a new major's
 section is a deliberate act, taken before the release is cut**: the inserter puts the row after the first
@@ -749,28 +767,28 @@ list sits at the **end** of the page:
 | [2.23.0](audience/2.x/2.23.0.md) | 2026-08-13 | Minor | De werkwijze gelijk aan de bron, een poort die altijd draait, en schone Spotify-titels |
 | [2.22.0](audience/2.x/2.22.0.md) | 2026-07-26 | Minor | Spotify-velden, datums hersteld, en de documentatie gelijk aan de praktijk |
 | [2.21.0](audience/2.x/2.21.0.md) | 2026-07-25 | Minor | Alle mixtitels naar één uniek formaat, plus workflow- en toolingherstel |
-| [2.20.2](../../releases/development/2.x/2.20.2.md) | 2026-07-25 | Patch | Mix-titels met hoofdletter, genrefilter-fix en workflow-aanscherpingen |
-| [2.20.1](../../releases/development/2.x/2.20.1.md) | 2026-07-02 | Patch | Workflow-herstructurering: PR's, per-branch changelog, releases/development+highlights |
+| [2.20.2](changelog/2.x/2.20.2.md) | 2026-07-25 | Patch | Mix-titels met hoofdletter, genrefilter-fix en workflow-aanscherpingen |
+| [2.20.1](changelog/2.x/2.20.1.md) | 2026-07-02 | Patch | Workflow-herstructurering: PR's, per-branch changelog, releases/development+highlights |
 | [2.20.0](audience/2.x/2.20.0.md) | 2026-07-02 | Minor | Luister-genrefilters uitgebreid, URL-sync en changelog opgeschoond |
-| [2.19.2](../../releases/development/2.x/2.19.2.md) | 2026-06-28 | Patch | Orange Full (m) subgenre gecorrigeerd |
-| [2.19.1](../../releases/development/2.x/2.19.1.md) | 2026-06-28 | Patch | robots.txt en sitemap.xml static export fix |
+| [2.19.2](changelog/2.x/2.19.2.md) | 2026-06-28 | Patch | Orange Full (m) subgenre gecorrigeerd |
+| [2.19.1](changelog/2.x/2.19.1.md) | 2026-06-28 | Patch | robots.txt en sitemap.xml static export fix |
 | [2.19.0](audience/2.x/2.19.0.md) | 2026-06-28 | Minor | NL/EN descriptions, image rename, mix-detailpagina verbeteringen |
 | [2.18.0](audience/2.x/2.18.0.md) | 2026-06-27 | Minor | SEO/GEO verbeteringen, top_artists & subgenre backfill |
 | [2.17.0](audience/2.x/2.17.0.md) | 2026-06-27 | Minor | GA4 + GTM analytics — view_mix dataLayer event |
-| [2.16.4](../../releases/development/2.x/2.16.4.md) | 2026-06-27 | Patch | Entry-formaat en branch-naamgeving vastgelegd |
-| [2.16.3](../../releases/development/2.x/2.16.3.md) | 2026-06-27 | Patch | Changelog workflow en mapstructuur verfijnd |
-| [2.16.2](../../releases/development/2.x/2.16.2.md) | 2026-06-27 | Patch | Changelog & release-notes workflow verfijnd |
-| [2.16.1](../../releases/development/2.x/2.16.1.md) | 2026-06-27 | Patch | Changelog workflow + versienummering |
+| [2.16.4](changelog/2.x/2.16.4.md) | 2026-06-27 | Patch | Entry-formaat en branch-naamgeving vastgelegd |
+| [2.16.3](changelog/2.x/2.16.3.md) | 2026-06-27 | Patch | Changelog workflow en mapstructuur verfijnd |
+| [2.16.2](changelog/2.x/2.16.2.md) | 2026-06-27 | Patch | Changelog & release-notes workflow verfijnd |
+| [2.16.1](changelog/2.x/2.16.1.md) | 2026-06-27 | Patch | Changelog workflow + versienummering |
 | [2.16.0](audience/2.x/2.16.0.md) | 2026-06-25 | Minor | Mix tags toegevoegd |
 | [2.15.0](audience/2.x/2.15.0.md) | 2026-06-25 | Minor | Mix detail verbeteringen + domein en taal gecorrigeerd |
-| [2.14.4](../../releases/development/2.x/2.14.4.md) | 2026-06-25 | Patch | add-mix script: automatische afbeelding controle en conversie |
-| [2.14.3](../../releases/development/2.x/2.14.3.md) | 2026-06-25 | Patch | add-mix script: AI beschrijving + tracklist plakken |
-| [2.14.2](../../releases/development/2.x/2.14.2.md) | 2026-06-25 | Patch | Script: nieuwe mix toevoegen |
-| [2.14.1](../../releases/development/2.x/2.14.1.md) | 2026-06-25 | Patch | Alle afbeeldingen geconverteerd naar WebP |
+| [2.14.4](changelog/2.x/2.14.4.md) | 2026-06-25 | Patch | add-mix script: automatische afbeelding controle en conversie |
+| [2.14.3](changelog/2.x/2.14.3.md) | 2026-06-25 | Patch | add-mix script: AI beschrijving + tracklist plakken |
+| [2.14.2](changelog/2.x/2.14.2.md) | 2026-06-25 | Patch | Script: nieuwe mix toevoegen |
+| [2.14.1](changelog/2.x/2.14.1.md) | 2026-06-25 | Patch | Alle afbeeldingen geconverteerd naar WebP |
 | [2.14.0](audience/2.x/2.14.0.md) | 2026-06-25 | Minor | Mix beschrijvingen alle kleuren + Red image update |
 | [2.13.0](audience/2.x/2.13.0.md) | 2026-06-18 | Minor | Code structuur & JSON tracklist verbeterd |
 | [2.12.0](audience/2.x/2.12.0.md) | 2026-06-16 | Minor | Nieuwe mix: Red Light EDM (Vol. 6) |
-| [2.11.1](../../releases/development/2.x/2.11.1.md) | 2026-05-10 | Patch | BackButton navigatie via Link |
+| [2.11.1](changelog/2.x/2.11.1.md) | 2026-05-10 | Patch | BackButton navigatie via Link |
 | [2.11.0](audience/2.x/2.11.0.md) | 2026-05-08 | Minor | Nieuwe mix: Orange Drum & Bass (Vol. 9) + responsive |
 | [2.10.0](audience/2.x/2.10.0.md) | 2026-05-05 | Minor | UX kleuren uitgebreid + layout responsive |
 | [2.9.0](audience/2.x/2.9.0.md) | 2026-05-01 | Minor | UX MODUS — donker/licht mode |
@@ -782,7 +800,7 @@ list sits at the **end** of the page:
 | [2.3.0](audience/2.x/2.3.0.md) | 2026-03-19 | Minor | BasiskleurenCarousel + Promo sectie + Navigatie |
 | [2.2.0](audience/2.x/2.2.0.md) | 2026-03-13 | Minor | Hero Banner |
 | [2.1.0](audience/2.x/2.1.0.md) | 2026-03-11 | Minor | AudioPlayer + Light Yellow mixes |
-| [2.0.1](../../releases/development/2.x/2.0.1.md) | 2026-03-08 | Patch | Succes message contactformulier |
+| [2.0.1](changelog/2.x/2.0.1.md) | 2026-03-08 | Patch | Succes message contactformulier |
 | [2.0.0](audience/2.x/2.0.0.md) | 2026-03-07 | Major | Eerste livegang op Netlify |
 
 > **The titles are Dutch, and stay that way.** They are the titles those releases were cut under; this list
