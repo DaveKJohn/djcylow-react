@@ -27,6 +27,31 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `docs/fix-changelog-intro-refs-v1` · 20260827-102925
+
+Herstelt twee stale verwijzingen in de vaste intro van `contributing-davekjohn/CHANGELOG.md`, blijven
+staan sinds de development-cycle.md-migratie (#152, PR #153): "het entry-bestand in `branch/`" wordt
+"het entry-bestand `development-cycle.md`", en de linktekst "`workflow-davekjohn/releases/README.md`"
+wordt "`contributing-davekjohn/releases/README.md`" (de href zelf, `releases/README.md` relatief, was
+al correct). Puur leesbaarheid/nauwkeurigheid, geen gate leest deze tekst. Closes #154.
+
+**Score:** 1 -- cosmetisch, voorkomt dat een lezer van de intro zelf een verkeerd pad of een niet meer
+bestaande map aanneemt.
+
+#### What makes this deploy extra special
+
+N/A -- raakt alleen een intro-alinea in de contributiedocumentatie, niet de site.
+
+**Score:** N/A
+
+#### Pull Request
+
+Herstel stale verwijzingen naar branch/ en workflow-davekjohn/ in CHANGELOG-intro
+
+[PR #160](https://github.com/DaveKJohn/djcylow-react/pull/160)
+
+---
+
 ### DEPLOY: `docs/consolideer-contributing-naar-plugin-v1` · 20260827-102440
 
 Consolideert de twee-lagen-`CONTRIBUTING.md`-split (2026-08-16) terug naar één bestand:
