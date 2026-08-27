@@ -2,8 +2,8 @@
 
 De geschiedenis van de DJ Cylow-website: elke gemergde branch met zijn pull request, nieuwste
 bovenaan, onder één `## [Unreleased]`-kop — **elke `###`-kop daaronder is één wijziging**, en dat is
-wat de gedeelde workflow-scripts lezen. Het mechanisme (het entry-bestand in `branch/`, folden, een
-release knippen) staat in [`CLAUDE.md`](../CLAUDE.md).
+wat de gedeelde workflow-scripts lezen. Het mechanisme (het entry-bestand
+`development-cycle.md`, folden, een release knippen) staat in [`CLAUDE.md`](../CLAUDE.md).
 
 > Tot 2026-08-27 stond hier geen `## [Unreleased]`-kop en droeg elke wijziging zelf een `##`-kop, één
 > niveau hoger. Plugin v4.20.0 (25-26 augustus 2026) voerde de kop in en verdiepte elk niveau in een
@@ -16,7 +16,7 @@ PR-merge schrijft daar rechtstreeks in. Alles hieronder staat dus al op `djcylow
 nog zonder versienummer. Een release is een label op wat al draait.
 
 **De uitgebrachte versies staan niet hier maar in
-[`workflow-davekjohn/releases/README.md`](releases/README.md)**, met
+[`contributing-davekjohn/releases/README.md`](releases/README.md)**, met
 datum, type en een samenvattende regel per versie. Dit bestand houdt alleen wat nog géén
 versienummer heeft; een release-cut haalt die entries eruit en laat deze intro achter.
 
