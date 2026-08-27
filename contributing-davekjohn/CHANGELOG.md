@@ -27,6 +27,26 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `config/migreer-release-roots-v1` · 20260827-100930
+
+**Score:** 1 -- voorkomt een fout die nog niet is opgetreden: zonder deze migratie was de eerstvolgende
+`cut-release` stilzwijgend begonnen met twee nieuwe, lege bomen op
+`contributing-davekjohn/releases/changelog/` en `.../github/`, losgezongen van de bestaande 39 + 2
+bestanden op de oude repo-root-locatie -- geen foutmelding, gewoon een tweede boekhouding.
+
+#### What makes this deploy extra special
+
+**Score:** N/A -- repo-machinery (de release-route zelf, geen wijziging aan de site, de mixen of SEO),
+bereikt Dave als maintainer en niet als opdrachtgever.
+
+#### Pull Request
+
+Migreer release-development en release-github naar contributing-davekjohn/releases/
+
+[PR #158](https://github.com/DaveKJohn/djcylow-react/pull/158)
+
+---
+
 ### DEPLOY: `docs/verwijder-workflow-claude-md-v1` · 20260827-094709
 
 `contributing-davekjohn/CLAUDE.md` is verwijderd: alles erin stond al, uitgebreider en met eigen
