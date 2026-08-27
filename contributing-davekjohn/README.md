@@ -8,14 +8,14 @@ this folder is this repo's own set of answers to them.
 
 | here | what it holds |
 |---|---|
-| [`CONTRIBUTING.md`](CONTRIBUTING.md) | this repo's answers to the contribution cycle -- the layer that wins over the root page |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | this repo's only `CONTRIBUTING.md` -- the full contribution cycle |
 | `development-cycle.md` | the branch's own document -- the plan and the changelog entry, both sections of one file; exists only while a branch is open, so it is absent here on the trunk |
 | [`releases/`](releases/) | the release history and the published audience notes |
 
 Scaffolded by the `adopt-workflow-folder` skill on August 16, 2026; strictly additive, so everything
 here past the VUL-IN markers is this repo's own writing.
 
-## Two ways this repo differs from the scaffold
+## One way this repo differs from the scaffold
 
 **Only `audience/` moved into `releases/` here.** The generated development notes and the GitHub
 announcements stayed at the repo root, because `cut-release.ps1` hardcodes those two roots relative
@@ -24,14 +24,16 @@ The source states this model outright in `Get-RelativeLinkPath`: *"a consumer's 
 `contributing-davekjohn/releases/README.md` while the generated development notes stay at the repo
 root."* So `releases/` at the root is not a leftover -- it is where the next cut will write.
 
-**This repo keeps its own two-layer `CONTRIBUTING.md` split rather than the scaffold's one-page
-model.** `adopt-workflow-folder.ps1` (v4.20.0) now scaffolds a single `CONTRIBUTING.md` here that
-sits on top of both the repo's root `CONTRIBUTING.md` and its root `CLAUDE.md` -- but the script is
-strictly additive and never overwrote what was already here. This repo split its cycle documentation
-into a thin root page (the standard way of working, readable without the plugin) and this folder's
-own page (the plugin layer, which wins on conflict) on 2026-08-16, deliberately, on Dave's word. That
-decision stands; see [`../CONTRIBUTING.md`](../CONTRIBUTING.md) for the reasoning and
-[`CONTRIBUTING.md`](CONTRIBUTING.md) for this layer's own note about it.
+## A difference that was retired: the two-layer `CONTRIBUTING.md`
+
+This repo ran its own two-layer `CONTRIBUTING.md` split from 2026-08-16 to 2026-08-27, ahead of where
+the scaffold itself was at the time: a thin root page (the standard way of working, readable without
+the plugin) plus this folder's own page (the plugin layer, which won on conflict), deliberately, on
+Dave's word. **Dave retired that split on 2026-08-27**: the root page is gone, and
+[`CONTRIBUTING.md`](CONTRIBUTING.md) here is now this repo's only one. `adopt-workflow-folder.ps1`
+(v4.20.0) had, by then, already moved the scaffold itself to that same single-page model -- strictly
+additive, so it never overwrote what was already here, but it means this repo's retirement lines up
+with where the scaffold already stood. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the reasoning.
 
 ## The folder's own rename
 

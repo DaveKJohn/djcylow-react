@@ -26,8 +26,8 @@
 
     DE VIERDE STAP DEKT HET ENIGE DEEL DAT DE ANDERE DRIE NIET AANRAKEN
     -------------------------------------------------------------------
-    tsc, ESLint en de build kijken naar de app. De governance-documentatie -- CLAUDE.md, beide
-    CONTRIBUTING.md's, de READMEs, de lenzen -- wordt door geen van drieen aangeraakt, terwijl dat
+    tsc, ESLint en de build kijken naar de app. De governance-documentatie -- CLAUDE.md,
+    CONTRIBUTING.md, de READMEs, de lenzen -- wordt door geen van drieen aangeraakt, terwijl dat
     wel het deel is dat elke sessie meeleest. Gemeten wat dat kost: de mapverhuizing naar
     workflow-davekjohn/ (PR #145) liet vijftien dode links achter die een etmaal onopgemerkt bleven
     met een groene poort en groene CI.
