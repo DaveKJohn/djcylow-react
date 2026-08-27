@@ -116,8 +116,8 @@ niet een formaliteit onderweg.
 | de release-historie | de tabel in [`contributing-davekjohn/releases/README.md`](releases/README.md) | `Get-ReleaseHistoryPath` |
 | indeling van de release-notes | per **major** (`2.x/`) — gelijk aan de bron sinds 2026-08-13 | `Get-ReleaseNotesGrouping` |
 | het handgeschreven release-document | [`contributing-davekjohn/releases/audience/`](releases/audience/), bij een minor en een major | `Get-ReleaseNoteRoot` · `Get-ReleaseConsumerBumps` |
-| de aankondiging die de Release-body wordt | [`releases/github/`](../releases/github/) — **repo-root**, zie hieronder | *(hardcoded in de bron, geen seam)* |
-| de gegenereerde development-note | [`releases/development/`](../releases/development/) — **repo-root**, zie hieronder | *(hardcoded in de bron, geen seam)* |
+| de aankondiging die de Release-body wordt | [`contributing-davekjohn/releases/github/`](releases/github/) — zie hieronder | `Get-ReleaseGithubNotesRoot`, computed default sinds #914 |
+| de gegenereerde changelog-note | [`contributing-davekjohn/releases/changelog/`](releases/changelog/) — zie hieronder | `Get-ReleaseChangelogNotesRoot`, computed default sinds #914 |
 | een aparte go-live-stap ná de cut | geen — de code stond al live vanaf zijn eigen PR-merge | `Get-LiveStage` (leeg) |
 
 Op één na wonen ze allemaal in [`scripts/repo-config.ps1`](../scripts/repo-config.ps1); de prefix-tabel is
@@ -141,28 +141,40 @@ computed default volgt `Get-WorkflowFolderName` en wijst dus vanzelf naar
 `contributing-davekjohn/CHANGELOG.md` zolang die map zo heet, en zou vanzelf meebewegen als de map ooit
 naar `contributing-davekjohn/` hernoemt.
 
-#### De release-boom staat sinds 2026-08-16 op twee plekken, en dat is geen halve verhuizing
+#### De release-boom staat sinds 2026-08-27 volledig in de workflow-map
 
-Met plugin **v4.12.0** kreeg de workflow zijn eigen map, en de release-boom is daarbij gesplitst langs
-precies één lijn: **wat een seam heeft is mee verhuisd, wat hardcoded is niet.**
+Met plugin **v4.12.0** (2026-08-16) kreeg de workflow zijn eigen map, en de release-boom werd toen
+gesplitst langs precies één lijn: wat een seam had verhuisde mee, wat hardcoded was niet.
+Bron-issue [#914](https://github.com/DaveKJohn/claude-code-specialists/issues/914) (gesloten 2026-08-26,
+uitgebracht in plugin 4.20.0) maakte van de twee hardcoded paden echte seams met een **berekende default
+binnen de workflow-map**, en hernoemde `development` naar `changelog` in dezelfde beweging. Sinds
+2026-08-27 staan daarom alle vier de roots hier:
 
 | root | waar | waarom daar |
 |---|---|---|
 | `contributing-davekjohn/releases/README.md` | de map | `Get-ReleaseHistoryPath` wijst erheen |
 | `contributing-davekjohn/releases/audience/` | de map | `Get-ReleaseNoteRoot` wijst erheen |
-| `releases/development/` | de **repo-root** | hardcoded in `cut-release.ps1` (regel 728) |
-| `releases/github/` | de **repo-root** | hardcoded in `cut-release.ps1` (regel 820) |
+| `contributing-davekjohn/releases/changelog/` | de map | `Get-ReleaseChangelogNotesRoot`, computed default sinds #914 |
+| `contributing-davekjohn/releases/github/` | de map | `Get-ReleaseGithubNotesRoot`, computed default sinds #914 |
 
-Dat is het model dat de bron zelf voorschrijft, met zoveel woorden in `Get-RelativeLinkPath`
-(`release-lib.ps1`, regel 1011): *"a consumer's history lives at `contributing-davekjohn/releases/README.md`
-while the generated development notes stay at the repo root."* Die functie bestaat er zelfs uitsluitend
-voor, om de relatieve link tussen de twee plekken te leggen.
+**Dit was geen automatische migratie.** Deze repo installeerde plugin 4.20.0 op 2026-08-26, maar niets
+erin verplaatste de bestaande 39 + 2 bestanden of waarschuwde dat het moest —
+`adopt-workflow-folder.ps1` waarschuwt wél voor de vergelijkbare verhuizing van `Get-ReleaseHistoryPath`
+en `Get-ChangelogPath`, maar noemt deze twee zelfs niet, en `cut-release.ps1` drukt evenmin iets af op
+het moment dat het de paden oplost. Zonder ingrijpen was de eerstvolgende cut hier stilzwijgend een
+tweede, lege boom begonnen naast de bestaande geschiedenis op de repo-root — gemeld als
+[inbound #955](https://github.com/DaveKJohn/claude-code-specialists/issues/955). Met `git mv` naar
+`contributing-davekjohn/releases/changelog/` en `.../github/` resolven beide roots nu vanzelf op hun
+berekende default; er staat voor geen van beide iets in `scripts/repo-config.ps1` gedeclareerd, net als
+bij `audience/`.
 
-**Verhuis `development/` of `github/` dus niet alsnog "voor de netheid".** Bij deze upgrade zijn ze
-eerst wél meegegaan en daarna teruggezet, toen het narekenen van die twee regels uitwees wat er zou
-gebeuren: de eerstvolgende cut schrijft naar de repo-root, dus je zou een tweede boom náást de verhuisde
-krijgen in plaats van een verhuizing. De boom die je nu ziet is de gemeten uitkomst, niet de eerste
-aanname.
+> **Tot 2026-08-27 stonden `development/` en `github/` bewust op de repo-root**, hardcoded in
+> `cut-release.ps1` (regel 728 en 820 in de toenmalige bron), met als motivering `Get-RelativeLinkPath`'s
+> eigen commentaar: *"a consumer's history lives at `contributing-davekjohn/releases/README.md` while the
+> generated development notes stay at the repo root."* Die redenering hield op te gelden op het moment
+> dat #914 er seams van maakte — de functie zelf is er sindsdien op aangepast. Bij de upgrade van
+> 2026-08-16 waren `development/` en `github/` om dezelfde destijds-geldige reden eerst wél meegegaan en
+> daarna teruggezet.
 
 ### De prefixen: zeven die je kiest, negen die de lib kent
 

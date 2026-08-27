@@ -380,7 +380,8 @@ function Get-InternalNoteWording {
 # samen overgestoken toen v4.5.0 de eerste van die twee toevoegde. Ze horen als paar gelezen te worden
 # -- de knop was hier onaanzetbaar zolang het pad eronder niet te richten was.
 
-# Hoe de release-notes zijn ingedeeld: 'major' -> releases/development/<X>.x/<X.Y.Z>.md.
+# Hoe de release-notes zijn ingedeeld: 'major' -> contributing-davekjohn/releases/changelog/<X>.x/<X.Y.Z>.md
+# (releases/development/<X>.x/ tot de verhuizing van 2026-08-27 -- zie Get-ReleaseNoteRoot hieronder).
 #
 # GELIJKGETROKKEN MET DE BRON OP 2026-08-13 (Dave), en dit is de enige seam in dit bestand die van een
 # afgelezen waarde naar een GEKOZEN waarde is gegaan. Tot die dag stond hier 'minor', afgelezen van de
@@ -425,31 +426,32 @@ function Get-ReleaseNotesGrouping {
 # (DaveKJohn/claude-code-specialists#616) en in de bron gerepareerd. Dit is de eerste seam in dit
 # bestand die er staat omdat deze repo er zelf om heeft gevraagd.
 #
-# releases/development/ heeft bewust GEEN tegenhanger-knop: niemand kon een repo aanwijzen die juist
-# op dat pad afwijkt. Deze repo wijkt er ook niet af, dus er is niets te declareren. releases/github/
-# heeft er ook geen, en dat is een ANDERE reden: die root staat hardcoded in cut-release.ps1 (regel
-# 792) omdat een nieuwe root geen bestaande plaatsing hoeft te accommoderen. Deze repo hoeft daar dus
-# niets te declareren, maar de map moet wel bestaan -- de eerstvolgende cut schrijft erin.
+# releases/development/ en releases/github/ hadden tot 2026-08-26 bewust GEEN tegenhanger-knop: beide
+# roots stonden hardcoded relatief aan de repo-root in cut-release.ps1 -- development/ op regel 728,
+# github/ op regel 820 -- dus er viel niets te declareren. Bij de verhuizing van 2026-08-16 (v4.12.0)
+# zijn ze om die reden eerst wel meegegaan en daarna teruggezet, toen het narekenen van die twee
+# regelnummers dat aan het licht bracht.
 #
 # VERHUISD OP 2026-08-16 van releases/audience naar workflow-davekjohn/releases/audience, met de
 # v4.12.0-upgrade van de plugin. De 25 bestaande documenten zijn met git mv meegegaan, zonder een letter
 # aan hun tekst te veranderen -- het zijn gepubliceerde documenten en dus historie.
 #
 # DE MAP ZELF HERNOEMD OP 2026-08-27: workflow-davekjohn/ -> contributing-davekjohn/, in het voetspoor
-# van de plugin's eigen hernoeming in v4.20.0 (#886). Weer met git mv, weer zonder de 25 documenten aan
-# te raken.
+# van de plugin's eigen hernoeming in v4.20.0 (#886). Weer met git mv, weer zonder de documenten aan te
+# raken.
 #
-# ALLEEN AUDIENCE VERHUIST, EN DAT IS GEEN HALF WERK MAAR HET BEDOELDE MODEL. De twee roots hierboven
-# zonder seam staan HARDCODED RELATIEF AAN DE REPO-ROOT in cut-release.ps1 -- releases/development/ op
-# regel 728, releases/github/ op regel 820 -- dus die kunnen niet mee: een cut zou ernaast een nieuwe
-# root-map aanmaken en je had twee boekhoudingen in plaats van een verhuizing. De bron zegt het met
-# zoveel woorden in Get-RelativeLinkPath (release-lib.ps1, regel 1011): "a consumer's history lives at
-# workflow-davekjohn/releases/README.md while the generated development notes stay at the repo root."
-# Die functie bestaat puur om de relatieve link tussen die twee plekken te leggen.
-#
-# Bij deze verhuizing zijn development/ en github/ eerst wel meegegaan en daarna teruggezet, toen het
-# narekenen van regel 728 en 820 dit aan het licht bracht. De boom die je nu ziet is de gemeten uitkomst,
-# niet de eerste aanname.
+# EN DIEZELFDE DAG ZIJN DEVELOPMENT/ EN GITHUB/ ALSNOG MEEGEGAAN. Bron-issue #914 (gesloten 2026-08-26,
+# uitgebracht in 4.20.0) maakte van de twee hardcoded regels hierboven echte seams met een BEREKENDE
+# default binnen de workflow-map -- Get-DefaultReleaseChangelogNotesRoot en
+# Get-DefaultReleaseGithubNotesRoot in seam-lib.ps1 -- en hernoemde development naar changelog in
+# dezelfde beweging. Niets in de plugin migreerde de 39 + 2 bestaande bestanden hier automatisch, en
+# niets waarschuwde dat het moest: adopt-workflow-folder.ps1 waarschuwt wel voor de vergelijkbare
+# verhuizing van Get-ReleaseHistoryPath en Get-ChangelogPath, maar noemt deze twee zelfs niet. Zonder
+# handmatig ingrijpen was de eerstvolgende cut hier stilzwijgend een tweede, lege boom begonnen naast de
+# bestaande geschiedenis op de repo-root -- gemeld als DaveKJohn/claude-code-specialists#955. Met
+# git mv naar contributing-davekjohn/releases/changelog/ en .../github/ resolven beide roots nu vanzelf
+# op hun berekende default; net als hierboven bij audience/ hoeft er voor geen van beide iets in dit
+# bestand gedeclareerd te worden.
 $script:ReleaseNoteRoot = 'contributing-davekjohn/releases/audience'
 
 function Get-ReleaseNoteRoot {

@@ -8,7 +8,7 @@ release knippen) staat in [`CLAUDE.md`](../CLAUDE.md).
 > Tot 2026-08-27 stond hier geen `## [Unreleased]`-kop en droeg elke wijziging zelf een `##`-kop, één
 > niveau hoger. Plugin v4.20.0 (25-26 augustus 2026) voerde de kop in en verdiepte elk niveau in een
 > entry met één: de entry-kop werd `###`, de zes genoemde secties erin `####`, en de tier-subkoppen
-> `#####`. Oudere entries elders in de repo-geschiedenis (in `releases/development/`) zijn niet
+> `#####`. Oudere entries elders in de repo-geschiedenis (in `releases/changelog/`, tot 2026-08-27 `releases/development/` op de repo-root) zijn niet
 > herschreven — dat is een record, geen vertaling.
 
 **`origin/main` is de live site.** Netlify bouwt en publiceert bij elke push naar `main`, en een

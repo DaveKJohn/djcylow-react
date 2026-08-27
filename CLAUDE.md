@@ -333,10 +333,10 @@ beweringen in die niemand zag. Een correctie boven de streep gaat dus naar de br
 komt terug via een plugin-release; hier repareren herstart de drift. Onder de streep staat het repo-eigen
 deel, ook Engels, zodat de hele pagina één register heeft.
 
-Wat **niet** meeverhuist naar het Engels: de bestaande documenten in `releases/development/` en
-`contributing-davekjohn/releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
-uitgingen, en een record is geen vertaling. De taalgrens loopt daarmee dwars door het
-development-document: Engelse tier-koppen boven Nederlandse entries.
+Wat **niet** meeverhuist naar het Engels: de bestaande documenten in `contributing-davekjohn/releases/changelog/`
+(tot 2026-08-27 `releases/development/`) en `contributing-davekjohn/releases/audience/` en de titels in de
+release-lijst. Dat is historie — geschreven in de taal waarin ze uitgingen, en een record is geen vertaling.
+De taalgrens loopt daarmee dwars door het changelog-document: Engelse tier-koppen boven Nederlandse entries.
 
 **Nieuwe release-documenten zijn wél Engels** (Dave, 2026-08-13, avond). Dat is een andere vraag dan
 de vorige alinea — die gaat over niet-hervertalen, en daaruit volgt niets over wat je hierna schrijft.
@@ -375,9 +375,26 @@ plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 | `contributing-davekjohn/releases/README.md` | de release-historie | `Get-ReleaseHistoryPath` |
 | `contributing-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
 | `contributing-davekjohn/README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
-| `releases/development/` · `releases/github/` | **blijven in de repo-root** | hardcoded in `cut-release.ps1` (regel 728 en 820) — geen seam |
+| `contributing-davekjohn/releases/changelog/` · `contributing-davekjohn/releases/github/` | sinds 2026-08-27; tot dan `releases/development/` · `releases/github/` op de repo-root | `Get-ReleaseChangelogNotesRoot` · `Get-ReleaseGithubNotesRoot` (geen override, computed default sinds #914) |
 | `contributing-davekjohn/CONTRIBUTING.md` | de **pluginlaag** van de cyclus — wint bij conflict | model van de bron, overgenomen 2026-08-16 |
 | `CONTRIBUTING.md` | **blijft in de repo-root**, maar dun: de **standaardwerkwijze** | GitHub zoekt hem daar, en hij moet kloppen zónder plugin |
+
+> **De twee generated roots waren tot 2026-08-27 hardcoded relatief aan de repo-root in `cut-release.ps1`
+> (regel 728 en 820) — geen seam, en dat was tot die dag ook waar.** Bron-issue
+> [#914](https://github.com/DaveKJohn/claude-code-specialists/issues/914) (gesloten 2026-08-26, uitgebracht
+> in plugin 4.20.0) maakte er twee echte seams van met een **berekende default binnen de workflow-map**
+> (`Get-DefaultReleaseChangelogNotesRoot`, `Get-DefaultReleaseGithubNotesRoot` in `seam-lib.ps1`), en
+> hernoemde `development` naar `changelog` in dezelfde beweging. Deze repo installeerde 4.20.0 op
+> 2026-08-26, maar **niets in de plugin migreerde de bestaande 39 + 2 bestanden of waarschuwde dat het
+> moest**: `adopt-workflow-folder.ps1` waarschuwt wél voor de vergelijkbare verhuizing van
+> `Get-ReleaseHistoryPath` en `Get-ChangelogPath`, maar noemt deze twee zelfs niet, en `cut-release.ps1`
+> drukt evenmin iets af op het moment dat het de paden oplost. Zonder ingrijpen was de eerstvolgende cut
+> hier dus stilzwijgend een tweede, lege boom begonnen naast de bestaande geschiedenis op de repo-root —
+> gevonden bij het onderzoeken van precies die vraag en gemeld als
+> [inbound #955](https://github.com/DaveKJohn/claude-code-specialists/issues/955). Met `git mv` naar
+> `contributing-davekjohn/releases/changelog/` en `.../github/` (39 + 2 bestanden, geen letter tekst
+> gewijzigd) resolven beide roots nu vanzelf op hun berekende default — net als bij `audience/` staat er
+> in `scripts/repo-config.ps1` niets voor gedeclareerd.
 
 **De map zelf heette tot 2026-08-27 `workflow-davekjohn/`.** De bron hernoemde het plugin-package zelf
 naar `contributing-davekjohn` in v4.20.0 (#886), en `Get-BranchFilePaths` in de gedeelde scripts wijst
@@ -632,13 +649,14 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    > verzoek volledig gelijk werd getrokken met de bron: `Get-ReleaseNotesGrouping` staat sindsdien op
    > `'major'` en alle documenten wonen in `2.x/`. Ook die verhuizing
    > is `git mv` zonder een letter aan hun tekst te veranderen
-5. **Schrijf de aankondiging**: `releases/github/<major>.x/<versie>.md` — een paar alinea's die
-   de body van de GitHub Release worden: wat er nieuw is, voor wie, en een regel die naar de twee
-   bijlagen wijst. Niet de per-PR details; die staan in `development/`
+5. **Schrijf de aankondiging**: `contributing-davekjohn/releases/github/<major>.x/<versie>.md` — een paar
+   alinea's die de body van de GitHub Release worden: wat er nieuw is, voor wie, en een regel die naar de
+   twee bijlagen wijst. Niet de per-PR details; die staan in `changelog/`
 
 Wat het script hierboven al voor je deed, met de valkuilen die daarbij horen:
 
-- **De development-note** in `releases/development/<major>.x/<versie>.md`, opgebouwd uit de gefolde
+- **De changelog-note** (tot 2026-08-27 development-note) in
+  `contributing-davekjohn/releases/changelog/<major>.x/<versie>.md`, opgebouwd uit de gefolde
   wijzigingen in `CHANGELOG.md`. **Let op de koppen:** het script houdt daar de **branchnaam** aan
   (``### `docs/mijn-branch` changelog``) in plaats van de titel van de wijziging. Alleen het
   audience-document herschrijft naar `### Branch title`. Wil je die koppen anders, dan is dat handwerk
@@ -651,7 +669,7 @@ Wat het script hierboven al voor je deed, met de valkuilen die daarbij horen:
   > uitgebrachte versies worden bijgehouden — geen dubbele boekhouding meer
 - **De rij in `contributing-davekjohn/releases/README.md`**, bovenaan de overzichtstabel — de enige boekhouding van
   uitgebrachte versies. De Versie-cel wijst naar het leesbaarste document dat de release heeft:
-  `audience/` bij een Minor/Major, `development/` bij een Patch
+  `audience/` bij een Minor/Major, `changelog/` bij een Patch
    > **De kolomkoppen van die tabel zijn een machine-gelezen sleutel, geen proza.** De gedeelde
    > `release-lib.ps1` matcht die regel letterlijk om te weten waar een rij heen gaat, en er is bewust
    > geen seam voor. Zelfde categorie als de zes sectiekopjes van een entry — en de reden dat ze ook
@@ -670,15 +688,15 @@ Daarna, met de hand:
 6. **GitHub Release aanmaken** — de aankondiging uit `github/` is de body:
     ```bash
     gh release create v<versie> --title "v<versie> - <korte titel>" \
-      --notes-file releases/github/<major>.x/<versie>.md --verify-tag
+      --notes-file contributing-davekjohn/releases/github/<major>.x/<versie>.md --verify-tag
     ```
-    > De body was tot 2026-08-13 de `development/`-note. Die is nu bijlage: `gh` kapt een
-    > `--notes-file` af op 125.000 tekens, en een volledig per-PR record kan daar langs
-7. **Bijlagen uploaden** — `development/` altijd, `audience/` bij Minor/Major. **Onder unieke
+    > De body was tot 2026-08-13 de `development/`-note (sinds 2026-08-27 `changelog/`). Die is nu bijlage:
+    > `gh` kapt een `--notes-file` af op 125.000 tekens, en een volledig per-PR record kan daar langs
+7. **Bijlagen uploaden** — `changelog/` altijd, `audience/` bij Minor/Major. **Onder unieke
     bestandsnamen**, want alle drie de documenten heten `<versie>.md` en de tweede upload botst
     anders met `HTTP 404` (`file#label` van `gh` lost dat niet op — dat zet het label, niet de naam):
     ```bash
-    cp releases/development/<major>.x/<versie>.md v<versie>-development-notes.md
+    cp contributing-davekjohn/releases/changelog/<major>.x/<versie>.md v<versie>-development-notes.md
     cp contributing-davekjohn/releases/audience/<major>.x/<versie>.md v<versie>-release-note.md
     gh release upload v<versie> v<versie>-development-notes.md v<versie>-release-note.md
     rm v<versie>-development-notes.md v<versie>-release-note.md

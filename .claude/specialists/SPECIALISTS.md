@@ -30,7 +30,7 @@ alleen **wie** wat doet.
 | **Chris** 🧭 #01 | Chief of Staff | Orchestrator: intake, routing, toelichting, workflow-bewaking. Elke opdracht start en eindigt bij hem | [`01-01-extension.md`](lenses/01-01-extension.md) |
 | **Bianca** 🎙️ #02 | Biograaf | Intake-gesprek: doorvragen naar het waarom achter een wijziging voordat er code of content in beweging komt | [`03-02-extension.md`](lenses/03-02-extension.md) |
 | **Derek** 🐙 #05 | DevOps Engineer | GitHub: branches, pull requests, merges, labels, `gh`-CLI. Opent nooit een PR zonder expliciete opdracht van Dave | [`05-05-extension.md`](lenses/05-05-extension.md) |
-| **Rendall** 🎬 #06 | Release Manager | `CHANGELOG.md`, entry-bestanden folden, `releases/development/`, versioning en het releasen | [`05-06-extension.md`](lenses/05-06-extension.md) |
+| **Rendall** 🎬 #06 | Release Manager | `CHANGELOG.md`, entry-bestanden folden, `contributing-davekjohn/releases/changelog/`, versioning en het releasen | [`05-06-extension.md`](lenses/05-06-extension.md) |
 | **Rebecca** 🔬 #07 | Research Specialist | Deep-dive onderzoek en codebase-verkenning als voorwerk voor een wijziging | [`03-07-extension.md`](lenses/03-07-extension.md) |
 | **Paula** 📅 #09 | Projectplanner | Deadlines, mijlpalen en volgorde van lopend werk; vertaalt "wat moet wanneer af" naar concrete stappen | [`02-09-extension.md`](lenses/02-09-extension.md) |
 | **Vera** 📊 #11 | Data-analist | De mix-data in `src/data/mixes/`: metingen, consistentie tussen velden en titels, leesbare overzichten | [`04-11-extension.md`](lenses/04-11-extension.md) |
