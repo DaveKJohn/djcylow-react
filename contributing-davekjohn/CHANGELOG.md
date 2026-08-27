@@ -27,6 +27,30 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `docs/verwijder-workflow-claude-md-v1` · 20260827-094709
+
+`contributing-davekjohn/CLAUDE.md` is verwijderd: alles erin stond al, uitgebreider en met eigen
+datums, in de root `CLAUDE.md` en in `contributing-davekjohn/CONTRIBUTING.md`. De twee verwijzingen
+ernaar (de tabelrij in de root `CLAUDE.md`, en de tabelrij + link in `contributing-davekjohn/README.md`)
+zijn bijgewerkt, en README.md heeft er een korte notitie over gekregen naast de bestaande over
+`prompts/`.
+
+**Score:** 1
+
+#### What makes this deploy extra special
+
+N/A -- interne documentatie-opruiming, geen effect buiten deze repo's eigen ontwikkelaars.
+
+**Score:** N/A
+
+#### Pull Request
+
+Verwijder overbodige contributing-davekjohn/CLAUDE.md
+
+[PR #157](https://github.com/DaveKJohn/djcylow-react/pull/157)
+
+---
+
 ### DEPLOY: `config/verwijder-prompts-map-v1` · 20260827-093714
 
 De prompt-inbox (`contributing-davekjohn/prompts/`) is op Dave's verzoek verwijderd. Ze bestond sinds
