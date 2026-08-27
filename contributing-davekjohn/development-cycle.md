@@ -35,17 +35,32 @@
 
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] Herstel de twee stale verwijzingen in de vaste intro van `contributing-davekjohn/CHANGELOG.md`
+      (boven `## [Unreleased]`, dus buiten elke gefolde entry): `branch/` -> `development-cycle.md`,
+      en de linktekst `workflow-davekjohn/releases/README.md` -> `contributing-davekjohn/releases/README.md`
+      (de href zelf was al correct)
 
 ### TEST
 
+- [x] Visueel geverifieerd tegen `contributing-davekjohn/development-cycle.md` (bestaat) en
+      `contributing-davekjohn/releases/README.md` (bestaat); geen gate leest deze intro-tekst (issue #154)
+
 ### DEPLOY: `docs/fix-changelog-intro-refs-v1`
 
-**Score:**
+Herstelt twee stale verwijzingen in de vaste intro van `contributing-davekjohn/CHANGELOG.md`, blijven
+staan sinds de development-cycle.md-migratie (#152, PR #153): "het entry-bestand in `branch/`" wordt
+"het entry-bestand `development-cycle.md`", en de linktekst "`workflow-davekjohn/releases/README.md`"
+wordt "`contributing-davekjohn/releases/README.md`" (de href zelf, `releases/README.md` relatief, was
+al correct). Puur leesbaarheid/nauwkeurigheid, geen gate leest deze tekst. Closes #154.
+
+**Score:** 1 -- cosmetisch, voorkomt dat een lezer van de intro zelf een verkeerd pad of een niet meer
+bestaande map aanneemt.
 
 #### What makes this deploy extra special
 
-**Score:**
+N/A -- raakt alleen een intro-alinea in de contributiedocumentatie, niet de site.
+
+**Score:** N/A
 
 #### Pull Request
 
