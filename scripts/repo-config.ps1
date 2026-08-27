@@ -514,7 +514,7 @@ function Get-ReleaseConsumerBumps {
 # dode entry laten staan.
 #
 # CONTRIBUTING.md STAAT ER SINDS 2026-08-27 OOK NIET MEER OP, om dezelfde reden: het bestand is die
-# dag uit de repo-root verwijderd (de twee-lagen-CONTRIBUTING-split verviel; er is nu nog maar één
+# dag uit de repo-root verwijderd (de twee-lagen-CONTRIBUTING-split verviel; er is nu nog precies een
 # CONTRIBUTING.md, in contributing-davekjohn/) en zou hier toch nooit meer iets matchen.
 $script:ReservedRootMd = @('CLAUDE.md', 'README.md')
 
@@ -583,17 +583,32 @@ function Get-ReleaseAudienceTier {
     return $script:ReleaseAudienceTier
 }
 
-# --- De vijf blueprint-vragen die bewust ONBEANTWOORD blijven --------------------------------------
+# --- De veertien blueprint-vragen die bewust ONBEANTWOORD blijven ----------------------------------
 #
 # Een stub is hier erger dan een lege plek: zonder functie gebruikt het gedeelde script zijn
-# gedocumenteerde fallback, en die is in alle vijf de gevallen het goede antwoord. Genoteerd zodat de
-# volgende sessie dit niet opnieuw hoeft uit te zoeken en niemand ze "voor de volledigheid" bijzet.
+# gedocumenteerde fallback, en die is in alle veertien de gevallen het goede antwoord. Genoteerd zodat
+# de volgende sessie dit niet opnieuw hoeft uit te zoeken en niemand ze "voor de volledigheid" bijzet.
 #
 # HET GETAL IS GEMETEN, NIET GETELD UIT DIT BLOK: check-script-contract.ps1 meldt elke niet-gedeclareerde
 # optionele functie als [INFO], en dat aantal is de enige betrouwbare stand. Tot 2026-08-12 stond hier
 # "drie" terwijl de header van dit bestand "vier" zei en de check er zes meldde -- twee handgeschreven
 # tellingen die geen van beide klopten, want twee van de zes stonden nergens verantwoord. Loopt dit weer
 # uit de pas, geloof de check.
+#
+# HET LIEP OP 2026-08-27 OPNIEUW UIT DE PAS, en veel verder dan de vorige keer: de kop zei "vijf", het
+# blok verantwoordde er vijf, en de check onder plugin 4.20.0 meldde er VEERTIEN. Negen stonden dus
+# nergens. Issue #155 meldde er drie -- de drie release-notes-roots die bij de #152-migratie opvielen --
+# en dat getal was geen fout van de melder maar de vangst van zijn zoekopdracht: hij keek naar de
+# release-roots en vond er drie, terwijl het onderwerp "wat staat er niet verantwoord" er negen telt.
+# NAGETELD VOOR HET REPAREREN, per functie tegen dit bestand, en dat is precies wat het verschil aan het
+# licht bracht. Wie hier ooit weer op een gemeld aantal afgaat: tel eerst zelf.
+#
+# WAT DE NEGEN GEMEEN HEBBEN is dat ze in twee golven binnenkwamen zonder dat iemand ze hoefde te zien.
+# Een plugin-release voegt seams toe aan de blueprint, de check meldt ze als [INFO], en [INFO] blokkeert
+# niets -- dus een nieuwe onbeantwoorde vraag arriveert stil. Vier van de negen (de Get-ReleasePage*-groep)
+# bestonden hier op 2026-08-26 nog niet en kwamen mee met 4.20.0. Dit blok is de enige plek die zulke
+# aanwas zichtbaar maakt, en het is met de hand geschreven; loopt het aantal in de kop weer achter op de
+# check, dan is dat het signaal dat er een golf voorbij is gekomen.
 #
 # Get-EntrySignificanceEnabled -- of entries hun impact verklaren. De fallback is 'on' en dat is hier
 #   juist: deze repo heeft het model geadopteerd en zijn entries dragen een tier-tabel. Een stub met
@@ -656,3 +671,72 @@ function Get-ReleaseAudienceTier {
 #   framework-migratie is ... en niet een recap van tien minors zoals in de bron" -- met een
 #   bronvermelding naar CLAUDE.md die de lezer dus naar de omgekeerde regel stuurde. De tabel die dat
 #   comment aanhaalde is op 2026-08-13 vervangen; het comment bleef staan.
+#
+# --- De negen die op 2026-08-27 zijn bijgeschreven (issue #155) ------------------------------------
+#
+# Get-ChangelogPath -- waar de wachtende entries staan. De berekende default volgt
+#   Get-WorkflowFolderName en wijst dus vanzelf naar contributing-davekjohn/CHANGELOG.md zolang die map
+#   zo heet; sinds de git mv van 2026-08-27 (#152) staat het bestand daar. Een declaratie zou de
+#   mapnaam een tweede keer opschrijven en dan bij de eerstvolgende hernoeming achterblijven -- precies
+#   de drift die deze seam moet voorkomen.
+#
+#   EN EEN AFWIJKEND ANTWOORD KAN HIER NIET MEER. Assert-WorkflowIsolatedSeamPath in seam-lib.ps1
+#   (bron-issue #885) weigert sinds 4.20.0 met exit 1 elk antwoord dat buiten de workflow-map wijst --
+#   ook een expliciete override. Deze seam kan dus alleen nog de default herhalen of geweigerd worden.
+#   Deze repo liep tegen die grens aan bij de fold van PR #149, die daardoor met de hand moest; de
+#   verhuizing erna is wat de default weer laat kloppen.
+#
+# Get-ReleaseChangelogNotesRoot -- waar de cut de gegenereerde changelog-note neerzet (tier 0, altijd
+#   geschreven), gelezen door cut-release en new-internal-note.
+# Get-ReleaseGithubNotesRoot -- waar hij de body van de GitHub Release neerzet.
+#
+#   TWEE VAN DE DRIE SEAMS DIE ISSUE #155 MELDDE, en de vraag die dat issue stelde -- wijzen ze op een
+#   model dat deze repo nog niet had bekeken? -- is met JA beantwoord en inmiddels uitgevoerd. Bron-issue
+#   #914 (uitgebracht in 4.20.0) maakte van twee hardcoded regels in cut-release.ps1 echte seams met een
+#   BEREKENDE default binnen de workflow-map (Get-DefaultReleaseChangelogNotesRoot en
+#   Get-DefaultReleaseGithubNotesRoot in seam-lib.ps1) en hernoemde 'development' naar 'changelog'.
+#   Niets in de plugin migreerde de 39 + 2 bestaande bestanden hier en niets waarschuwde dat het moest;
+#   zonder ingrijpen had de eerstvolgende cut stilzwijgend een tweede, lege boom aangelegd naast de
+#   bestaande geschiedenis op de repo-root. Gemeld als DaveKJohn/claude-code-specialists#955 en hier
+#   opgelost met git mv (PR #158), zodat contributing-davekjohn/releases/changelog/ en .../github/ nu
+#   exact op hun berekende default staan. Nagemeten: beide bomen bestaan en dragen hun 2.x/-submap.
+#
+#   BLIJVEN DUS ONBEANTWOORD OMDAT DE BOOM AL KLOPT. Een declaratie zou de berekende default woordelijk
+#   herhalen, met dezelfde mapnaam-drift als bij Get-ChangelogPath hierboven. Het comment bij
+#   Get-ReleaseNoteRoot verderop in dit bestand draagt de lange versie van deze verhuizing.
+#
+# Get-ReleaseInternalNotesRoot -- waar new-internal-note.ps1 het skelet van de tier-1 internal note
+#   schrijft. DE DERDE VAN #155, en de enige van de drie met een andere reden: er is geen lezer. Het
+#   comment bij Get-InternalNoteWording hierboven stelt het al vast -- new-internal-note.ps1 wordt wel
+#   meegeleverd en door niets hier aangeroepen. Nagemeten op 2026-08-27: geen enkele verwijzing ernaar
+#   in deze repo, en contributing-davekjohn/releases/ heeft dan ook geen internal/-boom. Een waarde
+#   zetten zou een map benoemen die nooit geschreven wordt.
+#
+# Get-EntryGateExemptPrefixes -- welke branch-prefixen geen changelog-entry schuldig zijn. De fallback
+#   is de ene prefix 'sync', en die bestaat hier niet: de prefix-tabel in scripts/lib/branch-info.ps1
+#   telt acht prefixen (feature, feat, fix, data, content, style, config, docs, chore) en geen ervan
+#   draagt werk van iemand anders. Alle acht zijn hier dus een entry schuldig, wat precies is wat de
+#   fallback oplevert. Een stub zou 'sync' overnemen en daarmee een prefix vrijstellen die niet bestaat,
+#   of een lege lijst zetten die hetzelfde zegt als de fallback op een manier die stilletjes uit de pas
+#   loopt zodra de bron zijn eigen lijst uitbreidt.
+#
+# Get-ReleasePageTitle -- wiens releases de gegenereerde pagina draagt.
+# Get-ReleasePageWorkerName -- de Cloudflare Worker die haar serveert.
+# Get-ReleasePageMasthead -- de merken boven de titel.
+# Get-ReleasePageTheme -- de kleuroverrides.
+#
+#   DE VIER KNOPPEN VAN build-release-notes-page.ps1, en ze horen bij elkaar: geen van vieren doet iets
+#   zolang die pagina niet gebouwd wordt.
+#
+#   GEEN LEZER, want deze repo bouwt die pagina niet. Het script kwam mee met 4.20.0 en wordt hier door
+#   niets aangeroepen -- nagemeten op 2026-08-27: nul verwijzingen naar build-release-notes-page in
+#   .ps1, .md, .json en .yml in deze repo. Ze zijn hier dus geen achterstand maar aanwas, en ze staan
+#   in dit blok zodat de volgende sessie niet opnieuw uitzoekt waar ze vandaan komen.
+#
+#   DE WORKER-SEAM IS EEN BESLISSING VAN DAVE, GEEN MEETFOUT, en hij wordt hier gesteld en niet stil
+#   gemaakt -- zelfde behandeling als Get-EntrySignificanceRubricLevels hierboven. De pagina serveert
+#   op /notes/<32 hex> zonder login: wie de link heeft, leest mee. Deze repo staat op audience-tier 1
+#   (management en de opdrachtgever), en dat is precies het publiek waarvoor zo'n pagina bedoeld is.
+#   Of dat hier gewenst is, is een keuze over wat er naar buiten gaat, en die valt onder "alles wat de
+#   publieke site raakt is Dave's beslissing" in CLAUDE.md. Zolang de seam leeg is weigert -Worker bij
+#   naam, en dat is de eerlijke stand: de pagina wordt nergens gehost.
