@@ -199,7 +199,7 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > `## [Unreleased]`, de plugin's eigen "pending section" — met elke `###`-kop daaronder als één
 > wijziging. Een release is een label op wat al draait.
 
-Er zijn twee bewuste uitzonderingen op "nooit direct committen":
+Er zijn drie bewuste uitzonderingen op "nooit direct committen":
 
 1. De **fold-commit** (na een merge, [stap 7](contributing-davekjohn/CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
    de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` +
@@ -230,7 +230,33 @@ Er zijn twee bewuste uitzonderingen op "nooit direct committen":
    > tree. Er staat dus geen bestandslijstje bij deze uitzondering zoals bij de fold, en dat is geen
    > omissie maar een eigenschap van het script: zorg dat de tree schoon is vóór je een release cut.
 
-Dit zijn de **enige** twee. Ook een "onschuldige" opruim- of chore-commit gaat via een branch + PR.
+3. De **release-notes-commit** (alleen tijdens een cut waar om gevraagd is): het handgeschreven
+   audience-document dat je na `cut-release` herschrijft, gecommit **rechtstreeks op `main`** met
+   `release: v<versie> release notes`. Geen branch en geen Pull Request, zodat een cut van begin tot
+   eind op één plek loopt.
+
+   > **Dit is stap 4 van de `cut-release`-checklist van de plugin** (Dave bij de bron, 2026-08-23),
+   > hier voor het eerst gelopen bij **v2.25.0** — commits `638c2c6` en `3de44b8`. Tot 2026-08-27 kende
+   > dit bestand hem niet, terwijl de repo er al naar handelde; wie op *"dit zijn de enige twee"* afging,
+   > las die twee commits als een overtreding.
+   >
+   > **De begrenzing ís de uitzondering en geen bijzin erbij.** Ze dekt de handgeschreven
+   > release-documenten van een cut waar werkelijk om gevraagd is en niets anders — in deze repo is dat
+   > `contributing-davekjohn/releases/audience/<major>.x/<versie>.md`. Noem dat pad in `git add`, zodat er
+   > niets anders uit de tree meerijdt: hier hoort dus wél een bestandslijstje, anders dan bij
+   > uitzondering 2 met zijn `git add -A`. **Buiten een cut bestaat de uitzondering niet** — een latere
+   > correctie op een al gepubliceerde note is gewoon werk op de gewone route.
+   >
+   > **En de poorten worden niet overgeslagen omdat er geen branch is.** Draai `scripts/lint/lint-web.ps1`
+   > en de testsuite vóór deze commit, precies zoals `open-pr` ze zou hebben gedraaid.
+   >
+   > **Dit draait de route van 2026-08-04 terug**, die `new-branch` → `ship-pr` was. Wat tegen die route
+   > bleek te spreken: een release is **één** procedure, en over twee routes verdeeld liet ze de trunk een
+   > getagde release dragen waarvan de eigen notes nog in review lagen. Aan wat de tag aanwijst verandert
+   > het niets — de cut commit en tagt in één beweging, dus de herschreven versie landt in beide routes in
+   > de commit ná de tag.
+
+Dit zijn de **enige** drie. Ook een "onschuldige" opruim- of chore-commit gaat via een branch + PR.
 
 ---
 
@@ -568,7 +594,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 | poorten (lint + de testsuite via `Get-TestCommands`) | het script |
 | versienummer, met de bump-gate op de tier van de wachtende entries | het script |
 | development-note, `CHANGELOG.md` legen, rij in `contributing-davekjohn/releases/README.md` | het script |
-| audience-document | het script zet een **concept** neer met `DRAFT`-aanwijzingen; herschrijven is handwerk |
+| audience-document | het script zet een **concept** neer met `DRAFT`-aanwijzingen; herschrijven is handwerk, en die commit gaat rechtstreeks op `main` (uitzondering 3) |
 | commit `release: vX.Y.Z`, tag, en `git push origin main` + de tag | het script |
 | aankondiging in `github/`, de GitHub Release, de bijlagen | handwerk; het `gh release create`-commando wordt geprint |
 
@@ -592,7 +618,9 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 >
 > **Het script is dus niet de kostenpost — het handwerk erna is dat.** Bijna vijf zesde van de tijd
 > zit in stap 4 en 5 hierboven, en dat is precies het deel dat `cut-release` bewust niet automatiseert.
-> Reken op een half uur voor een minor, niet op drie minuten.
+> Reken op een half uur voor een minor, niet op drie minuten. **Dat laatste gold voor déze run en is per
+> 2026-08-27 vervallen** — zie de meting hieronder; de tabel erboven blijft staan als het record van
+> v2.24.0.
 >
 > **De push naar `main` meldt `Required status check "poort" is expected`, en dat is geen fout.** Het
 > is de ruleset `main-ci-gate` die zijn required check mist op een commit die er rechtstreeks op landt,
@@ -604,6 +632,34 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 > samengestelde resultaat — development-note, geleegde `CHANGELOG.md`, de rij in `contributing-davekjohn/releases/README.md`,
 > het audience-concept — naast elkaar ziet vóór het publiek is. Daarna is terugdraaien een tag
 > verwijderen en een commit reverten op `main`.
+
+> **En op 2026-08-27 is dezelfde route gelópen met de derde uitzondering erin — v2.25.0, 15 entries.**
+> Dat is de eerste cut waarin het audience-document rechtstreeks op `main` is gecommit in plaats van via
+> een PR, en daarmee kan de tabel hierboven een volgende cut niet meer voorspellen: de leg
+> *"audience-document herschrijven, PR, CI, merge, fold"* bestaat niet meer als leg. Nagemeten uit de
+> git-timestamps en `gh release view v2.25.0`:
+>
+> | leg | van → tot | duur |
+> |---|---|---|
+> | cut-commit + tag (`8b95958`) → audience herschreven en gecommit (`638c2c6`) | 14:39:08 → 14:41:55 | **2m 47s** |
+> | → GitHub Release gepubliceerd | 14:41:55 → 14:42:56 | **1m 01s** |
+> | → tweede pass op het audience-document (`3de44b8`) en de tweede bijlage | 14:42:56 → 14:44:23 | **1m 27s** |
+> | **van cut tot gepubliceerd** | | **5m 15s** |
+>
+> **Tegen 35m 40s bij v2.24.0, en de twee oorzaken zijn niet gelijkwaardig.** 15 entries in plaats van 54
+> verklaart het schrijfwerk, maar dat schaalt mee met de volgende cut; het wegvallen van de PR-leg is
+> structureel. **Reken dus op minuten in plaats van op een half uur**, en houd er rekening mee dat het
+> schrijven de grootste post blijft.
+>
+> **Wat deze tabel níet draagt: hoe lang het script zelf deed.** De cut-commit is het eerste spoor dat git
+> van deze run heeft, dus de vier poorten en de zestien suites die eraan voorafgingen zijn hier niet te
+> meten — anders dan bij v2.24.0, waar een waargenomen starttijd van 22:55:00 die leg wél afbakende. Wie
+> dat getal wil, klokt de run zelf; leid het niet uit deze tabel af.
+>
+> **Let ook op de staart, want dáár zit het verschil tussen twee totalen die je over deze run kunt
+> lezen.** Het audience-document kreeg ná de publicatie van de Release nog een tweede pass, en de bijlage
+> die publiek staat is die tweede. Meet je *"van cut tot gepubliceerd"* zoals bij v2.24.0 — tot en met de
+> laatste bijlage — dan is dit 5m 15s; stop je bij de eerste pass, dan lees je 4m 14s en mis je de staart.
 
 1. **Sta op `main` met een schone tree**: `git status && git branch`. Dat is geen formaliteit maar een
    voorwaarde — het script stageert met `git add -A`, dus alles wat rondslingert gaat mee in de
@@ -630,7 +686,14 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    **`What it is worth`** en **`What was still open at this release`** — die tweede in de verleden
    tijd, want het document wordt gepubliceerd en beweegt daarna niet meer mee. `cut-release` zet er
    een **concept** voor neer met `DRAFT`-aanwijzingen in het document zelf; die herschrijf je en haal
-   je weg
+   je weg. **Committen doe je daarna rechtstreeks op `main`** — geen branch, geen PR; dat is
+   uitzondering 3 in de safety-rules hierboven. Draai de poort en de testsuite vóór die commit, en noem
+   het pad in `git add` zodat er niets anders uit de tree meerijdt:
+   ```bash
+   git add contributing-davekjohn/releases/audience/<major>.x/<versie>.md
+   git commit -m "release: v<versie> release notes"
+   git push origin main
+   ```
    > **Deze stap stond tot 2026-08-13 (avond) op Nederlands, en dat sprak de taalsectie hierboven
    > tegen** — die zegt dat `Get-ReleaseNoteWording` bewust leeg staat omdat leeg Engels betekent en
    > dat hier het gewenste antwoord is. Twee plekken, twee antwoorden, en de note van v2.23.0 volgde
@@ -1194,8 +1257,8 @@ De grondwet hierboven, hier concreet ingevuld:
 - **Pushen naar `origin` is vrij** (Dave, 2026-08-16), inclusief `origin/main`. Force-push, `reset --hard`
   en `rebase` op een gedeelde branch blijven verboden — die staan op de **deny**-lijst en zijn een andere
   handeling dan pushen.
-- **Twee uitzonderingen op "nooit direct op `main`"**: de fold-commit en de release-commit, zoals
-  hierboven beschreven. Dit zijn de enige twee.
+- **Drie uitzonderingen op "nooit direct op `main`"**: de fold-commit, de release-commit en de
+  release-notes-commit van een cut, zoals hierboven beschreven. Dit zijn de enige drie.
 - **Kernverbeteringen gaan via de inbound-route.** Ontdek je een verbetering aan de *gedeelde* kern
   van het specialisten-systeem (agent-defs, manuals, persona's, skills uit de plugin), dan wordt die
   niet hier gebouwd: die gaat als issue met label `inbound` naar
