@@ -27,6 +27,42 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `config/adopt-development-cycle-model-v1` · 20260827-092625
+
+Deze repo liep nog volledig op het tweebestandsmodel (`workflow-davekjohn/branch/branch-changelog.md` +
+`branch-progress.md`) en de mapnaam `workflow-davekjohn/`, terwijl plugin v4.20.0 die allebei heeft
+vervangen: één `contributing-davekjohn/development-cycle.md` dat alleen bestaat zolang een branch
+openstaat, met `PLAN`/`CREATE`/`TEST`/`DEPLOY` als vaste `###`-secties. Issue #152 signaleerde dit op
+2026-08-27 nadat de fold van PR #149 de oude bestanden al stil verwijderde in plaats van te resetten.
+
+Deze branch voert de volledige adoptie door: de map is hernoemd via `git mv` (met behoud van alle
+bestandshistorie), het oude tweebestandsmodel is verwijderd, en elke plek in de repo die het oude
+model of de oude mapnaam beschreef — `CLAUDE.md`, beide `CONTRIBUTING.md`'s, de skill-bestanden, de
+lens, `SPECIALISTS.md`, de PR-template en `README.md` — is bijgewerkt naar wat de scripts nu
+daadwerkelijk doen. Onderweg bleek de significance-sectie van een entry ook al sinds 12 augustus 2026
+op het nieuwe (tier-loze) model had moeten staan; die documentatie is in dezelfde beweging
+gecorrigeerd. Geen gedeeld script is gedupliceerd of gewijzigd — alleen deze repo's eigen configuratie
+en documentatie.
+
+**Score:** 4
+
+#### What makes this deploy extra special
+
+N/A — dit raakt alleen de interne werkwijze van deze repo (branches, entries, documentatie). Niets
+aan `djcylow.com` verandert, en niemand buiten wie hier meewerkt merkt dit.
+
+**Score:** N/A
+
+#### Pull Request
+
+Adopteer het development-cycle.md-model en de contributing-davekjohn/-map van plugin v4.20.0
+
+Sluit issue #152.
+
+[PR #153](https://github.com/DaveKJohn/djcylow-react/pull/153)
+
+---
+
 ### `docs/changelog-naar-workflow-map` changelog
 
 #### Branch title
