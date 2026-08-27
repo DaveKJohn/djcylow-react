@@ -27,18 +27,18 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
-## `docs/changelog-naar-workflow-map` changelog
+### `docs/changelog-naar-workflow-map` changelog
 
-### Branch title · 20260827-013231
+#### Branch title
 CHANGELOG.md verhuist naar workflow-davekjohn/, volgens de nieuwe isolate-by-default-regel van de plugin
 
-### Branch ID
+#### Branch ID
 20260827-013040
 
-### Branch type
+#### Branch type
 docs
 
-### What does the change on this branch bring to main?
+#### What does the change on this branch bring to main?
 PR #149 legde bloot dat `fold-changelog-entry.ps1` uit plugin v4.20.0 een consumer-repo's `CHANGELOG.md`
 sindsdien **isolate-by-default** verwacht: `Get-ChangelogPath`s computed default wijst naar
 `<workflow-map>/CHANGELOG.md`, en `Assert-WorkflowIsolatedSeamPath` weigert (exit 1) élk antwoord —
@@ -72,9 +72,9 @@ pad (bijv. in `workflow-davekjohn/branch/README.md`, de skill-beschrijvingen, `S
 noemen het bestand, niet een pad ernaartoe, en blijven kloppen ongeacht waar het leeft. Historische
 release-documenten in `releases/development/` zijn niet aangeraakt: dat is een record, geen vertaling.
 
-### Significance
+#### Significance
 
-#### Tier 0
+##### Tier 0
 
 Zonder deze verhuizing blijft de gedeelde `fold-changelog-entry.ps1` voor deze repo onbruikbaar, en
 moet elke volgende merge zijn entry met de hand in `CHANGELOG.md` invoegen — foutgevoeliger dan het
@@ -83,12 +83,14 @@ de fold-skill weer bruikbaar.
 
 **Score:** 3
 
+##### Tier 1
+
 Niet zichtbaar voor de opdrachtgever: dit is interne documentatie- en tooling-structuur, geen
 wijziging aan de site.
 
 **Score:** N/A
 
-### Pull Request
+#### Pull Request
 
 [PR #151](https://github.com/DaveKJohn/djcylow-react/pull/151)
 
