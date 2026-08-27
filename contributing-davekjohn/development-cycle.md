@@ -35,17 +35,33 @@
 
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] Verwijder de root `CONTRIBUTING.md` en werk elke verwijzing ernaar bij naar de enige overgebleven
+      `contributing-davekjohn/CONTRIBUTING.md` (CLAUDE.md, README.md, contributing-davekjohn/CONTRIBUTING.md
+      zelf, contributing-davekjohn/README.md, scripts/repo-config.ps1, scripts/lint/lint-web.ps1)
 
 ### TEST
 
+- [x] `scripts/lint/lint-web.ps1` gedraaid: tsc, ESLint, build (89 pagina's) en de link-poort alle vier groen
+
 ### DEPLOY: `docs/consolideer-contributing-naar-plugin-v1`
 
-**Score:**
+Consolideert de twee-lagen-`CONTRIBUTING.md`-split (2026-08-16) terug naar één bestand:
+`contributing-davekjohn/CONTRIBUTING.md`. De root-`CONTRIBUTING.md` is verwijderd, en elke verwijzing
+ernaar in `CLAUDE.md`, `README.md`, `contributing-davekjohn/CONTRIBUTING.md`,
+`contributing-davekjohn/README.md`, `scripts/repo-config.ps1` (`Get-ReservedRootMd`) en
+`scripts/lint/lint-web.ps1` is bijgewerkt. Trekt deze repo gelijk met het huidige plugin-scaffold, dat
+sinds v4.20.0 zelf ook nog maar één `CONTRIBUTING.md` scaffoldt. Kost GitHub's automatische
+"contributing guidelines"-link (die zoekt alleen in de root, `.github/` of `docs/`), niets functioneels.
+
+**Score:** 2 -- klein, maar wel gemerkt: wie voortaan bijdraagt vindt de werkwijze op één plek in
+plaats van in twee documenten die kunnen uiteenlopen (precies de klasse fout die bij de vorige
+mapverhuizing al eens dode links opleverde).
 
 #### What makes this deploy extra special
 
-**Score:**
+N/A -- raakt alleen de contributiedocumentatie, niet de site.
+
+**Score:** N/A
 
 #### Pull Request
 

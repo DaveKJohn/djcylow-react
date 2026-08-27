@@ -1,11 +1,9 @@
 # Bijdragen aan djcylow-react — de laag van de workflow
 
-Deze pagina ligt **bovenop** de eigen [`CONTRIBUTING.md`](../CONTRIBUTING.md) van de repo, die de
-standaardwerkwijze beschrijft — wat hier geldt vóór er een plugin bij komt kijken. **Waar de twee
-elkaar tegenspreken wint deze pagina** (Dave, 2026-08-16): die standaardpagina blijft betekenisvol in
-een checkout zónder de plugin, en alles wat de `contributing-davekjohn`-plugin bezit — het branch-eigen
-document, de gefolde changelog-entry, het tier-model, de release-cyclus — staat hier, in de map die met
-de plugin meereist.
+Dit is de **enige** `CONTRIBUTING.md` van deze repo: de standaardwerkwijze — nooit direct op `main`, CI
+groen vóór de merge, één wijziging per branch — én de mechaniek die de `contributing-davekjohn`-plugin
+bezit: het branch-eigen document, de gefolde changelog-entry, het tier-model, de release-cyclus. Samen
+in de map die met de plugin meereist.
 
 > **Zowel de map als de plugin heetten tot 2026-08-27 `workflow-davekjohn`.** De bron hernoemde het
 > plugin-package zelf naar `contributing-davekjohn` in v4.20.0 (#886), en `Get-BranchFilePaths` in de
@@ -14,18 +12,25 @@ de plugin meereist.
 > repo's eigen map is diezelfde dag met `git mv` meeverhuisd, mét de historie van elk bestand. Zie
 > [issue #152](https://github.com/DaveKJohn/djcylow-react/issues/152) voor de volledige adoptie.
 
-> **Deze splitsing is op 2026-08-16 overgenomen van de bron**, die hem op 14 augustus zelf maakte
-> (`627f030`, *"the workflow ships a second CONTRIBUTING layer that wins on conflict"*). Tot die dag
-> stond deze hele pagina in de repo-root, met als reden dat GitHub `CONTRIBUTING.md` daar zoekt. Dat
-> argument was juist en pleitte bij nader inzien juist vóór de splitsing: de bron houdt óók een
-> root-pagina, alleen een dunne die klopt zonder plugin. Wat de root hier had was een mengsel — het
-> pad waar GitHub een willekeurige bezoeker heen stuurt, gevuld met 29 KB branch-dossiers,
-> entry-poorten en fold-mechaniek die zonder de plugin niet bestaan.
+> **Er stond hier van 2026-08-16 tot 2026-08-27 een tweede laag: een dunne `CONTRIBUTING.md` in de
+> repo-root**, die de standaardwerkwijze droeg zodat een bezoeker zonder de plugin ook iets had om op
+> te bouwen — en waar de twee elkaar tegenspraken won deze pagina (Dave, 2026-08-16, overgenomen van de
+> bron, `627f030`, *"the workflow ships a second CONTRIBUTING layer that wins on conflict"*). Vóór 14
+> augustus stond deze hele pagina zelf al eens in de repo-root, met als reden dat GitHub
+> `CONTRIBUTING.md` daar zoekt — hetzelfde argument dat op 2026-08-16 opnieuw voor een root-pagina
+> pleitte, tegen een mengsel op dat pad van 29 KB branch-dossiers en fold-mechaniek die zonder de
+> plugin niet bestaan.
 >
-> Eén meetbaar gevolg van het uitstel: het toenmalige `branch/README.md` verwees sinds de
-> mapverhuizing van 2026-08-16 naar `../CONTRIBUTING.md` — een bestand dat toen niet bestond. Die link
-> was daarna vanzelf weer heel; het bestand zelf is op 2026-08-27 verdwenen met het tweebestandsmodel
-> dat het beschreef, zie [stap 3](#3-ontwikkel-op-de-branch-en-houd-development-cyclemd-bij).
+> **Dave heeft de root-laag op 2026-08-27 laten vervallen: er is nu precies één `CONTRIBUTING.md`, hier,
+> en die geldt zonder voorbehoud** — ook voor wie de plugin niet heeft. De bron was intussen zelf ook al
+> naar dat model gegaan (`adopt-workflow-folder.ps1` scaffoldt sinds v4.20.0 nog maar één
+> `CONTRIBUTING.md`), dus dit trekt de repo gelijk met het huidige scaffold. Wat de eerdere splitsing
+> kostte: het toenmalige `branch/README.md` verwees sinds de mapverhuizing van 2026-08-16 naar
+> `../CONTRIBUTING.md` — een bestand dat op dat moment niet bestond, en dat is precies de klasse fout
+> die twee documenten over hetzelfde onderwerp met zich meebrengen. Die link was daarna vanzelf weer
+> heel; het bestand zelf is op 2026-08-27 verdwenen met het tweebestandsmodel dat het beschreef, zie
+> [stap 3](#3-ontwikkel-op-de-branch-en-houd-development-cyclemd-bij). Zie [`../CLAUDE.md`](../CLAUDE.md#safety-rules)
+> voor de volledige redenering achter de terugkeer naar één bestand.
 
 Dit is de **lokale helft** van de contributie-cyclus: hoe werk in *deze* repo van een idee naar `main`
 komt, en daarmee naar de live site. De **portable helft** reist met de plugin mee en staat niet in
@@ -111,7 +116,7 @@ niet een formaliteit onderweg.
 | de sectiekoppen van een entry | de Engelse defaults — bewust niet overschreven | *(geen override gedefinieerd)* |
 | de rubric achter de scores 1–5 | de gedeelde vijf banden | *(geen override gedefinieerd)* |
 | de ene publieks-tier van deze repo | **1** — het management en de opdrachtgever | `Get-ReleaseAudienceTier` |
-| permanente root-docs | `CLAUDE.md` · `README.md` · `CONTRIBUTING.md` | `Get-ReservedRootMd` |
+| permanente root-docs | `CLAUDE.md` · `README.md` | `Get-ReservedRootMd` |
 | de flat changelog met de wachtende entries | [`contributing-davekjohn/CHANGELOG.md`](CHANGELOG.md) — sinds 2026-08-27, isolate-by-default (issue #885/#914 in de bron) | *(geen override gedefinieerd; de computed default)* |
 | de release-historie | de tabel in [`contributing-davekjohn/releases/README.md`](releases/README.md) | `Get-ReleaseHistoryPath` |
 | indeling van de release-notes | per **major** (`2.x/`) — gelijk aan de bron sinds 2026-08-13 | `Get-ReleaseNotesGrouping` |

@@ -153,8 +153,7 @@ djcylow-react/
 ├── scripts/                    # Build/utility scripts
 ├── releases/                   # Generated release notes (development/ + github/, v1.0.0 – present)
 ├── contributing-davekjohn/     # The workflow's own folder: development-cycle.md (while a branch is
-│                               #   open), release history, audience notes, and its CONTRIBUTING layer
-├── CONTRIBUTING.md             # The standard workflow; the plugin's layer is in contributing-davekjohn/
+│                               #   open), release history, audience notes, and CONTRIBUTING.md
 ├── CLAUDE.md                   # Operating guide: safety rules, the specialists, repo conventions
 ├── next.config.ts              # output: 'export', images: unoptimized, sassOptions
 ├── tsconfig.json               # strict, ES2017, path alias @/* → ./src/*

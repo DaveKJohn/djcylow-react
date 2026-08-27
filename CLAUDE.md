@@ -16,14 +16,17 @@ rubric, de poorten die `open-pr` draait — staat er sinds 2026-08-13 níet meer
 **onderwerp**, niet van dezelfde werkwijze in twee documenten: wat op Dave's woord wacht staat hier, hoe het
 werk loopt staat daar, en geen van beide beschrijft het onderwerp van de ander.
 
-> **Er staan sinds 2026-08-16 twee `CONTRIBUTING.md`'s, en dat is één onderwerp in twee lagen.** De
-> root-pagina is de **standaardwerkwijze** — nooit direct op `main`, CI groen vóór de merge, één
-> wijziging per branch — en die blijft kloppen op de dag dat de plugin er niet is. De pagina in
-> `contributing-davekjohn/` is de **laag van de plugin**, en die **wint waar de twee elkaar
-> tegenspreken**. Overgenomen van de bron, die de splitsing op 14 augustus maakte; tot 2026-08-16
-> stond de hele pluginlaag hier in de root, waar een bezoeker die niets van de plugin weet er als
-> eerste tegenaan liep. **De map zelf heette tot 2026-08-27 `workflow-davekjohn/`**, tot de plugin zijn
-> eigen package-naam hernoemde naar `contributing-davekjohn` in v4.20.0 (#886) en deze repo volgde.
+> **Er stonden hier van 2026-08-16 tot 2026-08-27 twee `CONTRIBUTING.md`'s**, in twee lagen: een dunne
+> root-pagina met de standaardwerkwijze — nooit direct op `main`, CI groen vóór de merge, één wijziging
+> per branch — bedoeld om te blijven kloppen op de dag dat de plugin er niet is, plus de pluginlaag in
+> `contributing-davekjohn/` die won waar de twee elkaar tegenspraken. Overgenomen van de bron, die de
+> splitsing op 14 augustus maakte. **Dave heeft die splitsing op 2026-08-27 laten vervallen: er is nu
+> precies één `CONTRIBUTING.md`**, in `contributing-davekjohn/`, en die geldt zonder voorbehoud — ook
+> voor een bezoeker zonder de plugin. De bron was intussen zelf ook al naar dat model gegaan
+> (`adopt-workflow-folder.ps1` scaffoldt sinds v4.20.0 nog maar één `CONTRIBUTING.md`), dus deze repo
+> trekt hiermee gelijk met het huidige scaffold in plaats van er eigenzinnig van af te wijken. **De map
+> zelf heette tot 2026-08-27 `workflow-davekjohn/`**, tot de plugin zijn eigen package-naam hernoemde
+> naar `contributing-davekjohn` in v4.20.0 (#886) en deze repo volgde.
 
 Dat is precies het verschil met de oude `workflow/`-map, die niet meer bestaat: dat was een **tweede
 werkwijze-document** naast dit bestand, en twee beschrijvingen van hetzelfde liepen onvermijdelijk uit
@@ -346,9 +349,9 @@ meebewogen zodat de twee elkaar niet meer tegenspreken. Tot die avond deden ze d
 op Engels en stap 6 droeg Nederlands op, met als meetbaar gevolg dat `/continue` de "nog open"-sectie
 van een note niet kon vinden. `v2.23.0` is de laatste Nederlandse note.
 
-**Ook beide `CONTRIBUTING.md`'s zijn Nederlands**, net als dit bestand — de standaardlaag in de root
-en de pluginlaag in `contributing-davekjohn/`. De portable helft ernaast is Engels en valt buiten deze
-regel: die is niet van deze repo maar van de plugin, en wordt daar onderhouden.
+**Ook `contributing-davekjohn/CONTRIBUTING.md` is Nederlands**, net als dit bestand. De portable helft
+ernaast is Engels en valt buiten deze regel: die is niet van deze repo maar van de plugin, en wordt
+daar onderhouden.
 
 ### Het team: roster & routing
 
@@ -376,8 +379,7 @@ plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 | `contributing-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
 | `contributing-davekjohn/README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
 | `contributing-davekjohn/releases/changelog/` · `contributing-davekjohn/releases/github/` | sinds 2026-08-27; tot dan `releases/development/` · `releases/github/` op de repo-root | `Get-ReleaseChangelogNotesRoot` · `Get-ReleaseGithubNotesRoot` (geen override, computed default sinds #914) |
-| `contributing-davekjohn/CONTRIBUTING.md` | de **pluginlaag** van de cyclus — wint bij conflict | model van de bron, overgenomen 2026-08-16 |
-| `CONTRIBUTING.md` | **blijft in de repo-root**, maar dun: de **standaardwerkwijze** | GitHub zoekt hem daar, en hij moet kloppen zónder plugin |
+| `contributing-davekjohn/CONTRIBUTING.md` | de **enige** `CONTRIBUTING.md` — de volledige cyclus | model van de bron, overgenomen 2026-08-16; de root-laag verviel 2026-08-27 |
 
 > **De twee generated roots waren tot 2026-08-27 hardcoded relatief aan de repo-root in `cut-release.ps1`
 > (regel 728 en 820) — geen seam, en dat was tot die dag ook waar.** Bron-issue

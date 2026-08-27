@@ -512,7 +512,11 @@ function Get-ReleaseConsumerBumps {
 # zelf hernoemd naar contributing-davekjohn/, zie Get-ReleaseHistoryPath). Deze lijst dekt alleen
 # root-*.md, dus een vermelding zou hier toch nooit meer iets matchen -- weggehaald in plaats van als
 # dode entry laten staan.
-$script:ReservedRootMd = @('CLAUDE.md', 'CONTRIBUTING.md', 'README.md')
+#
+# CONTRIBUTING.md STAAT ER SINDS 2026-08-27 OOK NIET MEER OP, om dezelfde reden: het bestand is die
+# dag uit de repo-root verwijderd (de twee-lagen-CONTRIBUTING-split verviel; er is nu nog maar één
+# CONTRIBUTING.md, in contributing-davekjohn/) en zou hier toch nooit meer iets matchen.
+$script:ReservedRootMd = @('CLAUDE.md', 'README.md')
 
 function Get-ReservedRootMd {
     <# Root-*.md die vaste documenten zijn in plaats van niet-gevouwen changelog-entries. #>
