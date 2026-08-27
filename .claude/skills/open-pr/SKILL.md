@@ -5,10 +5,10 @@ description: >-
   Draait eerst de vier entry-poorten (resolves, scaffold, impact, step-list), daarna de lint-poort
   van deze repo en alle testsuites; bij een fout wordt er niets gepusht en geen PR geopend.
   Gebruik dit als een branch af is en de PR-regel uit CLAUDE.md het openen toestaat -- dus voor
-  werk in scripts/, de governance-docs, releases/, workflow-davekjohn/ (met CHANGELOG.md erin), .claude/ en
+  werk in scripts/, de governance-docs, releases/, contributing-davekjohn/ (met CHANGELOG.md erin), .claude/ en
   onderzoek. Frontend-werk (src/, public/, src/data/mixes/) wacht op Dave, en dat is sinds
   2026-08-16 de enige reden waarom een PR nog wacht; dat is stap 4 van de cyclus in
-  workflow-davekjohn/CONTRIBUTING.md.
+  contributing-davekjohn/CONTRIBUTING.md.
 ---
 
 # open-pr — stap 4 van de cyclus, in deze repo
@@ -18,7 +18,7 @@ uit de plugin-cache; hier staat geen kopie van.
 
 ## Waarom deze skill bestaat
 
-De plugin levert `workflow-davekjohn:open-pr`, maar die draagt `disable-model-invocation: true` —
+De plugin levert `contributing-davekjohn:open-pr`, maar die draagt `disable-model-invocation: true` —
 de guardrail van de bron tegen autonoom pushen en mergen. Deze repo wil de stap wél door een
 specialist kunnen laten uitvoeren, binnen de grenzen die `CLAUDE.md` stelt. De afweging staat daar;
 dit bestand is alleen de ingang.
@@ -72,5 +72,5 @@ Alles wat niet `-Script` of `-Plugin` heet, gaat ongewijzigd door naar het gedee
 ## Daarna
 
 Stap 5 tot en met 7 uit
-[`workflow-davekjohn/CONTRIBUTING.md`](../../../workflow-davekjohn/CONTRIBUTING.md): de review, de
+[`contributing-davekjohn/CONTRIBUTING.md`](../../../contributing-davekjohn/CONTRIBUTING.md): de review, de
 merge, en de fold via de `fold-changelog`-skill.

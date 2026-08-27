@@ -215,21 +215,22 @@ function Get-MojibakePaths {
     <# Absolute paths of the files fix-mojibake.ps1 examines when called without -Path. #>
     param([Parameter(Mandatory = $true)][string]$RepoRoot)
 
-    # Every markdown file in the repo root: the root docs. CHANGELOG.md moved into workflow-davekjohn/
+    # Every markdown file in the repo root: the root docs. CHANGELOG.md moved into contributing-davekjohn/
     # on 2026-08-27 and is picked up by the -Recurse block below instead -- not named here separately,
     # so this comment does not go stale a second time if it moves again.
     $paths = @(Get-ChildItem -LiteralPath $RepoRoot -Filter '*.md' -File |
         Select-Object -ExpandProperty FullName)
 
-    # workflow-davekjohn/ -- the workflow's own root folder, which holds the branch's entry and step list
-    # (under branch/, covered by the root glob above until the split moved them on August 6, 2026, and
-    # under this folder since August 14, 2026). The entry is the single highest-value file in this set:
-    # its text is pasted verbatim into CHANGELOG.md and from there into the release notes, so a mis-decode
-    # caught anywhere later has already been copied twice.
-    # -Recurse covers branch/templates/ (pasted into a real entry, so a mis-decode there is copied forward
-    # into every branch that uses them), the folder's scaffolded docs, and the audience notes that moved
-    # in here on August 16, 2026. The development notes did NOT move -- the block below still covers those.
-    $workflowDir = Join-Path $RepoRoot 'workflow-davekjohn'
+    # contributing-davekjohn/ -- the workflow's own root folder, which holds the branch's own document
+    # (development-cycle.md, only while a branch is open -- under branch/ until August 23, 2026, and
+    # under this folder's own root since then; the folder itself was workflow-davekjohn/ until it was
+    # renamed here on 2026-08-27, following the plugin's own rename in v4.20.0/#886). The branch document
+    # is the single highest-value file in this set: its DEPLOY section is pasted verbatim into
+    # CHANGELOG.md and from there into the release notes, so a mis-decode caught anywhere later has
+    # already been copied twice.
+    # -Recurse covers the folder's scaffolded docs and the audience notes that moved in here on
+    # August 16, 2026. The development notes did NOT move -- the block below still covers those.
+    $workflowDir = Join-Path $RepoRoot 'contributing-davekjohn'
     if (Test-Path -LiteralPath $workflowDir) {
         $paths += @(Get-ChildItem -LiteralPath $workflowDir -Recurse -Filter '*.md' -File |
             Select-Object -ExpandProperty FullName)
@@ -303,6 +304,11 @@ function Get-MojibakePaths {
 # moves the tree has to say so here, or the guardrail, the inserter and new-internal-note.ps1 all keep
 # writing to a path that no longer exists. This is a 'decide' seam for exactly that reason.
 #
+# THE FOLDER ITSELF RENAMED ON 2026-08-27, workflow-davekjohn/ -> contributing-davekjohn/, following the
+# plugin's own rename in v4.20.0 (#886). Same reasoning as the paragraph above: an unstated value would
+# still say yesterday's name. The 37 existing rows in releases/README.md were not rewritten -- git mv
+# carried the file itself, and its rows already read relative to wherever the file lives.
+#
 # The file itself is unchanged by the move: still one page, still the mirror of the source's own. It
 # lived in its own HISTORY.md for one day (August 4, 2026), on the reasoning that one page should
 # describe the process and another the outcome. That reasoning was superseded the same day: the pages had
@@ -310,7 +316,7 @@ function Get-MojibakePaths {
 # that split exists, process-versus-outcome stops earning a file boundary -- the outcome IS repo-specific
 # content, so it is simply the last section of the slot. Merging them also removed four cross-references
 # the two pages needed to introduce each other, and left a consumer with one file to mirror instead of two.
-$script:ReleaseHistoryPath = 'workflow-davekjohn/releases/README.md'
+$script:ReleaseHistoryPath = 'contributing-davekjohn/releases/README.md'
 
 function Get-ReleaseHistoryPath {
     <# Repo-root-relative path to the file that lists every release this repo has cut. #>
@@ -429,6 +435,10 @@ function Get-ReleaseNotesGrouping {
 # v4.12.0-upgrade van de plugin. De 25 bestaande documenten zijn met git mv meegegaan, zonder een letter
 # aan hun tekst te veranderen -- het zijn gepubliceerde documenten en dus historie.
 #
+# DE MAP ZELF HERNOEMD OP 2026-08-27: workflow-davekjohn/ -> contributing-davekjohn/, in het voetspoor
+# van de plugin's eigen hernoeming in v4.20.0 (#886). Weer met git mv, weer zonder de 25 documenten aan
+# te raken.
+#
 # ALLEEN AUDIENCE VERHUIST, EN DAT IS GEEN HALF WERK MAAR HET BEDOELDE MODEL. De twee roots hierboven
 # zonder seam staan HARDCODED RELATIEF AAN DE REPO-ROOT in cut-release.ps1 -- releases/development/ op
 # regel 728, releases/github/ op regel 820 -- dus die kunnen niet mee: een cut zou ernaast een nieuwe
@@ -440,7 +450,7 @@ function Get-ReleaseNotesGrouping {
 # Bij deze verhuizing zijn development/ en github/ eerst wel meegegaan en daarna teruggezet, toen het
 # narekenen van regel 728 en 820 dit aan het licht bracht. De boom die je nu ziet is de gemeten uitkomst,
 # niet de eerste aanname.
-$script:ReleaseNoteRoot = 'workflow-davekjohn/releases/audience'
+$script:ReleaseNoteRoot = 'contributing-davekjohn/releases/audience'
 
 function Get-ReleaseNoteRoot {
     <# Root-relatieve map van het handgeschreven release-document. Hier workflow-davekjohn/releases/audience. #>
@@ -494,10 +504,12 @@ function Get-ReleaseConsumerBumps {
 # config-adoption-proposal.md), dan hoort dat niet in deze lijst maar weg voordat er een release komt.
 #
 # CHANGELOG.md STAAT ER SINDS 2026-08-27 NIET MEER OP: die dag verhuisde het bestand naar
-# workflow-davekjohn/CHANGELOG.md (issue #885/#914 in de bron -- een consumer-repo isoleert zijn
+# contributing-davekjohn/CHANGELOG.md (issue #885/#914 in de bron -- een consumer-repo isoleert zijn
 # changelog voortaan in de workflow-map, en Assert-WorkflowIsolatedSeamPath weigert elk antwoord dat
-# daarbuiten wijst). Deze lijst dekt alleen root-*.md, dus een vermelding zou hier toch nooit meer
-# iets matchen -- weggehaald in plaats van als dode entry laten staan.
+# daarbuiten wijst; de map heette op dat moment nog workflow-davekjohn/ en is diezelfde dag later ook
+# zelf hernoemd naar contributing-davekjohn/, zie Get-ReleaseHistoryPath). Deze lijst dekt alleen
+# root-*.md, dus een vermelding zou hier toch nooit meer iets matchen -- weggehaald in plaats van als
+# dode entry laten staan.
 $script:ReservedRootMd = @('CLAUDE.md', 'CONTRIBUTING.md', 'README.md')
 
 function Get-ReservedRootMd {

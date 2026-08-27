@@ -33,21 +33,93 @@
 
 ### PLAN
 
+- [x] Issue #152 gelezen en geverifieerd tegen de geïnstalleerde plugin v4.20.0: het bestaande
+  tweebestandsmodel is inderdaad vervangen door één `development-cycle.md`, en de map zelf is
+  hernoemd naar `contributing-davekjohn/`.
+- [x] Onderzoek gedaan (via een fork) naar `Get-BranchFilePaths`, `Resolve-BranchFilePath`,
+  `fold-changelog-entry.ps1`, `adopt-workflow-folder.ps1` (dry run) en de CONTRIBUTING.md-model-vraag.
+  Conclusie: `adopt-workflow-folder -Apply` zou een lege parallelle boom aanmaken naast de bestaande
+  inhoud — de juiste route is een handmatige `git mv` die de bestaande content meeneemt.
+- [x] `DEVELOPMENT-portable.md` volledig gelezen. Ontdekt dat de significance-secties sinds
+  19-23 augustus 2026 óók zijn veranderd voor een repo die een audience-tier heeft opgegeven: geen
+  aparte `#### Tier 0`/`#### Tier 1`-koppen meer, maar de DEPLOY-kop zelf als tier-0-vraag en één
+  resolved audience-heading eronder. Dat gold hier al sinds 12 augustus 2026 (`Get-ReleaseAudienceTier`
+  is gezet) en had dus niets met deze migratie te maken, maar de bestaande documentatie beschreef nog
+  het oude model — meegenomen in dezelfde herschrijving omdat het dezelfde documentparagrafen raakt.
+
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] `new-branch` gedraaid voor deze branch — schreef dit document al op zijn definitieve pad,
+  vóór de map-hernoeming, wat een tijdelijke split-brain gaf (`contributing-davekjohn/development-cycle.md`
+  naast `workflow-davekjohn/branch/`). Gecorrigeerd door de map-inhoud er omheen te bewegen in plaats
+  van andersom.
+- [x] `git mv workflow-davekjohn contributing-davekjohn` (in twee stappen wegens een geneste-map-val
+  van `git mv` toen de doelmap al bestond), gevolgd door verwijdering van de vijf bestanden van het
+  oude `branch/`-tweebestandsmodel en zijn `templates/`.
+- [x] `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1` bijgewerkt: drie hardcoded
+  `workflow-davekjohn`-strings (`$workflowDir`, `$script:ReleaseHistoryPath`, `$script:ReleaseNoteRoot`)
+  plus de bijbehorende commentaarblokken.
+- [x] `contributing-davekjohn/README.md`, `contributing-davekjohn/CLAUDE.md` en
+  `contributing-davekjohn/CONTRIBUTING.md` herschreven voor het één-documentmodel — inclusief de
+  Significance-sectie, die het oude `Tier 0`/`Tier 1`-model beschreef terwijl deze repo al sinds
+  12 augustus op het nieuwe model draait.
+- [x] Root `CLAUDE.md`, root `CONTRIBUTING.md`, root `README.md`, `.github/pull_request_template.md`,
+  `.claude/skills/open-pr/SKILL.md`, `.claude/skills/fold-changelog/SKILL.md`,
+  `.claude/specialists/lenses/01-01-extension.md` en `.claude/specialists/SPECIALISTS.md` bijgewerkt.
+  Genuine historische vermeldingen (PR #145 op 2026-08-16, de val van 2026-08-15 met de
+  marketplace-clone, `.claude/handover.md` als bevroren sessiestand) bewust **niet** aangepast — die
+  beschrijven wat toen waar was.
+- [x] `contributing-davekjohn/releases/README.md` bijgewerkt **onder** de mirror-streep (regel 336)
+  — de tabel met de drie release-roots en de sluitende quote. Boven de streep niet aangeraakt: dat is
+  een verbatim spiegel van de bron, en een correctie daar hoort als `inbound`-issue naar
+  `claude-code-specialists` in plaats van hier gerepareerd te worden.
 
 ### TEST
 
+- [x] `scripts\lint\lint-web.ps1` (tsc, ESLint, build, link-checker): **0 fouten** —
+  89 statische pagina's, ondergrens gehaald.
+- [x] `npx vitest run`: **213/213 tests groen** (16 suites).
+- [x] `check-script-contract.ps1` (v4.20.0): **0 errors, 14 info-signalen** — allemaal bestaande,
+  bewust onbeantwoorde optionele seams (zie de eigen verantwoording onderaan `repo-config.ps1`), geen
+  nieuwe. `[OK] workflow folder: contributing-davekjohn/ exists.`
+- [~] Handmatige nieuwe-branch-proefrun op een tweede branch — niet gedaan: `new-branch.ps1` is al
+  ééns gedraaid vóór de mv (voor déze branch zelf) en toonde daarmee al aan dat het script het nieuwe
+  pad correct schrijft; een tweede losse proefrun zou hetzelfde nogmaals bewijzen.
+
 ### DEPLOY: `config/adopt-development-cycle-model-v1`
 
-**Score:**
+Deze repo liep nog volledig op het tweebestandsmodel (`workflow-davekjohn/branch/branch-changelog.md` +
+`branch-progress.md`) en de mapnaam `workflow-davekjohn/`, terwijl plugin v4.20.0 die allebei heeft
+vervangen: één `contributing-davekjohn/development-cycle.md` dat alleen bestaat zolang een branch
+openstaat, met `PLAN`/`CREATE`/`TEST`/`DEPLOY` als vaste `###`-secties. Issue #152 signaleerde dit op
+2026-08-27 nadat de fold van PR #149 de oude bestanden al stil verwijderde in plaats van te resetten.
+
+Deze branch voert de volledige adoptie door: de map is hernoemd via `git mv` (met behoud van alle
+bestandshistorie), het oude tweebestandsmodel is verwijderd, en elke plek in de repo die het oude
+model of de oude mapnaam beschreef — `CLAUDE.md`, beide `CONTRIBUTING.md`'s, de skill-bestanden, de
+lens, `SPECIALISTS.md`, de PR-template en `README.md` — is bijgewerkt naar wat de scripts nu
+daadwerkelijk doen. Onderweg bleek de significance-sectie van een entry ook al sinds 12 augustus 2026
+op het nieuwe (tier-loze) model had moeten staan; die documentatie is in dezelfde beweging
+gecorrigeerd. Geen gedeeld script is gedupliceerd of gewijzigd — alleen deze repo's eigen configuratie
+en documentatie.
+
+**Score:** 4
+<!-- Elke toekomstige branch gebruikt dit model; het oude wordt door de gedeelde scripts niet meer
+     geschreven, dus dit was geen optionele opfrisbeurt maar het dichten van een gat tussen wat de
+     documentatie beloofde en wat er feitelijk gebeurde. Geen 5: er is geen breaking change voor een
+     lezer die de skills gebruikt in plaats van de documentatie zelf te lezen -- de scripts hadden de
+     dual-read al. -->
 
 #### What makes this deploy extra special
 
-**Score:**
+N/A — dit raakt alleen de interne werkwijze van deze repo (branches, entries, documentatie). Niets
+aan `djcylow.com` verandert, en niemand buiten wie hier meewerkt merkt dit.
+
+**Score:** N/A
 
 #### Pull Request
 
 Adopteer het development-cycle.md-model en de contributing-davekjohn/-map van plugin v4.20.0
+
+Sluit issue #152.
 

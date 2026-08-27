@@ -8,7 +8,7 @@ onderaan** onder [`## Eigen aan deze repo (djcylow-react)`](#eigen-aan-deze-repo
 concrete team, de projectstructuur, de taal en de manier waarop de grondwet hier is ingevuld.
 
 **Dit bestand houdt de grénzen; de route staat in
-[`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md).** Daar staan sinds
+[`contributing-davekjohn/CONTRIBUTING.md`](contributing-davekjohn/CONTRIBUTING.md).** Daar staan sinds
 2026-08-13 de **antwoorden** van deze repo op de contributie-cyclus: de branch-prefixen, de zeven stappen van
 branch tot fold, en per stap wat hier anders is. Het **mechanisme** van die cyclus — het tier-model, de
 rubric, de poorten die `open-pr` draait — staat er sinds 2026-08-13 níet meer in, maar in
@@ -19,10 +19,11 @@ werk loopt staat daar, en geen van beide beschrijft het onderwerp van de ander.
 > **Er staan sinds 2026-08-16 twee `CONTRIBUTING.md`'s, en dat is één onderwerp in twee lagen.** De
 > root-pagina is de **standaardwerkwijze** — nooit direct op `main`, CI groen vóór de merge, één
 > wijziging per branch — en die blijft kloppen op de dag dat de plugin er niet is. De pagina in
-> `workflow-davekjohn/` is de **laag van de plugin**, en die **wint waar de twee elkaar
+> `contributing-davekjohn/` is de **laag van de plugin**, en die **wint waar de twee elkaar
 > tegenspreken**. Overgenomen van de bron, die de splitsing op 14 augustus maakte; tot 2026-08-16
 > stond de hele pluginlaag hier in de root, waar een bezoeker die niets van de plugin weet er als
-> eerste tegenaan liep.
+> eerste tegenaan liep. **De map zelf heette tot 2026-08-27 `workflow-davekjohn/`**, tot de plugin zijn
+> eigen package-naam hernoemde naar `contributing-davekjohn` in v4.20.0 (#886) en deze repo volgde.
 
 Dat is precies het verschil met de oude `workflow/`-map, die niet meer bestaat: dat was een **tweede
 werkwijze-document** naast dit bestand, en twee beschrijvingen van hetzelfde liepen onvermijdelijk uit
@@ -87,9 +88,11 @@ djcylow-specifieke invulling (concrete paden, scripts en de lint-poort) staat in
 > productie)"*. Die reden was uitgehold: sinds de PR-stap op *doorlopen tenzij* staat, bereikt al het
 > overige `origin/main` allang via de merge — en `gh pr merge` schrijft daar server-side rechtstreeks
 > in. Wat er ná die uitholling nog onder viel was precies één handeling, de **fold-commit**, en dat
-> is de mínst riskante van alles wat hier naar `origin/main` schrijft: `CHANGELOG.md` plus twee
-> bestanden in `workflow-davekjohn/branch/`, die geen enkele gebouwde pagina veranderen. Netlify
-> meldde bij PR #145 letterlijk *"Pages changed — skipping"*.
+> is de mínst riskante van alles wat hier naar `origin/main` schrijft: `CHANGELOG.md` plus het
+> verwijderen van `contributing-davekjohn/development-cycle.md` (tot 2026-08-27 was dat scope op twee
+> vaste bestanden in `workflow-davekjohn/branch/`, die de fold destijds reset in plaats van verwijderde
+> — zie [`### Ontwikkelworkflow`](#ontwikkelworkflow--de-route-staat-in-contributing-davekjohncontributingmd)), die geen enkele gebouwde pagina
+> veranderen. Netlify meldde bij PR #145 letterlijk *"Pages changed — skipping"*.
 >
 > De zwaarste stap liep dus automatisch en de lichtste bleef wachten — omgekeerd aan de risicologica
 > die de regel motiveerde. **Claude pusht nu gewoon naar `origin`.** Dat brengt deze repo ook terug
@@ -105,7 +108,7 @@ erin zit** — dat bepaalt de aard van het werk, niet een vaste regel per branch
 - **De default — niet wachten.** Is het werk op een branch af, gecommit en staat de poort groen, dan loopt
   de hele beweging in één keer door: openen → mergen → de changelog-entry folden → pushen, zonder
   tussenvraag. Dat dekt `scripts/`, de governance-documentatie (`CLAUDE.md`, `CONTRIBUTING.md`, de
-  README's), `releases/`, `workflow-davekjohn/` (met `CHANGELOG.md` erin sinds 2026-08-27), de specialisten-laag onder `.claude/` en
+  README's), `releases/`, `contributing-davekjohn/` (met `CHANGELOG.md` erin sinds 2026-08-27), de specialisten-laag onder `.claude/` en
   onderzoek. Zulk werk raakt `djcylow.com` niet: de build levert dezelfde pagina's, dus de deploy die op de
   merge volgt is een no-op. Een stempel van Dave voegt daar niets aan toe, en wat tóch misgaat is één
   revert-PR verder.
@@ -195,12 +198,14 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 
 Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 
-1. De **fold-commit** (na een merge, [stap 7](workflow-davekjohn/CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
-   de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` + de twee
-   vaste bestanden in `workflow-davekjohn/branch/`. **Hij wordt meteen gepusht** — sinds 2026-08-16 draait
+1. De **fold-commit** (na een merge, [stap 7](contributing-davekjohn/CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
+   de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` +
+   het verwijderen van `contributing-davekjohn/development-cycle.md` (tot 2026-08-27 twee vaste
+   bestanden in `workflow-davekjohn/branch/`, die de fold destijds reset in plaats van verwijderde).
+   **Hij wordt meteen gepusht** — sinds 2026-08-16 draait
    de fold met `-Push` in plaats van `-Commit`, want pushen naar `origin/main` is geen apart besluit meer.
 2. De **release-commit** (alleen op expliciet verzoek): `cut-release.ps1` genereert de release-notes,
-   leegt `CHANGELOG.md` tot de intro, vult de rij in `workflow-davekjohn/releases/README.md`, en **commit dat plus de tag
+   leegt `CHANGELOG.md` tot de intro, vult de rij in `contributing-davekjohn/releases/README.md`, en **commit dat plus de tag
    `vX.Y.Z` rechtstreeks op `main`** — waarna het zelf `git push origin main` en `git push origin
    vX.Y.Z` doet. Bewust geen branch en geen Pull Request, net als de fold.
 
@@ -247,13 +252,13 @@ Dit zijn de **enige** twee. Ook een "onschuldige" opruim- of chore-commit gaat v
   van zulk werk. De twee vragen zijn uit elkaar getrokken: Dave weegt vooraf of iets mag, niet nog eens
   achteraf of het gemerged mag.
 
-### Ontwikkelworkflow — de route staat in `workflow-davekjohn/CONTRIBUTING.md`
+### Ontwikkelworkflow — de route staat in `contributing-davekjohn/CONTRIBUTING.md`
 
-De route staat in [`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md): de
+De route staat in [`contributing-davekjohn/CONTRIBUTING.md`](contributing-davekjohn/CONTRIBUTING.md): de
 branch-prefixen met hun label en changelog-type,
 de zeven stappen van branch tot fold, en per stap het antwoord van déze repo — welke lint-poort de laatste
 wacht is, waarom stap 5 bestaat, welke `gh`-vlaggen hier stukgaan. Die pagina is de **lokale helft** van een
-gedeeld document; de **portable helft** (`CONTRIBUTING-portable.md`) reist met de plugin mee en draagt het
+gedeeld document; de **portable helft** (`CONTRIBUTING-portable.md` + `DEVELOPMENT-portable.md`) reist met de plugin mee en draagt het
 mechanisme: het tier-model, de rubric, de vier poorten van `open-pr`, de fold. Samen zijn ze de enige plek
 waar de route beschreven staat — en sinds 2026-08-13 staat elk stuk ervan maar in één van de twee.
 
@@ -261,7 +266,7 @@ Twee regels uit die route zijn óók grondwet, en die vind je daarom hierboven i
 [de safety-rules](#safety-rules): **mergen is hier deployen**, en werk waaraan **iets aan de frontend te
 bekíjken valt** wacht daarom op Dave — al het overige loopt door tot en met de push. Alles daartussen —
 hoe je een branch noemt, wat er in de entry hoort, welke poort wat weigert — lees je in
-`workflow-davekjohn/CONTRIBUTING.md` of de portable helft waarnaar dat document verwijst.
+`contributing-davekjohn/CONTRIBUTING.md` of de portable helft waarnaar dat document verwijst.
 
 > **Dit waren er drie tot 2026-08-16**; de derde was *"pushen naar `origin/main` is Dave's initiatief"*.
 > Die is geschrapt — zie de noot bij de safety-rules hierboven.
@@ -270,9 +275,11 @@ hoe je een branch noemt, wat er in de entry hoort, welke poort wat weigert — l
 
 1. **Check de branch.** Run `git status` en `git branch` vóór je het eerste bestand aanraakt — sta je op
    `main`, maak dan eerst de juiste branch aan. Dit geldt ook voor een script of een configbestand.
-2. **Een branch is nooit entry-loos.** Laat de gedeelde `new-branch`-skill de branch mét zijn twee
-   bestanden in `workflow-davekjohn/branch/` neerzetten; wat die twee bestanden zijn staat in
-   [`workflow-davekjohn/branch/README.md`](workflow-davekjohn/branch/README.md).
+2. **Een branch is nooit entry-loos.** Laat de gedeelde `new-branch`-skill de branch mét zijn eigen
+   document op `contributing-davekjohn/development-cycle.md` neerzetten — één bestand sinds 2026-08-23,
+   met de plan-fasen (`PLAN`/`CREATE`/`TEST`) en de changelog-entry (`DEPLOY`) als vier vaste
+   `###`-secties. Wat dat document precies draagt staat in `DEVELOPMENT-portable.md` (de plugin) — er
+   is sinds 2026-08-27 geen repo-eigen reference-kopie meer.
 
 ---
 
@@ -317,7 +324,7 @@ waar `new-branch`, `open-pr`, `fold-changelog` en de release-cut het over eens m
 je ze, dan kan de eigen fold de eigen entry niet meer lezen. `scripts/repo-config.ps1` definieert
 bewust géén `Get-EntrySectionHeadingOverrides`, en dát is de beslissing die dit vastlegt.
 
-**Uitzondering: `workflow-davekjohn/releases/README.md` is volledig Engels** (Dave, 2026-08-13). Die pagina is een
+**Uitzondering: `contributing-davekjohn/releases/README.md` is volledig Engels** (Dave, 2026-08-13). Die pagina is een
 **spiegel** van [dezelfde pagina in de bron](https://github.com/DaveKJohn/claude-code-specialists/blob/main/releases/README.md):
 alles boven de horizontale streep is er woord voor woord uit gekopieerd, en dat is alleen te handhaven
 zolang het de tekst van de bron zélf is. Een vertaling maakte de pagina precies zo onvergelijkbaar als een
@@ -327,7 +334,7 @@ komt terug via een plugin-release; hier repareren herstart de drift. Onder de st
 deel, ook Engels, zodat de hele pagina één register heeft.
 
 Wat **niet** meeverhuist naar het Engels: de bestaande documenten in `releases/development/` en
-`workflow-davekjohn/releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
+`contributing-davekjohn/releases/audience/` en de titels in de release-lijst. Dat is historie — geschreven in de taal waarin ze
 uitgingen, en een record is geen vertaling. De taalgrens loopt daarmee dwars door het
 development-document: Engelse tier-koppen boven Nederlandse entries.
 
@@ -340,7 +347,7 @@ op Engels en stap 6 droeg Nederlands op, met als meetbaar gevolg dat `/continue`
 van een note niet kon vinden. `v2.23.0` is de laatste Nederlandse note.
 
 **Ook beide `CONTRIBUTING.md`'s zijn Nederlands**, net als dit bestand — de standaardlaag in de root
-en de pluginlaag in `workflow-davekjohn/`. De portable helft ernaast is Engels en valt buiten deze
+en de pluginlaag in `contributing-davekjohn/`. De portable helft ernaast is Engels en valt buiten deze
 regel: die is niet van deze repo maar van de plugin, en wordt daar onderhouden.
 
 ### Het team: roster & routing
@@ -356,50 +363,67 @@ lenzen neer. `check-script-contract.ps1` bewaakt daarnaast dat `scripts/repo-con
 
 ### Structuur en conventies
 
-#### `workflow-davekjohn/` — de map van de workflow
+#### `contributing-davekjohn/` — de map van de workflow
 
 Sinds **2026-08-16** (plugin v4.12.0) woont alles wat van de workflow is in één map in de repo-root, in
 plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 
 | pad | wat | waarom daar |
 |---|---|---|
-| `workflow-davekjohn/branch/` | de entry, de stappenlijst, de templates, `README.md` | **verplicht** — de gedeelde scripts lezen alléén deze plek |
-| `workflow-davekjohn/CHANGELOG.md` | de wachtende entries, live maar nog zonder versienummer | sinds 2026-08-27; `Get-ChangelogPath` (geen override, computed default) |
-| `workflow-davekjohn/releases/README.md` | de release-historie | `Get-ReleaseHistoryPath` |
-| `workflow-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
-| `workflow-davekjohn/prompts/` | de prompt-inbox voor `/prompt` | nieuw in 4.12.0; `prompt.md` en `archive/` zijn **untracked** |
-| `workflow-davekjohn/CLAUDE.md` · `README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
+| `contributing-davekjohn/development-cycle.md` | het branch-eigen document: plan + changelog-entry, één bestand | **verplicht** — de gedeelde scripts lezen alléén deze plek; bestaat alléén zolang een branch openstaat |
+| `contributing-davekjohn/CHANGELOG.md` | de wachtende entries, live maar nog zonder versienummer | sinds 2026-08-27; `Get-ChangelogPath` (geen override, computed default) |
+| `contributing-davekjohn/releases/README.md` | de release-historie | `Get-ReleaseHistoryPath` |
+| `contributing-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
+| `contributing-davekjohn/prompts/` | de prompt-inbox voor `/prompt` | nieuw in 4.12.0; `prompt.md` en `archive/` zijn **untracked** |
+| `contributing-davekjohn/CLAUDE.md` · `README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
 | `releases/development/` · `releases/github/` | **blijven in de repo-root** | hardcoded in `cut-release.ps1` (regel 728 en 820) — geen seam |
-| `workflow-davekjohn/CONTRIBUTING.md` | de **pluginlaag** van de cyclus — wint bij conflict | model van de bron, overgenomen 2026-08-16 |
+| `contributing-davekjohn/CONTRIBUTING.md` | de **pluginlaag** van de cyclus — wint bij conflict | model van de bron, overgenomen 2026-08-16 |
 | `CONTRIBUTING.md` | **blijft in de repo-root**, maar dun: de **standaardwerkwijze** | GitHub zoekt hem daar, en hij moet kloppen zónder plugin |
+
+**De map zelf heette tot 2026-08-27 `workflow-davekjohn/`.** De bron hernoemde het plugin-package zelf
+naar `contributing-davekjohn` in v4.20.0 (#886), en `Get-BranchFilePaths` in de gedeelde scripts wijst
+het branch-document sindsdien hardcoded naar een map met die naam — geen seam, dus deze repo volgde via
+`git mv`, mét de historie van elk bestand. Zie [issue #152](https://github.com/DaveKJohn/djcylow-react/issues/152)
+voor de volledige adoptie.
+
+**Het branch-eigen tweebestandsmodel is diezelfde dag samengevoegd tot één bestand.** Tot 2026-08-23
+schreef `new-branch` een `branch/`-submap met twee vaste bestanden (`branch-changelog.md`,
+`branch-progress.md`) plus referentiekopieën in `branch/templates/`; die submap bestaat sinds
+2026-08-27 niet meer. `Get-BranchFilePaths` levert sindsdien één pad,
+`contributing-davekjohn/development-cycle.md`, met vier vaste `###`-secties (`PLAN`, `CREATE`, `TEST`,
+``DEPLOY: `<branch>` ``) in plaats van twee bestanden — en het bestaat alléén zolang de branch openstaat:
+`new-branch` schrijft het, de fold **verwijdert** het (voorheen: reset naar een lege staat op `main`).
+Zie [`contributing-davekjohn/CONTRIBUTING.md`, stap 3](contributing-davekjohn/CONTRIBUTING.md#3-ontwikkel-op-de-branch-en-houd-development-cyclemd-bij)
+voor de volledige uitwerking.
 
 **`CHANGELOG.md` verhuizen was op 2026-08-27 wél een keuze, en niet meer een die deze repo kon
 uitstellen.** De bron maakte `Get-ChangelogPath` die dagen ervoor (25-26 augustus, issue #885/#914)
 **isolate-by-default** voor een consumer-repo: `Assert-WorkflowIsolatedSeamPath` in de gedeelde
 `seam-lib.ps1` weigert sindsdien (exit 1) élk antwoord — ook een expliciete override in
-`scripts/repo-config.ps1` — dat buiten `workflow-davekjohn/` wijst. Deze repo bewaarde het bestand tot
+`scripts/repo-config.ps1` — dat buiten de workflow-map wijst. Deze repo bewaarde het bestand tot
 die dag als vaste root-doc; de eerste keer dat `fold-changelog-entry.ps1` uit v4.20.0 daadwerkelijk
 tegen die grens liep (PR #149's fold), moest die ene entry met de hand in de oude root-locatie worden
 gevouwen. Er is bewust **geen** eigen `Get-ChangelogPath` gezet: de computed default volgt
-`Get-WorkflowFolderName` en wijst dus vanzelf naar `workflow-davekjohn/CHANGELOG.md` zolang die map zo
-heet.
+`Get-WorkflowFolderName` en wijst dus vanzelf naar `contributing-davekjohn/CHANGELOG.md` zolang die map
+zo heet.
 
-**`branch/` verhuizen was geen keuze.** `Get-BranchFilePaths` in `entry-scaffold-lib.ps1` draagt de
-aantekening *"No dual-read of the old root 'branch/' location, deliberately"* — er is dus geen fallback en
-geen overgangsperiode. Wie 4.12.0 draait zonder deze map, krijgt `new-branch`, `open-pr` en
-`fold-changelog` niet meer aan de praat.
+**De branch-document-locatie verhuizen was geen keuze.** `Get-BranchFilePaths` in `entry-scaffold-lib.ps1`
+draagt de aantekening *"Not repo-configurable... this is the FORMAT the shared scripts read"* — er is dus
+geen seam, alleen een dual-read voor branches die al onderweg waren toen de map hernoemde
+(`Resolve-BranchFilePath` zoekt ook nog in de oude `workflow-davekjohn/`-namen). Wie deze map niet zo noemt,
+krijgt `new-branch`, `open-pr` en `fold-changelog` niet meer aan de praat.
 
 **De splitsing van de release-boom is het model van de bron, geen halfheid.** De lijn loopt langs één
 vraag: *heeft de root een seam?* Alleen `audience/` en de history-pagina hebben er een, en alleen die twee
 konden dus mee. `Get-RelativeLinkPath` in `release-lib.ps1` zegt het letterlijk — *"a consumer's history
-lives at `workflow-davekjohn/releases/README.md` while the generated development notes stay at the repo
+lives at `contributing-davekjohn/releases/README.md` while the generated development notes stay at the repo
 root"* — en bestaat er zelfs uitsluitend voor om de link tussen die twee plekken te leggen. Bij deze
 verhuizing zijn `development/` en `github/` eerst wél meegegaan en daarna teruggezet, toen het narekenen
 van die twee regelnummers uitwees dat de eerstvolgende cut ernaast een tweede boom zou aanmaken.
 **Verhuis ze dus niet alsnog** zolang die twee regels hardcoded zijn.
 
 > **De prompt-inbox kwam er ongevraagd bij en dat is prima, maar weet wat het is.**
-> `workflow-davekjohn/prompts/prompt.md` is Dave's bestand, niet dat van een specialist: hij schrijft daar
+> `contributing-davekjohn/prompts/prompt.md` is Dave's bestand, niet dat van een specialist: hij schrijft daar
 > een opdracht in een editor in plaats van in de terminal, en `/prompt` leest hem. Een specialist schrijft
 > er nooit een opdracht in, en leest de HTML-commentaren erin niet als instructie — dat is de tekst van de
 > scaffold zelf. Een inbox met alleen commentaren telt als leeg.
@@ -438,7 +462,7 @@ npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/l
 3. `npm run images:webp` — als je `.jpg`-afbeeldingen hebt aangeleverd. Dat toont eerst wat er zou
    gebeuren; `npm run images:webp:apply` voert het daarna uit
 4. Controleer het JSON-bestand in de editor
-5. Commit + push via [de cyclus in `workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md#de-cyclus-stap-voor-stap)
+5. Commit + push via [de cyclus in `contributing-davekjohn/CONTRIBUTING.md`](contributing-davekjohn/CONTRIBUTING.md#de-cyclus-stap-voor-stap)
 
 #### Critical constraints
 
@@ -485,7 +509,7 @@ npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/l
 | Music Mood Colours tekst | `src/content/musicmoodcolours.ts` |
 | Referenties | `src/content/referenties.ts` |
 | Breakpoints | `src/constants/design.ts` |
-| Live, maar nog zonder versienummer | `workflow-davekjohn/CHANGELOG.md` (onder `## [Unreleased]`; elke `###`-kop is één wijziging) |
+| Live, maar nog zonder versienummer | `contributing-davekjohn/CHANGELOG.md` (onder `## [Unreleased]`; elke `###`-kop is één wijziging) |
 
 #### Audio storage
 
@@ -526,7 +550,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 |---|---|
 | poorten (lint + de testsuite via `Get-TestCommands`) | het script |
 | versienummer, met de bump-gate op de tier van de wachtende entries | het script |
-| development-note, `CHANGELOG.md` legen, rij in `workflow-davekjohn/releases/README.md` | het script |
+| development-note, `CHANGELOG.md` legen, rij in `contributing-davekjohn/releases/README.md` | het script |
 | audience-document | het script zet een **concept** neer met `DRAFT`-aanwijzingen; herschrijven is handwerk |
 | commit `release: vX.Y.Z`, tag, en `git push origin main` + de tag | het script |
 | aankondiging in `github/`, de GitHub Release, de bijlagen | handwerk; het `gh release create`-commando wordt geprint |
@@ -560,7 +584,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 > hier schrikt en gaat ingrijpen, grijpt in op een geslaagde push.
 >
 > **`-NoPush` is bij een grote cut de moeite waard.** Het is het enige moment waarop een mens het
-> samengestelde resultaat — development-note, geleegde `CHANGELOG.md`, de rij in `workflow-davekjohn/releases/README.md`,
+> samengestelde resultaat — development-note, geleegde `CHANGELOG.md`, de rij in `contributing-davekjohn/releases/README.md`,
 > het audience-concept — naast elkaar ziet vóór het publiek is. Daarna is terugdraaien een tag
 > verwijderen en een commit reverten op `main`.
 
@@ -568,8 +592,9 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    voorwaarde — het script stageert met `git add -A`, dus alles wat rondslingert gaat mee in de
    release-commit
 2. **Zorg dat er niets ongefold wacht.** Het script weigert te draaien als
-   `workflow-davekjohn/branch/branch-changelog.md` nog een entry draagt: een cut leegt `CHANGELOG.md`, dus een entry die
-   daar nog niet in staat zou de release missen en daarna verweesd achterblijven
+   `contributing-davekjohn/development-cycle.md` nog een `### DEPLOY`-sectie draagt: een cut leegt
+   `CHANGELOG.md`, dus een entry die daar nog niet in staat zou de release missen en daarna verweesd
+   achterblijven
 3. **Draai `cut-release`** met de bump die de wachtende entries verdienen (zie *Versienummer bepalen*
    hieronder). Het script draait zijn eigen poorten — `scripts\lint\lint-web.ps1` én de testsuite — dus
    je hoeft die er niet apart voor te zetten
@@ -579,10 +604,10 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
      niets meer te vergelijken op aantal: elke melding is nieuw, en hoort niet mee de PR in
    - De vierde stap is sinds 2026-08-16 de link- en anker-check. Bij een cut is dat de stap die er het
      meest toe doet: een release schrijft in één keer een development-note, een audience-document en
-     een rij in `workflow-davekjohn/releases/README.md`, allemaal met verse relatieve links tussen twee
+     een rij in `contributing-davekjohn/releases/README.md`, allemaal met verse relatieve links tussen twee
      verschillende bomen — en dat is precies het soort werk waar PR #145 vijftien dode links liet staan
 4. **Herschrijf het audience-concept** (alleen Minor/Major):
-   `workflow-davekjohn/releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
+   `contributing-davekjohn/releases/audience/<major>.x/<versie>.md` — dezelfde wijzigingen in leesbaar **Engels** zonder
    jargon en zonder ontwikkel-metadata (geen PR-nummers, merge-datums of branch-types), bedoeld voor
    de opdrachtgever in plaats van developers. Twee secties, want deze repo staat op tier 1:
    **`What it is worth`** en **`What was still open at this release`** — die tweede in de verleden
@@ -603,7 +628,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    > **Deze map heette `releases/highlights/` tot 2026-08-13.** Elke root onder `releases/` hoort
    > zijn lezer te noemen en niet de vorm van het document; `Get-ReleaseNoteRoot` in
    > `scripts/repo-config.ps1` wijst sindsdien naar de audience-map. De 23 bestaande documenten
-   > zijn verplaatst, niet herschreven. Zie [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md) voor de drie
+   > zijn verplaatst, niet herschreven. Zie [`contributing-davekjohn/releases/README.md`](contributing-davekjohn/releases/README.md) voor de drie
    > roots en wat er per root in hoort
    > **En de submap ging later diezelfde dag van `<X.Y>` naar `<X>.x`**, toen `releases/` op Dave's
    > verzoek volledig gelijk werd getrokken met de bron: `Get-ReleaseNotesGrouping` staat sindsdien op
@@ -622,11 +647,11 @@ Wat het script hierboven al voor je deed, met de valkuilen die daarbij horen:
   na de cut
 - **`CHANGELOG.md` geleegd** tot de intro-alinea. **Er komt géén versieblok voor terug.**
   > Tot 2026-08-11 zette deze stap ook een `## Releases`-blok in `CHANGELOG.md` — dezelfde informatie
-  > als `workflow-davekjohn/releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al was
+  > als `contributing-davekjohn/releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al was
   > afgeschaft en die bovendien maandenlang fout stond (op v2.20.1, terwijl v2.20.2, v2.21.0 en vijf
-  > PR's al live waren). Dat verviel: `workflow-davekjohn/releases/README.md` is sindsdien de enige plek waar
+  > PR's al live waren). Dat verviel: `contributing-davekjohn/releases/README.md` is sindsdien de enige plek waar
   > uitgebrachte versies worden bijgehouden — geen dubbele boekhouding meer
-- **De rij in `workflow-davekjohn/releases/README.md`**, bovenaan de overzichtstabel — de enige boekhouding van
+- **De rij in `contributing-davekjohn/releases/README.md`**, bovenaan de overzichtstabel — de enige boekhouding van
   uitgebrachte versies. De Versie-cel wijst naar het leesbaarste document dat de release heeft:
   `audience/` bij een Minor/Major, `development/` bij een Patch
    > **De kolomkoppen van die tabel zijn een machine-gelezen sleutel, geen proza.** De gedeelde
@@ -656,7 +681,7 @@ Daarna, met de hand:
     anders met `HTTP 404` (`file#label` van `gh` lost dat niet op — dat zet het label, niet de naam):
     ```bash
     cp releases/development/<major>.x/<versie>.md v<versie>-development-notes.md
-    cp workflow-davekjohn/releases/audience/<major>.x/<versie>.md v<versie>-release-note.md
+    cp contributing-davekjohn/releases/audience/<major>.x/<versie>.md v<versie>-release-note.md
     gh release upload v<versie> v<versie>-development-notes.md v<versie>-release-note.md
     rm v<versie>-development-notes.md v<versie>-release-note.md
     ```
@@ -706,15 +731,20 @@ in [`DaveKJohn/claude-code-specialists`](https://github.com/DaveKJohn/claude-cod
 repo verschilt woont in `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1`.
 
 De stapnummers hieronder verwijzen naar
-[de cyclus in `workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md#de-cyclus-stap-voor-stap).
+[de cyclus in `contributing-davekjohn/CONTRIBUTING.md`](contributing-davekjohn/CONTRIBUTING.md#de-cyclus-stap-voor-stap).
 
 **Er staan twee kopieën van elk gedeeld script op de machine, en je draait er maar één van.** Welke,
 hangt af van wat je ermee doet:
 
 | pad | wat het is | waarvoor |
 |---|---|---|
-| `~/.claude/plugins/cache/claude-code-specialists/workflow-davekjohn/<versie>/` | de **uitgebrachte release** | **draaien** — hierheen wijst `${CLAUDE_PLUGIN_ROOT}`, dus dit is wat een skill werkelijk uitvoert |
+| `~/.claude/plugins/cache/claude-code-specialists/contributing-davekjohn/<versie>/` | de **uitgebrachte release** | **draaien** — hierheen wijst `${CLAUDE_PLUGIN_ROOT}`, dus dit is wat een skill werkelijk uitvoert |
 | `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/…/` | de **bron-checkout**, die vóórloopt met alles wat sinds de laatste cut is gemerged | **lezen** — de persona's, waarnaar `.claude/specialists/SPECIALISTS.md` `@`-importeert |
+
+> **Het plugin-package zelf heette tot v4.20.0 (2026-08-26) `workflow-davekjohn`**, en die naam staat op
+> de machine nog als losse cache-map (`workflow-davekjohn/4.12.0`, `4.18.0`) — een vorige installatie
+> die niet is opgeruimd, geen storing. Wat deze repo daadwerkelijk draait staat sinds 2026-08-26 onder
+> `contributing-davekjohn/4.20.0`; zie `installed_plugins.json` bij twijfel.
 
 **Cache om te dráaien, marketplace om te lézen.** Beide verwijzingen in deze repo zijn dus juist voor
 hun eigen doel, en dat is precies wat het onderscheid onzichtbaar maakt: `SPECIALISTS.md` wijst naar de
@@ -752,7 +782,7 @@ val.
 > `${CLAUDE_PLUGIN_ROOT}`. Wat ontbrak was deze alinea.
 >
 > **En er stond al een waarschuwing die dit had moeten vangen** —
-> [`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md)
+> [`contributing-davekjohn/CONTRIBUTING.md`](contributing-davekjohn/CONTRIBUTING.md)
 > zegt sinds 2026-08-13 dat de scripts uit de cache draaien. Die dekte de **versie-as** (welke versie
 > staat er geïnstalleerd) en niet de **map-as** (welke van twee bomen lees je), en dat is wat het
 > verschil maakte: twee kopieën van dezelfde versie-as verwarren kost je een verouderd script, twee
@@ -800,23 +830,26 @@ want anders wint `3.9.0` van `3.10.0`.
 > als parameternaam en stopt met *"the parameter name '' is ambiguous"*. Het is ook niet nodig: alles
 > wat niet `-Script` of `-Plugin` heet, valt vanzelf in `-Rest`.
 
-- **`new-branch`** — maakt de branch én **twee** bestanden in `workflow-davekjohn/branch/`
-  (`branch-changelog.md`, `branch-progress.md`) plus de referentiekopieën in
-  `workflow-davekjohn/branch/templates/`, in één stap (stap 1–3). Het
-  achterliggende werk zit in `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` —
-  er bestaat geen los `scripts/release/new-changelog-entry.ps1` (meer).
+- **`new-branch`** — maakt de branch én zijn eigen document op
+  `contributing-davekjohn/development-cycle.md` in één stap (stap 1–3): vier vaste `###`-secties
+  (`PLAN`, `CREATE`, `TEST`, ``DEPLOY: `<branch>` ``) in plaats van het tweebestandsmodel dat hier tot
+  2026-08-27 bestond (`branch/branch-changelog.md` + `branch/branch-progress.md`, met
+  referentiekopieën in `branch/templates/`). Het achterliggende werk zit in
+  `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` — er bestaat geen los
+  `scripts/release/new-changelog-entry.ps1` (meer).
 - **`open-pr`** — draait de vier entry-poorten (resolves/scaffold/impact/step-list), de lint-poort en
   de testsuites, en opent daarna de PR (stap 4). **Sinds 2026-08-13 niet meer "alleen op verzoek van
   Dave"**: of hij vanzelf loopt hangt af van wat er in de branch zit, zoals de safety-rules hierboven
   beschrijven. Frontend-werk wacht, de rest loopt door.
-- **`fold-changelog`** — vouwt `workflow-davekjohn/branch/branch-changelog.md` gerangschikt op tier/score in
-  `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en reset de twee
-  `workflow-davekjohn/branch/`-bestanden
-  (stap 7).
+- **`fold-changelog`** — vouwt de `### DEPLOY`-sectie van `contributing-davekjohn/development-cycle.md`
+  gerangschikt op tier/score in `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en
+  **verwijdert** daarna het hele document (stap 7). Tot 2026-08-27 reset de fold in plaats daarvan de
+  twee losse `branch/`-bestanden naar hun lege staat; sinds het document alleen nog bestaat zolang de
+  branch openstaat, is er na de fold niets meer om te resetten.
 - **`cut-release`** — **draait het grootste deel van de Release Workflow zélf**, en dat is het
   belangrijkste dat je over deze skill moet weten. Het genereert de development-note, schrijft een
   concept van het audience-document, leegt `CHANGELOG.md` tot de intro, voegt de rij toe aan
-  `workflow-davekjohn/releases/README.md`, en doet daarna `git add -A`, `git commit -m "release: v<versie>"`,
+  `contributing-davekjohn/releases/README.md`, en doet daarna `git add -A`, `git commit -m "release: v<versie>"`,
   `git tag -a` en **twee pushes: `git push origin main` en `git push origin v<versie>`**. Alleen de
   `gh release create`-stap wordt geprint in plaats van uitgevoerd. `-NoPush` houdt de twee pushes
   tegen en laat commit en tag lokaal staan.
@@ -1159,7 +1192,7 @@ geleerde lessen in de docs, de grondwet boven elk gemak) is draagbaar en staat b
 merge hier direct deployt, de scripts en de poort) is van deze repo en staat in dit slot.
 
 Diezelfde tweedeling loopt door in
-[`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md), en dat is geen tweede systeem
+[`contributing-davekjohn/CONTRIBUTING.md`](contributing-davekjohn/CONTRIBUTING.md), en dat is geen tweede systeem
 maar hetzelfde: de portable helft van die pagina woont in de plugin, de antwoorden van déze repo staan
 in de repo. Wat dit bestand hier doet voor de **grenzen**, doet die pagina daar voor de **route**.
 

@@ -19,9 +19,10 @@ kijken, en waar een bijdrager op kan bouwen ook als hij verder niets weet van ho
 
 ## De laag erbovenop: de workflow-map
 
-Deze repo draait de `workflow-davekjohn`-plugin, en die plugin draagt zijn eigen contributiepagina:
+Deze repo draait de `contributing-davekjohn`-plugin (`workflow-davekjohn` tot 2026-08-27, toen de
+plugin zijn eigen package hernoemde in v4.20.0/#886), en die plugin draagt zijn eigen contributiepagina:
 
-📄 **[`workflow-davekjohn/CONTRIBUTING.md`](workflow-davekjohn/CONTRIBUTING.md)**
+📄 **[`contributing-davekjohn/CONTRIBUTING.md`](contributing-davekjohn/CONTRIBUTING.md)**
 
 **Zolang de plugin geïnstalleerd is geldt die pagina bovenop deze — en waar de twee elkaar
 tegenspreken wint de pagina van de plugin.** Hij vervangt de standaardwerkwijze hierboven niet; hij
@@ -41,5 +42,5 @@ de plugin meereist.
 |---|---|
 | de grenzen: safety-rules, branch-discipline, de Release Workflow | [`CLAUDE.md`](CLAUDE.md) |
 | wie welk soort werk oppakt | [`.claude/specialists/SPECIALISTS.md`](.claude/specialists/SPECIALISTS.md) |
-| wat live is maar nog geen versienummer heeft | [`CHANGELOG.md`](workflow-davekjohn/CHANGELOG.md) |
-| de uitgebrachte versies | [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md) |
+| wat live is maar nog geen versienummer heeft | [`CHANGELOG.md`](contributing-davekjohn/CHANGELOG.md) |
+| de uitgebrachte versies | [`contributing-davekjohn/releases/README.md`](contributing-davekjohn/releases/README.md) |

@@ -152,9 +152,9 @@ djcylow-react/
 │
 ├── scripts/                    # Build/utility scripts
 ├── releases/                   # Generated release notes (development/ + github/, v1.0.0 – present)
-├── workflow-davekjohn/         # The workflow's own folder: branch dossier, release history,
-│                               #   audience notes, and its CONTRIBUTING layer
-├── CONTRIBUTING.md             # The standard workflow; the plugin's layer is in workflow-davekjohn/
+├── contributing-davekjohn/     # The workflow's own folder: development-cycle.md (while a branch is
+│                               #   open), release history, audience notes, and its CONTRIBUTING layer
+├── CONTRIBUTING.md             # The standard workflow; the plugin's layer is in contributing-davekjohn/
 ├── CLAUDE.md                   # Operating guide: safety rules, the specialists, repo conventions
 ├── next.config.ts              # output: 'export', images: unoptimized, sassOptions
 ├── tsconfig.json               # strict, ES2017, path alias @/* → ./src/*
@@ -572,4 +572,4 @@ taken for a decision. All content has always been Dutch. Key Dutch terms used th
 
 ## Version History
 
-Detailed release notes are stored in three directories named after their reader: `releases/development/` holds the full per-PR record of every release, `workflow-davekjohn/releases/audience/` holds a plain-language note for Minor/Major releases, and `releases/github/` holds the short announcement used as the GitHub Release body. The audience notes moved into `workflow-davekjohn/` on 2026-08-16 because that root is a configurable seam; the other two are hardcoded in the release script and stay at the repo root. See [`workflow-davekjohn/releases/README.md`](workflow-davekjohn/releases/README.md).
+Detailed release notes are stored in three directories named after their reader: `releases/development/` holds the full per-PR record of every release, `contributing-davekjohn/releases/audience/` holds a plain-language note for Minor/Major releases, and `releases/github/` holds the short announcement used as the GitHub Release body. The audience notes moved into that folder (named `workflow-davekjohn/` until 2026-08-27, `contributing-davekjohn/` since) on 2026-08-16 because that root is a configurable seam; the other two are hardcoded in the release script and stay at the repo root. See [`contributing-davekjohn/releases/README.md`](contributing-davekjohn/releases/README.md).
