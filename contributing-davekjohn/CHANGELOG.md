@@ -26,3 +26,29 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 > versie draait per definitie al.
 
 ## [Unreleased]
+
+### DEPLOY: `docs/derde-directe-main-uitzondering-v1` · 20260827-150513
+
+De grondwet kent de derde directe-`main`-uitzondering nu wél: het committen van het handgeschreven
+release-document tijdens een cut, mét de begrenzing die hem veilig maakt. Wie een cut draait leest zijn
+eigen twee commits niet meer als een overtreding, en wie er een inplant leest een kostenraming die op
+de laatste run is gemeten in plaats van op de vorige: 5m 15s bij v2.25.0 tegen 35m 40s bij v2.24.0,
+met de PR-leg die dat verschil structureel maakt. De v2.24.0-tabel blijft staan als het record van die
+run — er is niets vervangen, er is een meting naast gezet.
+
+**Score:** 4
+
+#### What makes this deploy extra special
+
+Raakt de website, de levering of de opdrachtgever niet: dit is de interne werkwijze van de repo.
+
+**Score:** N/A
+
+#### Pull Request
+
+CLAUDE.md kent de derde directe-main-uitzondering en de gemeten kosten van v2.25.0
+
+[PR #164](https://github.com/DaveKJohn/djcylow-react/pull/164)
+
+---
+
