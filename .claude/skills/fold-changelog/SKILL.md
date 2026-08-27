@@ -55,7 +55,10 @@ plaats van een commit die blijft liggen.
 3. Zet de twee bestanden in `workflow-davekjohn/branch/` terug in hun resetstaat.
 4. Commit dat als `fold: <branch> changelog` en pusht het naar `origin/main`.
 
-Elke `##`-kop in `CHANGELOG.md` is één wijziging; er is sinds 2026-08-11 geen sectiekop meer.
+Elke `###`-kop onder `## [Unreleased]` in `CHANGELOG.md` is één wijziging. Sinds 2026-08-11 zonder de
+oude `## Tier N`-/`## Releases`-secties; sinds 2026-08-27 wél weer met die ene vaste `## [Unreleased]`-kop
+(de plugin's eigen "pending section"), waardoor elke entry en zijn interne secties één niveau dieper
+staan dan daarvoor.
 
 ## Let op
 

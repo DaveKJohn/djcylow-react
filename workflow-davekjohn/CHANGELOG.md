@@ -1,9 +1,15 @@
 # Changelog
 
 De geschiedenis van de DJ Cylow-website: elke gemergde branch met zijn pull request, nieuwste
-bovenaan. Er zijn geen secties meer — **elke `##`-kop hieronder is één wijziging**, en dat is wat de
-gedeelde workflow-scripts lezen. Het mechanisme (het entry-bestand in `branch/`, folden, een release
-knippen) staat in [`CLAUDE.md`](../CLAUDE.md).
+bovenaan, onder één `## [Unreleased]`-kop — **elke `###`-kop daaronder is één wijziging**, en dat is
+wat de gedeelde workflow-scripts lezen. Het mechanisme (het entry-bestand in `branch/`, folden, een
+release knippen) staat in [`CLAUDE.md`](../CLAUDE.md).
+
+> Tot 2026-08-27 stond hier geen `## [Unreleased]`-kop en droeg elke wijziging zelf een `##`-kop, één
+> niveau hoger. Plugin v4.20.0 (25-26 augustus 2026) voerde de kop in en verdiepte elk niveau in een
+> entry met één: de entry-kop werd `###`, de zes genoemde secties erin `####`, en de tier-subkoppen
+> `#####`. Oudere entries elders in de repo-geschiedenis (in `releases/development/`) zijn niet
+> herschreven — dat is een record, geen vertaling.
 
 **`origin/main` is de live site.** Netlify bouwt en publiceert bij elke push naar `main`, en een
 PR-merge schrijft daar rechtstreeks in. Alles hieronder staat dus al op `djcylow.com` — live, maar
@@ -19,21 +25,23 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 > v2.20.2, v2.21.0 en vijf PR's al live waren. De markering is vervallen: de bovenste uitgebrachte
 > versie draait per definitie al.
 
-## `docs/release-v2240-audience-document` changelog
+## [Unreleased]
 
-### Branch title
+### `docs/release-v2240-audience-document` changelog
+
+#### Branch title
 
 Het audience-document van v2.24.0 zegt wat de release oplevert en wat er openstond
 
-### Branch ID
+#### Branch ID
 
 20260815-232356
 
-### Branch type
+#### Branch type
 
 docs
 
-### What does the change on this branch bring to main?
+#### What does the change on this branch bring to main?
 
 `cut-release` zet bij een minor een concept van het audience-document neer met twee lege secties die
 geen script kan vullen: wat de release de organisatie oplevert, en wat er bij deze release nog
@@ -58,9 +66,9 @@ and colleagues in the organisation -- one section each"* terwijl er maar één s
 entry haalde tier 2, wat het script in zijn eigen uitvoer ook meldt. Een kop die een lezer aankondigt
 die er niet is, is precies de tegenspraak die deze repo elders opruimt.
 
-### Significance
+#### Significance
 
-#### Tier 0
+##### Tier 0
 
 Het document is de enige plek waar staat wat een week auditwerk heeft opgeleverd in plaats van welke
 54 dingen er zijn veranderd; de development-note draagt het tweede, niemand het eerste. Voor de
@@ -69,7 +77,7 @@ volgende sessie is dit bovendien het eerste voorbeeld van een uitgeschreven audi
 
 **Score:** 3
 
-#### Tier 1
+##### Tier 1
 
 Dit is het document dat voor de organisatie geschreven is — de enige van de drie release-documenten
 die niet in per-PR-eenheden praat. Zonder deze twee secties gaat v2.24.0 naar buiten als een lijst van
@@ -78,27 +86,27 @@ speciaal voor bestaat.
 
 **Score:** 4
 
-### Pull Request
+#### Pull Request
 
 [PR #143](https://github.com/DaveKJohn/djcylow-react/pull/143) · merged 2026-08-15
 
 ---
 
-## `docs/wat-de-eerste-release-run-mat` changelog
+### `docs/wat-de-eerste-release-run-mat` changelog
 
-### Branch title
+#### Branch title
 
 de testpoort en de release-route dragen wat de eerste cut-run heeft gemeten
 
-### Branch ID
+#### Branch ID
 
 20260816-092424
 
-### Branch type
+#### Branch type
 
 docs
 
-### What does the change on this branch bring to main?
+#### What does the change on this branch bring to main?
 
 `CLAUDE.md` beschreef de testpoort als **acht suites, 143 tests**. Opnieuw gemeten op 2026-08-16 met
 Vitest 4.1.10: **zestien suites, 213 tests**, in 19 seconden. Het getal was juist toen het werd
@@ -124,9 +132,9 @@ cut en beweerde bovendien dat het schrijven ervan niet in het getal zat. Het dra
 36 minuten, met de vaststelling dat vijf zesde daarvan schrijven en controleren was in plaats van
 machinerie.
 
-### Significance
+#### Significance
 
-#### Tier 0
+##### Tier 0
 
 `CLAUDE.md` laadt bij élke sessie mee, en het onjuiste getal stond in de sectie die beschrijft hoe
 streng de poort is. Een lezer onderschatte structureel wat er bewaakt wordt en kon een testgat vermoeden
@@ -135,7 +143,7 @@ herinnering en staat er weer een beschrijving die uit de code is gelezen in plaa
 
 **Score:** 3
 
-#### Tier 1
+##### Tier 1
 
 Het audience-document van v2.24.0 is een gepubliceerd stuk voor de opdrachtgever en droeg een
 kostenplaatje dat vier vijfde van de werkelijke tijd wegliet. Dat is precies de klasse bewering waarop
@@ -144,27 +152,27 @@ doet.
 
 **Score:** 2
 
-### Pull Request
+#### Pull Request
 
 [PR #144](https://github.com/DaveKJohn/djcylow-react/pull/144) · merged 2026-08-16
 
 ---
 
-## `docs/pushen-vrij-en-een-merge-uitzondering` changelog
+### `docs/pushen-vrij-en-een-merge-uitzondering` changelog
 
-### Branch title
+#### Branch title
 
 Pushen naar origin mag altijd, en alleen frontend-werk wacht nog op Dave
 
-### Branch ID
+#### Branch ID
 
 20260816-144520
 
-### Branch type
+#### Branch type
 
 docs
 
-### What does the change on this branch bring to main?
+#### What does the change on this branch bring to main?
 
 Twee regels zijn op Dave's woord vereenvoudigd, allebei in de richting van minder wachten.
 
@@ -207,9 +215,9 @@ Die oorzaak is nu weg, dus `main` hoort na elke ronde gelijk te staan. De waarsc
 het mechanisme niet weg is — maar hij beschrijft nu een uitzondering in plaats van de regel, en daarmee is
 een `ahead`-regel een signaal geworden in plaats van behang.
 
-### Significance
+#### Significance
 
-#### Tier 0
+##### Tier 0
 
 Dit verandert hoe elke keten in deze repo eindigt: openen → mergen → folden → **pushen**, zonder tussenstop.
 Een specialist die de oude regel volgt laat een fold-commit liggen en meldt hem als openstaand punt, wat
@@ -218,7 +226,7 @@ meelaadt, dus de kans dat de oude reflex blijft hangen was reëel.
 
 **Score:** 4
 
-#### Tier 1
+##### Tier 1
 
 Voor het management verandert er niets zichtbaars aan de site. Wat het waard is: werk dat `djcylow.com`
 niet raakt komt sneller op `main` terecht, terwijl de ene poort die er echt toe doet — een mens die naar de
@@ -226,27 +234,27 @@ frontend kijkt — onaangeroerd blijft.
 
 **Score:** 1
 
-### Pull Request
+#### Pull Request
 
 [PR #146](https://github.com/DaveKJohn/djcylow-react/pull/146) · merged 2026-08-16
 
 ---
 
-## `config/plugin-v4-12-workflow-folder` changelog
+### `config/plugin-v4-12-workflow-folder` changelog
 
-### Branch title
+#### Branch title
 
 De plugin staat op v4.12.0 en de repo verhuist mee naar workflow-davekjohn/
 
-### Branch ID
+#### Branch ID
 
 20260816-140943
 
-### Branch type
+#### Branch type
 
 config
 
-### What does the change on this branch bring to main?
+#### What does the change on this branch bring to main?
 
 De specialists-plugin staat op **v4.12.0** in plaats van 4.8.0 — `team-alpha` en `workflow-davekjohn`
 allebei, op project-scope. Vier minors ineens, en de repo is eromheen gebogen zodat de gedeelde scripts
@@ -292,9 +300,9 @@ de reparatie hoort upstream, zodat niet elke consumer dezelfde tien losse links 
 Poort groen (0 fouten, 89 pagina's), 16 suites en 213 tests groen, en `check-script-contract` tegen
 4.12.0 op **0 errors**.
 
-### Significance
+#### Significance
 
-#### Tier 0
+##### Tier 0
 
 De hele branch-workflow werkte niet meer zonder deze verhuizing, en dat was geen dreiging voor later maar
 een toestand die al was ingetreden: `shared.ps1` pakt de hoogste cacheversie, dus `/open-pr`,
@@ -304,7 +312,7 @@ deze repo in augustus al eens een verkeerde diagnose op bouwde.
 
 **Score:** 5
 
-#### Tier 1
+##### Tier 1
 
 Voor het management verandert er niets zichtbaars: de site is niet aangeraakt en de build levert dezelfde
 89 pagina's. Wat het waard is, is dat de release- en changelog-machinerie blijft werken — zonder dit zou
@@ -312,27 +320,27 @@ de eerstvolgende release-cut vastlopen op een entry die hij niet kan vinden.
 
 **Score:** 1
 
-### Pull Request
+#### Pull Request
 
 [PR #145](https://github.com/DaveKJohn/djcylow-react/pull/145) · merged 2026-08-16
 
 ---
 
-## `feat/link-en-anker-checker` changelog
+### `feat/link-en-anker-checker` changelog
 
-### Branch title
+#### Branch title
 
 Een link- en anker-checker in de poort
 
-### Branch ID
+#### Branch ID
 
 20260816-171041
 
-### Branch type
+#### Branch type
 
 feat
 
-### What does the change on this branch bring to main?
+#### What does the change on this branch bring to main?
 
 De poort krijgt een vierde stap: `scripts/lint/check-links.ps1` houdt elke relatieve link en elk
 anker in alle 107 markdown-bestanden tegen de tree. Daarmee is de governance-documentatie voor het
@@ -378,9 +386,9 @@ en dus elk relatief pad verkeerd zou oplossen.
 `CLAUDE.md` beschrijft de poort op drie plekken en zei overal "drie stappen"; die staan nu op vier,
 met het nieuwe script in de scriptlijst.
 
-### Significance
+#### Significance
 
-#### Tier 0
+##### Tier 0
 
 De klasse fout die dit vangt is hier aantoonbaar opgetreden en bleef een etmaal onzichtbaar met alle
 bestaande poorten groen. Vanaf nu kan een verhuizing of een hernoemde kop de documentatie niet meer
@@ -390,34 +398,34 @@ bovendien de tweede keer dat dit met de hand werd nagerekend — de audit van 20
 
 **Score:** 4
 
-#### Tier 1
+##### Tier 1
 
 Een poort die alleen de ontwikkelaars van deze repo raakt: er verandert niets aan `djcylow.com`, de
 build levert dezelfde pagina's, en er is voor de opdrachtgever niets te merken of te doen.
 
 **Score:** N/A
 
-### Pull Request
+#### Pull Request
 
 [PR #148](https://github.com/DaveKJohn/djcylow-react/pull/148) · merged 2026-08-16
 
 ---
 
-## `docs/contributing-twee-lagen` changelog
+### `docs/contributing-twee-lagen` changelog
 
-### Branch title
+#### Branch title
 
 CONTRIBUTING.md splitst in twee lagen, net als de bron
 
-### Branch ID
+#### Branch ID
 
 20260816-151558
 
-### Branch type
+#### Branch type
 
 docs
 
-### What does the change on this branch bring to main?
+#### What does the change on this branch bring to main?
 
 `CONTRIBUTING.md` stond volledig in de repo-root: 29 KB die tegelijk het pad was waar GitHub een
 willekeurige bezoeker heen stuurt én de lokale helft van de plugin-cyclus. Die twee onderwerpen zijn
@@ -449,9 +457,9 @@ Er staat nu een link- en anker-checker achter, gedraaid over alle 106 markdown-b
 geen dood pad, geen dood anker. Die 14 `development/`-links zijn precies de splitsing die
 `Get-RelativeLinkPath` in de plugin beschrijft — de bestaande rijen waren er alleen niet in meegegaan.
 
-### Significance
+#### Significance
 
-#### Tier 0
+##### Tier 0
 
 Een bijdrager die de repo binnenkomt leest niet langer 29 KB plugin-mechaniek op het pad waar GitHub
 hem heen stuurt, en de zestien dode links die de vorige verhuizing achterliet zijn weg. Het meeste
@@ -460,34 +468,34 @@ moment dat iemand ze volgt, en dan is het vertrouwen in de rest van de pagina oo
 
 **Score:** 3
 
-#### Tier 1
+##### Tier 1
 
 N/A — dit raakt niets aan `djcylow.com`. De build levert dezelfde pagina's; het is documentatie over
 hoe er in deze repo gewerkt wordt.
 
 **Score:** N/A
 
-### Pull Request
+#### Pull Request
 
 [PR #147](https://github.com/DaveKJohn/djcylow-react/pull/147) · merged 2026-08-16
 
 ---
 
-## `config/plugin-update-4.20` changelog
+### `config/plugin-update-4.20` changelog
 
-### Branch title
+#### Branch title
 
 Update de specialists-plugin naar v4.20.0, inclusief de rename van workflow-davekjohn naar contributing-davekjohn
 
-### Branch ID
+#### Branch ID
 
 20260827-004457
 
-### Branch type
+#### Branch type
 
 config
 
-### What does the change on this branch bring to main?
+#### What does the change on this branch bring to main?
 
 Deze repo draaide op plugin v4.12.0 (`team-alpha`) en had een kapotte
 `workflow-davekjohn@claude-code-specialists`-installatie: de bron hernoemde dat pluginpakket op
@@ -525,9 +533,9 @@ hierdoor voor deze repo niet meer bruikbaar totdat dit is opgelost. Zie de bijbe
 in de sessie voor de twee opties (CHANGELOG.md verhuizen naar de workflow-map, of handmatig blijven
 folden) — dat is een beslissing voor Dave, niet iets wat deze branch zelf heeft gekozen.
 
-### Significance
+#### Significance
 
-#### Tier 0
+##### Tier 0
 
 Zonder deze fix faalden de drie repo-eigen skills die de release-cyclus dragen (`open-pr`,
 `fold-changelog`, `park`) niet meteen, maar zouden ze bij de eerstvolgende opschoning van de
@@ -538,12 +546,14 @@ release-cut had kunnen raken.
 
 **Score:** 2
 
+##### Tier 1
+
 Niet zichtbaar voor de opdrachtgever: dit is interne tooling-hygiëne, geen wijziging aan de site of
 het proces waarmee die wordt opgeleverd.
 
 **Score:** N/A
 
-### Pull Request
+#### Pull Request
 
 [PR #149](https://github.com/DaveKJohn/djcylow-react/pull/149) · merged 2026-08-26
 

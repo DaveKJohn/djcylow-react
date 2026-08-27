@@ -188,8 +188,10 @@ een stempel — dus is hij nu alleen nog een checkpoint waar hij écht iets ople
 > Dit stond hier tot 2026-07-26 andersom beschreven — "een merge naar `main` zet niets live", met de
 > live-push als aparte stap in de Release Workflow. Dat was onjuist en gaf een vals gevoel van
 > veiligheid op precies het verkeerde moment. `CHANGELOG.md` verzamelt daarom wat **live is maar nog
-> geen versienummer heeft**; sinds 2026-08-11 zonder sectiekop — elke `##`-kop erin is één wijziging.
-> Een release is een label op wat al draait.
+> geen versienummer heeft**; sinds 2026-08-11 zonder sectiekoppen van vroeger (de oude `## Tier N`- en
+> `## Releases`-blokken). Sinds 2026-08-27 staat er wél weer één vaste kop boven de lijst —
+> `## [Unreleased]`, de plugin's eigen "pending section" — met elke `###`-kop daaronder als één
+> wijziging. Een release is een label op wat al draait.
 
 Er zijn twee bewuste uitzonderingen op "nooit direct committen":
 
@@ -483,7 +485,7 @@ npm run lint     # alleen ESLint -- de typecheck en de build zitten in scripts/l
 | Music Mood Colours tekst | `src/content/musicmoodcolours.ts` |
 | Referenties | `src/content/referenties.ts` |
 | Breakpoints | `src/constants/design.ts` |
-| Live, maar nog zonder versienummer | `workflow-davekjohn/CHANGELOG.md` (elke `##`-kop is één wijziging) |
+| Live, maar nog zonder versienummer | `workflow-davekjohn/CHANGELOG.md` (onder `## [Unreleased]`; elke `###`-kop is één wijziging) |
 
 #### Audio storage
 
