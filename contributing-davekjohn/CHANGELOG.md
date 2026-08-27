@@ -27,6 +27,41 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `config/verantwoord-onbeantwoorde-seams-v1` · 20260827-142301
+
+Vult het verantwoordingsblok van `scripts/repo-config.ps1` aan van vijf naar veertien seams, zodat het
+weer dekt wat `check-script-contract.ps1` daadwerkelijk meldt. Issue #155 wees op drie
+release-notes-roots; narekenen per functie leverde er **negen** op die nergens verantwoord stonden --
+het gemelde getal was de vangst van de zoekopdracht, niet de omvang van het onderwerp. De
+onderzoeksvraag van het issue -- wijzen die roots op een model dat deze repo nog niet had bekeken? --
+was inmiddels beantwoord en uitgevoerd door #152/PR #158: `releases/changelog/` en `releases/github/`
+staan sinds die migratie exact op hun berekende default, dus ze blijven onbeantwoord omdat de boom al
+klopt. De andere zeven krijgen hun eigen gemeten reden: geen lezer (`Get-ReleaseInternalNotesRoot`, de
+vier `Get-ReleasePage*`-knoppen), een prefix die hier niet bestaat (`Get-EntryGateExemptPrefixes`), of
+een seam die sinds `Assert-WorkflowIsolatedSeamPath` alleen nog zijn eigen default kan herhalen
+(`Get-ChangelogPath`). De kop draagt daarnaast de hertelling zelf, plus de waarneming dat nieuwe seams
+via een plugin-release stil binnenkomen omdat `[INFO]` niets blokkeert. Meegenomen: het ene non-ASCII
+teken in het bestand, dat de eigen ASCII-conventie van de header schond. Closes #155.
+
+**Score:** 2 -- voorkomt de concrete fout die dit blok twee keer eerder heeft opgeleverd: een sessie die
+op een handgeschreven aantal afgaat, een stub bijzet die de berekende default woordelijk herhaalt, en
+daarmee de mapnaam-drift introduceert die de seam juist moest voorkomen.
+
+#### What makes this deploy extra special
+
+N/A -- raakt uitsluitend commentaar in een configuratiescript; geen gedrag, geen gebouwde pagina, geen
+enkel signaal richting management of opdrachtgever.
+
+**Score:** N/A
+
+#### Pull Request
+
+Verantwoord de negen onbeantwoorde blueprint-seams in repo-config.ps1
+
+[PR #161](https://github.com/DaveKJohn/djcylow-react/pull/161)
+
+---
+
 ### DEPLOY: `docs/fix-changelog-intro-refs-v1` · 20260827-102925
 
 Herstelt twee stale verwijzingen in de vaste intro van `contributing-davekjohn/CHANGELOG.md`, blijven
