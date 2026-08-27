@@ -409,18 +409,24 @@ this page — true in the source, where all four sit in one `releases/`. Since A
 
 | root | where | why |
 |---|---|---|
-| `workflow-davekjohn/releases/README.md` | here | `Get-ReleaseHistoryPath` points at it |
-| `workflow-davekjohn/releases/audience/` | here | `Get-ReleaseNoteRoot` points at it |
+| `contributing-davekjohn/releases/README.md` | here | `Get-ReleaseHistoryPath` points at it |
+| `contributing-davekjohn/releases/audience/` | here | `Get-ReleaseNoteRoot` points at it |
 | `releases/development/` | repo root | hardcoded in `cut-release.ps1` (line 728) |
 | `releases/github/` | repo root | hardcoded in `cut-release.ps1` (line 820) |
 
 **This split is the source's own model, not a compromise.** `Get-RelativeLinkPath` says it outright: *"a
-consumer's history lives at `workflow-davekjohn/releases/README.md` while the generated development notes
+consumer's history lives at `contributing-davekjohn/releases/README.md` while the generated development notes
 stay at the repo root."* Only two of the four roots are seams, so only those two could move; the other two
 would have been re-created at the root by the next cut, leaving two trees where there had been one. Both
 were in fact moved and then moved back during the v4.12.0 upgrade, once lines 728 and 820 were read rather
 than assumed. **The text above the rule is left alone** — it describes the source's layout correctly, and
 this note is the repo-specific answer that belongs on this side of the rule.
+
+**The folder itself was renamed a fourth time, on August 27, 2026: `workflow-davekjohn/` ->
+`contributing-davekjohn/`.** The source's own package rename in v4.20.0 (#886) is not a link-depth
+change — `contributing-davekjohn/releases/README.md` sits exactly as deep under the repo root as
+`workflow-davekjohn/releases/README.md` did, so none of the three groups above needed a fourth
+adjustment. Only the literal name in this table and in the quote above changed, via `git mv`.
 
 **One sentence above the rule is wrong about a file of ours, and it is worth naming precisely because the
 link is live.** The intro says *"the release block in `CHANGELOG.md` points here for everything but the

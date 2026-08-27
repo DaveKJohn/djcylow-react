@@ -22,7 +22,7 @@ is.
 De werkwijze waaronder zij werken staat in twee bestanden: de grondwet, de branch-discipline en de
 Release Workflow in [`CLAUDE.md`](../../CLAUDE.md), en de contributie-cyclus zelf — prefixen, de zeven
 stappen, het tier-model, de poorten — in
-[`workflow-davekjohn/CONTRIBUTING.md`](../../workflow-davekjohn/CONTRIBUTING.md). Dit bestand zegt
+[`contributing-davekjohn/CONTRIBUTING.md`](../../contributing-davekjohn/CONTRIBUTING.md). Dit bestand zegt
 alleen **wie** wat doet.
 
 | Specialist | Titel | Specialisme in deze repo | Repo-lens |

@@ -70,8 +70,8 @@
 
     Let op het gevolg voor de em-dash: die telt als leesteken en verdwijnt, maar de spaties eromheen
     niet. "Ontwikkelworkflow -- de route" levert dus een DUBBEL koppelteken op. Het echte anker
-    #ontwikkelworkflow--de-route-staat-in-workflow-davekjohncontributingmd uit CLAUDE.md is de
-    testcase daarvoor.
+    #ontwikkelworkflow--de-route-staat-in-contributing-davekjohncontributingmd uit CLAUDE.md is de
+    testcase daarvoor (tot 2026-08-27 workflow-davekjohncontributingmd, toen de map hernoemde).
 
     Handmatig draaien:  powershell -NoProfile -File scripts\lint\check-links.ps1
     Uitgebreider:       powershell -NoProfile -File scripts\lint\check-links.ps1 -Verbose
