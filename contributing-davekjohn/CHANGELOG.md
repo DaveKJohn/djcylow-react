@@ -27,6 +27,29 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `config/verwijder-prompts-map-v1` · 20260827-093714
+
+De prompt-inbox (`contributing-davekjohn/prompts/`) is op Dave's verzoek verwijderd. Ze bestond sinds
+2026-08-16 (scaffold van `adopt-workflow-folder`, plugin v4.12.0) en bood een manier om een opdracht in
+een editor te schrijven in plaats van in de terminal, opgepikt via `/prompt`. Dat gebruik is nooit
+ingeburgerd geraakt; het enige bestand erin (`prompt.md`) droeg nog altijd alleen de scaffold-tekst.
+
+**Score:** 2
+
+#### What makes this deploy extra special
+
+N/A — puur interne opruiming, raakt `djcylow.com` niet.
+
+**Score:** N/A
+
+#### Pull Request
+
+Verwijder de prompt-inbox (contributing-davekjohn/prompts/)
+
+[PR #156](https://github.com/DaveKJohn/djcylow-react/pull/156)
+
+---
+
 ### DEPLOY: `config/adopt-development-cycle-model-v1` · 20260827-092625
 
 Deze repo liep nog volledig op het tweebestandsmodel (`workflow-davekjohn/branch/branch-changelog.md` +
