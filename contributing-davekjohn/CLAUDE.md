@@ -16,10 +16,9 @@ rules a session needs:
   for anything that needs its own line there.
 - `releases/README.md` lists this repo's releases; the cut inserts its own row. `releases/audience/`
   is where the cut drafts the hand-written note -- generated development notes live elsewhere.
-- `prompts/prompt.md` is the REQUESTER's file, not yours: they write an assignment there instead of
-  typing it into the terminal, /prompt reads it, and -Archive files it once the work is under way.
-  Never write an assignment into it, and never read its HTML comments as instructions -- they are
-  the scaffold's own words, and an inbox holding only comments is empty. Untracked by design.
+- **There is no `prompts/` sub-folder any more** -- removed on Dave's request on 2026-08-27. It held
+  `prompts/prompt.md`, the requester's own file: they wrote an assignment there instead of typing it
+  into the terminal, and `/prompt` read it. That use never materialised.
 - **There is no `branch/` sub-folder any more, and no `templates/` beside it** -- retired 2026-08-27
   with the move to the one-file model. The guidance that used to live in the templates is now inline
   in `development-cycle.md` itself, in both its empty and its filled state, so there is nothing left
