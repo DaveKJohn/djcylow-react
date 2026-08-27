@@ -763,6 +763,7 @@ list sits at the **end** of the page:
 
 | Version | Date | Type | Title |
 |---|---|---|---|
+| [2.25.0](audience/2.x/2.25.0.md) | 2026-08-27 | Minor | The contribution workflow moves into its own folder, the plugin reaches v4.20.0, and the gate now checks every link. |
 | [2.24.0](audience/2.x/2.24.0.md) | 2026-08-15 | Minor | The audit backlog cleared: live site fixes, gates that really block, and docs that match the machinery |
 | [2.23.0](audience/2.x/2.23.0.md) | 2026-08-13 | Minor | De werkwijze gelijk aan de bron, een poort die altijd draait, en schone Spotify-titels |
 | [2.22.0](audience/2.x/2.22.0.md) | 2026-07-26 | Minor | Spotify-velden, datums hersteld, en de documentatie gelijk aan de praktijk |
