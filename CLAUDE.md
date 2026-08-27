@@ -596,7 +596,8 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 | development-note, `CHANGELOG.md` legen, rij in `contributing-davekjohn/releases/README.md` | het script |
 | audience-document | het script zet een **concept** neer met `DRAFT`-aanwijzingen; herschrijven is handwerk, en die commit gaat rechtstreeks op `main` (uitzondering 3) |
 | commit `release: vX.Y.Z`, tag, en `git push origin main` + de tag | het script |
-| aankondiging in `github/`, de GitHub Release, de bijlagen | handwerk; het `gh release create`-commando wordt geprint |
+| aankondiging in `github/` — de body van de GitHub Release | **het script**; het kán niet later, want de cut leegt `CHANGELOG.md` en de PR-lijst waar de body uit bestaat is dan weg |
+| de GitHub Release zelf en de bijlagen | handwerk; het `gh release create`-commando wordt geprint |
 
 > **Tot 2026-08-13 (avond) stond hier een handmatige route van vijftien stappen** die met een
 > `docs/release-v<versie>`-branch begon, en zo is v2.23.0 ook gecut. Die branch is weg omdat hij met het
@@ -617,10 +618,16 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
 > | **van cut tot gepubliceerd** | | **35m 40s** |
 >
 > **Het script is dus niet de kostenpost — het handwerk erna is dat.** Bijna vijf zesde van de tijd
-> zit in stap 4 en 5 hierboven, en dat is precies het deel dat `cut-release` bewust niet automatiseert.
+> zit in de tweede leg, en dat is stap 4 plus de PR-route die er destijds omheen liep.
 > Reken op een half uur voor een minor, niet op drie minuten. **Dat laatste gold voor déze run en is per
 > 2026-08-27 vervallen** — zie de meting hieronder; de tabel erboven blijft staan als het record van
 > v2.24.0.
+>
+> > **Hier stond tot 2026-08-27 "stap 4 en 5", en stap 5 kostte niets.** De aankondiging in `github/`
+> > was ook bij déze run al door het script geschreven — `releases/github/2.x/2.24.0.md` is aangemaakt
+> > in de cut-commit `ef98b04`, dus binnen de eerste leg van 3m 04s. De tweede leg schreef hem niet, en
+> > de zin schreef er tijd aan toe die er niet in zat. Aan de gemeten getallen verandert niets; alleen
+> > aan welke stap ze toebehoren.
 >
 > **De push naar `main` meldt `Required status check "poort" is expected`, en dat is geen fout.** Het
 > is de ruleset `main-ci-gate` die zijn required check mist op een commit die er rechtstreeks op landt,
@@ -714,9 +721,23 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    > verzoek volledig gelijk werd getrokken met de bron: `Get-ReleaseNotesGrouping` staat sindsdien op
    > `'major'` en alle documenten wonen in `2.x/`. Ook die verhuizing
    > is `git mv` zonder een letter aan hun tekst te veranderen
-5. **Schrijf de aankondiging**: `contributing-davekjohn/releases/github/<major>.x/<versie>.md` — een paar
-   alinea's die de body van de GitHub Release worden: wat er nieuw is, voor wie, en een regel die naar de
-   twee bijlagen wijst. Niet de per-PR details; die staan in `changelog/`
+5. **Lees de aankondiging na**: `contributing-davekjohn/releases/github/<major>.x/<versie>.md` — de body
+   van de GitHub Release. **Die staat er al**; het script heeft hem bij de cut geschreven, dus schrijf hem
+   niet opnieuw. Wat je naleest is vooral de **titelregel**, want dat is het enige deel dat van een mens
+   komt: het is letterlijk de zin die je bij `-Title` hebt meegegeven. De rest is opgebouwd uit de gefolde
+   entries — een pointer naar de bijlagen (alleen als er een audience-document is) en `## What landed` met
+   één regel per wijziging, met de PR-link die de fold schreef. Dit is het **enige** moment waarop iemand
+   die body ziet vóór stap 6 hem publiceert
+   > **Herschrijf de `## What landed`-lijst niet.** Het script bouwt die uit `CHANGELOG.md`, en dat
+   > bestand is op dit moment al geleegd — gooi je de lijst weg, dan is hij niet meer te reconstrueren.
+   > Dat is precies wat er gebeurde als je deze stap las zoals hij tot 2026-08-27 luidde: *"Schrijf de
+   > aankondiging … een paar alinea's"*, terwijl `cut-release` het document sinds 2026-08-12 zelf
+   > neerzet
+   > **Moet er tóch iets aan bijgeschaafd worden, dan is dat gewoon werk op de gewone route** — een
+   > branch en een PR. Uitzondering 3 dekt het **handgeschreven** release-document van een cut
+   > (`audience/`), en dit document is gegenereerd; dat het in dezelfde minuut ontstaat maakt het nog
+   > geen uitzondering (Dave, 2026-08-27). Het is bovendien zelden nodig: alles behalve de titelregel
+   > is een afgeleide van wat de entries zelf al zeiden
 
 Wat het script hierboven al voor je deed, met de valkuilen die daarbij horen:
 
@@ -726,6 +747,14 @@ Wat het script hierboven al voor je deed, met de valkuilen die daarbij horen:
   (``### `docs/mijn-branch` changelog``) in plaats van de titel van de wijziging. Alleen het
   audience-document herschrijft naar `### Branch title`. Wil je die koppen anders, dan is dat handwerk
   na de cut
+- **De aankondiging** in `contributing-davekjohn/releases/github/<major>.x/<versie>.md` — de body van de
+  GitHub Release, bij **élke** release en niet alleen bij een Minor/Major. **Dat het hier gebeurt is geen
+  keuze maar een noodzaak**, en de scriptcomment zegt het zelf: *"this run empties `CHANGELOG.md`, so the
+  entries the body is a list of are gone by the time anyone reaches the publish step."* De inhoud komt uit
+  `Build-GitHubReleaseBody`: jouw `-Title` als eerste regel, dan een pointer naar de bijlagen als er een
+  audience-document is, dan `## What landed` met één regel per wijziging. Die lijst is **compleet over alle
+  tiers** — de tiers bepalen in welk *document* een wijziging komt, en dit is geen van die documenten. Een
+  entry zonder PR-link wordt zonder link vermeld in plaats van weggelaten
 - **`CHANGELOG.md` geleegd** tot de intro-alinea. **Er komt géén versieblok voor terug.**
   > Tot 2026-08-11 zette deze stap ook een `## Releases`-blok in `CHANGELOG.md` — dezelfde informatie
   > als `contributing-davekjohn/releases/README.md`, maar armer, met een `← LIVE`-markering die op 2026-07-26 al was
@@ -750,7 +779,8 @@ Wat het script hierboven al voor je deed, met de valkuilen die daarbij horen:
 
 Daarna, met de hand:
 
-6. **GitHub Release aanmaken** — de aankondiging uit `github/` is de body:
+6. **GitHub Release aanmaken** — de gegenereerde aankondiging uit `github/` is de body, precies zoals
+   het script hem heeft neergezet en jij hem bij stap 5 hebt nagelezen:
     ```bash
     gh release create v<versie> --title "v<versie> - <korte titel>" \
       --notes-file contributing-davekjohn/releases/github/<major>.x/<versie>.md --verify-tag
@@ -928,7 +958,8 @@ want anders wint `3.9.0` van `3.10.0`.
   twee losse `branch/`-bestanden naar hun lege staat; sinds het document alleen nog bestaat zolang de
   branch openstaat, is er na de fold niets meer om te resetten.
 - **`cut-release`** — **draait het grootste deel van de Release Workflow zélf**, en dat is het
-  belangrijkste dat je over deze skill moet weten. Het genereert de development-note, schrijft een
+  belangrijkste dat je over deze skill moet weten. Het genereert de changelog-note **en de aankondiging
+  in `github/`**, schrijft een
   concept van het audience-document, leegt `CHANGELOG.md` tot de intro, voegt de rij toe aan
   `contributing-davekjohn/releases/README.md`, en doet daarna `git add -A`, `git commit -m "release: v<versie>"`,
   `git tag -a` en **twee pushes: `git push origin main` en `git push origin v<versie>`**. Alleen de
@@ -1100,12 +1131,23 @@ Repo-eigen scripts:
 De Release Workflow hierboven kent geen repo-eigen script; de sluitende stappen lopen sinds de
 herinstallatie op 2026-08-03 via de gedeelde **`cut-release`**-skill. Die skill doet het versienummer,
 de development-note en het legen van `CHANGELOG.md` **zelf** — zie de tabel bij de Release Workflow.
-Wat handwerk van Rendall 🎬 blijft: het **audience-concept herschrijven**, de aankondiging in
-`github/`, en de GitHub Release met zijn bijlagen.
+Wat handwerk van Rendall 🎬 blijft: het **audience-concept herschrijven**, en de GitHub Release met zijn
+bijlagen. De aankondiging in `github/` hoort daar **niet** bij — die schrijft het script, en het kan niet
+anders: de cut leegt `CHANGELOG.md`, dus de lijst waar die body uit bestaat is daarna weg. Wat er voor
+Rendall overblijft is hem **nalezen** vóór stap 6 hem publiceert.
 
 > Hier stond tot 2026-08-15 dat het versienummer, de release-notes en de changelog-verhuizing
 > handwerk bleven. Dat was de tekst van vóór de omzetting van 2026-08-13, en de tabel hierboven wees
 > alle drie al aan het script toe.
+>
+> **En tot 2026-08-27 stond `github/` hier nog bij het handwerk**, op deze plek, in de
+> Release Workflow-tabel én in stap 5 — drie plekken in het bestand dat élke sessie meelaadt. Het was
+> de tekst van vóór 2026-08-12, toen de bron de body van een handgeschreven tier-document naar een
+> gegenereerd bestand omzette om de Release-pagina los te koppelen van de vraag welke tier er
+> toevallig bestond. Gevonden bij issue #163 en nagemeten in
+> `contributing-davekjohn/releases/github/2.x/2.25.0.md`: dat document zit in de cut-commit `8b95958`
+> en heeft precies de vorm die `Build-GitHubReleaseBody` oplevert. Wie de oude stap 5 volgde deed dus
+> ofwel dubbel werk, ofwel overschreef vijftien PR-links die niet meer terug te halen waren.
 
 ### Safety-invulling van djcylow-react
 
