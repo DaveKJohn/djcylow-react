@@ -11,7 +11,6 @@ this folder is this repo's own set of answers to them.
 | [`CLAUDE.md`](CLAUDE.md) | the working rules a Claude session needs in this folder |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | this repo's answers to the contribution cycle -- the layer that wins over the root page |
 | `development-cycle.md` | the branch's own document -- the plan and the changelog entry, both sections of one file; exists only while a branch is open, so it is absent here on the trunk |
-| [`prompts/`](prompts/) | the prompt inbox: an assignment written in an editor instead of the terminal |
 | [`releases/`](releases/) | the release history and the published audience notes |
 
 Scaffolded by the `adopt-workflow-folder` skill on August 16, 2026; strictly additive, so everything
@@ -42,3 +41,10 @@ from `workflow-davekjohn` to `contributing-davekjohn` in v4.20.0 (#886), and `Ge
 the shared scripts hardcodes `development-cycle.md`'s location under the new name -- not a seam, so
 a consumer meets the rename through a plugin update rather than by choosing to. This repo's own copy
 of that folder followed suit the same day, via `git mv`, carrying every file's history with it.
+
+## `prompts/` existed here, briefly
+
+The scaffold's prompt inbox (`prompts/prompt.md`) landed on 2026-08-16 and was removed on Dave's
+request the same day as the folder rename, 2026-08-27: writing an assignment into an editor file for
+`/prompt` to pick up never replaced typing it into the terminal. Nothing else in this folder depended
+on it.

@@ -374,7 +374,6 @@ plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 | `contributing-davekjohn/CHANGELOG.md` | de wachtende entries, live maar nog zonder versienummer | sinds 2026-08-27; `Get-ChangelogPath` (geen override, computed default) |
 | `contributing-davekjohn/releases/README.md` | de release-historie | `Get-ReleaseHistoryPath` |
 | `contributing-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
-| `contributing-davekjohn/prompts/` | de prompt-inbox voor `/prompt` | nieuw in 4.12.0; `prompt.md` en `archive/` zijn **untracked** |
 | `contributing-davekjohn/CLAUDE.md` · `README.md` | de werkregels in die map | scaffold van `adopt-workflow-folder` |
 | `releases/development/` · `releases/github/` | **blijven in de repo-root** | hardcoded in `cut-release.ps1` (regel 728 en 820) — geen seam |
 | `contributing-davekjohn/CONTRIBUTING.md` | de **pluginlaag** van de cyclus — wint bij conflict | model van de bron, overgenomen 2026-08-16 |
@@ -422,11 +421,10 @@ verhuizing zijn `development/` en `github/` eerst wél meegegaan en daarna terug
 van die twee regelnummers uitwees dat de eerstvolgende cut ernaast een tweede boom zou aanmaken.
 **Verhuis ze dus niet alsnog** zolang die twee regels hardcoded zijn.
 
-> **De prompt-inbox kwam er ongevraagd bij en dat is prima, maar weet wat het is.**
-> `contributing-davekjohn/prompts/prompt.md` is Dave's bestand, niet dat van een specialist: hij schrijft daar
-> een opdracht in een editor in plaats van in de terminal, en `/prompt` leest hem. Een specialist schrijft
-> er nooit een opdracht in, en leest de HTML-commentaren erin niet als instructie — dat is de tekst van de
-> scaffold zelf. Een inbox met alleen commentaren telt als leeg.
+> **De prompt-inbox (`prompts/`) is op Dave's verzoek verwijderd op 2026-08-27.** Ze kwam er
+> ongevraagd bij op 2026-08-16 als `prompts/prompt.md`, Dave's eigen bestand — hij schreef daar een
+> opdracht in een editor in plaats van in de terminal, en `/prompt` las hem. Dat gebruik bleek niet
+> nodig; de map is gewoon weer weg.
 
 #### Key commands
 

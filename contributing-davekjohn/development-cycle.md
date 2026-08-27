@@ -33,19 +33,41 @@
 
 ### PLAN
 
+- [x] Bevestigd dat `prompts/prompt.md` leeg was (alleen de scaffold-comment, geen echte opdracht) en
+  dat het bestand toch al untracked was — er ging niets verloren.
+
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] `git rm` op de drie getrackte bestanden (`prompts/README.md`, `prompts/.gitignore`,
+  `prompts/templates/prompt_template.md`) en handmatig verwijderd op schijf (`prompt.md`, untracked).
+  De lege mappen zijn met de laatste `git rm` vanzelf verdwenen.
+- [x] De vier documentatieplekken die naar `prompts/` verwezen bijgewerkt: root `CLAUDE.md`
+  (tabelrij + toelichtende noot), `contributing-davekjohn/CLAUDE.md`, `contributing-davekjohn/README.md`
+  — elk met een korte historische noot in plaats van de regel stilzwijgend te laten verdwijnen.
 
 ### TEST
 
+- [x] `scripts\lint\lint-web.ps1`: **0 fouten** — 89 statische pagina's, link-checker groen (101
+  markdown-bestanden, twee minder dan voor deze branch — precies de twee verwijderde
+  `prompts/`-documenten).
+
 ### DEPLOY: `config/verwijder-prompts-map-v1`
 
-**Score:**
+De prompt-inbox (`contributing-davekjohn/prompts/`) is op Dave's verzoek verwijderd. Ze bestond sinds
+2026-08-16 (scaffold van `adopt-workflow-folder`, plugin v4.12.0) en bood een manier om een opdracht in
+een editor te schrijven in plaats van in de terminal, opgepikt via `/prompt`. Dat gebruik is nooit
+ingeburgerd geraakt; het enige bestand erin (`prompt.md`) droeg nog altijd alleen de scaffold-tekst.
+
+**Score:** 2
+<!-- Klein: het is opruimen van een ongebruikte map, niemand werkte er al mee. Niet 1, want het
+     scheelt wel drie getrackte bestanden en vier documentatieplekken die anders waren blijven
+     verwijzen naar iets dat niet meer bestaat. -->
 
 #### What makes this deploy extra special
 
-**Score:**
+N/A — puur interne opruiming, raakt `djcylow.com` niet.
+
+**Score:** N/A
 
 #### Pull Request
 
