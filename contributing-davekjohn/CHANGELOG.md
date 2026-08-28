@@ -47,7 +47,9 @@ droeg hij een variant die alleen *geaccepteerd* was. **En het versieblok in `../
 de default van `claude plugin update` is `--scope user` en die zet een tweede record naast het bestaande.
 
 Drie correcties die bij het nalopen bovenkwamen. `../CLAUDE.md` noemde `workflow-davekjohn/4.18.0` een
-niet-opgeruimd restant; nagemeten is dat het *actieve* install-record van de bron-repo. Twee scriptpaden
+niet-opgeruimd restant; die correctie stelde er het *actieve* install-record van de bron-repo tegenover.
+**Dat laatste is op 2026-08-28 zelf weerlegd** — het pakket bestond toen al niet meer, dus beide mappen
+waren restanten; zie de entry hieronder. Twee scriptpaden
 in de `new-branch`-bullet werden als repo-paden gepresenteerd terwijl ze in de plugin wonen -- wie ze hier
 in `scripts/` zocht, vond niets. En `../README.md` beschreef een root-`releases/` die sinds 2026-08-27
 niet meer bestaat.

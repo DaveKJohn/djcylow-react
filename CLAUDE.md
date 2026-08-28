@@ -860,12 +860,29 @@ hangt af van wat je ermee doet:
 | `~/.claude/plugins/cache/claude-code-specialists/contributing-davekjohn/<versie>/` | de **uitgebrachte release** | **draaien** — hierheen wijst `${CLAUDE_PLUGIN_ROOT}`, dus dit is wat een skill werkelijk uitvoert |
 | `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/…/` | de **bron-checkout**, die vóórloopt met alles wat sinds de laatste cut is gemerged | **lezen** — de persona's, waarnaar `.claude/specialists/SPECIALISTS.md` `@`-importeert |
 
-> **Het plugin-package zelf heette tot v4.20.0 (2026-08-26) `workflow-davekjohn`**, en die naam staat op
-> de machine nog als cache-map (`workflow-davekjohn/4.12.0`, `4.18.0`). **Alleen de eerste is een restant**:
-> `4.18.0` is op 2026-08-28 nagemeten als het *actieve* install-record van de bron-repo
-> `claude-code-specialists`, die nog niet is meegegaan naar de nieuwe pakketnaam. Wat déze repo
-> daadwerkelijk draait staat sinds 2026-08-28 onder `contributing-davekjohn/4.22.0` en
-> `team-alpha/4.22.0` — beide op scope `project`; zie `installed_plugins.json` bij twijfel.
+> **Het plugin-package zelf heette tot v4.20.0 (2026-08-26) `workflow-davekjohn`, en dat pakket
+> bestaat niet meer.** De marketplace-manifest
+> (`~/.claude/plugins/marketplaces/claude-code-specialists/.claude-plugin/marketplace.json`) biedt vijf
+> plugins aan — `team-alpha`, `team-lifehub`, `team-shopify`, `team-ecomm` en `contributing-davekjohn` —
+> en de oude naam staat er bij geen van de vijf. Er is dus niets meer om een install van te zijn: de
+> twee cache-mappen die de machine er nog van had (`workflow-davekjohn/4.12.0` en `4.18.0`) waren
+> **beide** een restant, en zijn op 2026-08-28 verwijderd, samen met het weesrecord in
+> `installed_plugins.json`. Ook de bron-repo `claude-code-specialists` was toen al mee: haar
+> `enabledPlugins` noemt alleen `team-alpha` en `contributing-davekjohn`, en haar install-record staat
+> sinds 2026-08-27 op `contributing-davekjohn/4.21.0`. Wat déze repo daadwerkelijk draait staat sinds
+> 2026-08-28 onder `contributing-davekjohn/4.22.0` en `team-alpha/4.22.0` — beide op scope `project`;
+> zie `installed_plugins.json` bij twijfel.
+>
+> > **Hier stond tot 2026-08-28 dat `4.18.0` het *actieve* install-record van de bron-repo was en dus
+> > géén restant.** Dat is die dag nagemeten en onjuist bevonden op beide punten: het pakket bestond
+> > niet meer, en de bron-repo was al meegegaan naar de nieuwe naam. **De onderliggende denkfout is de
+> > les die deze passage nu draagt: een install-record bewijst niet dat het pakket nog bestaat.** Een
+> > record in `installed_plugins.json` is een spoor van een install die eens is gedaan, niet van een
+> > pakket dat er nog is — dus check de marketplace-manifest én `enabledPlugins`, en niet alleen dat
+> > ene bestand. Wat het kostte: bij de cache-opruiming van 2026-08-28 is `4.18.0` op grond van deze
+> > passage bewust laten staan, met de conclusie dat het geen restant was. Zelfde klasse verwarring
+> > als de twee waarschuwingen verderop in deze sectie (cache vs. marketplace-clone), maar op een
+> > derde as: niet welke boom je leest, maar of het pakket dat een record noemt nog bestaat.
 >
 > **Update vanuit de consumer, en met `--scope project`.** Een install refresht de cache-clone niet, en
 > de default van `claude plugin update` is `--scope user` — die zet een user-record naast het
