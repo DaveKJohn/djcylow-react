@@ -27,6 +27,48 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `docs/plugin-4-22-en-scriptpaden-v1` · 20260828-211330
+
+Plugin 4.22.0 hernoemde het branch-eigen document van `development-cycle.md` naar `development.md`, en
+de gedeelde scripts schrijven sindsdien alleen die nieuwe naam. Deze branch laat de repo-documentatie dat
+volgen: 25 verwijzingen in `../CLAUDE.md`, `CONTRIBUTING.md`, de `fold-changelog`-skill, beide
+README's en een comment in `../scripts/repo-config.ps1`, plus de drie ankers naar stap 3, die met de
+hernoemde kop meeschoven. De zes voorkomens in `releases/` en `CHANGELOG.md` blijven staan -- dat is
+historie, en een record wordt niet herschreven.
+
+Twee dingen die geen zoek-vervang zijn. **De PR-template kreeg de canonieke placeholder** in plaats van
+een vervangen pad: `open-pr` matcht die regel als hele regel tegen een vaste lijst, en de plain-body
+variant bestaat voor `development.md` niet -- een plat zoek-vervang had de regel dus buiten de lijst
+geduwd en elke PR-body stil leeg gelaten, precies faalmodus #573. De nieuwe regel is getoetst tegen
+`Get-PrTemplateCanonicalPlaceholder` en is er byte-identiek aan. Daarmee wordt de bewering in stap 4 van
+`CONTRIBUTING.md` -- dat de template de canonieke placeholder draagt -- ook voor het eerst waar; tot nu toe
+droeg hij een variant die alleen *geaccepteerd* was. **En het versieblok in `../CLAUDE.md`** noemt nu
+4.22.0 in plaats van 4.20.0, met de update-route erbij: vanuit de consumer en met `--scope project`, want
+de default van `claude plugin update` is `--scope user` en die zet een tweede record naast het bestaande.
+
+Drie correcties die bij het nalopen bovenkwamen. `../CLAUDE.md` noemde `workflow-davekjohn/4.18.0` een
+niet-opgeruimd restant; nagemeten is dat het *actieve* install-record van de bron-repo. Twee scriptpaden
+in de `new-branch`-bullet werden als repo-paden gepresenteerd terwijl ze in de plugin wonen -- wie ze hier
+in `scripts/` zocht, vond niets. En `../README.md` beschreef een root-`releases/` die sinds 2026-08-27
+niet meer bestaat.
+
+**Score:** 3
+
+#### What makes this deploy extra special
+
+N/A. Dit raakt geen enkele pagina op `djcylow.com` en geen enkel proces dat de opdrachtgever ziet: het is
+interne workflow-documentatie plus een PR-template. De build levert dezelfde pagina's.
+
+**Score:** N/A
+
+#### Pull Request
+
+De repo-docs volgen plugin 4.22.0: het branch-document heet development.md
+
+[PR #166](https://github.com/DaveKJohn/djcylow-react/pull/166)
+
+---
+
 ### DEPLOY: `docs/github-body-is-gegenereerd-v1` · 20260827-151641
 
 De Release Workflow droeg op om een document te schrijven dat het script zelf al had neergezet. Wie stap 5
