@@ -2,7 +2,7 @@
 name: fold-changelog
 description: >-
   Vouw de `### DEPLOY`-sectie van een zojuist gemergede branch in CHANGELOG.md, verrijkt met de
-  PR-link en de merge-datum, en verwijder daarna contributing-davekjohn/development-cycle.md. Dit
+  PR-link en de merge-datum, en verwijder daarna contributing-davekjohn/development.md. Dit
   is stap 7 van de cyclus in contributing-davekjohn/CONTRIBUTING.md en de enige
   directe commit op main, met een
   scope die beperkt blijft tot CHANGELOG.md plus die verwijdering. Gebruik dit direct na een
@@ -19,7 +19,7 @@ onveranderd uit de plugin-cache; hier staat geen kopie van.
 De plugin-skill draagt `disable-model-invocation: true`. De reden daarvoor is echt — de fold
 commit rechtstreeks op `main` — maar `CLAUDE.md` noemt die commit expliciet als **uitzondering 1**
 op "nooit direct op main", met een scope die vastligt: `CHANGELOG.md` en het branch-eigen document
-`contributing-davekjohn/development-cycle.md`. Die uitzondering is hier dus al gemaakt; deze skill
+`contributing-davekjohn/development.md`. Die uitzondering is hier dus al gemaakt; deze skill
 is de ingang ernaartoe.
 
 **Uitzondering 2 — de release-commit — heeft bewust géén repo-eigen skill gekregen.** `cut-release`
@@ -36,7 +36,7 @@ powershell -NoProfile -File scripts/task/shared.ps1 -Script release/fold-changel
 **Een vlag is niet optioneel.** Zonder `-Commit` of `-Push` schrijft `fold-changelog-entry.ps1` de
 wijzigingen alleen naar schijf en commit het niets — terwijl stap 4 hieronder belooft dat hij
 `fold: <branch> changelog` commit. Het script stageert zelf alleen `CHANGELOG.md` en de verwijdering
-van `contributing-davekjohn/development-cycle.md`, dus de scope van uitzondering 1 blijft
+van `contributing-davekjohn/development.md`, dus de scope van uitzondering 1 blijft
 gehandhaafd ook als er verder iets in de tree rondslingert.
 
 **`-Push` impliceert `-Commit`**, dus geef alleen die mee. Sinds 2026-08-16 is dat de route hier: pushen
@@ -51,11 +51,11 @@ plaats van een commit die blijft liggen.
 
 ## Wat het doet
 
-1. Leest de `### DEPLOY`-sectie van `contributing-davekjohn/development-cycle.md` en zoekt de
+1. Leest de `### DEPLOY`-sectie van `contributing-davekjohn/development.md` en zoekt de
    bijbehorende PR op via `gh` (de branchnaam komt uit het document zijn eigen kop).
 2. Voegt de entry op tier/score-volgorde in `CHANGELOG.md` in, met de PR-link en de merge-datum op
    de `DEPLOY`-kop zelf.
-3. **Verwijdert** `contributing-davekjohn/development-cycle.md` — het plan erboven (`PLAN`/`CREATE`/`TEST`)
+3. **Verwijdert** `contributing-davekjohn/development.md` — het plan erboven (`PLAN`/`CREATE`/`TEST`)
    gaat mee, want dat is dezelfde bestand-sectie als de entry. Tot 2026-08-27 reset de fold in plaats
    daarvan twee losse `branch/`-bestanden naar hun lege staat; sinds het document alleen nog bestaat
    zolang de branch openstaat, is er na de fold niets meer om te resetten.

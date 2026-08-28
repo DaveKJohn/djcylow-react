@@ -9,7 +9,7 @@ this folder is this repo's own set of answers to them.
 | here | what it holds |
 |---|---|
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | this repo's only `CONTRIBUTING.md` -- the full contribution cycle |
-| `development-cycle.md` | the branch's own document -- the plan and the changelog entry, both sections of one file; exists only while a branch is open, so it is absent here on the trunk |
+| `development.md` | the branch's own document -- the plan and the changelog entry, both sections of one file; exists only while a branch is open, so it is absent here on the trunk |
 | [`releases/`](releases/) | the release history and the published audience notes |
 
 Scaffolded by the `adopt-workflow-folder` skill on August 16, 2026; strictly additive, so everything
@@ -39,7 +39,7 @@ with where the scaffold already stood. See [`CONTRIBUTING.md`](CONTRIBUTING.md) 
 
 **This folder was `workflow-davekjohn/` until 2026-08-27.** The plugin itself renamed its package
 from `workflow-davekjohn` to `contributing-davekjohn` in v4.20.0 (#886), and `Get-BranchFilePaths` in
-the shared scripts hardcodes `development-cycle.md`'s location under the new name -- not a seam, so
+the shared scripts hardcodes `development.md`'s location under the new name -- not a seam, so
 a consumer meets the rename through a plugin update rather than by choosing to. This repo's own copy
 of that folder followed suit the same day, via `git mv`, carrying every file's history with it.
 
@@ -54,7 +54,7 @@ on it.
 
 The scaffold also placed a `CLAUDE.md` in this folder on 2026-08-16, with the working rules a session
 needs while it operates inside `contributing-davekjohn/`. Every point in it -- the one-file
-`development-cycle.md` model, how the `### DEPLOY` section folds, the retired `prompts/` and `branch/`
+`development.md` model, how the `### DEPLOY` section folds, the retired `prompts/` and `branch/`
 sub-folders -- was already stated, in more detail and with its own dates, in the root `../CLAUDE.md`
 and in [`CONTRIBUTING.md`](CONTRIBUTING.md). It carried nothing this folder's own pages did not already
 say, so it came out on 2026-08-27 rather than drift out of sync with them.

@@ -151,9 +151,10 @@ djcylow-react/
 │   └── functions/              # Serverless functions (contact form email)
 │
 ├── scripts/                    # Build/utility scripts
-├── releases/                   # Generated release notes (development/ + github/, v1.0.0 – present)
-├── contributing-davekjohn/     # The workflow's own folder: development-cycle.md (while a branch is
-│                               #   open), release history, audience notes, and CONTRIBUTING.md
+├── contributing-davekjohn/     # The workflow's own folder: development.md (while a branch is
+│                               #   open), release history, audience notes, the generated
+│                               #   changelog/ + github/ notes (v1.0.0 – present), and
+│                               #   CONTRIBUTING.md
 ├── CLAUDE.md                   # Operating guide: safety rules, the specialists, repo conventions
 ├── next.config.ts              # output: 'export', images: unoptimized, sassOptions
 ├── tsconfig.json               # strict, ES2017, path alias @/* → ./src/*

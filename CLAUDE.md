@@ -92,7 +92,7 @@ djcylow-specifieke invulling (concrete paden, scripts en de lint-poort) staat in
 > overige `origin/main` allang via de merge — en `gh pr merge` schrijft daar server-side rechtstreeks
 > in. Wat er ná die uitholling nog onder viel was precies één handeling, de **fold-commit**, en dat
 > is de mínst riskante van alles wat hier naar `origin/main` schrijft: `CHANGELOG.md` plus het
-> verwijderen van `contributing-davekjohn/development-cycle.md` (tot 2026-08-27 was dat scope op twee
+> verwijderen van `contributing-davekjohn/development.md` (tot 2026-08-27 was dat scope op twee
 > vaste bestanden in `workflow-davekjohn/branch/`, die de fold destijds reset in plaats van verwijderde
 > — zie [`### Ontwikkelworkflow`](#ontwikkelworkflow--de-route-staat-in-contributing-davekjohncontributingmd)), die geen enkele gebouwde pagina
 > veranderen. Netlify meldde bij PR #145 letterlijk *"Pages changed — skipping"*.
@@ -203,7 +203,7 @@ Er zijn drie bewuste uitzonderingen op "nooit direct committen":
 
 1. De **fold-commit** (na een merge, [stap 7](contributing-davekjohn/CONTRIBUTING.md#7-na-de-merge-vouw-de-changelog-entry)) is
    de enige echte **directe commit op `main`** (geen branch): scope beperkt tot `CHANGELOG.md` +
-   het verwijderen van `contributing-davekjohn/development-cycle.md` (tot 2026-08-27 twee vaste
+   het verwijderen van `contributing-davekjohn/development.md` (tot 2026-08-27 twee vaste
    bestanden in `workflow-davekjohn/branch/`, die de fold destijds reset in plaats van verwijderde).
    **Hij wordt meteen gepusht** — sinds 2026-08-16 draait
    de fold met `-Push` in plaats van `-Commit`, want pushen naar `origin/main` is geen apart besluit meer.
@@ -305,7 +305,7 @@ hoe je een branch noemt, wat er in de entry hoort, welke poort wat weigert — l
 1. **Check de branch.** Run `git status` en `git branch` vóór je het eerste bestand aanraakt — sta je op
    `main`, maak dan eerst de juiste branch aan. Dit geldt ook voor een script of een configbestand.
 2. **Een branch is nooit entry-loos.** Laat de gedeelde `new-branch`-skill de branch mét zijn eigen
-   document op `contributing-davekjohn/development-cycle.md` neerzetten — één bestand sinds 2026-08-23,
+   document op `contributing-davekjohn/development.md` neerzetten — één bestand sinds 2026-08-23,
    met de plan-fasen (`PLAN`/`CREATE`/`TEST`) en de changelog-entry (`DEPLOY`) als vier vaste
    `###`-secties. Wat dat document precies draagt staat in `DEVELOPMENT-portable.md` (de plugin) — er
    is sinds 2026-08-27 geen repo-eigen reference-kopie meer.
@@ -399,7 +399,7 @@ plaats van verspreid door de root. Wat erin zit en wat er bewust buiten bleef:
 
 | pad | wat | waarom daar |
 |---|---|---|
-| `contributing-davekjohn/development-cycle.md` | het branch-eigen document: plan + changelog-entry, één bestand | **verplicht** — de gedeelde scripts lezen alléén deze plek; bestaat alléén zolang een branch openstaat |
+| `contributing-davekjohn/development.md` | het branch-eigen document: plan + changelog-entry, één bestand | **verplicht** — de gedeelde scripts lezen alléén deze plek; bestaat alléén zolang een branch openstaat |
 | `contributing-davekjohn/CHANGELOG.md` | de wachtende entries, live maar nog zonder versienummer | sinds 2026-08-27; `Get-ChangelogPath` (geen override, computed default) |
 | `contributing-davekjohn/releases/README.md` | de release-historie | `Get-ReleaseHistoryPath` |
 | `contributing-davekjohn/releases/audience/` | de 25 handgeschreven documenten | `Get-ReleaseNoteRoot` |
@@ -434,11 +434,19 @@ voor de volledige adoptie.
 schreef `new-branch` een `branch/`-submap met twee vaste bestanden (`branch-changelog.md`,
 `branch-progress.md`) plus referentiekopieën in `branch/templates/`; die submap bestaat sinds
 2026-08-27 niet meer. `Get-BranchFilePaths` levert sindsdien één pad,
-`contributing-davekjohn/development-cycle.md`, met vier vaste `###`-secties (`PLAN`, `CREATE`, `TEST`,
+`contributing-davekjohn/development.md`, met vier vaste `###`-secties (`PLAN`, `CREATE`, `TEST`,
 ``DEPLOY: `<branch>` ``) in plaats van twee bestanden — en het bestaat alléén zolang de branch openstaat:
 `new-branch` schrijft het, de fold **verwijdert** het (voorheen: reset naar een lege staat op `main`).
-Zie [`contributing-davekjohn/CONTRIBUTING.md`, stap 3](contributing-davekjohn/CONTRIBUTING.md#3-ontwikkel-op-de-branch-en-houd-development-cyclemd-bij)
+Zie [`contributing-davekjohn/CONTRIBUTING.md`, stap 3](contributing-davekjohn/CONTRIBUTING.md#3-ontwikkel-op-de-branch-en-houd-developmentmd-bij)
 voor de volledige uitwerking.
+
+> **En het bestand heette tot 2026-08-28 `development-cycle.md`.** De bron hernoemde het op
+> 2026-08-27 naar `development.md` (issue #963/#958), zodat het zijn eigen `#`-kop volgt; deze repo
+> kreeg die hernoeming binnen met **plugin 4.22.0** op 2026-08-28. `Get-BranchFilePaths` leest de oude
+> naam nog als `PriorNameFile`, dus een branch die al openstond blijft folden — maar de scripts
+> **schrijven** alleen de nieuwe naam. Net als bij de mapverhuizing van 4.20.0 migreerde de plugin de
+> repo-documentatie niet en waarschuwde er ook niet voor: de 27 verwijzingen in deze repo zijn met de
+> hand nagelopen.
 
 **`CHANGELOG.md` verhuizen was op 2026-08-27 wél een keuze, en niet meer een die deze repo kon
 uitstellen.** De bron maakte `Get-ChangelogPath` die dagen ervoor (25-26 augustus, issue #885/#914)
@@ -672,7 +680,7 @@ Er is dus **geen release-branch** — dat is uitzondering 2 in de safety-rules h
    voorwaarde — het script stageert met `git add -A`, dus alles wat rondslingert gaat mee in de
    release-commit
 2. **Zorg dat er niets ongefold wacht.** Het script weigert te draaien als
-   `contributing-davekjohn/development-cycle.md` nog een `### DEPLOY`-sectie draagt: een cut leegt
+   `contributing-davekjohn/development.md` nog een `### DEPLOY`-sectie draagt: een cut leegt
    `CHANGELOG.md`, dus een entry die daar nog niet in staat zou de release missen en daarna verweesd
    achterblijven
 3. **Draai `cut-release`** met de bump die de wachtende entries verdienen (zie *Versienummer bepalen*
@@ -853,9 +861,21 @@ hangt af van wat je ermee doet:
 | `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/…/` | de **bron-checkout**, die vóórloopt met alles wat sinds de laatste cut is gemerged | **lezen** — de persona's, waarnaar `.claude/specialists/SPECIALISTS.md` `@`-importeert |
 
 > **Het plugin-package zelf heette tot v4.20.0 (2026-08-26) `workflow-davekjohn`**, en die naam staat op
-> de machine nog als losse cache-map (`workflow-davekjohn/4.12.0`, `4.18.0`) — een vorige installatie
-> die niet is opgeruimd, geen storing. Wat deze repo daadwerkelijk draait staat sinds 2026-08-26 onder
-> `contributing-davekjohn/4.20.0`; zie `installed_plugins.json` bij twijfel.
+> de machine nog als cache-map (`workflow-davekjohn/4.12.0`, `4.18.0`). **Alleen de eerste is een restant**:
+> `4.18.0` is op 2026-08-28 nagemeten als het *actieve* install-record van de bron-repo
+> `claude-code-specialists`, die nog niet is meegegaan naar de nieuwe pakketnaam. Wat déze repo
+> daadwerkelijk draait staat sinds 2026-08-28 onder `contributing-davekjohn/4.22.0` en
+> `team-alpha/4.22.0` — beide op scope `project`; zie `installed_plugins.json` bij twijfel.
+>
+> **Update vanuit de consumer, en met `--scope project`.** Een install refresht de cache-clone niet, en
+> de default van `claude plugin update` is `--scope user` — die zet een user-record naast het
+> project-record in plaats van het bij te werken. De route die hier werkte:
+>
+> ```powershell
+> claude plugin marketplace update claude-code-specialists
+> claude plugin update team-alpha@claude-code-specialists --scope project
+> claude plugin update contributing-davekjohn@claude-code-specialists --scope project
+> ```
 
 **Cache om te dráaien, marketplace om te lézen.** Beide verwijzingen in deze repo zijn dus juist voor
 hun eigen doel, en dat is precies wat het onderscheid onzichtbaar maakt: `SPECIALISTS.md` wijst naar de
@@ -942,17 +962,18 @@ want anders wint `3.9.0` van `3.10.0`.
 > wat niet `-Script` of `-Plugin` heet, valt vanzelf in `-Rest`.
 
 - **`new-branch`** — maakt de branch én zijn eigen document op
-  `contributing-davekjohn/development-cycle.md` in één stap (stap 1–3): vier vaste `###`-secties
+  `contributing-davekjohn/development.md` in één stap (stap 1–3): vier vaste `###`-secties
   (`PLAN`, `CREATE`, `TEST`, ``DEPLOY: `<branch>` ``) in plaats van het tweebestandsmodel dat hier tot
   2026-08-27 bestond (`branch/branch-changelog.md` + `branch/branch-progress.md`, met
   referentiekopieën in `branch/templates/`). Het achterliggende werk zit in
-  `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` — er bestaat geen los
-  `scripts/release/new-changelog-entry.ps1` (meer).
+  `scripts/task/new-branch.ps1` en `scripts/lib/entry-scaffold-lib.ps1` **in de plugin** — beide paden
+  zijn relatief aan de pluginwortel, niet aan deze repo; hier bestaan ze niet, en zoeken in `scripts/`
+  levert dus niets op. Er bestaat ook geen los `scripts/release/new-changelog-entry.ps1` (meer).
 - **`open-pr`** — draait de vier entry-poorten (resolves/scaffold/impact/step-list), de lint-poort en
   de testsuites, en opent daarna de PR (stap 4). **Sinds 2026-08-13 niet meer "alleen op verzoek van
   Dave"**: of hij vanzelf loopt hangt af van wat er in de branch zit, zoals de safety-rules hierboven
   beschrijven. Frontend-werk wacht, de rest loopt door.
-- **`fold-changelog`** — vouwt de `### DEPLOY`-sectie van `contributing-davekjohn/development-cycle.md`
+- **`fold-changelog`** — vouwt de `### DEPLOY`-sectie van `contributing-davekjohn/development.md`
   gerangschikt op tier/score in `CHANGELOG.md`, verrijkt met de PR-link en de merge-datum, en
   **verwijdert** daarna het hele document (stap 7). Tot 2026-08-27 reset de fold in plaats daarvan de
   twee losse `branch/`-bestanden naar hun lege staat; sinds het document alleen nog bestaat zolang de

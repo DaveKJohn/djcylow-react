@@ -29,7 +29,7 @@ in de map die met de plugin meereist.
 > `../CONTRIBUTING.md` — een bestand dat op dat moment niet bestond, en dat is precies de klasse fout
 > die twee documenten over hetzelfde onderwerp met zich meebrengen. Die link was daarna vanzelf weer
 > heel; het bestand zelf is op 2026-08-27 verdwenen met het tweebestandsmodel dat het beschreef, zie
-> [stap 3](#3-ontwikkel-op-de-branch-en-houd-development-cyclemd-bij). Zie [`../CLAUDE.md`](../CLAUDE.md#safety-rules)
+> [stap 3](#3-ontwikkel-op-de-branch-en-houd-developmentmd-bij). Zie [`../CLAUDE.md`](../CLAUDE.md#safety-rules)
 > voor de volledige redenering achter de terugkeer naar één bestand.
 
 Dit is de **lokale helft** van de contributie-cyclus: hoe werk in *deze* repo van een idee naar `main`
@@ -85,7 +85,7 @@ vorm en geen bezuiniging.
 > deze repo, dus die valt buiten die regel. De vier `###`-koppen van het branch-document
 > (`PLAN`/`CREATE`/`TEST`/`DEPLOY`), de entry-sectiekoppen daaronder en de `Score`-sleutel blijven wél
 > Engels — het zijn machine-gelezen sleutels, zie
-> [stap 3](#3-ontwikkel-op-de-branch-en-houd-development-cyclemd-bij).
+> [stap 3](#3-ontwikkel-op-de-branch-en-houd-developmentmd-bij).
 
 **De grondwet staat hier niet.** Wat mag en wat op Dave's woord wacht — de safety-rules, de PR-regel,
 de drie uitzonderingen op "nooit direct op `main`", de release-toestemming — staat in
@@ -264,11 +264,11 @@ uitmaken welk van de twee documenten je open hebt.
 
 Volgens de [prefix-tabel](#de-prefixen-zeven-die-je-kiest-negen-die-de-lib-kent) hierboven.
 
-### 3. Ontwikkel op de branch en houd `development-cycle.md` bij
+### 3. Ontwikkel op de branch en houd `development.md` bij
 
 Maak wijzigingen op de branch en commit met een duidelijke boodschap. De gedeelde
 **`new-branch`**-skill zet de branch én zijn eigen document neer op
-`contributing-davekjohn/development-cycle.md` in één stap — een branch is nooit entry-loos, en dit
+`contributing-davekjohn/development.md` in één stap — een branch is nooit entry-loos, en dit
 bestand bestaat alleen zolang de branch openstaat: `new-branch` schrijft het, de fold verwijdert het bij
 de merge. **Vier vaste `###`-koppen en nooit een vijfde**: `PLAN`, `CREATE`, `TEST` dragen de
 stappenlijst — wat er nog moet gebeuren, nooit gevouwen — en `DEPLOY: \`<branch>\`` **is** de
@@ -327,7 +327,7 @@ als **opdrachtgever** en is tier 1.
 
 ### 4. Push de branch en open de PR — behalve bij frontend-werk
 
-Zodra de branch klaar is (commits + `contributing-davekjohn/development-cycle.md` met elke stap boven
+Zodra de branch klaar is (commits + `contributing-davekjohn/development.md` met elke stap boven
 `### DEPLOY` opgelost en de `### DEPLOY`-sectie zelf gevuld): push hem. **Of de PR daarna vanzelf
 opengaat, hangt af van wat er in de branch zit** — de toets en de ene uitzondering staan in de
 safety-rules van [`CLAUDE.md`](../CLAUDE.md#nooit-direct-op-main--via-branch--pr), en die gaan boven
@@ -380,7 +380,7 @@ de entry. Twee dingen die hier gemeten zijn en niet in de portable helft staan:
   én een `upstream`-remote die naar dezelfde GitHub-URL wijzen, wat de branch-detectie van `gh` in de war
   stuurt met *"you must first push the current branch to a remote"*.
 
-> **De PR-body wordt gevuld uit de `### DEPLOY`-sectie van `contributing-davekjohn/development-cycle.md`**, en dat werkt omdat
+> **De PR-body wordt gevuld uit de `### DEPLOY`-sectie van `contributing-davekjohn/development.md`**, en dat werkt omdat
 > `.github/pull_request_template.md` de canonieke placeholder draagt waar `open-pr` naar zoekt.
 > `Get-PrDescriptionPlaceholder` in `scripts/repo-config.ps1` blijft daarom **bewust leeg**: die seam
 > bestaat om een afwijkende placeholder te melden, en er is er geen.
@@ -429,7 +429,7 @@ niet, en die kan een skill die openen, mergen en folden in één beweging doet n
 
 ### 7. Na de merge: vouw de changelog entry
 
-Vouw de `### DEPLOY`-sectie van `contributing-davekjohn/development-cycle.md` in `CHANGELOG.md` via de
+Vouw de `### DEPLOY`-sectie van `contributing-davekjohn/development.md` in `CHANGELOG.md` via de
 gedeelde **`fold-changelog`**-skill. Die splitst het document bij de `DEPLOY`-kop, neemt precies die
 sectie, stript HTML-commentaren, plaatst de entry bovenaan `CHANGELOG.md` met de PR-link en de
 merge-datum op de `DEPLOY`-kop zelf, en **verwijdert daarna het hele document** — het plan erboven gaat
@@ -442,7 +442,7 @@ hoort bij het afronden van de zojuist goedgekeurde merge, net als de branch-opru
 
 Draai de skill met **`-Push`**: die commit én pusht dan zelf, met bericht `fold: [branch] changelog (#NN)`,
 en de scope wordt door git afgedwongen tot precies `CHANGELOG.md` plus de verwijdering van
-`contributing-davekjohn/development-cycle.md`. Dit is de **enige echte directe commit op `main`** in deze repo —
+`contributing-davekjohn/development.md`. Dit is de **enige echte directe commit op `main`** in deze repo —
 één van de twee met naam genoemde uitzonderingen in
 [`CLAUDE.md`](../CLAUDE.md#nooit-direct-op-main--via-branch--pr). `-Push` impliceert `-Commit`, dus je hoeft
 er maar één mee te geven.
@@ -485,7 +485,7 @@ een release-cut laagrisico — er gaat geen ongeteste code mee naar buiten — e
   [`inbound`-issue](https://github.com/DaveKJohn/claude-code-specialists/issues) naar de bron en niet hier.
 - Het branch-eigen document, de vier fasen en de drie stappentekens: `DEVELOPMENT-portable.md` in de
   plugin, via een van de twee paden bovenaan deze pagina — er is sinds 2026-08-27 geen repo-eigen
-  reference-kopie meer, de guidance staat inline in `development-cycle.md` zelf.
+  reference-kopie meer, de guidance staat inline in `development.md` zelf.
 - Wat live is maar nog geen versienummer heeft: [`CHANGELOG.md`](CHANGELOG.md).
 - De grondwet, het roster en alles wat repo-eigen is: [`CLAUDE.md`](../CLAUDE.md).
 - Het release-model en de lijst uitgebrachte versies: [`contributing-davekjohn/releases/README.md`](releases/README.md). Let op dat

@@ -40,7 +40,8 @@
   },
   "enabledPlugins": {
     "team-alpha@claude-code-specialists": true,
-    "contributing-davekjohn@claude-code-specialists": true
+    "contributing-davekjohn@claude-code-specialists": true,
+    "figma@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-code-specialists": {
