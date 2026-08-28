@@ -46,9 +46,15 @@ deze repo:
 
 > **Beide paden droegen tot 2026-08-27 de naam `workflow-davekjohn`** — het plugin-package heette zo
 > tot v4.20.0 (#886 hernoemde het naar `contributing-davekjohn`, in de bron én in elke consument die
-> bijwerkt). De oude cache-map (`workflow-davekjohn/4.12.0`, `4.18.0`) staat nog op de machine — dat is
-> geen storing, alleen een vorige installatie die niet is opgeruimd — maar wat deze repo daadwerkelijk
-> draait staat sinds 2026-08-26 onder `contributing-davekjohn/4.20.0`.
+> bijwerkt). **Dat pakket bestaat niet meer**: de marketplace-manifest biedt het niet aan, en de twee
+> cache-mappen die de machine er nog van had (`workflow-davekjohn/4.12.0`, `4.18.0`) zijn op
+> 2026-08-28 verwijderd, samen met hun weesrecord. Wat deze repo daadwerkelijk draait staat sinds
+> 2026-08-28 onder `contributing-davekjohn/4.22.0`.
+>
+> > **Hier stond tot 2026-08-28 dat die oude map "geen storing" was maar "een vorige installatie die
+> > niet is opgeruimd", en dat deze repo op 4.20.0 stond.** Het eerste is nu waar én verholpen, het
+> > tweede was verouderd. De les die het onderscheid draagt staat in
+> > [`../CLAUDE.md`](../CLAUDE.md#scripts): een install-record bewijst niet dat het pakket nog bestaat.
 
 Die pagina beschrijft de cyclus zoals de gedeelde `contributing-davekjohn`-scripts hem draaien, en noemt
 overal de **seam** waar een repo zelf het antwoord geeft. Deze pagina geeft die antwoorden. Lees de
