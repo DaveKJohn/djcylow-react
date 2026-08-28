@@ -1,5 +1,5 @@
 ## Wat doet deze wijziging?
-<!-- Filled from the DEPLOY section of contributing-davekjohn/development-cycle.md. Opening a PR by hand? Paste that section's body here. -->
+<!-- Filled from the DEPLOY section of contributing-davekjohn/development.md, heading and all. Opening a PR by hand? Paste that whole section here, starting at its '## DEPLOY:' line. -->
 
 ## Type wijziging
 - [ ] Nieuwe feature/pagina (`feature/`)
@@ -16,7 +16,7 @@
 - [ ] `npm test` groen
 - [ ] Lokaal getest via `npm run dev`
 - [ ] Afbeeldingen aanwezig in `public/images/` (indien van toepassing)
-- [ ] `### DEPLOY`-sectie van `contributing-davekjohn/development-cycle.md` gevuld (met een score per tier)
+- [ ] `### DEPLOY`-sectie van `contributing-davekjohn/development.md` gevuld (met een score per tier)
 - [ ] Geen zichtbare fouten in de browser console
 - [ ] Mobiel/responsive getest (bij UI-wijzigingen)
 

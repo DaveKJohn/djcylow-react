@@ -222,9 +222,11 @@ function Get-MojibakePaths {
         Select-Object -ExpandProperty FullName)
 
     # contributing-davekjohn/ -- the workflow's own root folder, which holds the branch's own document
-    # (development-cycle.md, only while a branch is open -- under branch/ until August 23, 2026, and
+    # (development.md, only while a branch is open -- under branch/ until August 23, 2026, and
     # under this folder's own root since then; the folder itself was workflow-davekjohn/ until it was
-    # renamed here on 2026-08-27, following the plugin's own rename in v4.20.0/#886). The branch document
+    # renamed here on 2026-08-27, following the plugin's own rename in v4.20.0/#886. The FILE was
+    # development-cycle.md until 2026-08-28, renamed in the source on 2026-08-27 (#963/#958) and adopted
+    # here with plugin 4.22.0). The branch document
     # is the single highest-value file in this set: its DEPLOY section is pasted verbatim into
     # CHANGELOG.md and from there into the release notes, so a mis-decode caught anywhere later has
     # already been copied twice.
