@@ -27,6 +27,45 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+### DEPLOY: `docs/workflow-davekjohn-is-weg-v1` · 20260828-213725
+
+`CLAUDE.md` zei over de twee `workflow-davekjohn`-cache-mappen dat alleen de eerste een restant was, en
+dat `4.18.0` het *actieve* install-record van de bron-repo `claude-code-specialists` was. Beide onjuist,
+en beide na te meten: het pakket bestaat sinds v4.20.0 niet meer — de marketplace-manifest biedt vijf
+plugins aan en de oude naam staat er bij geen van de vijf — en de bron-repo was zelf al meegegaan, met
+`team-alpha` en `contributing-davekjohn` in `enabledPlugins` en een install-record op 4.21.0. Beide
+mappen waren dus restanten.
+
+De passage staat nu op de meting, met de les die het onderscheid draagt: **een install-record bewijst
+niet dat het pakket nog bestaat.** Een record in `installed_plugins.json` is een spoor van een install
+die eens is gedaan, niet van een pakket dat er nog is — dus check de manifest én `enabledPlugins`. Dat
+is een derde as bovenop de twee waarschuwingen die deze sectie al draagt (cache vs. marketplace-clone):
+niet welke boom je leest, maar of het pakket dat een record noemt nog bestaat.
+
+Dezelfde bewering stond op twee andere plekken. `contributing-davekjohn/CONTRIBUTING.md` noemde de oude
+cache-map een niet-opgeruimde vorige installatie en zette deze repo op 4.20.0 — het eerste is nu
+verholpen, het tweede is 4.22.0. En de wachtende entry van PR #166 in `CHANGELOG.md` droeg de onjuiste
+meting; die zou de release-note er straks mee publiceren, dus daar staat nu bij dat ze is weerlegd. Wat
+het kostte: bij de cache-opruiming van 2026-08-28 is `4.18.0` op grond van deze passage bewust laten
+staan.
+
+**Score:** 2
+
+#### What makes this deploy extra special
+
+N/A. Dit raakt geen pagina op `djcylow.com` en geen proces dat de opdrachtgever ziet: het is interne
+workflow-documentatie over de plugin-topologie op de machine.
+
+**Score:** N/A
+
+#### Pull Request
+
+een install-record bewijst niet dat het pakket nog bestaat
+
+[PR #168](https://github.com/DaveKJohn/djcylow-react/pull/168)
+
+---
+
 ### DEPLOY: `docs/plugin-4-22-en-scriptpaden-v1` · 20260828-211330
 
 Plugin 4.22.0 hernoemde het branch-eigen document van `development-cycle.md` naar `development.md`, en
