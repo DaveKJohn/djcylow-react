@@ -84,7 +84,12 @@ alleen daar, en staat niet in deze branch.
       en de cache-root; de drie gedateerde issue-citaten ongemoeid
 - [x] `.github/workflows/ci.yml`: de bronnaam in de toelichting
 - [x] Controle: wat er nog aan oude namen staat is uitsluitend gedateerd of een issue-URL
-- [ ] NIET MERGEN voor de flag day (fase 3)
+- [x] NIET MERGEN voor de flag day (fase 3) -- **voldaan: de flag day is 10-11 september 2026.** De
+      bron-PR is gemerged, `v5.0.0` is gecut en getagd en de GitHub Release is gepubliceerd, dus
+      `dkj-claude-plugins` is nu de naam die de marketplace draagt. Wat hierna nog moet en niet vanuit
+      de bron kan: de her-installatie op de machine waar deze repo staat, want een install-record hangt
+      aan het mappad. Tussen deze merge en die her-installatie laadt deze repo stil niets -- er is geen
+      redirect op een marketplace-naam zoals er wel een op een repo-slug is.
 
 ### TEST
 
