@@ -27,6 +27,33 @@ versienummer heeft; een release-cut haalt die entries eruit en laat deze intro a
 
 ## [Unreleased]
 
+**1 / 5 minor entries** <!-- pending-tally -->
+
+### DEPLOY: config/1769-marketplace-hernoemen · 20260910-222602
+
+Deze repo volgt de hernoeming van de marketplace naar `dkj-claude-plugins` en haalt tegelijk twee
+gemiste plugin-hernoemingen in: `team-alpha` wordt `dkj-subagents-alpha` en `contributing-davekjohn`
+wordt `dkj-policy`. De `@`-importpaden naar de persona's wezen nog naar `plugins/teams/...`, een pad
+dat sinds begin augustus niet meer bestaat.
+
+**Score:** 5
+
+#### What makes this deploy extra special
+
+Dat de `@`-import naar een pad wees dat er niet meer is, is het soort fout dat geen foutmelding geeft:
+Claude Code laat een dode import stil vallen, en dan leest een orkestrator die nooit laadt als een
+modelprobleem in plaats van een padprobleem. Deze branch repareert dat als bijvangst van de hernoeming.
+
+**Score:** 4
+
+#### Pull Request
+
+Marketplace hernoemd naar dkj-claude-plugins
+
+[PR #169](https://github.com/DaveKJohn/djcylow-react/pull/169)
+
+---
+
 ### DEPLOY: `docs/workflow-davekjohn-is-weg-v1` · 20260828-213725
 
 `CLAUDE.md` zei over de twee `workflow-davekjohn`-cache-mappen dat alleen de eerste een restant was, en
