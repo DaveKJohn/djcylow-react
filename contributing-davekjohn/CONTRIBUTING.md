@@ -38,10 +38,10 @@ deze repo:
 
 ```text
 # de geïnstalleerde release -- dit is de cyclus zoals de scripts hem NU draaien
-~/.claude/plugins/cache/claude-code-specialists/contributing-davekjohn/<versie>/CONTRIBUTING-portable.md
+~/.claude/plugins/cache/dkj-claude-plugins/dkj-policy/<versie>/CONTRIBUTING-portable.md
 
 # de bron -- kan vóórlopen op de release hierboven
-~/.claude/plugins/marketplaces/claude-code-specialists/plugins/workflows/contributing-davekjohn/CONTRIBUTING-portable.md
+~/.claude/plugins/marketplaces/dkj-claude-plugins/plugins/dkj-policy/CONTRIBUTING-portable.md
 ```
 
 > **Beide paden droegen tot 2026-08-27 de naam `workflow-davekjohn`** — het plugin-package heette zo
@@ -488,7 +488,7 @@ een release-cut laagrisico — er gaat geen ongeteste code mee naar buiten — e
 - **Het mechanisme van de cyclus zelf** — de vijf portable stappen, het tier-model, de rubric, de poorten:
   `CONTRIBUTING-portable.md` in de plugin, via een van de twee paden bovenaan deze pagina. Dat is de helft
   die met elke plugin-release meebeweegt; een correctie daarin gaat als
-  [`inbound`-issue](https://github.com/DaveKJohn/claude-code-specialists/issues) naar de bron en niet hier.
+  [`inbound`-issue](https://github.com/DKJ-Solutions/dkj-claude-plugins/issues) naar de bron en niet hier.
 - Het branch-eigen document, de vier fasen en de drie stappentekens: `DEVELOPMENT-portable.md` in de
   plugin, via een van de twee paden bovenaan deze pagina — er is sinds 2026-08-27 geen repo-eigen
   reference-kopie meer, de guidance staat inline in `development.md` zelf.

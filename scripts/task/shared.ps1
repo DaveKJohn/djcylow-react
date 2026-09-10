@@ -52,7 +52,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$cacheRoot = Join-Path $HOME ".claude/plugins/cache/claude-code-specialists/$Plugin"
+$cacheRoot = Join-Path $HOME ".claude/plugins/cache/dkj-claude-plugins/$Plugin"
 
 if (-not (Test-Path $cacheRoot)) {
     Write-Error "Plugin-cache niet gevonden: $cacheRoot`nStaat de plugin '$Plugin' geinstalleerd? Zie CLAUDE.md, sectie Scripts."

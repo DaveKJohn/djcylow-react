@@ -354,7 +354,7 @@ je ze, dan kan de eigen fold de eigen entry niet meer lezen. `scripts/repo-confi
 bewust géén `Get-EntrySectionHeadingOverrides`, en dát is de beslissing die dit vastlegt.
 
 **Uitzondering: `contributing-davekjohn/releases/README.md` is volledig Engels** (Dave, 2026-08-13). Die pagina is een
-**spiegel** van [dezelfde pagina in de bron](https://github.com/DaveKJohn/claude-code-specialists/blob/main/releases/README.md):
+**spiegel** van [dezelfde pagina in de bron](https://github.com/DKJ-Solutions/dkj-claude-plugins/blob/main/releases/README.md):
 alles boven de horizontale streep is er woord voor woord uit gekopieerd, en dat is alleen te handhaven
 zolang het de tekst van de bron zélf is. Een vertaling maakte de pagina precies zo onvergelijkbaar als een
 parafrase — erger zelfs, want een vertaling valt niet te diffen, en daardoor stonden er drie verouderde
@@ -846,7 +846,7 @@ accumulatie, en `Get-ReleaseMajorMinMinors` bezit dat getal (default 10).
 ### Scripts
 
 De workflow-stappen draaien via de **gedeelde skills van de specialists-plugin**, die één bron hebben
-in [`DaveKJohn/claude-code-specialists`](https://github.com/DaveKJohn/claude-code-specialists). Wat per
+in [`DKJ-Solutions/dkj-claude-plugins`](https://github.com/DKJ-Solutions/dkj-claude-plugins). Wat per
 repo verschilt woont in `scripts/repo-config.ps1` en `scripts/lib/branch-info.ps1`.
 
 De stapnummers hieronder verwijzen naar
@@ -857,8 +857,8 @@ hangt af van wat je ermee doet:
 
 | pad | wat het is | waarvoor |
 |---|---|---|
-| `~/.claude/plugins/cache/claude-code-specialists/contributing-davekjohn/<versie>/` | de **uitgebrachte release** | **draaien** — hierheen wijst `${CLAUDE_PLUGIN_ROOT}`, dus dit is wat een skill werkelijk uitvoert |
-| `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/…/` | de **bron-checkout**, die vóórloopt met alles wat sinds de laatste cut is gemerged | **lezen** — de persona's, waarnaar `.claude/specialists/SPECIALISTS.md` `@`-importeert |
+| `~/.claude/plugins/cache/dkj-claude-plugins/dkj-policy/<versie>/` | de **uitgebrachte release** | **draaien** — hierheen wijst `${CLAUDE_PLUGIN_ROOT}`, dus dit is wat een skill werkelijk uitvoert |
+| `~/.claude/plugins/marketplaces/dkj-claude-plugins/plugins/…/` | de **bron-checkout**, die vóórloopt met alles wat sinds de laatste cut is gemerged | **lezen** — de persona's, waarnaar `.claude/specialists/SPECIALISTS.md` `@`-importeert |
 
 > **Het plugin-package zelf heette tot v4.20.0 (2026-08-26) `workflow-davekjohn`, en dat pakket
 > bestaat niet meer.** De marketplace-manifest
@@ -1342,7 +1342,7 @@ De grondwet hierboven, hier concreet ingevuld:
 - **Kernverbeteringen gaan via de inbound-route.** Ontdek je een verbetering aan de *gedeelde* kern
   van het specialisten-systeem (agent-defs, manuals, persona's, skills uit de plugin), dan wordt die
   niet hier gebouwd: die gaat als issue met label `inbound` naar
-  [`DaveKJohn/claude-code-specialists`](https://github.com/DaveKJohn/claude-code-specialists). Check
+  [`DKJ-Solutions/dkj-claude-plugins`](https://github.com/DKJ-Solutions/dkj-claude-plugins). Check
   daarbij eerst welke kant achterloopt — soms zit de fout niet in de bron maar in deze repo.
 
 ### Het hóé (draagbaar) vs. het wát (repo-eigen)

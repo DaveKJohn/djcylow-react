@@ -10,7 +10,7 @@
 #
 # WAAROM ubuntu EN NIET windows, ANDERS DAN IN DE BRON
 # ----------------------------------------------------
-# De bron (claude-code-specialists) draait zijn CI op windows-latest, omdat zijn scripts Windows
+# De bron (dkj-claude-plugins) draait zijn CI op windows-latest, omdat zijn scripts Windows
 # PowerShell 5.1 targeten en het geteste product de scripts zelf zijn. Hier is het geteste product de
 # site, en die wordt door Netlify op LINUX gebouwd. Dat verschil is niet cosmetisch: een import met de
 # verkeerde letterkast (`./header` terwijl het bestand `Header.tsx` heet) bouwt probleemloos op het

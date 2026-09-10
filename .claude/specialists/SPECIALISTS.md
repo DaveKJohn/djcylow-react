@@ -6,7 +6,7 @@
 
 The orchestrator (Chris) is always loaded -- portable body from plugin install and repo lens from `lenses/`.
 
-@~/.claude/plugins/marketplaces/claude-code-specialists/plugins/teams/team-alpha/personas/01-01-persona.md
+@~/.claude/plugins/marketplaces/dkj-claude-plugins/plugins/dkj-subagents/dkj-subagents-alpha/personas/01-01-persona.md
 
 @lenses/01-01-extension.md
 
@@ -62,7 +62,7 @@ branch-discipline en de release-discipline blijven onverkort gelden voor iederee
 Bewust zuinig met context: alleen de operating manual van de orchestrator (Chris) laadt automatisch.
 `CLAUDE.md` importeert precies één bestand — dit bestand — en dit bestand laadt op zijn beurt twee
 lagen: de **draagbare body** uit de plugin-bron (de marketplace-clone onder
-`~/.claude/plugins/marketplaces/claude-code-specialists/`; de plugin is de single source of truth, er
+`~/.claude/plugins/marketplaces/dkj-claude-plugins/`; de plugin is de single source of truth, er
 staat géén kopie in deze repo) en de **repo-lens** uit
 [`lenses/01-01-extension.md`](lenses/01-01-extension.md). De overige specialisten worden **on-demand**
 uit `lenses/` gelezen op het moment dat Chris een opdracht aan hen toewijst.
@@ -85,5 +85,5 @@ lenzen neer.
 
 Ontdekt een specialist een verbetering aan de *gedeelde* kern van dit systeem (agent-defs, manuals,
 persona's, skills uit de plugin), dan wordt die niet hier gebouwd: die gaat als issue met label
-`inbound` naar [`DaveKJohn/claude-code-specialists`](https://github.com/DaveKJohn/claude-code-specialists).
+`inbound` naar [`DKJ-Solutions/dkj-claude-plugins`](https://github.com/DKJ-Solutions/dkj-claude-plugins).
 Check daarbij eerst welke kant achterloopt — soms zit de fout niet in de bron maar in deze repo.

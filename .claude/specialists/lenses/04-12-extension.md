@@ -5,8 +5,8 @@ group: 04
 
 # 04-12 · repo lens (VUL-IN)
 
-> Repo lens alongside the agent definition for specialist 04-12 in the `team-alpha` plugin:
-> `~/.claude/plugins/marketplaces/claude-code-specialists/plugins/teams/team-alpha/agents/04-12-agent.md`.
+> Repo lens alongside the agent definition for specialist 04-12 in the `dkj-subagents-alpha` plugin:
+> `~/.claude/plugins/marketplaces/dkj-claude-plugins/plugins/dkj-subagents/dkj-subagents-alpha/agents/04-12-agent.md`.
 > Created by `specialists-init` as empty template; agent definition reads it automatically.
 > Fill in repo-specific tasks and context below that specialist 04-12 needs in this repo.
 
