@@ -9,7 +9,7 @@
         . (Join-Path $PSScriptRoot 'repo-config.ps1')       # vanuit scripts/ zelf
 
     Dit is het kleine, lokale blokje repo-data dat de gedeelde, repo-agnostische workflow-scripts
-    inlezen. Die scripts wonen als single source of truth in DaveKJohn/claude-code-specialists en
+    inlezen. Die scripts wonen als single source of truth in DKJ-Solutions/dkj-claude-plugins en
     reizen via de specialists-plugin naar deze consument; alles wat per repo verschilt woont hier.
 
     Drie lagen, in deze volgorde in het bestand:
@@ -136,7 +136,7 @@ function Get-RosterIgnoredIds {
     return $script:RosterIgnoredIds
 }
 
-# --- Adopted from the DaveKJohn/claude-code-specialists config blueprint ---------------------------------
+# --- Adopted from the DKJ-Solutions/dkj-claude-plugins config blueprint ---------------------------------
 #
 # Each function below is the source's own text, comments included, for a value that states the
 # shared way of working rather than a fact about this repo. Edit them freely -- they are this
