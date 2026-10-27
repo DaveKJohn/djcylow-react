@@ -1023,3 +1023,21 @@ function Get-ExpectedRepoSettings {
     <# The GitHub-side ruleset and repo settings this repo declares, read by check-repo-settings.ps1. #>
     return $script:ExpectedRepoSettings
 }
+# --- Het product voor de hub van de plugin (2026-10-27, #179) ---------------------------------------
+#
+# De dev-preview-hook van dkj-policy start bij elke sessiestart de hub van de plugin (4890-4899) en,
+# omdat deze functie er staat, ook de Next.js-devserver van deze site als het ene product op die hub.
+# Poorten 3020-3029 komen uit de poortkaart van DKJ-Solutions/dkj-claude-plugins#3464, zodat dit
+# product niet racet met lifehub (3000-3009) of music-library (3010-3019). Gebonden aan 127.0.0.1:
+# de devserver hoort niet op het netwerk. Geen Name (de hub negeert hem) en geen OwnHub: de hub is
+# die van de plugin, zodat een hub-wijziging hier aankomt met alleen een plugin-update.
+function Get-DevPreview {
+    <# The local dev server the dkj-policy hub shows as this repo's product card. #>
+    @{
+        Command      = 'npm run dev -- -H 127.0.0.1 -p {port}'
+        Ports        = 3020..3029
+        Requires     = 'node_modules'
+        WaitSeconds  = 45
+        OpenInVsCode = $true
+    }
+}
