@@ -39,19 +39,39 @@
 
 ### PLAN
 
+This repo's row in DKJ-Solutions/dkj-claude-plugins#3464 (roll the plugin's hub out to every DKJ
+repo): state the Next.js product and route the hub's ports, so the hub opens in VS Code's Simple
+Browser and a later hub change arrives with a plugin update alone.
+
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] `Get-DevPreview` in `scripts/repo-config.ps1`: `next dev` on 127.0.0.1, ports 3020-3029 (the
+      port map in #3464), `Requires = 'node_modules'`, `OpenInVsCode`; no `Name`, no `OwnHub`
+- [x] `.vscode/settings.json`: route 4890-4899 (hub) and 3020-3029 (product) to `simpleBrowser.open`
+- [x] `AGENTS.md`: holds the agent-rules block `next dev` writes when it detects an agent, so it no
+      longer lands in `CLAUDE.md` (which stays imports-only); Next writes to `AGENTS.md` once it exists
 
 ### TEST
 
+- [x] The dev-preview hook run by hand: `Hub: http://localhost:4898/ (opened in VS Code) -- product:
+      http://localhost:3020/ (started)`
+- [x] `http://localhost:3020/` answers 200, and the hub's home page links the product on 3020
+- [x] `hasCurrentAgentRules` reads true with the block in `AGENTS.md`, and `CLAUDE.md` is unchanged
+
 ### DEPLOY: feat/179-dev-preview-product
 
-**Score:**
+Every session in this repo now starts the site's own `next dev` as the product card on the plugin's
+hub, on 127.0.0.1:3020-3029, and opens the hub in VS Code's Simple Browser instead of the system
+browser. The agent-rules block `next dev` writes now lives in `AGENTS.md`, so `CLAUDE.md` stays
+imports-only.
+
+**Score:** 3
 
 #### What makes this deploy extra special
 
-**Score:**
+Developer tooling only; the website itself does not change.
+
+**Score:** N/A
 
 #### Pull Request
 
