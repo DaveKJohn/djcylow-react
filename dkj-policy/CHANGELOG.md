@@ -2,7 +2,30 @@
 
 ## [Unreleased]
 
-**4 / 13 minor entries** <!-- pending-tally -->
+**4 / 14 minor entries** <!-- pending-tally -->
+
+### DEPLOY: feat/179-dev-preview-product · 20261027-202409Z
+
+Every session in this repo now starts the site's own `next dev` as the product card on the plugin's
+hub, on 127.0.0.1:3020-3029, and opens the hub in VS Code's Simple Browser instead of the system
+browser. The agent-rules block `next dev` writes now lives in `AGENTS.md`, so `CLAUDE.md` stays
+imports-only.
+
+**Score:** 3
+
+#### What makes this deploy extra special
+
+Developer tooling only; the website itself does not change.
+
+**Score:** N/A
+
+#### Pull Request
+
+State the Next.js product for the plugin's hub and route its ports to the Simple Browser
+
+[PR #180](https://github.com/DaveKJohn/djcylow-react/pull/180)
+
+---
 
 ### DEPLOY: config/enable-dkj-solutions · 20261013-085112Z
 
