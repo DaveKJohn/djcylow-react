@@ -39,21 +39,37 @@
 
 ### PLAN
 
+The plugin source was renamed to `dkj-marketplace` in v6.0.0 (DKJ-Solutions/dkj-marketplace#3660, step 4:
+DKJ-Solutions/dkj-marketplace#3664). This branch moves this repo over by the source's procedure
+(`plugins/ADOPTION.md`, "Moving to dkj-marketplace"). The changelog's history keeps the old name.
+
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] `.claude/settings.json`: the three `enabledPlugins` keys, the `extraKnownMarketplaces` key and its `repo`
+- [x] Absolute `@`-imports in `CLAUDE.md` and the always-on baseline key
+- [x] The `uses:` lines and comments of both CI runners under `.github/workflows/`, a comment in `ci.yml`, and the source references in `scripts/repo-config.ps1`
+- [x] Is the change visible in the frontend? No: settings, imports and CI only.
 
 ### TEST
 
+- [x] Every new absolute `@`-import and cited persona path exists under
+      `~/.claude/plugins/marketplaces/dkj-marketplace/`, and the reusable workflows the CI runners name exist
+      on `DKJ-Solutions/dkj-marketplace`. The rest of the gates run in CI.
+
 ### DEPLOY: config/181-dkj-marketplace
 
-**Score:**
+This repo now installs its plugins from `dkj-marketplace`, the new name of the plugin source since v6.0.0
+([#181](https://github.com/DaveKJohn/djcylow-react/issues/181)): the settings keys, the absolute imports and the CI runners name it.
+On each machine the plugins are installed again under the new name for this checkout.
+
+**Score:** 3
 
 #### What makes this deploy extra special
 
-**Score:**
+N/A -- nobody outside this repo's maintainer sees which marketplace it installs from.
+
+**Score:** N/A
 
 #### Pull Request
 
 Migrate to the dkj-marketplace marketplace
-
