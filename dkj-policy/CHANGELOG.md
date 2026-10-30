@@ -2,7 +2,29 @@
 
 ## [Unreleased]
 
-**4 / 14 minor entries** <!-- pending-tally -->
+**4 / 15 minor entries** <!-- pending-tally -->
+
+### DEPLOY: config/181-dkj-marketplace · 20261030-122549Z
+
+This repo now installs its plugins from `dkj-marketplace`, the new name of the plugin source since v6.0.0
+([#181](https://github.com/DaveKJohn/djcylow-react/issues/181)): the settings keys, the absolute imports and the CI runners name it.
+On each machine the plugins are installed again under the new name for this checkout.
+
+**Score:** 3
+
+#### What makes this deploy extra special
+
+N/A -- nobody outside this repo's maintainer sees which marketplace it installs from.
+
+**Score:** N/A
+
+#### Pull Request
+
+Migrate to the dkj-marketplace marketplace
+
+[PR #182](https://github.com/DaveKJohn/djcylow-react/pull/182)
+
+---
 
 ### DEPLOY: feat/179-dev-preview-product · 20261027-202409Z
 
