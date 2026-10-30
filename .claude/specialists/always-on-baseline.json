@@ -5,7 +5,7 @@
     "reason":  "",
     "note":  "LF bytes of the always-on document path. Written by the always-on budget gate -- see always-on-budget-lib.ps1. Do not hand-edit this to make room: the gate lowers it on its own and raises it only behind -Raise, with a reason.",
     "documents":  {
-                      "~/.claude/plugins/marketplaces/dkj-claude-plugins/plugins/dkj-policy/CLAUDE.md":  8150,
+                      "~/.claude/plugins/marketplaces/dkj-marketplace/plugins/dkj-policy/CLAUDE.md":  8150,
                       "CLAUDE.md":  80
                   }
 }

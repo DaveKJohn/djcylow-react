@@ -1,7 +1,7 @@
 # The always-on budget: a PR may not grow what every session pays before a single assignment is
 # given -- CLAUDE.md plus everything it '@'-imports.
 #
-# The runner is not in this file: it is a reusable workflow in DKJ-Solutions/dkj-claude-plugins,
+# The runner is not in this file: it is a reusable workflow in DKJ-Solutions/dkj-marketplace,
 # which runs check-always-on-budget.ps1 -- the same verdict open-pr reads locally and the session
 # hook reports at start. Its reasoning is written there.
 #
@@ -21,4 +21,4 @@ on:
 
 jobs:
   always-on-budget:
-    uses: DKJ-Solutions/dkj-claude-plugins/.github/workflows/reusable-always-on-budget.yml@main
+    uses: DKJ-Solutions/dkj-marketplace/.github/workflows/reusable-always-on-budget.yml@main

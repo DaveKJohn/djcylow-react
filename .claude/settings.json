@@ -89,17 +89,17 @@
     ]
   },
   "extraKnownMarketplaces": {
-    "dkj-claude-plugins": {
+    "dkj-marketplace": {
       "source": {
         "source": "github",
-        "repo": "DKJ-Solutions/dkj-claude-plugins"
+        "repo": "DKJ-Solutions/dkj-marketplace"
       }
     }
   },
   "enabledPlugins": {
-    "dkj-solutions@dkj-claude-plugins": true,
-    "dkj-policy@dkj-claude-plugins": true,
-    "dkj-subagents-alpha@dkj-claude-plugins": true,
+    "dkj-solutions@dkj-marketplace": true,
+    "dkj-policy@dkj-marketplace": true,
+    "dkj-subagents-alpha@dkj-marketplace": true,
     "figma@claude-plugins-official": true
   },
   "statusLine": {

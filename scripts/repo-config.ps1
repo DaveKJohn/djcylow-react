@@ -9,7 +9,7 @@
         . (Join-Path $PSScriptRoot 'repo-config.ps1')       # vanuit scripts/ zelf
 
     Dit is het kleine, lokale blokje repo-data dat de gedeelde, repo-agnostische workflow-scripts
-    inlezen. Die scripts wonen als single source of truth in DKJ-Solutions/dkj-claude-plugins en
+    inlezen. Die scripts wonen als single source of truth in DKJ-Solutions/dkj-marketplace en
     reizen via de specialists-plugin naar deze consument; alles wat per repo verschilt woont hier.
 
     Drie lagen, in deze volgorde in het bestand:
@@ -136,7 +136,7 @@ function Get-RosterIgnoredIds {
     return $script:RosterIgnoredIds
 }
 
-# --- Adopted from the DKJ-Solutions/dkj-claude-plugins config blueprint ---------------------------------
+# --- Adopted from the DKJ-Solutions/dkj-marketplace config blueprint ---------------------------------
 #
 # Each function below is the source's own text, comments included, for a value that states the
 # shared way of working rather than a fact about this repo. Edit them freely -- they are this
@@ -744,7 +744,7 @@ function Get-ReleaseAudienceTier {
 #   publieke site raakt is Dave's beslissing" in CLAUDE.md. Zolang de seam leeg is weigert -Worker bij
 #   naam, en dat is de eerlijke stand: de pagina wordt nergens gehost.
 
-# --- Adopted from the DKJ-Solutions/dkj-claude-plugins config blueprint ---------------------------------
+# --- Adopted from the DKJ-Solutions/dkj-marketplace config blueprint ---------------------------------
 #
 # Each function below is the source's own text, comments included, for a value that states the
 # shared way of working rather than a fact about this repo. Edit them freely -- they are this
@@ -1027,7 +1027,7 @@ function Get-ExpectedRepoSettings {
 #
 # De dev-preview-hook van dkj-policy start bij elke sessiestart de hub van de plugin (4890-4899) en,
 # omdat deze functie er staat, ook de Next.js-devserver van deze site als het ene product op die hub.
-# Poorten 3020-3029 komen uit de poortkaart van DKJ-Solutions/dkj-claude-plugins#3464, zodat dit
+# Poorten 3020-3029 komen uit de poortkaart van DKJ-Solutions/dkj-marketplace#3464, zodat dit
 # product niet racet met lifehub (3000-3009) of music-library (3010-3019). Gebonden aan 127.0.0.1:
 # de devserver hoort niet op het netwerk. Geen Name (de hub negeert hem) en geen OwnHub: de hub is
 # die van de plugin, zodat een hub-wijziging hier aankomt met alleen een plugin-update.
