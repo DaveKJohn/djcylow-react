@@ -2,7 +2,27 @@
 
 ## [Unreleased]
 
-**4 / 16 minor entries** <!-- pending-tally -->
+**4 / 17 minor entries** <!-- pending-tally -->
+
+### DEPLOY: fix/186-source-branch-prefixes · 20261107-193753Z
+
+This repo's branches now use the same prefixes as every DKJ repo: `feat/` (label `feature`), `fix/` (`bug`) and `docs/` (no label), with `chore/` refused, because the branch table is now the source's (DKJ-Solutions/dkj-marketplace#3886). The old prefixes `feature/`, `data/`, `content/`, `style/` and `config/`, and the `enhancement`/`documentation` labels they set, are gone; a data or config change is now a `feat/` branch.
+
+**Score:** 2
+
+#### What makes this deploy extra special
+
+N/A -- workflow tooling only; the website does not change.
+
+**Score:** N/A
+
+#### Pull Request
+
+Use the source's branch prefixes
+
+[PR #187](https://github.com/DaveKJohn/djcylow-react/pull/187)
+
+---
 
 ### DEPLOY: feat/183-dkj-folder-move · 20261107-181627Z
 
