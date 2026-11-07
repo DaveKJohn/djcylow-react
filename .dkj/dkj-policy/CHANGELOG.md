@@ -2,7 +2,27 @@
 
 ## [Unreleased]
 
-**4 / 15 minor entries** <!-- pending-tally -->
+**4 / 16 minor entries** <!-- pending-tally -->
+
+### DEPLOY: feat/183-dkj-folder-move · 20261107-181627Z
+
+The workflow folder moved from the repo root `dkj-policy/` to `.dkj/dkj-policy/`, the home every plugin of the marketplace now uses (DKJ-Solutions/dkj-marketplace#3870). `scripts/repo-config.ps1` points at the new paths, and `CLAUDE.md` imports the `dkj-solutions` extension at its current path, so that extension's rules load again.
+
+**Score:** 2
+
+#### What makes this deploy extra special
+
+N/A
+
+**Score:** N/A
+
+#### Pull Request
+
+Move the workflow folder from dkj-policy/ to .dkj/dkj-policy/
+
+[PR #184](https://github.com/DaveKJohn/djcylow-react/pull/184)
+
+---
 
 ### DEPLOY: config/181-dkj-marketplace · 20261030-122549Z
 
