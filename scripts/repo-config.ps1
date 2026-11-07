@@ -232,10 +232,14 @@ function Get-MojibakePaths {
     # already been copied twice.
     # -Recurse covers the folder's scaffolded docs and the audience notes that moved in here on
     # August 16, 2026. The development notes did NOT move -- the block below still covers those.
-    $workflowDir = Join-Path $RepoRoot 'dkj-policy'
-    if (Test-Path -LiteralPath $workflowDir) {
-        $paths += @(Get-ChildItem -LiteralPath $workflowDir -Recurse -Filter '*.md' -File |
-            Select-Object -ExpandProperty FullName)
+    # '.dkj/dkj-policy' leads since DKJ-Solutions/dkj-marketplace#3870 (this repo moved under #183,
+    # November 7, 2026); the root 'dkj-policy' stays scanned for a checkout that has not moved yet.
+    foreach ($workflowFolderName in @('.dkj/dkj-policy', 'dkj-policy')) {
+        $workflowDir = Join-Path $RepoRoot $workflowFolderName
+        if (Test-Path -LiteralPath $workflowDir) {
+            $paths += @(Get-ChildItem -LiteralPath $workflowDir -Recurse -Filter '*.md' -File |
+                Select-Object -ExpandProperty FullName)
+        }
     }
 
     # Every markdown file under plugins/: the manuals, agent defs, personas and skill pages -- all prose,
@@ -319,7 +323,7 @@ function Get-MojibakePaths {
 # content, so it is simply the last section of the slot. Merging them also removed four cross-references
 # the two pages needed to introduce each other, and left a consumer with one file to mirror instead of two.
 # 2026-09-28: de map heet sindsdien dkj-policy/ en de pagina history.md, zoals bij de andere consumers
-$script:ReleaseHistoryPath = 'dkj-policy/releases/history.md'
+$script:ReleaseHistoryPath = '.dkj/dkj-policy/releases/history.md'
 
 function Get-ReleaseHistoryPath {
     <# Repo-root-relative path to the file that lists every release this repo has cut. #>
@@ -455,7 +459,7 @@ function Get-ReleaseNotesGrouping {
 # git mv naar contributing-davekjohn/releases/changelog/ en .../github/ resolven beide roots nu vanzelf
 # op hun berekende default; net als hierboven bij audience/ hoeft er voor geen van beide iets in dit
 # bestand gedeclareerd te worden.
-$script:ReleaseNoteRoot = 'dkj-policy/releases/audience'
+$script:ReleaseNoteRoot = '.dkj/dkj-policy/releases/audience'
 
 function Get-ReleaseNoteRoot {
     <# Root-relatieve map van het handgeschreven release-document. Hier workflow-davekjohn/releases/audience. #>
@@ -755,7 +759,7 @@ function Get-ReleaseAudienceTier {
 # default -- and recreate a root releases/ directory the August 27, 2026 move above just emptied. The
 # other two generated roots (changelog/, github/) need no statement: their defaults stopped branching on
 # the source at #914 and already point into this folder.
-$script:ReleaseInternalNotesRoot = 'dkj-policy/releases/internal'
+$script:ReleaseInternalNotesRoot = '.dkj/dkj-policy/releases/internal'
 
 function Get-ReleaseInternalNotesRoot {
     <# Repo-root-relative directory the generated internal (tier 1) note is written into. #>
@@ -766,7 +770,7 @@ function Get-ReleaseInternalNotesRoot {
 #
 # THE SAME MOVE, ON THE SAME DAY AND FOR THE SAME REASON as the release history above -- read that record
 # first. Get-DefaultChangelogPath computes 'CHANGELOG.md' for a repo that publishes plugins, i.e. for the
-# workflow's SOURCE, and 'dkj-policy/CHANGELOG.md' for everybody else. This repo is the source
+# workflow's SOURCE, and '.dkj/dkj-policy/CHANGELOG.md' for everybody else. This repo is the source
 # and now answers the consumer's way, so the seam has to be stated rather than left to the default.
 #
 # NOT A CHANGE OF MIND ABOUT THE DEFAULT. The default is right about what a repo adopting this workflow
@@ -777,7 +781,7 @@ function Get-ReleaseInternalNotesRoot {
 # than from the repo root, because that is where the fold pastes it. new-branch composes the branch
 # document's guidance from this very seam, so a writer is told the right thing without having to know it,
 # and check-plugin-integrity validates each entry's links against the same resolved location.
-$script:ChangelogPath = 'dkj-policy/CHANGELOG.md'
+$script:ChangelogPath = '.dkj/dkj-policy/CHANGELOG.md'
 
 function Get-ChangelogPath {
     <# Repo-root-relative path to the changelog the fold writes into and the cut empties. #>

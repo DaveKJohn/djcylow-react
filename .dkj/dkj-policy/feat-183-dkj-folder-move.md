@@ -39,21 +39,34 @@
 
 ### PLAN
 
+Issue #183. Run Part 1 of `adopt-dkj-policy` with `-Apply` (plugin v6.10.0 ships the move step), check the diff, ship.
+
+#### Found on the way
+
+`new-branch` v6.10.0 dies in a repo that has not moved yet (DKJ-Solutions/dkj-marketplace#3881), so the move ran on `main` first and rode along onto this branch.
+
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] `adopt-workflow-folder.ps1 -Apply`: `git mv dkj-policy/ .dkj/dkj-policy/`, five quoted paths in `scripts/repo-config.ps1` repointed, and the retired `dkj-solutions` extension import in `CLAUDE.md` rewritten to `plugins/dkj-policy/extensions/dkj-solutions/CLAUDE.md` (#3871).
+- [x] `Get-MojibakePaths` in `scripts/repo-config.ps1` also scans `.dkj/dkj-policy/`, so the moved folder keeps its mojibake coverage.
+- [x] No relative links point into or out of the moved folder (`git grep`), and `.gitignore` names no path under it.
 
 ### TEST
 
+- [x] `scripts/repo-config.ps1` parses with 0 errors; `Get-MojibakePaths` returns the 72 markdown files under `.dkj/dkj-policy/`; the changelog, release history and audience-note root all resolve to existing paths. The full gate runs in `ship-pr`.
+
 ### DEPLOY: feat/183-dkj-folder-move
 
-**Score:**
+The workflow folder moved from the repo root `dkj-policy/` to `.dkj/dkj-policy/`, the home every plugin of the marketplace now uses (DKJ-Solutions/dkj-marketplace#3870). `scripts/repo-config.ps1` points at the new paths, and `CLAUDE.md` imports the `dkj-solutions` extension at its current path, so that extension's rules load again.
+
+**Score:** 2
 
 #### What makes this deploy extra special
 
-**Score:**
+N/A
+
+**Score:** N/A
 
 #### Pull Request
 
 Move the workflow folder from dkj-policy/ to .dkj/dkj-policy/
-
