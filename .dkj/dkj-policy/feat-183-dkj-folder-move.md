@@ -49,7 +49,7 @@ Issue #183. Run Part 1 of `adopt-dkj-policy` with `-Apply` (plugin v6.10.0 ships
 
 - [x] `adopt-workflow-folder.ps1 -Apply`: `git mv dkj-policy/ .dkj/dkj-policy/`, five quoted paths in `scripts/repo-config.ps1` repointed, and the retired `dkj-solutions` extension import in `CLAUDE.md` rewritten to `plugins/dkj-policy/extensions/dkj-solutions/CLAUDE.md` (#3871).
 - [x] `Get-MojibakePaths` in `scripts/repo-config.ps1` also scans `.dkj/dkj-policy/`, so the moved folder keeps its mojibake coverage.
-- [x] No relative links point into or out of the moved folder (`git grep`), and `.gitignore` names no path under it.
+- [x] One relative link out of the moved folder needed one `../` more: the `ci.yml` link in `releases/changelog/2.x/2.24.0.md` (found by `check-links`). Nothing else links into or out of the folder, and `.gitignore` names no path under it.
 
 ### TEST
 
