@@ -38,18 +38,13 @@
 
 # --- De branch-tabel bereikbaar maken voor de scripts die hem niet zelf laden (2026-08-11) ---------
 #
-# branch-info.ps1 levert Get-BranchTypes: de acht typen die de branch-tabel van deze repo produceert
-# (Feature, Fix, Data, Content, Style, Config, Docs, Chore). Twee gedeelde scripts dot-sourcen dat
-# bestand echter NIET -- fold-changelog-entry.ps1 en new-internal-note.ps1 -- en vallen dan terug op de
-# canonieke vier van de bron: Feat, Fix, Docs, Chore.
-#
-# Dat is geen degradatie maar een WEIGERING. De fold leest de typen om te bepalen welke ##-koppen in
-# CHANGELOG.md entries zijn; een type dat niet in de lijst staat leest hij als typeloos en dan weigert
-# hij bij naam. Deze repo produceert Config, Data, Content, Style en Feature -- vijf van de acht staan
-# niet in die canonieke vier, dus een fold van bijvoorbeeld een config/-branch liep op een weigering af
-# die niets met de entry zelf te maken had. check-script-contract.ps1 meldt dit als [INFO], niet als
-# fout, en wijst deze regel als de reparatie aan: repo-config.ps1 WORDT door beide scripts geladen, dus
-# via deze dot-source is het antwoord alsnog bereikbaar.
+# branch-info.ps1 supplies Get-BranchTypes. Since #186 (DKJ-Solutions/dkj-marketplace#3886) that is the
+# source's own four -- Feat, Fix, Docs, Chore -- from the same feat/fix/docs table every DKJ repo uses;
+# until then this repo produced eight (Feature, Fix, Data, Content, Style, Config, Docs, Chore), and two
+# shared scripts that do NOT dot-source branch-info.ps1 -- fold-changelog-entry.ps1 and
+# new-internal-note.ps1 -- refused a fold of e.g. a config/ branch because they fell back on those four.
+# repo-config.ps1 IS loaded by both, so this dot-source keeps the table reachable for them; with the
+# source table the two lists now agree anyway.
 #
 # Idempotent: scripts die branch-info.ps1 al zelf laden (open-pr, new-branch) laden het nu twee keer,
 # en dat herdefinieert alleen dezelfde functies en dezelfde twee tabellen met dezelfde waarden.
