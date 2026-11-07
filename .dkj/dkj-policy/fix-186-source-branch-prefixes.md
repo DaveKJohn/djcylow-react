@@ -43,7 +43,7 @@
 
 #### Entry retype mapping
 
-None needed. The pending entries under `## [Unreleased]` are all in the DEPLOY format, which declares no type: the only trace of the old table is the branch name in each heading (`config/...` x6, `data/...` x2, `docs/...` x4, `feat/...` x2). Those branch names are history and stay as written; nothing groups a DEPLOY entry by type, so no entry is stranded under a retired type. Had they carried one, the mapping would have been Config/Data/Content/Style/Feature -> Feat, Docs -> Docs.
+None needed. The pending entries under `## [Unreleased]` are all in the DEPLOY format, which declares no type: the only trace of the old table is the branch name in each heading (`config/...` x8, `data/...` x2, `docs/...` x4, `feat/...` x2). Those branch names are history and stay as written; nothing groups a DEPLOY entry by type, so no entry is stranded under a retired type. Had they carried one, the mapping would have been Config/Data/Content/Style/Feature -> Feat, Docs -> Docs.
 
 ### CREATE
 
