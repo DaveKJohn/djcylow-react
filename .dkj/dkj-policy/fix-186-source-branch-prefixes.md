@@ -39,21 +39,36 @@
 
 ### PLAN
 
+- [x] Adopt the source's branch-prefix table (DKJ-Solutions/dkj-marketplace#3886, merged as PR #3892): feat/ -> `feature`, fix/ -> `bug`, docs/ -> no label, chore/ refused. Supersedes #185 (the enhancement -> feature label move).
+
+#### Entry retype mapping
+
+None needed. The pending entries under `## [Unreleased]` are all in the DEPLOY format, which declares no type: the only trace of the old table is the branch name in each heading (`config/...` x6, `data/...` x2, `docs/...` x4, `feat/...` x2). Those branch names are history and stay as written; nothing groups a DEPLOY entry by type, so no entry is stranded under a retired type. Had they carried one, the mapping would have been Config/Data/Content/Style/Feature -> Feat, Docs -> Docs.
+
 ### CREATE
 
-- [ ] TODO: the first step of this branch
+- [x] `scripts/lib/branch-info.ps1`: the prefix table, `$script:BranchTypeOrder`, `Get-BranchTypes`, `Get-BranchPrefix`, `Get-BranchInfo` and `Test-BranchName` replaced byte-for-byte with the source's; the header now says it follows the source table (#3886) and is English.
+- [x] `scripts/repo-config.ps1`: the comment above the branch-info dot-source no longer describes the eight-type table as current.
+- [x] Docs and rules naming the old prefixes or `enhancement`: none outside branch-info.ps1 (grepped `.claude/`, `.github/`, `CLAUDE.md`, `AGENTS.md`, `scripts/`, `tests/`).
+- [x] Label `feature` already exists on the tracker; `enhancement` kept.
 
 ### TEST
 
+- [x] The lib parses and loads, alone and via `repo-config.ps1`: `Get-BranchTypes` = Feat, Fix, Docs, Chore; `fix/x` -> bug/Fix; `docs/x` -> no label/Docs; `chore/x` refused; `config/x` unknown. Pure ASCII.
+- [~] No repo test suite covers branch-info.ps1 (the tests under `tests/` are the site's vitest suite), so there is nothing of this repo's own to run beyond the lint gate open-pr runs.
+
 ### DEPLOY: fix/186-source-branch-prefixes
 
-**Score:**
+This repo's branches now use the same prefixes as every DKJ repo: `feat/` (label `feature`), `fix/` (`bug`) and `docs/` (no label), with `chore/` refused, because the branch table is now the source's (DKJ-Solutions/dkj-marketplace#3886). The old prefixes `feature/`, `data/`, `content/`, `style/` and `config/`, and the `enhancement`/`documentation` labels they set, are gone; a data or config change is now a `feat/` branch.
+
+**Score:** 2
 
 #### What makes this deploy extra special
 
-**Score:**
+N/A -- workflow tooling only; the website does not change.
+
+**Score:** N/A
 
 #### Pull Request
 
 Use the source's branch prefixes
-
